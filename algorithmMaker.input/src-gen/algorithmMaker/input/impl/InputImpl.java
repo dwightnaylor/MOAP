@@ -262,4 +262,29 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
     return super.eIsSet(featureID);
   }
 
+
+
+	public int hashCode() {
+		int ret = getClass().hashCode();
+		ret += given == null ? 0 :given.hashCode();
+		ret += goal == null ? 0 :goal.hashCode();
+		return ret;
+	}
+
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		InputImpl other = (InputImpl) obj;
+		if (given == null && other.given != null || given != null && !given.equals(other.given)) return false;
+		if (goal == null && other.goal != null || goal != null && !goal.equals(other.goal)) return false;
+		return true;
+	}
+
+	public String toString() {
+		StringBuffer ret = new StringBuffer();
+		ret.append("Given " + given + ", Find " + goal);
+		return ret.toString();
+	}
+
+
 } //InputImpl

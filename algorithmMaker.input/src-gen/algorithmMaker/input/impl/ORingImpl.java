@@ -261,4 +261,29 @@ public class ORingImpl extends PropertyImpl implements ORing
     return super.eIsSet(featureID);
   }
 
+
+
+	public int hashCode() {
+		int ret = getClass().hashCode();
+		ret += left == null ? 0 :left.hashCode();
+		ret += right == null ? 0 :right.hashCode();
+		return ret;
+	}
+
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		ORingImpl other = (ORingImpl) obj;
+		if (left == null && other.left != null || left != null && !left.equals(other.left)) return false;
+		if (right == null && other.right != null || right != null && !right.equals(other.right)) return false;
+		return true;
+	}
+
+	public String toString() {
+		StringBuffer ret = new StringBuffer();
+		ret.append(left.toString() + " | " + right.toString());
+		return ret.toString();
+	}
+
+
 } //ORingImpl

@@ -199,23 +199,34 @@ public class AtomicImpl extends PropertyImpl implements Atomic
     return super.eIsSet(featureID);
   }
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
+	public int hashCode() {
+		int ret = getClass().hashCode();
+		ret += function == null ? 0 :function.hashCode();
+		if (args != null) {
+			for (Object obj : args) {
+				ret += obj.hashCode();
+			}
+		}
+		return ret;
+	}
 
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (Function: ");
-    result.append(function);
-    result.append(", args: ");
-    result.append(args);
-    result.append(')');
-    return result.toString();
-  }
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		AtomicImpl other = (AtomicImpl) obj;
+		if (function == null && other.function != null || function != null && !function.equals(other.function)) return false;
+		if (args == null && other.args != null || args != null && !args.equals(other.args)) return false;
+		return true;
+	}
+
+	public String toString() {
+		StringBuffer ret = new StringBuffer();
+		ret.append(function + '(');
+		for (String arg : args)
+			ret.append(arg + ',');
+		ret.setCharAt(ret.length() - 1, ')');
+		return ret.toString();
+	}
+
 
 } //AtomicImpl

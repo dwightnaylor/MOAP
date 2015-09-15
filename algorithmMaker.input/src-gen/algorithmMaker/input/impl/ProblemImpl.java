@@ -234,21 +234,34 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
     return super.eIsSet(featureID);
   }
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
+	public int hashCode() {
+		int ret = getClass().hashCode();
+		if (vars != null) {
+			for (Object obj : vars) {
+				ret += obj.hashCode();
+			}
+		}
+		ret += property == null ? 0 :property.hashCode();
+		return ret;
+	}
 
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (vars: ");
-    result.append(vars);
-    result.append(')');
-    return result.toString();
-  }
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		ProblemImpl other = (ProblemImpl) obj;
+		if (vars == null && other.vars != null || vars != null && !vars.equals(other.vars)) return false;
+		if (property == null && other.property != null || property != null && !property.equals(other.property)) return false;
+		return true;
+	}
+
+	public String toString() {
+		StringBuffer ret = new StringBuffer();
+				for (String var : vars)
+					ret.append(var + ',');
+				ret.deleteCharAt(ret.length() - 1);
+				ret.append(" st " + property.toString());
+		return ret.toString();
+	}
+
 
 } //ProblemImpl

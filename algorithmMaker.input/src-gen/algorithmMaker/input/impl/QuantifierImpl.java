@@ -316,21 +316,29 @@ public class QuantifierImpl extends PropertyImpl implements Quantifier
     return super.eIsSet(featureID);
   }
 
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public String toString()
-  {
-    if (eIsProxy()) return super.toString();
+	public int hashCode() {
+		int ret = getClass().hashCode();
+		ret += quantifier == null ? 0 :quantifier.hashCode();
+		ret += subject == null ? 0 :subject.hashCode();
+		ret += predicate == null ? 0 :predicate.hashCode();
+		return ret;
+	}
 
-    StringBuffer result = new StringBuffer(super.toString());
-    result.append(" (quantifier: ");
-    result.append(quantifier);
-    result.append(')');
-    return result.toString();
-  }
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null || getClass() != obj.getClass()) return false;
+		QuantifierImpl other = (QuantifierImpl) obj;
+		if (quantifier == null && other.quantifier != null || quantifier != null && !quantifier.equals(other.quantifier)) return false;
+		if (subject == null && other.subject != null || subject != null && !subject.equals(other.subject)) return false;
+		if (predicate == null && other.predicate != null || predicate != null && !predicate.equals(other.predicate)) return false;
+		return true;
+	}
+
+	public String toString() {
+		StringBuffer ret = new StringBuffer();
+				ret.append(quantifier + '(' + subject + " : " + predicate + ')');
+		return ret.toString();
+	}
+
 
 } //QuantifierImpl

@@ -28,6 +28,7 @@ public class TheoremParser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Done Parsing Files.");
 		return ret;
 	}
 }

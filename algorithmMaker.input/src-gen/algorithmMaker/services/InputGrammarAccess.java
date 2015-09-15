@@ -30,7 +30,8 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cGoalProblemParserRuleCall_4_0 = (RuleCall)cGoalAssignment_4.eContents().get(0);
 		
 		////TODO: Sugar: math signs, comparators
-		////TODO: Sugar: implies "->, <-, <->" : relies on inline declarations
+		////TODO: Sugar: implies "->, <-, <->" : relies on inline declarations...
+		////NOTE: Any changes to the formatting should be reflected with changes to Input.xtext
 		//Input:
 		//	"Given" given=Problem "," "Find" goal=Problem;
 		public ParserRule getRule() { return rule; }
@@ -391,7 +392,8 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	////TODO: Sugar: math signs, comparators
-	////TODO: Sugar: implies "->, <-, <->" : relies on inline declarations
+	////TODO: Sugar: implies "->, <-, <->" : relies on inline declarations...
+	////NOTE: Any changes to the formatting should be reflected with changes to Input.xtext
 	//Input:
 	//	"Given" given=Problem "," "Find" goal=Problem;
 	public InputElements getInputAccess() {

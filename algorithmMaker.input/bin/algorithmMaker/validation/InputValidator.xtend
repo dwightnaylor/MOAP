@@ -11,7 +11,7 @@ package algorithmMaker.validation
 class InputValidator extends AbstractInputValidator {
 	
 	//TODO:Validation: check for legal variable names
-	//TODO:Validation: prevent variables with same name as something in scope
+	//TODO:Validation: prevent variables with same name as something in scope (mostly for quantifiers?)
 	//TODO:Validation: do typechecking
 	//TODO:Validation: warn if desired output has nothing to do with input
 

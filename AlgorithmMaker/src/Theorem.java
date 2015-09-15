@@ -2,11 +2,10 @@ import algorithmMaker.PropertyQuickParser;
 import algorithmMaker.input.Property;
 
 /**
- * These are theorems used in the context of simple proving. For example, proving that if something
- * is a list, then it is a collection, or that if something is a collection, it is sortable. <br>
+ * These are theorems used in the context of simple proving. For example, proving that if something is a list, then it is a collection, or that if something is
+ * a collection, it is sortable. <br>
  * <br>
- * These should only contain atomics and ANDings in the input. Comments can be added by using the
- * COMMENT string ("//").
+ * These should only contain atomics and ANDings in the input. Comments can be added by using the COMMENT string ("//").
  * 
  * @author Dwight Naylor
  */
@@ -24,10 +23,14 @@ public class Theorem {
 	String cost;// TODO:DN: Make this something besides a string...
 
 	public Theorem(Property requirement, Property result, String cost) {
-		//TODO:DN : Check that incoming properties are legal theorems (ANDing or atomics only?)
+		// TODO:DN : Check that incoming properties are legal theorems (ANDing or atomics only?)
 		this.requirement = requirement;
 		this.result = result;
 		this.cost = cost;
+	}
+
+	public Theorem(Property requirement, Property result) {
+		this(requirement, result, DEFAULT_COST);
 	}
 
 	public static Theorem parseTheorem(String line) {
