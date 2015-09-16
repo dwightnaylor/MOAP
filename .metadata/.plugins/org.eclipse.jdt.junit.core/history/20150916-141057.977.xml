@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="ChainerTests" project="AlgorithmMaker.Tests" tests="3" started="3" failures="0" errors="0" ignored="0">
-  <testsuite name="ChainerTests" time="2.103">
-    <testcase name="testBasicChainer" classname="ChainerTests" time="1.677"/>
-    <testcase name="testAndRequirementChainer" classname="ChainerTests" time="0.218"/>
-    <testcase name="testAndResultChainer" classname="ChainerTests" time="0.208"/>
-  </testsuite>
-</testrun>
