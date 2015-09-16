@@ -57,3 +57,43 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 !MESSAGE Error reading manifest for C:\Users\Dwight\Desktop\Fall2015\SDD\workspace\AlgorithmMaker
 !SUBENTRY 1 org.eclipse.pde.core 4 0 2015-09-16 13:46:39.632
 !MESSAGE Invalid manifest header Import-Package: ""
+
+!ENTRY org.eclipse.ui 4 0 2015-09-16 14:58:01.477
+!MESSAGE Unhandled event loop exception
+!STACK 0
+java.util.ConcurrentModificationException
+	at java.util.TreeMap$PrivateEntryIterator.nextEntry(Unknown Source)
+	at java.util.TreeMap$ValueIterator.next(Unknown Source)
+	at org.eclipse.pde.internal.core.text.bundle.Bundle.clearOffsets(Bundle.java:65)
+	at org.eclipse.pde.internal.core.text.bundle.BundleModel.adjustOffsets(BundleModel.java:70)
+	at org.eclipse.pde.internal.ui.editor.plugin.BundleSourcePage.handleSelectionChangedSourcePage(BundleSourcePage.java:662)
+	at org.eclipse.pde.internal.ui.editor.PDESourcePage$PDESourcePageChangedListener.selectionChanged(PDESourcePage.java:94)
+	at org.eclipse.jface.text.TextViewer.firePostSelectionChanged(TextViewer.java:2750)
+	at org.eclipse.jface.text.TextViewer.firePostSelectionChanged(TextViewer.java:2698)
+	at org.eclipse.jface.text.TextViewer$5.run(TextViewer.java:2677)
+	at org.eclipse.swt.widgets.Display.runTimer(Display.java:4273)
+	at org.eclipse.swt.widgets.Display.messageProc(Display.java:3360)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessageW(Native Method)
+	at org.eclipse.swt.internal.win32.OS.DispatchMessage(OS.java:2549)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:3759)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$9.run(PartRenderingEngine.java:1151)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1032)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:148)
+	at org.eclipse.ui.internal.Workbench$5.run(Workbench.java:636)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:332)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:579)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:150)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:135)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:196)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:134)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:380)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:235)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:648)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
