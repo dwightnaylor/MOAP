@@ -1,2 +1,0 @@
-list(x):-collection(x), 0
-collection(x):-iterable(x),0
