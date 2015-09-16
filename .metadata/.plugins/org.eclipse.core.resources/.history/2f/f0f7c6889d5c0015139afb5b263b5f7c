@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: algorithmMaker.input.tests
+Bundle-Vendor: My Company
+Bundle-Version: 1.0.0.qualifier
+Bundle-SymbolicName: algorithmMaker.input.tests; singleton:=true
+Bundle-ActivationPolicy: lazy
+Require-Bundle:
+ org.eclipse.emf.ecore,
+ org.eclipse.emf.common
+Import-Package: 
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
