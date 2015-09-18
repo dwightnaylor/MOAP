@@ -23,11 +23,11 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link algorithmMaker.input.impl.AtomicImpl#getFunction <em>Function</em>}</li>
  *   <li>{@link algorithmMaker.input.impl.AtomicImpl#getArgs <em>Args</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

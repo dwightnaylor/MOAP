@@ -27,11 +27,11 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link algorithmMaker.input.impl.ProblemImpl#getVars <em>Vars</em>}</li>
  *   <li>{@link algorithmMaker.input.impl.ProblemImpl#getProperty <em>Property</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -11,11 +11,11 @@ import org.eclipse.emf.common.util.EList;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link algorithmMaker.input.Atomic#getFunction <em>Function</em>}</li>
  *   <li>{@link algorithmMaker.input.Atomic#getArgs <em>Args</em>}</li>
  * </ul>
- * </p>
  *
  * @see algorithmMaker.input.InputPackage#getAtomic()
  * @model

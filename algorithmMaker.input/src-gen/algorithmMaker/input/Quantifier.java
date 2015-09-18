@@ -10,12 +10,12 @@ package algorithmMaker.input;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link algorithmMaker.input.Quantifier#getQuantifier <em>Quantifier</em>}</li>
  *   <li>{@link algorithmMaker.input.Quantifier#getSubject <em>Subject</em>}</li>
  *   <li>{@link algorithmMaker.input.Quantifier#getPredicate <em>Predicate</em>}</li>
  * </ul>
- * </p>
  *
  * @see algorithmMaker.input.InputPackage#getQuantifier()
  * @model

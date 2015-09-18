@@ -10,11 +10,11 @@ package algorithmMaker.input;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link algorithmMaker.input.ORing#getLeft <em>Left</em>}</li>
  *   <li>{@link algorithmMaker.input.ORing#getRight <em>Right</em>}</li>
  * </ul>
- * </p>
  *
  * @see algorithmMaker.input.InputPackage#getORing()
  * @model

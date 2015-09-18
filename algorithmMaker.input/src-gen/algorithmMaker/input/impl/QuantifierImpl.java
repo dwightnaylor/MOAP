@@ -21,12 +21,12 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
+ * </p>
  * <ul>
  *   <li>{@link algorithmMaker.input.impl.QuantifierImpl#getQuantifier <em>Quantifier</em>}</li>
  *   <li>{@link algorithmMaker.input.impl.QuantifierImpl#getSubject <em>Subject</em>}</li>
  *   <li>{@link algorithmMaker.input.impl.QuantifierImpl#getPredicate <em>Predicate</em>}</li>
  * </ul>
- * </p>
  *
  * @generated
  */

@@ -145,11 +145,15 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 	private static Class<? extends EObject> getClassFor(File file, String className) {
 		Class<? extends EObject> classToUse = null;
 		try {
-			classToUse = (Class<? extends EObject>) new URLClassLoader(new URL[] { file.getParentFile().toURI().toURL() })
+			URLClassLoader urlClassLoader = new URLClassLoader(new URL[] { file.getParentFile().toURI().toURL() });
+			classToUse = (Class<? extends EObject>) urlClassLoader
 					.loadClass("algorithmMaker.input.impl." + className + "Impl");
+			urlClassLoader.close();
 		} catch (ClassNotFoundException e) {
 			return null;
 		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		if (classToUse.getDeclaredFields().length == 0 || EPackageImpl.class.isAssignableFrom(classToUse)) {

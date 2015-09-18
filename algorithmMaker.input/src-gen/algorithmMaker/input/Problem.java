@@ -13,11 +13,11 @@ import org.eclipse.emf.ecore.EObject;
  *
  * <p>
  * The following features are supported:
+ * </p>
  * <ul>
  *   <li>{@link algorithmMaker.input.Problem#getVars <em>Vars</em>}</li>
  *   <li>{@link algorithmMaker.input.Problem#getProperty <em>Property</em>}</li>
  * </ul>
- * </p>
  *
  * @see algorithmMaker.input.InputPackage#getProblem()
  * @model
