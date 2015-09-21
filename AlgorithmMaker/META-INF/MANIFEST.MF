@@ -5,7 +5,8 @@ Bundle-Vendor: My Company
 Bundle-Version: 1.0.0.qualifier
 Bundle-SymbolicName: algorithmMaker.input.tests; singleton:=true
 Bundle-ActivationPolicy: lazy
-Require-Bundle:
+Require-Bundle: 
  org.eclipse.emf.ecore,
  org.eclipse.emf.common
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Export-Package: .

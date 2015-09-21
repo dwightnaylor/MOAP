@@ -1,4 +1,5 @@
-import algorithmMaker.PropertyQuickParser;
+
+import static algorithmMaker.QuickParser.parseProperty;
 import algorithmMaker.input.Property;
 
 /**
@@ -48,8 +49,8 @@ public class Theorem {
 			sep2Index = line.length();
 			cost = line.substring(sep2Index + SEP_2.length(), line.length());
 		}
-		Property requirement = PropertyQuickParser.parse(line.substring(0, sep1Index));
-		Property result = PropertyQuickParser.parse(line.substring(sep1Index + SEP_1.length(), sep2Index));
+		Property requirement = parseProperty(line.substring(0, sep1Index));
+		Property result = parseProperty(line.substring(sep1Index + SEP_1.length(), sep2Index));
 		return new Theorem(requirement, result, cost);
 	}
 }
