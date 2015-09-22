@@ -7,18 +7,11 @@
 
   <body>
     <div class="main">
-      <div class="header">
-        <div id="header-text">
-        </div>
+      <div class="header" id="main-header">
       </div>
-      <script type="text/jsx">
-        React.render(
-          <h1>Header Area Changed</h1>,
-          document.getElementById('header-text')
-        );
-      </script>
-
     </div>
+
+    <!-- load large libs after the rest of the page has loaded -->
     <script src="assets/js/JSXTransformer.js"></script>
     <script src="assets/js/react.js"></script>
     <script src="assets/js/bundle.js"></script>
