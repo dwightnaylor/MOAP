@@ -11,6 +11,8 @@ import algorithmMaker.input.Property;
  * @author Dwight Naylor
  */
 public class Theorem {
+	
+	public static final Theorem GIVEN = new Theorem(null,null,"0");
 
 	private static String SEP_1 = ":-";
 	private static String SEP_2 = ",";
