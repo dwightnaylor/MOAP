@@ -16,7 +16,7 @@ public class SolverTests {
 						QuickParser.parseProperty("child(x,y)"), QuickParser.parseProperty("child(x,y)"), 0,
 						"enumerable things"));
 		solver.branch();
-		fail("Not yet implemented");
+		assertTrue("Basic multitheorems can generate a single new problem state.", solver.problemStates.size() == 1);
 	}
 
 }

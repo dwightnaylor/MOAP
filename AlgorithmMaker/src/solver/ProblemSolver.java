@@ -29,7 +29,7 @@ public class ProblemSolver {
 
 	// TODO: Should eventually be a priority queue.
 	// Everything in this queue is assumed to be simplified already
-	ArrayList<Input> problemStates = new ArrayList<Input>();
+	public ArrayList<Input> problemStates = new ArrayList<Input>();
 
 	private final Theorem[] theorems;
 
