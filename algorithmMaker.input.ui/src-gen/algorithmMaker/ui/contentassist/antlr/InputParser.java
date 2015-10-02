@@ -40,6 +40,8 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPrimaryAccess().getAlternatives(), "rule__Primary__Alternatives");
 					put(grammarAccess.getQuantifierAccess().getQuantifierAlternatives_0_0(), "rule__Quantifier__QuantifierAlternatives_0_0");
 					put(grammarAccess.getInputAccess().getGroup(), "rule__Input__Group__0");
+					put(grammarAccess.getInputAccess().getGroup_5(), "rule__Input__Group_5__0");
+					put(grammarAccess.getInputAccess().getGroup_5_3(), "rule__Input__Group_5_3__0");
 					put(grammarAccess.getProblemAccess().getGroup(), "rule__Problem__Group__0");
 					put(grammarAccess.getProblemAccess().getGroup_0(), "rule__Problem__Group_0__0");
 					put(grammarAccess.getProblemAccess().getGroup_0_1(), "rule__Problem__Group_0_1__0");
@@ -53,8 +55,11 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAtomicAccess().getGroup_1(), "rule__Atomic__Group_1__0");
 					put(grammarAccess.getAtomicAccess().getGroup_1_1(), "rule__Atomic__Group_1_1__0");
 					put(grammarAccess.getAtomicAccess().getGroup_1_1_1(), "rule__Atomic__Group_1_1_1__0");
+					put(grammarAccess.getTheoremAccess().getGroup(), "rule__Theorem__Group__0");
 					put(grammarAccess.getInputAccess().getGivenAssignment_1(), "rule__Input__GivenAssignment_1");
 					put(grammarAccess.getInputAccess().getGoalAssignment_4(), "rule__Input__GoalAssignment_4");
+					put(grammarAccess.getInputAccess().getTheoremsAssignment_5_2(), "rule__Input__TheoremsAssignment_5_2");
+					put(grammarAccess.getInputAccess().getTheoremsAssignment_5_3_1(), "rule__Input__TheoremsAssignment_5_3_1");
 					put(grammarAccess.getProblemAccess().getVarsAssignment_0_0(), "rule__Problem__VarsAssignment_0_0");
 					put(grammarAccess.getProblemAccess().getVarsAssignment_0_1_1(), "rule__Problem__VarsAssignment_0_1_1");
 					put(grammarAccess.getProblemAccess().getPropertyAssignment_2(), "rule__Problem__PropertyAssignment_2");
@@ -66,6 +71,10 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAtomicAccess().getFunctionAssignment_0(), "rule__Atomic__FunctionAssignment_0");
 					put(grammarAccess.getAtomicAccess().getArgsAssignment_1_1_0(), "rule__Atomic__ArgsAssignment_1_1_0");
 					put(grammarAccess.getAtomicAccess().getArgsAssignment_1_1_1_1(), "rule__Atomic__ArgsAssignment_1_1_1_1");
+					put(grammarAccess.getTheoremAccess().getRequirementAssignment_0(), "rule__Theorem__RequirementAssignment_0");
+					put(grammarAccess.getTheoremAccess().getResultAssignment_2(), "rule__Theorem__ResultAssignment_2");
+					put(grammarAccess.getTheoremAccess().getCostAssignment_4(), "rule__Theorem__CostAssignment_4");
+					put(grammarAccess.getTheoremAccess().getDescriptionAssignment_6(), "rule__Theorem__DescriptionAssignment_6");
 				}
 			};
 		}

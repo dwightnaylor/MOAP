@@ -100,6 +100,11 @@ public class InputAdapterFactory extends AdapterFactoryImpl
         return createAtomicAdapter();
       }
       @Override
+      public Adapter caseTheorem(Theorem object)
+      {
+        return createTheoremAdapter();
+      }
+      @Override
       public Adapter caseORing(ORing object)
       {
         return createORingAdapter();
@@ -202,6 +207,21 @@ public class InputAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAtomicAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.Theorem <em>Theorem</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see algorithmMaker.input.Theorem
+   * @generated
+   */
+  public Adapter createTheoremAdapter()
   {
     return null;
   }

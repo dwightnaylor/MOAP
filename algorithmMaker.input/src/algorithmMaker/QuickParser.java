@@ -11,8 +11,10 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 
+import algorithmMaker.input.Input;
 import algorithmMaker.input.InputPackage;
 import algorithmMaker.input.Property;
+import algorithmMaker.input.Theorem;
 import algorithmMaker.parser.antlr.InputParser;
 
 import com.google.inject.Guice;
@@ -23,6 +25,16 @@ public class QuickParser {
 	public static Property parseProperty(String queryString) {
 		Parser.queryString = "ORing";
 		return (Property) parse(queryString);
+	}
+
+	public static Theorem parseTheorem(String queryString) {
+		Parser.queryString = "Theorem";
+		return (Theorem) parse(queryString);
+	}
+
+	public static Input parseInput(String queryString) {
+		Parser.queryString = "Input";
+		return (Input) parse(queryString);
 	}
 
 	private static EObject parse(String queryString) {

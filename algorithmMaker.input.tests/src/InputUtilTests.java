@@ -5,6 +5,8 @@ import java.util.Hashtable;
 
 import org.junit.Test;
 
+import algorithmMaker.util.InputUtil;
+
 public class InputUtilTests {
 
 	@SuppressWarnings("serial")

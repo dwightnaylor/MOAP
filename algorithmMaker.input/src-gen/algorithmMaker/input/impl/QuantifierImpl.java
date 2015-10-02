@@ -336,7 +336,7 @@ public class QuantifierImpl extends PropertyImpl implements Quantifier
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-				ret.append(quantifier + '(' + subject + " : " + predicate + ')');
+		ret.append(quantifier + '(' + subject + " : " + predicate + ')');
 		return ret.toString();
 	}
 

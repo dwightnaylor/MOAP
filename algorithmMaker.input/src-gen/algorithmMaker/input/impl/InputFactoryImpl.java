@@ -69,6 +69,7 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
       case InputPackage.PROPERTY: return createProperty();
       case InputPackage.QUANTIFIER: return createQuantifier();
       case InputPackage.ATOMIC: return createAtomic();
+      case InputPackage.THEOREM: return createTheorem();
       case InputPackage.ORING: return createORing();
       case InputPackage.AN_DING: return createANDing();
       default:
@@ -129,6 +130,17 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
   {
     AtomicImpl atomic = new AtomicImpl();
     return atomic;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Theorem createTheorem()
+  {
+    TheoremImpl theorem = new TheoremImpl();
+    return theorem;
   }
 
   /**

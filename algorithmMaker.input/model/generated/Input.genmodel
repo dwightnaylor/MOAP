@@ -10,6 +10,7 @@
     <genClasses ecoreClass="Input.ecore#//Input">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Input/given"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Input/goal"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Input/theorems"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//Problem">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Problem/vars"/>
@@ -24,6 +25,12 @@
     <genClasses ecoreClass="Input.ecore#//Atomic">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Atomic/Function"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Atomic/args"/>
+    </genClasses>
+    <genClasses ecoreClass="Input.ecore#//Theorem">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Theorem/Requirement"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Theorem/Result"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/Cost"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/Description"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//ORing">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//ORing/left"/>

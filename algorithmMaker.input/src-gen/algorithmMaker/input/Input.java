@@ -2,6 +2,8 @@
  */
 package algorithmMaker.input;
 
+import org.eclipse.emf.common.util.EList;
+
 import org.eclipse.emf.ecore.EObject;
 
 /**
@@ -15,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  * <ul>
  *   <li>{@link algorithmMaker.input.Input#getGiven <em>Given</em>}</li>
  *   <li>{@link algorithmMaker.input.Input#getGoal <em>Goal</em>}</li>
+ *   <li>{@link algorithmMaker.input.Input#getTheorems <em>Theorems</em>}</li>
  * </ul>
  *
  * @see algorithmMaker.input.InputPackage#getInput()
@@ -74,5 +77,21 @@ public interface Input extends EObject
    * @generated
    */
   void setGoal(Problem value);
+
+  /**
+   * Returns the value of the '<em><b>Theorems</b></em>' containment reference list.
+   * The list contents are of type {@link algorithmMaker.input.Theorem}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Theorems</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Theorems</em>' containment reference list.
+   * @see algorithmMaker.input.InputPackage#getInput_Theorems()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Theorem> getTheorems();
 
 } // Input

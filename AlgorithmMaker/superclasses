@@ -1,0 +1,6 @@
+//type_list(x)->type_collection,0,"list is a superclass of collection"
+list:collection
+array:collection
+arraylist:collection
+set:collection
+collection:enumerable

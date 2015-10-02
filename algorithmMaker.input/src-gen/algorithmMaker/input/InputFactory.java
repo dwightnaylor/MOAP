@@ -68,6 +68,15 @@ public interface InputFactory extends EFactory
   Atomic createAtomic();
 
   /**
+   * Returns a new object of class '<em>Theorem</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Theorem</em>'.
+   * @generated
+   */
+  Theorem createTheorem();
+
+  /**
    * Returns a new object of class '<em>ORing</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

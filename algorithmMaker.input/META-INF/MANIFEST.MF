@@ -23,14 +23,15 @@ Require-Bundle: org.eclipse.xtext;visibility:=reexport,
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: algorithmMaker,
- algorithmMaker.services,
+ algorithmMaker.formatting,
+ algorithmMaker.generator,
  algorithmMaker.input,
  algorithmMaker.input.impl,
  algorithmMaker.input.util,
- algorithmMaker.serializer,
  algorithmMaker.parser.antlr,
  algorithmMaker.parser.antlr.internal,
- algorithmMaker.validation,
  algorithmMaker.scoping,
- algorithmMaker.generator,
- algorithmMaker.formatting
+ algorithmMaker.serializer,
+ algorithmMaker.services,
+ algorithmMaker.util,
+ algorithmMaker.validation

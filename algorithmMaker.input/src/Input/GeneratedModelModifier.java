@@ -183,13 +183,16 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 			ret.append("\t\tret.append(left.toString() + \" | \" + right.toString());" + NL);
 			break;
 		case "Problem":
-			ret.append("\t\t		for (String var : vars)" + NL);
-			ret.append("\t\t			ret.append(var + ',');" + NL);
-			ret.append("\t\t		ret.deleteCharAt(ret.length() - 1);" + NL);
-			ret.append("\t\t		ret.append(\" st \" + property.toString());" + NL);
+			ret.append("\t\tfor (String var : vars)" + NL);
+			ret.append("\t\t\tret.append(var + ',');" + NL);
+			ret.append("\t\tret.deleteCharAt(ret.length() - 1);" + NL);
+			ret.append("\t\tret.append(\" st \" + property.toString());" + NL);
 			break;
 		case "Quantifier":
-			ret.append("\t\t		ret.append(quantifier + '(' + subject + \" : \" + predicate + ')');" + NL);
+			ret.append("\t\tret.append(quantifier + '(' + subject + \" : \" + predicate + ')');" + NL);
+			break;
+		case "Theorem":
+			ret.append("\t\tret.append(requirement.toString() + \":-\" + result.toString() + ',' + cost + ',' + description);" + NL);
 			break;
 		default:
 			if (log.isInfoEnabled()) {

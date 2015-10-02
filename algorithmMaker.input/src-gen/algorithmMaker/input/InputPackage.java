@@ -85,13 +85,22 @@ public interface InputPackage extends EPackage
   int INPUT__GOAL = 1;
 
   /**
+   * The feature id for the '<em><b>Theorems</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INPUT__THEOREMS = 2;
+
+  /**
    * The number of structural features of the '<em>Input</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INPUT_FEATURE_COUNT = 2;
+  int INPUT_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link algorithmMaker.input.impl.ProblemImpl <em>Problem</em>}' class.
@@ -233,6 +242,61 @@ public interface InputPackage extends EPackage
   int ATOMIC_FEATURE_COUNT = PROPERTY_FEATURE_COUNT + 2;
 
   /**
+   * The meta object id for the '{@link algorithmMaker.input.impl.TheoremImpl <em>Theorem</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see algorithmMaker.input.impl.TheoremImpl
+   * @see algorithmMaker.input.impl.InputPackageImpl#getTheorem()
+   * @generated
+   */
+  int THEOREM = 5;
+
+  /**
+   * The feature id for the '<em><b>Requirement</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int THEOREM__REQUIREMENT = 0;
+
+  /**
+   * The feature id for the '<em><b>Result</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int THEOREM__RESULT = 1;
+
+  /**
+   * The feature id for the '<em><b>Cost</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int THEOREM__COST = 2;
+
+  /**
+   * The feature id for the '<em><b>Description</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int THEOREM__DESCRIPTION = 3;
+
+  /**
+   * The number of structural features of the '<em>Theorem</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int THEOREM_FEATURE_COUNT = 4;
+
+  /**
    * The meta object id for the '{@link algorithmMaker.input.impl.ORingImpl <em>ORing</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -240,7 +304,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getORing()
    * @generated
    */
-  int ORING = 5;
+  int ORING = 6;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -277,7 +341,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getANDing()
    * @generated
    */
-  int AN_DING = 6;
+  int AN_DING = 7;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -338,6 +402,17 @@ public interface InputPackage extends EPackage
    * @generated
    */
   EReference getInput_Goal();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link algorithmMaker.input.Input#getTheorems <em>Theorems</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Theorems</em>'.
+   * @see algorithmMaker.input.Input#getTheorems()
+   * @see #getInput()
+   * @generated
+   */
+  EReference getInput_Theorems();
 
   /**
    * Returns the meta object for class '{@link algorithmMaker.input.Problem <em>Problem</em>}'.
@@ -457,6 +532,60 @@ public interface InputPackage extends EPackage
   EAttribute getAtomic_Args();
 
   /**
+   * Returns the meta object for class '{@link algorithmMaker.input.Theorem <em>Theorem</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Theorem</em>'.
+   * @see algorithmMaker.input.Theorem
+   * @generated
+   */
+  EClass getTheorem();
+
+  /**
+   * Returns the meta object for the containment reference '{@link algorithmMaker.input.Theorem#getRequirement <em>Requirement</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Requirement</em>'.
+   * @see algorithmMaker.input.Theorem#getRequirement()
+   * @see #getTheorem()
+   * @generated
+   */
+  EReference getTheorem_Requirement();
+
+  /**
+   * Returns the meta object for the containment reference '{@link algorithmMaker.input.Theorem#getResult <em>Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Result</em>'.
+   * @see algorithmMaker.input.Theorem#getResult()
+   * @see #getTheorem()
+   * @generated
+   */
+  EReference getTheorem_Result();
+
+  /**
+   * Returns the meta object for the attribute '{@link algorithmMaker.input.Theorem#getCost <em>Cost</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Cost</em>'.
+   * @see algorithmMaker.input.Theorem#getCost()
+   * @see #getTheorem()
+   * @generated
+   */
+  EAttribute getTheorem_Cost();
+
+  /**
+   * Returns the meta object for the attribute '{@link algorithmMaker.input.Theorem#getDescription <em>Description</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Description</em>'.
+   * @see algorithmMaker.input.Theorem#getDescription()
+   * @see #getTheorem()
+   * @generated
+   */
+  EAttribute getTheorem_Description();
+
+  /**
    * Returns the meta object for class '{@link algorithmMaker.input.ORing <em>ORing</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -570,6 +699,14 @@ public interface InputPackage extends EPackage
     EReference INPUT__GOAL = eINSTANCE.getInput_Goal();
 
     /**
+     * The meta object literal for the '<em><b>Theorems</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference INPUT__THEOREMS = eINSTANCE.getInput_Theorems();
+
+    /**
      * The meta object literal for the '{@link algorithmMaker.input.impl.ProblemImpl <em>Problem</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -664,6 +801,48 @@ public interface InputPackage extends EPackage
      * @generated
      */
     EAttribute ATOMIC__ARGS = eINSTANCE.getAtomic_Args();
+
+    /**
+     * The meta object literal for the '{@link algorithmMaker.input.impl.TheoremImpl <em>Theorem</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see algorithmMaker.input.impl.TheoremImpl
+     * @see algorithmMaker.input.impl.InputPackageImpl#getTheorem()
+     * @generated
+     */
+    EClass THEOREM = eINSTANCE.getTheorem();
+
+    /**
+     * The meta object literal for the '<em><b>Requirement</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference THEOREM__REQUIREMENT = eINSTANCE.getTheorem_Requirement();
+
+    /**
+     * The meta object literal for the '<em><b>Result</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference THEOREM__RESULT = eINSTANCE.getTheorem_Result();
+
+    /**
+     * The meta object literal for the '<em><b>Cost</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute THEOREM__COST = eINSTANCE.getTheorem_Cost();
+
+    /**
+     * The meta object literal for the '<em><b>Description</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute THEOREM__DESCRIPTION = eINSTANCE.getTheorem_Description();
 
     /**
      * The meta object literal for the '{@link algorithmMaker.input.impl.ORingImpl <em>ORing</em>}' class.

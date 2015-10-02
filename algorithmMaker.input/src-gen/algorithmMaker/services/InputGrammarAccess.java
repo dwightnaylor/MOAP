@@ -28,16 +28,26 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFindKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cGoalAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cGoalProblemParserRuleCall_4_0 = (RuleCall)cGoalAssignment_4.eContents().get(0);
+		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
+		private final Keyword cSemicolonKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
+		private final Keyword cTheoremsKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
+		private final Assignment cTheoremsAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
+		private final RuleCall cTheoremsTheoremParserRuleCall_5_2_0 = (RuleCall)cTheoremsAssignment_5_2.eContents().get(0);
+		private final Group cGroup_5_3 = (Group)cGroup_5.eContents().get(3);
+		private final Keyword cSemicolonKeyword_5_3_0 = (Keyword)cGroup_5_3.eContents().get(0);
+		private final Assignment cTheoremsAssignment_5_3_1 = (Assignment)cGroup_5_3.eContents().get(1);
+		private final RuleCall cTheoremsTheoremParserRuleCall_5_3_1_0 = (RuleCall)cTheoremsAssignment_5_3_1.eContents().get(0);
+		private final Keyword cSemicolonKeyword_5_4 = (Keyword)cGroup_5.eContents().get(4);
 		
 		////TODO: Sugar: math signs, comparators
 		////TODO: Sugar: implies "->, <-, <->" : relies on inline declarations...
 		////TODO: Nested atomics??
-		////NOTE: Any changes to the formatting should be reflected with changes to Input.xtext
+		////NOTE: Any changes to the formatting should be reflected with changes here.
 		//Input:
-		//	"Given" given=Problem "," "Find" goal=Problem;
+		//	"Given" given=Problem "," "Find" goal=Problem (";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"Given" given=Problem "," "Find" goal=Problem
+		//"Given" given=Problem "," "Find" goal=Problem (";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?
 		public Group getGroup() { return cGroup; }
 
 		//"Given"
@@ -60,6 +70,36 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 
 		//Problem
 		public RuleCall getGoalProblemParserRuleCall_4_0() { return cGoalProblemParserRuleCall_4_0; }
+
+		//(";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?
+		public Group getGroup_5() { return cGroup_5; }
+
+		//";"
+		public Keyword getSemicolonKeyword_5_0() { return cSemicolonKeyword_5_0; }
+
+		//"Theorems:"
+		public Keyword getTheoremsKeyword_5_1() { return cTheoremsKeyword_5_1; }
+
+		//theorems+=Theorem
+		public Assignment getTheoremsAssignment_5_2() { return cTheoremsAssignment_5_2; }
+
+		//Theorem
+		public RuleCall getTheoremsTheoremParserRuleCall_5_2_0() { return cTheoremsTheoremParserRuleCall_5_2_0; }
+
+		//(";" theorems+=Theorem)*
+		public Group getGroup_5_3() { return cGroup_5_3; }
+
+		//";"
+		public Keyword getSemicolonKeyword_5_3_0() { return cSemicolonKeyword_5_3_0; }
+
+		//theorems+=Theorem
+		public Assignment getTheoremsAssignment_5_3_1() { return cTheoremsAssignment_5_3_1; }
+
+		//Theorem
+		public RuleCall getTheoremsTheoremParserRuleCall_5_3_1_0() { return cTheoremsTheoremParserRuleCall_5_3_1_0; }
+
+		//";"?
+		public Keyword getSemicolonKeyword_5_4() { return cSemicolonKeyword_5_4; }
 	}
 
 	public class ProblemElements extends AbstractParserRuleElementFinder {
@@ -337,6 +377,62 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_1_2() { return cRightParenthesisKeyword_1_2; }
 	}
+
+	public class TheoremElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Theorem");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cRequirementAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cRequirementORingParserRuleCall_0_0 = (RuleCall)cRequirementAssignment_0.eContents().get(0);
+		private final Keyword cColonHyphenMinusKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cResultAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cResultORingParserRuleCall_2_0 = (RuleCall)cResultAssignment_2.eContents().get(0);
+		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Assignment cCostAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cCostINTTerminalRuleCall_4_0 = (RuleCall)cCostAssignment_4.eContents().get(0);
+		private final Keyword cCommaKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Assignment cDescriptionAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_6_0 = (RuleCall)cDescriptionAssignment_6.eContents().get(0);
+		
+		//Theorem:
+		//	Requirement=ORing ":-" Result=ORing "," Cost=INT "," Description=STRING;
+		@Override public ParserRule getRule() { return rule; }
+
+		//Requirement=ORing ":-" Result=ORing "," Cost=INT "," Description=STRING
+		public Group getGroup() { return cGroup; }
+
+		//Requirement=ORing
+		public Assignment getRequirementAssignment_0() { return cRequirementAssignment_0; }
+
+		//ORing
+		public RuleCall getRequirementORingParserRuleCall_0_0() { return cRequirementORingParserRuleCall_0_0; }
+
+		//":-"
+		public Keyword getColonHyphenMinusKeyword_1() { return cColonHyphenMinusKeyword_1; }
+
+		//Result=ORing
+		public Assignment getResultAssignment_2() { return cResultAssignment_2; }
+
+		//ORing
+		public RuleCall getResultORingParserRuleCall_2_0() { return cResultORingParserRuleCall_2_0; }
+
+		//","
+		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
+
+		//Cost=INT
+		public Assignment getCostAssignment_4() { return cCostAssignment_4; }
+
+		//INT
+		public RuleCall getCostINTTerminalRuleCall_4_0() { return cCostINTTerminalRuleCall_4_0; }
+
+		//","
+		public Keyword getCommaKeyword_5() { return cCommaKeyword_5; }
+
+		//Description=STRING
+		public Assignment getDescriptionAssignment_6() { return cDescriptionAssignment_6; }
+
+		//STRING
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_6_0() { return cDescriptionSTRINGTerminalRuleCall_6_0; }
+	}
 	
 	
 	private final InputElements pInput;
@@ -346,6 +442,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	private final PrimaryElements pPrimary;
 	private final QuantifierElements pQuantifier;
 	private final AtomicElements pAtomic;
+	private final TheoremElements pTheorem;
 	
 	private final Grammar grammar;
 
@@ -363,6 +460,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		this.pPrimary = new PrimaryElements();
 		this.pQuantifier = new QuantifierElements();
 		this.pAtomic = new AtomicElements();
+		this.pTheorem = new TheoremElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -395,9 +493,9 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	////TODO: Sugar: math signs, comparators
 	////TODO: Sugar: implies "->, <-, <->" : relies on inline declarations...
 	////TODO: Nested atomics??
-	////NOTE: Any changes to the formatting should be reflected with changes to Input.xtext
+	////NOTE: Any changes to the formatting should be reflected with changes here.
 	//Input:
-	//	"Given" given=Problem "," "Find" goal=Problem;
+	//	"Given" given=Problem "," "Find" goal=Problem (";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
 	public InputElements getInputAccess() {
 		return pInput;
 	}
@@ -464,6 +562,16 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getAtomicRule() {
 		return getAtomicAccess().getRule();
+	}
+
+	//Theorem:
+	//	Requirement=ORing ":-" Result=ORing "," Cost=INT "," Description=STRING;
+	public TheoremElements getTheoremAccess() {
+		return pTheorem;
+	}
+	
+	public ParserRule getTheoremRule() {
+		return getTheoremAccess().getRule();
 	}
 
 	//terminal ID:

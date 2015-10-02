@@ -1,4 +1,5 @@
-import algorithmMaker.input.Property;
+package theorems;
+import algorithmMaker.input.Theorem;
 
 /**
  * @author dwight
@@ -6,8 +7,8 @@ import algorithmMaker.input.Property;
  * @param <T>
  *            Should be either an atomic...or???
  */
-public class Fact<T extends Property> {
-	T property;
+public class Fact<T> {
+	public T property;
 	Theorem theorem;
 	Fact<?>[] prerequisites;
 

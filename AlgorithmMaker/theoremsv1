@@ -1,3 +1,2 @@
-list(x):-collection(x), 0
-collection(x):-iterable(x),0
- 
+list(x):-collection(x), 0, ""
+collection(x):-enumerable(x),0, ""

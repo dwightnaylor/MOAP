@@ -125,7 +125,59 @@ ruleInput returns [EObject current=null]
 	    }
 
 )
-))
+)(	otherlv_5=';' 
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getInputAccess().getSemicolonKeyword_5_0());
+    }
+	otherlv_6='Theorems:' 
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getInputAccess().getTheoremsKeyword_5_1());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getInputAccess().getTheoremsTheoremParserRuleCall_5_2_0()); 
+	    }
+		lv_theorems_7_0=ruleTheorem		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getInputRule());
+	        }
+       		add(
+       			$current, 
+       			"theorems",
+        		lv_theorems_7_0, 
+        		"Theorem");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(	otherlv_8=';' 
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getInputAccess().getSemicolonKeyword_5_3_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getInputAccess().getTheoremsTheoremParserRuleCall_5_3_1_0()); 
+	    }
+		lv_theorems_9_0=ruleTheorem		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getInputRule());
+	        }
+       		add(
+       			$current, 
+       			"theorems",
+        		lv_theorems_9_0, 
+        		"Theorem");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))*(	otherlv_10=';' 
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getInputAccess().getSemicolonKeyword_5_4());
+    }
+)?)?)
 ;
 
 
@@ -569,6 +621,111 @@ ruleAtomic returns [EObject current=null]
     	newLeafNode(otherlv_5, grammarAccess.getAtomicAccess().getRightParenthesisKeyword_1_2());
     }
 )?)
+;
+
+
+
+
+
+// Entry rule entryRuleTheorem
+entryRuleTheorem returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getTheoremRule()); }
+	 iv_ruleTheorem=ruleTheorem 
+	 { $current=$iv_ruleTheorem.current; } 
+	 EOF 
+;
+
+// Rule Theorem
+ruleTheorem returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTheoremAccess().getRequirementORingParserRuleCall_0_0()); 
+	    }
+		lv_Requirement_0_0=ruleORing		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTheoremRule());
+	        }
+       		set(
+       			$current, 
+       			"Requirement",
+        		lv_Requirement_0_0, 
+        		"ORing");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_1=':-' 
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getTheoremAccess().getColonHyphenMinusKeyword_1());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getTheoremAccess().getResultORingParserRuleCall_2_0()); 
+	    }
+		lv_Result_2_0=ruleORing		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getTheoremRule());
+	        }
+       		set(
+       			$current, 
+       			"Result",
+        		lv_Result_2_0, 
+        		"ORing");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)	otherlv_3=',' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getTheoremAccess().getCommaKeyword_3());
+    }
+(
+(
+		lv_Cost_4_0=RULE_INT
+		{
+			newLeafNode(lv_Cost_4_0, grammarAccess.getTheoremAccess().getCostINTTerminalRuleCall_4_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTheoremRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"Cost",
+        		lv_Cost_4_0, 
+        		"INT");
+	    }
+
+)
+)	otherlv_5=',' 
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getTheoremAccess().getCommaKeyword_5());
+    }
+(
+(
+		lv_Description_6_0=RULE_STRING
+		{
+			newLeafNode(lv_Description_6_0, grammarAccess.getTheoremAccess().getDescriptionSTRINGTerminalRuleCall_6_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTheoremRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"Description",
+        		lv_Description_6_0, 
+        		"STRING");
+	    }
+
+)
+))
 ;
 
 

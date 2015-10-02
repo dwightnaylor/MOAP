@@ -5,15 +5,23 @@ package algorithmMaker.input.impl;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.InputPackage;
 import algorithmMaker.input.Problem;
+import algorithmMaker.input.Theorem;
+
+import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
+import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -25,6 +33,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * <ul>
  *   <li>{@link algorithmMaker.input.impl.InputImpl#getGiven <em>Given</em>}</li>
  *   <li>{@link algorithmMaker.input.impl.InputImpl#getGoal <em>Goal</em>}</li>
+ *   <li>{@link algorithmMaker.input.impl.InputImpl#getTheorems <em>Theorems</em>}</li>
  * </ul>
  *
  * @generated
@@ -50,6 +59,16 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
    * @ordered
    */
   protected Problem goal;
+
+  /**
+   * The cached value of the '{@link #getTheorems() <em>Theorems</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTheorems()
+   * @generated
+   * @ordered
+   */
+  protected EList<Theorem> theorems;
 
   /**
    * <!-- begin-user-doc -->
@@ -173,6 +192,20 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Theorem> getTheorems()
+  {
+    if (theorems == null)
+    {
+      theorems = new EObjectContainmentEList<Theorem>(Theorem.class, this, InputPackage.INPUT__THEOREMS);
+    }
+    return theorems;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -182,6 +215,8 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
         return basicSetGiven(null, msgs);
       case InputPackage.INPUT__GOAL:
         return basicSetGoal(null, msgs);
+      case InputPackage.INPUT__THEOREMS:
+        return ((InternalEList<?>)getTheorems()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -200,6 +235,8 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
         return getGiven();
       case InputPackage.INPUT__GOAL:
         return getGoal();
+      case InputPackage.INPUT__THEOREMS:
+        return getTheorems();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -209,6 +246,7 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
    * <!-- end-user-doc -->
    * @generated
    */
+  @SuppressWarnings("unchecked")
   @Override
   public void eSet(int featureID, Object newValue)
   {
@@ -219,6 +257,10 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
         return;
       case InputPackage.INPUT__GOAL:
         setGoal((Problem)newValue);
+        return;
+      case InputPackage.INPUT__THEOREMS:
+        getTheorems().clear();
+        getTheorems().addAll((Collection<? extends Theorem>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -240,6 +282,9 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
       case InputPackage.INPUT__GOAL:
         setGoal((Problem)null);
         return;
+      case InputPackage.INPUT__THEOREMS:
+        getTheorems().clear();
+        return;
     }
     super.eUnset(featureID);
   }
@@ -258,6 +303,8 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
         return given != null;
       case InputPackage.INPUT__GOAL:
         return goal != null;
+      case InputPackage.INPUT__THEOREMS:
+        return theorems != null && !theorems.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -268,6 +315,11 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
 		int ret = getClass().hashCode();
 		ret += given == null ? 0 :given.hashCode();
 		ret += goal == null ? 0 :goal.hashCode();
+		if (theorems != null) {
+			for (Object obj : theorems) {
+				ret += obj.hashCode();
+			}
+		}
 		return ret;
 	}
 
@@ -277,6 +329,7 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
 		InputImpl other = (InputImpl) obj;
 		if (given == null && other.given != null || given != null && !given.equals(other.given)) return false;
 		if (goal == null && other.goal != null || goal != null && !goal.equals(other.goal)) return false;
+		if (theorems == null && other.theorems != null || theorems != null && !theorems.equals(other.theorems)) return false;
 		return true;
 	}
 

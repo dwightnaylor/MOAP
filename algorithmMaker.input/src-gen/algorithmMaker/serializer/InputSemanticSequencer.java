@@ -10,6 +10,7 @@ import algorithmMaker.input.InputPackage;
 import algorithmMaker.input.ORing;
 import algorithmMaker.input.Problem;
 import algorithmMaker.input.Quantifier;
+import algorithmMaker.input.Theorem;
 import algorithmMaker.services.InputGrammarAccess;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -52,6 +53,9 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case InputPackage.QUANTIFIER:
 				sequence_Quantifier(context, (Quantifier) semanticObject); 
 				return; 
+			case InputPackage.THEOREM:
+				sequence_Theorem(context, (Theorem) semanticObject); 
+				return; 
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
@@ -86,20 +90,10 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     (given=Problem goal=Problem)
+	 *     (given=Problem goal=Problem (theorems+=Theorem theorems+=Theorem*)?)
 	 */
 	protected void sequence_Input(EObject context, Input semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.INPUT__GIVEN) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.INPUT__GIVEN));
-			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.INPUT__GOAL) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.INPUT__GOAL));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getInputAccess().getGivenProblemParserRuleCall_1_0(), semanticObject.getGiven());
-		feeder.accept(grammarAccess.getInputAccess().getGoalProblemParserRuleCall_4_0(), semanticObject.getGoal());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -137,5 +131,30 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_Quantifier(EObject context, Quantifier semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (Requirement=ORing Result=ORing Cost=INT Description=STRING)
+	 */
+	protected void sequence_Theorem(EObject context, Theorem semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.THEOREM__REQUIREMENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.THEOREM__REQUIREMENT));
+			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.THEOREM__RESULT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.THEOREM__RESULT));
+			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.THEOREM__COST) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.THEOREM__COST));
+			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.THEOREM__DESCRIPTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.THEOREM__DESCRIPTION));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getTheoremAccess().getRequirementORingParserRuleCall_0_0(), semanticObject.getRequirement());
+		feeder.accept(grammarAccess.getTheoremAccess().getResultORingParserRuleCall_2_0(), semanticObject.getResult());
+		feeder.accept(grammarAccess.getTheoremAccess().getCostINTTerminalRuleCall_4_0(), semanticObject.getCost());
+		feeder.accept(grammarAccess.getTheoremAccess().getDescriptionSTRINGTerminalRuleCall_6_0(), semanticObject.getDescription());
+		feeder.finish();
 	}
 }
