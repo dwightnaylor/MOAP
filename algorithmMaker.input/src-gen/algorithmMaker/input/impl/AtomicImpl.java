@@ -221,10 +221,13 @@ public class AtomicImpl extends PropertyImpl implements Atomic
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append(function + '(');
-		for (String arg : args)
-			ret.append(arg + ',');
-		ret.setCharAt(ret.length() - 1, ')');
+		ret.append(function);
+		if (args != null && args.size() > 0){
+			ret.append('(');
+			for (String arg : args)
+				ret.append(arg + ',');
+			ret.setCharAt(ret.length() - 1, ')');
+		}
 		return ret.toString();
 	}
 

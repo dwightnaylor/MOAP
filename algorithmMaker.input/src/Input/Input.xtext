@@ -20,13 +20,17 @@ ANDing returns Property:
 	Primary ({ANDing.left=current} '&' right=Primary)*;
 
 Primary returns Property:
-	Atomic | Quantifier | ('(' ORing ')');
+	Atomic | Quantifier | ('(' ORing ')') | BooleanLiteral;
 
 Quantifier:
 	quantifier=('forall' | 'exists') '(' subject=Problem ':' predicate=ORing ')';
 
+	//TODO:DN: Worry about TRUE and FALSE atomics
 Atomic:
 	Function=ID ('(' (args+=ID (',' args+=ID)*)? ')')?;
 
+BooleanLiteral:
+	value=("TRUE" | "FALSE");
+
 Theorem:
-	Requirement=ORing ":-" Result=ORing ',' Cost=INT ',' Description=STRING;
+	Requirement=ORing ":-" Result=ORing ',' Cost=INT ',' Description=STRING (',' PseudoCode=STRING)?;

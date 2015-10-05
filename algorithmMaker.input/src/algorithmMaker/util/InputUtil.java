@@ -37,6 +37,11 @@ public class InputUtil {
 		return null;
 	}
 
+	public static void compactVariables(Problem problem) {
+		problem.getVars().clear();
+		problem.getVars().addAll(InputUtil.getUnboundVariables(problem.getProperty()));
+	}
+
 	/**
 	 * Creates a copy of the given property, but with all variables converted
 	 * according to the given hashtable.
@@ -101,14 +106,17 @@ public class InputUtil {
 	public static HashSet<String> getUnboundVariables(EObject property) {
 		HashSet<String> unboundVars = new HashSet<String>();
 		TreeIterator<EObject> contents = property.eAllContents();
-		do {
+		while (true) {
 			if (property instanceof Atomic)
 				for (String var : ((Atomic) property).getArgs())
 					if (getDeclaration(property, var) == null)
 						unboundVars.add(var);
 
-			property = contents.next();
-		} while (contents.hasNext());
+			if (contents.hasNext())
+				property = contents.next();
+			else
+				break;
+		}
 
 		return unboundVars;
 	}

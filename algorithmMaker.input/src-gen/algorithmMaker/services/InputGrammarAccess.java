@@ -40,7 +40,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_5_4 = (Keyword)cGroup_5.eContents().get(4);
 		
 		////TODO: Sugar: math signs, comparators
-		////TODO: Sugar: implies "->, <-, <->" : relies on inline declarations...
+		////TODO: Sugar: implies "->, <-, <->" : relies on inline declarations?
 		////TODO: Nested atomics??
 		////NOTE: Any changes to the formatting should be reflected with changes here.
 		//Input:
@@ -235,12 +235,13 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftParenthesisKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final RuleCall cORingParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
+		private final RuleCall cBooleanLiteralParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//Primary returns Property:
-		//	Atomic | Quantifier | "(" ORing ")";
+		//	Atomic | Quantifier | "(" ORing ")" | BooleanLiteral;
 		@Override public ParserRule getRule() { return rule; }
 
-		//Atomic | Quantifier | "(" ORing ")"
+		//Atomic | Quantifier | "(" ORing ")" | BooleanLiteral
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//Atomic
@@ -260,6 +261,9 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 
 		//")"
 		public Keyword getRightParenthesisKeyword_2_2() { return cRightParenthesisKeyword_2_2; }
+
+		//BooleanLiteral
+		public RuleCall getBooleanLiteralParserRuleCall_3() { return cBooleanLiteralParserRuleCall_3; }
 	}
 
 	public class QuantifierElements extends AbstractParserRuleElementFinder {
@@ -334,6 +338,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cArgsIDTerminalRuleCall_1_1_1_1_0 = (RuleCall)cArgsAssignment_1_1_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		
+		////TODO:DN: Worry about TRUE and FALSE atomics
 		//Atomic:
 		//	Function=ID ("(" (args+=ID ("," args+=ID)*)? ")")?;
 		@Override public ParserRule getRule() { return rule; }
@@ -378,6 +383,30 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getRightParenthesisKeyword_1_2() { return cRightParenthesisKeyword_1_2; }
 	}
 
+	public class BooleanLiteralElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "BooleanLiteral");
+		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
+		private final Alternatives cValueAlternatives_0 = (Alternatives)cValueAssignment.eContents().get(0);
+		private final Keyword cValueTRUEKeyword_0_0 = (Keyword)cValueAlternatives_0.eContents().get(0);
+		private final Keyword cValueFALSEKeyword_0_1 = (Keyword)cValueAlternatives_0.eContents().get(1);
+		
+		//BooleanLiteral:
+		//	value=("TRUE" | "FALSE");
+		@Override public ParserRule getRule() { return rule; }
+
+		//value=("TRUE" | "FALSE")
+		public Assignment getValueAssignment() { return cValueAssignment; }
+
+		//"TRUE" | "FALSE"
+		public Alternatives getValueAlternatives_0() { return cValueAlternatives_0; }
+
+		//"TRUE"
+		public Keyword getValueTRUEKeyword_0_0() { return cValueTRUEKeyword_0_0; }
+
+		//"FALSE"
+		public Keyword getValueFALSEKeyword_0_1() { return cValueFALSEKeyword_0_1; }
+	}
+
 	public class TheoremElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Theorem");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -392,12 +421,16 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCommaKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		private final Assignment cDescriptionAssignment_6 = (Assignment)cGroup.eContents().get(6);
 		private final RuleCall cDescriptionSTRINGTerminalRuleCall_6_0 = (RuleCall)cDescriptionAssignment_6.eContents().get(0);
+		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
+		private final Keyword cCommaKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
+		private final Assignment cPseudoCodeAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
+		private final RuleCall cPseudoCodeSTRINGTerminalRuleCall_7_1_0 = (RuleCall)cPseudoCodeAssignment_7_1.eContents().get(0);
 		
 		//Theorem:
-		//	Requirement=ORing ":-" Result=ORing "," Cost=INT "," Description=STRING;
+		//	Requirement=ORing ":-" Result=ORing "," Cost=INT "," Description=STRING ("," PseudoCode=STRING)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//Requirement=ORing ":-" Result=ORing "," Cost=INT "," Description=STRING
+		//Requirement=ORing ":-" Result=ORing "," Cost=INT "," Description=STRING ("," PseudoCode=STRING)?
 		public Group getGroup() { return cGroup; }
 
 		//Requirement=ORing
@@ -432,6 +465,18 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 
 		//STRING
 		public RuleCall getDescriptionSTRINGTerminalRuleCall_6_0() { return cDescriptionSTRINGTerminalRuleCall_6_0; }
+
+		//("," PseudoCode=STRING)?
+		public Group getGroup_7() { return cGroup_7; }
+
+		//","
+		public Keyword getCommaKeyword_7_0() { return cCommaKeyword_7_0; }
+
+		//PseudoCode=STRING
+		public Assignment getPseudoCodeAssignment_7_1() { return cPseudoCodeAssignment_7_1; }
+
+		//STRING
+		public RuleCall getPseudoCodeSTRINGTerminalRuleCall_7_1_0() { return cPseudoCodeSTRINGTerminalRuleCall_7_1_0; }
 	}
 	
 	
@@ -442,6 +487,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	private final PrimaryElements pPrimary;
 	private final QuantifierElements pQuantifier;
 	private final AtomicElements pAtomic;
+	private final BooleanLiteralElements pBooleanLiteral;
 	private final TheoremElements pTheorem;
 	
 	private final Grammar grammar;
@@ -460,6 +506,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		this.pPrimary = new PrimaryElements();
 		this.pQuantifier = new QuantifierElements();
 		this.pAtomic = new AtomicElements();
+		this.pBooleanLiteral = new BooleanLiteralElements();
 		this.pTheorem = new TheoremElements();
 	}
 	
@@ -491,7 +538,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	////TODO: Sugar: math signs, comparators
-	////TODO: Sugar: implies "->, <-, <->" : relies on inline declarations...
+	////TODO: Sugar: implies "->, <-, <->" : relies on inline declarations?
 	////TODO: Nested atomics??
 	////NOTE: Any changes to the formatting should be reflected with changes here.
 	//Input:
@@ -535,7 +582,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Primary returns Property:
-	//	Atomic | Quantifier | "(" ORing ")";
+	//	Atomic | Quantifier | "(" ORing ")" | BooleanLiteral;
 	public PrimaryElements getPrimaryAccess() {
 		return pPrimary;
 	}
@@ -554,6 +601,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		return getQuantifierAccess().getRule();
 	}
 
+	////TODO:DN: Worry about TRUE and FALSE atomics
 	//Atomic:
 	//	Function=ID ("(" (args+=ID ("," args+=ID)*)? ")")?;
 	public AtomicElements getAtomicAccess() {
@@ -564,8 +612,18 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		return getAtomicAccess().getRule();
 	}
 
+	//BooleanLiteral:
+	//	value=("TRUE" | "FALSE");
+	public BooleanLiteralElements getBooleanLiteralAccess() {
+		return pBooleanLiteral;
+	}
+	
+	public ParserRule getBooleanLiteralRule() {
+		return getBooleanLiteralAccess().getRule();
+	}
+
 	//Theorem:
-	//	Requirement=ORing ":-" Result=ORing "," Cost=INT "," Description=STRING;
+	//	Requirement=ORing ":-" Result=ORing "," Cost=INT "," Description=STRING ("," PseudoCode=STRING)?;
 	public TheoremElements getTheoremAccess() {
 		return pTheorem;
 	}

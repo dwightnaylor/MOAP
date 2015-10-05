@@ -281,7 +281,7 @@ public class ANDingImpl extends PropertyImpl implements ANDing
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append(left.toString() + " & " + right.toString());
+		ret.append(left + " & " + right);
 		return ret.toString();
 	}
 

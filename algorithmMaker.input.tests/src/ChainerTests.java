@@ -67,10 +67,19 @@ public class ChainerTests {
 				"enumerable things");
 		Chainer stage1Chainer = new Chainer(multiTheorem);
 		stage1Chainer.chain(QuickParser.parseProperty("enumerable(a)"), TransformUtil.GIVEN);
-		assertTrue("Stage 1 of multichaining works",stage1Chainer.nextLevelTheorems.size()==1);
-		Chainer stage2Chainer = new Chainer(false,multiTheorem);
+		assertTrue("Stage 1 of multichaining works", stage1Chainer.nextLevelTheorems.size() == 1);
+		Chainer stage2Chainer = new Chainer(false, multiTheorem);
 		stage2Chainer.previousLevelTheorems = stage1Chainer.nextLevelTheorems;
 		stage2Chainer.chain(QuickParser.parseProperty("child(a,b)"), TransformUtil.GIVEN);
-		assertTrue("Stage 2 of multichaining works",stage2Chainer.nextLevelTheorems.size()==1);
+		assertTrue("Stage 2 of multichaining works", stage2Chainer.nextLevelTheorems.size() == 1);
+	}
+
+	@Test
+	public void testBasicPrerequisites() {
+		String theoremName = "Test theorem";
+		Chainer basicChainer = new Chainer(parseTheorem("a(x):-b(x),0," + theoremName));
+		basicChainer.chain(parseProperty("a(x)"), TransformUtil.GIVEN);
+		assertTrue("Fact recording works",
+				basicChainer.getFact((Atomic) parseProperty("b(x)")).prerequisites.length == 1);
 	}
 }

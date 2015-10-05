@@ -10,11 +10,12 @@ import algorithmMaker.input.Theorem;
 public class Fact<T> {
 	public T property;
 	Theorem theorem;
-	Fact<?>[] prerequisites;
+	public Fact<?>[] prerequisites;
 
 	public Fact(T property, Theorem theorem, Fact<?>... prerequisites) {
 		this.property = property;
 		this.theorem = theorem;
+		this.prerequisites = prerequisites;
 	}
 
 	@Override

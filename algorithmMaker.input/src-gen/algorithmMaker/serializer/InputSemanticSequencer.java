@@ -5,6 +5,7 @@ package algorithmMaker.serializer;
 
 import algorithmMaker.input.ANDing;
 import algorithmMaker.input.Atomic;
+import algorithmMaker.input.BooleanLiteral;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.InputPackage;
 import algorithmMaker.input.ORing;
@@ -40,6 +41,9 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				return; 
 			case InputPackage.ATOMIC:
 				sequence_Atomic(context, (Atomic) semanticObject); 
+				return; 
+			case InputPackage.BOOLEAN_LITERAL:
+				sequence_BooleanLiteral(context, (BooleanLiteral) semanticObject); 
 				return; 
 			case InputPackage.INPUT:
 				sequence_Input(context, (Input) semanticObject); 
@@ -84,6 +88,15 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     (Function=ID (args+=ID args+=ID*)?)
 	 */
 	protected void sequence_Atomic(EObject context, Atomic semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (value='TRUE' | value='FALSE')
+	 */
+	protected void sequence_BooleanLiteral(EObject context, BooleanLiteral semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -136,25 +149,9 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     (Requirement=ORing Result=ORing Cost=INT Description=STRING)
+	 *     (Requirement=ORing Result=ORing Cost=INT Description=STRING PseudoCode=STRING?)
 	 */
 	protected void sequence_Theorem(EObject context, Theorem semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.THEOREM__REQUIREMENT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.THEOREM__REQUIREMENT));
-			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.THEOREM__RESULT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.THEOREM__RESULT));
-			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.THEOREM__COST) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.THEOREM__COST));
-			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.THEOREM__DESCRIPTION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.THEOREM__DESCRIPTION));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getTheoremAccess().getRequirementORingParserRuleCall_0_0(), semanticObject.getRequirement());
-		feeder.accept(grammarAccess.getTheoremAccess().getResultORingParserRuleCall_2_0(), semanticObject.getResult());
-		feeder.accept(grammarAccess.getTheoremAccess().getCostINTTerminalRuleCall_4_0(), semanticObject.getCost());
-		feeder.accept(grammarAccess.getTheoremAccess().getDescriptionSTRINGTerminalRuleCall_6_0(), semanticObject.getDescription());
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 }

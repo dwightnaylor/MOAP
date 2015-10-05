@@ -100,6 +100,11 @@ public class InputAdapterFactory extends AdapterFactoryImpl
         return createAtomicAdapter();
       }
       @Override
+      public Adapter caseBooleanLiteral(BooleanLiteral object)
+      {
+        return createBooleanLiteralAdapter();
+      }
+      @Override
       public Adapter caseTheorem(Theorem object)
       {
         return createTheoremAdapter();
@@ -207,6 +212,21 @@ public class InputAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAtomicAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.BooleanLiteral <em>Boolean Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see algorithmMaker.input.BooleanLiteral
+   * @generated
+   */
+  public Adapter createBooleanLiteralAdapter()
   {
     return null;
   }

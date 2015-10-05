@@ -256,10 +256,13 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		for (String var : vars)
-			ret.append(var + ',');
-		ret.deleteCharAt(ret.length() - 1);
-		ret.append(" st " + property.toString());
+		if (vars.size() > 0) {
+			for (String var : vars)
+				ret.append(var + ',');
+			ret.deleteCharAt(ret.length() - 1);
+		} else
+			ret.append('_');
+		ret.append(" st " + property);
 		return ret.toString();
 	}
 

@@ -242,6 +242,34 @@ public interface InputPackage extends EPackage
   int ATOMIC_FEATURE_COUNT = PROPERTY_FEATURE_COUNT + 2;
 
   /**
+   * The meta object id for the '{@link algorithmMaker.input.impl.BooleanLiteralImpl <em>Boolean Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see algorithmMaker.input.impl.BooleanLiteralImpl
+   * @see algorithmMaker.input.impl.InputPackageImpl#getBooleanLiteral()
+   * @generated
+   */
+  int BOOLEAN_LITERAL = 5;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BOOLEAN_LITERAL__VALUE = PROPERTY_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Boolean Literal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int BOOLEAN_LITERAL_FEATURE_COUNT = PROPERTY_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link algorithmMaker.input.impl.TheoremImpl <em>Theorem</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -249,7 +277,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getTheorem()
    * @generated
    */
-  int THEOREM = 5;
+  int THEOREM = 6;
 
   /**
    * The feature id for the '<em><b>Requirement</b></em>' containment reference.
@@ -288,13 +316,22 @@ public interface InputPackage extends EPackage
   int THEOREM__DESCRIPTION = 3;
 
   /**
+   * The feature id for the '<em><b>Pseudo Code</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int THEOREM__PSEUDO_CODE = 4;
+
+  /**
    * The number of structural features of the '<em>Theorem</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int THEOREM_FEATURE_COUNT = 4;
+  int THEOREM_FEATURE_COUNT = 5;
 
   /**
    * The meta object id for the '{@link algorithmMaker.input.impl.ORingImpl <em>ORing</em>}' class.
@@ -304,7 +341,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getORing()
    * @generated
    */
-  int ORING = 6;
+  int ORING = 7;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -341,7 +378,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getANDing()
    * @generated
    */
-  int AN_DING = 7;
+  int AN_DING = 8;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -532,6 +569,27 @@ public interface InputPackage extends EPackage
   EAttribute getAtomic_Args();
 
   /**
+   * Returns the meta object for class '{@link algorithmMaker.input.BooleanLiteral <em>Boolean Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Boolean Literal</em>'.
+   * @see algorithmMaker.input.BooleanLiteral
+   * @generated
+   */
+  EClass getBooleanLiteral();
+
+  /**
+   * Returns the meta object for the attribute '{@link algorithmMaker.input.BooleanLiteral#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see algorithmMaker.input.BooleanLiteral#getValue()
+   * @see #getBooleanLiteral()
+   * @generated
+   */
+  EAttribute getBooleanLiteral_Value();
+
+  /**
    * Returns the meta object for class '{@link algorithmMaker.input.Theorem <em>Theorem</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -584,6 +642,17 @@ public interface InputPackage extends EPackage
    * @generated
    */
   EAttribute getTheorem_Description();
+
+  /**
+   * Returns the meta object for the attribute '{@link algorithmMaker.input.Theorem#getPseudoCode <em>Pseudo Code</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Pseudo Code</em>'.
+   * @see algorithmMaker.input.Theorem#getPseudoCode()
+   * @see #getTheorem()
+   * @generated
+   */
+  EAttribute getTheorem_PseudoCode();
 
   /**
    * Returns the meta object for class '{@link algorithmMaker.input.ORing <em>ORing</em>}'.
@@ -803,6 +872,24 @@ public interface InputPackage extends EPackage
     EAttribute ATOMIC__ARGS = eINSTANCE.getAtomic_Args();
 
     /**
+     * The meta object literal for the '{@link algorithmMaker.input.impl.BooleanLiteralImpl <em>Boolean Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see algorithmMaker.input.impl.BooleanLiteralImpl
+     * @see algorithmMaker.input.impl.InputPackageImpl#getBooleanLiteral()
+     * @generated
+     */
+    EClass BOOLEAN_LITERAL = eINSTANCE.getBooleanLiteral();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute BOOLEAN_LITERAL__VALUE = eINSTANCE.getBooleanLiteral_Value();
+
+    /**
      * The meta object literal for the '{@link algorithmMaker.input.impl.TheoremImpl <em>Theorem</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -843,6 +930,14 @@ public interface InputPackage extends EPackage
      * @generated
      */
     EAttribute THEOREM__DESCRIPTION = eINSTANCE.getTheorem_Description();
+
+    /**
+     * The meta object literal for the '<em><b>Pseudo Code</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute THEOREM__PSEUDO_CODE = eINSTANCE.getTheorem_PseudoCode();
 
     /**
      * The meta object literal for the '{@link algorithmMaker.input.impl.ORingImpl <em>ORing</em>}' class.

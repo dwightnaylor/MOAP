@@ -17,6 +17,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link algorithmMaker.input.Theorem#getResult <em>Result</em>}</li>
  *   <li>{@link algorithmMaker.input.Theorem#getCost <em>Cost</em>}</li>
  *   <li>{@link algorithmMaker.input.Theorem#getDescription <em>Description</em>}</li>
+ *   <li>{@link algorithmMaker.input.Theorem#getPseudoCode <em>Pseudo Code</em>}</li>
  * </ul>
  *
  * @see algorithmMaker.input.InputPackage#getTheorem()
@@ -128,5 +129,31 @@ public interface Theorem extends EObject
    * @generated
    */
   void setDescription(String value);
+
+  /**
+   * Returns the value of the '<em><b>Pseudo Code</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Pseudo Code</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Pseudo Code</em>' attribute.
+   * @see #setPseudoCode(String)
+   * @see algorithmMaker.input.InputPackage#getTheorem_PseudoCode()
+   * @model
+   * @generated
+   */
+  String getPseudoCode();
+
+  /**
+   * Sets the value of the '{@link algorithmMaker.input.Theorem#getPseudoCode <em>Pseudo Code</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Pseudo Code</em>' attribute.
+   * @see #getPseudoCode()
+   * @generated
+   */
+  void setPseudoCode(String value);
 
 } // Theorem

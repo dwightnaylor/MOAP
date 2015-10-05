@@ -45,7 +45,25 @@ public class Chainer {
 	public Chainer(Theorem... theorems) {
 		this(true, theorems);
 	}
-	
+
+	public Fact<Atomic> getFact(Atomic atomic) {
+		if (!appliedAtomics.containsKey(atomic.getFunction()))
+			return null;
+
+		for (Fact<Atomic> fact : appliedAtomics.get(atomic.getFunction())) {
+			EList<String> args = fact.property.getArgs();
+			boolean same = true;
+			for (int i = 0; i < args.size(); i++)
+				if (!args.get(i).equals(atomic.getArgs().get(i))) {
+					same = false;
+					break;
+				}
+			if (same)
+				return fact;
+		}
+		return null;
+	}
+
 	public Chainer(boolean isGivenChainer, Theorem... theorems) {
 		this.isGivenChainer = isGivenChainer;
 		for (Theorem theorem : theorems) {
@@ -182,9 +200,9 @@ public class Chainer {
 
 				nextLevelTheorems.get(multistageTheorem).add(binding.getImmutable());
 			} else {
-				if(previousLevelTheorems.containsKey(multistageTheorem)){
-					for(Binding previousBinding : previousLevelTheorems.get(multistageTheorem)){
-						if(previousBinding.canHaveAdditionalBindings(binding)){
+				if (previousLevelTheorems.containsKey(multistageTheorem)) {
+					for (Binding previousBinding : previousLevelTheorems.get(multistageTheorem)) {
+						if (previousBinding.canHaveAdditionalBindings(binding)) {
 							if (!nextLevelTheorems.containsKey(multistageTheorem))
 								nextLevelTheorems.put(multistageTheorem, new ArrayList<Binding>());
 

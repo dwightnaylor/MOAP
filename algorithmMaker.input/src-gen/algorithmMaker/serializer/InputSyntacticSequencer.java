@@ -89,6 +89,8 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) Function=ID
 	 *     (rule start) (ambiguity) quantifier='exists'
 	 *     (rule start) (ambiguity) quantifier='forall'
+	 *     (rule start) (ambiguity) value='FALSE'
+	 *     (rule start) (ambiguity) value='TRUE'
 	 *     (rule start) (ambiguity) {ANDing.left=}
 	 *     (rule start) (ambiguity) {ORing.left=}
 	 */

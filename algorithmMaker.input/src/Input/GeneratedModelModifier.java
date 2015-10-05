@@ -168,31 +168,40 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 		ret.append("\t\tStringBuffer ret = new StringBuffer();" + NL);
 		switch (className) {
 		case "ANDing":
-			ret.append("\t\tret.append(left.toString() + \" & \" + right.toString());" + NL);
+			ret.append("\t\tret.append(left + \" & \" + right);" + NL);
 			break;
 		case "Atomic":
-			ret.append("\t\tret.append(function + '(');" + NL);
-			ret.append("\t\tfor (String arg : args)" + NL);
-			ret.append("\t\t\tret.append(arg + ',');" + NL);
-			ret.append("\t\tret.setCharAt(ret.length() - 1, ')');" + NL);
+			ret.append("\t\tret.append(function);" + NL);
+			ret.append("\t\tif (args != null && args.size() > 0){" + NL);
+			ret.append("\t\t\tret.append('(');" + NL);
+			ret.append("\t\t\tfor (String arg : args)" + NL);
+			ret.append("\t\t\t\tret.append(arg + ',');" + NL);
+			ret.append("\t\t\tret.setCharAt(ret.length() - 1, ')');" + NL);
+			ret.append("\t\t}" + NL);
 			break;
 		case "Input":
 			ret.append("\t\tret.append(\"Given \" + given + \", Find \" + goal);" + NL);
 			break;
 		case "ORing":
-			ret.append("\t\tret.append(left.toString() + \" | \" + right.toString());" + NL);
+			ret.append("\t\tret.append(left + \" | \" + right);" + NL);
 			break;
 		case "Problem":
-			ret.append("\t\tfor (String var : vars)" + NL);
-			ret.append("\t\t\tret.append(var + ',');" + NL);
-			ret.append("\t\tret.deleteCharAt(ret.length() - 1);" + NL);
-			ret.append("\t\tret.append(\" st \" + property.toString());" + NL);
+			ret.append("\t\tif (vars.size() > 0) {" + NL);
+			ret.append("\t\t\tfor (String var : vars)" + NL);
+			ret.append("\t\t\t\tret.append(var + ',');" + NL);
+			ret.append("\t\t\tret.deleteCharAt(ret.length() - 1);" + NL);
+			ret.append("\t\t} else" + NL);
+			ret.append("\t\t\tret.append('_');" + NL);
+			ret.append("\t\tret.append(\" st \" + property);" + NL);
 			break;
 		case "Quantifier":
 			ret.append("\t\tret.append(quantifier + '(' + subject + \" : \" + predicate + ')');" + NL);
 			break;
 		case "Theorem":
-			ret.append("\t\tret.append(requirement.toString() + \":-\" + result.toString() + ',' + cost + ',' + description);" + NL);
+			ret.append("\t\tret.append(requirement + \":-\" + result + ',' + cost + ',' + description);" + NL);
+			break;
+		case "BooleanLiteral":
+			ret.append("\t\tret.append(value);" + NL);
 			break;
 		default:
 			if (log.isInfoEnabled()) {

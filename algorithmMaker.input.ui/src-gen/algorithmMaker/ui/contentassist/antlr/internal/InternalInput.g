@@ -252,6 +252,34 @@ finally {
 
 
 
+// Entry rule entryRuleBooleanLiteral
+entryRuleBooleanLiteral 
+:
+{ before(grammarAccess.getBooleanLiteralRule()); }
+	 ruleBooleanLiteral
+{ after(grammarAccess.getBooleanLiteralRule()); } 
+	 EOF 
+;
+
+// Rule BooleanLiteral
+ruleBooleanLiteral
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getBooleanLiteralAccess().getValueAssignment()); }
+(rule__BooleanLiteral__ValueAssignment)
+{ after(grammarAccess.getBooleanLiteralAccess().getValueAssignment()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRuleTheorem
 entryRuleTheorem 
 :
@@ -304,6 +332,12 @@ rule__Primary__Alternatives
 { after(grammarAccess.getPrimaryAccess().getGroup_2()); }
 )
 
+    |(
+{ before(grammarAccess.getPrimaryAccess().getBooleanLiteralParserRuleCall_3()); }
+	ruleBooleanLiteral
+{ after(grammarAccess.getPrimaryAccess().getBooleanLiteralParserRuleCall_3()); }
+)
+
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -328,6 +362,32 @@ rule__Quantifier__QuantifierAlternatives_0_0
 	'exists' 
 
 { after(grammarAccess.getQuantifierAccess().getQuantifierExistsKeyword_0_0_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__BooleanLiteral__ValueAlternatives_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getBooleanLiteralAccess().getValueTRUEKeyword_0_0()); }
+
+	'TRUE' 
+
+{ after(grammarAccess.getBooleanLiteralAccess().getValueTRUEKeyword_0_0()); }
+)
+
+    |(
+{ before(grammarAccess.getBooleanLiteralAccess().getValueFALSEKeyword_0_1()); }
+
+	'FALSE' 
+
+{ after(grammarAccess.getBooleanLiteralAccess().getValueFALSEKeyword_0_1()); }
 )
 
 ;
@@ -2037,6 +2097,7 @@ rule__Theorem__Group__6
     }
 :
 	rule__Theorem__Group__6__Impl
+	rule__Theorem__Group__7
 ;
 finally {
 	restoreStackSize(stackSize);
@@ -2059,6 +2120,32 @@ finally {
 }
 
 
+rule__Theorem__Group__7
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Theorem__Group__7__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Theorem__Group__7__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getTheoremAccess().getGroup_7()); }
+(rule__Theorem__Group_7__0)?
+{ after(grammarAccess.getTheoremAccess().getGroup_7()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 
 
@@ -2067,6 +2154,73 @@ finally {
 
 
 
+
+
+
+
+
+
+
+
+
+
+rule__Theorem__Group_7__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Theorem__Group_7__0__Impl
+	rule__Theorem__Group_7__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Theorem__Group_7__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getTheoremAccess().getCommaKeyword_7_0()); }
+
+	',' 
+
+{ after(grammarAccess.getTheoremAccess().getCommaKeyword_7_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__Theorem__Group_7__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Theorem__Group_7__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Theorem__Group_7__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getTheoremAccess().getPseudoCodeAssignment_7_1()); }
+(rule__Theorem__PseudoCodeAssignment_7_1)
+{ after(grammarAccess.getTheoremAccess().getPseudoCodeAssignment_7_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
 
 
 
@@ -2300,6 +2454,22 @@ finally {
 	restoreStackSize(stackSize);
 }
 
+rule__BooleanLiteral__ValueAssignment
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getBooleanLiteralAccess().getValueAlternatives_0()); }
+(rule__BooleanLiteral__ValueAlternatives_0)
+{ after(grammarAccess.getBooleanLiteralAccess().getValueAlternatives_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 rule__Theorem__RequirementAssignment_0
     @init {
 		int stackSize = keepStackSize();
@@ -2353,6 +2523,21 @@ rule__Theorem__DescriptionAssignment_6
 (
 { before(grammarAccess.getTheoremAccess().getDescriptionSTRINGTerminalRuleCall_6_0()); }
 	RULE_STRING{ after(grammarAccess.getTheoremAccess().getDescriptionSTRINGTerminalRuleCall_6_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Theorem__PseudoCodeAssignment_7_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getTheoremAccess().getPseudoCodeSTRINGTerminalRuleCall_7_1_0()); }
+	RULE_STRING{ after(grammarAccess.getTheoremAccess().getPseudoCodeSTRINGTerminalRuleCall_7_1_0()); }
 )
 
 ;

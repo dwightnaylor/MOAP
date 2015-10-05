@@ -4,6 +4,7 @@ package algorithmMaker.input.impl;
 
 import algorithmMaker.input.ANDing;
 import algorithmMaker.input.Atomic;
+import algorithmMaker.input.BooleanLiteral;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.InputFactory;
 import algorithmMaker.input.InputPackage;
@@ -62,6 +63,13 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * @generated
    */
   private EClass atomicEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass booleanLiteralEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -302,6 +310,26 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getBooleanLiteral()
+  {
+    return booleanLiteralEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getBooleanLiteral_Value()
+  {
+    return (EAttribute)booleanLiteralEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getTheorem()
   {
     return theoremEClass;
@@ -345,6 +373,16 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
   public EAttribute getTheorem_Description()
   {
     return (EAttribute)theoremEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTheorem_PseudoCode()
+  {
+    return (EAttribute)theoremEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -457,11 +495,15 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     createEAttribute(atomicEClass, ATOMIC__FUNCTION);
     createEAttribute(atomicEClass, ATOMIC__ARGS);
 
+    booleanLiteralEClass = createEClass(BOOLEAN_LITERAL);
+    createEAttribute(booleanLiteralEClass, BOOLEAN_LITERAL__VALUE);
+
     theoremEClass = createEClass(THEOREM);
     createEReference(theoremEClass, THEOREM__REQUIREMENT);
     createEReference(theoremEClass, THEOREM__RESULT);
     createEAttribute(theoremEClass, THEOREM__COST);
     createEAttribute(theoremEClass, THEOREM__DESCRIPTION);
+    createEAttribute(theoremEClass, THEOREM__PSEUDO_CODE);
 
     oRingEClass = createEClass(ORING);
     createEReference(oRingEClass, ORING__LEFT);
@@ -503,6 +545,7 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     // Add supertypes to classes
     quantifierEClass.getESuperTypes().add(this.getProperty());
     atomicEClass.getESuperTypes().add(this.getProperty());
+    booleanLiteralEClass.getESuperTypes().add(this.getProperty());
     oRingEClass.getESuperTypes().add(this.getProperty());
     anDingEClass.getESuperTypes().add(this.getProperty());
 
@@ -527,11 +570,15 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     initEAttribute(getAtomic_Function(), ecorePackage.getEString(), "Function", null, 0, 1, Atomic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getAtomic_Args(), ecorePackage.getEString(), "args", null, 0, -1, Atomic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
+    initEClass(booleanLiteralEClass, BooleanLiteral.class, "BooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getBooleanLiteral_Value(), ecorePackage.getEString(), "value", null, 0, 1, BooleanLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
     initEClass(theoremEClass, Theorem.class, "Theorem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTheorem_Requirement(), this.getProperty(), null, "Requirement", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTheorem_Result(), this.getProperty(), null, "Result", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTheorem_Cost(), ecorePackage.getEInt(), "Cost", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTheorem_Description(), ecorePackage.getEString(), "Description", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTheorem_PseudoCode(), ecorePackage.getEString(), "PseudoCode", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(oRingEClass, ORing.class, "ORing", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getORing_Left(), this.getProperty(), null, "left", null, 0, 1, ORing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

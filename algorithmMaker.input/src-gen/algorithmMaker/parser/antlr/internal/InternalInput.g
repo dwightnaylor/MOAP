@@ -434,7 +434,17 @@ rulePrimary returns [EObject current=null]
     {
     	newLeafNode(otherlv_4, grammarAccess.getPrimaryAccess().getRightParenthesisKeyword_2_2());
     }
-))
+)
+    |
+    { 
+        newCompositeNode(grammarAccess.getPrimaryAccess().getBooleanLiteralParserRuleCall_3()); 
+    }
+    this_BooleanLiteral_5=ruleBooleanLiteral
+    { 
+        $current = $this_BooleanLiteral_5.current; 
+        afterParserOrEnumRuleCall();
+    }
+)
 ;
 
 
@@ -627,6 +637,57 @@ ruleAtomic returns [EObject current=null]
 
 
 
+// Entry rule entryRuleBooleanLiteral
+entryRuleBooleanLiteral returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getBooleanLiteralRule()); }
+	 iv_ruleBooleanLiteral=ruleBooleanLiteral 
+	 { $current=$iv_ruleBooleanLiteral.current; } 
+	 EOF 
+;
+
+// Rule BooleanLiteral
+ruleBooleanLiteral returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+(
+(
+		lv_value_0_1=	'TRUE' 
+    {
+        newLeafNode(lv_value_0_1, grammarAccess.getBooleanLiteralAccess().getValueTRUEKeyword_0_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getBooleanLiteralRule());
+	        }
+       		setWithLastConsumed($current, "value", lv_value_0_1, null);
+	    }
+
+    |		lv_value_0_2=	'FALSE' 
+    {
+        newLeafNode(lv_value_0_2, grammarAccess.getBooleanLiteralAccess().getValueFALSEKeyword_0_1());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getBooleanLiteralRule());
+	        }
+       		setWithLastConsumed($current, "value", lv_value_0_2, null);
+	    }
+
+)
+
+)
+)
+;
+
+
+
+
+
 // Entry rule entryRuleTheorem
 entryRuleTheorem returns [EObject current=null] 
 	:
@@ -725,7 +786,29 @@ ruleTheorem returns [EObject current=null]
 	    }
 
 )
-))
+)(	otherlv_7=',' 
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getTheoremAccess().getCommaKeyword_7_0());
+    }
+(
+(
+		lv_PseudoCode_8_0=RULE_STRING
+		{
+			newLeafNode(lv_PseudoCode_8_0, grammarAccess.getTheoremAccess().getPseudoCodeSTRINGTerminalRuleCall_7_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getTheoremRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"PseudoCode",
+        		lv_PseudoCode_8_0, 
+        		"STRING");
+	    }
+
+)
+))?)
 ;
 
 

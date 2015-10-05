@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  *   <li>{@link algorithmMaker.input.impl.TheoremImpl#getResult <em>Result</em>}</li>
  *   <li>{@link algorithmMaker.input.impl.TheoremImpl#getCost <em>Cost</em>}</li>
  *   <li>{@link algorithmMaker.input.impl.TheoremImpl#getDescription <em>Description</em>}</li>
+ *   <li>{@link algorithmMaker.input.impl.TheoremImpl#getPseudoCode <em>Pseudo Code</em>}</li>
  * </ul>
  *
  * @generated
@@ -92,6 +93,26 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
    * @ordered
    */
   protected String description = DESCRIPTION_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getPseudoCode() <em>Pseudo Code</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPseudoCode()
+   * @generated
+   * @ordered
+   */
+  protected static final String PSEUDO_CODE_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getPseudoCode() <em>Pseudo Code</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPseudoCode()
+   * @generated
+   * @ordered
+   */
+  protected String pseudoCode = PSEUDO_CODE_EDEFAULT;
 
   /**
    * <!-- begin-user-doc -->
@@ -261,6 +282,29 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
    * <!-- end-user-doc -->
    * @generated
    */
+  public String getPseudoCode()
+  {
+    return pseudoCode;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setPseudoCode(String newPseudoCode)
+  {
+    String oldPseudoCode = pseudoCode;
+    pseudoCode = newPseudoCode;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.THEOREM__PSEUDO_CODE, oldPseudoCode, pseudoCode));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -292,6 +336,8 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
         return getCost();
       case InputPackage.THEOREM__DESCRIPTION:
         return getDescription();
+      case InputPackage.THEOREM__PSEUDO_CODE:
+        return getPseudoCode();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -317,6 +363,9 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
         return;
       case InputPackage.THEOREM__DESCRIPTION:
         setDescription((String)newValue);
+        return;
+      case InputPackage.THEOREM__PSEUDO_CODE:
+        setPseudoCode((String)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -344,6 +393,9 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
       case InputPackage.THEOREM__DESCRIPTION:
         setDescription(DESCRIPTION_EDEFAULT);
         return;
+      case InputPackage.THEOREM__PSEUDO_CODE:
+        setPseudoCode(PSEUDO_CODE_EDEFAULT);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -366,6 +418,8 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
         return cost != COST_EDEFAULT;
       case InputPackage.THEOREM__DESCRIPTION:
         return DESCRIPTION_EDEFAULT == null ? description != null : !DESCRIPTION_EDEFAULT.equals(description);
+      case InputPackage.THEOREM__PSEUDO_CODE:
+        return PSEUDO_CODE_EDEFAULT == null ? pseudoCode != null : !PSEUDO_CODE_EDEFAULT.equals(pseudoCode);
     }
     return super.eIsSet(featureID);
   }
@@ -376,6 +430,7 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
 		ret += result == null ? 0 :result.hashCode();
 			ret += cost;
 		ret += description == null ? 0 :description.hashCode();
+		ret += pseudoCode == null ? 0 :pseudoCode.hashCode();
 		return ret;
 	}
 
@@ -387,12 +442,13 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
 		if (result == null && other.result != null || result != null && !result.equals(other.result)) return false;
 		if (cost != other.cost) return false;
 		if (description == null && other.description != null || description != null && !description.equals(other.description)) return false;
+		if (pseudoCode == null && other.pseudoCode != null || pseudoCode != null && !pseudoCode.equals(other.pseudoCode)) return false;
 		return true;
 	}
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append(requirement.toString() + ":-" + result.toString() + ',' + cost + ',' + description);
+		ret.append(requirement + ":-" + result + ',' + cost + ',' + description);
 		return ret.toString();
 	}
 

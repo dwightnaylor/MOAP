@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import theorems.MultistageTheorem;
 import theorems.QuickTheorem;
+import algorithmMaker.QuickParser;
 import algorithmMaker.input.*;
 import algorithmMaker.input.impl.InputFactoryImpl;
 import algorithmMaker.util.InputUtil;
@@ -16,18 +17,34 @@ import solver.Chainer;
 public class TransformUtil {
 
 	// TODO: DN:Should move these somewhere else...
+	public static final MultistageTheorem GIVEN_PROBLEM = new MultistageTheorem(null, null, 0, "GIVEN PROBLEM");
 	public static final Theorem GIVEN = new QuickTheorem(null, null, 0, "GIVEN");
 	public static final Theorem GOAL = new QuickTheorem(null, null, 0, "GOAL");
 
+	public static boolean isSolved(Problem problem) {
+		// TODO:DN: Do this better
+		Problem solved = QuickParser.parseProblem("x st TRUE");
+		solved.getVars().clear();
+		return solved.equals(problem);
+	}
+
+	/**
+	 * Reduces the given input by taking things out of the goal if they are in
+	 * the given, and reducing variable use in both halves.
+	 */
 	public static Input simplify(Input input, Chainer chainer) {
+
+		Input inputRet = (Input) new EcoreUtil.Copier().copy(input);
 		chainer.chain(input.getGiven().getProperty(), GIVEN);
 		HashSet<Atomic> atomicsToRemove = new HashSet<Atomic>(chainer.getAtomics());
 		Property simplifiedFind = (Property) simplify(input.getGoal().getProperty(), atomicsToRemove);
 		if (simplifiedFind == null) {
-			// FIXME: DN: Figure out what to do when a goal is null
+			simplifiedFind = QuickParser.parseProperty("TRUE");
 		}
-		Input inputRet = (Input) new EcoreUtil.Copier().copy(input);
 		inputRet.getGoal().setProperty(simplifiedFind);
+
+		InputUtil.compactVariables(inputRet.getGiven());
+		InputUtil.compactVariables(inputRet.getGoal());
 		return inputRet;
 	}
 

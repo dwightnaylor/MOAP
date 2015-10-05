@@ -281,7 +281,7 @@ public class ORingImpl extends PropertyImpl implements ORing
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append(left.toString() + " | " + right.toString());
+		ret.append(left + " | " + right);
 		return ret.toString();
 	}
 

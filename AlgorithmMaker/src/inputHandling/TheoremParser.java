@@ -11,10 +11,6 @@ import algorithmMaker.input.Theorem;
 public class TheoremParser {
 	private static String[] inputFiles = { "theoremsv1" };
 
-	public static void main(String[] args) {
-		parseFiles();
-	}
-
 	public static ArrayList<Theorem> parseFiles() {
 		ArrayList<Theorem> ret = new ArrayList<Theorem>();
 		try {
@@ -29,7 +25,7 @@ public class TheoremParser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Done Parsing Files.");
+		System.out.println("Done Parsing Theorems.");
 		return ret;
 	}
 }

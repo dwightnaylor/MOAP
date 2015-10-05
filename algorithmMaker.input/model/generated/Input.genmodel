@@ -26,11 +26,15 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Atomic/Function"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Atomic/args"/>
     </genClasses>
+    <genClasses ecoreClass="Input.ecore#//BooleanLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//BooleanLiteral/value"/>
+    </genClasses>
     <genClasses ecoreClass="Input.ecore#//Theorem">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Theorem/Requirement"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Theorem/Result"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/Cost"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/Description"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/PseudoCode"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//ORing">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//ORing/left"/>

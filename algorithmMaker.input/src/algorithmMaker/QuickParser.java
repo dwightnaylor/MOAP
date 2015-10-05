@@ -13,6 +13,7 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 
 import algorithmMaker.input.Input;
 import algorithmMaker.input.InputPackage;
+import algorithmMaker.input.Problem;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.parser.antlr.InputParser;
@@ -35,6 +36,11 @@ public class QuickParser {
 	public static Input parseInput(String queryString) {
 		Parser.queryString = "Input";
 		return (Input) parse(queryString);
+	}
+
+	public static Problem parseProblem(String queryString) {
+		Parser.queryString = "Problem";
+		return (Problem) parse(queryString);
 	}
 
 	private static EObject parse(String queryString) {
