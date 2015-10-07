@@ -13,6 +13,31 @@ let RaisedButton = mui.RaisedButton;
 injectEventTapPlugin();
 
 let Main = React.createClass({
+  submissionFieldStyle: {
+    display: 'block',
+    width: '25%',
+    margin: '15px auto',
+    left: 'auto',
+    right: 'auto'
+  },
+
+  submitButtonStyle: {
+    display: 'block',
+    width: '20%',
+    height: '50px',
+    margin: '15px auto',
+    left: 'auto',
+    right: 'auto'
+  },
+  
+  solutionFieldStyle: {
+    display: 'block',
+    width: '40%',
+    margin: '15px auto',
+    left: 'auto',
+    right: 'auto'
+  },
+
   childContextTypes: {
     muiTheme: React.PropTypes.object
   },
@@ -26,28 +51,30 @@ let Main = React.createClass({
   render() {
     return (
       <div>
-        <AppBar />
-        <br />
-        <br />
+        <AppBar
+          title="Mother of All Programs"
+        />
         <TextField
           id="problemSubmissionField"
           ref="problemSubmissionField"
           fullWidth={false}
-          hintText="Type your problem to be solved here"
-          multiLine={false}
+          hintText="Problem to be solved"
+          multiLine={true}
+          style={this.submissionFieldStyle}
         />
         <RaisedButton
           primary={true}
           label="Submit Problem"
           onClick={this.submitProblem}
+          style={this.submitButtonStyle}
         />
-        <br />
         <TextField
           id="problemSolutionField"
           ref="problemSolutionField"
           floatingLabelText="Solution"
           disabled={true}
           multiLine={true}
+          style={this.solutionFieldStyle}
         /> 
       </div>
     );
