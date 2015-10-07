@@ -20,6 +20,7 @@ import algorithmMaker.input.Property;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.util.InputUtil;
 import bindings.Binding;
+import bindings.MutableBinding;
 
 /**
  * Translates an input between various states until a solution is reached.
@@ -44,7 +45,7 @@ public class ProblemSolver {
 
 	public ProblemSolver(Input problem, Theorem... theorems) {
 		this.theorems = theorems;
-		addProblemState(problem, null, Collections.singleton(TransformUtil.GIVEN_PROBLEM));
+		addProblemState(problem, null, Collections.singleton(TransformUtil.GIVEN_PROBLEM), new Binding());
 	}
 
 	public ProblemState getSolution() {
@@ -67,20 +68,31 @@ public class ProblemSolver {
 
 		if (findChainer.nextLevelTheorems.size() > 0) {
 			Input newProblem = (Input) new EcoreUtil.Copier().copy(problem);
+
+			// Make the new given (just add in all the multi-theorem results)
+			MutableBinding completeBinding = new MutableBinding();
 			ArrayList<Property> newGiven = new ArrayList<Property>();
 			newGiven.add(newProblem.getGiven().getProperty());
 			for (Entry<MultistageTheorem, ArrayList<Binding>> entry : findChainer.nextLevelTheorems.entrySet())
-				for (Binding binding : entry.getValue())
+				for (Binding binding : entry.getValue()) {
+					if (!completeBinding.canHaveAdditionalBindings(binding))
+						throw new UnsupportedOperationException(
+								"Can't have conflicting bindings. Assuming this never happens for now.");
+
+					completeBinding.addBindingsFrom(binding);
+
 					newGiven.add(InputUtil.revar(entry.getKey().getResult(), binding.getArguments()));
+				}
 
 			newProblem.getGiven().setProperty(InputUtil.andTogether(newGiven));
 
-			addProblemState(newProblem, problemState, findChainer.nextLevelTheorems.keySet());
+			addProblemState(newProblem, problemState, findChainer.nextLevelTheorems.keySet(),
+					completeBinding.getImmutable());
 		}
 	}
 
 	private void addProblemState(Input newProblem, ProblemState problemState,
-			Collection<MultistageTheorem> prerequisites) {
+			Collection<MultistageTheorem> prerequisites, Binding binding) {
 		// Simplify the problem
 		newProblem = TransformUtil.simplify(newProblem, new Chainer(theorems));
 
@@ -91,7 +103,7 @@ public class ProblemSolver {
 		// statelist
 		if (!reachedProblemStates.contains(newProblem)) {
 			reachedProblemStates.add(newProblem);
-			problemStates.add(new ProblemState(newProblem, problemState, prerequisites));
+			problemStates.add(new ProblemState(newProblem, problemState, prerequisites, binding));
 		}
 	}
 
@@ -101,7 +113,6 @@ public class ProblemSolver {
 		Scanner s = new Scanner(System.in);
 		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput(s.nextLine()), theorems.toArray(new Theorem[0]));
 		s.close();
-		System.out.println("Thinking...");
 		ProblemState solution = solver.getSolution();
 		StringBuffer output = new StringBuffer();
 		System.out.println("This algorithm should solve your problem:");
@@ -111,10 +122,11 @@ public class ProblemSolver {
 					output.insert(i + 1, "\t");
 
 			if (TransformUtil.isSolved(solution.problem.getGoal()))
-				output.insert(0, "return y\n");
+				output.insert(0, "return " + solution.binding.getBindingString() + "\n");
 
-			for (MultistageTheorem mst : solution.requisiteTheorems)
-				output.insert(0, mst.getPseudoCode() + "\n");
+			if (solution.parentState != null)
+				for (MultistageTheorem mst : solution.requisiteTheorems)
+					output.insert(0, solution.binding.revar(mst.getPseudoCode()) + "\n");
 
 			solution = solution.parentState;
 		}
