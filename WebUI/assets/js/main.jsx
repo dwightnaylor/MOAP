@@ -81,6 +81,7 @@ let Main = React.createClass({
             ref="progressMeter"
             mode="indeterminate"
             size={2}
+            style={{position: 'fixed', right: '25%', top: '100px'}}
           />
           : null
         }
