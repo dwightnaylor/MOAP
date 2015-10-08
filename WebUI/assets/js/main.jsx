@@ -9,10 +9,17 @@ let ThemeManager = new mui.Styles.ThemeManager();
 let AppBar = mui.AppBar;
 let TextField = mui.TextField;
 let RaisedButton = mui.RaisedButton;
+let CircularProgress = mui.CircularProgress;
 
 injectEventTapPlugin();
 
 let Main = React.createClass({
+  getInitialState: function() {
+    return {
+      isLoading: false
+    };
+  },
+
   submissionFieldStyle: {
     display: 'block',
     width: '25%',
@@ -68,6 +75,15 @@ let Main = React.createClass({
           onClick={this.submitProblem}
           style={this.submitButtonStyle}
         />
+        { 
+          this.state.isLoading ?
+          <CircularProgress
+            ref="progressMeter"
+            mode="indeterminate"
+            size={2}
+          />
+          : null
+        }
         <TextField
           id="problemSolutionField"
           ref="problemSolutionField"
@@ -81,6 +97,7 @@ let Main = React.createClass({
   },
 
   submitProblem() {
+    this.setState({ isLoading: true });
     var submissionString = this.refs.problemSubmissionField.getValue();
     $.ajax({
       url: "http://wyler.mcanin.ch/moapapi",
@@ -89,7 +106,12 @@ let Main = React.createClass({
       data: "problem="+submissionString,
       success: function(resp){
         this.refs.problemSolutionField.setValue(resp);
-      }
+        this.setState({ isLoading: false });
+      }.bind(this),
+      error: function(XMLHttpRequest, textStatus, errorThrown){
+        this.refs.problemSolutionField.setValue("An error occured :(");
+        this.setState({ isLoading: false });
+      }.bind(this)
     });
   }
 });
