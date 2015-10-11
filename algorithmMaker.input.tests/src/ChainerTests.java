@@ -98,8 +98,8 @@ public class ChainerTests {
 		Chainer basicChainer = new Chainer(parseTheorem("a(x)&a(y):-b(x,y),0,GIVEN"));
 		basicChainer.chain(parseProperty("a(a)"), TransformUtil.GIVEN);
 		basicChainer.chain(parseProperty("a(b)"), TransformUtil.GIVEN);
-		// assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(a,a)")));
-		// assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(a,b)")));
+		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(a,a)")));
+		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(a,b)")));
 		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(b,a)")));
 		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(b,b)")));
 	}

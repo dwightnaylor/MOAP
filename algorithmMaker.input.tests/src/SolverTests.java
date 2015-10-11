@@ -31,7 +31,7 @@ public class SolverTests {
 		// Testing for a crash with either the branching or the tostring()
 		solver.branch();
 		solver.branch();
-		assertTrue(TransformUtil.isSolved(solver.problemStates.get(0).problem.getGoal()));
+		assertTrue(TransformUtil.isSolved(solver.problemStates.peek().problem.getGoal()));
 	}
 
 	@Test
@@ -42,18 +42,18 @@ public class SolverTests {
 				multistageTheorem);
 		solver.branch();
 		assertEquals(QuickParser.parseInput("Given x st b(x) & a(x), Find x st TRUE"),
-				solver.problemStates.get(0).problem);
+				solver.problemStates.peek().problem);
 	}
 
 	@Test
-	public void testEqualityTestMultiTheorem() {
+	public void testEqualityMultiTheorem() {
 		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty(InputUtil.BOUND + "(x) & "
 				+ InputUtil.BOUND + "(y)"), parseProperty("equal(x,y)"), parseProperty("equal(x,y)"), 0, "test", null);
 		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x,y st a(x,y), Find x st equal(x,y)"),
 				multistageTheorem);
 		solver.branch();
 		assertEquals(QuickParser.parseInput("Given x,y st equal(x,y) & a(x,y), Find x st TRUE"),
-				solver.problemStates.get(0).problem);
+				solver.problemStates.peek().problem);
 	}
 	// @Test
 	// public void testMultipleProblemStateChange() {

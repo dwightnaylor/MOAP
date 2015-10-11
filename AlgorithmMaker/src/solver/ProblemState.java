@@ -4,7 +4,7 @@ import algorithmMaker.input.Input;
 import bindings.Binding;
 import theorems.MultistageTheorem;
 
-public class ProblemState {
+public class ProblemState implements Comparable<ProblemState> {
 	public Input problem;
 	ProblemState parentState;
 	Binding rootTheoremBinding;
@@ -16,12 +16,9 @@ public class ProblemState {
 		this.rootTheorem = multistageTheorem;
 		this.rootTheoremBinding = binding;
 	}
-	// Hashtable<MultistageTheorem, ArrayList<Binding>> bindings;
-	//
-	// public ProblemState(Input problem, ProblemState parentState,
-	// Hashtable<MultistageTheorem, ArrayList<Binding>> bindings) {
-	// this.problem = problem;
-	// this.parentState = parentState;
-	// this.bindings = bindings;
-	// }
+
+	@Override
+	public int compareTo(ProblemState other) {
+		return problem.getGoal().toString().compareTo(other.problem.getGoal().toString());
+	}
 }

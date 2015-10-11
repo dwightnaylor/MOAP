@@ -1,4 +1,4 @@
 UNBOUND(y) & enumerable(x); child(x,y) ; child(x,y);; 10; "We can go through all the children of an enumerable"; "foreach child <y> of <x>"
-BOUND(y) & enumerable(x); child(x,y) ; BOUND(ny) & child(x,ny); equal(x,ny); 10; "We can go through all the children of an enumerable"; "foreach child <y> of <x>"
+BOUND(y) & enumerable(x); child(x,y) ; BOUND(ny) & child(x,ny); equal(y,ny); 10; "We can go through all the children of an enumerable"; "foreach child <ny> of <x>"
 BOUND(y) & type_int(y); even(y) ; even(y);; 1; "We can check if a number is even"; "if <y> % 2 == 0"
-BOUND(x) & BOUND(y); equal(x,y); equal(x,y); ; 1; "We can check if two things are equal"; "if <x> == <y>"
+BOUND(x) & BOUND(y); equal(x,y); equal(x,y);; 1; "We can check if two things are equal"; "if <x> == <y>"

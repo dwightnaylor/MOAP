@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map.Entry;
+import java.util.PriorityQueue;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
@@ -36,9 +37,9 @@ public class ProblemSolver {
 
 	// TODO: Should eventually be a priority queue.
 	// Everything in this queue is assumed to be simplified already
-	public ArrayList<ProblemState> problemStates = new ArrayList<ProblemState>();
+	public PriorityQueue<ProblemState> problemStates = new PriorityQueue<ProblemState>();
 
-	boolean solved = false;
+	ProblemState solved = null;
 
 	private final Theorem[] theorems;
 
@@ -48,14 +49,14 @@ public class ProblemSolver {
 	}
 
 	public ProblemState getSolution() {
-		while (!solved && problemStates.size() > 0)
+		while (solved == null && problemStates.size() > 0)
 			branch();
 
-		return problemStates.size() == 0 ? null : problemStates.get(problemStates.size() - 1);
+		return problemStates.size() == 0 ? null : solved;
 	}
 
 	public void branch() {
-		ProblemState problemState = problemStates.remove(0);
+		ProblemState problemState = problemStates.poll();
 		Input problem = problemState.problem;
 
 		Chainer givenChainer = new Chainer(theorems);
@@ -69,7 +70,7 @@ public class ProblemSolver {
 		findChainer.chain(problem.getGoal().getProperty(), TransformUtil.GOAL);
 
 		addVariableRemovalTheorems(problem, findChainer);
-		
+
 		if (findChainer.nextLevelTheorems.size() > 0) {
 			for (Entry<MultistageTheorem, ArrayList<Binding>> entry : findChainer.nextLevelTheorems.entrySet())
 				for (Binding binding : entry.getValue()) {
@@ -137,15 +138,17 @@ public class ProblemSolver {
 		// Simplify the problem
 		newProblem = TransformUtil.simplify(newProblem, new Chainer(theorems));
 
-		if (TransformUtil.isSolved(newProblem.getGoal()))
-			solved = true;
-
 		// FIXME: DN: Have to canonicalize before adding to the
 		// statelist
 		if (!reachedProblemStates.contains(newProblem)) {
-			System.out.println(newProblem);
+			// System.out.println(newProblem);
 			reachedProblemStates.add(newProblem);
-			problemStates.add(new ProblemState(newProblem, problemState, multistageTheorem, binding));
+			ProblemState newProblemState = new ProblemState(newProblem, problemState, multistageTheorem, binding);
+
+			if (TransformUtil.isSolved(newProblem.getGoal()))
+				solved = newProblemState;
+
+			problemStates.add(newProblemState);
 		}
 	}
 
@@ -169,11 +172,10 @@ public class ProblemSolver {
 		// ProblemSolver(QuickParser.parseInput(s.nextLine()),
 		// theorems.toArray(new Theorem[0]));
 		// s.close();
-//		 String problemString =
-//		 "Given a,c st type_list(a) & child_type_int(a) & type_list(c) & child_type_int(c), Find b st child(a,b) & child(c,b) & even(b)";
-		 String problemString =
-		 "Given a st type_list(a) & child_type_int(a), Find b st child(a,b) & even(b)";
-//		String problemString = "Given a,b st even(b) & type_list(a), Find b st child(a,b)";
+		String problemString = "Given a,b st type_list(a) & child_type_int(a) & type_list(b) & child_type_int(b), Find c st child(a,c) & child(b,c) & even(c)";
+		// "Given a,c st type_list(a) & child_type_int(a) & equal(a,c), Find b st child(a,b) & child(c,b) & even(b)";
+		// "Given a st type_list(a) & child_type_int(a), Find b st child(a,b) & even(b)";
+		// "Given a,b st even(b) & type_list(a), Find b st child(a,b)";
 		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput(problemString),
 				theorems.toArray(new Theorem[0]));
 		ProblemState solution = solver.getSolution();

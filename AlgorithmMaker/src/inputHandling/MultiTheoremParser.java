@@ -20,6 +20,9 @@ public class MultiTheoremParser {
 				BufferedReader br = new BufferedReader(new FileReader(new File(fileName)));
 				String line;
 				while ((line = br.readLine()) != null) {
+					if(line.startsWith("//"))
+						continue;
+					
 					String[] properties = line.split(";");
 					Property givenReq = QuickParser.parseProperty(properties[0]);
 					Property goalReq = QuickParser.parseProperty(properties[1]);
