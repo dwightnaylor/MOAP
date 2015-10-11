@@ -98,8 +98,8 @@ public class ChainerTests {
 		Chainer basicChainer = new Chainer(parseTheorem("a(x)&a(y):-b(x,y),0,GIVEN"));
 		basicChainer.chain(parseProperty("a(a)"), TransformUtil.GIVEN);
 		basicChainer.chain(parseProperty("a(b)"), TransformUtil.GIVEN);
-//		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(a,a)")));
-//		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(a,b)")));
+		// assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(a,a)")));
+		// assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(a,b)")));
 		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(b,a)")));
 		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(b,b)")));
 	}
@@ -110,5 +110,16 @@ public class ChainerTests {
 		basicChainer.addBoundVars(Collections.singleton("q"));
 		basicChainer.chain(parseProperty("a(w)"), TransformUtil.GIVEN);
 		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(q,w)")));
+	}
+
+	@Test
+	public void testEqualityChaining() {
+		Chainer basicChainer = new Chainer();
+		basicChainer.chain(parseProperty(InputUtil.EQUAL + "(x,y)"), TransformUtil.GIVEN);
+		basicChainer.chain(parseProperty(InputUtil.EQUAL + "(y,z)"), TransformUtil.GIVEN);
+		basicChainer.chain(parseProperty(InputUtil.EQUAL + "(z,a)"), TransformUtil.GIVEN);
+		basicChainer.chain(parseProperty(InputUtil.EQUAL + "(a,b)"), TransformUtil.GIVEN);
+		basicChainer.chain(parseProperty("a(x)"), TransformUtil.GIVEN);
+		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("a(b)")));
 	}
 }

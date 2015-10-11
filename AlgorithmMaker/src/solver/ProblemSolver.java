@@ -169,10 +169,10 @@ public class ProblemSolver {
 		// ProblemSolver(QuickParser.parseInput(s.nextLine()),
 		// theorems.toArray(new Theorem[0]));
 		// s.close();
-		 String problemString =
-		 "Given a,c st type_list(a) & child_type_int(a) & type_list(c) & child_type_int(c), Find b st child(a,b) & child(c,b) & even(b)";
 //		 String problemString =
-//		 "Given a st type_list(a) & child_type_int(a), Find b st child(a,b) & even(b)";
+//		 "Given a,c st type_list(a) & child_type_int(a) & type_list(c) & child_type_int(c), Find b st child(a,b) & child(c,b) & even(b)";
+		 String problemString =
+		 "Given a st type_list(a) & child_type_int(a), Find b st child(a,b) & even(b)";
 //		String problemString = "Given a,b st even(b) & type_list(a), Find b st child(a,b)";
 		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput(problemString),
 				theorems.toArray(new Theorem[0]));

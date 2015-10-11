@@ -5,15 +5,12 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Hashtable;
 
-import org.eclipse.emf.common.util.EList;
-
 import algorithmMaker.input.ANDing;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.util.InputUtil;
 import bindings.Binding;
-//import bindings.Binding;
 import bindings.MutableBinding;
 import inputHandling.TransformUtil;
 import theorems.Fact;
@@ -33,37 +30,25 @@ public class Chainer {
 	 * its use.
 	 */
 	private Hashtable<String, HashSet<Theorem>> theoremCatchers = new Hashtable<String, HashSet<Theorem>>();
+	private boolean isGivenChainer = true;
+
+	private Hashtable<Atomic, Fact<Atomic>> atomics = new Hashtable<Atomic, Fact<Atomic>>();
+	private Hashtable<String, HashSet<Fact<Atomic>>> atomicsByFunction = new Hashtable<String, HashSet<Fact<Atomic>>>();
+	private Hashtable<String, HashSet<Fact<Atomic>>> atomicsByVariable = new Hashtable<String, HashSet<Fact<Atomic>>>();
 	/**
-	 * Map from a function name to all of the atomics that have been applied
-	 * with that function.
+	 * The equality atomics for each given variable
 	 */
-	private Hashtable<String, HashSet<Fact<Atomic>>> appliedAtomics = new Hashtable<String, HashSet<Fact<Atomic>>>();
+	private Hashtable<String, HashSet<Fact<Atomic>>> equalities = new Hashtable<String, HashSet<Fact<Atomic>>>();
 
 	public Hashtable<MultistageTheorem, ArrayList<Binding>> nextLevelTheorems = new Hashtable<MultistageTheorem, ArrayList<Binding>>();
 	public Hashtable<MultistageTheorem, ArrayList<Binding>> previousLevelTheorems = new Hashtable<MultistageTheorem, ArrayList<Binding>>();
-
-	private boolean isGivenChainer = true;
 
 	public Chainer(Theorem... theorems) {
 		this(true, theorems);
 	}
 
 	public Fact<Atomic> getFact(Atomic atomic) {
-		if (!appliedAtomics.containsKey(atomic.getFunction()))
-			return null;
-
-		for (Fact<Atomic> fact : appliedAtomics.get(atomic.getFunction())) {
-			EList<String> args = fact.property.getArgs();
-			boolean same = true;
-			for (int i = 0; i < args.size(); i++)
-				if (!args.get(i).equals(atomic.getArgs().get(i))) {
-					same = false;
-					break;
-				}
-			if (same)
-				return fact;
-		}
-		return null;
+		return atomics.get(atomic);
 	}
 
 	public Chainer(boolean isGivenChainer, Theorem... theorems) {
@@ -98,29 +83,16 @@ public class Chainer {
 	}
 
 	public void resetFacts() {
-		appliedAtomics = new Hashtable<String, HashSet<Fact<Atomic>>>();
+		atomics = new Hashtable<Atomic, Fact<Atomic>>();
+		atomicsByFunction = new Hashtable<String, HashSet<Fact<Atomic>>>();
+		atomicsByVariable = new Hashtable<String, HashSet<Fact<Atomic>>>();
+		nextLevelTheorems = new Hashtable<MultistageTheorem, ArrayList<Binding>>();
+		previousLevelTheorems = new Hashtable<MultistageTheorem, ArrayList<Binding>>();
+		equalities = new Hashtable<String, HashSet<Fact<Atomic>>>();
 	}
 
 	public boolean hasAtomic(Atomic given) {
-		return hasAtomic(new Fact<Atomic>(given, null));
-	}
-
-	public boolean hasAtomic(Fact<Atomic> given) {
-		if (!appliedAtomics.containsKey(given.property.getFunction()))
-			return false;
-
-		for (Fact<Atomic> fact : appliedAtomics.get(given.property.getFunction())) {
-			EList<String> args = fact.property.getArgs();
-			boolean same = true;
-			for (int i = 0; i < args.size(); i++)
-				if (!args.get(i).equals(given.property.getArgs().get(i))) {
-					same = false;
-					break;
-				}
-			if (same)
-				return true;
-		}
-		return false;
+		return atomics.containsKey(given);
 	}
 
 	private void addTheoremCatcher(Atomic atomic, Theorem theorem) {
@@ -138,28 +110,73 @@ public class Chainer {
 				chain(anded, theorem, prerequisites);
 	}
 
+	private void addAtomic(Fact<Atomic> fact) {
+		Atomic atomic = (Atomic) fact.property;
+		if (atomics.containsKey(atomic))
+			return;
+
+		atomics.put(atomic, fact);
+		String function = atomic.getFunction();
+
+		if (!atomicsByFunction.containsKey(function))
+			atomicsByFunction.put(function, new HashSet<Fact<Atomic>>());
+
+		atomicsByFunction.get(function).add((Fact<Atomic>) fact);
+
+		for (String var : atomic.getArgs()) {
+			if (!atomicsByVariable.containsKey(var))
+				atomicsByVariable.put(var, new HashSet<Fact<Atomic>>());
+
+			atomicsByVariable.get(var).add(fact);
+		}
+
+		// If we're adding a new equality, perform updates of all the old rules
+		if (function.equals(InputUtil.EQUAL)) {
+			String var1 = atomic.getArgs().get(0);
+			String var2 = atomic.getArgs().get(1);
+			if (atomicsByVariable.containsKey(var1))
+				for (Fact<Atomic> oldFact : atomicsByVariable.get(var1)) {
+					if (InputUtil.isSpecial(oldFact.property.getFunction()))
+						continue;
+
+					Hashtable<String, String> revars = new Hashtable<String, String>();
+					revars.put(var1, var2);
+					chain(new Fact<Atomic>((Atomic) InputUtil.revar(oldFact.property, revars), TransformUtil.EQUAL,
+							oldFact, fact));
+				}
+
+			if (!equalities.contains(var1))
+				equalities.put(var1, new HashSet<Fact<Atomic>>());
+
+			equalities.get(var1).add(fact);
+		}
+
+		if (!InputUtil.isSpecial(fact.property.getFunction()))
+			for (String var : atomic.getArgs()) {
+				if (equalities.containsKey(var))
+					for (Fact<Atomic> equalVar : equalities.get(var)) {
+						Hashtable<String, String> revars = new Hashtable<String, String>();
+						revars.put(var, equalVar.property.getArgs().get(1));
+						chain(new Fact<Atomic>((Atomic) InputUtil.revar(fact.property, revars), TransformUtil.EQUAL,
+								equalVar, fact));
+					}
+			}
+	}
+
 	@SuppressWarnings("unchecked")
 	public void chain(Fact<? extends Property> fact) {
+		if(hasAtomic((Atomic) fact.property))
+			return;
+		
 		if (fact.property instanceof Atomic) {
-			String function = ((Atomic) fact.property).getFunction();
-			// if (!atomic.getFunction().equals(InputUtil.UNBOUND) &&
-			// !atomic.getFunction().equals(InputUtil.BOUND))
-			// for (String var : atomic.getArgs())
-			// if (!hasAtomic(InputUtil.getAtomic(InputUtil.BOUND, var)))
-			// chain(new Fact<Atomic>(InputUtil.getAtomic(InputUtil.UNBOUND,
-			// var), TransformUtil.GIVEN));
-
-			if (!appliedAtomics.containsKey(function))
-				appliedAtomics.put(function, new HashSet<Fact<Atomic>>());
-
-			appliedAtomics.get(function).add((Fact<Atomic>) fact);
+			addAtomic((Fact<Atomic>) fact);
 
 			// Go through all of the theorems that use this atomic's function
 			// and check if any of them can be applied
+			String function = ((Atomic) fact.property).getFunction();
 			if (theoremCatchers.containsKey(function))
-				for (Theorem theorem : theoremCatchers.get(function)) {
+				for (Theorem theorem : theoremCatchers.get(function))
 					attemptPropagation(theorem, (Fact<Atomic>) fact, (Atomic) fact.property, new MutableBinding());
-				}
 		} else
 			try {
 				throw new Exception("Can only have atomics as results for now.");
@@ -199,7 +216,7 @@ public class Chainer {
 			// If we're outright missing a theorem needed for our application,
 			// just quit.
 			for (Property atomic : atomics)
-				if (!appliedAtomics.containsKey(((Atomic) atomic).getFunction()))
+				if (!atomicsByFunction.containsKey(((Atomic) atomic).getFunction()))
 					return;
 
 			attemptPropagation(theorem, atomics, 0, fact, false, binding);
@@ -235,8 +252,8 @@ public class Chainer {
 				}
 			}
 		} else
-			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem, binding.getPrerequisites()
-					.toArray(new Fact<?>[0]));
+			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem,
+					binding.getPrerequisites().toArray(new Fact<?>[0]));
 	}
 
 	/**
@@ -245,8 +262,8 @@ public class Chainer {
 	 * NOTE: Assumes atomicsToSatisfy has all of the atomics of the same
 	 * function type as the asserted atomic at the end.
 	 */
-	private void attemptPropagation(Theorem theorem, ArrayList<Property> atomicsToSatisfy, int index,
-			Fact<Atomic> fact, boolean usedAsserted, MutableBinding binding) {
+	private void attemptPropagation(Theorem theorem, ArrayList<Property> atomicsToSatisfy, int index, Fact<Atomic> fact,
+			boolean usedAsserted, MutableBinding binding) {
 		// base case : when we've fulfilled all the atomics, we can assert our
 		// result.
 		if (index == atomicsToSatisfy.size()) {
@@ -270,7 +287,7 @@ public class Chainer {
 			binding.undoLastBinding();
 		} else {
 			String function = toSatisfy.getFunction();
-			for (Fact<Atomic> candidate : appliedAtomics.get(function)) {
+			for (Fact<Atomic> candidate : atomicsByFunction.get(function)) {
 				if (binding.canBind(toSatisfy, candidate.property)) {
 					binding.applyBinding(toSatisfy, candidate);
 
@@ -283,12 +300,7 @@ public class Chainer {
 		}
 	}
 
-	public ArrayList<Atomic> getAtomics() {
-		ArrayList<Atomic> atomics = new ArrayList<Atomic>();
-		for (HashSet<Fact<Atomic>> atomicGroup : appliedAtomics.values())
-			for (Fact<Atomic> fact : atomicGroup)
-				atomics.add(fact.property);
-
-		return atomics;
+	public HashSet<Atomic> copyAtomics() {
+		return new HashSet<Atomic>(atomics.keySet());
 	}
 }

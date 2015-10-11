@@ -23,6 +23,7 @@ public class InputUtil {
 
 	public static final String BOUND = "BOUND";
 	public static final String UNBOUND = "UNBOUND";
+	public static final String EQUAL = "equal";
 
 	/**
 	 * All of the types that should appear in the reduced kernel language
@@ -188,5 +189,9 @@ public class InputUtil {
 			}
 		}
 		return ret;
+	}
+
+	public static boolean isSpecial(String function) {
+		return function.equals(BOUND) || function.equals(UNBOUND) || function.equals(EQUAL);
 	}
 }

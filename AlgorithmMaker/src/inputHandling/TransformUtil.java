@@ -20,6 +20,7 @@ public class TransformUtil {
 			null);
 	public static final Theorem GIVEN = new QuickTheorem(null, null, 0, "GIVEN");
 	public static final Theorem GOAL = new QuickTheorem(null, null, 0, "GOAL");
+	public static final Theorem EQUAL = new QuickTheorem(null, null, 0, "Equal variables share properties.");
 
 	public static boolean isSolved(Problem problem) {
 		// TODO:DN: Do this better
@@ -43,7 +44,7 @@ public class TransformUtil {
 		}
 
 		chainer.chain(inputRet.getGiven().getProperty(), GIVEN);
-		HashSet<Atomic> atomicsToRemove = new HashSet<Atomic>(chainer.getAtomics());
+		HashSet<Atomic> atomicsToRemove = chainer.copyAtomics();
 		Property find = input.getGoal().getProperty();
 		if (find != null) {
 			Property simplifiedFind = (Property) simplify(find, atomicsToRemove);
