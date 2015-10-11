@@ -215,7 +215,7 @@ public class AtomicImpl extends PropertyImpl implements Atomic
 		if (obj == null || getClass() != obj.getClass()) return false;
 		AtomicImpl other = (AtomicImpl) obj;
 		if (function == null && other.function != null || function != null && !function.equals(other.function)) return false;
-		if (args == null && other.args != null || args != null && !args.equals(other.args)) return false;
+		if (!(args == null && other.args == null || args == null && other.args.size() == 0 || args.size() == 0 && other.args == null || args.equals(other.args))) return false;
 		return true;
 	}
 

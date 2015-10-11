@@ -5,23 +5,31 @@ import algorithmMaker.input.Property;
 public class MultistageTheorem extends QuickTheorem {
 
 	private final Property findRequirement;
+	private final Property givenResult;
+	private final Property findResult;
 
-	public MultistageTheorem(Property givenRequirement, Property findRequirement, int cost, String description) {
-		this(givenRequirement, findRequirement, findRequirement, cost, description, QuickTheorem.NO_PSEUDOCODE_GIVEN);
-	}
-
-	public MultistageTheorem(Property givenRequirement, Property findRequirement, Property result, int cost,
-			String description) {
-		this(givenRequirement, findRequirement, result, cost, description, QuickTheorem.NO_PSEUDOCODE_GIVEN);
-	}
-
-	public MultistageTheorem(Property givenRequirement, Property findRequirement, Property result, int cost,
+	public MultistageTheorem(Property givenRequirement, Property findRequirement, Property givenResult, int cost,
 			String description, String pseudocode) {
-		super(givenRequirement, result, cost, description, pseudocode);
+		this(givenRequirement, findRequirement, givenResult, null, cost, description, pseudocode);
+	}
+
+	public MultistageTheorem(Property givenRequirement, Property findRequirement, Property givenResult,
+			Property findResult, int cost, String description, String pseudocode) {
+		super(givenRequirement, null, cost, description, pseudocode);
 		this.findRequirement = findRequirement;
+		this.givenResult = givenResult;
+		this.findResult = findResult;
 	}
 
 	public Property getFindRequirement() {
 		return findRequirement;
+	}
+
+	public Property getGivenResult() {
+		return givenResult;
+	}
+
+	public Property getFindResult() {
+		return findResult;
 	}
 }

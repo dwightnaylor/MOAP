@@ -249,14 +249,14 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
 		ProblemImpl other = (ProblemImpl) obj;
-		if (vars == null && other.vars != null || vars != null && !vars.equals(other.vars)) return false;
+		if (!(vars == null && other.vars == null || vars == null && other.vars.size() == 0 || vars.size() == 0 && other.vars == null || vars.equals(other.vars))) return false;
 		if (property == null && other.property != null || property != null && !property.equals(other.property)) return false;
 		return true;
 	}
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		if (vars.size() > 0) {
+		if (vars != null && vars.size() > 0) {
 			for (String var : vars)
 				ret.append(var + ',');
 			ret.deleteCharAt(ret.length() - 1);

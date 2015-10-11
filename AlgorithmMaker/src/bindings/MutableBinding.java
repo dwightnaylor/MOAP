@@ -2,6 +2,7 @@ package bindings;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Stack;
 
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.Property;
@@ -16,14 +17,14 @@ public class MutableBinding extends Binding {
 		bindings.remove(arg);
 	}
 
-	private ArrayList<String> lastBindings;
+	private Stack<ArrayList<String>> lastBindings = new Stack<ArrayList<String>>();
 
 	public void applyBinding(Atomic original, Fact<Atomic> asserted) {
-		lastBindings = new ArrayList<String>();
+		lastBindings.push(new ArrayList<String>());
 		for (int i = 0; i < original.getArgs().size(); i++) {
 			String arg = original.getArgs().get(i);
 			if (!bindings.containsKey(arg))
-				lastBindings.add(arg);
+				lastBindings.peek().add(arg);
 
 			bind(arg, asserted.property.getArgs().get(i));
 		}
@@ -32,7 +33,7 @@ public class MutableBinding extends Binding {
 	}
 
 	public void undoLastBinding() {
-		for (String binding : lastBindings)
+		for (String binding : lastBindings.pop())
 			bindings.remove(binding);
 
 		prerequisites.remove(prerequisites.size() - 1);

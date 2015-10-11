@@ -1,10 +1,8 @@
 grammar algorithmMaker.Input with org.eclipse.xtext.common.Terminals
-
-generate input "http://www.Input"
-
 //TODO: Sugar: math signs, comparators
 //TODO: Sugar: implies "->, <-, <->" : relies on inline declarations?
 //TODO: Nested atomics??
+generate input "http://www.Input"
 
 //NOTE: Any changes to the formatting should be reflected with changes here.
 Input:
@@ -25,7 +23,6 @@ Primary returns Property:
 Quantifier:
 	quantifier=('forall' | 'exists') '(' subject=Problem ':' predicate=ORing ')';
 
-	//TODO:DN: Worry about TRUE and FALSE atomics
 Atomic:
 	Function=ID ('(' (args+=ID (',' args+=ID)*)? ')')?;
 

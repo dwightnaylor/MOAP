@@ -329,7 +329,7 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
 		InputImpl other = (InputImpl) obj;
 		if (given == null && other.given != null || given != null && !given.equals(other.given)) return false;
 		if (goal == null && other.goal != null || goal != null && !goal.equals(other.goal)) return false;
-		if (theorems == null && other.theorems != null || theorems != null && !theorems.equals(other.theorems)) return false;
+		if (!(theorems == null && other.theorems == null || theorems == null && other.theorems.size() == 0 || theorems.size() == 0 && other.theorems == null || theorems.equals(other.theorems))) return false;
 		return true;
 	}
 

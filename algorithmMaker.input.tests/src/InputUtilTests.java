@@ -1,10 +1,12 @@
 import static algorithmMaker.QuickParser.parseProperty;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.util.Hashtable;
 
 import org.junit.Test;
 
+import algorithmMaker.QuickParser;
 import algorithmMaker.util.InputUtil;
 
 public class InputUtilTests {
@@ -18,5 +20,12 @@ public class InputUtilTests {
 				put("x", "y");
 			}
 		}));
+	}
+
+	@Test
+	public void testEquality() {
+		assertNotEquals(QuickParser.parseProperty("a(x) & b(x)"), QuickParser.parseProperty("a(x)"));
+		assertNotEquals(QuickParser.parseProperty("a(x) & b(x)"), QuickParser.parseProperty("b(x)"));
+		assertNotEquals(QuickParser.parseProperty("a(x) & b(x)"), QuickParser.parseProperty("b(x) & a(x)"));
 	}
 }

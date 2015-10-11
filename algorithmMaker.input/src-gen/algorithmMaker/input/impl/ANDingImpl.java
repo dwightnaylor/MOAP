@@ -274,9 +274,7 @@ public class ANDingImpl extends PropertyImpl implements ANDing
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
 		ANDingImpl other = (ANDingImpl) obj;
-		if (left == null && other.left != null || left != null && !left.equals(other.left)) return false;
-		if (right == null && other.right != null || right != null && !right.equals(other.right)) return false;
-		return true;
+		return algorithmMaker.util.InputUtil.getANDed(this).equals(algorithmMaker.util.InputUtil.getANDed(other));
 	}
 
 	public String toString() {

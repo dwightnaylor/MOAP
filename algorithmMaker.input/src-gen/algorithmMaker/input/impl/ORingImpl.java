@@ -274,9 +274,7 @@ public class ORingImpl extends PropertyImpl implements ORing
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
 		ORingImpl other = (ORingImpl) obj;
-		if (left == null && other.left != null || left != null && !left.equals(other.left)) return false;
-		if (right == null && other.right != null || right != null && !right.equals(other.right)) return false;
-		return true;
+		return algorithmMaker.util.InputUtil.getORed(this).equals(algorithmMaker.util.InputUtil.getORed(other));
 	}
 
 	public String toString() {

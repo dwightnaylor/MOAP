@@ -318,7 +318,8 @@
             point="org.eclipse.ui.ide.markerResolution">
         <markerResolutionGenerator
             class="algorithmMaker.ui.InputExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-            markerType="algorithmMaker.ui.input.check.fast">
+            >
+    		<!-- markerType="algorithmMaker.ui.input.check.fast" -->
             <attribute
                 name="FIXABLE_KEY"
                 value="true">
@@ -326,7 +327,8 @@
         </markerResolutionGenerator>
         <markerResolutionGenerator
             class="algorithmMaker.ui.InputExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-            markerType="algorithmMaker.ui.input.check.normal">
+            >
+    		<!-- markerType="algorithmMaker.ui.input.check.normal" -->
             <attribute
                 name="FIXABLE_KEY"
                 value="true">
@@ -334,7 +336,8 @@
         </markerResolutionGenerator>
         <markerResolutionGenerator
             class="algorithmMaker.ui.InputExecutableExtensionFactory:org.eclipse.xtext.ui.editor.quickfix.MarkerResolutionGenerator"
-            markerType="algorithmMaker.ui.input.check.expensive">
+            >
+    		<!-- markerType="algorithmMaker.ui.input.check.expensive" -->
             <attribute
                 name="FIXABLE_KEY"
                 value="true">

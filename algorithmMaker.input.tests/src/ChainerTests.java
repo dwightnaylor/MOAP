@@ -2,10 +2,13 @@ import static algorithmMaker.QuickParser.parseProperty;
 import static algorithmMaker.QuickParser.parseTheorem;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Collections;
+
 import org.junit.Test;
 
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Atomic;
+import algorithmMaker.util.InputUtil;
 import inputHandling.TransformUtil;
 import solver.Chainer;
 import theorems.MultistageTheorem;
@@ -64,7 +67,7 @@ public class ChainerTests {
 	public void testMultistageChaining() {
 		MultistageTheorem multiTheorem = new MultistageTheorem(QuickParser.parseProperty("enumerable(x)"),
 				QuickParser.parseProperty("child(x,y)"), QuickParser.parseProperty("child(x,y)"), 0,
-				"enumerable things");
+				"enumerable things", null);
 		Chainer stage1Chainer = new Chainer(multiTheorem);
 		stage1Chainer.chain(QuickParser.parseProperty("enumerable(a)"), TransformUtil.GIVEN);
 		assertTrue("Stage 1 of multichaining works", stage1Chainer.nextLevelTheorems.size() == 1);
@@ -76,10 +79,36 @@ public class ChainerTests {
 
 	@Test
 	public void testBasicPrerequisites() {
-		String theoremName = "Test theorem";
-		Chainer basicChainer = new Chainer(parseTheorem("a(x):-b(x),0," + theoremName));
+		Chainer basicChainer = new Chainer(parseTheorem("a(x):-b(x),0,Test theorem"));
 		basicChainer.chain(parseProperty("a(x)"), TransformUtil.GIVEN);
 		assertTrue("Fact recording works",
 				basicChainer.getFact((Atomic) parseProperty("b(x)")).prerequisites.length == 1);
+	}
+
+	@Test
+	public void testBoundVariableDetection() {
+		Chainer basicChainer = new Chainer(parseTheorem(InputUtil.BOUND + "(x)&a(x):-b(x),0,GIVEN"));
+		basicChainer.addBoundVars(Collections.singleton("q"));
+		basicChainer.chain(parseProperty("a(q)"), TransformUtil.GIVEN);
+		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(q)")));
+	}
+
+	@Test
+	public void testMultipleOfSameAtomicRequirement() {
+		Chainer basicChainer = new Chainer(parseTheorem("a(x)&a(y):-b(x,y),0,GIVEN"));
+		basicChainer.chain(parseProperty("a(a)"), TransformUtil.GIVEN);
+		basicChainer.chain(parseProperty("a(b)"), TransformUtil.GIVEN);
+//		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(a,a)")));
+//		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(a,b)")));
+		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(b,a)")));
+		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(b,b)")));
+	}
+
+	@Test
+	public void testBindingNormalMix() {
+		Chainer basicChainer = new Chainer(parseTheorem(InputUtil.BOUND + "(x)&a(y):-b(x,y),0,GIVEN"));
+		basicChainer.addBoundVars(Collections.singleton("q"));
+		basicChainer.chain(parseProperty("a(w)"), TransformUtil.GIVEN);
+		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(q,w)")));
 	}
 }

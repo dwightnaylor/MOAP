@@ -1,6 +1,7 @@
 package algorithmMaker.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Hashtable;
 
@@ -8,16 +9,26 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import algorithmMaker.input.*;
+import algorithmMaker.input.ANDing;
+import algorithmMaker.input.Atomic;
+import algorithmMaker.input.BooleanLiteral;
+import algorithmMaker.input.Input;
+import algorithmMaker.input.ORing;
+import algorithmMaker.input.Problem;
+import algorithmMaker.input.Property;
+import algorithmMaker.input.Quantifier;
 import algorithmMaker.input.impl.InputFactoryImpl;
 
 public class InputUtil {
+
+	public static final String BOUND = "BOUND";
+	public static final String UNBOUND = "UNBOUND";
 
 	/**
 	 * All of the types that should appear in the reduced kernel language
 	 */
 	public static enum InputType {
-		Input, Problem, ORing, ANDing, Atomic, Quantifier
+		Input, Problem, ORing, ANDing, Atomic, Quantifier, BooleanLiteral
 	}
 
 	public static InputType type(EObject object) {
@@ -33,10 +44,16 @@ public class InputUtil {
 			return InputType.Atomic;
 		else if (object instanceof Quantifier)
 			return InputType.Quantifier;
+		else if (object instanceof BooleanLiteral)
+			return InputType.BooleanLiteral;
 
 		return null;
 	}
 
+	/**
+	 * Sets the given problem to contain all the variables that appear within
+	 * it.
+	 */
 	public static void compactVariables(Problem problem) {
 		problem.getVars().clear();
 		problem.getVars().addAll(InputUtil.getUnboundVariables(problem.getProperty()));
@@ -58,22 +75,6 @@ public class InputUtil {
 			((Atomic) clone).getArgs().replaceAll(x -> revars.containsKey(x) ? revars.get(x) : x);
 
 		return clone;
-	}
-
-	/**
-	 * Gets all of the non-grouping properties that are children of the given
-	 * property. In other words, returns all of the ANDed or ORed children of
-	 * the given property.
-	 */
-	public static ArrayList<Property> getGrouped(Property property) {
-		ArrayList<Property> ret = new ArrayList<Property>();
-		TreeIterator<EObject> contents = property.eAllContents();
-		while (contents.hasNext()) {
-			EObject next = contents.next();
-			if (!(next instanceof ANDing) && !(next instanceof ORing))
-				ret.add((Atomic) next);
-		}
-		return ret;
 	}
 
 	public static Property andTogether(ArrayList<Property> properties) {
@@ -119,5 +120,73 @@ public class InputUtil {
 		}
 
 		return unboundVars;
+	}
+
+	public static ArrayList<Property> getANDed(ANDing a) {
+		ArrayList<Property> ret = new ArrayList<Property>();
+		addANDed(a, ret);
+		return ret;
+	}
+
+	public static void addANDed(ANDing a, ArrayList<Property> list) {
+		if (a.getLeft() instanceof ANDing)
+			addANDed((ANDing) a.getLeft(), list);
+		else
+			list.add(a.getLeft());
+
+		if (a.getRight() instanceof ANDing)
+			addANDed((ANDing) a.getRight(), list);
+		else
+			list.add(a.getRight());
+	}
+
+	public static ArrayList<Property> getORed(ORing a) {
+		ArrayList<Property> ret = new ArrayList<Property>();
+		addORed(a, ret);
+		return ret;
+	}
+
+	public static void addORed(ORing a, ArrayList<Property> list) {
+		if (a.getLeft() instanceof ORing)
+			addORed((ORing) a.getLeft(), list);
+		else
+			list.add(a.getLeft());
+
+		if (a.getRight() instanceof ORing)
+			addORed((ORing) a.getRight(), list);
+		else
+			list.add(a.getRight());
+	}
+
+	public static Atomic getAtomic(String function, String... args) {
+		Atomic atomic = InputFactoryImpl.eINSTANCE.createAtomic();
+		atomic.setFunction(function);
+		atomic.getArgs().addAll(Arrays.asList(args));
+		return atomic;
+	}
+
+	// TODO:DN: We should check to make sure no theorems ever have bound or
+	// unbound as results.
+	public static boolean containsAtomic(Property property, String function) {
+		TreeIterator<EObject> contents = property.eAllContents();
+		while (contents.hasNext()) {
+			EObject next = contents.next();
+			if (next instanceof Atomic && ((Atomic) next).getFunction().equals(function))
+				return true;
+		}
+		return false;
+	}
+
+	public static ArrayList<String> getBindings(Property property) {
+		ArrayList<String> ret = new ArrayList<String>();
+		if (property != null) {
+			TreeIterator<EObject> contents = property.eAllContents();
+			while (contents.hasNext()) {
+				EObject next = contents.next();
+				if (next instanceof Atomic && ((Atomic) next).getFunction().equals(InputUtil.BOUND))
+					ret.add(((Atomic) next).getArgs().get(0));
+			}
+		}
+		return ret;
 	}
 }

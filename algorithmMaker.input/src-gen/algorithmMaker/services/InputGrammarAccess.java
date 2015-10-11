@@ -39,9 +39,6 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cTheoremsTheoremParserRuleCall_5_3_1_0 = (RuleCall)cTheoremsAssignment_5_3_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_5_4 = (Keyword)cGroup_5.eContents().get(4);
 		
-		////TODO: Sugar: math signs, comparators
-		////TODO: Sugar: implies "->, <-, <->" : relies on inline declarations?
-		////TODO: Nested atomics??
 		////NOTE: Any changes to the formatting should be reflected with changes here.
 		//Input:
 		//	"Given" given=Problem "," "Find" goal=Problem (";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
@@ -338,7 +335,6 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cArgsIDTerminalRuleCall_1_1_1_1_0 = (RuleCall)cArgsAssignment_1_1_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
 		
-		////TODO:DN: Worry about TRUE and FALSE atomics
 		//Atomic:
 		//	Function=ID ("(" (args+=ID ("," args+=ID)*)? ")")?;
 		@Override public ParserRule getRule() { return rule; }
@@ -537,9 +533,6 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
-	////TODO: Sugar: math signs, comparators
-	////TODO: Sugar: implies "->, <-, <->" : relies on inline declarations?
-	////TODO: Nested atomics??
 	////NOTE: Any changes to the formatting should be reflected with changes here.
 	//Input:
 	//	"Given" given=Problem "," "Find" goal=Problem (";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
@@ -601,7 +594,6 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		return getQuantifierAccess().getRule();
 	}
 
-	////TODO:DN: Worry about TRUE and FALSE atomics
 	//Atomic:
 	//	Function=ID ("(" (args+=ID ("," args+=ID)*)? ")")?;
 	public AtomicElements getAtomicAccess() {

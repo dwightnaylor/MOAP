@@ -1,13 +1,12 @@
 package solver;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Hashtable;
 
 import org.eclipse.emf.common.util.EList;
 
-import theorems.Fact;
-import theorems.MultistageTheorem;
 import algorithmMaker.input.ANDing;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.Property;
@@ -16,6 +15,9 @@ import algorithmMaker.util.InputUtil;
 import bindings.Binding;
 //import bindings.Binding;
 import bindings.MutableBinding;
+import inputHandling.TransformUtil;
+import theorems.Fact;
+import theorems.MultistageTheorem;
 
 /**
  * Chains together facts using existing theorems to arrive at conclusions.
@@ -30,7 +32,7 @@ public class Chainer {
 	 * Map from the method name to the list of theorems that may be looking for
 	 * its use.
 	 */
-	private Hashtable<String, ArrayList<Theorem>> theoremCatchers = new Hashtable<String, ArrayList<Theorem>>();
+	private Hashtable<String, HashSet<Theorem>> theoremCatchers = new Hashtable<String, HashSet<Theorem>>();
 	/**
 	 * Map from a function name to all of the atomics that have been applied
 	 * with that function.
@@ -71,9 +73,20 @@ public class Chainer {
 			if (requirement instanceof Atomic)
 				addTheoremCatcher((Atomic) requirement, theorem);
 			else if (requirement instanceof ANDing)
-				for (Property anded : InputUtil.getGrouped(requirement))
+				for (Property anded : InputUtil.getANDed((ANDing) requirement))
 					addTheoremCatcher((Atomic) anded, theorem);
 		}
+	}
+
+	public void addBoundVars(Collection<String> vars) {
+		for (String var : vars)
+			chain(InputUtil.getAtomic(InputUtil.BOUND, var), TransformUtil.GIVEN);
+	}
+
+	public void addUnboundVars(Collection<String> vars) {
+		for (String var : vars)
+			if (!hasAtomic(InputUtil.getAtomic(InputUtil.BOUND, var)))
+				chain(InputUtil.getAtomic(InputUtil.UNBOUND, var), TransformUtil.GIVEN);
 	}
 
 	private Property getRequirement(Theorem theorem) {
@@ -112,7 +125,7 @@ public class Chainer {
 
 	private void addTheoremCatcher(Atomic atomic, Theorem theorem) {
 		if (!theoremCatchers.containsKey(atomic.getFunction()))
-			theoremCatchers.put(atomic.getFunction(), new ArrayList<Theorem>());
+			theoremCatchers.put(atomic.getFunction(), new HashSet<Theorem>());
 
 		theoremCatchers.get(atomic.getFunction()).add(theorem);
 	}
@@ -121,7 +134,7 @@ public class Chainer {
 		if (property instanceof Atomic)
 			chain(new Fact<Atomic>((Atomic) property, theorem, prerequisites));
 		else if (property instanceof ANDing)
-			for (Property anded : InputUtil.getGrouped(property))
+			for (Property anded : InputUtil.getANDed((ANDing) property))
 				chain(anded, theorem, prerequisites);
 	}
 
@@ -129,6 +142,12 @@ public class Chainer {
 	public void chain(Fact<? extends Property> fact) {
 		if (fact.property instanceof Atomic) {
 			String function = ((Atomic) fact.property).getFunction();
+			// if (!atomic.getFunction().equals(InputUtil.UNBOUND) &&
+			// !atomic.getFunction().equals(InputUtil.BOUND))
+			// for (String var : atomic.getArgs())
+			// if (!hasAtomic(InputUtil.getAtomic(InputUtil.BOUND, var)))
+			// chain(new Fact<Atomic>(InputUtil.getAtomic(InputUtil.UNBOUND,
+			// var), TransformUtil.GIVEN));
 
 			if (!appliedAtomics.containsKey(function))
 				appliedAtomics.put(function, new HashSet<Fact<Atomic>>());
@@ -138,11 +157,12 @@ public class Chainer {
 			// Go through all of the theorems that use this atomic's function
 			// and check if any of them can be applied
 			if (theoremCatchers.containsKey(function))
-				for (Theorem theorem : theoremCatchers.get(function))
+				for (Theorem theorem : theoremCatchers.get(function)) {
 					attemptPropagation(theorem, (Fact<Atomic>) fact, (Atomic) fact.property, new MutableBinding());
+				}
 		} else
 			try {
-				throw new Exception("Can only have atomics as results now.");
+				throw new Exception("Can only have atomics as results for now.");
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.exit(0);
@@ -154,17 +174,17 @@ public class Chainer {
 	 * theorem. Assumes that the asserted fact has already been added to the
 	 * database.
 	 */
-	public void attemptPropagation(Theorem theorem, Fact<Atomic> fact, Atomic asserted, MutableBinding binding) {
+	private void attemptPropagation(Theorem theorem, Fact<Atomic> fact, Atomic asserted, MutableBinding binding) {
 		Property requirement = getRequirement(theorem);
 		ArrayList<Fact<? extends Property>> prerequisites = new ArrayList<Fact<? extends Property>>();
 		prerequisites.add(fact);
 		if (requirement instanceof ANDing) {
-			ArrayList<Property> atomics = InputUtil.getGrouped(requirement);
+			ArrayList<Property> atomics = InputUtil.getANDed((ANDing) requirement);
 			// We re-organize the atomics to that all of the ones that match the
 			// assertion are at the end.
 			// This is done to make propagation detection easier.
 			int swapIndex = atomics.size() - 1;
-			while (((Atomic) atomics.get(swapIndex)).getFunction().equals(asserted.getFunction()))
+			while (swapIndex > 0 && ((Atomic) atomics.get(swapIndex)).getFunction().equals(asserted.getFunction()))
 				swapIndex--;
 
 			for (int i = 0; i < swapIndex; i++) {
@@ -191,14 +211,14 @@ public class Chainer {
 		}
 	}
 
-	private void attemptChaining(Theorem theorem, MutableBinding binding) {
+	private void attemptChaining(Theorem theorem, Binding binding) {
 		if (theorem instanceof MultistageTheorem) {
 			MultistageTheorem multistageTheorem = (MultistageTheorem) theorem;
 			if (isGivenChainer) {
 				if (!nextLevelTheorems.containsKey(multistageTheorem))
 					nextLevelTheorems.put(multistageTheorem, new ArrayList<Binding>());
 
-				nextLevelTheorems.get(multistageTheorem).add(binding.getImmutable());
+				nextLevelTheorems.get(multistageTheorem).add(binding);
 			} else {
 				if (previousLevelTheorems.containsKey(multistageTheorem)) {
 					for (Binding previousBinding : previousLevelTheorems.get(multistageTheorem)) {
@@ -206,15 +226,17 @@ public class Chainer {
 							if (!nextLevelTheorems.containsKey(multistageTheorem))
 								nextLevelTheorems.put(multistageTheorem, new ArrayList<Binding>());
 
-							binding.addBindingsFrom(previousBinding);
-							nextLevelTheorems.get(multistageTheorem).add(binding.getImmutable());
+							MutableBinding newBinding = new MutableBinding();
+							newBinding.addBindingsFrom(binding);
+							newBinding.addBindingsFrom(previousBinding);
+							nextLevelTheorems.get(multistageTheorem).add(newBinding.getImmutable());
 						}
 					}
 				}
 			}
 		} else
-			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem,
-					binding.getPrerequisites().toArray(new Fact<?>[0]));
+			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem, binding.getPrerequisites()
+					.toArray(new Fact<?>[0]));
 	}
 
 	/**
@@ -223,11 +245,12 @@ public class Chainer {
 	 * NOTE: Assumes atomicsToSatisfy has all of the atomics of the same
 	 * function type as the asserted atomic at the end.
 	 */
-	private void attemptPropagation(Theorem theorem, ArrayList<Property> atomicsToSatisfy, int index, Fact<Atomic> fact,
-			boolean usedAsserted, MutableBinding binding) {
+	private void attemptPropagation(Theorem theorem, ArrayList<Property> atomicsToSatisfy, int index,
+			Fact<Atomic> fact, boolean usedAsserted, MutableBinding binding) {
 		// base case : when we've fulfilled all the atomics, we can assert our
 		// result.
 		if (index == atomicsToSatisfy.size()) {
+			attemptChaining(theorem, binding.getImmutable());
 			return;
 		}
 
@@ -235,8 +258,6 @@ public class Chainer {
 		// asserted atomic. NOTE: This is only the case because we sorted the
 		// incoming atomic list in such a way as to assure that the last element
 		// would be something that the fact is related to.
-		// TODO: DN: This doesn't work for theorems with multiple requirements
-		// on the same atomic if we use the provided fact too early...
 		Atomic toSatisfy = (Atomic) atomicsToSatisfy.get(index);
 		if (index == atomicsToSatisfy.size() - 1 && !usedAsserted) {
 			if (!binding.canBind(toSatisfy, fact.property))
@@ -244,13 +265,15 @@ public class Chainer {
 
 			binding.applyBinding(toSatisfy, fact);
 
-			attemptChaining(theorem, binding);
+			attemptPropagation(theorem, atomicsToSatisfy, index + 1, fact, true, binding);
 
 			binding.undoLastBinding();
 		} else {
-			for (Fact<Atomic> candidate : appliedAtomics.get(toSatisfy.getFunction())) {
+			String function = toSatisfy.getFunction();
+			for (Fact<Atomic> candidate : appliedAtomics.get(function)) {
 				if (binding.canBind(toSatisfy, candidate.property)) {
 					binding.applyBinding(toSatisfy, candidate);
+
 					attemptPropagation(theorem, atomicsToSatisfy, index + 1, fact,
 							usedAsserted || candidate.equals(fact), binding);
 
