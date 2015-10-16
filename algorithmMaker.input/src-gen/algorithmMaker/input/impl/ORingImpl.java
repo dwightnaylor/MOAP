@@ -273,8 +273,7 @@ public class ORingImpl extends PropertyImpl implements ORing
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		ORingImpl other = (ORingImpl) obj;
-		return algorithmMaker.util.InputUtil.getORed(this).equals(algorithmMaker.util.InputUtil.getORed(other));
+		return toString().equals(obj.toString());
 	}
 
 	public String toString() {

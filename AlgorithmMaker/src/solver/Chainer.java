@@ -1,10 +1,13 @@
 package solver;
 
+import inputHandling.TransformUtil;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Hashtable;
 
+import theorems.Fact;
+import theorems.MultistageTheorem;
 import algorithmMaker.input.ANDing;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.Property;
@@ -12,9 +15,6 @@ import algorithmMaker.input.Theorem;
 import algorithmMaker.util.InputUtil;
 import bindings.Binding;
 import bindings.MutableBinding;
-import inputHandling.TransformUtil;
-import theorems.Fact;
-import theorems.MultistageTheorem;
 
 /**
  * Chains together facts using existing theorems to arrive at conclusions.
@@ -63,12 +63,12 @@ public class Chainer {
 		}
 	}
 
-	public void addBoundVars(Collection<String> vars) {
+	public void addBoundVars(String... vars) {
 		for (String var : vars)
 			chain(InputUtil.getAtomic(InputUtil.BOUND, var), TransformUtil.GIVEN);
 	}
 
-	public void addUnboundVars(Collection<String> vars) {
+	public void addUnboundVars(String... vars) {
 		for (String var : vars)
 			if (!hasAtomic(InputUtil.getAtomic(InputUtil.BOUND, var)))
 				chain(InputUtil.getAtomic(InputUtil.UNBOUND, var), TransformUtil.GIVEN);
@@ -165,9 +165,9 @@ public class Chainer {
 
 	@SuppressWarnings("unchecked")
 	public void chain(Fact<? extends Property> fact) {
-		if(hasAtomic((Atomic) fact.property))
+		if (hasAtomic((Atomic) fact.property))
 			return;
-		
+
 		if (fact.property instanceof Atomic) {
 			addAtomic((Fact<Atomic>) fact);
 
@@ -252,8 +252,8 @@ public class Chainer {
 				}
 			}
 		} else
-			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem,
-					binding.getPrerequisites().toArray(new Fact<?>[0]));
+			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem, binding.getPrerequisites()
+					.toArray(new Fact<?>[0]));
 	}
 
 	/**
@@ -262,8 +262,8 @@ public class Chainer {
 	 * NOTE: Assumes atomicsToSatisfy has all of the atomics of the same
 	 * function type as the asserted atomic at the end.
 	 */
-	private void attemptPropagation(Theorem theorem, ArrayList<Property> atomicsToSatisfy, int index, Fact<Atomic> fact,
-			boolean usedAsserted, MutableBinding binding) {
+	private void attemptPropagation(Theorem theorem, ArrayList<Property> atomicsToSatisfy, int index,
+			Fact<Atomic> fact, boolean usedAsserted, MutableBinding binding) {
 		// base case : when we've fulfilled all the atomics, we can assert our
 		// result.
 		if (index == atomicsToSatisfy.size()) {

@@ -5,6 +5,7 @@ package algorithmMaker.input.impl;
 import algorithmMaker.input.ANDing;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.BooleanLiteral;
+import algorithmMaker.input.Declaration;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.InputFactory;
 import algorithmMaker.input.InputPackage;
@@ -13,6 +14,7 @@ import algorithmMaker.input.Problem;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Quantifier;
 import algorithmMaker.input.Theorem;
+import algorithmMaker.input.Type;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -42,6 +44,20 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * @generated
    */
   private EClass problemEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass declarationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass typeEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -210,9 +226,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getProblem_Vars()
+  public EReference getProblem_Vars()
   {
-    return (EAttribute)problemEClass.getEStructuralFeatures().get(0);
+    return (EReference)problemEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -223,6 +239,66 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
   public EReference getProblem_Property()
   {
     return (EReference)problemEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDeclaration()
+  {
+    return declarationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDeclaration_Type()
+  {
+    return (EReference)declarationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDeclaration_VarName()
+  {
+    return (EAttribute)declarationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getType()
+  {
+    return typeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getType_Name()
+  {
+    return (EAttribute)typeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getType_TemplateType()
+  {
+    return (EReference)typeEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -481,8 +557,16 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     createEReference(inputEClass, INPUT__THEOREMS);
 
     problemEClass = createEClass(PROBLEM);
-    createEAttribute(problemEClass, PROBLEM__VARS);
+    createEReference(problemEClass, PROBLEM__VARS);
     createEReference(problemEClass, PROBLEM__PROPERTY);
+
+    declarationEClass = createEClass(DECLARATION);
+    createEReference(declarationEClass, DECLARATION__TYPE);
+    createEAttribute(declarationEClass, DECLARATION__VAR_NAME);
+
+    typeEClass = createEClass(TYPE);
+    createEAttribute(typeEClass, TYPE__NAME);
+    createEReference(typeEClass, TYPE__TEMPLATE_TYPE);
 
     propertyEClass = createEClass(PROPERTY);
 
@@ -556,8 +640,16 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     initEReference(getInput_Theorems(), this.getTheorem(), null, "theorems", null, 0, -1, Input.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(problemEClass, Problem.class, "Problem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getProblem_Vars(), ecorePackage.getEString(), "vars", null, 0, -1, Problem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getProblem_Vars(), this.getDeclaration(), null, "vars", null, 0, -1, Problem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getProblem_Property(), this.getProperty(), null, "property", null, 0, 1, Problem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(declarationEClass, Declaration.class, "Declaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getDeclaration_Type(), this.getType(), null, "type", null, 0, 1, Declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getDeclaration_VarName(), ecorePackage.getEString(), "varName", null, 0, 1, Declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(typeEClass, Type.class, "Type", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getType_Name(), ecorePackage.getEString(), "name", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getType_TemplateType(), this.getType(), null, "templateType", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

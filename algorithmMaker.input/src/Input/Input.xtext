@@ -6,10 +6,16 @@ generate input "http://www.Input"
 
 //NOTE: Any changes to the formatting should be reflected with changes here.
 Input:
-	'Given' given=Problem ',' 'Find' goal=Problem (';' "Theorems:" theorems+=Theorem (';' theorems+=Theorem)* ';'?)?;
+	'Given' given=Problem ';' 'Find' goal=Problem (';' "Theorems:" theorems+=Theorem (';' theorems+=Theorem)* ';'?)?;
 
 Problem:
-	((vars+=ID) (',' vars+=ID)*) 'st' property=ORing;
+	((vars+=Declaration) (',' vars+=Declaration)*) 'st' property=ORing;
+
+Declaration:
+	(type=Type '(' varName=ID ')') | varName=ID;
+
+Type:
+	name=ID ('<' templateType=Type '>')?;
 
 ORing returns Property:
 	ANDing ({ORing.left=current} '|' right=ANDing)*;

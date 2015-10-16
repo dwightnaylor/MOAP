@@ -13,8 +13,16 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Input/theorems"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//Problem">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Problem/vars"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Problem/vars"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Problem/property"/>
+    </genClasses>
+    <genClasses ecoreClass="Input.ecore#//Declaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Declaration/type"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Declaration/varName"/>
+    </genClasses>
+    <genClasses ecoreClass="Input.ecore#//Type">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Type/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Type/templateType"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//Property"/>
     <genClasses ecoreClass="Input.ecore#//Quantifier">

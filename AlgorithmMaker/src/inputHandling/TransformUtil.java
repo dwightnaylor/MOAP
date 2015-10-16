@@ -135,7 +135,7 @@ public class TransformUtil {
 
 		// Add in all of the new variables used.
 		for (String undeclaredVar : InputUtil.getUnboundVariables(clone.getGiven()))
-			clone.getGiven().getVars().add(undeclaredVar);
+			clone.getGiven().getVars().add(InputUtil.createDeclaration(undeclaredVar));
 
 		return clone;
 	}

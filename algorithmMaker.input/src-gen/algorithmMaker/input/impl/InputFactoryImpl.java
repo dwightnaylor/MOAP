@@ -66,6 +66,8 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
     {
       case InputPackage.INPUT: return createInput();
       case InputPackage.PROBLEM: return createProblem();
+      case InputPackage.DECLARATION: return createDeclaration();
+      case InputPackage.TYPE: return createType();
       case InputPackage.PROPERTY: return createProperty();
       case InputPackage.QUANTIFIER: return createQuantifier();
       case InputPackage.ATOMIC: return createAtomic();
@@ -98,6 +100,28 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
   {
     ProblemImpl problem = new ProblemImpl();
     return problem;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Declaration createDeclaration()
+  {
+    DeclarationImpl declaration = new DeclarationImpl();
+    return declaration;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Type createType()
+  {
+    TypeImpl type = new TypeImpl();
+    return type;
   }
 
   /**

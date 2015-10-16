@@ -437,13 +437,7 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		TheoremImpl other = (TheoremImpl) obj;
-		if (requirement == null && other.requirement != null || requirement != null && !requirement.equals(other.requirement)) return false;
-		if (result == null && other.result != null || result != null && !result.equals(other.result)) return false;
-		if (cost != other.cost) return false;
-		if (description == null && other.description != null || description != null && !description.equals(other.description)) return false;
-		if (pseudoCode == null && other.pseudoCode != null || pseudoCode != null && !pseudoCode.equals(other.pseudoCode)) return false;
-		return true;
+		return toString().equals(obj.toString());
 	}
 
 	public String toString() {

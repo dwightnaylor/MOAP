@@ -2,6 +2,7 @@
  */
 package algorithmMaker.input.impl;
 
+import algorithmMaker.input.Declaration;
 import algorithmMaker.input.InputPackage;
 import algorithmMaker.input.Problem;
 import algorithmMaker.input.Property;
@@ -19,7 +20,8 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
-import org.eclipse.emf.ecore.util.EDataTypeEList;
+import org.eclipse.emf.ecore.util.EObjectContainmentEList;
+import org.eclipse.emf.ecore.util.InternalEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -38,14 +40,14 @@ import org.eclipse.emf.ecore.util.EDataTypeEList;
 public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
 {
   /**
-   * The cached value of the '{@link #getVars() <em>Vars</em>}' attribute list.
+   * The cached value of the '{@link #getVars() <em>Vars</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getVars()
    * @generated
    * @ordered
    */
-  protected EList<String> vars;
+  protected EList<Declaration> vars;
 
   /**
    * The cached value of the '{@link #getProperty() <em>Property</em>}' containment reference.
@@ -83,11 +85,11 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<String> getVars()
+  public EList<Declaration> getVars()
   {
     if (vars == null)
     {
-      vars = new EDataTypeEList<String>(String.class, this, InputPackage.PROBLEM__VARS);
+      vars = new EObjectContainmentEList<Declaration>(Declaration.class, this, InputPackage.PROBLEM__VARS);
     }
     return vars;
   }
@@ -150,6 +152,8 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
   {
     switch (featureID)
     {
+      case InputPackage.PROBLEM__VARS:
+        return ((InternalEList<?>)getVars()).basicRemove(otherEnd, msgs);
       case InputPackage.PROBLEM__PROPERTY:
         return basicSetProperty(null, msgs);
     }
@@ -187,7 +191,7 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
     {
       case InputPackage.PROBLEM__VARS:
         getVars().clear();
-        getVars().addAll((Collection<? extends String>)newValue);
+        getVars().addAll((Collection<? extends Declaration>)newValue);
         return;
       case InputPackage.PROBLEM__PROPERTY:
         setProperty((Property)newValue);
@@ -234,6 +238,8 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
     return super.eIsSet(featureID);
   }
 
+
+
 	public int hashCode() {
 		int ret = getClass().hashCode();
 		if (vars != null) {
@@ -248,17 +254,14 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		ProblemImpl other = (ProblemImpl) obj;
-		if (!(vars == null && other.vars == null || vars == null && other.vars.size() == 0 || vars.size() == 0 && other.vars == null || vars.equals(other.vars))) return false;
-		if (property == null && other.property != null || property != null && !property.equals(other.property)) return false;
-		return true;
+		return toString().equals(obj.toString());
 	}
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
 		if (vars != null && vars.size() > 0) {
-			for (String var : vars)
-				ret.append(var + ',');
+			for (Declaration var : vars)
+				ret.append(var.toString() + ',');
 			ret.deleteCharAt(ret.length() - 1);
 		} else
 			ret.append('_');

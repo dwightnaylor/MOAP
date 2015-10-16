@@ -326,16 +326,12 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		InputImpl other = (InputImpl) obj;
-		if (given == null && other.given != null || given != null && !given.equals(other.given)) return false;
-		if (goal == null && other.goal != null || goal != null && !goal.equals(other.goal)) return false;
-		if (!(theorems == null && other.theorems == null || theorems == null && other.theorems.size() == 0 || theorems.size() == 0 && other.theorems == null || theorems.equals(other.theorems))) return false;
-		return true;
+		return toString().equals(obj.toString());
 	}
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append("Given " + given + ", Find " + goal);
+		ret.append("Given " + given + "; Find " + goal);
 		return ret.toString();
 	}
 

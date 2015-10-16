@@ -85,6 +85,16 @@ public class InputAdapterFactory extends AdapterFactoryImpl
         return createProblemAdapter();
       }
       @Override
+      public Adapter caseDeclaration(Declaration object)
+      {
+        return createDeclarationAdapter();
+      }
+      @Override
+      public Adapter caseType(Type object)
+      {
+        return createTypeAdapter();
+      }
+      @Override
       public Adapter caseProperty(Property object)
       {
         return createPropertyAdapter();
@@ -167,6 +177,36 @@ public class InputAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createProblemAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.Declaration <em>Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see algorithmMaker.input.Declaration
+   * @generated
+   */
+  public Adapter createDeclarationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.Type <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see algorithmMaker.input.Type
+   * @generated
+   */
+  public Adapter createTypeAdapter()
   {
     return null;
   }

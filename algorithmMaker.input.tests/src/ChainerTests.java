@@ -1,17 +1,15 @@
 import static algorithmMaker.QuickParser.parseProperty;
 import static algorithmMaker.QuickParser.parseTheorem;
 import static org.junit.Assert.assertTrue;
-
-import java.util.Collections;
+import inputHandling.TransformUtil;
 
 import org.junit.Test;
 
+import solver.Chainer;
+import theorems.MultistageTheorem;
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.util.InputUtil;
-import inputHandling.TransformUtil;
-import solver.Chainer;
-import theorems.MultistageTheorem;
 
 public class ChainerTests {
 
@@ -88,7 +86,7 @@ public class ChainerTests {
 	@Test
 	public void testBoundVariableDetection() {
 		Chainer basicChainer = new Chainer(parseTheorem(InputUtil.BOUND + "(x)&a(x):-b(x),0,GIVEN"));
-		basicChainer.addBoundVars(Collections.singleton("q"));
+		basicChainer.addBoundVars("q");
 		basicChainer.chain(parseProperty("a(q)"), TransformUtil.GIVEN);
 		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(q)")));
 	}
@@ -107,7 +105,7 @@ public class ChainerTests {
 	@Test
 	public void testBindingNormalMix() {
 		Chainer basicChainer = new Chainer(parseTheorem(InputUtil.BOUND + "(x)&a(y):-b(x,y),0,GIVEN"));
-		basicChainer.addBoundVars(Collections.singleton("q"));
+		basicChainer.addBoundVars("q");
 		basicChainer.chain(parseProperty("a(w)"), TransformUtil.GIVEN);
 		assertTrue(basicChainer.hasAtomic((Atomic) parseProperty("b(q,w)")));
 	}

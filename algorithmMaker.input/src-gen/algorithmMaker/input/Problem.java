@@ -26,20 +26,20 @@ import org.eclipse.emf.ecore.EObject;
 public interface Problem extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Vars</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
+   * Returns the value of the '<em><b>Vars</b></em>' containment reference list.
+   * The list contents are of type {@link algorithmMaker.input.Declaration}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Vars</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Vars</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Vars</em>' attribute list.
+   * @return the value of the '<em>Vars</em>' containment reference list.
    * @see algorithmMaker.input.InputPackage#getProblem_Vars()
-   * @model unique="false"
+   * @model containment="true"
    * @generated
    */
-  EList<String> getVars();
+  EList<Declaration> getVars();
 
   /**
    * Returns the value of the '<em><b>Property</b></em>' containment reference.

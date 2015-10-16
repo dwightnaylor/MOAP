@@ -113,7 +113,7 @@ public interface InputPackage extends EPackage
   int PROBLEM = 1;
 
   /**
-   * The feature id for the '<em><b>Vars</b></em>' attribute list.
+   * The feature id for the '<em><b>Vars</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -140,6 +140,80 @@ public interface InputPackage extends EPackage
   int PROBLEM_FEATURE_COUNT = 2;
 
   /**
+   * The meta object id for the '{@link algorithmMaker.input.impl.DeclarationImpl <em>Declaration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see algorithmMaker.input.impl.DeclarationImpl
+   * @see algorithmMaker.input.impl.InputPackageImpl#getDeclaration()
+   * @generated
+   */
+  int DECLARATION = 2;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATION__TYPE = 0;
+
+  /**
+   * The feature id for the '<em><b>Var Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATION__VAR_NAME = 1;
+
+  /**
+   * The number of structural features of the '<em>Declaration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DECLARATION_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link algorithmMaker.input.impl.TypeImpl <em>Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see algorithmMaker.input.impl.TypeImpl
+   * @see algorithmMaker.input.impl.InputPackageImpl#getType()
+   * @generated
+   */
+  int TYPE = 3;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE__NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>Template Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE__TEMPLATE_TYPE = 1;
+
+  /**
+   * The number of structural features of the '<em>Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TYPE_FEATURE_COUNT = 2;
+
+  /**
    * The meta object id for the '{@link algorithmMaker.input.impl.PropertyImpl <em>Property</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -147,7 +221,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getProperty()
    * @generated
    */
-  int PROPERTY = 2;
+  int PROPERTY = 4;
 
   /**
    * The number of structural features of the '<em>Property</em>' class.
@@ -166,7 +240,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getQuantifier()
    * @generated
    */
-  int QUANTIFIER = 3;
+  int QUANTIFIER = 5;
 
   /**
    * The feature id for the '<em><b>Quantifier</b></em>' attribute.
@@ -212,7 +286,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getAtomic()
    * @generated
    */
-  int ATOMIC = 4;
+  int ATOMIC = 6;
 
   /**
    * The feature id for the '<em><b>Function</b></em>' attribute.
@@ -249,7 +323,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getBooleanLiteral()
    * @generated
    */
-  int BOOLEAN_LITERAL = 5;
+  int BOOLEAN_LITERAL = 7;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -277,7 +351,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getTheorem()
    * @generated
    */
-  int THEOREM = 6;
+  int THEOREM = 8;
 
   /**
    * The feature id for the '<em><b>Requirement</b></em>' containment reference.
@@ -341,7 +415,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getORing()
    * @generated
    */
-  int ORING = 7;
+  int ORING = 9;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -378,7 +452,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getANDing()
    * @generated
    */
-  int AN_DING = 8;
+  int AN_DING = 10;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -462,15 +536,15 @@ public interface InputPackage extends EPackage
   EClass getProblem();
 
   /**
-   * Returns the meta object for the attribute list '{@link algorithmMaker.input.Problem#getVars <em>Vars</em>}'.
+   * Returns the meta object for the containment reference list '{@link algorithmMaker.input.Problem#getVars <em>Vars</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Vars</em>'.
+   * @return the meta object for the containment reference list '<em>Vars</em>'.
    * @see algorithmMaker.input.Problem#getVars()
    * @see #getProblem()
    * @generated
    */
-  EAttribute getProblem_Vars();
+  EReference getProblem_Vars();
 
   /**
    * Returns the meta object for the containment reference '{@link algorithmMaker.input.Problem#getProperty <em>Property</em>}'.
@@ -482,6 +556,70 @@ public interface InputPackage extends EPackage
    * @generated
    */
   EReference getProblem_Property();
+
+  /**
+   * Returns the meta object for class '{@link algorithmMaker.input.Declaration <em>Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Declaration</em>'.
+   * @see algorithmMaker.input.Declaration
+   * @generated
+   */
+  EClass getDeclaration();
+
+  /**
+   * Returns the meta object for the containment reference '{@link algorithmMaker.input.Declaration#getType <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type</em>'.
+   * @see algorithmMaker.input.Declaration#getType()
+   * @see #getDeclaration()
+   * @generated
+   */
+  EReference getDeclaration_Type();
+
+  /**
+   * Returns the meta object for the attribute '{@link algorithmMaker.input.Declaration#getVarName <em>Var Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Var Name</em>'.
+   * @see algorithmMaker.input.Declaration#getVarName()
+   * @see #getDeclaration()
+   * @generated
+   */
+  EAttribute getDeclaration_VarName();
+
+  /**
+   * Returns the meta object for class '{@link algorithmMaker.input.Type <em>Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Type</em>'.
+   * @see algorithmMaker.input.Type
+   * @generated
+   */
+  EClass getType();
+
+  /**
+   * Returns the meta object for the attribute '{@link algorithmMaker.input.Type#getName <em>Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Name</em>'.
+   * @see algorithmMaker.input.Type#getName()
+   * @see #getType()
+   * @generated
+   */
+  EAttribute getType_Name();
+
+  /**
+   * Returns the meta object for the containment reference '{@link algorithmMaker.input.Type#getTemplateType <em>Template Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Template Type</em>'.
+   * @see algorithmMaker.input.Type#getTemplateType()
+   * @see #getType()
+   * @generated
+   */
+  EReference getType_TemplateType();
 
   /**
    * Returns the meta object for class '{@link algorithmMaker.input.Property <em>Property</em>}'.
@@ -786,12 +924,12 @@ public interface InputPackage extends EPackage
     EClass PROBLEM = eINSTANCE.getProblem();
 
     /**
-     * The meta object literal for the '<em><b>Vars</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Vars</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute PROBLEM__VARS = eINSTANCE.getProblem_Vars();
+    EReference PROBLEM__VARS = eINSTANCE.getProblem_Vars();
 
     /**
      * The meta object literal for the '<em><b>Property</b></em>' containment reference feature.
@@ -800,6 +938,58 @@ public interface InputPackage extends EPackage
      * @generated
      */
     EReference PROBLEM__PROPERTY = eINSTANCE.getProblem_Property();
+
+    /**
+     * The meta object literal for the '{@link algorithmMaker.input.impl.DeclarationImpl <em>Declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see algorithmMaker.input.impl.DeclarationImpl
+     * @see algorithmMaker.input.impl.InputPackageImpl#getDeclaration()
+     * @generated
+     */
+    EClass DECLARATION = eINSTANCE.getDeclaration();
+
+    /**
+     * The meta object literal for the '<em><b>Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DECLARATION__TYPE = eINSTANCE.getDeclaration_Type();
+
+    /**
+     * The meta object literal for the '<em><b>Var Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DECLARATION__VAR_NAME = eINSTANCE.getDeclaration_VarName();
+
+    /**
+     * The meta object literal for the '{@link algorithmMaker.input.impl.TypeImpl <em>Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see algorithmMaker.input.impl.TypeImpl
+     * @see algorithmMaker.input.impl.InputPackageImpl#getType()
+     * @generated
+     */
+    EClass TYPE = eINSTANCE.getType();
+
+    /**
+     * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TYPE__NAME = eINSTANCE.getType_Name();
+
+    /**
+     * The meta object literal for the '<em><b>Template Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TYPE__TEMPLATE_TYPE = eINSTANCE.getType_TemplateType();
 
     /**
      * The meta object literal for the '{@link algorithmMaker.input.impl.PropertyImpl <em>Property</em>}' class.

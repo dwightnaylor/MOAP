@@ -1,6 +1,11 @@
 package solver;
 
+import inputHandling.MultiTheoremParser;
+import inputHandling.TheoremParser;
+import inputHandling.TransformUtil;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map.Entry;
@@ -8,7 +13,10 @@ import java.util.PriorityQueue;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import theorems.MultistageTheorem;
+import theorems.multiTheorems.DirectReturn;
 import algorithmMaker.QuickParser;
+import algorithmMaker.input.Declaration;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.Problem;
 import algorithmMaker.input.Property;
@@ -16,11 +24,6 @@ import algorithmMaker.input.Theorem;
 import algorithmMaker.util.InputUtil;
 import bindings.Binding;
 import bindings.MutableBinding;
-import inputHandling.MultiTheoremParser;
-import inputHandling.TheoremParser;
-import inputHandling.TransformUtil;
-import theorems.MultistageTheorem;
-import theorems.multiTheorems.DirectReturn;
 
 /**
  * Translates an input between various states until a solution is reached.
@@ -60,12 +63,13 @@ public class ProblemSolver {
 		Input problem = problemState.problem;
 
 		Chainer givenChainer = new Chainer(theorems);
-		givenChainer.addBoundVars(problem.getGiven().getVars());
-		givenChainer.addUnboundVars(problem.getGoal().getVars());
+		// String[] s = ;
+		givenChainer.addBoundVars(InputUtil.getVarNames(problem.getGiven().getVars()));
+		givenChainer.addUnboundVars(InputUtil.getVarNames(problem.getGoal().getVars()));
 		givenChainer.chain(problem.getGiven().getProperty(), TransformUtil.GIVEN);
 
 		Chainer findChainer = new Chainer(false, theorems);
-		findChainer.addBoundVars(problem.getGiven().getVars());
+		findChainer.addBoundVars(InputUtil.getVarNames(problem.getGiven().getVars()));
 		findChainer.previousLevelTheorems = givenChainer.nextLevelTheorems;
 		findChainer.chain(problem.getGoal().getProperty(), TransformUtil.GOAL);
 
@@ -84,26 +88,31 @@ public class ProblemSolver {
 					newGoalParts.add(newProblem.getGoal().getProperty());
 
 					MultistageTheorem mst = entry.getKey();
-					if (mst instanceof DirectReturn)
-						newProblem.getGoal().getVars().remove(binding.getArguments().values().iterator().next());
-					else {
+					if (mst instanceof DirectReturn) {
+						String varToRemove = binding.getArguments().values().iterator().next();
+						newProblem.getGoal().getVars().removeIf(x -> x.getVarName().equals(varToRemove));
+					} else {
 						HashSet<String> usedVars = new HashSet<String>();
-						usedVars.addAll(newProblem.getGiven().getVars());
-						usedVars.addAll(newProblem.getGoal().getVars());
+						usedVars.addAll(Arrays.asList(InputUtil.getVarNames(newProblem.getGiven().getVars())));
+						usedVars.addAll(Arrays.asList(InputUtil.getVarNames(newProblem.getGoal().getVars())));
 
 						MutableBinding newBinding = new MutableBinding();
 						newBinding.addBindingsFrom(binding);
 
 						Property givenResult = mst.getGivenResult();
 						if (givenResult != null) {
-							newBinding.addBindingsFrom(doBindings(newProblem.getGiven(), new HashSet<String>(newProblem
-									.getGiven().getVars()), InputUtil.getBindings(givenResult)));
+							newBinding.addBindingsFrom(doBindings(newProblem.getGiven(),
+									new HashSet<String>(
+											Arrays.asList(InputUtil.getVarNames(newProblem.getGiven().getVars()))),
+									InputUtil.getBindings(givenResult)));
 							newGivenParts.add(InputUtil.revar(givenResult, newBinding.getArguments()));
 						}
 						Property findResult = mst.getFindResult();
 						if (findResult != null) {
-							newBinding.addBindingsFrom(doBindings(newProblem.getGoal(), new HashSet<String>(newProblem
-									.getGiven().getVars()), InputUtil.getBindings(findResult)));
+							newBinding.addBindingsFrom(doBindings(newProblem.getGoal(),
+									new HashSet<String>(
+											Arrays.asList(InputUtil.getVarNames(newProblem.getGiven().getVars()))),
+									InputUtil.getBindings(findResult)));
 							newGoalParts.add(InputUtil.revar(findResult, newBinding.getArguments()));
 						}
 
@@ -125,7 +134,7 @@ public class ProblemSolver {
 				String stName = name + "";
 				if (!usedVars.contains(stName)) {
 					binding.bind(var, stName);
-					problem.getVars().add(stName);
+					problem.getVars().add(InputUtil.createDeclaration(stName));
 					break;
 				}
 			}
@@ -154,14 +163,15 @@ public class ProblemSolver {
 
 	private void addVariableRemovalTheorems(Input problem, Chainer findChainer) {
 		HashSet<String> unbound = InputUtil.getUnboundVariables(EcoreUtil.copy(problem.getGoal().getProperty()));
-		for (String var : problem.getGoal().getVars())
+		for (Declaration var : problem.getGoal().getVars()) {
 			// If the variable is unused...
-			if (!unbound.contains(var)) {
+			if (!unbound.contains(var.getVarName())) {
 				MutableBinding binding = new MutableBinding();
-				binding.bind(DirectReturn.VAR_NAME, var);
+				binding.bind(DirectReturn.VAR_NAME, var.getVarName());
 				findChainer.nextLevelTheorems.put(new DirectReturn(),
 						new ArrayList<Binding>(Collections.singleton(binding.getImmutable())));
 			}
+		}
 	}
 
 	public static void main(String[] args) {
@@ -172,12 +182,19 @@ public class ProblemSolver {
 		// ProblemSolver(QuickParser.parseInput(s.nextLine()),
 		// theorems.toArray(new Theorem[0]));
 		// s.close();
-		String problemString = "Given a,b st type_list(a) & child_type_int(a) & type_list(b) & child_type_int(b), Find c st child(a,c) & child(b,c) & even(c)";
-		// "Given a,c st type_list(a) & child_type_int(a) & equal(a,c), Find b st child(a,b) & child(c,b) & even(b)";
-		// "Given a st type_list(a) & child_type_int(a), Find b st child(a,b) & even(b)";
+		String problemString =
+		// Problems...
+		// "Given a,b st type_list(a) & child_type_int(a) & type_list(b) &
+		// child_type_int(b), Find c st child(a,c) & child(b,c) & even(c)";
+		"Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c) & even(c)";
+		// "Given a,c st type_list(a) & child_type_int(a) & equal(a,c), Find b
+		// st child(a,b) & child(c,b) & even(b)";
+		// "Given a st type_list(a) & child_type_int(a), Find b st child(a,b) &
+		// even(b)";
 		// "Given a,b st even(b) & type_list(a), Find b st child(a,b)";
-		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput(problemString),
-				theorems.toArray(new Theorem[0]));
+		Input input = QuickParser.parseInput(problemString);
+		InputUtil.desugar(input);
+		ProblemSolver solver = new ProblemSolver(input, theorems.toArray(new Theorem[0]));
 		ProblemState solution = solver.getSolution();
 		StringBuffer output = new StringBuffer();
 		if (solution == null)

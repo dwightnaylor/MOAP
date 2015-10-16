@@ -124,32 +124,33 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 		ret.append("\tpublic boolean equals(Object obj) {" + NL);
 		ret.append("\t\tif (this == obj) return true;" + NL);
 		ret.append("\t\tif (obj == null || getClass() != obj.getClass()) return false;" + NL);
-		ret.append("\t\t" + className + "Impl other = (" + className + "Impl) obj;" + NL);
-		if (className.equals("ANDing"))
-			ret.append("\t\treturn algorithmMaker.util.InputUtil.getANDed(this).equals(algorithmMaker.util.InputUtil.getANDed(other));" + NL);
-		else if (className.equals("ORing"))
-			ret.append("\t\treturn algorithmMaker.util.InputUtil.getORed(this).equals(algorithmMaker.util.InputUtil.getORed(other));" + NL);
-		else {
-			for (Field field : classToUse.getDeclaredFields()) {
-				if (Modifier.isFinal(field.getModifiers())) {
-					continue;
-				}
-				if (int.class.isAssignableFrom(field.getType()) || double.class.isAssignableFrom(field.getType())
-						|| boolean.class.isAssignableFrom(field.getType())) {
-					ret.append("\t\tif (" + field.getName() + " != other." + field.getName() + ") return false;" + NL);
-				} else if (EList.class.isAssignableFrom(field.getType())) {
-					ret.append("\t\tif (!(" + field.getName() + " == null && other." + field.getName() + " == null || "
-							+ field.getName() + " == null && other." + field.getName() + ".size() == 0 || "
-							+ field.getName() + ".size() == 0 && other." + field.getName() + " == null || "
-							+ field.getName() + ".equals(other." + field.getName() + "))) return false;" + NL);
-				} else {
-					ret.append("\t\tif (" + field.getName() + " == null && other." + field.getName() + " != null || "
-							+ field.getName() + " != null && !" + field.getName() + ".equals(other." + field.getName()
-							+ ")) return false;" + NL);
-				}
-			}
-			ret.append("\t\treturn true;" + NL);
-		}
+//		ret.append("\t\t" + className + "Impl other = (" + className + "Impl) obj;" + NL);
+//		if (className.equals("ANDing"))
+//			ret.append("\t\treturn algorithmMaker.util.InputUtil.getANDed(this).equals(algorithmMaker.util.InputUtil.getANDed(other));" + NL);
+//		else if (className.equals("ORing"))
+//			ret.append("\t\treturn algorithmMaker.util.InputUtil.getORed(this).equals(algorithmMaker.util.InputUtil.getORed(other));" + NL);
+//		else {
+//			for (Field field : classToUse.getDeclaredFields()) {
+//				if (Modifier.isFinal(field.getModifiers())) {
+//					continue;
+//				}
+//				if (int.class.isAssignableFrom(field.getType()) || double.class.isAssignableFrom(field.getType())
+//						|| boolean.class.isAssignableFrom(field.getType())) {
+//					ret.append("\t\tif (" + field.getName() + " != other." + field.getName() + ") return false;" + NL);
+//				} else if (EList.class.isAssignableFrom(field.getType())) {
+//					ret.append("\t\tif (!(" + field.getName() + " == null && other." + field.getName() + " == null || "
+//							+ field.getName() + " == null && other." + field.getName() + ".size() == 0 || "
+//							+ field.getName() + ".size() == 0 && other." + field.getName() + " == null || "
+//							+ field.getName() + ".equals(other." + field.getName() + "))) return false;" + NL);
+//				} else {
+//					ret.append("\t\tif (" + field.getName() + " == null && other." + field.getName() + " != null || "
+//							+ field.getName() + " != null && !" + field.getName() + ".equals(other." + field.getName()
+//							+ ")) return false;" + NL);
+//				}
+//			}
+//			ret.append("\t\treturn true;" + NL);
+//		}
+		ret.append("\t\treturn toString().equals(obj.toString());" + NL);
 		ret.append("\t}" + NL + NL);
 		return ret.toString();
 	}
@@ -193,15 +194,15 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 			ret.append("\t\t}" + NL);
 			break;
 		case "Input":
-			ret.append("\t\tret.append(\"Given \" + given + \", Find \" + goal);" + NL);
+			ret.append("\t\tret.append(\"Given \" + given + \"; Find \" + goal);" + NL);
 			break;
 		case "ORing":
 			ret.append("\t\tret.append(left + \" | \" + right);" + NL);
 			break;
 		case "Problem":
 			ret.append("\t\tif (vars != null && vars.size() > 0) {" + NL);
-			ret.append("\t\t\tfor (String var : vars)" + NL);
-			ret.append("\t\t\t\tret.append(var + ',');" + NL);
+			ret.append("\t\t\tfor (Declaration var : vars)" + NL);
+			ret.append("\t\t\t\tret.append(var.toString() + ',');" + NL);
 			ret.append("\t\t\tret.deleteCharAt(ret.length() - 1);" + NL);
 			ret.append("\t\t} else" + NL);
 			ret.append("\t\t\tret.append('_');" + NL);
@@ -216,10 +217,19 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 		case "BooleanLiteral":
 			ret.append("\t\tret.append(value);" + NL);
 			break;
+		case "Declaration":
+			ret.append("\t\tret.append(type == null ? \"\" : type + \" \");" + NL);
+			ret.append("\t\tret.append(varName);" + NL);
+			break;
+		case "Type":
+			ret.append("\t\tret.append(name);" + NL);
+			ret.append("\t\tif (templateType != null)" + NL);
+			ret.append("\t\t\tret.append('<' + templateType.toString() + '>');" + NL);
+			break;
 		default:
-			if (log.isInfoEnabled()) {
+			if (log.isInfoEnabled())
 				log.info("ERROR: No toString() method specified for " + className + "!");
-			}
+			
 			ret.append("\t\terror" + NL);
 			break;
 		}

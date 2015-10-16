@@ -24,7 +24,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cGivenKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cGivenAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cGivenProblemParserRuleCall_1_0 = (RuleCall)cGivenAssignment_1.eContents().get(0);
-		private final Keyword cCommaKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Keyword cFindKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cGoalAssignment_4 = (Assignment)cGroup.eContents().get(4);
 		private final RuleCall cGoalProblemParserRuleCall_4_0 = (RuleCall)cGoalAssignment_4.eContents().get(0);
@@ -41,10 +41,10 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		
 		////NOTE: Any changes to the formatting should be reflected with changes here.
 		//Input:
-		//	"Given" given=Problem "," "Find" goal=Problem (";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
+		//	"Given" given=Problem ";" "Find" goal=Problem (";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"Given" given=Problem "," "Find" goal=Problem (";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?
+		//"Given" given=Problem ";" "Find" goal=Problem (";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?
 		public Group getGroup() { return cGroup; }
 
 		//"Given"
@@ -56,8 +56,8 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		//Problem
 		public RuleCall getGivenProblemParserRuleCall_1_0() { return cGivenProblemParserRuleCall_1_0; }
 
-		//","
-		public Keyword getCommaKeyword_2() { return cCommaKeyword_2; }
+		//";"
+		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
 
 		//"Find"
 		public Keyword getFindKeyword_3() { return cFindKeyword_3; }
@@ -104,42 +104,42 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
 		private final Assignment cVarsAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
-		private final RuleCall cVarsIDTerminalRuleCall_0_0_0 = (RuleCall)cVarsAssignment_0_0.eContents().get(0);
+		private final RuleCall cVarsDeclarationParserRuleCall_0_0_0 = (RuleCall)cVarsAssignment_0_0.eContents().get(0);
 		private final Group cGroup_0_1 = (Group)cGroup_0.eContents().get(1);
 		private final Keyword cCommaKeyword_0_1_0 = (Keyword)cGroup_0_1.eContents().get(0);
 		private final Assignment cVarsAssignment_0_1_1 = (Assignment)cGroup_0_1.eContents().get(1);
-		private final RuleCall cVarsIDTerminalRuleCall_0_1_1_0 = (RuleCall)cVarsAssignment_0_1_1.eContents().get(0);
+		private final RuleCall cVarsDeclarationParserRuleCall_0_1_1_0 = (RuleCall)cVarsAssignment_0_1_1.eContents().get(0);
 		private final Keyword cStKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cPropertyAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cPropertyORingParserRuleCall_2_0 = (RuleCall)cPropertyAssignment_2.eContents().get(0);
 		
 		//Problem:
-		//	(vars+=ID ("," vars+=ID)*) "st" property=ORing;
+		//	(vars+=Declaration ("," vars+=Declaration)*) "st" property=ORing;
 		@Override public ParserRule getRule() { return rule; }
 
-		//(vars+=ID ("," vars+=ID)*) "st" property=ORing
+		//(vars+=Declaration ("," vars+=Declaration)*) "st" property=ORing
 		public Group getGroup() { return cGroup; }
 
-		//vars+=ID ("," vars+=ID)*
+		//vars+=Declaration ("," vars+=Declaration)*
 		public Group getGroup_0() { return cGroup_0; }
 
-		//vars+=ID
+		//vars+=Declaration
 		public Assignment getVarsAssignment_0_0() { return cVarsAssignment_0_0; }
 
-		//ID
-		public RuleCall getVarsIDTerminalRuleCall_0_0_0() { return cVarsIDTerminalRuleCall_0_0_0; }
+		//Declaration
+		public RuleCall getVarsDeclarationParserRuleCall_0_0_0() { return cVarsDeclarationParserRuleCall_0_0_0; }
 
-		//("," vars+=ID)*
+		//("," vars+=Declaration)*
 		public Group getGroup_0_1() { return cGroup_0_1; }
 
 		//","
 		public Keyword getCommaKeyword_0_1_0() { return cCommaKeyword_0_1_0; }
 
-		//vars+=ID
+		//vars+=Declaration
 		public Assignment getVarsAssignment_0_1_1() { return cVarsAssignment_0_1_1; }
 
-		//ID
-		public RuleCall getVarsIDTerminalRuleCall_0_1_1_0() { return cVarsIDTerminalRuleCall_0_1_1_0; }
+		//Declaration
+		public RuleCall getVarsDeclarationParserRuleCall_0_1_1_0() { return cVarsDeclarationParserRuleCall_0_1_1_0; }
 
 		//"st"
 		public Keyword getStKeyword_1() { return cStKeyword_1; }
@@ -149,6 +149,94 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 
 		//ORing
 		public RuleCall getPropertyORingParserRuleCall_2_0() { return cPropertyORingParserRuleCall_2_0; }
+	}
+
+	public class DeclarationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Declaration");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final Group cGroup_0 = (Group)cAlternatives.eContents().get(0);
+		private final Assignment cTypeAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
+		private final RuleCall cTypeTypeParserRuleCall_0_0_0 = (RuleCall)cTypeAssignment_0_0.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
+		private final Assignment cVarNameAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
+		private final RuleCall cVarNameIDTerminalRuleCall_0_2_0 = (RuleCall)cVarNameAssignment_0_2.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_0_3 = (Keyword)cGroup_0.eContents().get(3);
+		private final Assignment cVarNameAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final RuleCall cVarNameIDTerminalRuleCall_1_0 = (RuleCall)cVarNameAssignment_1.eContents().get(0);
+		
+		//Declaration:
+		//	type=Type "(" varName=ID ")" | varName=ID;
+		@Override public ParserRule getRule() { return rule; }
+
+		//type=Type "(" varName=ID ")" | varName=ID
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//type=Type "(" varName=ID ")"
+		public Group getGroup_0() { return cGroup_0; }
+
+		//type=Type
+		public Assignment getTypeAssignment_0_0() { return cTypeAssignment_0_0; }
+
+		//Type
+		public RuleCall getTypeTypeParserRuleCall_0_0_0() { return cTypeTypeParserRuleCall_0_0_0; }
+
+		//"("
+		public Keyword getLeftParenthesisKeyword_0_1() { return cLeftParenthesisKeyword_0_1; }
+
+		//varName=ID
+		public Assignment getVarNameAssignment_0_2() { return cVarNameAssignment_0_2; }
+
+		//ID
+		public RuleCall getVarNameIDTerminalRuleCall_0_2_0() { return cVarNameIDTerminalRuleCall_0_2_0; }
+
+		//")"
+		public Keyword getRightParenthesisKeyword_0_3() { return cRightParenthesisKeyword_0_3; }
+
+		//varName=ID
+		public Assignment getVarNameAssignment_1() { return cVarNameAssignment_1; }
+
+		//ID
+		public RuleCall getVarNameIDTerminalRuleCall_1_0() { return cVarNameIDTerminalRuleCall_1_0; }
+	}
+
+	public class TypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Type");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cLessThanSignKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cTemplateTypeAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cTemplateTypeTypeParserRuleCall_1_1_0 = (RuleCall)cTemplateTypeAssignment_1_1.eContents().get(0);
+		private final Keyword cGreaterThanSignKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		
+		//Type:
+		//	name=ID ("<" templateType=Type ">")?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//name=ID ("<" templateType=Type ">")?
+		public Group getGroup() { return cGroup; }
+
+		//name=ID
+		public Assignment getNameAssignment_0() { return cNameAssignment_0; }
+
+		//ID
+		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
+
+		//("<" templateType=Type ">")?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"<"
+		public Keyword getLessThanSignKeyword_1_0() { return cLessThanSignKeyword_1_0; }
+
+		//templateType=Type
+		public Assignment getTemplateTypeAssignment_1_1() { return cTemplateTypeAssignment_1_1; }
+
+		//Type
+		public RuleCall getTemplateTypeTypeParserRuleCall_1_1_0() { return cTemplateTypeTypeParserRuleCall_1_1_0; }
+
+		//">"
+		public Keyword getGreaterThanSignKeyword_1_2() { return cGreaterThanSignKeyword_1_2; }
 	}
 
 	public class ORingElements extends AbstractParserRuleElementFinder {
@@ -478,6 +566,8 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	
 	private final InputElements pInput;
 	private final ProblemElements pProblem;
+	private final DeclarationElements pDeclaration;
+	private final TypeElements pType;
 	private final ORingElements pORing;
 	private final ANDingElements pANDing;
 	private final PrimaryElements pPrimary;
@@ -497,6 +587,8 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		this.gaTerminals = gaTerminals;
 		this.pInput = new InputElements();
 		this.pProblem = new ProblemElements();
+		this.pDeclaration = new DeclarationElements();
+		this.pType = new TypeElements();
 		this.pORing = new ORingElements();
 		this.pANDing = new ANDingElements();
 		this.pPrimary = new PrimaryElements();
@@ -535,7 +627,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	
 	////NOTE: Any changes to the formatting should be reflected with changes here.
 	//Input:
-	//	"Given" given=Problem "," "Find" goal=Problem (";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
+	//	"Given" given=Problem ";" "Find" goal=Problem (";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
 	public InputElements getInputAccess() {
 		return pInput;
 	}
@@ -545,13 +637,33 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Problem:
-	//	(vars+=ID ("," vars+=ID)*) "st" property=ORing;
+	//	(vars+=Declaration ("," vars+=Declaration)*) "st" property=ORing;
 	public ProblemElements getProblemAccess() {
 		return pProblem;
 	}
 	
 	public ParserRule getProblemRule() {
 		return getProblemAccess().getRule();
+	}
+
+	//Declaration:
+	//	type=Type "(" varName=ID ")" | varName=ID;
+	public DeclarationElements getDeclarationAccess() {
+		return pDeclaration;
+	}
+	
+	public ParserRule getDeclarationRule() {
+		return getDeclarationAccess().getRule();
+	}
+
+	//Type:
+	//	name=ID ("<" templateType=Type ">")?;
+	public TypeElements getTypeAccess() {
+		return pType;
+	}
+	
+	public ParserRule getTypeRule() {
+		return getTypeAccess().getRule();
 	}
 
 	//ORing returns Property:

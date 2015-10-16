@@ -2,6 +2,7 @@ package algorithmMaker.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Hashtable;
 
@@ -12,11 +13,13 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import algorithmMaker.input.ANDing;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.BooleanLiteral;
+import algorithmMaker.input.Declaration;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.ORing;
 import algorithmMaker.input.Problem;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Quantifier;
+import algorithmMaker.input.Type;
 import algorithmMaker.input.impl.InputFactoryImpl;
 
 public class InputUtil {
@@ -57,7 +60,11 @@ public class InputUtil {
 	 */
 	public static void compactVariables(Problem problem) {
 		problem.getVars().clear();
-		problem.getVars().addAll(InputUtil.getUnboundVariables(problem.getProperty()));
+		ArrayList<Declaration> declarations = new ArrayList<Declaration>();
+		for (String var : InputUtil.getUnboundVariables(problem.getProperty()))
+			declarations.add(createDeclaration(var));
+
+		problem.getVars().addAll(declarations);
 	}
 
 	/**
@@ -92,12 +99,12 @@ public class InputUtil {
 		return rhs;
 	}
 
-	public static EObject getDeclaration(EObject property, String var) {
+	public static EObject getDeclaringObject(EObject property, String var) {
 		EObject parent = property;
 		while (parent != null) {
 			if (parent instanceof Problem)
-				for (String declaration : ((Problem) parent).getVars())
-					if (var.equals(declaration))
+				for (Declaration declaration : ((Problem) parent).getVars())
+					if (var.equals(declaration.getVarName()))
 						return parent;
 
 			parent = parent.eContainer();
@@ -111,7 +118,7 @@ public class InputUtil {
 		while (true) {
 			if (property instanceof Atomic)
 				for (String var : ((Atomic) property).getArgs())
-					if (getDeclaration(property, var) == null)
+					if (getDeclaringObject(property, var) == null)
 						unboundVars.add(var);
 
 			if (contents.hasNext())
@@ -121,6 +128,12 @@ public class InputUtil {
 		}
 
 		return unboundVars;
+	}
+
+	public static Declaration createDeclaration(String var) {
+		Declaration ret = InputFactoryImpl.eINSTANCE.createDeclaration();
+		ret.setVarName(var);
+		return ret;
 	}
 
 	public static ArrayList<Property> getANDed(ANDing a) {
@@ -193,5 +206,30 @@ public class InputUtil {
 
 	public static boolean isSpecial(String function) {
 		return function.equals(BOUND) || function.equals(UNBOUND) || function.equals(EQUAL);
+	}
+
+	public static String[] getVarNames(Collection<Declaration> declarations) {
+		return declarations.stream().map(x -> x.getVarName()).toArray(size -> new String[size]);
+	}
+
+	public static void desugar(Input input) {
+		desugar(input.getGiven());
+		desugar(input.getGoal());
+	}
+
+	public static void desugar(Problem problem) {
+		ArrayList<Property> properties = new ArrayList<Property>();
+		properties.add(problem.getProperty());
+		for (Declaration declaration : problem.getVars()) {
+			Type type = declaration.getType();
+			if (type != null) {
+				properties.add(InputUtil.getAtomic("type_" + type.getName(), declaration.getVarName()));
+				if (type.getTemplateType() != null)
+					properties.add(InputUtil.getAtomic("child_type_" + type.getTemplateType(), declaration.getVarName()));
+				
+				declaration.setType(null);
+			}
+		}
+		problem.setProperty(InputUtil.andTogether(properties));
 	}
 }

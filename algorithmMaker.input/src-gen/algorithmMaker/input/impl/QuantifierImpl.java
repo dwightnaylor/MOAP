@@ -327,11 +327,7 @@ public class QuantifierImpl extends PropertyImpl implements Quantifier
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		QuantifierImpl other = (QuantifierImpl) obj;
-		if (quantifier == null && other.quantifier != null || quantifier != null && !quantifier.equals(other.quantifier)) return false;
-		if (subject == null && other.subject != null || subject != null && !subject.equals(other.subject)) return false;
-		if (predicate == null && other.predicate != null || predicate != null && !predicate.equals(other.predicate)) return false;
-		return true;
+		return toString().equals(obj.toString());
 	}
 
 	public String toString() {

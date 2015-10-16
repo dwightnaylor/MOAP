@@ -37,6 +37,7 @@ public class InputParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
+					put(grammarAccess.getDeclarationAccess().getAlternatives(), "rule__Declaration__Alternatives");
 					put(grammarAccess.getPrimaryAccess().getAlternatives(), "rule__Primary__Alternatives");
 					put(grammarAccess.getQuantifierAccess().getQuantifierAlternatives_0_0(), "rule__Quantifier__QuantifierAlternatives_0_0");
 					put(grammarAccess.getBooleanLiteralAccess().getValueAlternatives_0(), "rule__BooleanLiteral__ValueAlternatives_0");
@@ -46,6 +47,9 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getProblemAccess().getGroup(), "rule__Problem__Group__0");
 					put(grammarAccess.getProblemAccess().getGroup_0(), "rule__Problem__Group_0__0");
 					put(grammarAccess.getProblemAccess().getGroup_0_1(), "rule__Problem__Group_0_1__0");
+					put(grammarAccess.getDeclarationAccess().getGroup_0(), "rule__Declaration__Group_0__0");
+					put(grammarAccess.getTypeAccess().getGroup(), "rule__Type__Group__0");
+					put(grammarAccess.getTypeAccess().getGroup_1(), "rule__Type__Group_1__0");
 					put(grammarAccess.getORingAccess().getGroup(), "rule__ORing__Group__0");
 					put(grammarAccess.getORingAccess().getGroup_1(), "rule__ORing__Group_1__0");
 					put(grammarAccess.getANDingAccess().getGroup(), "rule__ANDing__Group__0");
@@ -65,6 +69,11 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getProblemAccess().getVarsAssignment_0_0(), "rule__Problem__VarsAssignment_0_0");
 					put(grammarAccess.getProblemAccess().getVarsAssignment_0_1_1(), "rule__Problem__VarsAssignment_0_1_1");
 					put(grammarAccess.getProblemAccess().getPropertyAssignment_2(), "rule__Problem__PropertyAssignment_2");
+					put(grammarAccess.getDeclarationAccess().getTypeAssignment_0_0(), "rule__Declaration__TypeAssignment_0_0");
+					put(grammarAccess.getDeclarationAccess().getVarNameAssignment_0_2(), "rule__Declaration__VarNameAssignment_0_2");
+					put(grammarAccess.getDeclarationAccess().getVarNameAssignment_1(), "rule__Declaration__VarNameAssignment_1");
+					put(grammarAccess.getTypeAccess().getNameAssignment_0(), "rule__Type__NameAssignment_0");
+					put(grammarAccess.getTypeAccess().getTemplateTypeAssignment_1_1(), "rule__Type__TemplateTypeAssignment_1_1");
 					put(grammarAccess.getORingAccess().getRightAssignment_1_2(), "rule__ORing__RightAssignment_1_2");
 					put(grammarAccess.getANDingAccess().getRightAssignment_1_2(), "rule__ANDing__RightAssignment_1_2");
 					put(grammarAccess.getQuantifierAccess().getQuantifierAssignment_0(), "rule__Quantifier__QuantifierAssignment_0");

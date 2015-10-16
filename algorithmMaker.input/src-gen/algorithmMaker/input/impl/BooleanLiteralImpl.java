@@ -165,9 +165,7 @@ public class BooleanLiteralImpl extends PropertyImpl implements BooleanLiteral
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		BooleanLiteralImpl other = (BooleanLiteralImpl) obj;
-		if (value == null && other.value != null || value != null && !value.equals(other.value)) return false;
-		return true;
+		return toString().equals(obj.toString());
 	}
 
 	public String toString() {

@@ -41,6 +41,24 @@ public interface InputFactory extends EFactory
   Problem createProblem();
 
   /**
+   * Returns a new object of class '<em>Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Declaration</em>'.
+   * @generated
+   */
+  Declaration createDeclaration();
+
+  /**
+   * Returns a new object of class '<em>Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Type</em>'.
+   * @generated
+   */
+  Type createType();
+
+  /**
    * Returns a new object of class '<em>Property</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

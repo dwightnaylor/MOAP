@@ -6,12 +6,14 @@ package algorithmMaker.serializer;
 import algorithmMaker.input.ANDing;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.BooleanLiteral;
+import algorithmMaker.input.Declaration;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.InputPackage;
 import algorithmMaker.input.ORing;
 import algorithmMaker.input.Problem;
 import algorithmMaker.input.Quantifier;
 import algorithmMaker.input.Theorem;
+import algorithmMaker.input.Type;
 import algorithmMaker.services.InputGrammarAccess;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -45,6 +47,9 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case InputPackage.BOOLEAN_LITERAL:
 				sequence_BooleanLiteral(context, (BooleanLiteral) semanticObject); 
 				return; 
+			case InputPackage.DECLARATION:
+				sequence_Declaration(context, (Declaration) semanticObject); 
+				return; 
 			case InputPackage.INPUT:
 				sequence_Input(context, (Input) semanticObject); 
 				return; 
@@ -59,6 +64,9 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				return; 
 			case InputPackage.THEOREM:
 				sequence_Theorem(context, (Theorem) semanticObject); 
+				return; 
+			case InputPackage.TYPE:
+				sequence_Type(context, (Type) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
@@ -103,6 +111,15 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
+	 *     ((type=Type varName=ID) | varName=ID)
+	 */
+	protected void sequence_Declaration(EObject context, Declaration semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (given=Problem goal=Problem (theorems+=Theorem theorems+=Theorem*)?)
 	 */
 	protected void sequence_Input(EObject context, Input semanticObject) {
@@ -131,7 +148,7 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     (vars+=ID vars+=ID* property=ORing)
+	 *     (vars+=Declaration vars+=Declaration* property=ORing)
 	 */
 	protected void sequence_Problem(EObject context, Problem semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -152,6 +169,15 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     (Requirement=ORing Result=ORing Cost=INT Description=STRING PseudoCode=STRING?)
 	 */
 	protected void sequence_Theorem(EObject context, Theorem semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID templateType=Type?)
+	 */
+	protected void sequence_Type(EObject context, Type semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 }

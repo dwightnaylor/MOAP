@@ -273,8 +273,7 @@ public class ANDingImpl extends PropertyImpl implements ANDing
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null || getClass() != obj.getClass()) return false;
-		ANDingImpl other = (ANDingImpl) obj;
-		return algorithmMaker.util.InputUtil.getANDed(this).equals(algorithmMaker.util.InputUtil.getANDed(other));
+		return toString().equals(obj.toString());
 	}
 
 	public String toString() {
