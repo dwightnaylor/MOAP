@@ -64,7 +64,7 @@ public class ChainerTests {
 	@Test
 	public void testMultistageChaining() {
 		MultistageTheorem multiTheorem = new MultistageTheorem(QuickParser.parseProperty("enumerable(x)"),
-				QuickParser.parseProperty("child(x,y)"), QuickParser.parseProperty("child(x,y)"), 0,
+				QuickParser.parseProperty("child(x,y)"), QuickParser.parseProperty("child(x,y)"), null, 0,
 				"enumerable things", null);
 		Chainer stage1Chainer = new Chainer(multiTheorem);
 		stage1Chainer.chain(QuickParser.parseProperty("enumerable(a)"), TransformUtil.GIVEN);

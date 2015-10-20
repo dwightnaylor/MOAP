@@ -196,9 +196,19 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getInput_Task()
+  {
+    return (EAttribute)inputEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getInput_Goal()
   {
-    return (EReference)inputEClass.getEStructuralFeatures().get(1);
+    return (EReference)inputEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -208,7 +218,7 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    */
   public EReference getInput_Theorems()
   {
-    return (EReference)inputEClass.getEStructuralFeatures().get(2);
+    return (EReference)inputEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -226,7 +236,7 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getProblem_Vars()
+  public EReference getProblem_Property()
   {
     return (EReference)problemEClass.getEStructuralFeatures().get(0);
   }
@@ -236,7 +246,7 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getProblem_Property()
+  public EReference getProblem_Vars()
   {
     return (EReference)problemEClass.getEStructuralFeatures().get(1);
   }
@@ -553,12 +563,13 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     // Create classes and their features
     inputEClass = createEClass(INPUT);
     createEReference(inputEClass, INPUT__GIVEN);
+    createEAttribute(inputEClass, INPUT__TASK);
     createEReference(inputEClass, INPUT__GOAL);
     createEReference(inputEClass, INPUT__THEOREMS);
 
     problemEClass = createEClass(PROBLEM);
-    createEReference(problemEClass, PROBLEM__VARS);
     createEReference(problemEClass, PROBLEM__PROPERTY);
+    createEReference(problemEClass, PROBLEM__VARS);
 
     declarationEClass = createEClass(DECLARATION);
     createEReference(declarationEClass, DECLARATION__TYPE);
@@ -636,12 +647,13 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     // Initialize classes and features; add operations and parameters
     initEClass(inputEClass, Input.class, "Input", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getInput_Given(), this.getProblem(), null, "given", null, 0, 1, Input.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getInput_Task(), ecorePackage.getEString(), "task", null, 0, 1, Input.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getInput_Goal(), this.getProblem(), null, "goal", null, 0, 1, Input.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getInput_Theorems(), this.getTheorem(), null, "theorems", null, 0, -1, Input.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(problemEClass, Problem.class, "Problem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getProblem_Vars(), this.getDeclaration(), null, "vars", null, 0, -1, Problem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getProblem_Property(), this.getProperty(), null, "property", null, 0, 1, Problem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getProblem_Vars(), this.getDeclaration(), null, "vars", null, 0, -1, Problem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(declarationEClass, Declaration.class, "Declaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getDeclaration_Type(), this.getType(), null, "type", null, 0, 1, Declaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

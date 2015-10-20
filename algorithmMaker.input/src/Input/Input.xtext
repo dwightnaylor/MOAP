@@ -6,10 +6,14 @@ generate input "http://www.Input"
 
 //NOTE: Any changes to the formatting should be reflected with changes here.
 Input:
-	'Given' given=Problem ';' 'Find' goal=Problem (';' "Theorems:" theorems+=Theorem (';' theorems+=Theorem)* ';'?)?;
+	'Given' given=Problem ';' ((task=("Find" | "Count") goal=Problem) | (task="Test" '(' goal=ProblemNoVars ')'))
+	(';' "Theorems:" theorems+=Theorem (';' theorems+=Theorem)* ';'?)?;
+
+ProblemNoVars returns Problem:
+	property=ORing;
 
 Problem:
-	((vars+=Declaration) (',' vars+=Declaration)*) 'st' property=ORing;
+	(vars+=Declaration) (',' vars+=Declaration)* 'st' property=ORing;
 
 Declaration:
 	(type=Type '(' varName=ID ')') | varName=ID;

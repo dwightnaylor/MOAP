@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Property;
 import theorems.MultistageTheorem;
+import theorems.multiTheorems.*;
 
 public class MultiTheoremParser {
 	private static String[] inputFiles = { "multitheorems" };
@@ -20,9 +21,9 @@ public class MultiTheoremParser {
 				BufferedReader br = new BufferedReader(new FileReader(new File(fileName)));
 				String line;
 				while ((line = br.readLine()) != null) {
-					if(line.startsWith("//"))
+					if (line.startsWith("//"))
 						continue;
-					
+
 					String[] properties = line.split(";");
 					Property givenReq = QuickParser.parseProperty(properties[0]);
 					Property goalReq = QuickParser.parseProperty(properties[1]);
@@ -45,6 +46,10 @@ public class MultiTheoremParser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		ret.add(new BruteForceFind());
+		ret.add(new BruteForceTest());
+		ret.add(new EqualityTesting());
+		ret.add(new Testing());
 		System.out.println("Done Parsing Multitheorems.");
 		return ret;
 	}

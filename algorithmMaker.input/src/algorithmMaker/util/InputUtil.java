@@ -27,6 +27,9 @@ public class InputUtil {
 	public static final String BOUND = "BOUND";
 	public static final String UNBOUND = "UNBOUND";
 	public static final String EQUAL = "equal";
+	
+	public static final String TEST = "Test";
+	public static final String FIND = "Find";
 
 	/**
 	 * All of the types that should appear in the reduced kernel language

@@ -15,8 +15,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link algorithmMaker.input.Problem#getVars <em>Vars</em>}</li>
  *   <li>{@link algorithmMaker.input.Problem#getProperty <em>Property</em>}</li>
+ *   <li>{@link algorithmMaker.input.Problem#getVars <em>Vars</em>}</li>
  * </ul>
  *
  * @see algorithmMaker.input.InputPackage#getProblem()
@@ -25,22 +25,6 @@ import org.eclipse.emf.ecore.EObject;
  */
 public interface Problem extends EObject
 {
-  /**
-   * Returns the value of the '<em><b>Vars</b></em>' containment reference list.
-   * The list contents are of type {@link algorithmMaker.input.Declaration}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Vars</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Vars</em>' containment reference list.
-   * @see algorithmMaker.input.InputPackage#getProblem_Vars()
-   * @model containment="true"
-   * @generated
-   */
-  EList<Declaration> getVars();
-
   /**
    * Returns the value of the '<em><b>Property</b></em>' containment reference.
    * <!-- begin-user-doc -->
@@ -66,5 +50,21 @@ public interface Problem extends EObject
    * @generated
    */
   void setProperty(Property value);
+
+  /**
+   * Returns the value of the '<em><b>Vars</b></em>' containment reference list.
+   * The list contents are of type {@link algorithmMaker.input.Declaration}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Vars</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Vars</em>' containment reference list.
+   * @see algorithmMaker.input.InputPackage#getProblem_Vars()
+   * @model containment="true"
+   * @generated
+   */
+  EList<Declaration> getVars();
 
 } // Problem

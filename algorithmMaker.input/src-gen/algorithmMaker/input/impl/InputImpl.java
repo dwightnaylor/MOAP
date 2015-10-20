@@ -32,6 +32,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * </p>
  * <ul>
  *   <li>{@link algorithmMaker.input.impl.InputImpl#getGiven <em>Given</em>}</li>
+ *   <li>{@link algorithmMaker.input.impl.InputImpl#getTask <em>Task</em>}</li>
  *   <li>{@link algorithmMaker.input.impl.InputImpl#getGoal <em>Goal</em>}</li>
  *   <li>{@link algorithmMaker.input.impl.InputImpl#getTheorems <em>Theorems</em>}</li>
  * </ul>
@@ -49,6 +50,26 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
    * @ordered
    */
   protected Problem given;
+
+  /**
+   * The default value of the '{@link #getTask() <em>Task</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTask()
+   * @generated
+   * @ordered
+   */
+  protected static final String TASK_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getTask() <em>Task</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getTask()
+   * @generated
+   * @ordered
+   */
+  protected String task = TASK_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getGoal() <em>Goal</em>}' containment reference.
@@ -137,6 +158,29 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
     }
     else if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.INPUT__GIVEN, newGiven, newGiven));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getTask()
+  {
+    return task;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setTask(String newTask)
+  {
+    String oldTask = task;
+    task = newTask;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.INPUT__TASK, oldTask, task));
   }
 
   /**
@@ -233,6 +277,8 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
     {
       case InputPackage.INPUT__GIVEN:
         return getGiven();
+      case InputPackage.INPUT__TASK:
+        return getTask();
       case InputPackage.INPUT__GOAL:
         return getGoal();
       case InputPackage.INPUT__THEOREMS:
@@ -254,6 +300,9 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
     {
       case InputPackage.INPUT__GIVEN:
         setGiven((Problem)newValue);
+        return;
+      case InputPackage.INPUT__TASK:
+        setTask((String)newValue);
         return;
       case InputPackage.INPUT__GOAL:
         setGoal((Problem)newValue);
@@ -279,6 +328,9 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
       case InputPackage.INPUT__GIVEN:
         setGiven((Problem)null);
         return;
+      case InputPackage.INPUT__TASK:
+        setTask(TASK_EDEFAULT);
+        return;
       case InputPackage.INPUT__GOAL:
         setGoal((Problem)null);
         return;
@@ -301,6 +353,8 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
     {
       case InputPackage.INPUT__GIVEN:
         return given != null;
+      case InputPackage.INPUT__TASK:
+        return TASK_EDEFAULT == null ? task != null : !TASK_EDEFAULT.equals(task);
       case InputPackage.INPUT__GOAL:
         return goal != null;
       case InputPackage.INPUT__THEOREMS:
@@ -309,11 +363,10 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
     return super.eIsSet(featureID);
   }
 
-
-
 	public int hashCode() {
 		int ret = getClass().hashCode();
 		ret += given == null ? 0 :given.hashCode();
+		ret += task == null ? 0 :task.hashCode();
 		ret += goal == null ? 0 :goal.hashCode();
 		if (theorems != null) {
 			for (Object obj : theorems) {
@@ -331,7 +384,7 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append("Given " + given + "; Find " + goal);
+		ret.append("Given " + given + "; " + (task.equals("Test") ? (task + '(' + goal + ')') : (task + ' ' + goal)));
 		return ret.toString();
 	}
 

@@ -9,12 +9,13 @@
       fileExtensions="input" ecorePackage="Input.ecore#/">
     <genClasses ecoreClass="Input.ecore#//Input">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Input/given"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Input/task"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Input/goal"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Input/theorems"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//Problem">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Problem/vars"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Problem/property"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Problem/vars"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//Declaration">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Declaration/type"/>

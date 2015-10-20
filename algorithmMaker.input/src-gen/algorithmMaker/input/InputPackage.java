@@ -76,13 +76,22 @@ public interface InputPackage extends EPackage
   int INPUT__GIVEN = 0;
 
   /**
+   * The feature id for the '<em><b>Task</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int INPUT__TASK = 1;
+
+  /**
    * The feature id for the '<em><b>Goal</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int INPUT__GOAL = 1;
+  int INPUT__GOAL = 2;
 
   /**
    * The feature id for the '<em><b>Theorems</b></em>' containment reference list.
@@ -91,7 +100,7 @@ public interface InputPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INPUT__THEOREMS = 2;
+  int INPUT__THEOREMS = 3;
 
   /**
    * The number of structural features of the '<em>Input</em>' class.
@@ -100,7 +109,7 @@ public interface InputPackage extends EPackage
    * @generated
    * @ordered
    */
-  int INPUT_FEATURE_COUNT = 3;
+  int INPUT_FEATURE_COUNT = 4;
 
   /**
    * The meta object id for the '{@link algorithmMaker.input.impl.ProblemImpl <em>Problem</em>}' class.
@@ -113,22 +122,22 @@ public interface InputPackage extends EPackage
   int PROBLEM = 1;
 
   /**
-   * The feature id for the '<em><b>Vars</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PROBLEM__VARS = 0;
-
-  /**
    * The feature id for the '<em><b>Property</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int PROBLEM__PROPERTY = 1;
+  int PROBLEM__PROPERTY = 0;
+
+  /**
+   * The feature id for the '<em><b>Vars</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PROBLEM__VARS = 1;
 
   /**
    * The number of structural features of the '<em>Problem</em>' class.
@@ -504,6 +513,17 @@ public interface InputPackage extends EPackage
   EReference getInput_Given();
 
   /**
+   * Returns the meta object for the attribute '{@link algorithmMaker.input.Input#getTask <em>Task</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Task</em>'.
+   * @see algorithmMaker.input.Input#getTask()
+   * @see #getInput()
+   * @generated
+   */
+  EAttribute getInput_Task();
+
+  /**
    * Returns the meta object for the containment reference '{@link algorithmMaker.input.Input#getGoal <em>Goal</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -536,17 +556,6 @@ public interface InputPackage extends EPackage
   EClass getProblem();
 
   /**
-   * Returns the meta object for the containment reference list '{@link algorithmMaker.input.Problem#getVars <em>Vars</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Vars</em>'.
-   * @see algorithmMaker.input.Problem#getVars()
-   * @see #getProblem()
-   * @generated
-   */
-  EReference getProblem_Vars();
-
-  /**
    * Returns the meta object for the containment reference '{@link algorithmMaker.input.Problem#getProperty <em>Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -556,6 +565,17 @@ public interface InputPackage extends EPackage
    * @generated
    */
   EReference getProblem_Property();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link algorithmMaker.input.Problem#getVars <em>Vars</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Vars</em>'.
+   * @see algorithmMaker.input.Problem#getVars()
+   * @see #getProblem()
+   * @generated
+   */
+  EReference getProblem_Vars();
 
   /**
    * Returns the meta object for class '{@link algorithmMaker.input.Declaration <em>Declaration</em>}'.
@@ -898,6 +918,14 @@ public interface InputPackage extends EPackage
     EReference INPUT__GIVEN = eINSTANCE.getInput_Given();
 
     /**
+     * The meta object literal for the '<em><b>Task</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute INPUT__TASK = eINSTANCE.getInput_Task();
+
+    /**
      * The meta object literal for the '<em><b>Goal</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -924,20 +952,20 @@ public interface InputPackage extends EPackage
     EClass PROBLEM = eINSTANCE.getProblem();
 
     /**
-     * The meta object literal for the '<em><b>Vars</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference PROBLEM__VARS = eINSTANCE.getProblem_Vars();
-
-    /**
      * The meta object literal for the '<em><b>Property</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
     EReference PROBLEM__PROPERTY = eINSTANCE.getProblem_Property();
+
+    /**
+     * The meta object literal for the '<em><b>Vars</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PROBLEM__VARS = eINSTANCE.getProblem_Vars();
 
     /**
      * The meta object literal for the '{@link algorithmMaker.input.impl.DeclarationImpl <em>Declaration</em>}' class.

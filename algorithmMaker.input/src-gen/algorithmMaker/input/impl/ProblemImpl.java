@@ -31,24 +31,14 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link algorithmMaker.input.impl.ProblemImpl#getVars <em>Vars</em>}</li>
  *   <li>{@link algorithmMaker.input.impl.ProblemImpl#getProperty <em>Property</em>}</li>
+ *   <li>{@link algorithmMaker.input.impl.ProblemImpl#getVars <em>Vars</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
 {
-  /**
-   * The cached value of the '{@link #getVars() <em>Vars</em>}' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getVars()
-   * @generated
-   * @ordered
-   */
-  protected EList<Declaration> vars;
-
   /**
    * The cached value of the '{@link #getProperty() <em>Property</em>}' containment reference.
    * <!-- begin-user-doc -->
@@ -58,6 +48,16 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
    * @ordered
    */
   protected Property property;
+
+  /**
+   * The cached value of the '{@link #getVars() <em>Vars</em>}' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getVars()
+   * @generated
+   * @ordered
+   */
+  protected EList<Declaration> vars;
 
   /**
    * <!-- begin-user-doc -->
@@ -78,20 +78,6 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
   protected EClass eStaticClass()
   {
     return InputPackage.Literals.PROBLEM;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EList<Declaration> getVars()
-  {
-    if (vars == null)
-    {
-      vars = new EObjectContainmentEList<Declaration>(Declaration.class, this, InputPackage.PROBLEM__VARS);
-    }
-    return vars;
   }
 
   /**
@@ -147,15 +133,29 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
    * <!-- end-user-doc -->
    * @generated
    */
+  public EList<Declaration> getVars()
+  {
+    if (vars == null)
+    {
+      vars = new EObjectContainmentEList<Declaration>(Declaration.class, this, InputPackage.PROBLEM__VARS);
+    }
+    return vars;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
     switch (featureID)
     {
-      case InputPackage.PROBLEM__VARS:
-        return ((InternalEList<?>)getVars()).basicRemove(otherEnd, msgs);
       case InputPackage.PROBLEM__PROPERTY:
         return basicSetProperty(null, msgs);
+      case InputPackage.PROBLEM__VARS:
+        return ((InternalEList<?>)getVars()).basicRemove(otherEnd, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -170,10 +170,10 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
   {
     switch (featureID)
     {
-      case InputPackage.PROBLEM__VARS:
-        return getVars();
       case InputPackage.PROBLEM__PROPERTY:
         return getProperty();
+      case InputPackage.PROBLEM__VARS:
+        return getVars();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -189,12 +189,12 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
   {
     switch (featureID)
     {
+      case InputPackage.PROBLEM__PROPERTY:
+        setProperty((Property)newValue);
+        return;
       case InputPackage.PROBLEM__VARS:
         getVars().clear();
         getVars().addAll((Collection<? extends Declaration>)newValue);
-        return;
-      case InputPackage.PROBLEM__PROPERTY:
-        setProperty((Property)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -210,11 +210,11 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
   {
     switch (featureID)
     {
-      case InputPackage.PROBLEM__VARS:
-        getVars().clear();
-        return;
       case InputPackage.PROBLEM__PROPERTY:
         setProperty((Property)null);
+        return;
+      case InputPackage.PROBLEM__VARS:
+        getVars().clear();
         return;
     }
     super.eUnset(featureID);
@@ -230,10 +230,10 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
   {
     switch (featureID)
     {
-      case InputPackage.PROBLEM__VARS:
-        return vars != null && !vars.isEmpty();
       case InputPackage.PROBLEM__PROPERTY:
         return property != null;
+      case InputPackage.PROBLEM__VARS:
+        return vars != null && !vars.isEmpty();
     }
     return super.eIsSet(featureID);
   }
@@ -242,12 +242,12 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
 
 	public int hashCode() {
 		int ret = getClass().hashCode();
+		ret += property == null ? 0 :property.hashCode();
 		if (vars != null) {
 			for (Object obj : vars) {
 				ret += obj.hashCode();
 			}
 		}
-		ret += property == null ? 0 :property.hashCode();
 		return ret;
 	}
 
@@ -263,9 +263,9 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
 			for (Declaration var : vars)
 				ret.append(var.toString() + ',');
 			ret.deleteCharAt(ret.length() - 1);
-		} else
-			ret.append('_');
-		ret.append(" st " + property);
+			ret.append(" st ");
+		}
+		ret.append(property);
 		return ret.toString();
 	}
 

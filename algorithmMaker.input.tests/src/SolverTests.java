@@ -14,7 +14,7 @@ public class SolverTests {
 	@Test
 	public void testProblemStateChange() {
 		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty("enumerable(x)"),
-				parseProperty("child(x,y)"), parseProperty("child(x,y)"), 0, "enumerable things", null);
+				parseProperty("child(x,y)"), parseProperty("child(x,y)"), null, 0, "enumerable things", null);
 		ProblemSolver solver = new ProblemSolver(
 				QuickParser.parseInput("Given x st enumerable(x); Find y st child(x,y) & something(x)"),
 				multistageTheorem);
@@ -25,7 +25,7 @@ public class SolverTests {
 	@Test
 	public void testProblemResolution() {
 		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty("a(x)"), parseProperty("b(x)"),
-				parseProperty("b(x)"), 0, "test", null);
+				parseProperty("b(x)"), null, 0, "test", null);
 		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x st a(x); Find x st b(x)"),
 				multistageTheorem);
 		solver.branch();
@@ -36,7 +36,7 @@ public class SolverTests {
 	@Test
 	public void testMultipleBranchingExclusion() {
 		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty("a(x)"), parseProperty("b(x)"),
-				parseProperty("b(x)"), 0, "test", null);
+				parseProperty("b(x)"), null, 0, "test", null);
 		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x st a(x) & a(x); Find x st b(x)"),
 				multistageTheorem);
 		solver.branch();
@@ -47,7 +47,8 @@ public class SolverTests {
 	@Test
 	public void testEqualityMultiTheorem() {
 		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty(InputUtil.BOUND + "(x) & "
-				+ InputUtil.BOUND + "(y)"), parseProperty("equal(x,y)"), parseProperty("equal(x,y)"), 0, "test", null);
+				+ InputUtil.BOUND + "(y)"), parseProperty("equal(x,y)"), parseProperty("equal(x,y)"), null, 0, "test",
+				null);
 		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x,y st a(x,y); Find x st equal(x,y)"),
 				multistageTheorem);
 		solver.branch();

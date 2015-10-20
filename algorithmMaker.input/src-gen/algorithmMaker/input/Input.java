@@ -16,6 +16,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link algorithmMaker.input.Input#getGiven <em>Given</em>}</li>
+ *   <li>{@link algorithmMaker.input.Input#getTask <em>Task</em>}</li>
  *   <li>{@link algorithmMaker.input.Input#getGoal <em>Goal</em>}</li>
  *   <li>{@link algorithmMaker.input.Input#getTheorems <em>Theorems</em>}</li>
  * </ul>
@@ -51,6 +52,32 @@ public interface Input extends EObject
    * @generated
    */
   void setGiven(Problem value);
+
+  /**
+   * Returns the value of the '<em><b>Task</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Task</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Task</em>' attribute.
+   * @see #setTask(String)
+   * @see algorithmMaker.input.InputPackage#getInput_Task()
+   * @model
+   * @generated
+   */
+  String getTask();
+
+  /**
+   * Sets the value of the '{@link algorithmMaker.input.Input#getTask <em>Task</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Task</em>' attribute.
+   * @see #getTask()
+   * @generated
+   */
+  void setTask(String value);
 
   /**
    * Returns the value of the '<em><b>Goal</b></em>' containment reference.

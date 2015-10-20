@@ -4,15 +4,16 @@
   <eClassifiers xsi:type="ecore:EClass" name="Input">
     <eStructuralFeatures xsi:type="ecore:EReference" name="given" eType="#//Problem"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="task" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="goal" eType="#//Problem"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="theorems" upperBound="-1"
         eType="#//Theorem" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Problem">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="vars" upperBound="-1" eType="#//Declaration"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="property" eType="#//Property"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="vars" upperBound="-1" eType="#//Declaration"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Declaration">

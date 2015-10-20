@@ -37,16 +37,19 @@ public class InputParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
+					put(grammarAccess.getInputAccess().getAlternatives_3(), "rule__Input__Alternatives_3");
+					put(grammarAccess.getInputAccess().getTaskAlternatives_3_0_0_0(), "rule__Input__TaskAlternatives_3_0_0_0");
 					put(grammarAccess.getDeclarationAccess().getAlternatives(), "rule__Declaration__Alternatives");
 					put(grammarAccess.getPrimaryAccess().getAlternatives(), "rule__Primary__Alternatives");
 					put(grammarAccess.getQuantifierAccess().getQuantifierAlternatives_0_0(), "rule__Quantifier__QuantifierAlternatives_0_0");
 					put(grammarAccess.getBooleanLiteralAccess().getValueAlternatives_0(), "rule__BooleanLiteral__ValueAlternatives_0");
 					put(grammarAccess.getInputAccess().getGroup(), "rule__Input__Group__0");
-					put(grammarAccess.getInputAccess().getGroup_5(), "rule__Input__Group_5__0");
-					put(grammarAccess.getInputAccess().getGroup_5_3(), "rule__Input__Group_5_3__0");
+					put(grammarAccess.getInputAccess().getGroup_3_0(), "rule__Input__Group_3_0__0");
+					put(grammarAccess.getInputAccess().getGroup_3_1(), "rule__Input__Group_3_1__0");
+					put(grammarAccess.getInputAccess().getGroup_4(), "rule__Input__Group_4__0");
+					put(grammarAccess.getInputAccess().getGroup_4_3(), "rule__Input__Group_4_3__0");
 					put(grammarAccess.getProblemAccess().getGroup(), "rule__Problem__Group__0");
-					put(grammarAccess.getProblemAccess().getGroup_0(), "rule__Problem__Group_0__0");
-					put(grammarAccess.getProblemAccess().getGroup_0_1(), "rule__Problem__Group_0_1__0");
+					put(grammarAccess.getProblemAccess().getGroup_1(), "rule__Problem__Group_1__0");
 					put(grammarAccess.getDeclarationAccess().getGroup_0(), "rule__Declaration__Group_0__0");
 					put(grammarAccess.getTypeAccess().getGroup(), "rule__Type__Group__0");
 					put(grammarAccess.getTypeAccess().getGroup_1(), "rule__Type__Group_1__0");
@@ -63,12 +66,16 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTheoremAccess().getGroup(), "rule__Theorem__Group__0");
 					put(grammarAccess.getTheoremAccess().getGroup_7(), "rule__Theorem__Group_7__0");
 					put(grammarAccess.getInputAccess().getGivenAssignment_1(), "rule__Input__GivenAssignment_1");
-					put(grammarAccess.getInputAccess().getGoalAssignment_4(), "rule__Input__GoalAssignment_4");
-					put(grammarAccess.getInputAccess().getTheoremsAssignment_5_2(), "rule__Input__TheoremsAssignment_5_2");
-					put(grammarAccess.getInputAccess().getTheoremsAssignment_5_3_1(), "rule__Input__TheoremsAssignment_5_3_1");
-					put(grammarAccess.getProblemAccess().getVarsAssignment_0_0(), "rule__Problem__VarsAssignment_0_0");
-					put(grammarAccess.getProblemAccess().getVarsAssignment_0_1_1(), "rule__Problem__VarsAssignment_0_1_1");
-					put(grammarAccess.getProblemAccess().getPropertyAssignment_2(), "rule__Problem__PropertyAssignment_2");
+					put(grammarAccess.getInputAccess().getTaskAssignment_3_0_0(), "rule__Input__TaskAssignment_3_0_0");
+					put(grammarAccess.getInputAccess().getGoalAssignment_3_0_1(), "rule__Input__GoalAssignment_3_0_1");
+					put(grammarAccess.getInputAccess().getTaskAssignment_3_1_0(), "rule__Input__TaskAssignment_3_1_0");
+					put(grammarAccess.getInputAccess().getGoalAssignment_3_1_2(), "rule__Input__GoalAssignment_3_1_2");
+					put(grammarAccess.getInputAccess().getTheoremsAssignment_4_2(), "rule__Input__TheoremsAssignment_4_2");
+					put(grammarAccess.getInputAccess().getTheoremsAssignment_4_3_1(), "rule__Input__TheoremsAssignment_4_3_1");
+					put(grammarAccess.getProblemNoVarsAccess().getPropertyAssignment(), "rule__ProblemNoVars__PropertyAssignment");
+					put(grammarAccess.getProblemAccess().getVarsAssignment_0(), "rule__Problem__VarsAssignment_0");
+					put(grammarAccess.getProblemAccess().getVarsAssignment_1_1(), "rule__Problem__VarsAssignment_1_1");
+					put(grammarAccess.getProblemAccess().getPropertyAssignment_3(), "rule__Problem__PropertyAssignment_3");
 					put(grammarAccess.getDeclarationAccess().getTypeAssignment_0_0(), "rule__Declaration__TypeAssignment_0_0");
 					put(grammarAccess.getDeclarationAccess().getVarNameAssignment_0_2(), "rule__Declaration__VarNameAssignment_0_2");
 					put(grammarAccess.getDeclarationAccess().getVarNameAssignment_1(), "rule__Declaration__VarNameAssignment_1");

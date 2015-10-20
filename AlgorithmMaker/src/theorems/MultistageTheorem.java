@@ -7,6 +7,8 @@ public class MultistageTheorem extends QuickTheorem {
 	private final Property findRequirement;
 	private final Property givenResult;
 	private final Property findResult;
+	private String requiredGoalTask;
+	public String newGoalTask;
 
 	public MultistageTheorem(Property givenRequirement, Property findRequirement, Property givenResult, int cost,
 			String description, String pseudocode) {
@@ -31,5 +33,17 @@ public class MultistageTheorem extends QuickTheorem {
 
 	public Property getFindResult() {
 		return findResult;
+	}
+
+	public String getRequiredGoalTask() {
+		return requiredGoalTask;
+	}
+
+	public void requireGoalTask(String requiredGoalTask) {
+		this.requiredGoalTask = requiredGoalTask;
+	}
+	
+	public void setNewGoalTask(String task){
+		this.newGoalTask = task;
 	}
 }

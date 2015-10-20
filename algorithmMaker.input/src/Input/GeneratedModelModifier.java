@@ -124,32 +124,43 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 		ret.append("\tpublic boolean equals(Object obj) {" + NL);
 		ret.append("\t\tif (this == obj) return true;" + NL);
 		ret.append("\t\tif (obj == null || getClass() != obj.getClass()) return false;" + NL);
-//		ret.append("\t\t" + className + "Impl other = (" + className + "Impl) obj;" + NL);
-//		if (className.equals("ANDing"))
-//			ret.append("\t\treturn algorithmMaker.util.InputUtil.getANDed(this).equals(algorithmMaker.util.InputUtil.getANDed(other));" + NL);
-//		else if (className.equals("ORing"))
-//			ret.append("\t\treturn algorithmMaker.util.InputUtil.getORed(this).equals(algorithmMaker.util.InputUtil.getORed(other));" + NL);
-//		else {
-//			for (Field field : classToUse.getDeclaredFields()) {
-//				if (Modifier.isFinal(field.getModifiers())) {
-//					continue;
-//				}
-//				if (int.class.isAssignableFrom(field.getType()) || double.class.isAssignableFrom(field.getType())
-//						|| boolean.class.isAssignableFrom(field.getType())) {
-//					ret.append("\t\tif (" + field.getName() + " != other." + field.getName() + ") return false;" + NL);
-//				} else if (EList.class.isAssignableFrom(field.getType())) {
-//					ret.append("\t\tif (!(" + field.getName() + " == null && other." + field.getName() + " == null || "
-//							+ field.getName() + " == null && other." + field.getName() + ".size() == 0 || "
-//							+ field.getName() + ".size() == 0 && other." + field.getName() + " == null || "
-//							+ field.getName() + ".equals(other." + field.getName() + "))) return false;" + NL);
-//				} else {
-//					ret.append("\t\tif (" + field.getName() + " == null && other." + field.getName() + " != null || "
-//							+ field.getName() + " != null && !" + field.getName() + ".equals(other." + field.getName()
-//							+ ")) return false;" + NL);
-//				}
-//			}
-//			ret.append("\t\treturn true;" + NL);
-//		}
+		// ret.append("\t\t" + className + "Impl other = (" + className +
+		// "Impl) obj;" + NL);
+		// if (className.equals("ANDing"))
+		// ret.append("\t\treturn algorithmMaker.util.InputUtil.getANDed(this).equals(algorithmMaker.util.InputUtil.getANDed(other));"
+		// + NL);
+		// else if (className.equals("ORing"))
+		// ret.append("\t\treturn algorithmMaker.util.InputUtil.getORed(this).equals(algorithmMaker.util.InputUtil.getORed(other));"
+		// + NL);
+		// else {
+		// for (Field field : classToUse.getDeclaredFields()) {
+		// if (Modifier.isFinal(field.getModifiers())) {
+		// continue;
+		// }
+		// if (int.class.isAssignableFrom(field.getType()) ||
+		// double.class.isAssignableFrom(field.getType())
+		// || boolean.class.isAssignableFrom(field.getType())) {
+		// ret.append("\t\tif (" + field.getName() + " != other." +
+		// field.getName() + ") return false;" + NL);
+		// } else if (EList.class.isAssignableFrom(field.getType())) {
+		// ret.append("\t\tif (!(" + field.getName() + " == null && other." +
+		// field.getName() + " == null || "
+		// + field.getName() + " == null && other." + field.getName() +
+		// ".size() == 0 || "
+		// + field.getName() + ".size() == 0 && other." + field.getName() +
+		// " == null || "
+		// + field.getName() + ".equals(other." + field.getName() +
+		// "))) return false;" + NL);
+		// } else {
+		// ret.append("\t\tif (" + field.getName() + " == null && other." +
+		// field.getName() + " != null || "
+		// + field.getName() + " != null && !" + field.getName() +
+		// ".equals(other." + field.getName()
+		// + ")) return false;" + NL);
+		// }
+		// }
+		// ret.append("\t\treturn true;" + NL);
+		// }
 		ret.append("\t\treturn toString().equals(obj.toString());" + NL);
 		ret.append("\t}" + NL + NL);
 		return ret.toString();
@@ -160,8 +171,8 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 		Class<? extends EObject> classToUse = null;
 		try {
 			URLClassLoader urlClassLoader = new URLClassLoader(new URL[] { file.getParentFile().toURI().toURL() });
-			classToUse = (Class<? extends EObject>) urlClassLoader
-					.loadClass("algorithmMaker.input.impl." + className + "Impl");
+			classToUse = (Class<? extends EObject>) urlClassLoader.loadClass("algorithmMaker.input.impl." + className
+					+ "Impl");
 			urlClassLoader.close();
 		} catch (ClassNotFoundException e) {
 			return null;
@@ -194,7 +205,8 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 			ret.append("\t\t}" + NL);
 			break;
 		case "Input":
-			ret.append("\t\tret.append(\"Given \" + given + \"; Find \" + goal);" + NL);
+			ret.append("\t\tret.append(\"Given \" + given + \"; \" + (task.equals(\"Test\") ? (task + '(' + goal + ')') : (task + ' ' + goal)));"
+					+ NL);
 			break;
 		case "ORing":
 			ret.append("\t\tret.append(left + \" | \" + right);" + NL);
@@ -204,9 +216,9 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 			ret.append("\t\t\tfor (Declaration var : vars)" + NL);
 			ret.append("\t\t\t\tret.append(var.toString() + ',');" + NL);
 			ret.append("\t\t\tret.deleteCharAt(ret.length() - 1);" + NL);
-			ret.append("\t\t} else" + NL);
-			ret.append("\t\t\tret.append('_');" + NL);
-			ret.append("\t\tret.append(\" st \" + property);" + NL);
+			ret.append("\t\t\tret.append(\" st \");" + NL);
+			ret.append("\t\t}" + NL);
+			ret.append("\t\tret.append(property);" + NL);
 			break;
 		case "Quantifier":
 			ret.append("\t\tret.append(quantifier + '(' + subject + \" : \" + predicate + ')');" + NL);
@@ -229,7 +241,7 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 		default:
 			if (log.isInfoEnabled())
 				log.info("ERROR: No toString() method specified for " + className + "!");
-			
+
 			ret.append("\t\terror" + NL);
 			break;
 		}

@@ -57,8 +57,15 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				sequence_ORing(context, (ORing) semanticObject); 
 				return; 
 			case InputPackage.PROBLEM:
-				sequence_Problem(context, (Problem) semanticObject); 
-				return; 
+				if(context == grammarAccess.getProblemNoVarsRule()) {
+					sequence_ProblemNoVars(context, (Problem) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getProblemRule()) {
+					sequence_Problem(context, (Problem) semanticObject); 
+					return; 
+				}
+				else break;
 			case InputPackage.QUANTIFIER:
 				sequence_Quantifier(context, (Quantifier) semanticObject); 
 				return; 
@@ -120,7 +127,7 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     (given=Problem goal=Problem (theorems+=Theorem theorems+=Theorem*)?)
+	 *     (given=Problem (((task='Find' | task='Count') goal=Problem) | (task='Test' goal=ProblemNoVars)) (theorems+=Theorem theorems+=Theorem*)?)
 	 */
 	protected void sequence_Input(EObject context, Input semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -143,6 +150,15 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 		feeder.accept(grammarAccess.getORingAccess().getORingLeftAction_1_0(), semanticObject.getLeft());
 		feeder.accept(grammarAccess.getORingAccess().getRightANDingParserRuleCall_1_2_0(), semanticObject.getRight());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     property=ORing
+	 */
+	protected void sequence_ProblemNoVars(EObject context, Problem semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
