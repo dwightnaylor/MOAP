@@ -2,18 +2,18 @@
 
 "use strict";
 
-let React = require("react");
-let injectEventTapPlugin = require("react-tap-event-plugin");
-let mui = require("material-ui");
-let ThemeManager = new mui.Styles.ThemeManager();
-let AppBar = mui.AppBar;
-let TextField = mui.TextField;
-let RaisedButton = mui.RaisedButton;
-let CircularProgress = mui.CircularProgress;
+var React = require("react");
+var injectEventTapPlugin = require("react-tap-event-plugin");
+var mui = require("material-ui");
+var ThemeManager = new mui.Styles.ThemeManager();
+var AppBar = mui.AppBar;
+var TextField = mui.TextField;
+var RaisedButton = mui.RaisedButton;
+var CircularProgress = mui.CircularProgress;
 
 injectEventTapPlugin();
 
-let Main = React.createClass({
+var Main = React.createClass({
   getInitialState: function() {
     return {
       isLoading: false
