@@ -178,7 +178,7 @@ public class ProblemSolver {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static String main(String[] args) {
 		ArrayList<Theorem> theorems = TheoremParser.parseFiles();
 		theorems.addAll(MultiTheoremParser.parseFiles());
 		// Scanner s = new Scanner(System.in);
@@ -186,10 +186,10 @@ public class ProblemSolver {
 		// ProblemSolver(QuickParser.parseInput(s.nextLine()),
 		// theorems.toArray(new Theorem[0]));
 		// s.close();
-		String problemString =
+		String problemString = args[0];
 		// Problems...
 		// "Given a,b st even(b) & type_list(a), Find b st child(a,b)";
-		"Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c) & even(c)";
+		// "Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c) & even(c)";
 		// "Given list<int>(a); Find b st child(a,b) & even(b)";
 		Input input = QuickParser.parseInput(problemString);
 		InputUtil.desugar(input);
@@ -200,6 +200,7 @@ public class ProblemSolver {
 			System.out.println("This algorithm should solve your problem :-)");
 
 		System.out.println(problemString);
-		System.out.println(ProblemState.getOutputString(solution));
+		//System.out.println(ProblemState.getOutputString(solution));
+		return ProblemState.getOutputString(solution);
 	}
 }

@@ -1,5 +1,7 @@
 package apihead;
 
+import solver.ProblemSolver;
+
 
 public class Passer {
 	private String resp;
@@ -9,7 +11,9 @@ public class Passer {
 	}
 	
 	public String getResponse(){
-		//this.resp = ProblemSolver.solveProblem(this.req);
+		String[] args = new String[1];
+		args[0] = this.req;
+		this.resp = ProblemSolver.main(args);
 		return this.resp;
 	}
 }

@@ -1,0 +1,6 @@
+type_graph
+type_node
+type_edge
+graph_directed(x):-type_graph(x)
+graph_directed(x):-!graph_undirected(x)
+not_empty_graph(x):-exists(y st child(x,y):true)
