@@ -21,4 +21,21 @@ public class ProblemState implements Comparable<ProblemState> {
 	public int compareTo(ProblemState other) {
 		return problem.getGoal().toString().compareTo(other.problem.getGoal().toString());
 	}
+	
+	public static String getOutputString(ProblemState solution) {
+		StringBuffer output = new StringBuffer();
+		while (solution != null) {
+			for (int i = 0; i < output.length(); i++)
+				if (output.charAt(i) == '\n')
+					output.insert(i + 1, "\t");
+
+			// Don't try to show pseudocode used to get from the given to the
+			// first step.
+			if (solution.parentState != null)
+				output.insert(0, solution.rootTheoremBinding.revar(solution.rootTheorem.getPseudoCode()) + "\n");
+
+			solution = solution.parentState;
+		}
+		return output.toString();
+	}
 }

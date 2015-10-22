@@ -105,14 +105,14 @@ public class ProblemSolver {
 
 						Property givenResult = mst.getGivenResult();
 						if (givenResult != null) {
-							newBinding.addBindingsFrom(
-									doBindings(newProblem.getGiven(), usedVars, InputUtil.getBindings(givenResult)));
+							newBinding.addBindingsFrom(doBindings(newProblem.getGiven(), usedVars,
+									InputUtil.getBindings(givenResult)));
 							newGivenParts.add(InputUtil.revar(givenResult, newBinding.getArguments()));
 						}
 						Property findResult = mst.getFindResult();
 						if (findResult != null) {
-							newBinding.addBindingsFrom(
-									doBindings(newProblem.getGoal(), usedVars, InputUtil.getBindings(findResult)));
+							newBinding.addBindingsFrom(doBindings(newProblem.getGoal(), usedVars,
+									InputUtil.getBindings(findResult)));
 							newGoalParts.add(InputUtil.revar(findResult, newBinding.getArguments()));
 						}
 
@@ -188,38 +188,18 @@ public class ProblemSolver {
 		// s.close();
 		String problemString =
 		// Problems...
-		// "Given a,b st type_list(a) & child_type_int(a) & type_list(b) &
-		// child_type_int(b), Find c st child(a,c) & child(b,c) & even(c)";
-		// "Given a,c st type_list(a) & child_type_int(a) & equal(a,c), Find b
-		// st child(a,b) & child(c,b) & even(b)";
-		// "Given a st type_list(a) & child_type_int(a), Find b st child(a,b) &
-		// even(b)";
 		// "Given a,b st even(b) & type_list(a), Find b st child(a,b)";
-		 "Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c) & even(c)";
-//		"Given list<int>(a); Find b st child(a,b) & even(b)";
+		"Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c) & even(c)";
+		// "Given list<int>(a); Find b st child(a,b) & even(b)";
 		Input input = QuickParser.parseInput(problemString);
 		InputUtil.desugar(input);
-		ProblemSolver solver = new ProblemSolver(input, theorems.toArray(new Theorem[0]));
-		ProblemState solution = solver.getSolution();
-		StringBuffer output = new StringBuffer();
+		ProblemState solution = new ProblemSolver(input, theorems.toArray(new Theorem[0])).getSolution();
 		if (solution == null)
 			System.out.println("I couldn't solve your problem. You'll have to find a better robot :-(");
 		else
 			System.out.println("This algorithm should solve your problem :-)");
 
 		System.out.println(problemString);
-		while (solution != null) {
-			for (int i = 0; i < output.length(); i++)
-				if (output.charAt(i) == '\n')
-					output.insert(i + 1, "\t");
-
-			// Don't try to show pseudocode used to get from the given to the
-			// first step.
-			if (solution.parentState != null)
-				output.insert(0, solution.rootTheoremBinding.revar(solution.rootTheorem.getPseudoCode()) + "\n");
-
-			solution = solution.parentState;
-		}
-		System.out.println(output);
+		System.out.println(ProblemState.getOutputString(solution));
 	}
 }
