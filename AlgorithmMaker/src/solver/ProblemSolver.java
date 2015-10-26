@@ -178,10 +178,10 @@ public class ProblemSolver {
 		}
 	}
 
-	public static String runWebSolver(String problemString) {
+	public static String runWebSolver(String[] problemString) {
 		ArrayList<Theorem> theorems = TheoremParser.parseFiles();
 		theorems.addAll(MultiTheoremParser.parseFiles());
-		Input input = QuickParser.parseInput(problemString);
+		Input input = QuickParser.parseInput(problemString[0]);
 		InputUtil.desugar(input);
 		return ProblemState.getOutputString(new ProblemSolver(input, theorems.toArray(new Theorem[0])).getSolution());
 	}
