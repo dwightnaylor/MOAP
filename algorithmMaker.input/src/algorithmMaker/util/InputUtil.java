@@ -1,7 +1,6 @@
 package algorithmMaker.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -11,6 +10,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
 import algorithmMaker.input.ANDing;
+import algorithmMaker.input.Argument;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.BooleanLiteral;
 import algorithmMaker.input.Declaration;
@@ -20,6 +20,7 @@ import algorithmMaker.input.Problem;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Quantifier;
 import algorithmMaker.input.Type;
+import algorithmMaker.input.Variable;
 import algorithmMaker.input.impl.InputFactoryImpl;
 
 public class InputUtil {
@@ -27,7 +28,7 @@ public class InputUtil {
 	public static final String BOUND = "BOUND";
 	public static final String UNBOUND = "UNBOUND";
 	public static final String EQUAL = "equal";
-	
+
 	public static final String TEST = "Test";
 	public static final String FIND = "Find";
 
@@ -56,7 +57,7 @@ public class InputUtil {
 
 		return null;
 	}
-
+	
 	/**
 	 * Sets the given problem to contain all the variables that appear within
 	 * it.
@@ -74,16 +75,16 @@ public class InputUtil {
 	 * Creates a copy of the given property, but with all variables converted
 	 * according to the given hashtable.
 	 */
-	public static Property revar(Property property, Hashtable<String, String> revars) {
+	public static Property revar(Property property, Hashtable<Argument, Argument> revars) {
 		Property clone = (Property) new EcoreUtil.Copier().copy(property);
 		TreeIterator<EObject> contents = clone.eAllContents();
 		while (contents.hasNext()) {
 			EObject cur = contents.next();
 			if (cur instanceof Atomic)
-				((Atomic) cur).getArgs().replaceAll(x -> revars.containsKey(x) ? revars.get(x) : x);
+				((Atomic) cur).getArgs().replaceAll(x -> revars.containsKey(x) ? EcoreUtil.copy(revars.get(x)) : x);
 		}
 		if (clone instanceof Atomic)
-			((Atomic) clone).getArgs().replaceAll(x -> revars.containsKey(x) ? revars.get(x) : x);
+			((Atomic) clone).getArgs().replaceAll(x -> revars.containsKey(x) ? EcoreUtil.copy(revars.get(x)) : x);
 
 		return clone;
 	}
@@ -119,10 +120,12 @@ public class InputUtil {
 		HashSet<String> unboundVars = new HashSet<String>();
 		TreeIterator<EObject> contents = property.eAllContents();
 		while (true) {
-			if (property instanceof Atomic)
-				for (String var : ((Atomic) property).getArgs())
-					if (getDeclaringObject(property, var) == null)
-						unboundVars.add(var);
+			// Iterate through everything, including the property itself
+			if (property instanceof Variable) {
+				String arg = ((Variable) property).getArg();
+				if (getDeclaringObject(property, arg) == null)
+					unboundVars.add(arg);
+			}
 
 			if (contents.hasNext())
 				property = contents.next();
@@ -178,8 +181,18 @@ public class InputUtil {
 	public static Atomic getAtomic(String function, String... args) {
 		Atomic atomic = InputFactoryImpl.eINSTANCE.createAtomic();
 		atomic.setFunction(function);
-		atomic.getArgs().addAll(Arrays.asList(args));
+		ArrayList<Argument> actualArgs = new ArrayList<Argument>();
+		for (String arg : args)
+			actualArgs.add(getVariable(arg));
+
+		atomic.getArgs().addAll(actualArgs);
 		return atomic;
+	}
+
+	public static Variable getVariable(String arg) {
+		Variable var = InputFactoryImpl.eINSTANCE.createVariable();
+		var.setArg(arg);
+		return var;
 	}
 
 	// TODO:DN: We should check to make sure no theorems ever have bound or
@@ -201,7 +214,7 @@ public class InputUtil {
 			while (contents.hasNext()) {
 				EObject next = contents.next();
 				if (next instanceof Atomic && ((Atomic) next).getFunction().equals(InputUtil.BOUND))
-					ret.add(((Atomic) next).getArgs().get(0));
+					ret.add(((Variable) ((Atomic) next).getArgs().get(0)).getArg());
 			}
 		}
 		return ret;
@@ -228,8 +241,9 @@ public class InputUtil {
 			if (type != null) {
 				properties.add(InputUtil.getAtomic("type_" + type.getName(), declaration.getVarName()));
 				if (type.getTemplateType() != null)
-					properties.add(InputUtil.getAtomic("child_type_" + type.getTemplateType(), declaration.getVarName()));
-				
+					properties
+							.add(InputUtil.getAtomic("child_type_" + type.getTemplateType(), declaration.getVarName()));
+
 				declaration.setType(null);
 			}
 		}

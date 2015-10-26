@@ -195,12 +195,24 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 		case "ANDing":
 			ret.append("\t\tret.append(left + \" & \" + right);" + NL);
 			break;
+		case "Addition":
+			ret.append("\t\tret.append(left + \" \" + symbol + \" \" + right);" + NL);
+			break;
+		case "Multiplication":
+			ret.append("\t\tret.append(left + \" \" + symbol + \" \" + right);" + NL);
+			break;
+		case "NumberLiteral":
+			ret.append("\t\tret.append(value);" + NL);
+			break;
+		case "Variable":
+			ret.append("\t\tret.append(arg);" + NL);
+			break;
 		case "Atomic":
 			ret.append("\t\tret.append(function);" + NL);
 			ret.append("\t\tif (args != null && args.size() > 0){" + NL);
 			ret.append("\t\t\tret.append('(');" + NL);
-			ret.append("\t\t\tfor (String arg : args)" + NL);
-			ret.append("\t\t\t\tret.append(arg + ',');" + NL);
+			ret.append("\t\t\tfor (Argument arg : args)" + NL);
+			ret.append("\t\t\t\tret.append(arg.toString() + ',');" + NL);
 			ret.append("\t\t\tret.setCharAt(ret.length() - 1, ')');" + NL);
 			ret.append("\t\t}" + NL);
 			break;

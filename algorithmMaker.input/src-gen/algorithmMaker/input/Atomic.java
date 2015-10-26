@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Atomic extends Property
+public interface Atomic extends Property, NumericalProperty
 {
   /**
    * Returns the value of the '<em><b>Function</b></em>' attribute.
@@ -50,19 +50,19 @@ public interface Atomic extends Property
   void setFunction(String value);
 
   /**
-   * Returns the value of the '<em><b>Args</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
+   * Returns the value of the '<em><b>Args</b></em>' containment reference list.
+   * The list contents are of type {@link algorithmMaker.input.Argument}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Args</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Args</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Args</em>' attribute list.
+   * @return the value of the '<em>Args</em>' containment reference list.
    * @see algorithmMaker.input.InputPackage#getAtomic_Args()
-   * @model unique="false"
+   * @model containment="true"
    * @generated
    */
-  EList<String> getArgs();
+  EList<Argument> getArgs();
 
 } // Atomic

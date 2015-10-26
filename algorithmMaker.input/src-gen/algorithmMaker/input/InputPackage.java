@@ -307,7 +307,7 @@ public interface InputPackage extends EPackage
   int ATOMIC__FUNCTION = PROPERTY_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Args</b></em>' attribute list.
+   * The feature id for the '<em><b>Args</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -325,6 +325,72 @@ public interface InputPackage extends EPackage
   int ATOMIC_FEATURE_COUNT = PROPERTY_FEATURE_COUNT + 2;
 
   /**
+   * The meta object id for the '{@link algorithmMaker.input.impl.ArgumentImpl <em>Argument</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see algorithmMaker.input.impl.ArgumentImpl
+   * @see algorithmMaker.input.impl.InputPackageImpl#getArgument()
+   * @generated
+   */
+  int ARGUMENT = 7;
+
+  /**
+   * The number of structural features of the '<em>Argument</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ARGUMENT_FEATURE_COUNT = 0;
+
+  /**
+   * The meta object id for the '{@link algorithmMaker.input.impl.NumericalPropertyImpl <em>Numerical Property</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see algorithmMaker.input.impl.NumericalPropertyImpl
+   * @see algorithmMaker.input.impl.InputPackageImpl#getNumericalProperty()
+   * @generated
+   */
+  int NUMERICAL_PROPERTY = 11;
+
+  /**
+   * The number of structural features of the '<em>Numerical Property</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NUMERICAL_PROPERTY_FEATURE_COUNT = ARGUMENT_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link algorithmMaker.input.impl.VariableImpl <em>Variable</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see algorithmMaker.input.impl.VariableImpl
+   * @see algorithmMaker.input.impl.InputPackageImpl#getVariable()
+   * @generated
+   */
+  int VARIABLE = 8;
+
+  /**
+   * The feature id for the '<em><b>Arg</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE__ARG = NUMERICAL_PROPERTY_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Variable</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_FEATURE_COUNT = NUMERICAL_PROPERTY_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link algorithmMaker.input.impl.BooleanLiteralImpl <em>Boolean Literal</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -332,7 +398,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getBooleanLiteral()
    * @generated
    */
-  int BOOLEAN_LITERAL = 7;
+  int BOOLEAN_LITERAL = 9;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -360,7 +426,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getTheorem()
    * @generated
    */
-  int THEOREM = 8;
+  int THEOREM = 10;
 
   /**
    * The feature id for the '<em><b>Requirement</b></em>' containment reference.
@@ -417,6 +483,34 @@ public interface InputPackage extends EPackage
   int THEOREM_FEATURE_COUNT = 5;
 
   /**
+   * The meta object id for the '{@link algorithmMaker.input.impl.NumberLiteralImpl <em>Number Literal</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see algorithmMaker.input.impl.NumberLiteralImpl
+   * @see algorithmMaker.input.impl.InputPackageImpl#getNumberLiteral()
+   * @generated
+   */
+  int NUMBER_LITERAL = 12;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NUMBER_LITERAL__VALUE = NUMERICAL_PROPERTY_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Number Literal</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NUMBER_LITERAL_FEATURE_COUNT = NUMERICAL_PROPERTY_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link algorithmMaker.input.impl.ORingImpl <em>ORing</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -424,7 +518,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getORing()
    * @generated
    */
-  int ORING = 9;
+  int ORING = 13;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -461,7 +555,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getANDing()
    * @generated
    */
-  int AN_DING = 10;
+  int AN_DING = 14;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -489,6 +583,98 @@ public interface InputPackage extends EPackage
    * @ordered
    */
   int AN_DING_FEATURE_COUNT = PROPERTY_FEATURE_COUNT + 2;
+
+  /**
+   * The meta object id for the '{@link algorithmMaker.input.impl.AdditionImpl <em>Addition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see algorithmMaker.input.impl.AdditionImpl
+   * @see algorithmMaker.input.impl.InputPackageImpl#getAddition()
+   * @generated
+   */
+  int ADDITION = 15;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ADDITION__LEFT = NUMERICAL_PROPERTY_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Symbol</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ADDITION__SYMBOL = NUMERICAL_PROPERTY_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ADDITION__RIGHT = NUMERICAL_PROPERTY_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Addition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int ADDITION_FEATURE_COUNT = NUMERICAL_PROPERTY_FEATURE_COUNT + 3;
+
+  /**
+   * The meta object id for the '{@link algorithmMaker.input.impl.MultiplicationImpl <em>Multiplication</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see algorithmMaker.input.impl.MultiplicationImpl
+   * @see algorithmMaker.input.impl.InputPackageImpl#getMultiplication()
+   * @generated
+   */
+  int MULTIPLICATION = 16;
+
+  /**
+   * The feature id for the '<em><b>Left</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MULTIPLICATION__LEFT = NUMERICAL_PROPERTY_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Symbol</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MULTIPLICATION__SYMBOL = NUMERICAL_PROPERTY_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Right</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MULTIPLICATION__RIGHT = NUMERICAL_PROPERTY_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>Multiplication</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int MULTIPLICATION_FEATURE_COUNT = NUMERICAL_PROPERTY_FEATURE_COUNT + 3;
 
 
   /**
@@ -716,15 +902,46 @@ public interface InputPackage extends EPackage
   EAttribute getAtomic_Function();
 
   /**
-   * Returns the meta object for the attribute list '{@link algorithmMaker.input.Atomic#getArgs <em>Args</em>}'.
+   * Returns the meta object for the containment reference list '{@link algorithmMaker.input.Atomic#getArgs <em>Args</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Args</em>'.
+   * @return the meta object for the containment reference list '<em>Args</em>'.
    * @see algorithmMaker.input.Atomic#getArgs()
    * @see #getAtomic()
    * @generated
    */
-  EAttribute getAtomic_Args();
+  EReference getAtomic_Args();
+
+  /**
+   * Returns the meta object for class '{@link algorithmMaker.input.Argument <em>Argument</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Argument</em>'.
+   * @see algorithmMaker.input.Argument
+   * @generated
+   */
+  EClass getArgument();
+
+  /**
+   * Returns the meta object for class '{@link algorithmMaker.input.Variable <em>Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Variable</em>'.
+   * @see algorithmMaker.input.Variable
+   * @generated
+   */
+  EClass getVariable();
+
+  /**
+   * Returns the meta object for the attribute '{@link algorithmMaker.input.Variable#getArg <em>Arg</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Arg</em>'.
+   * @see algorithmMaker.input.Variable#getArg()
+   * @see #getVariable()
+   * @generated
+   */
+  EAttribute getVariable_Arg();
 
   /**
    * Returns the meta object for class '{@link algorithmMaker.input.BooleanLiteral <em>Boolean Literal</em>}'.
@@ -813,6 +1030,37 @@ public interface InputPackage extends EPackage
   EAttribute getTheorem_PseudoCode();
 
   /**
+   * Returns the meta object for class '{@link algorithmMaker.input.NumericalProperty <em>Numerical Property</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Numerical Property</em>'.
+   * @see algorithmMaker.input.NumericalProperty
+   * @generated
+   */
+  EClass getNumericalProperty();
+
+  /**
+   * Returns the meta object for class '{@link algorithmMaker.input.NumberLiteral <em>Number Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Number Literal</em>'.
+   * @see algorithmMaker.input.NumberLiteral
+   * @generated
+   */
+  EClass getNumberLiteral();
+
+  /**
+   * Returns the meta object for the attribute '{@link algorithmMaker.input.NumberLiteral#getValue <em>Value</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Value</em>'.
+   * @see algorithmMaker.input.NumberLiteral#getValue()
+   * @see #getNumberLiteral()
+   * @generated
+   */
+  EAttribute getNumberLiteral_Value();
+
+  /**
    * Returns the meta object for class '{@link algorithmMaker.input.ORing <em>ORing</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -875,6 +1123,92 @@ public interface InputPackage extends EPackage
    * @generated
    */
   EReference getANDing_Right();
+
+  /**
+   * Returns the meta object for class '{@link algorithmMaker.input.Addition <em>Addition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Addition</em>'.
+   * @see algorithmMaker.input.Addition
+   * @generated
+   */
+  EClass getAddition();
+
+  /**
+   * Returns the meta object for the containment reference '{@link algorithmMaker.input.Addition#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see algorithmMaker.input.Addition#getLeft()
+   * @see #getAddition()
+   * @generated
+   */
+  EReference getAddition_Left();
+
+  /**
+   * Returns the meta object for the attribute '{@link algorithmMaker.input.Addition#getSymbol <em>Symbol</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Symbol</em>'.
+   * @see algorithmMaker.input.Addition#getSymbol()
+   * @see #getAddition()
+   * @generated
+   */
+  EAttribute getAddition_Symbol();
+
+  /**
+   * Returns the meta object for the containment reference '{@link algorithmMaker.input.Addition#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see algorithmMaker.input.Addition#getRight()
+   * @see #getAddition()
+   * @generated
+   */
+  EReference getAddition_Right();
+
+  /**
+   * Returns the meta object for class '{@link algorithmMaker.input.Multiplication <em>Multiplication</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Multiplication</em>'.
+   * @see algorithmMaker.input.Multiplication
+   * @generated
+   */
+  EClass getMultiplication();
+
+  /**
+   * Returns the meta object for the containment reference '{@link algorithmMaker.input.Multiplication#getLeft <em>Left</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Left</em>'.
+   * @see algorithmMaker.input.Multiplication#getLeft()
+   * @see #getMultiplication()
+   * @generated
+   */
+  EReference getMultiplication_Left();
+
+  /**
+   * Returns the meta object for the attribute '{@link algorithmMaker.input.Multiplication#getSymbol <em>Symbol</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Symbol</em>'.
+   * @see algorithmMaker.input.Multiplication#getSymbol()
+   * @see #getMultiplication()
+   * @generated
+   */
+  EAttribute getMultiplication_Symbol();
+
+  /**
+   * Returns the meta object for the containment reference '{@link algorithmMaker.input.Multiplication#getRight <em>Right</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Right</em>'.
+   * @see algorithmMaker.input.Multiplication#getRight()
+   * @see #getMultiplication()
+   * @generated
+   */
+  EReference getMultiplication_Right();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1082,12 +1416,40 @@ public interface InputPackage extends EPackage
     EAttribute ATOMIC__FUNCTION = eINSTANCE.getAtomic_Function();
 
     /**
-     * The meta object literal for the '<em><b>Args</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Args</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ATOMIC__ARGS = eINSTANCE.getAtomic_Args();
+    EReference ATOMIC__ARGS = eINSTANCE.getAtomic_Args();
+
+    /**
+     * The meta object literal for the '{@link algorithmMaker.input.impl.ArgumentImpl <em>Argument</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see algorithmMaker.input.impl.ArgumentImpl
+     * @see algorithmMaker.input.impl.InputPackageImpl#getArgument()
+     * @generated
+     */
+    EClass ARGUMENT = eINSTANCE.getArgument();
+
+    /**
+     * The meta object literal for the '{@link algorithmMaker.input.impl.VariableImpl <em>Variable</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see algorithmMaker.input.impl.VariableImpl
+     * @see algorithmMaker.input.impl.InputPackageImpl#getVariable()
+     * @generated
+     */
+    EClass VARIABLE = eINSTANCE.getVariable();
+
+    /**
+     * The meta object literal for the '<em><b>Arg</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VARIABLE__ARG = eINSTANCE.getVariable_Arg();
 
     /**
      * The meta object literal for the '{@link algorithmMaker.input.impl.BooleanLiteralImpl <em>Boolean Literal</em>}' class.
@@ -1158,6 +1520,34 @@ public interface InputPackage extends EPackage
     EAttribute THEOREM__PSEUDO_CODE = eINSTANCE.getTheorem_PseudoCode();
 
     /**
+     * The meta object literal for the '{@link algorithmMaker.input.impl.NumericalPropertyImpl <em>Numerical Property</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see algorithmMaker.input.impl.NumericalPropertyImpl
+     * @see algorithmMaker.input.impl.InputPackageImpl#getNumericalProperty()
+     * @generated
+     */
+    EClass NUMERICAL_PROPERTY = eINSTANCE.getNumericalProperty();
+
+    /**
+     * The meta object literal for the '{@link algorithmMaker.input.impl.NumberLiteralImpl <em>Number Literal</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see algorithmMaker.input.impl.NumberLiteralImpl
+     * @see algorithmMaker.input.impl.InputPackageImpl#getNumberLiteral()
+     * @generated
+     */
+    EClass NUMBER_LITERAL = eINSTANCE.getNumberLiteral();
+
+    /**
+     * The meta object literal for the '<em><b>Value</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute NUMBER_LITERAL__VALUE = eINSTANCE.getNumberLiteral_Value();
+
+    /**
      * The meta object literal for the '{@link algorithmMaker.input.impl.ORingImpl <em>ORing</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1208,6 +1598,74 @@ public interface InputPackage extends EPackage
      * @generated
      */
     EReference AN_DING__RIGHT = eINSTANCE.getANDing_Right();
+
+    /**
+     * The meta object literal for the '{@link algorithmMaker.input.impl.AdditionImpl <em>Addition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see algorithmMaker.input.impl.AdditionImpl
+     * @see algorithmMaker.input.impl.InputPackageImpl#getAddition()
+     * @generated
+     */
+    EClass ADDITION = eINSTANCE.getAddition();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ADDITION__LEFT = eINSTANCE.getAddition_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Symbol</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute ADDITION__SYMBOL = eINSTANCE.getAddition_Symbol();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference ADDITION__RIGHT = eINSTANCE.getAddition_Right();
+
+    /**
+     * The meta object literal for the '{@link algorithmMaker.input.impl.MultiplicationImpl <em>Multiplication</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see algorithmMaker.input.impl.MultiplicationImpl
+     * @see algorithmMaker.input.impl.InputPackageImpl#getMultiplication()
+     * @generated
+     */
+    EClass MULTIPLICATION = eINSTANCE.getMultiplication();
+
+    /**
+     * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MULTIPLICATION__LEFT = eINSTANCE.getMultiplication_Left();
+
+    /**
+     * The meta object literal for the '<em><b>Symbol</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute MULTIPLICATION__SYMBOL = eINSTANCE.getMultiplication_Symbol();
+
+    /**
+     * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference MULTIPLICATION__RIGHT = eINSTANCE.getMultiplication_Right();
 
   }
 

@@ -1,6 +1,10 @@
 import static algorithmMaker.QuickParser.parseProperty;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
+import inputHandling.MultiTheoremParser;
+import inputHandling.TheoremParser;
 import inputHandling.TransformUtil;
 
 import org.junit.Test;
@@ -8,6 +12,8 @@ import org.junit.Test;
 import solver.ProblemSolver;
 import theorems.MultistageTheorem;
 import algorithmMaker.QuickParser;
+import algorithmMaker.input.Input;
+import algorithmMaker.input.Theorem;
 import algorithmMaker.util.InputUtil;
 
 public class SolverTests {
@@ -55,21 +61,17 @@ public class SolverTests {
 		assertEquals(QuickParser.parseInput("Given x,y st equal(x,y) & a(x,y); Find x st TRUE"),
 				solver.problemStates.peek().problem);
 	}
-	// @Test
-	// public void testMultipleProblemStateChange() {
-	// MultistageTheorem mst1 = new
-	// MultistageTheorem(parseProperty("enumerable(x)"),
-	// parseProperty("child(x,y)"), 0,
-	// "enumerable things");
-	// MultistageTheorem mst2 = new
-	// MultistageTheorem(parseProperty("type_int(x)"), parseProperty("even(x)"),
-	// 0,
-	// "even numbers are testable");
-	// ProblemSolver solver = new ProblemSolver(
-	// QuickParser.parseInput("Given x st enumerable(x), Find y st child(x,y) & something(x)"),
-	// mst1);
-	// solver.branch();
-	// assertTrue("Basic multitheorems can generate a single new problem state.",
-	// solver.problemStates.size() == 1);
-	// }
+
+	@Test
+	public void testAgainstRegressionForPreviousSolves() {
+		ArrayList<Theorem> theorems = TheoremParser.parseFiles();
+		theorems.addAll(MultiTheoremParser.parseFiles());
+		String[] problems = new String[] { "Given list<int>(a); Find b st child(a,b) & even(b)",
+				"Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c) & even(c)" };
+		for (String problem : problems) {
+			Input input = QuickParser.parseInput(problem);
+			InputUtil.desugar(input);
+			assertNotNull(new ProblemSolver(input, theorems.toArray(new Theorem[0])).getSolution());
+		}
+	}
 }

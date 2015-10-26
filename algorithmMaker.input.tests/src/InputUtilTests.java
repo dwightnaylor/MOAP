@@ -7,6 +7,7 @@ import java.util.Hashtable;
 import org.junit.Test;
 
 import algorithmMaker.QuickParser;
+import algorithmMaker.input.Argument;
 import algorithmMaker.util.InputUtil;
 
 public class InputUtilTests {
@@ -15,9 +16,9 @@ public class InputUtilTests {
 	@Test
 	public void testRevar() {
 		// Tests if a revar can switch out simple things
-		assertEquals(parseProperty("a(y)"), InputUtil.revar(parseProperty("a(x)"), new Hashtable<String, String>() {
+		assertEquals(parseProperty("a(y)"), InputUtil.revar(parseProperty("a(x)"), new Hashtable<Argument, Argument>() {
 			{
-				put("x", "y");
+				put(InputUtil.getVariable("x"), InputUtil.getVariable("y"));
 			}
 		}));
 	}

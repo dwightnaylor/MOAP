@@ -11,7 +11,6 @@ import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.AbstractElementAlias;
-import org.eclipse.xtext.serializer.analysis.GrammarAlias.GroupAlias;
 import org.eclipse.xtext.serializer.analysis.GrammarAlias.TokenAlias;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynNavigable;
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
@@ -21,16 +20,16 @@ import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected InputGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_Atomic___LeftParenthesisKeyword_1_0_RightParenthesisKeyword_1_2__q;
 	protected AbstractElementAlias match_Input_SemicolonKeyword_4_4_q;
+	protected AbstractElementAlias match_NumericalPrimary_LeftParenthesisKeyword_2_0_a;
 	protected AbstractElementAlias match_Primary_LeftParenthesisKeyword_2_0_a;
 	protected AbstractElementAlias match_Primary_LeftParenthesisKeyword_2_0_p;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (InputGrammarAccess) access;
-		match_Atomic___LeftParenthesisKeyword_1_0_RightParenthesisKeyword_1_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getAtomicAccess().getLeftParenthesisKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getAtomicAccess().getRightParenthesisKeyword_1_2()));
 		match_Input_SemicolonKeyword_4_4_q = new TokenAlias(false, true, grammarAccess.getInputAccess().getSemicolonKeyword_4_4());
+		match_NumericalPrimary_LeftParenthesisKeyword_2_0_a = new TokenAlias(true, true, grammarAccess.getNumericalPrimaryAccess().getLeftParenthesisKeyword_2_0());
 		match_Primary_LeftParenthesisKeyword_2_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_2_0());
 		match_Primary_LeftParenthesisKeyword_2_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_2_0());
 	}
@@ -47,10 +46,10 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_Atomic___LeftParenthesisKeyword_1_0_RightParenthesisKeyword_1_2__q.equals(syntax))
-				emit_Atomic___LeftParenthesisKeyword_1_0_RightParenthesisKeyword_1_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Input_SemicolonKeyword_4_4_q.equals(syntax))
+			if(match_Input_SemicolonKeyword_4_4_q.equals(syntax))
 				emit_Input_SemicolonKeyword_4_4_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_NumericalPrimary_LeftParenthesisKeyword_2_0_a.equals(syntax))
+				emit_NumericalPrimary_LeftParenthesisKeyword_2_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Primary_LeftParenthesisKeyword_2_0_a.equals(syntax))
 				emit_Primary_LeftParenthesisKeyword_2_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Primary_LeftParenthesisKeyword_2_0_p.equals(syntax))
@@ -61,23 +60,25 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	/**
 	 * Ambiguous syntax:
-	 *     ('(' ')')?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     Function=ID (ambiguity) (rule end)
-	 */
-	protected void emit_Atomic___LeftParenthesisKeyword_1_0_RightParenthesisKeyword_1_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
 	 *     ';'?
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     theorems+=Theorem (ambiguity) (rule end)
 	 */
 	protected void emit_Input_SemicolonKeyword_4_4_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '('*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) Function=ID
+	 *     (rule start) (ambiguity) arg=ID
+	 *     (rule start) (ambiguity) value=INT
+	 */
+	protected void emit_NumericalPrimary_LeftParenthesisKeyword_2_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

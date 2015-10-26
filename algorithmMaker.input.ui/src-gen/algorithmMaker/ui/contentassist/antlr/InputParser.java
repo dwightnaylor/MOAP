@@ -43,6 +43,9 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPrimaryAccess().getAlternatives(), "rule__Primary__Alternatives");
 					put(grammarAccess.getQuantifierAccess().getQuantifierAlternatives_0_0(), "rule__Quantifier__QuantifierAlternatives_0_0");
 					put(grammarAccess.getBooleanLiteralAccess().getValueAlternatives_0(), "rule__BooleanLiteral__ValueAlternatives_0");
+					put(grammarAccess.getAdditionAccess().getSymbolAlternatives_1_1_0(), "rule__Addition__SymbolAlternatives_1_1_0");
+					put(grammarAccess.getMultiplicationAccess().getSymbolAlternatives_1_1_0(), "rule__Multiplication__SymbolAlternatives_1_1_0");
+					put(grammarAccess.getNumericalPrimaryAccess().getAlternatives(), "rule__NumericalPrimary__Alternatives");
 					put(grammarAccess.getInputAccess().getGroup(), "rule__Input__Group__0");
 					put(grammarAccess.getInputAccess().getGroup_3_0(), "rule__Input__Group_3_0__0");
 					put(grammarAccess.getInputAccess().getGroup_3_1(), "rule__Input__Group_3_1__0");
@@ -60,11 +63,15 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPrimaryAccess().getGroup_2(), "rule__Primary__Group_2__0");
 					put(grammarAccess.getQuantifierAccess().getGroup(), "rule__Quantifier__Group__0");
 					put(grammarAccess.getAtomicAccess().getGroup(), "rule__Atomic__Group__0");
-					put(grammarAccess.getAtomicAccess().getGroup_1(), "rule__Atomic__Group_1__0");
-					put(grammarAccess.getAtomicAccess().getGroup_1_1(), "rule__Atomic__Group_1_1__0");
-					put(grammarAccess.getAtomicAccess().getGroup_1_1_1(), "rule__Atomic__Group_1_1_1__0");
+					put(grammarAccess.getAtomicAccess().getGroup_2(), "rule__Atomic__Group_2__0");
+					put(grammarAccess.getAtomicAccess().getGroup_2_1(), "rule__Atomic__Group_2_1__0");
 					put(grammarAccess.getTheoremAccess().getGroup(), "rule__Theorem__Group__0");
 					put(grammarAccess.getTheoremAccess().getGroup_7(), "rule__Theorem__Group_7__0");
+					put(grammarAccess.getAdditionAccess().getGroup(), "rule__Addition__Group__0");
+					put(grammarAccess.getAdditionAccess().getGroup_1(), "rule__Addition__Group_1__0");
+					put(grammarAccess.getMultiplicationAccess().getGroup(), "rule__Multiplication__Group__0");
+					put(grammarAccess.getMultiplicationAccess().getGroup_1(), "rule__Multiplication__Group_1__0");
+					put(grammarAccess.getNumericalPrimaryAccess().getGroup_2(), "rule__NumericalPrimary__Group_2__0");
 					put(grammarAccess.getInputAccess().getGivenAssignment_1(), "rule__Input__GivenAssignment_1");
 					put(grammarAccess.getInputAccess().getTaskAssignment_3_0_0(), "rule__Input__TaskAssignment_3_0_0");
 					put(grammarAccess.getInputAccess().getGoalAssignment_3_0_1(), "rule__Input__GoalAssignment_3_0_1");
@@ -87,14 +94,20 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getQuantifierAccess().getSubjectAssignment_2(), "rule__Quantifier__SubjectAssignment_2");
 					put(grammarAccess.getQuantifierAccess().getPredicateAssignment_4(), "rule__Quantifier__PredicateAssignment_4");
 					put(grammarAccess.getAtomicAccess().getFunctionAssignment_0(), "rule__Atomic__FunctionAssignment_0");
-					put(grammarAccess.getAtomicAccess().getArgsAssignment_1_1_0(), "rule__Atomic__ArgsAssignment_1_1_0");
-					put(grammarAccess.getAtomicAccess().getArgsAssignment_1_1_1_1(), "rule__Atomic__ArgsAssignment_1_1_1_1");
+					put(grammarAccess.getAtomicAccess().getArgsAssignment_2_0(), "rule__Atomic__ArgsAssignment_2_0");
+					put(grammarAccess.getAtomicAccess().getArgsAssignment_2_1_1(), "rule__Atomic__ArgsAssignment_2_1_1");
+					put(grammarAccess.getVariableAccess().getArgAssignment(), "rule__Variable__ArgAssignment");
 					put(grammarAccess.getBooleanLiteralAccess().getValueAssignment(), "rule__BooleanLiteral__ValueAssignment");
 					put(grammarAccess.getTheoremAccess().getRequirementAssignment_0(), "rule__Theorem__RequirementAssignment_0");
 					put(grammarAccess.getTheoremAccess().getResultAssignment_2(), "rule__Theorem__ResultAssignment_2");
 					put(grammarAccess.getTheoremAccess().getCostAssignment_4(), "rule__Theorem__CostAssignment_4");
 					put(grammarAccess.getTheoremAccess().getDescriptionAssignment_6(), "rule__Theorem__DescriptionAssignment_6");
 					put(grammarAccess.getTheoremAccess().getPseudoCodeAssignment_7_1(), "rule__Theorem__PseudoCodeAssignment_7_1");
+					put(grammarAccess.getAdditionAccess().getSymbolAssignment_1_1(), "rule__Addition__SymbolAssignment_1_1");
+					put(grammarAccess.getAdditionAccess().getRightAssignment_1_2(), "rule__Addition__RightAssignment_1_2");
+					put(grammarAccess.getMultiplicationAccess().getSymbolAssignment_1_1(), "rule__Multiplication__SymbolAssignment_1_1");
+					put(grammarAccess.getMultiplicationAccess().getRightAssignment_1_2(), "rule__Multiplication__RightAssignment_1_2");
+					put(grammarAccess.getNumberLiteralAccess().getValueAssignment(), "rule__NumberLiteral__ValueAssignment");
 				}
 			};
 		}

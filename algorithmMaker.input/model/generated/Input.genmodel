@@ -33,7 +33,11 @@
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//Atomic">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Atomic/Function"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Atomic/args"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Atomic/args"/>
+    </genClasses>
+    <genClasses ecoreClass="Input.ecore#//Argument"/>
+    <genClasses ecoreClass="Input.ecore#//Variable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Variable/arg"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//BooleanLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//BooleanLiteral/value"/>
@@ -45,6 +49,10 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/Description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/PseudoCode"/>
     </genClasses>
+    <genClasses ecoreClass="Input.ecore#//NumericalProperty"/>
+    <genClasses ecoreClass="Input.ecore#//NumberLiteral">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//NumberLiteral/value"/>
+    </genClasses>
     <genClasses ecoreClass="Input.ecore#//ORing">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//ORing/left"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//ORing/right"/>
@@ -52,6 +60,16 @@
     <genClasses ecoreClass="Input.ecore#//ANDing">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//ANDing/left"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//ANDing/right"/>
+    </genClasses>
+    <genClasses ecoreClass="Input.ecore#//Addition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Addition/left"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Addition/symbol"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Addition/right"/>
+    </genClasses>
+    <genClasses ecoreClass="Input.ecore#//Multiplication">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Multiplication/left"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Multiplication/symbol"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Multiplication/right"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

@@ -110,6 +110,16 @@ public class InputAdapterFactory extends AdapterFactoryImpl
         return createAtomicAdapter();
       }
       @Override
+      public Adapter caseArgument(Argument object)
+      {
+        return createArgumentAdapter();
+      }
+      @Override
+      public Adapter caseVariable(Variable object)
+      {
+        return createVariableAdapter();
+      }
+      @Override
       public Adapter caseBooleanLiteral(BooleanLiteral object)
       {
         return createBooleanLiteralAdapter();
@@ -120,6 +130,16 @@ public class InputAdapterFactory extends AdapterFactoryImpl
         return createTheoremAdapter();
       }
       @Override
+      public Adapter caseNumericalProperty(NumericalProperty object)
+      {
+        return createNumericalPropertyAdapter();
+      }
+      @Override
+      public Adapter caseNumberLiteral(NumberLiteral object)
+      {
+        return createNumberLiteralAdapter();
+      }
+      @Override
       public Adapter caseORing(ORing object)
       {
         return createORingAdapter();
@@ -128,6 +148,16 @@ public class InputAdapterFactory extends AdapterFactoryImpl
       public Adapter caseANDing(ANDing object)
       {
         return createANDingAdapter();
+      }
+      @Override
+      public Adapter caseAddition(Addition object)
+      {
+        return createAdditionAdapter();
+      }
+      @Override
+      public Adapter caseMultiplication(Multiplication object)
+      {
+        return createMultiplicationAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -257,6 +287,36 @@ public class InputAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.Argument <em>Argument</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see algorithmMaker.input.Argument
+   * @generated
+   */
+  public Adapter createArgumentAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.Variable <em>Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see algorithmMaker.input.Variable
+   * @generated
+   */
+  public Adapter createVariableAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link algorithmMaker.input.BooleanLiteral <em>Boolean Literal</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -287,6 +347,36 @@ public class InputAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.NumericalProperty <em>Numerical Property</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see algorithmMaker.input.NumericalProperty
+   * @generated
+   */
+  public Adapter createNumericalPropertyAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.NumberLiteral <em>Number Literal</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see algorithmMaker.input.NumberLiteral
+   * @generated
+   */
+  public Adapter createNumberLiteralAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link algorithmMaker.input.ORing <em>ORing</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -312,6 +402,36 @@ public class InputAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createANDingAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.Addition <em>Addition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see algorithmMaker.input.Addition
+   * @generated
+   */
+  public Adapter createAdditionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.Multiplication <em>Multiplication</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see algorithmMaker.input.Multiplication
+   * @generated
+   */
+  public Adapter createMultiplicationAdapter()
   {
     return null;
   }

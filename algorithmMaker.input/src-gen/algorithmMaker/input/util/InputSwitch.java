@@ -120,6 +120,24 @@ public class InputSwitch<T> extends Switch<T>
         Atomic atomic = (Atomic)theEObject;
         T result = caseAtomic(atomic);
         if (result == null) result = caseProperty(atomic);
+        if (result == null) result = caseNumericalProperty(atomic);
+        if (result == null) result = caseArgument(atomic);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case InputPackage.ARGUMENT:
+      {
+        Argument argument = (Argument)theEObject;
+        T result = caseArgument(argument);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case InputPackage.VARIABLE:
+      {
+        Variable variable = (Variable)theEObject;
+        T result = caseVariable(variable);
+        if (result == null) result = caseNumericalProperty(variable);
+        if (result == null) result = caseArgument(variable);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -138,6 +156,23 @@ public class InputSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case InputPackage.NUMERICAL_PROPERTY:
+      {
+        NumericalProperty numericalProperty = (NumericalProperty)theEObject;
+        T result = caseNumericalProperty(numericalProperty);
+        if (result == null) result = caseArgument(numericalProperty);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case InputPackage.NUMBER_LITERAL:
+      {
+        NumberLiteral numberLiteral = (NumberLiteral)theEObject;
+        T result = caseNumberLiteral(numberLiteral);
+        if (result == null) result = caseNumericalProperty(numberLiteral);
+        if (result == null) result = caseArgument(numberLiteral);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case InputPackage.ORING:
       {
         ORing oRing = (ORing)theEObject;
@@ -151,6 +186,24 @@ public class InputSwitch<T> extends Switch<T>
         ANDing anDing = (ANDing)theEObject;
         T result = caseANDing(anDing);
         if (result == null) result = caseProperty(anDing);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case InputPackage.ADDITION:
+      {
+        Addition addition = (Addition)theEObject;
+        T result = caseAddition(addition);
+        if (result == null) result = caseNumericalProperty(addition);
+        if (result == null) result = caseArgument(addition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case InputPackage.MULTIPLICATION:
+      {
+        Multiplication multiplication = (Multiplication)theEObject;
+        T result = caseMultiplication(multiplication);
+        if (result == null) result = caseNumericalProperty(multiplication);
+        if (result == null) result = caseArgument(multiplication);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -271,6 +324,38 @@ public class InputSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Argument</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Argument</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseArgument(Argument object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Variable</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Variable</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVariable(Variable object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Boolean Literal</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -303,6 +388,38 @@ public class InputSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Numerical Property</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Numerical Property</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNumericalProperty(NumericalProperty object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Number Literal</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Number Literal</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseNumberLiteral(NumberLiteral object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>ORing</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -330,6 +447,38 @@ public class InputSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseANDing(ANDing object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Addition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Addition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAddition(Addition object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Multiplication</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Multiplication</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseMultiplication(Multiplication object)
   {
     return null;
   }

@@ -4,16 +4,20 @@
 package algorithmMaker.serializer;
 
 import algorithmMaker.input.ANDing;
+import algorithmMaker.input.Addition;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.BooleanLiteral;
 import algorithmMaker.input.Declaration;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.InputPackage;
+import algorithmMaker.input.Multiplication;
+import algorithmMaker.input.NumberLiteral;
 import algorithmMaker.input.ORing;
 import algorithmMaker.input.Problem;
 import algorithmMaker.input.Quantifier;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.input.Type;
+import algorithmMaker.input.Variable;
 import algorithmMaker.services.InputGrammarAccess;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -41,6 +45,9 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case InputPackage.AN_DING:
 				sequence_ANDing(context, (ANDing) semanticObject); 
 				return; 
+			case InputPackage.ADDITION:
+				sequence_Addition(context, (Addition) semanticObject); 
+				return; 
 			case InputPackage.ATOMIC:
 				sequence_Atomic(context, (Atomic) semanticObject); 
 				return; 
@@ -52,6 +59,12 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				return; 
 			case InputPackage.INPUT:
 				sequence_Input(context, (Input) semanticObject); 
+				return; 
+			case InputPackage.MULTIPLICATION:
+				sequence_Multiplication(context, (Multiplication) semanticObject); 
+				return; 
+			case InputPackage.NUMBER_LITERAL:
+				sequence_NumberLiteral(context, (NumberLiteral) semanticObject); 
 				return; 
 			case InputPackage.ORING:
 				sequence_ORing(context, (ORing) semanticObject); 
@@ -74,6 +87,9 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				return; 
 			case InputPackage.TYPE:
 				sequence_Type(context, (Type) semanticObject); 
+				return; 
+			case InputPackage.VARIABLE:
+				sequence_Variable(context, (Variable) semanticObject); 
 				return; 
 			}
 		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
@@ -100,7 +116,16 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     (Function=ID (args+=ID args+=ID*)?)
+	 *     (left=Addition_Addition_1_0 (symbol='+' | symbol='-') right=Multiplication)
+	 */
+	protected void sequence_Addition(EObject context, Addition semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (Function=ID (args+=Argument args+=Argument*)?)
 	 */
 	protected void sequence_Atomic(EObject context, Atomic semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -131,6 +156,31 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_Input(EObject context, Input semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (left=Multiplication_Multiplication_1_0 (symbol='*' | symbol='/') right=NumericalPrimary)
+	 */
+	protected void sequence_Multiplication(EObject context, Multiplication semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     value=INT
+	 */
+	protected void sequence_NumberLiteral(EObject context, NumberLiteral semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.NUMBER_LITERAL__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.NUMBER_LITERAL__VALUE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getNumberLiteralAccess().getValueINTTerminalRuleCall_0(), semanticObject.getValue());
+		feeder.finish();
 	}
 	
 	
@@ -195,5 +245,21 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_Type(EObject context, Type semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     arg=ID
+	 */
+	protected void sequence_Variable(EObject context, Variable semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.VARIABLE__ARG) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.VARIABLE__ARG));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getVariableAccess().getArgIDTerminalRuleCall_0(), semanticObject.getArg());
+		feeder.finish();
 	}
 }

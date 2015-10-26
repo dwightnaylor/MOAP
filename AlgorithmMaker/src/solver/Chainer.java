@@ -1,20 +1,20 @@
 package solver;
 
-import inputHandling.TransformUtil;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
 
-import theorems.Fact;
-import theorems.MultistageTheorem;
 import algorithmMaker.input.ANDing;
+import algorithmMaker.input.Argument;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.util.InputUtil;
 import bindings.Binding;
 import bindings.MutableBinding;
+import inputHandling.TransformUtil;
+import theorems.Fact;
+import theorems.MultistageTheorem;
 
 /**
  * Chains together facts using existing theorems to arrive at conclusions.
@@ -34,11 +34,11 @@ public class Chainer {
 
 	private Hashtable<Atomic, Fact<Atomic>> atomics = new Hashtable<Atomic, Fact<Atomic>>();
 	private Hashtable<String, HashSet<Fact<Atomic>>> atomicsByFunction = new Hashtable<String, HashSet<Fact<Atomic>>>();
-	private Hashtable<String, HashSet<Fact<Atomic>>> atomicsByVariable = new Hashtable<String, HashSet<Fact<Atomic>>>();
+	private Hashtable<Argument, HashSet<Fact<Atomic>>> atomicsByVariable = new Hashtable<Argument, HashSet<Fact<Atomic>>>();
 	/**
 	 * The equality atomics for each given variable
 	 */
-	private Hashtable<String, HashSet<Fact<Atomic>>> equalities = new Hashtable<String, HashSet<Fact<Atomic>>>();
+	private Hashtable<Argument, HashSet<Fact<Atomic>>> equalities = new Hashtable<Argument, HashSet<Fact<Atomic>>>();
 
 	public Hashtable<MultistageTheorem, ArrayList<Binding>> nextLevelTheorems = new Hashtable<MultistageTheorem, ArrayList<Binding>>();
 	public Hashtable<MultistageTheorem, ArrayList<Binding>> previousLevelTheorems = new Hashtable<MultistageTheorem, ArrayList<Binding>>();
@@ -85,10 +85,10 @@ public class Chainer {
 	public void resetFacts() {
 		atomics = new Hashtable<Atomic, Fact<Atomic>>();
 		atomicsByFunction = new Hashtable<String, HashSet<Fact<Atomic>>>();
-		atomicsByVariable = new Hashtable<String, HashSet<Fact<Atomic>>>();
+		atomicsByVariable = new Hashtable<Argument, HashSet<Fact<Atomic>>>();
 		nextLevelTheorems = new Hashtable<MultistageTheorem, ArrayList<Binding>>();
 		previousLevelTheorems = new Hashtable<MultistageTheorem, ArrayList<Binding>>();
-		equalities = new Hashtable<String, HashSet<Fact<Atomic>>>();
+		equalities = new Hashtable<Argument, HashSet<Fact<Atomic>>>();
 	}
 
 	public boolean hasAtomic(Atomic given) {
@@ -123,7 +123,7 @@ public class Chainer {
 
 		atomicsByFunction.get(function).add((Fact<Atomic>) fact);
 
-		for (String var : atomic.getArgs()) {
+		for (Argument var : atomic.getArgs()) {
 			if (!atomicsByVariable.containsKey(var))
 				atomicsByVariable.put(var, new HashSet<Fact<Atomic>>());
 
@@ -132,31 +132,35 @@ public class Chainer {
 
 		// If we're adding a new equality, perform updates of all the old rules
 		if (function.equals(InputUtil.EQUAL)) {
-			String var1 = atomic.getArgs().get(0);
-			String var2 = atomic.getArgs().get(1);
-			if (atomicsByVariable.containsKey(var1))
-				for (Fact<Atomic> oldFact : atomicsByVariable.get(var1)) {
+			Argument arg1 = atomic.getArgs().get(0);
+			Argument arg2 = atomic.getArgs().get(1);
+			if (atomicsByVariable.containsKey(arg1))
+				for (Fact<Atomic> oldFact : atomicsByVariable.get(arg1)) {
 					if (InputUtil.isSpecial(oldFact.property.getFunction()))
 						continue;
 
-					Hashtable<String, String> revars = new Hashtable<String, String>();
-					revars.put(var1, var2);
+					Hashtable<Argument, Argument> revars = new Hashtable<Argument, Argument>();
+					revars.put(arg1, arg2);
 					chain(new Fact<Atomic>((Atomic) InputUtil.revar(oldFact.property, revars), TransformUtil.EQUAL,
 							oldFact, fact));
 				}
 
-			if (!equalities.contains(var1))
-				equalities.put(var1, new HashSet<Fact<Atomic>>());
+			// Add the equality to the table. Only need to do one way because
+			// the theorem for ab=ba will get the other.
+			if (!equalities.contains(arg1))
+				equalities.put(arg1, new HashSet<Fact<Atomic>>());
 
-			equalities.get(var1).add(fact);
+			equalities.get(arg1).add(fact);
 		}
 
+		// For all vars that have other vars equal to them, apply the new rule
+		// to them
 		if (!InputUtil.isSpecial(fact.property.getFunction()))
-			for (String var : atomic.getArgs()) {
-				if (equalities.containsKey(var))
-					for (Fact<Atomic> equalVar : equalities.get(var)) {
-						Hashtable<String, String> revars = new Hashtable<String, String>();
-						revars.put(var, equalVar.property.getArgs().get(1));
+			for (Argument arg : atomic.getArgs()) {
+				if (equalities.containsKey(arg))
+					for (Fact<Atomic> equalVar : equalities.get(arg)) {
+						Hashtable<Argument, Argument> revars = new Hashtable<Argument, Argument>();
+						revars.put(arg, equalVar.property.getArgs().get(1));
 						chain(new Fact<Atomic>((Atomic) InputUtil.revar(fact.property, revars), TransformUtil.EQUAL,
 								equalVar, fact));
 					}
@@ -251,9 +255,11 @@ public class Chainer {
 					}
 				}
 			}
-		} else
-			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem, binding.getPrerequisites()
-					.toArray(new Fact<?>[0]));
+		} else{
+			InputUtil.revar(theorem.getResult(), binding.getArguments());
+			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem,
+					binding.getPrerequisites().toArray(new Fact<?>[0]));
+		}
 	}
 
 	/**
@@ -262,8 +268,8 @@ public class Chainer {
 	 * NOTE: Assumes atomicsToSatisfy has all of the atomics of the same
 	 * function type as the asserted atomic at the end.
 	 */
-	private void attemptPropagation(Theorem theorem, ArrayList<Property> atomicsToSatisfy, int index,
-			Fact<Atomic> fact, boolean usedAsserted, MutableBinding binding) {
+	private void attemptPropagation(Theorem theorem, ArrayList<Property> atomicsToSatisfy, int index, Fact<Atomic> fact,
+			boolean usedAsserted, MutableBinding binding) {
 		// base case : when we've fulfilled all the atomics, we can assert our
 		// result.
 		if (index == atomicsToSatisfy.size()) {

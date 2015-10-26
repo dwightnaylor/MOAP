@@ -21,6 +21,7 @@ import algorithmMaker.input.Input;
 import algorithmMaker.input.Problem;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Theorem;
+import algorithmMaker.input.Variable;
 import algorithmMaker.util.InputUtil;
 import bindings.Binding;
 import bindings.MutableBinding;
@@ -93,7 +94,7 @@ public class ProblemSolver {
 					newGoalParts.add(newProblem.getGoal().getProperty());
 
 					if (mst instanceof DirectReturn) {
-						String varToRemove = binding.getArguments().values().iterator().next();
+						String varToRemove = ((Variable) binding.getArguments().values().iterator().next()).getArg();
 						newProblem.getGoal().getVars().removeIf(x -> x.getVarName().equals(varToRemove));
 					} else {
 						HashSet<String> usedVars = new HashSet<String>();
@@ -105,14 +106,14 @@ public class ProblemSolver {
 
 						Property givenResult = mst.getGivenResult();
 						if (givenResult != null) {
-							newBinding.addBindingsFrom(doBindings(newProblem.getGiven(), usedVars,
-									InputUtil.getBindings(givenResult)));
+							newBinding.addBindingsFrom(
+									doBindings(newProblem.getGiven(), usedVars, InputUtil.getBindings(givenResult)));
 							newGivenParts.add(InputUtil.revar(givenResult, newBinding.getArguments()));
 						}
 						Property findResult = mst.getFindResult();
 						if (findResult != null) {
-							newBinding.addBindingsFrom(doBindings(newProblem.getGoal(), usedVars,
-									InputUtil.getBindings(findResult)));
+							newBinding.addBindingsFrom(
+									doBindings(newProblem.getGoal(), usedVars, InputUtil.getBindings(findResult)));
 							newGoalParts.add(InputUtil.revar(findResult, newBinding.getArguments()));
 						}
 
@@ -136,7 +137,7 @@ public class ProblemSolver {
 			for (char name = 'a'; name <= 'z'; name++) {
 				String stName = name + "";
 				if (!usedVars.contains(stName)) {
-					binding.bind(var, stName);
+					binding.bind(var, InputUtil.getVariable(stName));
 					problem.getVars().add(InputUtil.createDeclaration(stName));
 					break;
 				}
@@ -153,7 +154,6 @@ public class ProblemSolver {
 		// FIXME: DN: Have to canonicalize before adding to the
 		// statelist
 		if (!reachedProblemStates.contains(newProblem)) {
-			System.out.println(newProblem);
 			// System.out.println(newProblem);
 			reachedProblemStates.add(newProblem);
 			ProblemState newProblemState = new ProblemState(newProblem, problemState, multistageTheorem, binding);
@@ -171,14 +171,14 @@ public class ProblemSolver {
 			// If the variable is unused...
 			if (!unbound.contains(var.getVarName())) {
 				MutableBinding binding = new MutableBinding();
-				binding.bind(DirectReturn.VAR_NAME, var.getVarName());
+				binding.bind(DirectReturn.VAR_NAME, InputUtil.getVariable(var.getVarName()));
 				findChainer.nextLevelTheorems.put(new DirectReturn(),
 						new ArrayList<Binding>(Collections.singleton(binding.getImmutable())));
 			}
 		}
 	}
 
-	public static void main(String[] args) {
+	public static String main(String[] args) {
 		ArrayList<Theorem> theorems = TheoremParser.parseFiles();
 		theorems.addAll(MultiTheoremParser.parseFiles());
 		// Scanner s = new Scanner(System.in);
@@ -186,10 +186,10 @@ public class ProblemSolver {
 		// ProblemSolver(QuickParser.parseInput(s.nextLine()),
 		// theorems.toArray(new Theorem[0]));
 		// s.close();
-		String problemString =
+		String problemString = args[0];
 		// Problems...
 		// "Given a,b st even(b) & type_list(a), Find b st child(a,b)";
-		"Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c) & even(c)";
+		// "Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c) & even(c)";
 		// "Given list<int>(a); Find b st child(a,b) & even(b)";
 		Input input = QuickParser.parseInput(problemString);
 		InputUtil.desugar(input);
@@ -200,6 +200,7 @@ public class ProblemSolver {
 			System.out.println("This algorithm should solve your problem :-)");
 
 		System.out.println(problemString);
-		System.out.println(ProblemState.getOutputString(solution));
+		//System.out.println(ProblemState.getOutputString(solution));
+		return ProblemState.getOutputString(solution);
 	}
 }

@@ -20,11 +20,15 @@ public class InternalInputLexer extends Lexer {
     public static final int T__17=17;
     public static final int T__18=18;
     public static final int T__11=11;
+    public static final int T__33=33;
     public static final int T__12=12;
+    public static final int T__34=34;
     public static final int T__13=13;
     public static final int T__14=14;
     public static final int EOF=-1;
     public static final int T__30=30;
+    public static final int T__31=31;
+    public static final int T__32=32;
     public static final int RULE_ID=4;
     public static final int RULE_WS=9;
     public static final int RULE_ANY_OTHER=10;
@@ -185,11 +189,10 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = T__17;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:17:7: ( 'Given' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:17:9: 'Given'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:17:7: ( '+' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:17:9: '+'
             {
-            match("Given"); 
-
+            match('+'); 
 
             }
 
@@ -206,10 +209,10 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = T__18;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:18:7: ( ';' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:18:9: ';'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:18:7: ( '-' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:18:9: '-'
             {
-            match(';'); 
+            match('-'); 
 
             }
 
@@ -226,10 +229,10 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = T__19;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:19:7: ( '(' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:19:9: '('
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:19:7: ( '*' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:19:9: '*'
             {
-            match('('); 
+            match('*'); 
 
             }
 
@@ -246,10 +249,10 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = T__20;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:20:7: ( ')' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:20:9: ')'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:20:7: ( '/' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:20:9: '/'
             {
-            match(')'); 
+            match('/'); 
 
             }
 
@@ -266,10 +269,10 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = T__21;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:21:7: ( 'Theorems:' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:21:9: 'Theorems:'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:21:7: ( 'Given' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:21:9: 'Given'
             {
-            match("Theorems:"); 
+            match("Given"); 
 
 
             }
@@ -287,11 +290,10 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = T__22;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:22:7: ( 'st' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:22:9: 'st'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:22:7: ( ';' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:22:9: ';'
             {
-            match("st"); 
-
+            match(';'); 
 
             }
 
@@ -308,10 +310,10 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = T__23;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:23:7: ( ',' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:23:9: ','
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:23:7: ( '(' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:23:9: '('
             {
-            match(','); 
+            match('('); 
 
             }
 
@@ -328,10 +330,10 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = T__24;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:24:7: ( '<' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:24:9: '<'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:24:7: ( ')' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:24:9: ')'
             {
-            match('<'); 
+            match(')'); 
 
             }
 
@@ -348,10 +350,11 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = T__25;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:25:7: ( '>' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:25:9: '>'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:25:7: ( 'Theorems:' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:25:9: 'Theorems:'
             {
-            match('>'); 
+            match("Theorems:"); 
+
 
             }
 
@@ -368,10 +371,11 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = T__26;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:26:7: ( '|' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:26:9: '|'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:26:7: ( 'st' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:26:9: 'st'
             {
-            match('|'); 
+            match("st"); 
+
 
             }
 
@@ -388,10 +392,10 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = T__27;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:27:7: ( '&' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:27:9: '&'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:27:7: ( ',' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:27:9: ','
             {
-            match('&'); 
+            match(','); 
 
             }
 
@@ -408,10 +412,10 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = T__28;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:28:7: ( ':' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:28:9: ':'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:28:7: ( '<' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:28:9: '<'
             {
-            match(':'); 
+            match('<'); 
 
             }
 
@@ -428,11 +432,10 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = T__29;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:29:7: ( ':-' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:29:9: ':-'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:29:7: ( '>' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:29:9: '>'
             {
-            match(":-"); 
-
+            match('>'); 
 
             }
 
@@ -449,8 +452,89 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = T__30;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:30:7: ( 'Test' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:30:9: 'Test'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:30:7: ( '|' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:30:9: '|'
+            {
+            match('|'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__30"
+
+    // $ANTLR start "T__31"
+    public final void mT__31() throws RecognitionException {
+        try {
+            int _type = T__31;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:31:7: ( '&' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:31:9: '&'
+            {
+            match('&'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__31"
+
+    // $ANTLR start "T__32"
+    public final void mT__32() throws RecognitionException {
+        try {
+            int _type = T__32;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:32:7: ( ':' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:32:9: ':'
+            {
+            match(':'); 
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__32"
+
+    // $ANTLR start "T__33"
+    public final void mT__33() throws RecognitionException {
+        try {
+            int _type = T__33;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:33:7: ( ':-' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:33:9: ':-'
+            {
+            match(":-"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__33"
+
+    // $ANTLR start "T__34"
+    public final void mT__34() throws RecognitionException {
+        try {
+            int _type = T__34;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:34:7: ( 'Test' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:34:9: 'Test'
             {
             match("Test"); 
 
@@ -463,17 +547,17 @@ public class InternalInputLexer extends Lexer {
         finally {
         }
     }
-    // $ANTLR end "T__30"
+    // $ANTLR end "T__34"
 
     // $ANTLR start "RULE_ID"
     public final void mRULE_ID() throws RecognitionException {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3256:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3256:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3978:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3978:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3256:11: ( '^' )?
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3978:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -482,7 +566,7 @@ public class InternalInputLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3256:11: '^'
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3978:11: '^'
                     {
                     match('^'); 
 
@@ -500,7 +584,7 @@ public class InternalInputLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3256:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3978:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -549,10 +633,10 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3258:10: ( ( '0' .. '9' )+ )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3258:12: ( '0' .. '9' )+
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3980:10: ( ( '0' .. '9' )+ )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3980:12: ( '0' .. '9' )+
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3258:12: ( '0' .. '9' )+
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3980:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -566,7 +650,7 @@ public class InternalInputLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3258:13: '0' .. '9'
+            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3980:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -598,10 +682,10 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3260:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3260:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3982:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3982:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3260:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3982:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -619,10 +703,10 @@ public class InternalInputLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3260:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3982:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3260:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3982:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -638,7 +722,7 @@ public class InternalInputLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3260:21: '\\\\' .
+                    	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3982:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -646,7 +730,7 @@ public class InternalInputLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3260:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3982:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -671,10 +755,10 @@ public class InternalInputLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3260:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3982:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3260:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3982:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -690,7 +774,7 @@ public class InternalInputLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3260:54: '\\\\' .
+                    	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3982:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -698,7 +782,7 @@ public class InternalInputLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3260:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3982:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -741,12 +825,12 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3262:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3262:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3984:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3984:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3262:24: ( options {greedy=false; } : . )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3984:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -771,7 +855,7 @@ public class InternalInputLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3262:52: .
+            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3984:52: .
             	    {
             	    matchAny(); 
 
@@ -801,12 +885,12 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3264:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3264:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3986:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3986:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3264:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3986:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -819,7 +903,7 @@ public class InternalInputLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3264:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3986:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -839,7 +923,7 @@ public class InternalInputLexer extends Lexer {
                 }
             } while (true);
 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3264:40: ( ( '\\r' )? '\\n' )?
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3986:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -848,9 +932,9 @@ public class InternalInputLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3264:41: ( '\\r' )? '\\n'
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3986:41: ( '\\r' )? '\\n'
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3264:41: ( '\\r' )?
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3986:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -859,7 +943,7 @@ public class InternalInputLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3264:41: '\\r'
+                            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3986:41: '\\r'
                             {
                             match('\r'); 
 
@@ -891,10 +975,10 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3266:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3266:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3988:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3988:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3266:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3988:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -948,8 +1032,8 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3268:16: ( . )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3268:18: .
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3990:16: ( . )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3990:18: .
             {
             matchAny(); 
 
@@ -964,8 +1048,8 @@ public class InternalInputLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
-        int alt12=27;
+        // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:8: ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        int alt12=31;
         alt12 = dfa12.predict(input);
         switch (alt12) {
             case 1 :
@@ -1109,49 +1193,77 @@ public class InternalInputLexer extends Lexer {
                 }
                 break;
             case 21 :
-                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:130: RULE_ID
+                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:130: T__31
+                {
+                mT__31(); 
+
+                }
+                break;
+            case 22 :
+                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:136: T__32
+                {
+                mT__32(); 
+
+                }
+                break;
+            case 23 :
+                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:142: T__33
+                {
+                mT__33(); 
+
+                }
+                break;
+            case 24 :
+                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:148: T__34
+                {
+                mT__34(); 
+
+                }
+                break;
+            case 25 :
+                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:154: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
-            case 22 :
-                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:138: RULE_INT
+            case 26 :
+                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:162: RULE_INT
                 {
                 mRULE_INT(); 
 
                 }
                 break;
-            case 23 :
-                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:147: RULE_STRING
+            case 27 :
+                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:171: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
-            case 24 :
-                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:159: RULE_ML_COMMENT
+            case 28 :
+                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:183: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
-            case 25 :
-                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:175: RULE_SL_COMMENT
+            case 29 :
+                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:199: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
-            case 26 :
-                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:191: RULE_WS
+            case 30 :
+                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:215: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
-            case 27 :
-                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:199: RULE_ANY_OTHER
+            case 31 :
+                // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1:223: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 
@@ -1165,128 +1277,138 @@ public class InternalInputLexer extends Lexer {
 
     protected DFA12 dfa12 = new DFA12(this);
     static final String DFA12_eotS =
-        "\1\uffff\6\33\3\uffff\1\33\5\uffff\1\55\1\30\2\uffff\3\30\2\uffff"+
-        "\2\33\1\uffff\7\33\3\uffff\1\74\14\uffff\11\33\1\uffff\1\106\4\33"+
-        "\1\113\1\33\1\115\1\33\1\uffff\1\117\1\120\2\33\1\uffff\1\33\1\uffff"+
-        "\1\124\2\uffff\1\125\1\126\1\33\3\uffff\2\33\1\uffff";
+        "\1\uffff\5\36\3\uffff\1\52\1\36\3\uffff\1\36\5\uffff\1\66\1\33"+
+        "\2\uffff\2\33\2\uffff\2\36\1\uffff\6\36\6\uffff\1\36\3\uffff\1\103"+
+        "\12\uffff\11\36\1\uffff\1\115\4\36\1\122\1\36\1\124\1\36\1\uffff"+
+        "\1\126\1\127\2\36\1\uffff\1\36\1\uffff\1\133\2\uffff\1\134\1\135"+
+        "\1\36\3\uffff\2\36\1\uffff";
     static final String DFA12_eofS =
-        "\132\uffff";
+        "\141\uffff";
     static final String DFA12_minS =
-        "\1\0\1\101\2\157\1\170\1\122\1\151\3\uffff\1\164\5\uffff\1\55\1"+
-        "\101\2\uffff\2\0\1\52\2\uffff\1\156\1\114\1\uffff\1\165\1\162\1"+
-        "\151\1\125\1\145\1\163\1\166\3\uffff\1\60\14\uffff\1\144\1\123\1"+
-        "\156\1\141\1\163\1\105\1\157\1\164\1\145\1\uffff\1\60\1\105\1\164"+
-        "\1\154\1\164\1\60\1\162\1\60\1\156\1\uffff\2\60\1\154\1\163\1\uffff"+
-        "\1\145\1\uffff\1\60\2\uffff\2\60\1\155\3\uffff\1\163\1\72\1\uffff";
+        "\1\0\1\101\2\157\1\170\1\122\3\uffff\1\52\1\151\3\uffff\1\164\5"+
+        "\uffff\1\55\1\101\2\uffff\2\0\2\uffff\1\156\1\114\1\uffff\1\165"+
+        "\1\162\1\151\1\125\1\145\1\163\6\uffff\1\166\3\uffff\1\60\12\uffff"+
+        "\1\144\1\123\1\156\1\141\1\163\1\105\1\157\1\164\1\145\1\uffff\1"+
+        "\60\1\105\1\164\1\154\1\164\1\60\1\162\1\60\1\156\1\uffff\2\60\1"+
+        "\154\1\163\1\uffff\1\145\1\uffff\1\60\2\uffff\2\60\1\155\3\uffff"+
+        "\1\163\1\72\1\uffff";
     static final String DFA12_maxS =
-        "\1\uffff\1\151\2\157\1\170\1\150\1\151\3\uffff\1\164\5\uffff\1"+
-        "\55\1\172\2\uffff\2\uffff\1\57\2\uffff\1\156\1\114\1\uffff\1\165"+
-        "\1\162\1\151\1\125\1\145\1\163\1\166\3\uffff\1\172\14\uffff\1\144"+
-        "\1\123\1\156\1\141\1\163\1\105\1\157\1\164\1\145\1\uffff\1\172\1"+
-        "\105\1\164\1\154\1\164\1\172\1\162\1\172\1\156\1\uffff\2\172\1\154"+
-        "\1\163\1\uffff\1\145\1\uffff\1\172\2\uffff\2\172\1\155\3\uffff\1"+
-        "\163\1\72\1\uffff";
+        "\1\uffff\1\151\2\157\1\170\1\150\3\uffff\1\57\1\151\3\uffff\1\164"+
+        "\5\uffff\1\55\1\172\2\uffff\2\uffff\2\uffff\1\156\1\114\1\uffff"+
+        "\1\165\1\162\1\151\1\125\1\145\1\163\6\uffff\1\166\3\uffff\1\172"+
+        "\12\uffff\1\144\1\123\1\156\1\141\1\163\1\105\1\157\1\164\1\145"+
+        "\1\uffff\1\172\1\105\1\164\1\154\1\164\1\172\1\162\1\172\1\156\1"+
+        "\uffff\2\172\1\154\1\163\1\uffff\1\145\1\uffff\1\172\2\uffff\2\172"+
+        "\1\155\3\uffff\1\163\1\72\1\uffff";
     static final String DFA12_acceptS =
-        "\7\uffff\1\10\1\11\1\12\1\uffff\1\15\1\16\1\17\1\20\1\21\2\uffff"+
-        "\1\25\1\26\3\uffff\1\32\1\33\2\uffff\1\25\7\uffff\1\10\1\11\1\12"+
-        "\1\uffff\1\15\1\16\1\17\1\20\1\21\1\23\1\22\1\26\1\27\1\30\1\31"+
-        "\1\32\11\uffff\1\14\11\uffff\1\1\4\uffff\1\5\1\uffff\1\24\1\uffff"+
-        "\1\6\1\2\3\uffff\1\7\1\3\1\4\2\uffff\1\13";
+        "\6\uffff\1\7\1\10\1\11\2\uffff\1\14\1\15\1\16\1\uffff\1\21\1\22"+
+        "\1\23\1\24\1\25\2\uffff\1\31\1\32\2\uffff\1\36\1\37\2\uffff\1\31"+
+        "\6\uffff\1\7\1\10\1\11\1\34\1\35\1\12\1\uffff\1\14\1\15\1\16\1\uffff"+
+        "\1\21\1\22\1\23\1\24\1\25\1\27\1\26\1\32\1\33\1\36\11\uffff\1\20"+
+        "\11\uffff\1\1\4\uffff\1\5\1\uffff\1\30\1\uffff\1\6\1\2\3\uffff\1"+
+        "\13\1\3\1\4\2\uffff\1\17";
     static final String DFA12_specialS =
-        "\1\2\23\uffff\1\0\1\1\104\uffff}>";
+        "\1\0\27\uffff\1\1\1\2\107\uffff}>";
     static final String[] DFA12_transitionS = {
-            "\11\30\2\27\2\30\1\27\22\30\1\27\1\30\1\24\3\30\1\17\1\25\1"+
-            "\10\1\11\2\30\1\13\2\30\1\26\12\23\1\20\1\7\1\14\1\30\1\15\2"+
-            "\30\2\22\1\2\2\22\1\1\1\6\14\22\1\5\6\22\3\30\1\21\1\22\1\30"+
-            "\4\22\1\4\1\3\14\22\1\12\7\22\1\30\1\16\uff83\30",
-            "\1\32\47\uffff\1\31",
-            "\1\34",
-            "\1\35",
-            "\1\36",
-            "\1\37\22\uffff\1\41\2\uffff\1\40",
-            "\1\42",
+            "\11\33\2\32\2\33\1\32\22\33\1\32\1\33\1\30\3\33\1\23\1\31\1"+
+            "\14\1\15\1\10\1\6\1\17\1\7\1\33\1\11\12\27\1\24\1\13\1\20\1"+
+            "\33\1\21\2\33\2\26\1\2\2\26\1\1\1\12\14\26\1\5\6\26\3\33\1\25"+
+            "\1\26\1\33\4\26\1\4\1\3\14\26\1\16\7\26\1\33\1\22\uff83\33",
+            "\1\35\47\uffff\1\34",
+            "\1\37",
+            "\1\40",
+            "\1\41",
+            "\1\42\22\uffff\1\44\2\uffff\1\43",
             "",
             "",
             "",
-            "\1\46",
+            "\1\50\4\uffff\1\51",
+            "\1\53",
+            "",
+            "",
+            "",
+            "\1\57",
             "",
             "",
             "",
             "",
-            "",
-            "\1\54",
-            "\32\33\4\uffff\1\33\1\uffff\32\33",
-            "",
-            "",
-            "\0\57",
-            "\0\57",
-            "\1\60\4\uffff\1\61",
-            "",
-            "",
-            "\1\63",
-            "\1\64",
             "",
             "\1\65",
-            "\1\66",
-            "\1\67",
-            "\1\70",
-            "\1\71",
+            "\32\36\4\uffff\1\36\1\uffff\32\36",
+            "",
+            "",
+            "\0\70",
+            "\0\70",
+            "",
+            "",
             "\1\72",
             "\1\73",
             "",
-            "",
-            "",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            "\1\74",
             "\1\75",
             "\1\76",
             "\1\77",
             "\1\100",
             "\1\101",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\102",
-            "\1\103",
+            "",
+            "",
+            "",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\1\104",
             "\1\105",
-            "",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
+            "\1\106",
             "\1\107",
             "\1\110",
             "\1\111",
             "\1\112",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
+            "\1\113",
             "\1\114",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
+            "",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\116",
-            "",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
+            "\1\117",
+            "\1\120",
             "\1\121",
-            "\1\122",
-            "",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\123",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\125",
             "",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-            "",
-            "",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-            "\12\33\7\uffff\32\33\4\uffff\1\33\1\uffff\32\33",
-            "\1\127",
-            "",
-            "",
-            "",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
             "\1\130",
             "\1\131",
+            "",
+            "\1\132",
+            "",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "",
+            "",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32\36",
+            "\1\136",
+            "",
+            "",
+            "",
+            "\1\137",
+            "\1\140",
             ""
     };
 
@@ -1320,33 +1442,13 @@ public class InternalInputLexer extends Lexer {
             this.transition = DFA12_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
+            return "1:1: Tokens : ( T__11 | T__12 | T__13 | T__14 | T__15 | T__16 | T__17 | T__18 | T__19 | T__20 | T__21 | T__22 | T__23 | T__24 | T__25 | T__26 | T__27 | T__28 | T__29 | T__30 | T__31 | T__32 | T__33 | T__34 | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER );";
         }
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
         	int _s = s;
             switch ( s ) {
                     case 0 : 
-                        int LA12_20 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA12_20>='\u0000' && LA12_20<='\uFFFF')) ) {s = 47;}
-
-                        else s = 24;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 1 : 
-                        int LA12_21 = input.LA(1);
-
-                        s = -1;
-                        if ( ((LA12_21>='\u0000' && LA12_21<='\uFFFF')) ) {s = 47;}
-
-                        else s = 24;
-
-                        if ( s>=0 ) return s;
-                        break;
-                    case 2 : 
                         int LA12_0 = input.LA(1);
 
                         s = -1;
@@ -1360,43 +1462,69 @@ public class InternalInputLexer extends Lexer {
 
                         else if ( (LA12_0=='T') ) {s = 5;}
 
-                        else if ( (LA12_0=='G') ) {s = 6;}
+                        else if ( (LA12_0=='+') ) {s = 6;}
 
-                        else if ( (LA12_0==';') ) {s = 7;}
+                        else if ( (LA12_0=='-') ) {s = 7;}
 
-                        else if ( (LA12_0=='(') ) {s = 8;}
+                        else if ( (LA12_0=='*') ) {s = 8;}
 
-                        else if ( (LA12_0==')') ) {s = 9;}
+                        else if ( (LA12_0=='/') ) {s = 9;}
 
-                        else if ( (LA12_0=='s') ) {s = 10;}
+                        else if ( (LA12_0=='G') ) {s = 10;}
 
-                        else if ( (LA12_0==',') ) {s = 11;}
+                        else if ( (LA12_0==';') ) {s = 11;}
 
-                        else if ( (LA12_0=='<') ) {s = 12;}
+                        else if ( (LA12_0=='(') ) {s = 12;}
 
-                        else if ( (LA12_0=='>') ) {s = 13;}
+                        else if ( (LA12_0==')') ) {s = 13;}
 
-                        else if ( (LA12_0=='|') ) {s = 14;}
+                        else if ( (LA12_0=='s') ) {s = 14;}
 
-                        else if ( (LA12_0=='&') ) {s = 15;}
+                        else if ( (LA12_0==',') ) {s = 15;}
 
-                        else if ( (LA12_0==':') ) {s = 16;}
+                        else if ( (LA12_0=='<') ) {s = 16;}
 
-                        else if ( (LA12_0=='^') ) {s = 17;}
+                        else if ( (LA12_0=='>') ) {s = 17;}
 
-                        else if ( ((LA12_0>='A' && LA12_0<='B')||(LA12_0>='D' && LA12_0<='E')||(LA12_0>='H' && LA12_0<='S')||(LA12_0>='U' && LA12_0<='Z')||LA12_0=='_'||(LA12_0>='a' && LA12_0<='d')||(LA12_0>='g' && LA12_0<='r')||(LA12_0>='t' && LA12_0<='z')) ) {s = 18;}
+                        else if ( (LA12_0=='|') ) {s = 18;}
 
-                        else if ( ((LA12_0>='0' && LA12_0<='9')) ) {s = 19;}
+                        else if ( (LA12_0=='&') ) {s = 19;}
 
-                        else if ( (LA12_0=='\"') ) {s = 20;}
+                        else if ( (LA12_0==':') ) {s = 20;}
 
-                        else if ( (LA12_0=='\'') ) {s = 21;}
+                        else if ( (LA12_0=='^') ) {s = 21;}
 
-                        else if ( (LA12_0=='/') ) {s = 22;}
+                        else if ( ((LA12_0>='A' && LA12_0<='B')||(LA12_0>='D' && LA12_0<='E')||(LA12_0>='H' && LA12_0<='S')||(LA12_0>='U' && LA12_0<='Z')||LA12_0=='_'||(LA12_0>='a' && LA12_0<='d')||(LA12_0>='g' && LA12_0<='r')||(LA12_0>='t' && LA12_0<='z')) ) {s = 22;}
 
-                        else if ( ((LA12_0>='\t' && LA12_0<='\n')||LA12_0=='\r'||LA12_0==' ') ) {s = 23;}
+                        else if ( ((LA12_0>='0' && LA12_0<='9')) ) {s = 23;}
 
-                        else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||LA12_0=='!'||(LA12_0>='#' && LA12_0<='%')||(LA12_0>='*' && LA12_0<='+')||(LA12_0>='-' && LA12_0<='.')||LA12_0=='='||(LA12_0>='?' && LA12_0<='@')||(LA12_0>='[' && LA12_0<=']')||LA12_0=='`'||LA12_0=='{'||(LA12_0>='}' && LA12_0<='\uFFFF')) ) {s = 24;}
+                        else if ( (LA12_0=='\"') ) {s = 24;}
+
+                        else if ( (LA12_0=='\'') ) {s = 25;}
+
+                        else if ( ((LA12_0>='\t' && LA12_0<='\n')||LA12_0=='\r'||LA12_0==' ') ) {s = 26;}
+
+                        else if ( ((LA12_0>='\u0000' && LA12_0<='\b')||(LA12_0>='\u000B' && LA12_0<='\f')||(LA12_0>='\u000E' && LA12_0<='\u001F')||LA12_0=='!'||(LA12_0>='#' && LA12_0<='%')||LA12_0=='.'||LA12_0=='='||(LA12_0>='?' && LA12_0<='@')||(LA12_0>='[' && LA12_0<=']')||LA12_0=='`'||LA12_0=='{'||(LA12_0>='}' && LA12_0<='\uFFFF')) ) {s = 27;}
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 1 : 
+                        int LA12_24 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA12_24>='\u0000' && LA12_24<='\uFFFF')) ) {s = 56;}
+
+                        else s = 27;
+
+                        if ( s>=0 ) return s;
+                        break;
+                    case 2 : 
+                        int LA12_25 = input.LA(1);
+
+                        s = -1;
+                        if ( ((LA12_25>='\u0000' && LA12_25<='\uFFFF')) ) {s = 56;}
+
+                        else s = 27;
 
                         if ( s>=0 ) return s;
                         break;

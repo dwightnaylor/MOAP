@@ -71,10 +71,16 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
       case InputPackage.PROPERTY: return createProperty();
       case InputPackage.QUANTIFIER: return createQuantifier();
       case InputPackage.ATOMIC: return createAtomic();
+      case InputPackage.ARGUMENT: return createArgument();
+      case InputPackage.VARIABLE: return createVariable();
       case InputPackage.BOOLEAN_LITERAL: return createBooleanLiteral();
       case InputPackage.THEOREM: return createTheorem();
+      case InputPackage.NUMERICAL_PROPERTY: return createNumericalProperty();
+      case InputPackage.NUMBER_LITERAL: return createNumberLiteral();
       case InputPackage.ORING: return createORing();
       case InputPackage.AN_DING: return createANDing();
+      case InputPackage.ADDITION: return createAddition();
+      case InputPackage.MULTIPLICATION: return createMultiplication();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -162,6 +168,28 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public Argument createArgument()
+  {
+    ArgumentImpl argument = new ArgumentImpl();
+    return argument;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Variable createVariable()
+  {
+    VariableImpl variable = new VariableImpl();
+    return variable;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public BooleanLiteral createBooleanLiteral()
   {
     BooleanLiteralImpl booleanLiteral = new BooleanLiteralImpl();
@@ -184,6 +212,28 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public NumericalProperty createNumericalProperty()
+  {
+    NumericalPropertyImpl numericalProperty = new NumericalPropertyImpl();
+    return numericalProperty;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NumberLiteral createNumberLiteral()
+  {
+    NumberLiteralImpl numberLiteral = new NumberLiteralImpl();
+    return numberLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public ORing createORing()
   {
     ORingImpl oRing = new ORingImpl();
@@ -199,6 +249,28 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
   {
     ANDingImpl anDing = new ANDingImpl();
     return anDing;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Addition createAddition()
+  {
+    AdditionImpl addition = new AdditionImpl();
+    return addition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Multiplication createMultiplication()
+  {
+    MultiplicationImpl multiplication = new MultiplicationImpl();
+    return multiplication;
   }
 
   /**
