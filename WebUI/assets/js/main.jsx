@@ -101,12 +101,12 @@ var Main = React.createClass({
     this.setState({ isLoading: true });
     var submissionString = this.refs.problemSubmissionField.getValue();
     $.ajax({
-      url: "http://wyler.mcanin.ch/moapapi",
+      url: "http://localhost:8080/solve",
       type: "GET",
       crossDomain: false,
-      data: "problem="+submissionString,
+      data: "problem="+escape(submissionString),
       success: function(resp){
-        this.refs.problemSolutionField.setValue(resp);
+        this.refs.problemSolutionField.setValue(resp.response);
         this.setState({ isLoading: false });
       }.bind(this),
       error: function(XMLHttpRequest, textStatus, errorThrown){
