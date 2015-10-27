@@ -83,7 +83,7 @@ public class ProblemSolver {
 							&& !problemState.problem.getTask().equals(mst.getRequiredGoalTask()))
 						continue;
 
-					Input newProblem =  InputUtil.stupidCopy(problem);
+					Input newProblem = InputUtil.stupidCopy(problem);
 
 					// Make the new given (just add in all the multi-theorem
 					// results)
@@ -105,14 +105,14 @@ public class ProblemSolver {
 
 						Property givenResult = mst.getGivenResult();
 						if (givenResult != null) {
-							newBinding.addBindingsFrom(
-									doBindings(newProblem.getGiven(), usedVars, InputUtil.getBindings(givenResult)));
+							newBinding.addBindingsFrom(doBindings(newProblem.getGiven(), usedVars,
+									InputUtil.getBindings(givenResult)));
 							newGivenParts.add(InputUtil.revar(givenResult, newBinding.getArguments()));
 						}
 						Property findResult = mst.getFindResult();
 						if (findResult != null) {
-							newBinding.addBindingsFrom(
-									doBindings(newProblem.getGoal(), usedVars, InputUtil.getBindings(findResult)));
+							newBinding.addBindingsFrom(doBindings(newProblem.getGoal(), usedVars,
+									InputUtil.getBindings(findResult)));
 							newGoalParts.add(InputUtil.revar(findResult, newBinding.getArguments()));
 						}
 
@@ -153,7 +153,6 @@ public class ProblemSolver {
 		// FIXME: DN: Have to canonicalize before adding to the
 		// statelist
 		if (!reachedProblemStates.contains(newProblem)) {
-			 System.out.println(newProblem);
 			reachedProblemStates.add(newProblem);
 			ProblemState newProblemState = new ProblemState(newProblem, problemState, multistageTheorem, binding);
 
@@ -197,7 +196,7 @@ public class ProblemSolver {
 		String problemString =
 		// Problems...
 		// "Given a,b st even(b) & type_list(a), Find b st child(a,b)";
-//		"Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c)";
+		// "Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c)";
 		// "Given list<int>(a); Find b st child(a,b) & even(b)";
 		// "Given list<int> x,int s; Find i,j st index(x,i) & index(x,j) &
 		// equal(i,s)";

@@ -43,11 +43,16 @@ public class QuickParser {
 		return (Problem) parse(queryString);
 	}
 
+	private static XtextResourceSet resourceSet;
+	private static int fileIndex = 0;
+
 	private static EObject parse(String queryString) {
-		Injector injector = new StandaloneSetup().createInjectorAndDoEMFRegistration();
-		XtextResourceSet resourceSet = injector.getInstance(XtextResourceSet.class);
-		resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
-		Resource resource = resourceSet.createResource(URI.createURI("." + StandaloneSetup.EXT));
+		if (resourceSet == null) {
+			resourceSet = new StandaloneSetup().createInjectorAndDoEMFRegistration()
+					.getInstance(XtextResourceSet.class);
+			resourceSet.addLoadOption(XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE);
+		}
+		Resource resource = resourceSet.createResource(URI.createURI(fileIndex++ + "." + StandaloneSetup.EXT));
 		InputStream in = new ByteArrayInputStream(queryString.getBytes());
 		try {
 			resource.load(in, resourceSet.getLoadOptions());
