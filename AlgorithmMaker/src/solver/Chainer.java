@@ -8,6 +8,7 @@ import algorithmMaker.input.ANDing;
 import algorithmMaker.input.Argument;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.Property;
+import algorithmMaker.input.Quantifier;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.util.InputUtil;
 import bindings.Binding;
@@ -53,14 +54,8 @@ public class Chainer {
 
 	public Chainer(boolean isGivenChainer, Theorem... theorems) {
 		this.isGivenChainer = isGivenChainer;
-		for (Theorem theorem : theorems) {
-			Property requirement = getRequirement(theorem);
-			if (requirement instanceof Atomic)
-				addTheoremCatcher((Atomic) requirement, theorem);
-			else if (requirement instanceof ANDing)
-				for (Property anded : InputUtil.getANDed((ANDing) requirement))
-					addTheoremCatcher((Atomic) anded, theorem);
-		}
+		for (Theorem theorem : theorems)
+			addTheoremCatcher(getRequirement(theorem), theorem);
 	}
 
 	public void addBoundVars(String... vars) {
@@ -95,11 +90,21 @@ public class Chainer {
 		return atomics.containsKey(given);
 	}
 
-	private void addTheoremCatcher(Atomic atomic, Theorem theorem) {
-		if (!theoremCatchers.containsKey(atomic.getFunction()))
-			theoremCatchers.put(atomic.getFunction(), new HashSet<Theorem>());
+	private void addTheoremCatcher(Property requirement, Theorem theorem) {
+		if (requirement instanceof Atomic) {
+			Atomic atomic = (Atomic) requirement;
+			if (!theoremCatchers.containsKey(atomic.getFunction()))
+				theoremCatchers.put(atomic.getFunction(), new HashSet<Theorem>());
 
-		theoremCatchers.get(atomic.getFunction()).add(theorem);
+			theoremCatchers.get(atomic.getFunction()).add(theorem);
+		} else if (requirement instanceof ANDing) {
+			for (Property anded : InputUtil.getANDed((ANDing) requirement))
+				addTheoremCatcher(anded, theorem);
+		}else if (requirement instanceof Quantifier){
+			//Add all of the requirements from the quantifier to a listener 
+			//Add all of the results from the quantifier to a listener
+			//TODO:DN: Deal with chaining quantifiers
+		}
 	}
 
 	public void chain(Property property, Theorem theorem, Fact<?>... prerequisites) {
@@ -255,7 +260,7 @@ public class Chainer {
 					}
 				}
 			}
-		} else{
+		} else {
 			InputUtil.revar(theorem.getResult(), binding.getArguments());
 			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem,
 					binding.getPrerequisites().toArray(new Fact<?>[0]));

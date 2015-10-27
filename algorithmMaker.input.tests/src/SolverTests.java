@@ -52,9 +52,9 @@ public class SolverTests {
 
 	@Test
 	public void testEqualityMultiTheorem() {
-		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty(InputUtil.BOUND + "(x) & "
-				+ InputUtil.BOUND + "(y)"), parseProperty("equal(x,y)"), parseProperty("equal(x,y)"), null, 0, "test",
-				null);
+		MultistageTheorem multistageTheorem = new MultistageTheorem(
+				parseProperty(InputUtil.BOUND + "(x) & " + InputUtil.BOUND + "(y)"), parseProperty("equal(x,y)"),
+				parseProperty("equal(x,y)"), null, 0, "test", null);
 		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x,y st a(x,y); Find x st equal(x,y)"),
 				multistageTheorem);
 		solver.branch();
@@ -67,7 +67,8 @@ public class SolverTests {
 		ArrayList<Theorem> theorems = TheoremParser.parseFiles();
 		theorems.addAll(MultiTheoremParser.parseFiles());
 		String[] problems = new String[] { "Given list<int>(a); Find b st child(a,b) & even(b)",
-				"Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c) & even(c)" };
+				"Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c) & even(c)",
+				"Given int(a), int(b), int(c); Test(plus(c,b,a))" };
 		for (String problem : problems) {
 			Input input = QuickParser.parseInput(problem);
 			InputUtil.desugar(input);

@@ -4,15 +4,21 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import theorems.MultistageTheorem;
-import theorems.QuickTheorem;
 import algorithmMaker.QuickParser;
-import algorithmMaker.input.*;
+import algorithmMaker.input.ANDing;
+import algorithmMaker.input.Atomic;
+import algorithmMaker.input.Input;
+import algorithmMaker.input.ORing;
+import algorithmMaker.input.Problem;
+import algorithmMaker.input.Property;
+import algorithmMaker.input.Quantifier;
+import algorithmMaker.input.Theorem;
 import algorithmMaker.input.impl.InputFactoryImpl;
 import algorithmMaker.util.InputUtil;
 import solver.Chainer;
+import theorems.MultistageTheorem;
+import theorems.QuickTheorem;
 
 public class TransformUtil {
 
@@ -34,13 +40,13 @@ public class TransformUtil {
 	 * the given, and reducing variable use in both halves.
 	 */
 	public static Input simplify(Input input, Chainer chainer) {
-		Input inputRet = (Input) new EcoreUtil.Copier().copy(input);
+		Input inputRet = InputUtil.stupidCopy(input);
 
 		Property given = input.getGiven().getProperty();
 		if (given != null) {
 			Property simplifiedGiven = (Property) simplify(given, new HashSet<Atomic>());
-			inputRet.getGiven().setProperty(
-					simplifiedGiven == null ? QuickParser.parseProperty("TRUE") : simplifiedGiven);
+			inputRet.getGiven()
+					.setProperty(simplifiedGiven == null ? QuickParser.parseProperty("TRUE") : simplifiedGiven);
 		}
 
 		chainer.chain(inputRet.getGiven().getProperty(), GIVEN);
@@ -95,7 +101,7 @@ public class TransformUtil {
 			EObject requirement = simplify(((Quantifier) cur).getSubject(), atomicsToRemove);
 			EObject result = simplify(((Quantifier) cur).getSubject(), atomicsToRemove);
 
-			Quantifier quantifierRet = (Quantifier) new EcoreUtil.Copier().copy(cur);
+			Quantifier quantifierRet = InputUtil.stupidCopy((Quantifier) cur);
 			quantifierRet.setSubject((Problem) requirement);
 			quantifierRet.setSubject((Problem) result);
 			return quantifierRet;
@@ -105,7 +111,7 @@ public class TransformUtil {
 			if (property == null)
 				return null;
 
-			Problem problemRet = (Problem) new EcoreUtil.Copier().copy(cur);
+			Problem problemRet = InputUtil.stupidCopy((Problem) cur);
 			problemRet.setProperty((Property) property);
 			return problemRet;
 		case Input:
@@ -123,7 +129,7 @@ public class TransformUtil {
 	}
 
 	public static Input transform(Input input, MultistageTheorem... multistageTheorems) {
-		Input clone = (Input) new EcoreUtil.Copier().copy(input);
+		Input clone = InputUtil.stupidCopy(input);
 
 		// Put in all of the new terms that the given has
 		ArrayList<Property> newGiven = new ArrayList<Property>();

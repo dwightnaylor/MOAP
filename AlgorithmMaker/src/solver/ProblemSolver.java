@@ -1,9 +1,5 @@
 package solver;
 
-import inputHandling.MultiTheoremParser;
-import inputHandling.TheoremParser;
-import inputHandling.TransformUtil;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,8 +9,6 @@ import java.util.PriorityQueue;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import theorems.MultistageTheorem;
-import theorems.multiTheorems.DirectReturn;
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Declaration;
 import algorithmMaker.input.Input;
@@ -25,6 +19,11 @@ import algorithmMaker.input.Variable;
 import algorithmMaker.util.InputUtil;
 import bindings.Binding;
 import bindings.MutableBinding;
+import inputHandling.MultiTheoremParser;
+import inputHandling.TheoremParser;
+import inputHandling.TransformUtil;
+import theorems.MultistageTheorem;
+import theorems.multiTheorems.DirectReturn;
 
 /**
  * Translates an input between various states until a solution is reached.
@@ -84,7 +83,7 @@ public class ProblemSolver {
 							&& !problemState.problem.getTask().equals(mst.getRequiredGoalTask()))
 						continue;
 
-					Input newProblem = (Input) new EcoreUtil.Copier().copy(problem);
+					Input newProblem =  InputUtil.stupidCopy(problem);
 
 					// Make the new given (just add in all the multi-theorem
 					// results)
@@ -154,7 +153,7 @@ public class ProblemSolver {
 		// FIXME: DN: Have to canonicalize before adding to the
 		// statelist
 		if (!reachedProblemStates.contains(newProblem)) {
-			// System.out.println(newProblem);
+			 System.out.println(newProblem);
 			reachedProblemStates.add(newProblem);
 			ProblemState newProblemState = new ProblemState(newProblem, problemState, multistageTheorem, binding);
 
@@ -189,6 +188,7 @@ public class ProblemSolver {
 	public static void main(String[] args) {
 		ArrayList<Theorem> theorems = TheoremParser.parseFiles();
 		theorems.addAll(MultiTheoremParser.parseFiles());
+		System.out.println("Done parsing theorems/multitheorems.");
 		// Scanner s = new Scanner(System.in);
 		// ProblemSolver solver = new
 		// ProblemSolver(QuickParser.parseInput(s.nextLine()),
@@ -197,10 +197,11 @@ public class ProblemSolver {
 		String problemString =
 		// Problems...
 		// "Given a,b st even(b) & type_list(a), Find b st child(a,b)";
-		"Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c)";
+//		"Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c)";
 		// "Given list<int>(a); Find b st child(a,b) & even(b)";
 		// "Given list<int> x,int s; Find i,j st index(x,i) & index(x,j) &
 		// equal(i,s)";
+		"Given list<int>(a),list<int>(b),int(s); Find c,d st child(a,c) & child(b,d) & plus(c,d,s)";
 		Input input = QuickParser.parseInput(problemString);
 		InputUtil.desugar(input);
 		ProblemState solution = new ProblemSolver(input, theorems.toArray(new Theorem[0])).getSolution();

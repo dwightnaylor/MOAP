@@ -9,6 +9,7 @@ import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import algorithmMaker.QuickParser;
 import algorithmMaker.input.ANDing;
 import algorithmMaker.input.Argument;
 import algorithmMaker.input.Atomic;
@@ -57,7 +58,7 @@ public class InputUtil {
 
 		return null;
 	}
-	
+
 	/**
 	 * Sets the given problem to contain all the variables that appear within
 	 * it.
@@ -76,7 +77,7 @@ public class InputUtil {
 	 * according to the given hashtable.
 	 */
 	public static Property revar(Property property, Hashtable<Argument, Argument> revars) {
-		Property clone = (Property) new EcoreUtil.Copier().copy(property);
+		Property clone = stupidCopy(property);
 		TreeIterator<EObject> contents = clone.eAllContents();
 		while (contents.hasNext()) {
 			EObject cur = contents.next();
@@ -87,6 +88,22 @@ public class InputUtil {
 			((Atomic) clone).getArgs().replaceAll(x -> revars.containsKey(x) ? EcoreUtil.copy(revars.get(x)) : x);
 
 		return clone;
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <P extends Property> P stupidCopy(P property) {
+		// TODO:DN: Fix these three stupid methods and find a better way...
+		return (P) QuickParser.parseProperty(property.toString());
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <P extends Problem> P stupidCopy(P problem) {
+		return (P) QuickParser.parseProblem(problem.toString());
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <I extends Input> I stupidCopy(I input) {
+		return (I) QuickParser.parseInput(input.toString());
 	}
 
 	public static Property andTogether(ArrayList<Property> properties) {

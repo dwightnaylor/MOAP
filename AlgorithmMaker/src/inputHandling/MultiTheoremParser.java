@@ -8,10 +8,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import theorems.MultistageTheorem;
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Property;
 import algorithmMaker.util.InputUtil;
+import theorems.MultistageTheorem;
 
 public class MultiTheoremParser {
 	private static String[] inputFiles = { "multitheorems" };
@@ -29,10 +29,10 @@ public class MultiTheoremParser {
 					String[] properties = line.split(";");
 					Property givenReq = QuickParser.parseProperty(properties[0]);
 					Property goalReq = QuickParser.parseProperty(properties[1]);
-					Property givenResult = properties[2].trim().length() == 0 ? null : QuickParser
-							.parseProperty(properties[2]);
-					Property goalResult = properties[3].trim().length() == 0 ? null : QuickParser
-							.parseProperty(properties[3]);
+					Property givenResult = properties[2].trim().length() == 0 ? null
+							: QuickParser.parseProperty(properties[2]);
+					Property goalResult = properties[3].trim().length() == 0 ? null
+							: QuickParser.parseProperty(properties[3]);
 					int cost = Integer.parseInt(properties[4].trim());
 					String description = properties[5].substring(properties[5].indexOf('"') + 1,
 							properties[5].lastIndexOf('"'));
@@ -80,6 +80,8 @@ public class MultiTheoremParser {
 		tests.add(new String[] { InputUtil.BOUND + "(x)", "even(x)", "if <x> % 2 == 0" });
 		tests.add(new String[] { InputUtil.BOUND + "(x)&" + InputUtil.BOUND + "(y)", InputUtil.EQUAL + "(x,y)",
 				"if <x> == <y>" });
+		tests.add(new String[] { InputUtil.BOUND + "(x)&" + InputUtil.BOUND + "(y)&" + InputUtil.BOUND + "(z)",
+				"plus(x,y,z)", "if <x> + <y> == <z>" });
 		for (String[] test : tests) {
 			MultistageTheorem testing = new MultistageTheorem(parseProperty(test[0]), parseProperty(test[1]),
 					parseProperty(test[1]), null, 1, "Simple test.", test[2]);
