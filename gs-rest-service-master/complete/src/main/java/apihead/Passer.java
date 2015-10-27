@@ -13,7 +13,7 @@ public class Passer {
 	public String getResponse(){
 		String[] args = new String[1];
 		args[0] = this.req;
-		this.resp = ProblemSolver.main(args);
+		this.resp = ProblemSolver.runWebSolver(args);
 		return this.resp;
 	}
 }
