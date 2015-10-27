@@ -5,20 +5,21 @@ import java.util.HashSet;
 
 import org.eclipse.emf.ecore.EObject;
 
-import algorithmMaker.QuickParser;
-import algorithmMaker.input.ANDing;
-import algorithmMaker.input.Atomic;
-import algorithmMaker.input.Input;
-import algorithmMaker.input.ORing;
-import algorithmMaker.input.Problem;
-import algorithmMaker.input.Property;
-import algorithmMaker.input.Quantifier;
-import algorithmMaker.input.Theorem;
-import algorithmMaker.input.impl.InputFactoryImpl;
-import algorithmMaker.util.InputUtil;
 import solver.Chainer;
 import theorems.MultistageTheorem;
 import theorems.QuickTheorem;
+import algorithmMaker.QuickParser;
+import algorithmMaker.input.Atomic;
+import algorithmMaker.input.Declaration;
+import algorithmMaker.input.Input;
+import algorithmMaker.input.Problem;
+import algorithmMaker.input.Property;
+import algorithmMaker.input.Theorem;
+import algorithmMaker.input.Type;
+import algorithmMaker.input.Variable;
+import algorithmMaker.input.impl.InputFactoryImpl;
+import algorithmMaker.util.InputConverter;
+import algorithmMaker.util.InputUtil;
 
 public class TransformUtil {
 
@@ -45,8 +46,8 @@ public class TransformUtil {
 		Property given = input.getGiven().getProperty();
 		if (given != null) {
 			Property simplifiedGiven = (Property) simplify(given, new HashSet<Atomic>());
-			inputRet.getGiven()
-					.setProperty(simplifiedGiven == null ? QuickParser.parseProperty("TRUE") : simplifiedGiven);
+			inputRet.getGiven().setProperty(
+					simplifiedGiven == null ? QuickParser.parseProperty("TRUE") : simplifiedGiven);
 		}
 
 		chainer.chain(inputRet.getGiven().getProperty(), GIVEN);
@@ -62,70 +63,20 @@ public class TransformUtil {
 		return inputRet;
 	}
 
-	public static EObject simplify(EObject cur, HashSet<Atomic> atomicsToRemove) {
-		if (cur == null)
-			return null;
+	public static EObject simplify(EObject originalObject, HashSet<Atomic> atomicsToRemove) {
+		return InputUtil.reduce(originalObject, new InputConverter() {
+			@Override
+			public EObject apply(EObject cur) {
+				if (cur instanceof Atomic) {
+					if (atomicsToRemove.contains(cur) || ((Atomic) cur).getFunction().equals(InputUtil.BOUND)
+							|| ((Atomic) cur).getFunction().equals(InputUtil.UNBOUND))
+						return null;
 
-		switch (InputUtil.type(cur)) {
-		case ANDing:
-			EObject andLeft = simplify(((ANDing) cur).getLeft(), atomicsToRemove);
-			EObject andRight = simplify(((ANDing) cur).getRight(), atomicsToRemove);
-			if (andLeft != null && andRight != null) {
-				ANDing andRet = InputFactoryImpl.eINSTANCE.createANDing();
-				andRet.setLeft((Property) andLeft);
-				andRet.setRight((Property) andRight);
-				return andRet;
+					atomicsToRemove.add((Atomic) cur);
+				}
+				return cur;
 			}
-			if (andLeft != null)
-				return andLeft;
-			if (andRight != null)
-				return andRight;
-
-			return null;
-		case ORing:
-			EObject orLeft = simplify(((ORing) cur).getLeft(), atomicsToRemove);
-			EObject orRight = simplify(((ORing) cur).getRight(), atomicsToRemove);
-			if (orLeft != null && orRight != null) {
-				ORing orRet = InputFactoryImpl.eINSTANCE.createORing();
-				orRet.setLeft((Property) orLeft);
-				orRet.setRight((Property) orRight);
-				return orRet;
-			}
-			if (orLeft != null)
-				return orLeft;
-			if (orRight != null)
-				return orRight;
-
-			return null;
-		case Quantifier:
-			EObject requirement = simplify(((Quantifier) cur).getSubject(), atomicsToRemove);
-			EObject result = simplify(((Quantifier) cur).getSubject(), atomicsToRemove);
-
-			Quantifier quantifierRet = InputUtil.stupidCopy((Quantifier) cur);
-			quantifierRet.setSubject((Problem) requirement);
-			quantifierRet.setSubject((Problem) result);
-			return quantifierRet;
-		case Problem:
-			EObject property = simplify(((Problem) cur).getProperty(), atomicsToRemove);
-
-			if (property == null)
-				return null;
-
-			Problem problemRet = InputUtil.stupidCopy((Problem) cur);
-			problemRet.setProperty((Property) property);
-			return problemRet;
-		case Input:
-			throw new UnsupportedOperationException();
-		case Atomic:
-			if (atomicsToRemove.contains(cur) || ((Atomic) cur).getFunction().equals(InputUtil.BOUND)
-					|| ((Atomic) cur).getFunction().equals(InputUtil.UNBOUND))
-				return null;
-
-			atomicsToRemove.add((Atomic) cur);
-		case BooleanLiteral:
-			return cur;
-		}
-		return null;
+		});
 	}
 
 	public static Input transform(Input input, MultistageTheorem... multistageTheorems) {
@@ -144,5 +95,41 @@ public class TransformUtil {
 			clone.getGiven().getVars().add(InputUtil.createDeclaration(undeclaredVar));
 
 		return clone;
+	}
+
+	public static Input makePretty(Input problem) {
+		return (Input) InputUtil.reduce(problem, x -> x instanceof Problem ? makePretty((Problem) x) : x);
+	}
+
+	public static Problem makePretty(Problem problem) {
+		return (Problem) InputUtil.reduce(problem, new InputConverter() {
+			@Override
+			public EObject apply(EObject cur) {
+				if (cur instanceof Atomic) {
+					String function = ((Atomic) cur).getFunction();
+					if (InputUtil.isTypeAtomic(function)) {
+						Declaration declaration = InputUtil.findDeclarationFor((Variable) ((Atomic) cur).getArgs().get(
+								0));
+						if (declaration.getType() == null)
+							declaration.setType(InputFactoryImpl.eINSTANCE.createType());
+
+						declaration.getType().setName(InputUtil.getDeclaredType(function));
+						return null;
+					}
+					if (InputUtil.isChildTypeAtomic(function)) {
+						Declaration declaration = InputUtil.findDeclarationFor((Variable) ((Atomic) cur).getArgs().get(
+								0));
+						if (declaration.getType() == null)
+							declaration.setType(InputFactoryImpl.eINSTANCE.createType());
+
+						Type childType = InputFactoryImpl.eINSTANCE.createType();
+						childType.setName(InputUtil.getDeclaredChildType(function));
+						declaration.getType().setTemplateType(childType);
+						return null;
+					}
+				}
+				return cur;
+			}
+		});
 	}
 }

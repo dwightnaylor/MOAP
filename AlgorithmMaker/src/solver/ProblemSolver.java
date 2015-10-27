@@ -187,20 +187,13 @@ public class ProblemSolver {
 	public static void main(String[] args) {
 		ArrayList<Theorem> theorems = TheoremParser.parseFiles();
 		theorems.addAll(MultiTheoremParser.parseFiles());
-		System.out.println("Done parsing theorems/multitheorems.");
-		// Scanner s = new Scanner(System.in);
-		// ProblemSolver solver = new
-		// ProblemSolver(QuickParser.parseInput(s.nextLine()),
-		// theorems.toArray(new Theorem[0]));
-		// s.close();
 		String problemString =
 		// Problems...
-		// "Given a,b st even(b) & type_list(a), Find b st child(a,b)";
-		// "Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c)";
+		// "Given list(a); Find b st even(b) & child(a,b)";
+		"Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c)";
 		// "Given list<int>(a); Find b st child(a,b) & even(b)";
-		// "Given list<int> x,int s; Find i,j st index(x,i) & index(x,j) &
-		// equal(i,s)";
-		"Given list<int>(a),list<int>(b),int(s); Find c,d st child(a,c) & child(b,d) & plus(c,d,s)";
+		// "Given list<int> x,int s; Find i,j st index(x,i) & index(x,j) & equal(i,s)";
+		// "Given list<int>(a),list<int>(b),int(s); Find c,d st child(a,c) & child(b,d) & plus(c,d,s)";
 		Input input = QuickParser.parseInput(problemString);
 		InputUtil.desugar(input);
 		ProblemState solution = new ProblemSolver(input, theorems.toArray(new Theorem[0])).getSolution();
@@ -208,6 +201,14 @@ public class ProblemSolver {
 			System.out.println("I couldn't solve your problem. You'll have to find a better robot :-(");
 		else
 			System.out.println("This algorithm should solve your problem :-)");
+
+		// StringBuffer problems = new StringBuffer();
+		// do {
+		// problems.insert(0, TransformUtil.makePretty(solution.problem) +
+		// "\n");
+		// solution = solution.parentState;
+		// } while (solution != null);
+		// System.out.println(problems);
 
 		System.out.println(problemString);
 		System.out.println(ProblemState.getOutputString(solution));

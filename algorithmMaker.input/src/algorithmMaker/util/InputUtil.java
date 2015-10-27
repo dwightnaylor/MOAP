@@ -26,6 +26,8 @@ import algorithmMaker.input.impl.InputFactoryImpl;
 
 public class InputUtil {
 
+	private static final String CHILD_TYPE_MARKER = "child_type_";
+	private static final String TYPE_MARKER = "type_";
 	public static final String BOUND = "BOUND";
 	public static final String UNBOUND = "UNBOUND";
 	public static final String EQUAL = "equal";
@@ -36,25 +38,25 @@ public class InputUtil {
 	/**
 	 * All of the types that should appear in the reduced kernel language
 	 */
-	public static enum InputType {
+	public static enum KernelType {
 		Input, Problem, ORing, ANDing, Atomic, Quantifier, BooleanLiteral
 	}
 
-	public static InputType type(EObject object) {
+	public static KernelType kernelType(EObject object) {
 		if (object instanceof Input)
-			return InputType.Input;
+			return KernelType.Input;
 		else if (object instanceof Problem)
-			return InputType.Problem;
+			return KernelType.Problem;
 		else if (object instanceof ORing)
-			return InputType.ORing;
+			return KernelType.ORing;
 		else if (object instanceof ANDing)
-			return InputType.ANDing;
+			return KernelType.ANDing;
 		else if (object instanceof Atomic)
-			return InputType.Atomic;
+			return KernelType.Atomic;
 		else if (object instanceof Quantifier)
-			return InputType.Quantifier;
+			return KernelType.Quantifier;
 		else if (object instanceof BooleanLiteral)
-			return InputType.BooleanLiteral;
+			return KernelType.BooleanLiteral;
 
 		return null;
 	}
@@ -256,14 +258,119 @@ public class InputUtil {
 		for (Declaration declaration : problem.getVars()) {
 			Type type = declaration.getType();
 			if (type != null) {
-				properties.add(InputUtil.getAtomic("type_" + type.getName(), declaration.getVarName()));
+				properties.add(InputUtil.getAtomic(TYPE_MARKER + type.getName(), declaration.getVarName()));
 				if (type.getTemplateType() != null)
-					properties
-							.add(InputUtil.getAtomic("child_type_" + type.getTemplateType(), declaration.getVarName()));
+					properties.add(InputUtil.getAtomic(CHILD_TYPE_MARKER + type.getTemplateType(),
+							declaration.getVarName()));
 
 				declaration.setType(null);
 			}
 		}
 		problem.setProperty(InputUtil.andTogether(properties));
+	}
+
+	public static EObject reduce(EObject cur, InputConverter reducer) {
+		if (cur == null)
+			return null;
+
+		switch (InputUtil.kernelType(cur)) {
+		case ANDing: {
+			ANDing anding = ((ANDing) cur);
+			EObject andLeft = reduce(anding.getLeft(), reducer);
+			EObject andRight = reduce(anding.getRight(), reducer);
+			if (andLeft != null && andRight != null) {
+				ANDing andRet = InputFactoryImpl.eINSTANCE.createANDing();
+				andRet.setLeft((Property) andLeft);
+				andRet.setRight((Property) andRight);
+				return reducer.apply(andRet);
+			}
+			if (andLeft != null)
+				return andLeft;
+			if (andRight != null)
+				return andRight;
+
+			return null;
+		}
+		case ORing: {
+			ORing oring = ((ORing) cur);
+			EObject orLeft = reduce(oring.getLeft(), reducer);
+			EObject orRight = reduce(oring.getRight(), reducer);
+			if (orLeft != null && orRight != null) {
+				ORing orRet = InputFactoryImpl.eINSTANCE.createORing();
+				orRet.setLeft((Property) orLeft);
+				orRet.setRight((Property) orRight);
+				return reducer.apply(orRet);
+			}
+			if (orLeft != null)
+				return orLeft;
+			if (orRight != null)
+				return orRight;
+
+			return null;
+		}
+		case Quantifier: {
+			Quantifier quantifier = (Quantifier) cur;
+			EObject newRequirement = reduce(quantifier.getSubject(), reducer);
+			EObject newResult = reduce(quantifier.getSubject(), reducer);
+			if (newRequirement == null || newResult == null)
+				return null;
+
+			Quantifier quantifierRet = InputUtil.stupidCopy((Quantifier) cur);
+			quantifierRet.setSubject((Problem) newRequirement);
+			quantifierRet.setSubject((Problem) newResult);
+			return reducer.apply(quantifierRet);
+		}
+		case Problem: {
+			EObject property = reduce(((Problem) cur).getProperty(), reducer);
+
+			Problem problemRet = InputUtil.stupidCopy((Problem) cur);
+			problemRet.setProperty((Property) property);
+			return reducer.apply(problemRet);
+		}
+		case Input: {
+			Input input = (Input) cur;
+			EObject newGiven = reduce(input.getGiven(), reducer);
+			EObject newGoal = reduce(input.getGoal(), reducer);
+
+			Input inputRet = InputUtil.stupidCopy(input);
+			inputRet.setGiven((Problem) newGiven);
+			inputRet.setGoal((Problem) newGoal);
+			return reducer.apply(inputRet);
+		}
+		case Atomic:
+		case BooleanLiteral:
+			return reducer.apply(cur);
+		default:
+			throw new UnsupportedOperationException("Only kernel types can be passed to a reducer.");
+		}
+	}
+
+	public static Declaration findDeclarationFor(Variable variable) {
+		EObject parent = variable;
+		while (parent != null) {
+			if (parent instanceof Problem)
+				for (Declaration declaration : ((Problem) parent).getVars())
+					if (declaration.getVarName().equals(variable.getArg()))
+						return declaration;
+
+			parent = parent.eContainer();
+		}
+		return null;
+	}
+
+	public static boolean isTypeAtomic(String function) {
+		return function != null && function.startsWith(TYPE_MARKER);
+	}
+
+	public static boolean isChildTypeAtomic(String function) {
+		return function != null && function.startsWith(CHILD_TYPE_MARKER);
+	}
+
+	public static String getDeclaredType(String function) {
+		return function.substring(TYPE_MARKER.length());
+	}
+
+	public static String getDeclaredChildType(String function) {
+		return function.substring(CHILD_TYPE_MARKER.length());
 	}
 }

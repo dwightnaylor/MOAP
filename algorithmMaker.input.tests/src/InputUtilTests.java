@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Argument;
+import algorithmMaker.input.Property;
 import algorithmMaker.util.InputUtil;
 
 public class InputUtilTests {
@@ -28,5 +29,11 @@ public class InputUtilTests {
 		assertNotEquals(QuickParser.parseProperty("a(x) & b(x)"), QuickParser.parseProperty("a(x)"));
 		assertNotEquals(QuickParser.parseProperty("a(x) & b(x)"), QuickParser.parseProperty("b(x)"));
 		assertNotEquals(QuickParser.parseProperty("a(x) & b(x)"), QuickParser.parseProperty("b(x) & a(x)"));
+	}
+
+	@Test
+	public void testStupidCopy() {
+		Property p = QuickParser.parseProperty("a(a,a,a,a)");
+		assertEquals(p, InputUtil.stupidCopy(p));
 	}
 }

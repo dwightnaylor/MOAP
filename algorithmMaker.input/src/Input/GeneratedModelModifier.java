@@ -228,9 +228,11 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 			ret.append("\t\t\tfor (Declaration var : vars)" + NL);
 			ret.append("\t\t\t\tret.append(var.toString() + ',');" + NL);
 			ret.append("\t\t\tret.deleteCharAt(ret.length() - 1);" + NL);
-			ret.append("\t\t\tret.append(\" st \");" + NL);
+			ret.append("\t\t\tif(property != null)" + NL);
+			ret.append("\t\t\t\tret.append(\" st \");" + NL);
 			ret.append("\t\t}" + NL);
-			ret.append("\t\tret.append(property);" + NL);
+			ret.append("\t\tif(property != null)" + NL);
+			ret.append("\t\t\tret.append(property);" + NL);
 			break;
 		case "Quantifier":
 			ret.append("\t\tret.append(quantifier + '(' + subject + \" : \" + predicate + ')');" + NL);

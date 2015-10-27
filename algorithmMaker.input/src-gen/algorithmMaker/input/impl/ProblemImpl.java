@@ -263,9 +263,11 @@ public class ProblemImpl extends MinimalEObjectImpl.Container implements Problem
 			for (Declaration var : vars)
 				ret.append(var.toString() + ',');
 			ret.deleteCharAt(ret.length() - 1);
-			ret.append(" st ");
+			if(property != null)
+				ret.append(" st ");
 		}
-		ret.append(property);
+		if(property != null)
+			ret.append(property);
 		return ret.toString();
 	}
 
