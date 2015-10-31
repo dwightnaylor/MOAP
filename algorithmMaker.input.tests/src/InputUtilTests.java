@@ -3,6 +3,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static algorithmMaker.util.InputUtil.*;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import org.junit.Test;
@@ -42,18 +43,23 @@ public class InputUtilTests {
 
 	@Test
 	public void testCanonicalize() {
-		String[] originals = { "a(x) & a(x)", "a(x) | a(x)", "a(x) & b(x) & c(x)", "a(x) & FALSE", "!(a(x) & b(x))" };
-		String[] simplified = { "a(x)", "a(x)", "a(x) & b(x) & c(x)", "FALSE", "!a(x) | !b(x)" };
-		for (int i = 0; i < originals.length; i++) {
-			Property originalProperty = QuickParser.parseProperty(originals[i]);
+		ArrayList<String[]> tasks = new ArrayList<String[]>();
+		tasks.add(new String[] { "a(x) & a(x)", "a(x)" });
+		tasks.add(new String[] { "a(x) | a(x)", "a(x)" });
+		tasks.add(new String[] { "c(x) & b(x) & a(x)", "a(x) & b(x) & c(x)" });
+		tasks.add(new String[] { "a(x) & FALSE", "FALSE" });
+		tasks.add(new String[] { "!(a(x) & b(x))", "!a(x) | !b(x)" });
+		tasks.add(new String[] { "!(a(x) | b(x))", "!a(x) & !b(x)" });
+		for (String[] task : tasks) {
+			Property originalProperty = QuickParser.parseProperty(task[0]);
 			// The simplified version goes here
 			Property simplifiedProperty = canonicalize(originalProperty);
 
-			if (!QuickParser.parseProperty(simplified[i]).equals(simplifiedProperty))
-				System.err.println("\"" + originalProperty + "\" Should reduce to \"" + simplified[i]
+			if (!QuickParser.parseProperty(task[1]).equals(simplifiedProperty))
+				System.err.println("\"" + originalProperty + "\" Should reduce to \"" + task[1]
 						+ "\" but it instead reduced to \"" + simplifiedProperty + '"');
 
-			assertEquals(simplifiedProperty.toString(), simplified[i]);
+			assertEquals(simplifiedProperty.toString(), task[1]);
 		}
 	}
 }
