@@ -195,8 +195,13 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 		ret.append("\t\tStringBuffer ret = new StringBuffer();" + NL);
 		switch (className) {
 		case "ANDing":
-			ret.append("\t\tret.append(left + \" & \" + right);" + NL);
+			ret.append("\t\tboolean leftIsOR = left instanceof algorithmMaker.input.ORing;" + NL);
+			ret.append("\t\tboolean rightIsOR = right instanceof algorithmMaker.input.ORing;" + NL);
+			ret.append(
+					"\t\tret.append((leftIsOR ? \"(\" : \"\") + left + (leftIsOR ? ')' : \"\") + \" & \" + (rightIsOR ? '(' : \"\") + right + (rightIsOR ? ')' : \"\"));"
+							+ NL);
 			break;
+		// TODO:DN: Worry about parenthesizing arithmetic output
 		case "Addition":
 			ret.append("\t\tret.append(left + \" \" + symbol + \" \" + right);" + NL);
 			break;
