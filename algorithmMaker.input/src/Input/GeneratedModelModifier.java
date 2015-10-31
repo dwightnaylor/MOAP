@@ -127,10 +127,12 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 		// ret.append("\t\t" + className + "Impl other = (" + className +
 		// "Impl) obj;" + NL);
 		// if (className.equals("ANDing"))
-		// ret.append("\t\treturn algorithmMaker.util.InputUtil.getANDed(this).equals(algorithmMaker.util.InputUtil.getANDed(other));"
+		// ret.append("\t\treturn
+		// algorithmMaker.util.InputUtil.getANDed(this).equals(algorithmMaker.util.InputUtil.getANDed(other));"
 		// + NL);
 		// else if (className.equals("ORing"))
-		// ret.append("\t\treturn algorithmMaker.util.InputUtil.getORed(this).equals(algorithmMaker.util.InputUtil.getORed(other));"
+		// ret.append("\t\treturn
+		// algorithmMaker.util.InputUtil.getORed(this).equals(algorithmMaker.util.InputUtil.getORed(other));"
 		// + NL);
 		// else {
 		// for (Field field : classToUse.getDeclaredFields()) {
@@ -171,8 +173,8 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 		Class<? extends EObject> classToUse = null;
 		try {
 			URLClassLoader urlClassLoader = new URLClassLoader(new URL[] { file.getParentFile().toURI().toURL() });
-			classToUse = (Class<? extends EObject>) urlClassLoader.loadClass("algorithmMaker.input.impl." + className
-					+ "Impl");
+			classToUse = (Class<? extends EObject>) urlClassLoader
+					.loadClass("algorithmMaker.input.impl." + className + "Impl");
 			urlClassLoader.close();
 		} catch (ClassNotFoundException e) {
 			return null;
@@ -217,8 +219,9 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 			ret.append("\t\t}" + NL);
 			break;
 		case "Input":
-			ret.append("\t\tret.append(\"Given \" + given + \"; \" + (task.equals(\"Test\") ? (task + '(' + goal + ')') : (task + ' ' + goal)));"
-					+ NL);
+			ret.append(
+					"\t\tret.append(\"Given \" + given + \"; \" + (task.equals(\"Test\") ? (task + '(' + goal + ')') : (task + ' ' + goal)));"
+							+ NL);
 			break;
 		case "ORing":
 			ret.append("\t\tret.append(left + \" | \" + right);" + NL);
@@ -254,7 +257,9 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 			ret.append("\t\t\tret.append('<' + templateType.toString() + '>');" + NL);
 			break;
 		case "Negation":
-			ret.append("\t\tret.append('!' + negated.toString());" + NL);
+			ret.append(
+					"\t\tret.append('!' + (negated instanceof algorithmMaker.input.ANDing | negated instanceof algorithmMaker.input.ORing ? \"(\" : \"\") + negated.toString() + (negated instanceof algorithmMaker.input.ANDing | negated instanceof algorithmMaker.input.ORing ? \")\" : \"\"));"
+							+ NL);
 			break;
 		default:
 			if (log.isInfoEnabled())

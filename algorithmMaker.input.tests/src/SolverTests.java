@@ -46,7 +46,7 @@ public class SolverTests {
 		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x st a(x) & a(x); Find x st b(x)"),
 				multistageTheorem);
 		solver.branch();
-		assertEquals(QuickParser.parseInput("Given x st b(x) & a(x); Find x st TRUE"),
+		assertEquals(QuickParser.parseInput("Given x st a(x) & b(x); Find x st TRUE"),
 				solver.problemStates.peek().problem);
 	}
 
@@ -58,7 +58,7 @@ public class SolverTests {
 		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x,y st a(x,y); Find x st equal(x,y)"),
 				multistageTheorem);
 		solver.branch();
-		assertEquals(QuickParser.parseInput("Given x,y st equal(x,y) & a(x,y); Find x st TRUE"),
+		assertEquals(QuickParser.parseInput("Given x,y st a(x,y) & equal(x,y); Find x st TRUE"),
 				solver.problemStates.peek().problem);
 	}
 

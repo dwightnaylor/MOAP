@@ -304,7 +304,16 @@ public class InputUtil {
 	 * Rules not included:<br>
 	 * Associative : grouping is eliminated during parsing
 	 */
-	public static Property canonicalize(Property cur) {
+	public static Property canonicalize(Property toCanonicalize) {
+		Property ret = toCanonicalize;
+		do {
+			toCanonicalize = ret;
+			ret = getOneStepCanonizalized(toCanonicalize);
+		} while (!ret.equals(toCanonicalize));
+		return ret;
+	}
+
+	private static Property getOneStepCanonizalized(Property cur) {
 		if (cur == null)
 			return null;
 
@@ -339,7 +348,7 @@ public class InputUtil {
 			ArrayList<Property> andedNoRepeats = new ArrayList<Property>(hashedANDed);
 			// RULE: Commutative
 			Collections.sort(andedNoRepeats, INPUT_COMPARATOR);
-			andedNoRepeats.replaceAll(x -> canonicalize(x));
+			andedNoRepeats.replaceAll(x -> getOneStepCanonizalized(x));
 			return InputUtil.andTogether(andedNoRepeats);
 		}
 		case ORing: {
@@ -368,15 +377,15 @@ public class InputUtil {
 			ArrayList<Property> oredNoRepeats = new ArrayList<Property>(hashedORed);
 			// RULE: Commutative
 			Collections.sort(oredNoRepeats, INPUT_COMPARATOR);
-			oredNoRepeats.replaceAll(x -> canonicalize(x));
-			return InputUtil.andTogether(oredNoRepeats);
+			oredNoRepeats.replaceAll(x -> getOneStepCanonizalized(x));
+			return InputUtil.orTogether(oredNoRepeats);
 		}
 		case Negation: {
 			Negation negation = (Negation) cur;
 			// RULE: Double Negative
 			Property negated = negation.getNegated();
 			if (negated instanceof Negation)
-				return canonicalize(((Negation) negated).getNegated());
+				return getOneStepCanonizalized(((Negation) negated).getNegated());
 
 			// RULE: Demorgan's Law (AND)
 			if (negated instanceof ANDing) {
@@ -395,8 +404,8 @@ public class InputUtil {
 		}
 		case Quantifier: {
 			Quantifier quantifier = (Quantifier) cur;
-			Property newSubject = canonicalize(quantifier.getSubject().getProperty());
-			Property newPredicate = canonicalize(quantifier.getPredicate());
+			Property newSubject = getOneStepCanonizalized(quantifier.getSubject().getProperty());
+			Property newPredicate = getOneStepCanonizalized(quantifier.getPredicate());
 			// TODO: Deal with quantifier canonicalization (negation...)
 
 			Quantifier ret = (Quantifier) InputUtil.stupidCopy(cur);

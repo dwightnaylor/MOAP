@@ -8,7 +8,8 @@ public class ToStringTests {
 	@Test
 	public void testToStringForProperties() {
 		String[] originals = { "a(x)", "a(x) & b(x)", "a(x) | b(x)", "forall(x st list(x) : list(x))", "TRUE",
-				"PLUS(2,MINUS(x,y))", "forall(y st child(x,y) : less_than_equal(y,z))", "!a(x)", "!a(x) & !b(x)" };
+				"PLUS(2,MINUS(x,y))", "forall(y st child(x,y) : less_than_equal(y,z))", "!a(x)", "!a(x) & !b(x)",
+				"!(a(x) & b(x))" };
 		for (String original : originals) {
 			String parse = parseProperty(original).toString();
 			if (!original.equals(parse))

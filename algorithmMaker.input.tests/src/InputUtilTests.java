@@ -42,8 +42,8 @@ public class InputUtilTests {
 
 	@Test
 	public void testCanonicalize() {
-		String[] originals = { "a(x) & a(x)", "a(x) & b(x) & c(x)" };
-		String[] simplified = { "a(x)", "a(x) & b(x) & c(x)" };
+		String[] originals = { "a(x) & a(x)", "a(x) | a(x)", "a(x) & b(x) & c(x)", "a(x) & FALSE", "!(a(x) & b(x))" };
+		String[] simplified = { "a(x)", "a(x)", "a(x) & b(x) & c(x)", "FALSE", "!a(x) | !b(x)" };
 		for (int i = 0; i < originals.length; i++) {
 			Property originalProperty = QuickParser.parseProperty(originals[i]);
 			// The simplified version goes here

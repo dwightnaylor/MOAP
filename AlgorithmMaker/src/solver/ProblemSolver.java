@@ -149,8 +149,8 @@ public class ProblemSolver {
 		// Simplify the problem
 		newProblem = TransformUtil.removeAtomics(newProblem, new Chainer(theorems));
 
-		// FIXME: DN: Have to canonicalize before adding to the
-		// statelist
+		newProblem.getGiven().setProperty(InputUtil.canonicalize(newProblem.getGiven().getProperty()));
+		newProblem.getGoal().setProperty(InputUtil.canonicalize(newProblem.getGoal().getProperty()));
 		if (!reachedProblemStates.contains(newProblem)) {
 			reachedProblemStates.add(newProblem);
 			ProblemState newProblemState = new ProblemState(newProblem, problemState, multistageTheorem, binding);

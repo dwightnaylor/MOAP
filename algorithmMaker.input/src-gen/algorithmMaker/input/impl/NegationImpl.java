@@ -206,7 +206,7 @@ public class NegationImpl extends PropertyImpl implements Negation
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append('!' + negated.toString());
+		ret.append('!' + (negated instanceof algorithmMaker.input.ANDing | negated instanceof algorithmMaker.input.ORing ? "(" : "") + negated.toString() + (negated instanceof algorithmMaker.input.ANDing | negated instanceof algorithmMaker.input.ORing ? ")" : ""));
 		return ret.toString();
 	}
 
