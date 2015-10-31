@@ -215,9 +215,11 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 			ret.append("\t\tret.append(arg);" + NL);
 			break;
 		case "Atomic":
-			ret.append("\t\tif (function.equals(algorithmMaker.util.InputUtil.EQUAL)) {" + NL);
-			ret.append("\t\t\treturn args.get(0) + \"==\" + args.get(1);" + NL);
-			ret.append("\t\t}" + NL);
+			// ret.append("\t\tif
+			// (function.equals(algorithmMaker.util.InputUtil.EQUAL)) {" + NL);
+			// ret.append("\t\t\treturn args.get(0) + \"==\" + args.get(1);" +
+			// NL);
+			// ret.append("\t\t}" + NL);
 			ret.append("\t\tret.append(function);" + NL);
 			ret.append("\t\tif (args != null && args.size() > 0){" + NL);
 			ret.append("\t\t\tret.append('(');" + NL);
