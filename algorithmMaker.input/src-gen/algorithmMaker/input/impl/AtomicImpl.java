@@ -238,6 +238,9 @@ public class AtomicImpl extends PropertyImpl implements Atomic
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
+		if (function.equals(algorithmMaker.util.InputUtil.EQUAL)) {
+			return args.get(0) + "==" + args.get(1);
+		}
 		ret.append(function);
 		if (args != null && args.size() > 0){
 			ret.append('(');
