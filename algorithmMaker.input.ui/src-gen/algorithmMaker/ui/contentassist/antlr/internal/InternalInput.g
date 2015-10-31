@@ -280,6 +280,34 @@ finally {
 
 
 
+// Entry rule entryRuleNegation
+entryRuleNegation 
+:
+{ before(grammarAccess.getNegationRule()); }
+	 ruleNegation
+{ after(grammarAccess.getNegationRule()); } 
+	 EOF 
+;
+
+// Rule Negation
+ruleNegation
+    @init {
+		int stackSize = keepStackSize();
+    }
+	:
+(
+{ before(grammarAccess.getNegationAccess().getGroup()); }
+(rule__Negation__Group__0)
+{ after(grammarAccess.getNegationAccess().getGroup()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
 // Entry rule entryRuleQuantifier
 entryRuleQuantifier 
 :
@@ -658,6 +686,12 @@ rule__Primary__Alternatives
 { before(grammarAccess.getPrimaryAccess().getBooleanLiteralParserRuleCall_3()); }
 	ruleBooleanLiteral
 { after(grammarAccess.getPrimaryAccess().getBooleanLiteralParserRuleCall_3()); }
+)
+
+    |(
+{ before(grammarAccess.getPrimaryAccess().getNegationParserRuleCall_4()); }
+	ruleNegation
+{ after(grammarAccess.getPrimaryAccess().getNegationParserRuleCall_4()); }
 )
 
 ;
@@ -2256,6 +2290,69 @@ finally {
 
 
 
+rule__Negation__Group__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Negation__Group__0__Impl
+	rule__Negation__Group__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Negation__Group__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getNegationAccess().getExclamationMarkKeyword_0()); }
+
+	'!' 
+
+{ after(grammarAccess.getNegationAccess().getExclamationMarkKeyword_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__Negation__Group__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Negation__Group__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Negation__Group__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getNegationAccess().getNegatedAssignment_1()); }
+(rule__Negation__NegatedAssignment_1)
+{ after(grammarAccess.getNegationAccess().getNegatedAssignment_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
 rule__Quantifier__Group__0
     @init {
 		int stackSize = keepStackSize();
@@ -3693,6 +3790,21 @@ rule__ANDing__RightAssignment_1_2
 (
 { before(grammarAccess.getANDingAccess().getRightPrimaryParserRuleCall_1_2_0()); }
 	rulePrimary{ after(grammarAccess.getANDingAccess().getRightPrimaryParserRuleCall_1_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Negation__NegatedAssignment_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getNegationAccess().getNegatedPrimaryParserRuleCall_1_0()); }
+	rulePrimary{ after(grammarAccess.getNegationAccess().getNegatedPrimaryParserRuleCall_1_0()); }
 )
 
 ;

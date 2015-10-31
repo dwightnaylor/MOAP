@@ -26,6 +26,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Type/templateType"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//Property"/>
+    <genClasses ecoreClass="Input.ecore#//Negation">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Negation/negated"/>
+    </genClasses>
     <genClasses ecoreClass="Input.ecore#//Quantifier">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Quantifier/quantifier"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Quantifier/subject"/>

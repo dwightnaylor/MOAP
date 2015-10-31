@@ -59,8 +59,10 @@ public class Chainer {
 	}
 
 	public void addBoundVars(String... vars) {
-		for (String var : vars)
+		for (String var : vars) {
 			chain(InputUtil.getAtomic(InputUtil.BOUND, var), TransformUtil.GIVEN);
+			chain(InputUtil.getAtomic(InputUtil.EQUAL, var, var), TransformUtil.REFLEXIVE);
+		}
 	}
 
 	public void addUnboundVars(String... vars) {
@@ -100,10 +102,10 @@ public class Chainer {
 		} else if (requirement instanceof ANDing) {
 			for (Property anded : InputUtil.getANDed((ANDing) requirement))
 				addTheoremCatcher(anded, theorem);
-		}else if (requirement instanceof Quantifier){
-			//Add all of the requirements from the quantifier to a listener 
-			//Add all of the results from the quantifier to a listener
-			//TODO:DN: Deal with chaining quantifiers
+		} else if (requirement instanceof Quantifier) {
+			// Add all of the requirements from the quantifier to a listener
+			// Add all of the results from the quantifier to a listener
+			// TODO:DN: Deal with chaining quantifiers
 		}
 	}
 

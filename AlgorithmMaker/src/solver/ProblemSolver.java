@@ -63,7 +63,6 @@ public class ProblemSolver {
 		Input problem = problemState.problem;
 
 		Chainer givenChainer = new Chainer(theorems);
-		// String[] s = ;
 		givenChainer.addBoundVars(InputUtil.getVarNames(problem.getGiven().getVars()));
 		givenChainer.addUnboundVars(InputUtil.getVarNames(problem.getGoal().getVars()));
 		givenChainer.chain(problem.getGiven().getProperty(), TransformUtil.GIVEN);
@@ -105,14 +104,14 @@ public class ProblemSolver {
 
 						Property givenResult = mst.getGivenResult();
 						if (givenResult != null) {
-							newBinding.addBindingsFrom(doBindings(newProblem.getGiven(), usedVars,
-									InputUtil.getBindings(givenResult)));
+							newBinding.addBindingsFrom(
+									doBindings(newProblem.getGiven(), usedVars, InputUtil.getBindings(givenResult)));
 							newGivenParts.add(InputUtil.revar(givenResult, newBinding.getArguments()));
 						}
 						Property findResult = mst.getFindResult();
 						if (findResult != null) {
-							newBinding.addBindingsFrom(doBindings(newProblem.getGoal(), usedVars,
-									InputUtil.getBindings(findResult)));
+							newBinding.addBindingsFrom(
+									doBindings(newProblem.getGoal(), usedVars, InputUtil.getBindings(findResult)));
 							newGoalParts.add(InputUtil.revar(findResult, newBinding.getArguments()));
 						}
 
@@ -148,7 +147,7 @@ public class ProblemSolver {
 	private void addProblemState(Input newProblem, ProblemState problemState, MultistageTheorem multistageTheorem,
 			Binding binding) {
 		// Simplify the problem
-		newProblem = TransformUtil.simplify(newProblem, new Chainer(theorems));
+		newProblem = TransformUtil.removeAtomics(newProblem, new Chainer(theorems));
 
 		// FIXME: DN: Have to canonicalize before adding to the
 		// statelist
@@ -190,27 +189,33 @@ public class ProblemSolver {
 		String problemString =
 		// Problems...
 		// "Given list(a); Find b st even(b) & child(a,b)";
-		"Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c)";
+		// "Given list<int>(a); Find b,c st child(a,b) & child(a,c) &
+		// equal(b,c)";
 		// "Given list<int>(a); Find b st child(a,b) & even(b)";
-		// "Given list<int> x,int s; Find i,j st index(x,i) & index(x,j) & equal(i,s)";
-		// "Given list<int>(a),list<int>(b),int(s); Find c,d st child(a,c) & child(b,d) & plus(c,d,s)";
+		// "Given list<int> x,int s; Find i,j st index(x,i) & index(x,j) &
+		// equal(i,s)";
+		// "Given list<int>(a),list<int>(b),int(s); Find c,d st child(a,c) &
+		// child(b,d) & plus(c,d,s)";
+		"Given list<int>(x); Find z st child(x,z) & forall(y st child(x,y) : lessThanEqual(y,z))";
 		Input input = QuickParser.parseInput(problemString);
 		InputUtil.desugar(input);
 		ProblemState solution = new ProblemSolver(input, theorems.toArray(new Theorem[0])).getSolution();
 		if (solution == null)
 			System.out.println("I couldn't solve your problem. You'll have to find a better robot :-(");
-		else
-			System.out.println("This algorithm should solve your problem :-)");
+		// else
+		// System.out.println("This algorithm should solve your problem :-)");
 
-		// StringBuffer problems = new StringBuffer();
-		// do {
-		// problems.insert(0, TransformUtil.makePretty(solution.problem) +
-		// "\n");
-		// solution = solution.parentState;
-		// } while (solution != null);
-		// System.out.println(problems);
+		ProblemState solutionSave = solution;
+		if (solution != null) {
+			StringBuffer problems = new StringBuffer();
+			do {
+				problems.insert(0, TransformUtil.makePretty(solution.problem) + "\n");
+				solution = solution.parentState;
+			} while (solution != null);
+			System.out.println(problems);
+		}
 
-		System.out.println(problemString);
-		System.out.println(ProblemState.getOutputString(solution));
+		// System.out.println(problemString);
+		System.out.println(ProblemState.getOutputString(solutionSave));
 	}
 }

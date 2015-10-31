@@ -11,6 +11,7 @@ import algorithmMaker.input.Declaration;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.InputPackage;
 import algorithmMaker.input.Multiplication;
+import algorithmMaker.input.Negation;
 import algorithmMaker.input.NumberLiteral;
 import algorithmMaker.input.ORing;
 import algorithmMaker.input.Problem;
@@ -62,6 +63,9 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				return; 
 			case InputPackage.MULTIPLICATION:
 				sequence_Multiplication(context, (Multiplication) semanticObject); 
+				return; 
+			case InputPackage.NEGATION:
+				sequence_Negation(context, (Negation) semanticObject); 
 				return; 
 			case InputPackage.NUMBER_LITERAL:
 				sequence_NumberLiteral(context, (NumberLiteral) semanticObject); 
@@ -165,6 +169,22 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_Multiplication(EObject context, Multiplication semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     negated=Primary
+	 */
+	protected void sequence_Negation(EObject context, Negation semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.NEGATION__NEGATED) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.NEGATION__NEGATED));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getNegationAccess().getNegatedPrimaryParserRuleCall_1_0(), semanticObject.getNegated());
+		feeder.finish();
 	}
 	
 	

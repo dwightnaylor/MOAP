@@ -12,6 +12,7 @@ import algorithmMaker.input.Input;
 import algorithmMaker.input.InputFactory;
 import algorithmMaker.input.InputPackage;
 import algorithmMaker.input.Multiplication;
+import algorithmMaker.input.Negation;
 import algorithmMaker.input.NumberLiteral;
 import algorithmMaker.input.NumericalProperty;
 import algorithmMaker.input.ORing;
@@ -71,6 +72,13 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * @generated
    */
   private EClass propertyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass negationEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -367,6 +375,26 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
   public EClass getProperty()
   {
     return propertyEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getNegation()
+  {
+    return negationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getNegation_Negated()
+  {
+    return (EReference)negationEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -769,6 +797,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
 
     propertyEClass = createEClass(PROPERTY);
 
+    negationEClass = createEClass(NEGATION);
+    createEReference(negationEClass, NEGATION__NEGATED);
+
     quantifierEClass = createEClass(QUANTIFIER);
     createEAttribute(quantifierEClass, QUANTIFIER__QUANTIFIER);
     createEReference(quantifierEClass, QUANTIFIER__SUBJECT);
@@ -846,6 +877,7 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    negationEClass.getESuperTypes().add(this.getProperty());
     quantifierEClass.getESuperTypes().add(this.getProperty());
     atomicEClass.getESuperTypes().add(this.getProperty());
     atomicEClass.getESuperTypes().add(this.getNumericalProperty());
@@ -878,6 +910,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     initEReference(getType_TemplateType(), this.getType(), null, "templateType", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(negationEClass, Negation.class, "Negation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getNegation_Negated(), this.getProperty(), null, "negated", null, 0, 1, Negation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(quantifierEClass, Quantifier.class, "Quantifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getQuantifier_Quantifier(), ecorePackage.getEString(), "quantifier", null, 0, 1, Quantifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

@@ -68,6 +68,15 @@ public interface InputFactory extends EFactory
   Property createProperty();
 
   /**
+   * Returns a new object of class '<em>Negation</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Negation</em>'.
+   * @generated
+   */
+  Negation createNegation();
+
+  /**
    * Returns a new object of class '<em>Quantifier</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

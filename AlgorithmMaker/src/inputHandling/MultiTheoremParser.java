@@ -1,6 +1,10 @@
 package inputHandling;
 
 import static algorithmMaker.QuickParser.parseProperty;
+import static algorithmMaker.util.InputUtil.BOUND;
+import static algorithmMaker.util.InputUtil.EQUAL;
+import static algorithmMaker.util.InputUtil.FIND;
+import static algorithmMaker.util.InputUtil.TEST;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,7 +14,6 @@ import java.util.ArrayList;
 
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Property;
-import algorithmMaker.util.InputUtil;
 import theorems.MultistageTheorem;
 
 public class MultiTheoremParser {
@@ -50,7 +53,7 @@ public class MultiTheoremParser {
 		}
 		addBruteForceFindTheorems(ret);
 		addBruteForceTestTheorems(ret);
-		addTestingTheorems(ret);
+		addSimpleTestingTheorems(ret);
 		return ret;
 	}
 
@@ -58,34 +61,33 @@ public class MultiTheoremParser {
 		MultistageTheorem bruteForce = new MultistageTheorem(parseProperty("enumerable(x)"),
 				parseProperty("child(x,y)"), parseProperty("child(x,y)"), null, 10, "Brute force.",
 				"foreach child <y> of <x>");
-		bruteForce.requireGoalTask(InputUtil.FIND);
-		bruteForce.setNewGoalTask(InputUtil.TEST);
+		bruteForce.requireGoalTask(FIND);
+		bruteForce.setNewGoalTask(TEST);
 		ret.add(bruteForce);
 	}
 
 	private static void addBruteForceTestTheorems(ArrayList<MultistageTheorem> ret) {
 		ArrayList<String[]> bruteForces = new ArrayList<String[]>();
-		bruteForces.add(new String[] { "enumerable(x)", "child(x,y)", "BOUND(ny) & child(x,ny)",
-				InputUtil.EQUAL + "(y,ny)", "foreach child <ny> of <x>" });
+		bruteForces.add(new String[] { "enumerable(x)", "child(x,y)", BOUND + "(ny) & child(x,ny)", EQUAL + "(y,ny)",
+				"foreach child <ny> of <x>" });
 		for (String[] cur : bruteForces) {
 			MultistageTheorem bruteForce = new MultistageTheorem(parseProperty(cur[0]), parseProperty(cur[1]),
 					parseProperty(cur[2]), parseProperty(cur[3]), 10, "Brute force.", cur[4]);
-			bruteForce.requireGoalTask(InputUtil.TEST);
+			bruteForce.requireGoalTask(TEST);
 			ret.add(bruteForce);
 		}
 	}
 
-	private static void addTestingTheorems(ArrayList<MultistageTheorem> ret) {
+	private static void addSimpleTestingTheorems(ArrayList<MultistageTheorem> ret) {
 		ArrayList<String[]> tests = new ArrayList<String[]>();
-		tests.add(new String[] { InputUtil.BOUND + "(x)", "even(x)", "if <x> % 2 == 0" });
-		tests.add(new String[] { InputUtil.BOUND + "(x)&" + InputUtil.BOUND + "(y)", InputUtil.EQUAL + "(x,y)",
-				"if <x> == <y>" });
-		tests.add(new String[] { InputUtil.BOUND + "(x)&" + InputUtil.BOUND + "(y)&" + InputUtil.BOUND + "(z)",
-				"plus(x,y,z)", "if <x> + <y> == <z>" });
+		tests.add(new String[] { BOUND + "(x)", "even(x)", "if <x> % 2 == 0" });
+		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)", EQUAL + "(x,y)", "if <x> == <y>" });
+		tests.add(
+				new String[] { BOUND + "(x)&" + BOUND + "(y)&" + BOUND + "(z)", "plus(x,y,z)", "if <x> + <y> == <z>" });
 		for (String[] test : tests) {
 			MultistageTheorem testing = new MultistageTheorem(parseProperty(test[0]), parseProperty(test[1]),
 					parseProperty(test[1]), null, 1, "Simple test.", test[2]);
-			testing.requireGoalTask(InputUtil.TEST);
+			testing.requireGoalTask(TEST);
 			ret.add(testing);
 		}
 	}

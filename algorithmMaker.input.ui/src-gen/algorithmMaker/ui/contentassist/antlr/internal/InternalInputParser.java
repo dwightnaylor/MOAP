@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalInputParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'Find'", "'Count'", "'forall'", "'exists'", "'TRUE'", "'FALSE'", "'+'", "'-'", "'*'", "'/'", "'Given'", "';'", "'('", "')'", "'Theorems:'", "'st'", "','", "'<'", "'>'", "'|'", "'&'", "':'", "':-'", "'Test'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'Find'", "'Count'", "'forall'", "'exists'", "'TRUE'", "'FALSE'", "'+'", "'-'", "'*'", "'/'", "'Given'", "';'", "'('", "')'", "'Theorems:'", "'st'", "','", "'<'", "'>'", "'|'", "'&'", "'!'", "':'", "':-'", "'Test'"
     };
     public static final int RULE_STRING=6;
     public static final int RULE_SL_COMMENT=8;
@@ -36,6 +36,7 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
     public static final int T__12=12;
     public static final int T__34=34;
     public static final int T__13=13;
+    public static final int T__35=35;
     public static final int T__14=14;
     public static final int EOF=-1;
     public static final int T__30=30;
@@ -710,21 +711,98 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rulePrimary"
 
 
+    // $ANTLR start "entryRuleNegation"
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:284:1: entryRuleNegation : ruleNegation EOF ;
+    public final void entryRuleNegation() throws RecognitionException {
+        try {
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:285:1: ( ruleNegation EOF )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:286:1: ruleNegation EOF
+            {
+             before(grammarAccess.getNegationRule()); 
+            pushFollow(FOLLOW_ruleNegation_in_entryRuleNegation541);
+            ruleNegation();
+
+            state._fsp--;
+
+             after(grammarAccess.getNegationRule()); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleNegation548); 
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+        }
+        return ;
+    }
+    // $ANTLR end "entryRuleNegation"
+
+
+    // $ANTLR start "ruleNegation"
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:293:1: ruleNegation : ( ( rule__Negation__Group__0 ) ) ;
+    public final void ruleNegation() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:297:2: ( ( ( rule__Negation__Group__0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:298:1: ( ( rule__Negation__Group__0 ) )
+            {
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:298:1: ( ( rule__Negation__Group__0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:299:1: ( rule__Negation__Group__0 )
+            {
+             before(grammarAccess.getNegationAccess().getGroup()); 
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:300:1: ( rule__Negation__Group__0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:300:2: rule__Negation__Group__0
+            {
+            pushFollow(FOLLOW_rule__Negation__Group__0_in_ruleNegation574);
+            rule__Negation__Group__0();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getNegationAccess().getGroup()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "ruleNegation"
+
+
     // $ANTLR start "entryRuleQuantifier"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:284:1: entryRuleQuantifier : ruleQuantifier EOF ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:312:1: entryRuleQuantifier : ruleQuantifier EOF ;
     public final void entryRuleQuantifier() throws RecognitionException {
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:285:1: ( ruleQuantifier EOF )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:286:1: ruleQuantifier EOF
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:313:1: ( ruleQuantifier EOF )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:314:1: ruleQuantifier EOF
             {
              before(grammarAccess.getQuantifierRule()); 
-            pushFollow(FOLLOW_ruleQuantifier_in_entryRuleQuantifier541);
+            pushFollow(FOLLOW_ruleQuantifier_in_entryRuleQuantifier601);
             ruleQuantifier();
 
             state._fsp--;
 
              after(grammarAccess.getQuantifierRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleQuantifier548); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleQuantifier608); 
 
             }
 
@@ -741,23 +819,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleQuantifier"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:293:1: ruleQuantifier : ( ( rule__Quantifier__Group__0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:321:1: ruleQuantifier : ( ( rule__Quantifier__Group__0 ) ) ;
     public final void ruleQuantifier() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:297:2: ( ( ( rule__Quantifier__Group__0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:298:1: ( ( rule__Quantifier__Group__0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:325:2: ( ( ( rule__Quantifier__Group__0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:326:1: ( ( rule__Quantifier__Group__0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:298:1: ( ( rule__Quantifier__Group__0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:299:1: ( rule__Quantifier__Group__0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:326:1: ( ( rule__Quantifier__Group__0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:327:1: ( rule__Quantifier__Group__0 )
             {
              before(grammarAccess.getQuantifierAccess().getGroup()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:300:1: ( rule__Quantifier__Group__0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:300:2: rule__Quantifier__Group__0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:328:1: ( rule__Quantifier__Group__0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:328:2: rule__Quantifier__Group__0
             {
-            pushFollow(FOLLOW_rule__Quantifier__Group__0_in_ruleQuantifier574);
+            pushFollow(FOLLOW_rule__Quantifier__Group__0_in_ruleQuantifier634);
             rule__Quantifier__Group__0();
 
             state._fsp--;
@@ -788,20 +866,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleAtomic"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:312:1: entryRuleAtomic : ruleAtomic EOF ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:340:1: entryRuleAtomic : ruleAtomic EOF ;
     public final void entryRuleAtomic() throws RecognitionException {
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:313:1: ( ruleAtomic EOF )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:314:1: ruleAtomic EOF
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:341:1: ( ruleAtomic EOF )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:342:1: ruleAtomic EOF
             {
              before(grammarAccess.getAtomicRule()); 
-            pushFollow(FOLLOW_ruleAtomic_in_entryRuleAtomic601);
+            pushFollow(FOLLOW_ruleAtomic_in_entryRuleAtomic661);
             ruleAtomic();
 
             state._fsp--;
 
              after(grammarAccess.getAtomicRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAtomic608); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAtomic668); 
 
             }
 
@@ -818,23 +896,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleAtomic"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:321:1: ruleAtomic : ( ( rule__Atomic__Group__0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:349:1: ruleAtomic : ( ( rule__Atomic__Group__0 ) ) ;
     public final void ruleAtomic() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:325:2: ( ( ( rule__Atomic__Group__0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:326:1: ( ( rule__Atomic__Group__0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:353:2: ( ( ( rule__Atomic__Group__0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:354:1: ( ( rule__Atomic__Group__0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:326:1: ( ( rule__Atomic__Group__0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:327:1: ( rule__Atomic__Group__0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:354:1: ( ( rule__Atomic__Group__0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:355:1: ( rule__Atomic__Group__0 )
             {
              before(grammarAccess.getAtomicAccess().getGroup()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:328:1: ( rule__Atomic__Group__0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:328:2: rule__Atomic__Group__0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:356:1: ( rule__Atomic__Group__0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:356:2: rule__Atomic__Group__0
             {
-            pushFollow(FOLLOW_rule__Atomic__Group__0_in_ruleAtomic634);
+            pushFollow(FOLLOW_rule__Atomic__Group__0_in_ruleAtomic694);
             rule__Atomic__Group__0();
 
             state._fsp--;
@@ -865,20 +943,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleArgument"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:340:1: entryRuleArgument : ruleArgument EOF ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:368:1: entryRuleArgument : ruleArgument EOF ;
     public final void entryRuleArgument() throws RecognitionException {
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:341:1: ( ruleArgument EOF )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:342:1: ruleArgument EOF
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:369:1: ( ruleArgument EOF )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:370:1: ruleArgument EOF
             {
              before(grammarAccess.getArgumentRule()); 
-            pushFollow(FOLLOW_ruleArgument_in_entryRuleArgument661);
+            pushFollow(FOLLOW_ruleArgument_in_entryRuleArgument721);
             ruleArgument();
 
             state._fsp--;
 
              after(grammarAccess.getArgumentRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleArgument668); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleArgument728); 
 
             }
 
@@ -895,20 +973,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleArgument"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:349:1: ruleArgument : ( ruleAddition ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:377:1: ruleArgument : ( ruleAddition ) ;
     public final void ruleArgument() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:353:2: ( ( ruleAddition ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:354:1: ( ruleAddition )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:381:2: ( ( ruleAddition ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:382:1: ( ruleAddition )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:354:1: ( ruleAddition )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:355:1: ruleAddition
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:382:1: ( ruleAddition )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:383:1: ruleAddition
             {
              before(grammarAccess.getArgumentAccess().getAdditionParserRuleCall()); 
-            pushFollow(FOLLOW_ruleAddition_in_ruleArgument694);
+            pushFollow(FOLLOW_ruleAddition_in_ruleArgument754);
             ruleAddition();
 
             state._fsp--;
@@ -936,20 +1014,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleVariable"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:368:1: entryRuleVariable : ruleVariable EOF ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:396:1: entryRuleVariable : ruleVariable EOF ;
     public final void entryRuleVariable() throws RecognitionException {
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:369:1: ( ruleVariable EOF )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:370:1: ruleVariable EOF
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:397:1: ( ruleVariable EOF )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:398:1: ruleVariable EOF
             {
              before(grammarAccess.getVariableRule()); 
-            pushFollow(FOLLOW_ruleVariable_in_entryRuleVariable720);
+            pushFollow(FOLLOW_ruleVariable_in_entryRuleVariable780);
             ruleVariable();
 
             state._fsp--;
 
              after(grammarAccess.getVariableRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleVariable727); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleVariable787); 
 
             }
 
@@ -966,23 +1044,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleVariable"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:377:1: ruleVariable : ( ( rule__Variable__ArgAssignment ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:405:1: ruleVariable : ( ( rule__Variable__ArgAssignment ) ) ;
     public final void ruleVariable() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:381:2: ( ( ( rule__Variable__ArgAssignment ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:382:1: ( ( rule__Variable__ArgAssignment ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:409:2: ( ( ( rule__Variable__ArgAssignment ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:410:1: ( ( rule__Variable__ArgAssignment ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:382:1: ( ( rule__Variable__ArgAssignment ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:383:1: ( rule__Variable__ArgAssignment )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:410:1: ( ( rule__Variable__ArgAssignment ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:411:1: ( rule__Variable__ArgAssignment )
             {
              before(grammarAccess.getVariableAccess().getArgAssignment()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:384:1: ( rule__Variable__ArgAssignment )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:384:2: rule__Variable__ArgAssignment
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:412:1: ( rule__Variable__ArgAssignment )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:412:2: rule__Variable__ArgAssignment
             {
-            pushFollow(FOLLOW_rule__Variable__ArgAssignment_in_ruleVariable753);
+            pushFollow(FOLLOW_rule__Variable__ArgAssignment_in_ruleVariable813);
             rule__Variable__ArgAssignment();
 
             state._fsp--;
@@ -1013,20 +1091,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleBooleanLiteral"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:396:1: entryRuleBooleanLiteral : ruleBooleanLiteral EOF ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:424:1: entryRuleBooleanLiteral : ruleBooleanLiteral EOF ;
     public final void entryRuleBooleanLiteral() throws RecognitionException {
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:397:1: ( ruleBooleanLiteral EOF )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:398:1: ruleBooleanLiteral EOF
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:425:1: ( ruleBooleanLiteral EOF )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:426:1: ruleBooleanLiteral EOF
             {
              before(grammarAccess.getBooleanLiteralRule()); 
-            pushFollow(FOLLOW_ruleBooleanLiteral_in_entryRuleBooleanLiteral780);
+            pushFollow(FOLLOW_ruleBooleanLiteral_in_entryRuleBooleanLiteral840);
             ruleBooleanLiteral();
 
             state._fsp--;
 
              after(grammarAccess.getBooleanLiteralRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleBooleanLiteral787); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleBooleanLiteral847); 
 
             }
 
@@ -1043,23 +1121,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleBooleanLiteral"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:405:1: ruleBooleanLiteral : ( ( rule__BooleanLiteral__ValueAssignment ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:433:1: ruleBooleanLiteral : ( ( rule__BooleanLiteral__ValueAssignment ) ) ;
     public final void ruleBooleanLiteral() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:409:2: ( ( ( rule__BooleanLiteral__ValueAssignment ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:410:1: ( ( rule__BooleanLiteral__ValueAssignment ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:437:2: ( ( ( rule__BooleanLiteral__ValueAssignment ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:438:1: ( ( rule__BooleanLiteral__ValueAssignment ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:410:1: ( ( rule__BooleanLiteral__ValueAssignment ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:411:1: ( rule__BooleanLiteral__ValueAssignment )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:438:1: ( ( rule__BooleanLiteral__ValueAssignment ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:439:1: ( rule__BooleanLiteral__ValueAssignment )
             {
              before(grammarAccess.getBooleanLiteralAccess().getValueAssignment()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:412:1: ( rule__BooleanLiteral__ValueAssignment )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:412:2: rule__BooleanLiteral__ValueAssignment
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:440:1: ( rule__BooleanLiteral__ValueAssignment )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:440:2: rule__BooleanLiteral__ValueAssignment
             {
-            pushFollow(FOLLOW_rule__BooleanLiteral__ValueAssignment_in_ruleBooleanLiteral813);
+            pushFollow(FOLLOW_rule__BooleanLiteral__ValueAssignment_in_ruleBooleanLiteral873);
             rule__BooleanLiteral__ValueAssignment();
 
             state._fsp--;
@@ -1090,20 +1168,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleTheorem"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:424:1: entryRuleTheorem : ruleTheorem EOF ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:452:1: entryRuleTheorem : ruleTheorem EOF ;
     public final void entryRuleTheorem() throws RecognitionException {
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:425:1: ( ruleTheorem EOF )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:426:1: ruleTheorem EOF
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:453:1: ( ruleTheorem EOF )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:454:1: ruleTheorem EOF
             {
              before(grammarAccess.getTheoremRule()); 
-            pushFollow(FOLLOW_ruleTheorem_in_entryRuleTheorem840);
+            pushFollow(FOLLOW_ruleTheorem_in_entryRuleTheorem900);
             ruleTheorem();
 
             state._fsp--;
 
              after(grammarAccess.getTheoremRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleTheorem847); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleTheorem907); 
 
             }
 
@@ -1120,23 +1198,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleTheorem"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:433:1: ruleTheorem : ( ( rule__Theorem__Group__0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:461:1: ruleTheorem : ( ( rule__Theorem__Group__0 ) ) ;
     public final void ruleTheorem() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:437:2: ( ( ( rule__Theorem__Group__0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:438:1: ( ( rule__Theorem__Group__0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:465:2: ( ( ( rule__Theorem__Group__0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:466:1: ( ( rule__Theorem__Group__0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:438:1: ( ( rule__Theorem__Group__0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:439:1: ( rule__Theorem__Group__0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:466:1: ( ( rule__Theorem__Group__0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:467:1: ( rule__Theorem__Group__0 )
             {
              before(grammarAccess.getTheoremAccess().getGroup()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:440:1: ( rule__Theorem__Group__0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:440:2: rule__Theorem__Group__0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:468:1: ( rule__Theorem__Group__0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:468:2: rule__Theorem__Group__0
             {
-            pushFollow(FOLLOW_rule__Theorem__Group__0_in_ruleTheorem873);
+            pushFollow(FOLLOW_rule__Theorem__Group__0_in_ruleTheorem933);
             rule__Theorem__Group__0();
 
             state._fsp--;
@@ -1167,20 +1245,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleAddition"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:452:1: entryRuleAddition : ruleAddition EOF ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:480:1: entryRuleAddition : ruleAddition EOF ;
     public final void entryRuleAddition() throws RecognitionException {
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:453:1: ( ruleAddition EOF )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:454:1: ruleAddition EOF
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:481:1: ( ruleAddition EOF )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:482:1: ruleAddition EOF
             {
              before(grammarAccess.getAdditionRule()); 
-            pushFollow(FOLLOW_ruleAddition_in_entryRuleAddition900);
+            pushFollow(FOLLOW_ruleAddition_in_entryRuleAddition960);
             ruleAddition();
 
             state._fsp--;
 
              after(grammarAccess.getAdditionRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAddition907); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAddition967); 
 
             }
 
@@ -1197,23 +1275,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleAddition"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:461:1: ruleAddition : ( ( rule__Addition__Group__0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:489:1: ruleAddition : ( ( rule__Addition__Group__0 ) ) ;
     public final void ruleAddition() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:465:2: ( ( ( rule__Addition__Group__0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:466:1: ( ( rule__Addition__Group__0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:493:2: ( ( ( rule__Addition__Group__0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:494:1: ( ( rule__Addition__Group__0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:466:1: ( ( rule__Addition__Group__0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:467:1: ( rule__Addition__Group__0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:494:1: ( ( rule__Addition__Group__0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:495:1: ( rule__Addition__Group__0 )
             {
              before(grammarAccess.getAdditionAccess().getGroup()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:468:1: ( rule__Addition__Group__0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:468:2: rule__Addition__Group__0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:496:1: ( rule__Addition__Group__0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:496:2: rule__Addition__Group__0
             {
-            pushFollow(FOLLOW_rule__Addition__Group__0_in_ruleAddition933);
+            pushFollow(FOLLOW_rule__Addition__Group__0_in_ruleAddition993);
             rule__Addition__Group__0();
 
             state._fsp--;
@@ -1244,20 +1322,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleMultiplication"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:480:1: entryRuleMultiplication : ruleMultiplication EOF ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:508:1: entryRuleMultiplication : ruleMultiplication EOF ;
     public final void entryRuleMultiplication() throws RecognitionException {
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:481:1: ( ruleMultiplication EOF )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:482:1: ruleMultiplication EOF
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:509:1: ( ruleMultiplication EOF )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:510:1: ruleMultiplication EOF
             {
              before(grammarAccess.getMultiplicationRule()); 
-            pushFollow(FOLLOW_ruleMultiplication_in_entryRuleMultiplication960);
+            pushFollow(FOLLOW_ruleMultiplication_in_entryRuleMultiplication1020);
             ruleMultiplication();
 
             state._fsp--;
 
              after(grammarAccess.getMultiplicationRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleMultiplication967); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleMultiplication1027); 
 
             }
 
@@ -1274,23 +1352,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleMultiplication"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:489:1: ruleMultiplication : ( ( rule__Multiplication__Group__0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:517:1: ruleMultiplication : ( ( rule__Multiplication__Group__0 ) ) ;
     public final void ruleMultiplication() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:493:2: ( ( ( rule__Multiplication__Group__0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:494:1: ( ( rule__Multiplication__Group__0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:521:2: ( ( ( rule__Multiplication__Group__0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:522:1: ( ( rule__Multiplication__Group__0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:494:1: ( ( rule__Multiplication__Group__0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:495:1: ( rule__Multiplication__Group__0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:522:1: ( ( rule__Multiplication__Group__0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:523:1: ( rule__Multiplication__Group__0 )
             {
              before(grammarAccess.getMultiplicationAccess().getGroup()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:496:1: ( rule__Multiplication__Group__0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:496:2: rule__Multiplication__Group__0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:524:1: ( rule__Multiplication__Group__0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:524:2: rule__Multiplication__Group__0
             {
-            pushFollow(FOLLOW_rule__Multiplication__Group__0_in_ruleMultiplication993);
+            pushFollow(FOLLOW_rule__Multiplication__Group__0_in_ruleMultiplication1053);
             rule__Multiplication__Group__0();
 
             state._fsp--;
@@ -1321,20 +1399,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleNumericalPrimary"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:508:1: entryRuleNumericalPrimary : ruleNumericalPrimary EOF ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:536:1: entryRuleNumericalPrimary : ruleNumericalPrimary EOF ;
     public final void entryRuleNumericalPrimary() throws RecognitionException {
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:509:1: ( ruleNumericalPrimary EOF )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:510:1: ruleNumericalPrimary EOF
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:537:1: ( ruleNumericalPrimary EOF )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:538:1: ruleNumericalPrimary EOF
             {
              before(grammarAccess.getNumericalPrimaryRule()); 
-            pushFollow(FOLLOW_ruleNumericalPrimary_in_entryRuleNumericalPrimary1020);
+            pushFollow(FOLLOW_ruleNumericalPrimary_in_entryRuleNumericalPrimary1080);
             ruleNumericalPrimary();
 
             state._fsp--;
 
              after(grammarAccess.getNumericalPrimaryRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleNumericalPrimary1027); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleNumericalPrimary1087); 
 
             }
 
@@ -1351,23 +1429,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleNumericalPrimary"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:517:1: ruleNumericalPrimary : ( ( rule__NumericalPrimary__Alternatives ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:545:1: ruleNumericalPrimary : ( ( rule__NumericalPrimary__Alternatives ) ) ;
     public final void ruleNumericalPrimary() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:521:2: ( ( ( rule__NumericalPrimary__Alternatives ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:522:1: ( ( rule__NumericalPrimary__Alternatives ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:549:2: ( ( ( rule__NumericalPrimary__Alternatives ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:550:1: ( ( rule__NumericalPrimary__Alternatives ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:522:1: ( ( rule__NumericalPrimary__Alternatives ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:523:1: ( rule__NumericalPrimary__Alternatives )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:550:1: ( ( rule__NumericalPrimary__Alternatives ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:551:1: ( rule__NumericalPrimary__Alternatives )
             {
              before(grammarAccess.getNumericalPrimaryAccess().getAlternatives()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:524:1: ( rule__NumericalPrimary__Alternatives )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:524:2: rule__NumericalPrimary__Alternatives
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:552:1: ( rule__NumericalPrimary__Alternatives )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:552:2: rule__NumericalPrimary__Alternatives
             {
-            pushFollow(FOLLOW_rule__NumericalPrimary__Alternatives_in_ruleNumericalPrimary1053);
+            pushFollow(FOLLOW_rule__NumericalPrimary__Alternatives_in_ruleNumericalPrimary1113);
             rule__NumericalPrimary__Alternatives();
 
             state._fsp--;
@@ -1398,20 +1476,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "entryRuleNumberLiteral"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:536:1: entryRuleNumberLiteral : ruleNumberLiteral EOF ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:564:1: entryRuleNumberLiteral : ruleNumberLiteral EOF ;
     public final void entryRuleNumberLiteral() throws RecognitionException {
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:537:1: ( ruleNumberLiteral EOF )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:538:1: ruleNumberLiteral EOF
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:565:1: ( ruleNumberLiteral EOF )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:566:1: ruleNumberLiteral EOF
             {
              before(grammarAccess.getNumberLiteralRule()); 
-            pushFollow(FOLLOW_ruleNumberLiteral_in_entryRuleNumberLiteral1080);
+            pushFollow(FOLLOW_ruleNumberLiteral_in_entryRuleNumberLiteral1140);
             ruleNumberLiteral();
 
             state._fsp--;
 
              after(grammarAccess.getNumberLiteralRule()); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleNumberLiteral1087); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleNumberLiteral1147); 
 
             }
 
@@ -1428,23 +1506,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "ruleNumberLiteral"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:545:1: ruleNumberLiteral : ( ( rule__NumberLiteral__ValueAssignment ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:573:1: ruleNumberLiteral : ( ( rule__NumberLiteral__ValueAssignment ) ) ;
     public final void ruleNumberLiteral() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:549:2: ( ( ( rule__NumberLiteral__ValueAssignment ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:550:1: ( ( rule__NumberLiteral__ValueAssignment ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:577:2: ( ( ( rule__NumberLiteral__ValueAssignment ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:578:1: ( ( rule__NumberLiteral__ValueAssignment ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:550:1: ( ( rule__NumberLiteral__ValueAssignment ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:551:1: ( rule__NumberLiteral__ValueAssignment )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:578:1: ( ( rule__NumberLiteral__ValueAssignment ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:579:1: ( rule__NumberLiteral__ValueAssignment )
             {
              before(grammarAccess.getNumberLiteralAccess().getValueAssignment()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:552:1: ( rule__NumberLiteral__ValueAssignment )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:552:2: rule__NumberLiteral__ValueAssignment
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:580:1: ( rule__NumberLiteral__ValueAssignment )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:580:2: rule__NumberLiteral__ValueAssignment
             {
-            pushFollow(FOLLOW_rule__NumberLiteral__ValueAssignment_in_ruleNumberLiteral1113);
+            pushFollow(FOLLOW_rule__NumberLiteral__ValueAssignment_in_ruleNumberLiteral1173);
             rule__NumberLiteral__ValueAssignment();
 
             state._fsp--;
@@ -1475,20 +1553,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Alternatives_3"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:564:1: rule__Input__Alternatives_3 : ( ( ( rule__Input__Group_3_0__0 ) ) | ( ( rule__Input__Group_3_1__0 ) ) );
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:592:1: rule__Input__Alternatives_3 : ( ( ( rule__Input__Group_3_0__0 ) ) | ( ( rule__Input__Group_3_1__0 ) ) );
     public final void rule__Input__Alternatives_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:568:1: ( ( ( rule__Input__Group_3_0__0 ) ) | ( ( rule__Input__Group_3_1__0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:596:1: ( ( ( rule__Input__Group_3_0__0 ) ) | ( ( rule__Input__Group_3_1__0 ) ) )
             int alt1=2;
             int LA1_0 = input.LA(1);
 
             if ( ((LA1_0>=11 && LA1_0<=12)) ) {
                 alt1=1;
             }
-            else if ( (LA1_0==34) ) {
+            else if ( (LA1_0==35) ) {
                 alt1=2;
             }
             else {
@@ -1499,16 +1577,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
             }
             switch (alt1) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:569:1: ( ( rule__Input__Group_3_0__0 ) )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:597:1: ( ( rule__Input__Group_3_0__0 ) )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:569:1: ( ( rule__Input__Group_3_0__0 ) )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:570:1: ( rule__Input__Group_3_0__0 )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:597:1: ( ( rule__Input__Group_3_0__0 ) )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:598:1: ( rule__Input__Group_3_0__0 )
                     {
                      before(grammarAccess.getInputAccess().getGroup_3_0()); 
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:571:1: ( rule__Input__Group_3_0__0 )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:571:2: rule__Input__Group_3_0__0
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:599:1: ( rule__Input__Group_3_0__0 )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:599:2: rule__Input__Group_3_0__0
                     {
-                    pushFollow(FOLLOW_rule__Input__Group_3_0__0_in_rule__Input__Alternatives_31149);
+                    pushFollow(FOLLOW_rule__Input__Group_3_0__0_in_rule__Input__Alternatives_31209);
                     rule__Input__Group_3_0__0();
 
                     state._fsp--;
@@ -1524,16 +1602,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:575:6: ( ( rule__Input__Group_3_1__0 ) )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:603:6: ( ( rule__Input__Group_3_1__0 ) )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:575:6: ( ( rule__Input__Group_3_1__0 ) )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:576:1: ( rule__Input__Group_3_1__0 )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:603:6: ( ( rule__Input__Group_3_1__0 ) )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:604:1: ( rule__Input__Group_3_1__0 )
                     {
                      before(grammarAccess.getInputAccess().getGroup_3_1()); 
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:577:1: ( rule__Input__Group_3_1__0 )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:577:2: rule__Input__Group_3_1__0
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:605:1: ( rule__Input__Group_3_1__0 )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:605:2: rule__Input__Group_3_1__0
                     {
-                    pushFollow(FOLLOW_rule__Input__Group_3_1__0_in_rule__Input__Alternatives_31167);
+                    pushFollow(FOLLOW_rule__Input__Group_3_1__0_in_rule__Input__Alternatives_31227);
                     rule__Input__Group_3_1__0();
 
                     state._fsp--;
@@ -1566,13 +1644,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__TaskAlternatives_3_0_0_0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:586:1: rule__Input__TaskAlternatives_3_0_0_0 : ( ( 'Find' ) | ( 'Count' ) );
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:614:1: rule__Input__TaskAlternatives_3_0_0_0 : ( ( 'Find' ) | ( 'Count' ) );
     public final void rule__Input__TaskAlternatives_3_0_0_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:590:1: ( ( 'Find' ) | ( 'Count' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:618:1: ( ( 'Find' ) | ( 'Count' ) )
             int alt2=2;
             int LA2_0 = input.LA(1);
 
@@ -1590,13 +1668,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
             }
             switch (alt2) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:591:1: ( 'Find' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:619:1: ( 'Find' )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:591:1: ( 'Find' )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:592:1: 'Find'
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:619:1: ( 'Find' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:620:1: 'Find'
                     {
                      before(grammarAccess.getInputAccess().getTaskFindKeyword_3_0_0_0_0()); 
-                    match(input,11,FOLLOW_11_in_rule__Input__TaskAlternatives_3_0_0_01201); 
+                    match(input,11,FOLLOW_11_in_rule__Input__TaskAlternatives_3_0_0_01261); 
                      after(grammarAccess.getInputAccess().getTaskFindKeyword_3_0_0_0_0()); 
 
                     }
@@ -1605,13 +1683,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:599:6: ( 'Count' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:627:6: ( 'Count' )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:599:6: ( 'Count' )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:600:1: 'Count'
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:627:6: ( 'Count' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:628:1: 'Count'
                     {
                      before(grammarAccess.getInputAccess().getTaskCountKeyword_3_0_0_0_1()); 
-                    match(input,12,FOLLOW_12_in_rule__Input__TaskAlternatives_3_0_0_01221); 
+                    match(input,12,FOLLOW_12_in_rule__Input__TaskAlternatives_3_0_0_01281); 
                      after(grammarAccess.getInputAccess().getTaskCountKeyword_3_0_0_0_1()); 
 
                     }
@@ -1637,24 +1715,24 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Declaration__Alternatives"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:612:1: rule__Declaration__Alternatives : ( ( ( rule__Declaration__Group_0__0 ) ) | ( ( rule__Declaration__VarNameAssignment_1 ) ) );
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:640:1: rule__Declaration__Alternatives : ( ( ( rule__Declaration__Group_0__0 ) ) | ( ( rule__Declaration__VarNameAssignment_1 ) ) );
     public final void rule__Declaration__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:616:1: ( ( ( rule__Declaration__Group_0__0 ) ) | ( ( rule__Declaration__VarNameAssignment_1 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:644:1: ( ( ( rule__Declaration__Group_0__0 ) ) | ( ( rule__Declaration__VarNameAssignment_1 ) ) )
             int alt3=2;
             int LA3_0 = input.LA(1);
 
             if ( (LA3_0==RULE_ID) ) {
                 int LA3_1 = input.LA(2);
 
-                if ( (LA3_1==EOF||(LA3_1>=26 && LA3_1<=27)) ) {
-                    alt3=2;
-                }
-                else if ( (LA3_1==23||LA3_1==28) ) {
+                if ( (LA3_1==23||LA3_1==28) ) {
                     alt3=1;
+                }
+                else if ( (LA3_1==EOF||(LA3_1>=26 && LA3_1<=27)) ) {
+                    alt3=2;
                 }
                 else {
                     NoViableAltException nvae =
@@ -1671,16 +1749,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
             }
             switch (alt3) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:617:1: ( ( rule__Declaration__Group_0__0 ) )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:645:1: ( ( rule__Declaration__Group_0__0 ) )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:617:1: ( ( rule__Declaration__Group_0__0 ) )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:618:1: ( rule__Declaration__Group_0__0 )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:645:1: ( ( rule__Declaration__Group_0__0 ) )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:646:1: ( rule__Declaration__Group_0__0 )
                     {
                      before(grammarAccess.getDeclarationAccess().getGroup_0()); 
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:619:1: ( rule__Declaration__Group_0__0 )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:619:2: rule__Declaration__Group_0__0
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:647:1: ( rule__Declaration__Group_0__0 )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:647:2: rule__Declaration__Group_0__0
                     {
-                    pushFollow(FOLLOW_rule__Declaration__Group_0__0_in_rule__Declaration__Alternatives1255);
+                    pushFollow(FOLLOW_rule__Declaration__Group_0__0_in_rule__Declaration__Alternatives1315);
                     rule__Declaration__Group_0__0();
 
                     state._fsp--;
@@ -1696,16 +1774,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:623:6: ( ( rule__Declaration__VarNameAssignment_1 ) )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:651:6: ( ( rule__Declaration__VarNameAssignment_1 ) )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:623:6: ( ( rule__Declaration__VarNameAssignment_1 ) )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:624:1: ( rule__Declaration__VarNameAssignment_1 )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:651:6: ( ( rule__Declaration__VarNameAssignment_1 ) )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:652:1: ( rule__Declaration__VarNameAssignment_1 )
                     {
                      before(grammarAccess.getDeclarationAccess().getVarNameAssignment_1()); 
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:625:1: ( rule__Declaration__VarNameAssignment_1 )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:625:2: rule__Declaration__VarNameAssignment_1
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:653:1: ( rule__Declaration__VarNameAssignment_1 )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:653:2: rule__Declaration__VarNameAssignment_1
                     {
-                    pushFollow(FOLLOW_rule__Declaration__VarNameAssignment_1_in_rule__Declaration__Alternatives1273);
+                    pushFollow(FOLLOW_rule__Declaration__VarNameAssignment_1_in_rule__Declaration__Alternatives1333);
                     rule__Declaration__VarNameAssignment_1();
 
                     state._fsp--;
@@ -1738,14 +1816,14 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Primary__Alternatives"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:634:1: rule__Primary__Alternatives : ( ( ruleAtomic ) | ( ruleQuantifier ) | ( ( rule__Primary__Group_2__0 ) ) | ( ruleBooleanLiteral ) );
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:662:1: rule__Primary__Alternatives : ( ( ruleAtomic ) | ( ruleQuantifier ) | ( ( rule__Primary__Group_2__0 ) ) | ( ruleBooleanLiteral ) | ( ruleNegation ) );
     public final void rule__Primary__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:638:1: ( ( ruleAtomic ) | ( ruleQuantifier ) | ( ( rule__Primary__Group_2__0 ) ) | ( ruleBooleanLiteral ) )
-            int alt4=4;
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:666:1: ( ( ruleAtomic ) | ( ruleQuantifier ) | ( ( rule__Primary__Group_2__0 ) ) | ( ruleBooleanLiteral ) | ( ruleNegation ) )
+            int alt4=5;
             switch ( input.LA(1) ) {
             case RULE_ID:
                 {
@@ -1769,6 +1847,11 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
                 alt4=4;
                 }
                 break;
+            case 32:
+                {
+                alt4=5;
+                }
+                break;
             default:
                 NoViableAltException nvae =
                     new NoViableAltException("", 4, 0, input);
@@ -1778,13 +1861,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
             switch (alt4) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:639:1: ( ruleAtomic )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:667:1: ( ruleAtomic )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:639:1: ( ruleAtomic )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:640:1: ruleAtomic
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:667:1: ( ruleAtomic )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:668:1: ruleAtomic
                     {
                      before(grammarAccess.getPrimaryAccess().getAtomicParserRuleCall_0()); 
-                    pushFollow(FOLLOW_ruleAtomic_in_rule__Primary__Alternatives1306);
+                    pushFollow(FOLLOW_ruleAtomic_in_rule__Primary__Alternatives1366);
                     ruleAtomic();
 
                     state._fsp--;
@@ -1797,13 +1880,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:645:6: ( ruleQuantifier )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:673:6: ( ruleQuantifier )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:645:6: ( ruleQuantifier )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:646:1: ruleQuantifier
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:673:6: ( ruleQuantifier )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:674:1: ruleQuantifier
                     {
                      before(grammarAccess.getPrimaryAccess().getQuantifierParserRuleCall_1()); 
-                    pushFollow(FOLLOW_ruleQuantifier_in_rule__Primary__Alternatives1323);
+                    pushFollow(FOLLOW_ruleQuantifier_in_rule__Primary__Alternatives1383);
                     ruleQuantifier();
 
                     state._fsp--;
@@ -1816,16 +1899,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:651:6: ( ( rule__Primary__Group_2__0 ) )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:679:6: ( ( rule__Primary__Group_2__0 ) )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:651:6: ( ( rule__Primary__Group_2__0 ) )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:652:1: ( rule__Primary__Group_2__0 )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:679:6: ( ( rule__Primary__Group_2__0 ) )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:680:1: ( rule__Primary__Group_2__0 )
                     {
                      before(grammarAccess.getPrimaryAccess().getGroup_2()); 
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:653:1: ( rule__Primary__Group_2__0 )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:653:2: rule__Primary__Group_2__0
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:681:1: ( rule__Primary__Group_2__0 )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:681:2: rule__Primary__Group_2__0
                     {
-                    pushFollow(FOLLOW_rule__Primary__Group_2__0_in_rule__Primary__Alternatives1340);
+                    pushFollow(FOLLOW_rule__Primary__Group_2__0_in_rule__Primary__Alternatives1400);
                     rule__Primary__Group_2__0();
 
                     state._fsp--;
@@ -1841,18 +1924,37 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:657:6: ( ruleBooleanLiteral )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:685:6: ( ruleBooleanLiteral )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:657:6: ( ruleBooleanLiteral )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:658:1: ruleBooleanLiteral
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:685:6: ( ruleBooleanLiteral )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:686:1: ruleBooleanLiteral
                     {
                      before(grammarAccess.getPrimaryAccess().getBooleanLiteralParserRuleCall_3()); 
-                    pushFollow(FOLLOW_ruleBooleanLiteral_in_rule__Primary__Alternatives1358);
+                    pushFollow(FOLLOW_ruleBooleanLiteral_in_rule__Primary__Alternatives1418);
                     ruleBooleanLiteral();
 
                     state._fsp--;
 
                      after(grammarAccess.getPrimaryAccess().getBooleanLiteralParserRuleCall_3()); 
+
+                    }
+
+
+                    }
+                    break;
+                case 5 :
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:691:6: ( ruleNegation )
+                    {
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:691:6: ( ruleNegation )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:692:1: ruleNegation
+                    {
+                     before(grammarAccess.getPrimaryAccess().getNegationParserRuleCall_4()); 
+                    pushFollow(FOLLOW_ruleNegation_in_rule__Primary__Alternatives1435);
+                    ruleNegation();
+
+                    state._fsp--;
+
+                     after(grammarAccess.getPrimaryAccess().getNegationParserRuleCall_4()); 
 
                     }
 
@@ -1877,13 +1979,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Quantifier__QuantifierAlternatives_0_0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:668:1: rule__Quantifier__QuantifierAlternatives_0_0 : ( ( 'forall' ) | ( 'exists' ) );
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:702:1: rule__Quantifier__QuantifierAlternatives_0_0 : ( ( 'forall' ) | ( 'exists' ) );
     public final void rule__Quantifier__QuantifierAlternatives_0_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:672:1: ( ( 'forall' ) | ( 'exists' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:706:1: ( ( 'forall' ) | ( 'exists' ) )
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -1901,13 +2003,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
             }
             switch (alt5) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:673:1: ( 'forall' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:707:1: ( 'forall' )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:673:1: ( 'forall' )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:674:1: 'forall'
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:707:1: ( 'forall' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:708:1: 'forall'
                     {
                      before(grammarAccess.getQuantifierAccess().getQuantifierForallKeyword_0_0_0()); 
-                    match(input,13,FOLLOW_13_in_rule__Quantifier__QuantifierAlternatives_0_01391); 
+                    match(input,13,FOLLOW_13_in_rule__Quantifier__QuantifierAlternatives_0_01468); 
                      after(grammarAccess.getQuantifierAccess().getQuantifierForallKeyword_0_0_0()); 
 
                     }
@@ -1916,13 +2018,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:681:6: ( 'exists' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:715:6: ( 'exists' )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:681:6: ( 'exists' )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:682:1: 'exists'
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:715:6: ( 'exists' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:716:1: 'exists'
                     {
                      before(grammarAccess.getQuantifierAccess().getQuantifierExistsKeyword_0_0_1()); 
-                    match(input,14,FOLLOW_14_in_rule__Quantifier__QuantifierAlternatives_0_01411); 
+                    match(input,14,FOLLOW_14_in_rule__Quantifier__QuantifierAlternatives_0_01488); 
                      after(grammarAccess.getQuantifierAccess().getQuantifierExistsKeyword_0_0_1()); 
 
                     }
@@ -1948,13 +2050,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BooleanLiteral__ValueAlternatives_0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:694:1: rule__BooleanLiteral__ValueAlternatives_0 : ( ( 'TRUE' ) | ( 'FALSE' ) );
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:728:1: rule__BooleanLiteral__ValueAlternatives_0 : ( ( 'TRUE' ) | ( 'FALSE' ) );
     public final void rule__BooleanLiteral__ValueAlternatives_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:698:1: ( ( 'TRUE' ) | ( 'FALSE' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:732:1: ( ( 'TRUE' ) | ( 'FALSE' ) )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1972,13 +2074,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
             }
             switch (alt6) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:699:1: ( 'TRUE' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:733:1: ( 'TRUE' )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:699:1: ( 'TRUE' )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:700:1: 'TRUE'
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:733:1: ( 'TRUE' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:734:1: 'TRUE'
                     {
                      before(grammarAccess.getBooleanLiteralAccess().getValueTRUEKeyword_0_0()); 
-                    match(input,15,FOLLOW_15_in_rule__BooleanLiteral__ValueAlternatives_01446); 
+                    match(input,15,FOLLOW_15_in_rule__BooleanLiteral__ValueAlternatives_01523); 
                      after(grammarAccess.getBooleanLiteralAccess().getValueTRUEKeyword_0_0()); 
 
                     }
@@ -1987,13 +2089,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:707:6: ( 'FALSE' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:741:6: ( 'FALSE' )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:707:6: ( 'FALSE' )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:708:1: 'FALSE'
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:741:6: ( 'FALSE' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:742:1: 'FALSE'
                     {
                      before(grammarAccess.getBooleanLiteralAccess().getValueFALSEKeyword_0_1()); 
-                    match(input,16,FOLLOW_16_in_rule__BooleanLiteral__ValueAlternatives_01466); 
+                    match(input,16,FOLLOW_16_in_rule__BooleanLiteral__ValueAlternatives_01543); 
                      after(grammarAccess.getBooleanLiteralAccess().getValueFALSEKeyword_0_1()); 
 
                     }
@@ -2019,13 +2121,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Addition__SymbolAlternatives_1_1_0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:720:1: rule__Addition__SymbolAlternatives_1_1_0 : ( ( '+' ) | ( '-' ) );
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:754:1: rule__Addition__SymbolAlternatives_1_1_0 : ( ( '+' ) | ( '-' ) );
     public final void rule__Addition__SymbolAlternatives_1_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:724:1: ( ( '+' ) | ( '-' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:758:1: ( ( '+' ) | ( '-' ) )
             int alt7=2;
             int LA7_0 = input.LA(1);
 
@@ -2043,13 +2145,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
             }
             switch (alt7) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:725:1: ( '+' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:759:1: ( '+' )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:725:1: ( '+' )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:726:1: '+'
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:759:1: ( '+' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:760:1: '+'
                     {
                      before(grammarAccess.getAdditionAccess().getSymbolPlusSignKeyword_1_1_0_0()); 
-                    match(input,17,FOLLOW_17_in_rule__Addition__SymbolAlternatives_1_1_01501); 
+                    match(input,17,FOLLOW_17_in_rule__Addition__SymbolAlternatives_1_1_01578); 
                      after(grammarAccess.getAdditionAccess().getSymbolPlusSignKeyword_1_1_0_0()); 
 
                     }
@@ -2058,13 +2160,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:733:6: ( '-' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:767:6: ( '-' )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:733:6: ( '-' )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:734:1: '-'
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:767:6: ( '-' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:768:1: '-'
                     {
                      before(grammarAccess.getAdditionAccess().getSymbolHyphenMinusKeyword_1_1_0_1()); 
-                    match(input,18,FOLLOW_18_in_rule__Addition__SymbolAlternatives_1_1_01521); 
+                    match(input,18,FOLLOW_18_in_rule__Addition__SymbolAlternatives_1_1_01598); 
                      after(grammarAccess.getAdditionAccess().getSymbolHyphenMinusKeyword_1_1_0_1()); 
 
                     }
@@ -2090,13 +2192,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Multiplication__SymbolAlternatives_1_1_0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:746:1: rule__Multiplication__SymbolAlternatives_1_1_0 : ( ( '*' ) | ( '/' ) );
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:780:1: rule__Multiplication__SymbolAlternatives_1_1_0 : ( ( '*' ) | ( '/' ) );
     public final void rule__Multiplication__SymbolAlternatives_1_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:750:1: ( ( '*' ) | ( '/' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:784:1: ( ( '*' ) | ( '/' ) )
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -2114,13 +2216,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
             }
             switch (alt8) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:751:1: ( '*' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:785:1: ( '*' )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:751:1: ( '*' )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:752:1: '*'
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:785:1: ( '*' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:786:1: '*'
                     {
                      before(grammarAccess.getMultiplicationAccess().getSymbolAsteriskKeyword_1_1_0_0()); 
-                    match(input,19,FOLLOW_19_in_rule__Multiplication__SymbolAlternatives_1_1_01556); 
+                    match(input,19,FOLLOW_19_in_rule__Multiplication__SymbolAlternatives_1_1_01633); 
                      after(grammarAccess.getMultiplicationAccess().getSymbolAsteriskKeyword_1_1_0_0()); 
 
                     }
@@ -2129,13 +2231,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:759:6: ( '/' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:793:6: ( '/' )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:759:6: ( '/' )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:760:1: '/'
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:793:6: ( '/' )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:794:1: '/'
                     {
                      before(grammarAccess.getMultiplicationAccess().getSymbolSolidusKeyword_1_1_0_1()); 
-                    match(input,20,FOLLOW_20_in_rule__Multiplication__SymbolAlternatives_1_1_01576); 
+                    match(input,20,FOLLOW_20_in_rule__Multiplication__SymbolAlternatives_1_1_01653); 
                      after(grammarAccess.getMultiplicationAccess().getSymbolSolidusKeyword_1_1_0_1()); 
 
                     }
@@ -2161,13 +2263,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NumericalPrimary__Alternatives"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:772:1: rule__NumericalPrimary__Alternatives : ( ( ruleNumberLiteral ) | ( ruleAtomic ) | ( ( rule__NumericalPrimary__Group_2__0 ) ) | ( ruleVariable ) );
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:806:1: rule__NumericalPrimary__Alternatives : ( ( ruleNumberLiteral ) | ( ruleAtomic ) | ( ( rule__NumericalPrimary__Group_2__0 ) ) | ( ruleVariable ) );
     public final void rule__NumericalPrimary__Alternatives() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:776:1: ( ( ruleNumberLiteral ) | ( ruleAtomic ) | ( ( rule__NumericalPrimary__Group_2__0 ) ) | ( ruleVariable ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:810:1: ( ( ruleNumberLiteral ) | ( ruleAtomic ) | ( ( rule__NumericalPrimary__Group_2__0 ) ) | ( ruleVariable ) )
             int alt9=4;
             switch ( input.LA(1) ) {
             case RULE_INT:
@@ -2207,13 +2309,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
             switch (alt9) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:777:1: ( ruleNumberLiteral )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:811:1: ( ruleNumberLiteral )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:777:1: ( ruleNumberLiteral )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:778:1: ruleNumberLiteral
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:811:1: ( ruleNumberLiteral )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:812:1: ruleNumberLiteral
                     {
                      before(grammarAccess.getNumericalPrimaryAccess().getNumberLiteralParserRuleCall_0()); 
-                    pushFollow(FOLLOW_ruleNumberLiteral_in_rule__NumericalPrimary__Alternatives1610);
+                    pushFollow(FOLLOW_ruleNumberLiteral_in_rule__NumericalPrimary__Alternatives1687);
                     ruleNumberLiteral();
 
                     state._fsp--;
@@ -2226,13 +2328,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 2 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:783:6: ( ruleAtomic )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:817:6: ( ruleAtomic )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:783:6: ( ruleAtomic )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:784:1: ruleAtomic
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:817:6: ( ruleAtomic )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:818:1: ruleAtomic
                     {
                      before(grammarAccess.getNumericalPrimaryAccess().getAtomicParserRuleCall_1()); 
-                    pushFollow(FOLLOW_ruleAtomic_in_rule__NumericalPrimary__Alternatives1627);
+                    pushFollow(FOLLOW_ruleAtomic_in_rule__NumericalPrimary__Alternatives1704);
                     ruleAtomic();
 
                     state._fsp--;
@@ -2245,16 +2347,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 3 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:789:6: ( ( rule__NumericalPrimary__Group_2__0 ) )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:823:6: ( ( rule__NumericalPrimary__Group_2__0 ) )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:789:6: ( ( rule__NumericalPrimary__Group_2__0 ) )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:790:1: ( rule__NumericalPrimary__Group_2__0 )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:823:6: ( ( rule__NumericalPrimary__Group_2__0 ) )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:824:1: ( rule__NumericalPrimary__Group_2__0 )
                     {
                      before(grammarAccess.getNumericalPrimaryAccess().getGroup_2()); 
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:791:1: ( rule__NumericalPrimary__Group_2__0 )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:791:2: rule__NumericalPrimary__Group_2__0
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:825:1: ( rule__NumericalPrimary__Group_2__0 )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:825:2: rule__NumericalPrimary__Group_2__0
                     {
-                    pushFollow(FOLLOW_rule__NumericalPrimary__Group_2__0_in_rule__NumericalPrimary__Alternatives1644);
+                    pushFollow(FOLLOW_rule__NumericalPrimary__Group_2__0_in_rule__NumericalPrimary__Alternatives1721);
                     rule__NumericalPrimary__Group_2__0();
 
                     state._fsp--;
@@ -2270,13 +2372,13 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
                     }
                     break;
                 case 4 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:795:6: ( ruleVariable )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:829:6: ( ruleVariable )
                     {
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:795:6: ( ruleVariable )
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:796:1: ruleVariable
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:829:6: ( ruleVariable )
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:830:1: ruleVariable
                     {
                      before(grammarAccess.getNumericalPrimaryAccess().getVariableParserRuleCall_3()); 
-                    pushFollow(FOLLOW_ruleVariable_in_rule__NumericalPrimary__Alternatives1662);
+                    pushFollow(FOLLOW_ruleVariable_in_rule__NumericalPrimary__Alternatives1739);
                     ruleVariable();
 
                     state._fsp--;
@@ -2306,21 +2408,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:808:1: rule__Input__Group__0 : rule__Input__Group__0__Impl rule__Input__Group__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:842:1: rule__Input__Group__0 : rule__Input__Group__0__Impl rule__Input__Group__1 ;
     public final void rule__Input__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:812:1: ( rule__Input__Group__0__Impl rule__Input__Group__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:813:2: rule__Input__Group__0__Impl rule__Input__Group__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:846:1: ( rule__Input__Group__0__Impl rule__Input__Group__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:847:2: rule__Input__Group__0__Impl rule__Input__Group__1
             {
-            pushFollow(FOLLOW_rule__Input__Group__0__Impl_in_rule__Input__Group__01692);
+            pushFollow(FOLLOW_rule__Input__Group__0__Impl_in_rule__Input__Group__01769);
             rule__Input__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Input__Group__1_in_rule__Input__Group__01695);
+            pushFollow(FOLLOW_rule__Input__Group__1_in_rule__Input__Group__01772);
             rule__Input__Group__1();
 
             state._fsp--;
@@ -2344,20 +2446,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:820:1: rule__Input__Group__0__Impl : ( 'Given' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:854:1: rule__Input__Group__0__Impl : ( 'Given' ) ;
     public final void rule__Input__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:824:1: ( ( 'Given' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:825:1: ( 'Given' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:858:1: ( ( 'Given' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:859:1: ( 'Given' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:825:1: ( 'Given' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:826:1: 'Given'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:859:1: ( 'Given' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:860:1: 'Given'
             {
              before(grammarAccess.getInputAccess().getGivenKeyword_0()); 
-            match(input,21,FOLLOW_21_in_rule__Input__Group__0__Impl1723); 
+            match(input,21,FOLLOW_21_in_rule__Input__Group__0__Impl1800); 
              after(grammarAccess.getInputAccess().getGivenKeyword_0()); 
 
             }
@@ -2381,21 +2483,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:839:1: rule__Input__Group__1 : rule__Input__Group__1__Impl rule__Input__Group__2 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:873:1: rule__Input__Group__1 : rule__Input__Group__1__Impl rule__Input__Group__2 ;
     public final void rule__Input__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:843:1: ( rule__Input__Group__1__Impl rule__Input__Group__2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:844:2: rule__Input__Group__1__Impl rule__Input__Group__2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:877:1: ( rule__Input__Group__1__Impl rule__Input__Group__2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:878:2: rule__Input__Group__1__Impl rule__Input__Group__2
             {
-            pushFollow(FOLLOW_rule__Input__Group__1__Impl_in_rule__Input__Group__11754);
+            pushFollow(FOLLOW_rule__Input__Group__1__Impl_in_rule__Input__Group__11831);
             rule__Input__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Input__Group__2_in_rule__Input__Group__11757);
+            pushFollow(FOLLOW_rule__Input__Group__2_in_rule__Input__Group__11834);
             rule__Input__Group__2();
 
             state._fsp--;
@@ -2419,23 +2521,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:851:1: rule__Input__Group__1__Impl : ( ( rule__Input__GivenAssignment_1 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:885:1: rule__Input__Group__1__Impl : ( ( rule__Input__GivenAssignment_1 ) ) ;
     public final void rule__Input__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:855:1: ( ( ( rule__Input__GivenAssignment_1 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:856:1: ( ( rule__Input__GivenAssignment_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:889:1: ( ( ( rule__Input__GivenAssignment_1 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:890:1: ( ( rule__Input__GivenAssignment_1 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:856:1: ( ( rule__Input__GivenAssignment_1 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:857:1: ( rule__Input__GivenAssignment_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:890:1: ( ( rule__Input__GivenAssignment_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:891:1: ( rule__Input__GivenAssignment_1 )
             {
              before(grammarAccess.getInputAccess().getGivenAssignment_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:858:1: ( rule__Input__GivenAssignment_1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:858:2: rule__Input__GivenAssignment_1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:892:1: ( rule__Input__GivenAssignment_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:892:2: rule__Input__GivenAssignment_1
             {
-            pushFollow(FOLLOW_rule__Input__GivenAssignment_1_in_rule__Input__Group__1__Impl1784);
+            pushFollow(FOLLOW_rule__Input__GivenAssignment_1_in_rule__Input__Group__1__Impl1861);
             rule__Input__GivenAssignment_1();
 
             state._fsp--;
@@ -2466,21 +2568,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group__2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:868:1: rule__Input__Group__2 : rule__Input__Group__2__Impl rule__Input__Group__3 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:902:1: rule__Input__Group__2 : rule__Input__Group__2__Impl rule__Input__Group__3 ;
     public final void rule__Input__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:872:1: ( rule__Input__Group__2__Impl rule__Input__Group__3 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:873:2: rule__Input__Group__2__Impl rule__Input__Group__3
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:906:1: ( rule__Input__Group__2__Impl rule__Input__Group__3 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:907:2: rule__Input__Group__2__Impl rule__Input__Group__3
             {
-            pushFollow(FOLLOW_rule__Input__Group__2__Impl_in_rule__Input__Group__21814);
+            pushFollow(FOLLOW_rule__Input__Group__2__Impl_in_rule__Input__Group__21891);
             rule__Input__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Input__Group__3_in_rule__Input__Group__21817);
+            pushFollow(FOLLOW_rule__Input__Group__3_in_rule__Input__Group__21894);
             rule__Input__Group__3();
 
             state._fsp--;
@@ -2504,20 +2606,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group__2__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:880:1: rule__Input__Group__2__Impl : ( ';' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:914:1: rule__Input__Group__2__Impl : ( ';' ) ;
     public final void rule__Input__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:884:1: ( ( ';' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:885:1: ( ';' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:918:1: ( ( ';' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:919:1: ( ';' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:885:1: ( ';' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:886:1: ';'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:919:1: ( ';' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:920:1: ';'
             {
              before(grammarAccess.getInputAccess().getSemicolonKeyword_2()); 
-            match(input,22,FOLLOW_22_in_rule__Input__Group__2__Impl1845); 
+            match(input,22,FOLLOW_22_in_rule__Input__Group__2__Impl1922); 
              after(grammarAccess.getInputAccess().getSemicolonKeyword_2()); 
 
             }
@@ -2541,21 +2643,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group__3"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:899:1: rule__Input__Group__3 : rule__Input__Group__3__Impl rule__Input__Group__4 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:933:1: rule__Input__Group__3 : rule__Input__Group__3__Impl rule__Input__Group__4 ;
     public final void rule__Input__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:903:1: ( rule__Input__Group__3__Impl rule__Input__Group__4 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:904:2: rule__Input__Group__3__Impl rule__Input__Group__4
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:937:1: ( rule__Input__Group__3__Impl rule__Input__Group__4 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:938:2: rule__Input__Group__3__Impl rule__Input__Group__4
             {
-            pushFollow(FOLLOW_rule__Input__Group__3__Impl_in_rule__Input__Group__31876);
+            pushFollow(FOLLOW_rule__Input__Group__3__Impl_in_rule__Input__Group__31953);
             rule__Input__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Input__Group__4_in_rule__Input__Group__31879);
+            pushFollow(FOLLOW_rule__Input__Group__4_in_rule__Input__Group__31956);
             rule__Input__Group__4();
 
             state._fsp--;
@@ -2579,23 +2681,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group__3__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:911:1: rule__Input__Group__3__Impl : ( ( rule__Input__Alternatives_3 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:945:1: rule__Input__Group__3__Impl : ( ( rule__Input__Alternatives_3 ) ) ;
     public final void rule__Input__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:915:1: ( ( ( rule__Input__Alternatives_3 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:916:1: ( ( rule__Input__Alternatives_3 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:949:1: ( ( ( rule__Input__Alternatives_3 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:950:1: ( ( rule__Input__Alternatives_3 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:916:1: ( ( rule__Input__Alternatives_3 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:917:1: ( rule__Input__Alternatives_3 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:950:1: ( ( rule__Input__Alternatives_3 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:951:1: ( rule__Input__Alternatives_3 )
             {
              before(grammarAccess.getInputAccess().getAlternatives_3()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:918:1: ( rule__Input__Alternatives_3 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:918:2: rule__Input__Alternatives_3
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:952:1: ( rule__Input__Alternatives_3 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:952:2: rule__Input__Alternatives_3
             {
-            pushFollow(FOLLOW_rule__Input__Alternatives_3_in_rule__Input__Group__3__Impl1906);
+            pushFollow(FOLLOW_rule__Input__Alternatives_3_in_rule__Input__Group__3__Impl1983);
             rule__Input__Alternatives_3();
 
             state._fsp--;
@@ -2626,16 +2728,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group__4"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:928:1: rule__Input__Group__4 : rule__Input__Group__4__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:962:1: rule__Input__Group__4 : rule__Input__Group__4__Impl ;
     public final void rule__Input__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:932:1: ( rule__Input__Group__4__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:933:2: rule__Input__Group__4__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:966:1: ( rule__Input__Group__4__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:967:2: rule__Input__Group__4__Impl
             {
-            pushFollow(FOLLOW_rule__Input__Group__4__Impl_in_rule__Input__Group__41936);
+            pushFollow(FOLLOW_rule__Input__Group__4__Impl_in_rule__Input__Group__42013);
             rule__Input__Group__4__Impl();
 
             state._fsp--;
@@ -2659,20 +2761,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group__4__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:939:1: rule__Input__Group__4__Impl : ( ( rule__Input__Group_4__0 )? ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:973:1: rule__Input__Group__4__Impl : ( ( rule__Input__Group_4__0 )? ) ;
     public final void rule__Input__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:943:1: ( ( ( rule__Input__Group_4__0 )? ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:944:1: ( ( rule__Input__Group_4__0 )? )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:977:1: ( ( ( rule__Input__Group_4__0 )? ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:978:1: ( ( rule__Input__Group_4__0 )? )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:944:1: ( ( rule__Input__Group_4__0 )? )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:945:1: ( rule__Input__Group_4__0 )?
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:978:1: ( ( rule__Input__Group_4__0 )? )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:979:1: ( rule__Input__Group_4__0 )?
             {
              before(grammarAccess.getInputAccess().getGroup_4()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:946:1: ( rule__Input__Group_4__0 )?
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:980:1: ( rule__Input__Group_4__0 )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -2681,9 +2783,9 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
             }
             switch (alt10) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:946:2: rule__Input__Group_4__0
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:980:2: rule__Input__Group_4__0
                     {
-                    pushFollow(FOLLOW_rule__Input__Group_4__0_in_rule__Input__Group__4__Impl1963);
+                    pushFollow(FOLLOW_rule__Input__Group_4__0_in_rule__Input__Group__4__Impl2040);
                     rule__Input__Group_4__0();
 
                     state._fsp--;
@@ -2717,21 +2819,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_3_0__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:966:1: rule__Input__Group_3_0__0 : rule__Input__Group_3_0__0__Impl rule__Input__Group_3_0__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1000:1: rule__Input__Group_3_0__0 : rule__Input__Group_3_0__0__Impl rule__Input__Group_3_0__1 ;
     public final void rule__Input__Group_3_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:970:1: ( rule__Input__Group_3_0__0__Impl rule__Input__Group_3_0__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:971:2: rule__Input__Group_3_0__0__Impl rule__Input__Group_3_0__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1004:1: ( rule__Input__Group_3_0__0__Impl rule__Input__Group_3_0__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1005:2: rule__Input__Group_3_0__0__Impl rule__Input__Group_3_0__1
             {
-            pushFollow(FOLLOW_rule__Input__Group_3_0__0__Impl_in_rule__Input__Group_3_0__02004);
+            pushFollow(FOLLOW_rule__Input__Group_3_0__0__Impl_in_rule__Input__Group_3_0__02081);
             rule__Input__Group_3_0__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Input__Group_3_0__1_in_rule__Input__Group_3_0__02007);
+            pushFollow(FOLLOW_rule__Input__Group_3_0__1_in_rule__Input__Group_3_0__02084);
             rule__Input__Group_3_0__1();
 
             state._fsp--;
@@ -2755,23 +2857,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_3_0__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:978:1: rule__Input__Group_3_0__0__Impl : ( ( rule__Input__TaskAssignment_3_0_0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1012:1: rule__Input__Group_3_0__0__Impl : ( ( rule__Input__TaskAssignment_3_0_0 ) ) ;
     public final void rule__Input__Group_3_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:982:1: ( ( ( rule__Input__TaskAssignment_3_0_0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:983:1: ( ( rule__Input__TaskAssignment_3_0_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1016:1: ( ( ( rule__Input__TaskAssignment_3_0_0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1017:1: ( ( rule__Input__TaskAssignment_3_0_0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:983:1: ( ( rule__Input__TaskAssignment_3_0_0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:984:1: ( rule__Input__TaskAssignment_3_0_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1017:1: ( ( rule__Input__TaskAssignment_3_0_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1018:1: ( rule__Input__TaskAssignment_3_0_0 )
             {
              before(grammarAccess.getInputAccess().getTaskAssignment_3_0_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:985:1: ( rule__Input__TaskAssignment_3_0_0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:985:2: rule__Input__TaskAssignment_3_0_0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1019:1: ( rule__Input__TaskAssignment_3_0_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1019:2: rule__Input__TaskAssignment_3_0_0
             {
-            pushFollow(FOLLOW_rule__Input__TaskAssignment_3_0_0_in_rule__Input__Group_3_0__0__Impl2034);
+            pushFollow(FOLLOW_rule__Input__TaskAssignment_3_0_0_in_rule__Input__Group_3_0__0__Impl2111);
             rule__Input__TaskAssignment_3_0_0();
 
             state._fsp--;
@@ -2802,16 +2904,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_3_0__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:995:1: rule__Input__Group_3_0__1 : rule__Input__Group_3_0__1__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1029:1: rule__Input__Group_3_0__1 : rule__Input__Group_3_0__1__Impl ;
     public final void rule__Input__Group_3_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:999:1: ( rule__Input__Group_3_0__1__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1000:2: rule__Input__Group_3_0__1__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1033:1: ( rule__Input__Group_3_0__1__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1034:2: rule__Input__Group_3_0__1__Impl
             {
-            pushFollow(FOLLOW_rule__Input__Group_3_0__1__Impl_in_rule__Input__Group_3_0__12064);
+            pushFollow(FOLLOW_rule__Input__Group_3_0__1__Impl_in_rule__Input__Group_3_0__12141);
             rule__Input__Group_3_0__1__Impl();
 
             state._fsp--;
@@ -2835,23 +2937,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_3_0__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1006:1: rule__Input__Group_3_0__1__Impl : ( ( rule__Input__GoalAssignment_3_0_1 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1040:1: rule__Input__Group_3_0__1__Impl : ( ( rule__Input__GoalAssignment_3_0_1 ) ) ;
     public final void rule__Input__Group_3_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1010:1: ( ( ( rule__Input__GoalAssignment_3_0_1 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1011:1: ( ( rule__Input__GoalAssignment_3_0_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1044:1: ( ( ( rule__Input__GoalAssignment_3_0_1 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1045:1: ( ( rule__Input__GoalAssignment_3_0_1 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1011:1: ( ( rule__Input__GoalAssignment_3_0_1 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1012:1: ( rule__Input__GoalAssignment_3_0_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1045:1: ( ( rule__Input__GoalAssignment_3_0_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1046:1: ( rule__Input__GoalAssignment_3_0_1 )
             {
              before(grammarAccess.getInputAccess().getGoalAssignment_3_0_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1013:1: ( rule__Input__GoalAssignment_3_0_1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1013:2: rule__Input__GoalAssignment_3_0_1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1047:1: ( rule__Input__GoalAssignment_3_0_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1047:2: rule__Input__GoalAssignment_3_0_1
             {
-            pushFollow(FOLLOW_rule__Input__GoalAssignment_3_0_1_in_rule__Input__Group_3_0__1__Impl2091);
+            pushFollow(FOLLOW_rule__Input__GoalAssignment_3_0_1_in_rule__Input__Group_3_0__1__Impl2168);
             rule__Input__GoalAssignment_3_0_1();
 
             state._fsp--;
@@ -2882,21 +2984,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_3_1__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1027:1: rule__Input__Group_3_1__0 : rule__Input__Group_3_1__0__Impl rule__Input__Group_3_1__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1061:1: rule__Input__Group_3_1__0 : rule__Input__Group_3_1__0__Impl rule__Input__Group_3_1__1 ;
     public final void rule__Input__Group_3_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1031:1: ( rule__Input__Group_3_1__0__Impl rule__Input__Group_3_1__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1032:2: rule__Input__Group_3_1__0__Impl rule__Input__Group_3_1__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1065:1: ( rule__Input__Group_3_1__0__Impl rule__Input__Group_3_1__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1066:2: rule__Input__Group_3_1__0__Impl rule__Input__Group_3_1__1
             {
-            pushFollow(FOLLOW_rule__Input__Group_3_1__0__Impl_in_rule__Input__Group_3_1__02125);
+            pushFollow(FOLLOW_rule__Input__Group_3_1__0__Impl_in_rule__Input__Group_3_1__02202);
             rule__Input__Group_3_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Input__Group_3_1__1_in_rule__Input__Group_3_1__02128);
+            pushFollow(FOLLOW_rule__Input__Group_3_1__1_in_rule__Input__Group_3_1__02205);
             rule__Input__Group_3_1__1();
 
             state._fsp--;
@@ -2920,23 +3022,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_3_1__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1039:1: rule__Input__Group_3_1__0__Impl : ( ( rule__Input__TaskAssignment_3_1_0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1073:1: rule__Input__Group_3_1__0__Impl : ( ( rule__Input__TaskAssignment_3_1_0 ) ) ;
     public final void rule__Input__Group_3_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1043:1: ( ( ( rule__Input__TaskAssignment_3_1_0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1044:1: ( ( rule__Input__TaskAssignment_3_1_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1077:1: ( ( ( rule__Input__TaskAssignment_3_1_0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1078:1: ( ( rule__Input__TaskAssignment_3_1_0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1044:1: ( ( rule__Input__TaskAssignment_3_1_0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1045:1: ( rule__Input__TaskAssignment_3_1_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1078:1: ( ( rule__Input__TaskAssignment_3_1_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1079:1: ( rule__Input__TaskAssignment_3_1_0 )
             {
              before(grammarAccess.getInputAccess().getTaskAssignment_3_1_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1046:1: ( rule__Input__TaskAssignment_3_1_0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1046:2: rule__Input__TaskAssignment_3_1_0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1080:1: ( rule__Input__TaskAssignment_3_1_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1080:2: rule__Input__TaskAssignment_3_1_0
             {
-            pushFollow(FOLLOW_rule__Input__TaskAssignment_3_1_0_in_rule__Input__Group_3_1__0__Impl2155);
+            pushFollow(FOLLOW_rule__Input__TaskAssignment_3_1_0_in_rule__Input__Group_3_1__0__Impl2232);
             rule__Input__TaskAssignment_3_1_0();
 
             state._fsp--;
@@ -2967,21 +3069,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_3_1__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1056:1: rule__Input__Group_3_1__1 : rule__Input__Group_3_1__1__Impl rule__Input__Group_3_1__2 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1090:1: rule__Input__Group_3_1__1 : rule__Input__Group_3_1__1__Impl rule__Input__Group_3_1__2 ;
     public final void rule__Input__Group_3_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1060:1: ( rule__Input__Group_3_1__1__Impl rule__Input__Group_3_1__2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1061:2: rule__Input__Group_3_1__1__Impl rule__Input__Group_3_1__2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1094:1: ( rule__Input__Group_3_1__1__Impl rule__Input__Group_3_1__2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1095:2: rule__Input__Group_3_1__1__Impl rule__Input__Group_3_1__2
             {
-            pushFollow(FOLLOW_rule__Input__Group_3_1__1__Impl_in_rule__Input__Group_3_1__12185);
+            pushFollow(FOLLOW_rule__Input__Group_3_1__1__Impl_in_rule__Input__Group_3_1__12262);
             rule__Input__Group_3_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Input__Group_3_1__2_in_rule__Input__Group_3_1__12188);
+            pushFollow(FOLLOW_rule__Input__Group_3_1__2_in_rule__Input__Group_3_1__12265);
             rule__Input__Group_3_1__2();
 
             state._fsp--;
@@ -3005,20 +3107,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_3_1__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1068:1: rule__Input__Group_3_1__1__Impl : ( '(' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1102:1: rule__Input__Group_3_1__1__Impl : ( '(' ) ;
     public final void rule__Input__Group_3_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1072:1: ( ( '(' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1073:1: ( '(' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1106:1: ( ( '(' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1107:1: ( '(' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1073:1: ( '(' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1074:1: '('
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1107:1: ( '(' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1108:1: '('
             {
              before(grammarAccess.getInputAccess().getLeftParenthesisKeyword_3_1_1()); 
-            match(input,23,FOLLOW_23_in_rule__Input__Group_3_1__1__Impl2216); 
+            match(input,23,FOLLOW_23_in_rule__Input__Group_3_1__1__Impl2293); 
              after(grammarAccess.getInputAccess().getLeftParenthesisKeyword_3_1_1()); 
 
             }
@@ -3042,21 +3144,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_3_1__2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1087:1: rule__Input__Group_3_1__2 : rule__Input__Group_3_1__2__Impl rule__Input__Group_3_1__3 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1121:1: rule__Input__Group_3_1__2 : rule__Input__Group_3_1__2__Impl rule__Input__Group_3_1__3 ;
     public final void rule__Input__Group_3_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1091:1: ( rule__Input__Group_3_1__2__Impl rule__Input__Group_3_1__3 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1092:2: rule__Input__Group_3_1__2__Impl rule__Input__Group_3_1__3
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1125:1: ( rule__Input__Group_3_1__2__Impl rule__Input__Group_3_1__3 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1126:2: rule__Input__Group_3_1__2__Impl rule__Input__Group_3_1__3
             {
-            pushFollow(FOLLOW_rule__Input__Group_3_1__2__Impl_in_rule__Input__Group_3_1__22247);
+            pushFollow(FOLLOW_rule__Input__Group_3_1__2__Impl_in_rule__Input__Group_3_1__22324);
             rule__Input__Group_3_1__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Input__Group_3_1__3_in_rule__Input__Group_3_1__22250);
+            pushFollow(FOLLOW_rule__Input__Group_3_1__3_in_rule__Input__Group_3_1__22327);
             rule__Input__Group_3_1__3();
 
             state._fsp--;
@@ -3080,23 +3182,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_3_1__2__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1099:1: rule__Input__Group_3_1__2__Impl : ( ( rule__Input__GoalAssignment_3_1_2 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1133:1: rule__Input__Group_3_1__2__Impl : ( ( rule__Input__GoalAssignment_3_1_2 ) ) ;
     public final void rule__Input__Group_3_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1103:1: ( ( ( rule__Input__GoalAssignment_3_1_2 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1104:1: ( ( rule__Input__GoalAssignment_3_1_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1137:1: ( ( ( rule__Input__GoalAssignment_3_1_2 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1138:1: ( ( rule__Input__GoalAssignment_3_1_2 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1104:1: ( ( rule__Input__GoalAssignment_3_1_2 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1105:1: ( rule__Input__GoalAssignment_3_1_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1138:1: ( ( rule__Input__GoalAssignment_3_1_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1139:1: ( rule__Input__GoalAssignment_3_1_2 )
             {
              before(grammarAccess.getInputAccess().getGoalAssignment_3_1_2()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1106:1: ( rule__Input__GoalAssignment_3_1_2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1106:2: rule__Input__GoalAssignment_3_1_2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1140:1: ( rule__Input__GoalAssignment_3_1_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1140:2: rule__Input__GoalAssignment_3_1_2
             {
-            pushFollow(FOLLOW_rule__Input__GoalAssignment_3_1_2_in_rule__Input__Group_3_1__2__Impl2277);
+            pushFollow(FOLLOW_rule__Input__GoalAssignment_3_1_2_in_rule__Input__Group_3_1__2__Impl2354);
             rule__Input__GoalAssignment_3_1_2();
 
             state._fsp--;
@@ -3127,16 +3229,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_3_1__3"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1116:1: rule__Input__Group_3_1__3 : rule__Input__Group_3_1__3__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1150:1: rule__Input__Group_3_1__3 : rule__Input__Group_3_1__3__Impl ;
     public final void rule__Input__Group_3_1__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1120:1: ( rule__Input__Group_3_1__3__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1121:2: rule__Input__Group_3_1__3__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1154:1: ( rule__Input__Group_3_1__3__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1155:2: rule__Input__Group_3_1__3__Impl
             {
-            pushFollow(FOLLOW_rule__Input__Group_3_1__3__Impl_in_rule__Input__Group_3_1__32307);
+            pushFollow(FOLLOW_rule__Input__Group_3_1__3__Impl_in_rule__Input__Group_3_1__32384);
             rule__Input__Group_3_1__3__Impl();
 
             state._fsp--;
@@ -3160,20 +3262,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_3_1__3__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1127:1: rule__Input__Group_3_1__3__Impl : ( ')' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1161:1: rule__Input__Group_3_1__3__Impl : ( ')' ) ;
     public final void rule__Input__Group_3_1__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1131:1: ( ( ')' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1132:1: ( ')' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1165:1: ( ( ')' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1166:1: ( ')' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1132:1: ( ')' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1133:1: ')'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1166:1: ( ')' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1167:1: ')'
             {
              before(grammarAccess.getInputAccess().getRightParenthesisKeyword_3_1_3()); 
-            match(input,24,FOLLOW_24_in_rule__Input__Group_3_1__3__Impl2335); 
+            match(input,24,FOLLOW_24_in_rule__Input__Group_3_1__3__Impl2412); 
              after(grammarAccess.getInputAccess().getRightParenthesisKeyword_3_1_3()); 
 
             }
@@ -3197,21 +3299,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_4__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1154:1: rule__Input__Group_4__0 : rule__Input__Group_4__0__Impl rule__Input__Group_4__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1188:1: rule__Input__Group_4__0 : rule__Input__Group_4__0__Impl rule__Input__Group_4__1 ;
     public final void rule__Input__Group_4__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1158:1: ( rule__Input__Group_4__0__Impl rule__Input__Group_4__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1159:2: rule__Input__Group_4__0__Impl rule__Input__Group_4__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1192:1: ( rule__Input__Group_4__0__Impl rule__Input__Group_4__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1193:2: rule__Input__Group_4__0__Impl rule__Input__Group_4__1
             {
-            pushFollow(FOLLOW_rule__Input__Group_4__0__Impl_in_rule__Input__Group_4__02374);
+            pushFollow(FOLLOW_rule__Input__Group_4__0__Impl_in_rule__Input__Group_4__02451);
             rule__Input__Group_4__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Input__Group_4__1_in_rule__Input__Group_4__02377);
+            pushFollow(FOLLOW_rule__Input__Group_4__1_in_rule__Input__Group_4__02454);
             rule__Input__Group_4__1();
 
             state._fsp--;
@@ -3235,20 +3337,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_4__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1166:1: rule__Input__Group_4__0__Impl : ( ';' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1200:1: rule__Input__Group_4__0__Impl : ( ';' ) ;
     public final void rule__Input__Group_4__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1170:1: ( ( ';' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1171:1: ( ';' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1204:1: ( ( ';' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1205:1: ( ';' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1171:1: ( ';' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1172:1: ';'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1205:1: ( ';' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1206:1: ';'
             {
              before(grammarAccess.getInputAccess().getSemicolonKeyword_4_0()); 
-            match(input,22,FOLLOW_22_in_rule__Input__Group_4__0__Impl2405); 
+            match(input,22,FOLLOW_22_in_rule__Input__Group_4__0__Impl2482); 
              after(grammarAccess.getInputAccess().getSemicolonKeyword_4_0()); 
 
             }
@@ -3272,21 +3374,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_4__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1185:1: rule__Input__Group_4__1 : rule__Input__Group_4__1__Impl rule__Input__Group_4__2 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1219:1: rule__Input__Group_4__1 : rule__Input__Group_4__1__Impl rule__Input__Group_4__2 ;
     public final void rule__Input__Group_4__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1189:1: ( rule__Input__Group_4__1__Impl rule__Input__Group_4__2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1190:2: rule__Input__Group_4__1__Impl rule__Input__Group_4__2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1223:1: ( rule__Input__Group_4__1__Impl rule__Input__Group_4__2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1224:2: rule__Input__Group_4__1__Impl rule__Input__Group_4__2
             {
-            pushFollow(FOLLOW_rule__Input__Group_4__1__Impl_in_rule__Input__Group_4__12436);
+            pushFollow(FOLLOW_rule__Input__Group_4__1__Impl_in_rule__Input__Group_4__12513);
             rule__Input__Group_4__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Input__Group_4__2_in_rule__Input__Group_4__12439);
+            pushFollow(FOLLOW_rule__Input__Group_4__2_in_rule__Input__Group_4__12516);
             rule__Input__Group_4__2();
 
             state._fsp--;
@@ -3310,20 +3412,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_4__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1197:1: rule__Input__Group_4__1__Impl : ( 'Theorems:' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1231:1: rule__Input__Group_4__1__Impl : ( 'Theorems:' ) ;
     public final void rule__Input__Group_4__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1201:1: ( ( 'Theorems:' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1202:1: ( 'Theorems:' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1235:1: ( ( 'Theorems:' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1236:1: ( 'Theorems:' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1202:1: ( 'Theorems:' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1203:1: 'Theorems:'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1236:1: ( 'Theorems:' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1237:1: 'Theorems:'
             {
              before(grammarAccess.getInputAccess().getTheoremsKeyword_4_1()); 
-            match(input,25,FOLLOW_25_in_rule__Input__Group_4__1__Impl2467); 
+            match(input,25,FOLLOW_25_in_rule__Input__Group_4__1__Impl2544); 
              after(grammarAccess.getInputAccess().getTheoremsKeyword_4_1()); 
 
             }
@@ -3347,21 +3449,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_4__2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1216:1: rule__Input__Group_4__2 : rule__Input__Group_4__2__Impl rule__Input__Group_4__3 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1250:1: rule__Input__Group_4__2 : rule__Input__Group_4__2__Impl rule__Input__Group_4__3 ;
     public final void rule__Input__Group_4__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1220:1: ( rule__Input__Group_4__2__Impl rule__Input__Group_4__3 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1221:2: rule__Input__Group_4__2__Impl rule__Input__Group_4__3
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1254:1: ( rule__Input__Group_4__2__Impl rule__Input__Group_4__3 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1255:2: rule__Input__Group_4__2__Impl rule__Input__Group_4__3
             {
-            pushFollow(FOLLOW_rule__Input__Group_4__2__Impl_in_rule__Input__Group_4__22498);
+            pushFollow(FOLLOW_rule__Input__Group_4__2__Impl_in_rule__Input__Group_4__22575);
             rule__Input__Group_4__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Input__Group_4__3_in_rule__Input__Group_4__22501);
+            pushFollow(FOLLOW_rule__Input__Group_4__3_in_rule__Input__Group_4__22578);
             rule__Input__Group_4__3();
 
             state._fsp--;
@@ -3385,23 +3487,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_4__2__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1228:1: rule__Input__Group_4__2__Impl : ( ( rule__Input__TheoremsAssignment_4_2 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1262:1: rule__Input__Group_4__2__Impl : ( ( rule__Input__TheoremsAssignment_4_2 ) ) ;
     public final void rule__Input__Group_4__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1232:1: ( ( ( rule__Input__TheoremsAssignment_4_2 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1233:1: ( ( rule__Input__TheoremsAssignment_4_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1266:1: ( ( ( rule__Input__TheoremsAssignment_4_2 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1267:1: ( ( rule__Input__TheoremsAssignment_4_2 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1233:1: ( ( rule__Input__TheoremsAssignment_4_2 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1234:1: ( rule__Input__TheoremsAssignment_4_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1267:1: ( ( rule__Input__TheoremsAssignment_4_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1268:1: ( rule__Input__TheoremsAssignment_4_2 )
             {
              before(grammarAccess.getInputAccess().getTheoremsAssignment_4_2()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1235:1: ( rule__Input__TheoremsAssignment_4_2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1235:2: rule__Input__TheoremsAssignment_4_2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1269:1: ( rule__Input__TheoremsAssignment_4_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1269:2: rule__Input__TheoremsAssignment_4_2
             {
-            pushFollow(FOLLOW_rule__Input__TheoremsAssignment_4_2_in_rule__Input__Group_4__2__Impl2528);
+            pushFollow(FOLLOW_rule__Input__TheoremsAssignment_4_2_in_rule__Input__Group_4__2__Impl2605);
             rule__Input__TheoremsAssignment_4_2();
 
             state._fsp--;
@@ -3432,21 +3534,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_4__3"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1245:1: rule__Input__Group_4__3 : rule__Input__Group_4__3__Impl rule__Input__Group_4__4 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1279:1: rule__Input__Group_4__3 : rule__Input__Group_4__3__Impl rule__Input__Group_4__4 ;
     public final void rule__Input__Group_4__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1249:1: ( rule__Input__Group_4__3__Impl rule__Input__Group_4__4 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1250:2: rule__Input__Group_4__3__Impl rule__Input__Group_4__4
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1283:1: ( rule__Input__Group_4__3__Impl rule__Input__Group_4__4 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1284:2: rule__Input__Group_4__3__Impl rule__Input__Group_4__4
             {
-            pushFollow(FOLLOW_rule__Input__Group_4__3__Impl_in_rule__Input__Group_4__32558);
+            pushFollow(FOLLOW_rule__Input__Group_4__3__Impl_in_rule__Input__Group_4__32635);
             rule__Input__Group_4__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Input__Group_4__4_in_rule__Input__Group_4__32561);
+            pushFollow(FOLLOW_rule__Input__Group_4__4_in_rule__Input__Group_4__32638);
             rule__Input__Group_4__4();
 
             state._fsp--;
@@ -3470,20 +3572,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_4__3__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1257:1: rule__Input__Group_4__3__Impl : ( ( rule__Input__Group_4_3__0 )* ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1291:1: rule__Input__Group_4__3__Impl : ( ( rule__Input__Group_4_3__0 )* ) ;
     public final void rule__Input__Group_4__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1261:1: ( ( ( rule__Input__Group_4_3__0 )* ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1262:1: ( ( rule__Input__Group_4_3__0 )* )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1295:1: ( ( ( rule__Input__Group_4_3__0 )* ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1296:1: ( ( rule__Input__Group_4_3__0 )* )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1262:1: ( ( rule__Input__Group_4_3__0 )* )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1263:1: ( rule__Input__Group_4_3__0 )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1296:1: ( ( rule__Input__Group_4_3__0 )* )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1297:1: ( rule__Input__Group_4_3__0 )*
             {
              before(grammarAccess.getInputAccess().getGroup_4_3()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1264:1: ( rule__Input__Group_4_3__0 )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1298:1: ( rule__Input__Group_4_3__0 )*
             loop11:
             do {
                 int alt11=2;
@@ -3492,7 +3594,7 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
                 if ( (LA11_0==22) ) {
                     int LA11_1 = input.LA(2);
 
-                    if ( (LA11_1==RULE_ID||(LA11_1>=13 && LA11_1<=16)||LA11_1==23) ) {
+                    if ( (LA11_1==RULE_ID||(LA11_1>=13 && LA11_1<=16)||LA11_1==23||LA11_1==32) ) {
                         alt11=1;
                     }
 
@@ -3502,9 +3604,9 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
                 switch (alt11) {
             	case 1 :
-            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1264:2: rule__Input__Group_4_3__0
+            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1298:2: rule__Input__Group_4_3__0
             	    {
-            	    pushFollow(FOLLOW_rule__Input__Group_4_3__0_in_rule__Input__Group_4__3__Impl2588);
+            	    pushFollow(FOLLOW_rule__Input__Group_4_3__0_in_rule__Input__Group_4__3__Impl2665);
             	    rule__Input__Group_4_3__0();
 
             	    state._fsp--;
@@ -3541,16 +3643,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_4__4"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1274:1: rule__Input__Group_4__4 : rule__Input__Group_4__4__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1308:1: rule__Input__Group_4__4 : rule__Input__Group_4__4__Impl ;
     public final void rule__Input__Group_4__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1278:1: ( rule__Input__Group_4__4__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1279:2: rule__Input__Group_4__4__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1312:1: ( rule__Input__Group_4__4__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1313:2: rule__Input__Group_4__4__Impl
             {
-            pushFollow(FOLLOW_rule__Input__Group_4__4__Impl_in_rule__Input__Group_4__42619);
+            pushFollow(FOLLOW_rule__Input__Group_4__4__Impl_in_rule__Input__Group_4__42696);
             rule__Input__Group_4__4__Impl();
 
             state._fsp--;
@@ -3574,20 +3676,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_4__4__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1285:1: rule__Input__Group_4__4__Impl : ( ( ';' )? ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1319:1: rule__Input__Group_4__4__Impl : ( ( ';' )? ) ;
     public final void rule__Input__Group_4__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1289:1: ( ( ( ';' )? ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1290:1: ( ( ';' )? )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1323:1: ( ( ( ';' )? ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1324:1: ( ( ';' )? )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1290:1: ( ( ';' )? )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1291:1: ( ';' )?
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1324:1: ( ( ';' )? )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1325:1: ( ';' )?
             {
              before(grammarAccess.getInputAccess().getSemicolonKeyword_4_4()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1292:1: ( ';' )?
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1326:1: ( ';' )?
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -3596,9 +3698,9 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
             }
             switch (alt12) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1293:2: ';'
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1327:2: ';'
                     {
-                    match(input,22,FOLLOW_22_in_rule__Input__Group_4__4__Impl2648); 
+                    match(input,22,FOLLOW_22_in_rule__Input__Group_4__4__Impl2725); 
 
                     }
                     break;
@@ -3628,21 +3730,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_4_3__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1314:1: rule__Input__Group_4_3__0 : rule__Input__Group_4_3__0__Impl rule__Input__Group_4_3__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1348:1: rule__Input__Group_4_3__0 : rule__Input__Group_4_3__0__Impl rule__Input__Group_4_3__1 ;
     public final void rule__Input__Group_4_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1318:1: ( rule__Input__Group_4_3__0__Impl rule__Input__Group_4_3__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1319:2: rule__Input__Group_4_3__0__Impl rule__Input__Group_4_3__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1352:1: ( rule__Input__Group_4_3__0__Impl rule__Input__Group_4_3__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1353:2: rule__Input__Group_4_3__0__Impl rule__Input__Group_4_3__1
             {
-            pushFollow(FOLLOW_rule__Input__Group_4_3__0__Impl_in_rule__Input__Group_4_3__02691);
+            pushFollow(FOLLOW_rule__Input__Group_4_3__0__Impl_in_rule__Input__Group_4_3__02768);
             rule__Input__Group_4_3__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Input__Group_4_3__1_in_rule__Input__Group_4_3__02694);
+            pushFollow(FOLLOW_rule__Input__Group_4_3__1_in_rule__Input__Group_4_3__02771);
             rule__Input__Group_4_3__1();
 
             state._fsp--;
@@ -3666,20 +3768,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_4_3__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1326:1: rule__Input__Group_4_3__0__Impl : ( ';' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1360:1: rule__Input__Group_4_3__0__Impl : ( ';' ) ;
     public final void rule__Input__Group_4_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1330:1: ( ( ';' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1331:1: ( ';' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1364:1: ( ( ';' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1365:1: ( ';' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1331:1: ( ';' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1332:1: ';'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1365:1: ( ';' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1366:1: ';'
             {
              before(grammarAccess.getInputAccess().getSemicolonKeyword_4_3_0()); 
-            match(input,22,FOLLOW_22_in_rule__Input__Group_4_3__0__Impl2722); 
+            match(input,22,FOLLOW_22_in_rule__Input__Group_4_3__0__Impl2799); 
              after(grammarAccess.getInputAccess().getSemicolonKeyword_4_3_0()); 
 
             }
@@ -3703,16 +3805,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_4_3__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1345:1: rule__Input__Group_4_3__1 : rule__Input__Group_4_3__1__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1379:1: rule__Input__Group_4_3__1 : rule__Input__Group_4_3__1__Impl ;
     public final void rule__Input__Group_4_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1349:1: ( rule__Input__Group_4_3__1__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1350:2: rule__Input__Group_4_3__1__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1383:1: ( rule__Input__Group_4_3__1__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1384:2: rule__Input__Group_4_3__1__Impl
             {
-            pushFollow(FOLLOW_rule__Input__Group_4_3__1__Impl_in_rule__Input__Group_4_3__12753);
+            pushFollow(FOLLOW_rule__Input__Group_4_3__1__Impl_in_rule__Input__Group_4_3__12830);
             rule__Input__Group_4_3__1__Impl();
 
             state._fsp--;
@@ -3736,23 +3838,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__Group_4_3__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1356:1: rule__Input__Group_4_3__1__Impl : ( ( rule__Input__TheoremsAssignment_4_3_1 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1390:1: rule__Input__Group_4_3__1__Impl : ( ( rule__Input__TheoremsAssignment_4_3_1 ) ) ;
     public final void rule__Input__Group_4_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1360:1: ( ( ( rule__Input__TheoremsAssignment_4_3_1 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1361:1: ( ( rule__Input__TheoremsAssignment_4_3_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1394:1: ( ( ( rule__Input__TheoremsAssignment_4_3_1 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1395:1: ( ( rule__Input__TheoremsAssignment_4_3_1 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1361:1: ( ( rule__Input__TheoremsAssignment_4_3_1 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1362:1: ( rule__Input__TheoremsAssignment_4_3_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1395:1: ( ( rule__Input__TheoremsAssignment_4_3_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1396:1: ( rule__Input__TheoremsAssignment_4_3_1 )
             {
              before(grammarAccess.getInputAccess().getTheoremsAssignment_4_3_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1363:1: ( rule__Input__TheoremsAssignment_4_3_1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1363:2: rule__Input__TheoremsAssignment_4_3_1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1397:1: ( rule__Input__TheoremsAssignment_4_3_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1397:2: rule__Input__TheoremsAssignment_4_3_1
             {
-            pushFollow(FOLLOW_rule__Input__TheoremsAssignment_4_3_1_in_rule__Input__Group_4_3__1__Impl2780);
+            pushFollow(FOLLOW_rule__Input__TheoremsAssignment_4_3_1_in_rule__Input__Group_4_3__1__Impl2857);
             rule__Input__TheoremsAssignment_4_3_1();
 
             state._fsp--;
@@ -3783,21 +3885,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Problem__Group__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1377:1: rule__Problem__Group__0 : rule__Problem__Group__0__Impl rule__Problem__Group__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1411:1: rule__Problem__Group__0 : rule__Problem__Group__0__Impl rule__Problem__Group__1 ;
     public final void rule__Problem__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1381:1: ( rule__Problem__Group__0__Impl rule__Problem__Group__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1382:2: rule__Problem__Group__0__Impl rule__Problem__Group__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1415:1: ( rule__Problem__Group__0__Impl rule__Problem__Group__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1416:2: rule__Problem__Group__0__Impl rule__Problem__Group__1
             {
-            pushFollow(FOLLOW_rule__Problem__Group__0__Impl_in_rule__Problem__Group__02814);
+            pushFollow(FOLLOW_rule__Problem__Group__0__Impl_in_rule__Problem__Group__02891);
             rule__Problem__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Problem__Group__1_in_rule__Problem__Group__02817);
+            pushFollow(FOLLOW_rule__Problem__Group__1_in_rule__Problem__Group__02894);
             rule__Problem__Group__1();
 
             state._fsp--;
@@ -3821,23 +3923,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Problem__Group__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1389:1: rule__Problem__Group__0__Impl : ( ( rule__Problem__VarsAssignment_0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1423:1: rule__Problem__Group__0__Impl : ( ( rule__Problem__VarsAssignment_0 ) ) ;
     public final void rule__Problem__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1393:1: ( ( ( rule__Problem__VarsAssignment_0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1394:1: ( ( rule__Problem__VarsAssignment_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1427:1: ( ( ( rule__Problem__VarsAssignment_0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1428:1: ( ( rule__Problem__VarsAssignment_0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1394:1: ( ( rule__Problem__VarsAssignment_0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1395:1: ( rule__Problem__VarsAssignment_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1428:1: ( ( rule__Problem__VarsAssignment_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1429:1: ( rule__Problem__VarsAssignment_0 )
             {
              before(grammarAccess.getProblemAccess().getVarsAssignment_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1396:1: ( rule__Problem__VarsAssignment_0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1396:2: rule__Problem__VarsAssignment_0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1430:1: ( rule__Problem__VarsAssignment_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1430:2: rule__Problem__VarsAssignment_0
             {
-            pushFollow(FOLLOW_rule__Problem__VarsAssignment_0_in_rule__Problem__Group__0__Impl2844);
+            pushFollow(FOLLOW_rule__Problem__VarsAssignment_0_in_rule__Problem__Group__0__Impl2921);
             rule__Problem__VarsAssignment_0();
 
             state._fsp--;
@@ -3868,21 +3970,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Problem__Group__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1406:1: rule__Problem__Group__1 : rule__Problem__Group__1__Impl rule__Problem__Group__2 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1440:1: rule__Problem__Group__1 : rule__Problem__Group__1__Impl rule__Problem__Group__2 ;
     public final void rule__Problem__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1410:1: ( rule__Problem__Group__1__Impl rule__Problem__Group__2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1411:2: rule__Problem__Group__1__Impl rule__Problem__Group__2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1444:1: ( rule__Problem__Group__1__Impl rule__Problem__Group__2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1445:2: rule__Problem__Group__1__Impl rule__Problem__Group__2
             {
-            pushFollow(FOLLOW_rule__Problem__Group__1__Impl_in_rule__Problem__Group__12874);
+            pushFollow(FOLLOW_rule__Problem__Group__1__Impl_in_rule__Problem__Group__12951);
             rule__Problem__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Problem__Group__2_in_rule__Problem__Group__12877);
+            pushFollow(FOLLOW_rule__Problem__Group__2_in_rule__Problem__Group__12954);
             rule__Problem__Group__2();
 
             state._fsp--;
@@ -3906,20 +4008,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Problem__Group__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1418:1: rule__Problem__Group__1__Impl : ( ( rule__Problem__Group_1__0 )* ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1452:1: rule__Problem__Group__1__Impl : ( ( rule__Problem__Group_1__0 )* ) ;
     public final void rule__Problem__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1422:1: ( ( ( rule__Problem__Group_1__0 )* ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1423:1: ( ( rule__Problem__Group_1__0 )* )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1456:1: ( ( ( rule__Problem__Group_1__0 )* ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1457:1: ( ( rule__Problem__Group_1__0 )* )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1423:1: ( ( rule__Problem__Group_1__0 )* )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1424:1: ( rule__Problem__Group_1__0 )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1457:1: ( ( rule__Problem__Group_1__0 )* )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1458:1: ( rule__Problem__Group_1__0 )*
             {
              before(grammarAccess.getProblemAccess().getGroup_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1425:1: ( rule__Problem__Group_1__0 )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1459:1: ( rule__Problem__Group_1__0 )*
             loop13:
             do {
                 int alt13=2;
@@ -3932,9 +4034,9 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
                 switch (alt13) {
             	case 1 :
-            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1425:2: rule__Problem__Group_1__0
+            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1459:2: rule__Problem__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__Problem__Group_1__0_in_rule__Problem__Group__1__Impl2904);
+            	    pushFollow(FOLLOW_rule__Problem__Group_1__0_in_rule__Problem__Group__1__Impl2981);
             	    rule__Problem__Group_1__0();
 
             	    state._fsp--;
@@ -3971,21 +4073,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Problem__Group__2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1435:1: rule__Problem__Group__2 : rule__Problem__Group__2__Impl rule__Problem__Group__3 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1469:1: rule__Problem__Group__2 : rule__Problem__Group__2__Impl rule__Problem__Group__3 ;
     public final void rule__Problem__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1439:1: ( rule__Problem__Group__2__Impl rule__Problem__Group__3 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1440:2: rule__Problem__Group__2__Impl rule__Problem__Group__3
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1473:1: ( rule__Problem__Group__2__Impl rule__Problem__Group__3 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1474:2: rule__Problem__Group__2__Impl rule__Problem__Group__3
             {
-            pushFollow(FOLLOW_rule__Problem__Group__2__Impl_in_rule__Problem__Group__22935);
+            pushFollow(FOLLOW_rule__Problem__Group__2__Impl_in_rule__Problem__Group__23012);
             rule__Problem__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Problem__Group__3_in_rule__Problem__Group__22938);
+            pushFollow(FOLLOW_rule__Problem__Group__3_in_rule__Problem__Group__23015);
             rule__Problem__Group__3();
 
             state._fsp--;
@@ -4009,20 +4111,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Problem__Group__2__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1447:1: rule__Problem__Group__2__Impl : ( 'st' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1481:1: rule__Problem__Group__2__Impl : ( 'st' ) ;
     public final void rule__Problem__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1451:1: ( ( 'st' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1452:1: ( 'st' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1485:1: ( ( 'st' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1486:1: ( 'st' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1452:1: ( 'st' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1453:1: 'st'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1486:1: ( 'st' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1487:1: 'st'
             {
              before(grammarAccess.getProblemAccess().getStKeyword_2()); 
-            match(input,26,FOLLOW_26_in_rule__Problem__Group__2__Impl2966); 
+            match(input,26,FOLLOW_26_in_rule__Problem__Group__2__Impl3043); 
              after(grammarAccess.getProblemAccess().getStKeyword_2()); 
 
             }
@@ -4046,16 +4148,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Problem__Group__3"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1466:1: rule__Problem__Group__3 : rule__Problem__Group__3__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1500:1: rule__Problem__Group__3 : rule__Problem__Group__3__Impl ;
     public final void rule__Problem__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1470:1: ( rule__Problem__Group__3__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1471:2: rule__Problem__Group__3__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1504:1: ( rule__Problem__Group__3__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1505:2: rule__Problem__Group__3__Impl
             {
-            pushFollow(FOLLOW_rule__Problem__Group__3__Impl_in_rule__Problem__Group__32997);
+            pushFollow(FOLLOW_rule__Problem__Group__3__Impl_in_rule__Problem__Group__33074);
             rule__Problem__Group__3__Impl();
 
             state._fsp--;
@@ -4079,23 +4181,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Problem__Group__3__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1477:1: rule__Problem__Group__3__Impl : ( ( rule__Problem__PropertyAssignment_3 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1511:1: rule__Problem__Group__3__Impl : ( ( rule__Problem__PropertyAssignment_3 ) ) ;
     public final void rule__Problem__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1481:1: ( ( ( rule__Problem__PropertyAssignment_3 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1482:1: ( ( rule__Problem__PropertyAssignment_3 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1515:1: ( ( ( rule__Problem__PropertyAssignment_3 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1516:1: ( ( rule__Problem__PropertyAssignment_3 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1482:1: ( ( rule__Problem__PropertyAssignment_3 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1483:1: ( rule__Problem__PropertyAssignment_3 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1516:1: ( ( rule__Problem__PropertyAssignment_3 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1517:1: ( rule__Problem__PropertyAssignment_3 )
             {
              before(grammarAccess.getProblemAccess().getPropertyAssignment_3()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1484:1: ( rule__Problem__PropertyAssignment_3 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1484:2: rule__Problem__PropertyAssignment_3
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1518:1: ( rule__Problem__PropertyAssignment_3 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1518:2: rule__Problem__PropertyAssignment_3
             {
-            pushFollow(FOLLOW_rule__Problem__PropertyAssignment_3_in_rule__Problem__Group__3__Impl3024);
+            pushFollow(FOLLOW_rule__Problem__PropertyAssignment_3_in_rule__Problem__Group__3__Impl3101);
             rule__Problem__PropertyAssignment_3();
 
             state._fsp--;
@@ -4126,21 +4228,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Problem__Group_1__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1502:1: rule__Problem__Group_1__0 : rule__Problem__Group_1__0__Impl rule__Problem__Group_1__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1536:1: rule__Problem__Group_1__0 : rule__Problem__Group_1__0__Impl rule__Problem__Group_1__1 ;
     public final void rule__Problem__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1506:1: ( rule__Problem__Group_1__0__Impl rule__Problem__Group_1__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1507:2: rule__Problem__Group_1__0__Impl rule__Problem__Group_1__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1540:1: ( rule__Problem__Group_1__0__Impl rule__Problem__Group_1__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1541:2: rule__Problem__Group_1__0__Impl rule__Problem__Group_1__1
             {
-            pushFollow(FOLLOW_rule__Problem__Group_1__0__Impl_in_rule__Problem__Group_1__03062);
+            pushFollow(FOLLOW_rule__Problem__Group_1__0__Impl_in_rule__Problem__Group_1__03139);
             rule__Problem__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Problem__Group_1__1_in_rule__Problem__Group_1__03065);
+            pushFollow(FOLLOW_rule__Problem__Group_1__1_in_rule__Problem__Group_1__03142);
             rule__Problem__Group_1__1();
 
             state._fsp--;
@@ -4164,20 +4266,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Problem__Group_1__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1514:1: rule__Problem__Group_1__0__Impl : ( ',' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1548:1: rule__Problem__Group_1__0__Impl : ( ',' ) ;
     public final void rule__Problem__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1518:1: ( ( ',' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1519:1: ( ',' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1552:1: ( ( ',' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1553:1: ( ',' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1519:1: ( ',' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1520:1: ','
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1553:1: ( ',' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1554:1: ','
             {
              before(grammarAccess.getProblemAccess().getCommaKeyword_1_0()); 
-            match(input,27,FOLLOW_27_in_rule__Problem__Group_1__0__Impl3093); 
+            match(input,27,FOLLOW_27_in_rule__Problem__Group_1__0__Impl3170); 
              after(grammarAccess.getProblemAccess().getCommaKeyword_1_0()); 
 
             }
@@ -4201,16 +4303,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Problem__Group_1__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1533:1: rule__Problem__Group_1__1 : rule__Problem__Group_1__1__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1567:1: rule__Problem__Group_1__1 : rule__Problem__Group_1__1__Impl ;
     public final void rule__Problem__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1537:1: ( rule__Problem__Group_1__1__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1538:2: rule__Problem__Group_1__1__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1571:1: ( rule__Problem__Group_1__1__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1572:2: rule__Problem__Group_1__1__Impl
             {
-            pushFollow(FOLLOW_rule__Problem__Group_1__1__Impl_in_rule__Problem__Group_1__13124);
+            pushFollow(FOLLOW_rule__Problem__Group_1__1__Impl_in_rule__Problem__Group_1__13201);
             rule__Problem__Group_1__1__Impl();
 
             state._fsp--;
@@ -4234,23 +4336,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Problem__Group_1__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1544:1: rule__Problem__Group_1__1__Impl : ( ( rule__Problem__VarsAssignment_1_1 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1578:1: rule__Problem__Group_1__1__Impl : ( ( rule__Problem__VarsAssignment_1_1 ) ) ;
     public final void rule__Problem__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1548:1: ( ( ( rule__Problem__VarsAssignment_1_1 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1549:1: ( ( rule__Problem__VarsAssignment_1_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1582:1: ( ( ( rule__Problem__VarsAssignment_1_1 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1583:1: ( ( rule__Problem__VarsAssignment_1_1 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1549:1: ( ( rule__Problem__VarsAssignment_1_1 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1550:1: ( rule__Problem__VarsAssignment_1_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1583:1: ( ( rule__Problem__VarsAssignment_1_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1584:1: ( rule__Problem__VarsAssignment_1_1 )
             {
              before(grammarAccess.getProblemAccess().getVarsAssignment_1_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1551:1: ( rule__Problem__VarsAssignment_1_1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1551:2: rule__Problem__VarsAssignment_1_1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1585:1: ( rule__Problem__VarsAssignment_1_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1585:2: rule__Problem__VarsAssignment_1_1
             {
-            pushFollow(FOLLOW_rule__Problem__VarsAssignment_1_1_in_rule__Problem__Group_1__1__Impl3151);
+            pushFollow(FOLLOW_rule__Problem__VarsAssignment_1_1_in_rule__Problem__Group_1__1__Impl3228);
             rule__Problem__VarsAssignment_1_1();
 
             state._fsp--;
@@ -4281,21 +4383,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Declaration__Group_0__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1565:1: rule__Declaration__Group_0__0 : rule__Declaration__Group_0__0__Impl rule__Declaration__Group_0__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1599:1: rule__Declaration__Group_0__0 : rule__Declaration__Group_0__0__Impl rule__Declaration__Group_0__1 ;
     public final void rule__Declaration__Group_0__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1569:1: ( rule__Declaration__Group_0__0__Impl rule__Declaration__Group_0__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1570:2: rule__Declaration__Group_0__0__Impl rule__Declaration__Group_0__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1603:1: ( rule__Declaration__Group_0__0__Impl rule__Declaration__Group_0__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1604:2: rule__Declaration__Group_0__0__Impl rule__Declaration__Group_0__1
             {
-            pushFollow(FOLLOW_rule__Declaration__Group_0__0__Impl_in_rule__Declaration__Group_0__03185);
+            pushFollow(FOLLOW_rule__Declaration__Group_0__0__Impl_in_rule__Declaration__Group_0__03262);
             rule__Declaration__Group_0__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Declaration__Group_0__1_in_rule__Declaration__Group_0__03188);
+            pushFollow(FOLLOW_rule__Declaration__Group_0__1_in_rule__Declaration__Group_0__03265);
             rule__Declaration__Group_0__1();
 
             state._fsp--;
@@ -4319,23 +4421,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Declaration__Group_0__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1577:1: rule__Declaration__Group_0__0__Impl : ( ( rule__Declaration__TypeAssignment_0_0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1611:1: rule__Declaration__Group_0__0__Impl : ( ( rule__Declaration__TypeAssignment_0_0 ) ) ;
     public final void rule__Declaration__Group_0__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1581:1: ( ( ( rule__Declaration__TypeAssignment_0_0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1582:1: ( ( rule__Declaration__TypeAssignment_0_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1615:1: ( ( ( rule__Declaration__TypeAssignment_0_0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1616:1: ( ( rule__Declaration__TypeAssignment_0_0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1582:1: ( ( rule__Declaration__TypeAssignment_0_0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1583:1: ( rule__Declaration__TypeAssignment_0_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1616:1: ( ( rule__Declaration__TypeAssignment_0_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1617:1: ( rule__Declaration__TypeAssignment_0_0 )
             {
              before(grammarAccess.getDeclarationAccess().getTypeAssignment_0_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1584:1: ( rule__Declaration__TypeAssignment_0_0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1584:2: rule__Declaration__TypeAssignment_0_0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1618:1: ( rule__Declaration__TypeAssignment_0_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1618:2: rule__Declaration__TypeAssignment_0_0
             {
-            pushFollow(FOLLOW_rule__Declaration__TypeAssignment_0_0_in_rule__Declaration__Group_0__0__Impl3215);
+            pushFollow(FOLLOW_rule__Declaration__TypeAssignment_0_0_in_rule__Declaration__Group_0__0__Impl3292);
             rule__Declaration__TypeAssignment_0_0();
 
             state._fsp--;
@@ -4366,21 +4468,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Declaration__Group_0__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1594:1: rule__Declaration__Group_0__1 : rule__Declaration__Group_0__1__Impl rule__Declaration__Group_0__2 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1628:1: rule__Declaration__Group_0__1 : rule__Declaration__Group_0__1__Impl rule__Declaration__Group_0__2 ;
     public final void rule__Declaration__Group_0__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1598:1: ( rule__Declaration__Group_0__1__Impl rule__Declaration__Group_0__2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1599:2: rule__Declaration__Group_0__1__Impl rule__Declaration__Group_0__2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1632:1: ( rule__Declaration__Group_0__1__Impl rule__Declaration__Group_0__2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1633:2: rule__Declaration__Group_0__1__Impl rule__Declaration__Group_0__2
             {
-            pushFollow(FOLLOW_rule__Declaration__Group_0__1__Impl_in_rule__Declaration__Group_0__13245);
+            pushFollow(FOLLOW_rule__Declaration__Group_0__1__Impl_in_rule__Declaration__Group_0__13322);
             rule__Declaration__Group_0__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Declaration__Group_0__2_in_rule__Declaration__Group_0__13248);
+            pushFollow(FOLLOW_rule__Declaration__Group_0__2_in_rule__Declaration__Group_0__13325);
             rule__Declaration__Group_0__2();
 
             state._fsp--;
@@ -4404,20 +4506,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Declaration__Group_0__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1606:1: rule__Declaration__Group_0__1__Impl : ( '(' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1640:1: rule__Declaration__Group_0__1__Impl : ( '(' ) ;
     public final void rule__Declaration__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1610:1: ( ( '(' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1611:1: ( '(' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1644:1: ( ( '(' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1645:1: ( '(' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1611:1: ( '(' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1612:1: '('
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1645:1: ( '(' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1646:1: '('
             {
              before(grammarAccess.getDeclarationAccess().getLeftParenthesisKeyword_0_1()); 
-            match(input,23,FOLLOW_23_in_rule__Declaration__Group_0__1__Impl3276); 
+            match(input,23,FOLLOW_23_in_rule__Declaration__Group_0__1__Impl3353); 
              after(grammarAccess.getDeclarationAccess().getLeftParenthesisKeyword_0_1()); 
 
             }
@@ -4441,21 +4543,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Declaration__Group_0__2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1625:1: rule__Declaration__Group_0__2 : rule__Declaration__Group_0__2__Impl rule__Declaration__Group_0__3 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1659:1: rule__Declaration__Group_0__2 : rule__Declaration__Group_0__2__Impl rule__Declaration__Group_0__3 ;
     public final void rule__Declaration__Group_0__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1629:1: ( rule__Declaration__Group_0__2__Impl rule__Declaration__Group_0__3 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1630:2: rule__Declaration__Group_0__2__Impl rule__Declaration__Group_0__3
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1663:1: ( rule__Declaration__Group_0__2__Impl rule__Declaration__Group_0__3 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1664:2: rule__Declaration__Group_0__2__Impl rule__Declaration__Group_0__3
             {
-            pushFollow(FOLLOW_rule__Declaration__Group_0__2__Impl_in_rule__Declaration__Group_0__23307);
+            pushFollow(FOLLOW_rule__Declaration__Group_0__2__Impl_in_rule__Declaration__Group_0__23384);
             rule__Declaration__Group_0__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Declaration__Group_0__3_in_rule__Declaration__Group_0__23310);
+            pushFollow(FOLLOW_rule__Declaration__Group_0__3_in_rule__Declaration__Group_0__23387);
             rule__Declaration__Group_0__3();
 
             state._fsp--;
@@ -4479,23 +4581,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Declaration__Group_0__2__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1637:1: rule__Declaration__Group_0__2__Impl : ( ( rule__Declaration__VarNameAssignment_0_2 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1671:1: rule__Declaration__Group_0__2__Impl : ( ( rule__Declaration__VarNameAssignment_0_2 ) ) ;
     public final void rule__Declaration__Group_0__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1641:1: ( ( ( rule__Declaration__VarNameAssignment_0_2 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1642:1: ( ( rule__Declaration__VarNameAssignment_0_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1675:1: ( ( ( rule__Declaration__VarNameAssignment_0_2 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1676:1: ( ( rule__Declaration__VarNameAssignment_0_2 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1642:1: ( ( rule__Declaration__VarNameAssignment_0_2 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1643:1: ( rule__Declaration__VarNameAssignment_0_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1676:1: ( ( rule__Declaration__VarNameAssignment_0_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1677:1: ( rule__Declaration__VarNameAssignment_0_2 )
             {
              before(grammarAccess.getDeclarationAccess().getVarNameAssignment_0_2()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1644:1: ( rule__Declaration__VarNameAssignment_0_2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1644:2: rule__Declaration__VarNameAssignment_0_2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1678:1: ( rule__Declaration__VarNameAssignment_0_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1678:2: rule__Declaration__VarNameAssignment_0_2
             {
-            pushFollow(FOLLOW_rule__Declaration__VarNameAssignment_0_2_in_rule__Declaration__Group_0__2__Impl3337);
+            pushFollow(FOLLOW_rule__Declaration__VarNameAssignment_0_2_in_rule__Declaration__Group_0__2__Impl3414);
             rule__Declaration__VarNameAssignment_0_2();
 
             state._fsp--;
@@ -4526,16 +4628,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Declaration__Group_0__3"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1654:1: rule__Declaration__Group_0__3 : rule__Declaration__Group_0__3__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1688:1: rule__Declaration__Group_0__3 : rule__Declaration__Group_0__3__Impl ;
     public final void rule__Declaration__Group_0__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1658:1: ( rule__Declaration__Group_0__3__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1659:2: rule__Declaration__Group_0__3__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1692:1: ( rule__Declaration__Group_0__3__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1693:2: rule__Declaration__Group_0__3__Impl
             {
-            pushFollow(FOLLOW_rule__Declaration__Group_0__3__Impl_in_rule__Declaration__Group_0__33367);
+            pushFollow(FOLLOW_rule__Declaration__Group_0__3__Impl_in_rule__Declaration__Group_0__33444);
             rule__Declaration__Group_0__3__Impl();
 
             state._fsp--;
@@ -4559,20 +4661,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Declaration__Group_0__3__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1665:1: rule__Declaration__Group_0__3__Impl : ( ')' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1699:1: rule__Declaration__Group_0__3__Impl : ( ')' ) ;
     public final void rule__Declaration__Group_0__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1669:1: ( ( ')' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1670:1: ( ')' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1703:1: ( ( ')' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1704:1: ( ')' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1670:1: ( ')' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1671:1: ')'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1704:1: ( ')' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1705:1: ')'
             {
              before(grammarAccess.getDeclarationAccess().getRightParenthesisKeyword_0_3()); 
-            match(input,24,FOLLOW_24_in_rule__Declaration__Group_0__3__Impl3395); 
+            match(input,24,FOLLOW_24_in_rule__Declaration__Group_0__3__Impl3472); 
              after(grammarAccess.getDeclarationAccess().getRightParenthesisKeyword_0_3()); 
 
             }
@@ -4596,21 +4698,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1692:1: rule__Type__Group__0 : rule__Type__Group__0__Impl rule__Type__Group__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1726:1: rule__Type__Group__0 : rule__Type__Group__0__Impl rule__Type__Group__1 ;
     public final void rule__Type__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1696:1: ( rule__Type__Group__0__Impl rule__Type__Group__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1697:2: rule__Type__Group__0__Impl rule__Type__Group__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1730:1: ( rule__Type__Group__0__Impl rule__Type__Group__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1731:2: rule__Type__Group__0__Impl rule__Type__Group__1
             {
-            pushFollow(FOLLOW_rule__Type__Group__0__Impl_in_rule__Type__Group__03434);
+            pushFollow(FOLLOW_rule__Type__Group__0__Impl_in_rule__Type__Group__03511);
             rule__Type__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Type__Group__1_in_rule__Type__Group__03437);
+            pushFollow(FOLLOW_rule__Type__Group__1_in_rule__Type__Group__03514);
             rule__Type__Group__1();
 
             state._fsp--;
@@ -4634,23 +4736,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1704:1: rule__Type__Group__0__Impl : ( ( rule__Type__NameAssignment_0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1738:1: rule__Type__Group__0__Impl : ( ( rule__Type__NameAssignment_0 ) ) ;
     public final void rule__Type__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1708:1: ( ( ( rule__Type__NameAssignment_0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1709:1: ( ( rule__Type__NameAssignment_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1742:1: ( ( ( rule__Type__NameAssignment_0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1743:1: ( ( rule__Type__NameAssignment_0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1709:1: ( ( rule__Type__NameAssignment_0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1710:1: ( rule__Type__NameAssignment_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1743:1: ( ( rule__Type__NameAssignment_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1744:1: ( rule__Type__NameAssignment_0 )
             {
              before(grammarAccess.getTypeAccess().getNameAssignment_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1711:1: ( rule__Type__NameAssignment_0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1711:2: rule__Type__NameAssignment_0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1745:1: ( rule__Type__NameAssignment_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1745:2: rule__Type__NameAssignment_0
             {
-            pushFollow(FOLLOW_rule__Type__NameAssignment_0_in_rule__Type__Group__0__Impl3464);
+            pushFollow(FOLLOW_rule__Type__NameAssignment_0_in_rule__Type__Group__0__Impl3541);
             rule__Type__NameAssignment_0();
 
             state._fsp--;
@@ -4681,16 +4783,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1721:1: rule__Type__Group__1 : rule__Type__Group__1__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1755:1: rule__Type__Group__1 : rule__Type__Group__1__Impl ;
     public final void rule__Type__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1725:1: ( rule__Type__Group__1__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1726:2: rule__Type__Group__1__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1759:1: ( rule__Type__Group__1__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1760:2: rule__Type__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__Type__Group__1__Impl_in_rule__Type__Group__13494);
+            pushFollow(FOLLOW_rule__Type__Group__1__Impl_in_rule__Type__Group__13571);
             rule__Type__Group__1__Impl();
 
             state._fsp--;
@@ -4714,20 +4816,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1732:1: rule__Type__Group__1__Impl : ( ( rule__Type__Group_1__0 )? ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1766:1: rule__Type__Group__1__Impl : ( ( rule__Type__Group_1__0 )? ) ;
     public final void rule__Type__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1736:1: ( ( ( rule__Type__Group_1__0 )? ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1737:1: ( ( rule__Type__Group_1__0 )? )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1770:1: ( ( ( rule__Type__Group_1__0 )? ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1771:1: ( ( rule__Type__Group_1__0 )? )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1737:1: ( ( rule__Type__Group_1__0 )? )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1738:1: ( rule__Type__Group_1__0 )?
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1771:1: ( ( rule__Type__Group_1__0 )? )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1772:1: ( rule__Type__Group_1__0 )?
             {
              before(grammarAccess.getTypeAccess().getGroup_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1739:1: ( rule__Type__Group_1__0 )?
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1773:1: ( rule__Type__Group_1__0 )?
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -4736,9 +4838,9 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
             }
             switch (alt14) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1739:2: rule__Type__Group_1__0
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1773:2: rule__Type__Group_1__0
                     {
-                    pushFollow(FOLLOW_rule__Type__Group_1__0_in_rule__Type__Group__1__Impl3521);
+                    pushFollow(FOLLOW_rule__Type__Group_1__0_in_rule__Type__Group__1__Impl3598);
                     rule__Type__Group_1__0();
 
                     state._fsp--;
@@ -4772,21 +4874,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_1__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1753:1: rule__Type__Group_1__0 : rule__Type__Group_1__0__Impl rule__Type__Group_1__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1787:1: rule__Type__Group_1__0 : rule__Type__Group_1__0__Impl rule__Type__Group_1__1 ;
     public final void rule__Type__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1757:1: ( rule__Type__Group_1__0__Impl rule__Type__Group_1__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1758:2: rule__Type__Group_1__0__Impl rule__Type__Group_1__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1791:1: ( rule__Type__Group_1__0__Impl rule__Type__Group_1__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1792:2: rule__Type__Group_1__0__Impl rule__Type__Group_1__1
             {
-            pushFollow(FOLLOW_rule__Type__Group_1__0__Impl_in_rule__Type__Group_1__03556);
+            pushFollow(FOLLOW_rule__Type__Group_1__0__Impl_in_rule__Type__Group_1__03633);
             rule__Type__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Type__Group_1__1_in_rule__Type__Group_1__03559);
+            pushFollow(FOLLOW_rule__Type__Group_1__1_in_rule__Type__Group_1__03636);
             rule__Type__Group_1__1();
 
             state._fsp--;
@@ -4810,20 +4912,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_1__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1765:1: rule__Type__Group_1__0__Impl : ( '<' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1799:1: rule__Type__Group_1__0__Impl : ( '<' ) ;
     public final void rule__Type__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1769:1: ( ( '<' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1770:1: ( '<' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1803:1: ( ( '<' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1804:1: ( '<' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1770:1: ( '<' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1771:1: '<'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1804:1: ( '<' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1805:1: '<'
             {
              before(grammarAccess.getTypeAccess().getLessThanSignKeyword_1_0()); 
-            match(input,28,FOLLOW_28_in_rule__Type__Group_1__0__Impl3587); 
+            match(input,28,FOLLOW_28_in_rule__Type__Group_1__0__Impl3664); 
              after(grammarAccess.getTypeAccess().getLessThanSignKeyword_1_0()); 
 
             }
@@ -4847,21 +4949,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_1__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1784:1: rule__Type__Group_1__1 : rule__Type__Group_1__1__Impl rule__Type__Group_1__2 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1818:1: rule__Type__Group_1__1 : rule__Type__Group_1__1__Impl rule__Type__Group_1__2 ;
     public final void rule__Type__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1788:1: ( rule__Type__Group_1__1__Impl rule__Type__Group_1__2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1789:2: rule__Type__Group_1__1__Impl rule__Type__Group_1__2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1822:1: ( rule__Type__Group_1__1__Impl rule__Type__Group_1__2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1823:2: rule__Type__Group_1__1__Impl rule__Type__Group_1__2
             {
-            pushFollow(FOLLOW_rule__Type__Group_1__1__Impl_in_rule__Type__Group_1__13618);
+            pushFollow(FOLLOW_rule__Type__Group_1__1__Impl_in_rule__Type__Group_1__13695);
             rule__Type__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Type__Group_1__2_in_rule__Type__Group_1__13621);
+            pushFollow(FOLLOW_rule__Type__Group_1__2_in_rule__Type__Group_1__13698);
             rule__Type__Group_1__2();
 
             state._fsp--;
@@ -4885,23 +4987,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_1__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1796:1: rule__Type__Group_1__1__Impl : ( ( rule__Type__TemplateTypeAssignment_1_1 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1830:1: rule__Type__Group_1__1__Impl : ( ( rule__Type__TemplateTypeAssignment_1_1 ) ) ;
     public final void rule__Type__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1800:1: ( ( ( rule__Type__TemplateTypeAssignment_1_1 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1801:1: ( ( rule__Type__TemplateTypeAssignment_1_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1834:1: ( ( ( rule__Type__TemplateTypeAssignment_1_1 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1835:1: ( ( rule__Type__TemplateTypeAssignment_1_1 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1801:1: ( ( rule__Type__TemplateTypeAssignment_1_1 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1802:1: ( rule__Type__TemplateTypeAssignment_1_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1835:1: ( ( rule__Type__TemplateTypeAssignment_1_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1836:1: ( rule__Type__TemplateTypeAssignment_1_1 )
             {
              before(grammarAccess.getTypeAccess().getTemplateTypeAssignment_1_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1803:1: ( rule__Type__TemplateTypeAssignment_1_1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1803:2: rule__Type__TemplateTypeAssignment_1_1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1837:1: ( rule__Type__TemplateTypeAssignment_1_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1837:2: rule__Type__TemplateTypeAssignment_1_1
             {
-            pushFollow(FOLLOW_rule__Type__TemplateTypeAssignment_1_1_in_rule__Type__Group_1__1__Impl3648);
+            pushFollow(FOLLOW_rule__Type__TemplateTypeAssignment_1_1_in_rule__Type__Group_1__1__Impl3725);
             rule__Type__TemplateTypeAssignment_1_1();
 
             state._fsp--;
@@ -4932,16 +5034,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_1__2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1813:1: rule__Type__Group_1__2 : rule__Type__Group_1__2__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1847:1: rule__Type__Group_1__2 : rule__Type__Group_1__2__Impl ;
     public final void rule__Type__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1817:1: ( rule__Type__Group_1__2__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1818:2: rule__Type__Group_1__2__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1851:1: ( rule__Type__Group_1__2__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1852:2: rule__Type__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__Type__Group_1__2__Impl_in_rule__Type__Group_1__23678);
+            pushFollow(FOLLOW_rule__Type__Group_1__2__Impl_in_rule__Type__Group_1__23755);
             rule__Type__Group_1__2__Impl();
 
             state._fsp--;
@@ -4965,20 +5067,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__Group_1__2__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1824:1: rule__Type__Group_1__2__Impl : ( '>' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1858:1: rule__Type__Group_1__2__Impl : ( '>' ) ;
     public final void rule__Type__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1828:1: ( ( '>' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1829:1: ( '>' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1862:1: ( ( '>' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1863:1: ( '>' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1829:1: ( '>' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1830:1: '>'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1863:1: ( '>' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1864:1: '>'
             {
              before(grammarAccess.getTypeAccess().getGreaterThanSignKeyword_1_2()); 
-            match(input,29,FOLLOW_29_in_rule__Type__Group_1__2__Impl3706); 
+            match(input,29,FOLLOW_29_in_rule__Type__Group_1__2__Impl3783); 
              after(grammarAccess.getTypeAccess().getGreaterThanSignKeyword_1_2()); 
 
             }
@@ -5002,21 +5104,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ORing__Group__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1849:1: rule__ORing__Group__0 : rule__ORing__Group__0__Impl rule__ORing__Group__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1883:1: rule__ORing__Group__0 : rule__ORing__Group__0__Impl rule__ORing__Group__1 ;
     public final void rule__ORing__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1853:1: ( rule__ORing__Group__0__Impl rule__ORing__Group__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1854:2: rule__ORing__Group__0__Impl rule__ORing__Group__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1887:1: ( rule__ORing__Group__0__Impl rule__ORing__Group__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1888:2: rule__ORing__Group__0__Impl rule__ORing__Group__1
             {
-            pushFollow(FOLLOW_rule__ORing__Group__0__Impl_in_rule__ORing__Group__03743);
+            pushFollow(FOLLOW_rule__ORing__Group__0__Impl_in_rule__ORing__Group__03820);
             rule__ORing__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ORing__Group__1_in_rule__ORing__Group__03746);
+            pushFollow(FOLLOW_rule__ORing__Group__1_in_rule__ORing__Group__03823);
             rule__ORing__Group__1();
 
             state._fsp--;
@@ -5040,20 +5142,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ORing__Group__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1861:1: rule__ORing__Group__0__Impl : ( ruleANDing ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1895:1: rule__ORing__Group__0__Impl : ( ruleANDing ) ;
     public final void rule__ORing__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1865:1: ( ( ruleANDing ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1866:1: ( ruleANDing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1899:1: ( ( ruleANDing ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1900:1: ( ruleANDing )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1866:1: ( ruleANDing )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1867:1: ruleANDing
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1900:1: ( ruleANDing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1901:1: ruleANDing
             {
              before(grammarAccess.getORingAccess().getANDingParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleANDing_in_rule__ORing__Group__0__Impl3773);
+            pushFollow(FOLLOW_ruleANDing_in_rule__ORing__Group__0__Impl3850);
             ruleANDing();
 
             state._fsp--;
@@ -5081,16 +5183,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ORing__Group__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1878:1: rule__ORing__Group__1 : rule__ORing__Group__1__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1912:1: rule__ORing__Group__1 : rule__ORing__Group__1__Impl ;
     public final void rule__ORing__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1882:1: ( rule__ORing__Group__1__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1883:2: rule__ORing__Group__1__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1916:1: ( rule__ORing__Group__1__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1917:2: rule__ORing__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__ORing__Group__1__Impl_in_rule__ORing__Group__13802);
+            pushFollow(FOLLOW_rule__ORing__Group__1__Impl_in_rule__ORing__Group__13879);
             rule__ORing__Group__1__Impl();
 
             state._fsp--;
@@ -5114,20 +5216,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ORing__Group__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1889:1: rule__ORing__Group__1__Impl : ( ( rule__ORing__Group_1__0 )* ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1923:1: rule__ORing__Group__1__Impl : ( ( rule__ORing__Group_1__0 )* ) ;
     public final void rule__ORing__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1893:1: ( ( ( rule__ORing__Group_1__0 )* ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1894:1: ( ( rule__ORing__Group_1__0 )* )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1927:1: ( ( ( rule__ORing__Group_1__0 )* ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1928:1: ( ( rule__ORing__Group_1__0 )* )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1894:1: ( ( rule__ORing__Group_1__0 )* )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1895:1: ( rule__ORing__Group_1__0 )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1928:1: ( ( rule__ORing__Group_1__0 )* )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1929:1: ( rule__ORing__Group_1__0 )*
             {
              before(grammarAccess.getORingAccess().getGroup_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1896:1: ( rule__ORing__Group_1__0 )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1930:1: ( rule__ORing__Group_1__0 )*
             loop15:
             do {
                 int alt15=2;
@@ -5140,9 +5242,9 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
                 switch (alt15) {
             	case 1 :
-            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1896:2: rule__ORing__Group_1__0
+            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1930:2: rule__ORing__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__ORing__Group_1__0_in_rule__ORing__Group__1__Impl3829);
+            	    pushFollow(FOLLOW_rule__ORing__Group_1__0_in_rule__ORing__Group__1__Impl3906);
             	    rule__ORing__Group_1__0();
 
             	    state._fsp--;
@@ -5179,21 +5281,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ORing__Group_1__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1910:1: rule__ORing__Group_1__0 : rule__ORing__Group_1__0__Impl rule__ORing__Group_1__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1944:1: rule__ORing__Group_1__0 : rule__ORing__Group_1__0__Impl rule__ORing__Group_1__1 ;
     public final void rule__ORing__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1914:1: ( rule__ORing__Group_1__0__Impl rule__ORing__Group_1__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1915:2: rule__ORing__Group_1__0__Impl rule__ORing__Group_1__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1948:1: ( rule__ORing__Group_1__0__Impl rule__ORing__Group_1__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1949:2: rule__ORing__Group_1__0__Impl rule__ORing__Group_1__1
             {
-            pushFollow(FOLLOW_rule__ORing__Group_1__0__Impl_in_rule__ORing__Group_1__03864);
+            pushFollow(FOLLOW_rule__ORing__Group_1__0__Impl_in_rule__ORing__Group_1__03941);
             rule__ORing__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ORing__Group_1__1_in_rule__ORing__Group_1__03867);
+            pushFollow(FOLLOW_rule__ORing__Group_1__1_in_rule__ORing__Group_1__03944);
             rule__ORing__Group_1__1();
 
             state._fsp--;
@@ -5217,21 +5319,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ORing__Group_1__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1922:1: rule__ORing__Group_1__0__Impl : ( () ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1956:1: rule__ORing__Group_1__0__Impl : ( () ) ;
     public final void rule__ORing__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1926:1: ( ( () ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1927:1: ( () )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1960:1: ( ( () ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1961:1: ( () )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1927:1: ( () )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1928:1: ()
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1961:1: ( () )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1962:1: ()
             {
              before(grammarAccess.getORingAccess().getORingLeftAction_1_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1929:1: ()
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1931:1: 
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1963:1: ()
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1965:1: 
             {
             }
 
@@ -5254,21 +5356,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ORing__Group_1__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1941:1: rule__ORing__Group_1__1 : rule__ORing__Group_1__1__Impl rule__ORing__Group_1__2 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1975:1: rule__ORing__Group_1__1 : rule__ORing__Group_1__1__Impl rule__ORing__Group_1__2 ;
     public final void rule__ORing__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1945:1: ( rule__ORing__Group_1__1__Impl rule__ORing__Group_1__2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1946:2: rule__ORing__Group_1__1__Impl rule__ORing__Group_1__2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1979:1: ( rule__ORing__Group_1__1__Impl rule__ORing__Group_1__2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1980:2: rule__ORing__Group_1__1__Impl rule__ORing__Group_1__2
             {
-            pushFollow(FOLLOW_rule__ORing__Group_1__1__Impl_in_rule__ORing__Group_1__13925);
+            pushFollow(FOLLOW_rule__ORing__Group_1__1__Impl_in_rule__ORing__Group_1__14002);
             rule__ORing__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ORing__Group_1__2_in_rule__ORing__Group_1__13928);
+            pushFollow(FOLLOW_rule__ORing__Group_1__2_in_rule__ORing__Group_1__14005);
             rule__ORing__Group_1__2();
 
             state._fsp--;
@@ -5292,20 +5394,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ORing__Group_1__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1953:1: rule__ORing__Group_1__1__Impl : ( '|' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1987:1: rule__ORing__Group_1__1__Impl : ( '|' ) ;
     public final void rule__ORing__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1957:1: ( ( '|' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1958:1: ( '|' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1991:1: ( ( '|' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1992:1: ( '|' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1958:1: ( '|' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1959:1: '|'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1992:1: ( '|' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1993:1: '|'
             {
              before(grammarAccess.getORingAccess().getVerticalLineKeyword_1_1()); 
-            match(input,30,FOLLOW_30_in_rule__ORing__Group_1__1__Impl3956); 
+            match(input,30,FOLLOW_30_in_rule__ORing__Group_1__1__Impl4033); 
              after(grammarAccess.getORingAccess().getVerticalLineKeyword_1_1()); 
 
             }
@@ -5329,16 +5431,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ORing__Group_1__2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1972:1: rule__ORing__Group_1__2 : rule__ORing__Group_1__2__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2006:1: rule__ORing__Group_1__2 : rule__ORing__Group_1__2__Impl ;
     public final void rule__ORing__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1976:1: ( rule__ORing__Group_1__2__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1977:2: rule__ORing__Group_1__2__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2010:1: ( rule__ORing__Group_1__2__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2011:2: rule__ORing__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__ORing__Group_1__2__Impl_in_rule__ORing__Group_1__23987);
+            pushFollow(FOLLOW_rule__ORing__Group_1__2__Impl_in_rule__ORing__Group_1__24064);
             rule__ORing__Group_1__2__Impl();
 
             state._fsp--;
@@ -5362,23 +5464,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ORing__Group_1__2__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1983:1: rule__ORing__Group_1__2__Impl : ( ( rule__ORing__RightAssignment_1_2 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2017:1: rule__ORing__Group_1__2__Impl : ( ( rule__ORing__RightAssignment_1_2 ) ) ;
     public final void rule__ORing__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1987:1: ( ( ( rule__ORing__RightAssignment_1_2 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1988:1: ( ( rule__ORing__RightAssignment_1_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2021:1: ( ( ( rule__ORing__RightAssignment_1_2 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2022:1: ( ( rule__ORing__RightAssignment_1_2 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1988:1: ( ( rule__ORing__RightAssignment_1_2 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1989:1: ( rule__ORing__RightAssignment_1_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2022:1: ( ( rule__ORing__RightAssignment_1_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2023:1: ( rule__ORing__RightAssignment_1_2 )
             {
              before(grammarAccess.getORingAccess().getRightAssignment_1_2()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1990:1: ( rule__ORing__RightAssignment_1_2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:1990:2: rule__ORing__RightAssignment_1_2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2024:1: ( rule__ORing__RightAssignment_1_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2024:2: rule__ORing__RightAssignment_1_2
             {
-            pushFollow(FOLLOW_rule__ORing__RightAssignment_1_2_in_rule__ORing__Group_1__2__Impl4014);
+            pushFollow(FOLLOW_rule__ORing__RightAssignment_1_2_in_rule__ORing__Group_1__2__Impl4091);
             rule__ORing__RightAssignment_1_2();
 
             state._fsp--;
@@ -5409,21 +5511,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ANDing__Group__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2006:1: rule__ANDing__Group__0 : rule__ANDing__Group__0__Impl rule__ANDing__Group__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2040:1: rule__ANDing__Group__0 : rule__ANDing__Group__0__Impl rule__ANDing__Group__1 ;
     public final void rule__ANDing__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2010:1: ( rule__ANDing__Group__0__Impl rule__ANDing__Group__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2011:2: rule__ANDing__Group__0__Impl rule__ANDing__Group__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2044:1: ( rule__ANDing__Group__0__Impl rule__ANDing__Group__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2045:2: rule__ANDing__Group__0__Impl rule__ANDing__Group__1
             {
-            pushFollow(FOLLOW_rule__ANDing__Group__0__Impl_in_rule__ANDing__Group__04050);
+            pushFollow(FOLLOW_rule__ANDing__Group__0__Impl_in_rule__ANDing__Group__04127);
             rule__ANDing__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ANDing__Group__1_in_rule__ANDing__Group__04053);
+            pushFollow(FOLLOW_rule__ANDing__Group__1_in_rule__ANDing__Group__04130);
             rule__ANDing__Group__1();
 
             state._fsp--;
@@ -5447,20 +5549,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ANDing__Group__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2018:1: rule__ANDing__Group__0__Impl : ( rulePrimary ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2052:1: rule__ANDing__Group__0__Impl : ( rulePrimary ) ;
     public final void rule__ANDing__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2022:1: ( ( rulePrimary ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2023:1: ( rulePrimary )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2056:1: ( ( rulePrimary ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2057:1: ( rulePrimary )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2023:1: ( rulePrimary )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2024:1: rulePrimary
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2057:1: ( rulePrimary )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2058:1: rulePrimary
             {
              before(grammarAccess.getANDingAccess().getPrimaryParserRuleCall_0()); 
-            pushFollow(FOLLOW_rulePrimary_in_rule__ANDing__Group__0__Impl4080);
+            pushFollow(FOLLOW_rulePrimary_in_rule__ANDing__Group__0__Impl4157);
             rulePrimary();
 
             state._fsp--;
@@ -5488,16 +5590,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ANDing__Group__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2035:1: rule__ANDing__Group__1 : rule__ANDing__Group__1__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2069:1: rule__ANDing__Group__1 : rule__ANDing__Group__1__Impl ;
     public final void rule__ANDing__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2039:1: ( rule__ANDing__Group__1__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2040:2: rule__ANDing__Group__1__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2073:1: ( rule__ANDing__Group__1__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2074:2: rule__ANDing__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__ANDing__Group__1__Impl_in_rule__ANDing__Group__14109);
+            pushFollow(FOLLOW_rule__ANDing__Group__1__Impl_in_rule__ANDing__Group__14186);
             rule__ANDing__Group__1__Impl();
 
             state._fsp--;
@@ -5521,20 +5623,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ANDing__Group__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2046:1: rule__ANDing__Group__1__Impl : ( ( rule__ANDing__Group_1__0 )* ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2080:1: rule__ANDing__Group__1__Impl : ( ( rule__ANDing__Group_1__0 )* ) ;
     public final void rule__ANDing__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2050:1: ( ( ( rule__ANDing__Group_1__0 )* ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2051:1: ( ( rule__ANDing__Group_1__0 )* )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2084:1: ( ( ( rule__ANDing__Group_1__0 )* ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2085:1: ( ( rule__ANDing__Group_1__0 )* )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2051:1: ( ( rule__ANDing__Group_1__0 )* )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2052:1: ( rule__ANDing__Group_1__0 )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2085:1: ( ( rule__ANDing__Group_1__0 )* )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2086:1: ( rule__ANDing__Group_1__0 )*
             {
              before(grammarAccess.getANDingAccess().getGroup_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2053:1: ( rule__ANDing__Group_1__0 )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2087:1: ( rule__ANDing__Group_1__0 )*
             loop16:
             do {
                 int alt16=2;
@@ -5547,9 +5649,9 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
                 switch (alt16) {
             	case 1 :
-            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2053:2: rule__ANDing__Group_1__0
+            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2087:2: rule__ANDing__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__ANDing__Group_1__0_in_rule__ANDing__Group__1__Impl4136);
+            	    pushFollow(FOLLOW_rule__ANDing__Group_1__0_in_rule__ANDing__Group__1__Impl4213);
             	    rule__ANDing__Group_1__0();
 
             	    state._fsp--;
@@ -5586,21 +5688,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ANDing__Group_1__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2067:1: rule__ANDing__Group_1__0 : rule__ANDing__Group_1__0__Impl rule__ANDing__Group_1__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2101:1: rule__ANDing__Group_1__0 : rule__ANDing__Group_1__0__Impl rule__ANDing__Group_1__1 ;
     public final void rule__ANDing__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2071:1: ( rule__ANDing__Group_1__0__Impl rule__ANDing__Group_1__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2072:2: rule__ANDing__Group_1__0__Impl rule__ANDing__Group_1__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2105:1: ( rule__ANDing__Group_1__0__Impl rule__ANDing__Group_1__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2106:2: rule__ANDing__Group_1__0__Impl rule__ANDing__Group_1__1
             {
-            pushFollow(FOLLOW_rule__ANDing__Group_1__0__Impl_in_rule__ANDing__Group_1__04171);
+            pushFollow(FOLLOW_rule__ANDing__Group_1__0__Impl_in_rule__ANDing__Group_1__04248);
             rule__ANDing__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ANDing__Group_1__1_in_rule__ANDing__Group_1__04174);
+            pushFollow(FOLLOW_rule__ANDing__Group_1__1_in_rule__ANDing__Group_1__04251);
             rule__ANDing__Group_1__1();
 
             state._fsp--;
@@ -5624,21 +5726,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ANDing__Group_1__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2079:1: rule__ANDing__Group_1__0__Impl : ( () ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2113:1: rule__ANDing__Group_1__0__Impl : ( () ) ;
     public final void rule__ANDing__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2083:1: ( ( () ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2084:1: ( () )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2117:1: ( ( () ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2118:1: ( () )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2084:1: ( () )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2085:1: ()
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2118:1: ( () )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2119:1: ()
             {
              before(grammarAccess.getANDingAccess().getANDingLeftAction_1_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2086:1: ()
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2088:1: 
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2120:1: ()
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2122:1: 
             {
             }
 
@@ -5661,21 +5763,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ANDing__Group_1__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2098:1: rule__ANDing__Group_1__1 : rule__ANDing__Group_1__1__Impl rule__ANDing__Group_1__2 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2132:1: rule__ANDing__Group_1__1 : rule__ANDing__Group_1__1__Impl rule__ANDing__Group_1__2 ;
     public final void rule__ANDing__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2102:1: ( rule__ANDing__Group_1__1__Impl rule__ANDing__Group_1__2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2103:2: rule__ANDing__Group_1__1__Impl rule__ANDing__Group_1__2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2136:1: ( rule__ANDing__Group_1__1__Impl rule__ANDing__Group_1__2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2137:2: rule__ANDing__Group_1__1__Impl rule__ANDing__Group_1__2
             {
-            pushFollow(FOLLOW_rule__ANDing__Group_1__1__Impl_in_rule__ANDing__Group_1__14232);
+            pushFollow(FOLLOW_rule__ANDing__Group_1__1__Impl_in_rule__ANDing__Group_1__14309);
             rule__ANDing__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__ANDing__Group_1__2_in_rule__ANDing__Group_1__14235);
+            pushFollow(FOLLOW_rule__ANDing__Group_1__2_in_rule__ANDing__Group_1__14312);
             rule__ANDing__Group_1__2();
 
             state._fsp--;
@@ -5699,20 +5801,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ANDing__Group_1__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2110:1: rule__ANDing__Group_1__1__Impl : ( '&' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2144:1: rule__ANDing__Group_1__1__Impl : ( '&' ) ;
     public final void rule__ANDing__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2114:1: ( ( '&' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2115:1: ( '&' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2148:1: ( ( '&' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2149:1: ( '&' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2115:1: ( '&' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2116:1: '&'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2149:1: ( '&' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2150:1: '&'
             {
              before(grammarAccess.getANDingAccess().getAmpersandKeyword_1_1()); 
-            match(input,31,FOLLOW_31_in_rule__ANDing__Group_1__1__Impl4263); 
+            match(input,31,FOLLOW_31_in_rule__ANDing__Group_1__1__Impl4340); 
              after(grammarAccess.getANDingAccess().getAmpersandKeyword_1_1()); 
 
             }
@@ -5736,16 +5838,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ANDing__Group_1__2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2129:1: rule__ANDing__Group_1__2 : rule__ANDing__Group_1__2__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2163:1: rule__ANDing__Group_1__2 : rule__ANDing__Group_1__2__Impl ;
     public final void rule__ANDing__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2133:1: ( rule__ANDing__Group_1__2__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2134:2: rule__ANDing__Group_1__2__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2167:1: ( rule__ANDing__Group_1__2__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2168:2: rule__ANDing__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__ANDing__Group_1__2__Impl_in_rule__ANDing__Group_1__24294);
+            pushFollow(FOLLOW_rule__ANDing__Group_1__2__Impl_in_rule__ANDing__Group_1__24371);
             rule__ANDing__Group_1__2__Impl();
 
             state._fsp--;
@@ -5769,23 +5871,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ANDing__Group_1__2__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2140:1: rule__ANDing__Group_1__2__Impl : ( ( rule__ANDing__RightAssignment_1_2 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2174:1: rule__ANDing__Group_1__2__Impl : ( ( rule__ANDing__RightAssignment_1_2 ) ) ;
     public final void rule__ANDing__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2144:1: ( ( ( rule__ANDing__RightAssignment_1_2 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2145:1: ( ( rule__ANDing__RightAssignment_1_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2178:1: ( ( ( rule__ANDing__RightAssignment_1_2 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2179:1: ( ( rule__ANDing__RightAssignment_1_2 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2145:1: ( ( rule__ANDing__RightAssignment_1_2 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2146:1: ( rule__ANDing__RightAssignment_1_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2179:1: ( ( rule__ANDing__RightAssignment_1_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2180:1: ( rule__ANDing__RightAssignment_1_2 )
             {
              before(grammarAccess.getANDingAccess().getRightAssignment_1_2()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2147:1: ( rule__ANDing__RightAssignment_1_2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2147:2: rule__ANDing__RightAssignment_1_2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2181:1: ( rule__ANDing__RightAssignment_1_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2181:2: rule__ANDing__RightAssignment_1_2
             {
-            pushFollow(FOLLOW_rule__ANDing__RightAssignment_1_2_in_rule__ANDing__Group_1__2__Impl4321);
+            pushFollow(FOLLOW_rule__ANDing__RightAssignment_1_2_in_rule__ANDing__Group_1__2__Impl4398);
             rule__ANDing__RightAssignment_1_2();
 
             state._fsp--;
@@ -5816,21 +5918,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Primary__Group_2__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2163:1: rule__Primary__Group_2__0 : rule__Primary__Group_2__0__Impl rule__Primary__Group_2__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2197:1: rule__Primary__Group_2__0 : rule__Primary__Group_2__0__Impl rule__Primary__Group_2__1 ;
     public final void rule__Primary__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2167:1: ( rule__Primary__Group_2__0__Impl rule__Primary__Group_2__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2168:2: rule__Primary__Group_2__0__Impl rule__Primary__Group_2__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2201:1: ( rule__Primary__Group_2__0__Impl rule__Primary__Group_2__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2202:2: rule__Primary__Group_2__0__Impl rule__Primary__Group_2__1
             {
-            pushFollow(FOLLOW_rule__Primary__Group_2__0__Impl_in_rule__Primary__Group_2__04357);
+            pushFollow(FOLLOW_rule__Primary__Group_2__0__Impl_in_rule__Primary__Group_2__04434);
             rule__Primary__Group_2__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Primary__Group_2__1_in_rule__Primary__Group_2__04360);
+            pushFollow(FOLLOW_rule__Primary__Group_2__1_in_rule__Primary__Group_2__04437);
             rule__Primary__Group_2__1();
 
             state._fsp--;
@@ -5854,20 +5956,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Primary__Group_2__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2175:1: rule__Primary__Group_2__0__Impl : ( '(' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2209:1: rule__Primary__Group_2__0__Impl : ( '(' ) ;
     public final void rule__Primary__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2179:1: ( ( '(' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2180:1: ( '(' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2213:1: ( ( '(' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2214:1: ( '(' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2180:1: ( '(' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2181:1: '('
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2214:1: ( '(' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2215:1: '('
             {
              before(grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_2_0()); 
-            match(input,23,FOLLOW_23_in_rule__Primary__Group_2__0__Impl4388); 
+            match(input,23,FOLLOW_23_in_rule__Primary__Group_2__0__Impl4465); 
              after(grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_2_0()); 
 
             }
@@ -5891,21 +5993,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Primary__Group_2__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2194:1: rule__Primary__Group_2__1 : rule__Primary__Group_2__1__Impl rule__Primary__Group_2__2 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2228:1: rule__Primary__Group_2__1 : rule__Primary__Group_2__1__Impl rule__Primary__Group_2__2 ;
     public final void rule__Primary__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2198:1: ( rule__Primary__Group_2__1__Impl rule__Primary__Group_2__2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2199:2: rule__Primary__Group_2__1__Impl rule__Primary__Group_2__2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2232:1: ( rule__Primary__Group_2__1__Impl rule__Primary__Group_2__2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2233:2: rule__Primary__Group_2__1__Impl rule__Primary__Group_2__2
             {
-            pushFollow(FOLLOW_rule__Primary__Group_2__1__Impl_in_rule__Primary__Group_2__14419);
+            pushFollow(FOLLOW_rule__Primary__Group_2__1__Impl_in_rule__Primary__Group_2__14496);
             rule__Primary__Group_2__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Primary__Group_2__2_in_rule__Primary__Group_2__14422);
+            pushFollow(FOLLOW_rule__Primary__Group_2__2_in_rule__Primary__Group_2__14499);
             rule__Primary__Group_2__2();
 
             state._fsp--;
@@ -5929,20 +6031,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Primary__Group_2__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2206:1: rule__Primary__Group_2__1__Impl : ( ruleORing ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2240:1: rule__Primary__Group_2__1__Impl : ( ruleORing ) ;
     public final void rule__Primary__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2210:1: ( ( ruleORing ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2211:1: ( ruleORing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2244:1: ( ( ruleORing ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2245:1: ( ruleORing )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2211:1: ( ruleORing )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2212:1: ruleORing
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2245:1: ( ruleORing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2246:1: ruleORing
             {
              before(grammarAccess.getPrimaryAccess().getORingParserRuleCall_2_1()); 
-            pushFollow(FOLLOW_ruleORing_in_rule__Primary__Group_2__1__Impl4449);
+            pushFollow(FOLLOW_ruleORing_in_rule__Primary__Group_2__1__Impl4526);
             ruleORing();
 
             state._fsp--;
@@ -5970,16 +6072,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Primary__Group_2__2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2223:1: rule__Primary__Group_2__2 : rule__Primary__Group_2__2__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2257:1: rule__Primary__Group_2__2 : rule__Primary__Group_2__2__Impl ;
     public final void rule__Primary__Group_2__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2227:1: ( rule__Primary__Group_2__2__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2228:2: rule__Primary__Group_2__2__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2261:1: ( rule__Primary__Group_2__2__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2262:2: rule__Primary__Group_2__2__Impl
             {
-            pushFollow(FOLLOW_rule__Primary__Group_2__2__Impl_in_rule__Primary__Group_2__24478);
+            pushFollow(FOLLOW_rule__Primary__Group_2__2__Impl_in_rule__Primary__Group_2__24555);
             rule__Primary__Group_2__2__Impl();
 
             state._fsp--;
@@ -6003,20 +6105,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Primary__Group_2__2__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2234:1: rule__Primary__Group_2__2__Impl : ( ')' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2268:1: rule__Primary__Group_2__2__Impl : ( ')' ) ;
     public final void rule__Primary__Group_2__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2238:1: ( ( ')' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2239:1: ( ')' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2272:1: ( ( ')' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2273:1: ( ')' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2239:1: ( ')' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2240:1: ')'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2273:1: ( ')' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2274:1: ')'
             {
              before(grammarAccess.getPrimaryAccess().getRightParenthesisKeyword_2_2()); 
-            match(input,24,FOLLOW_24_in_rule__Primary__Group_2__2__Impl4506); 
+            match(input,24,FOLLOW_24_in_rule__Primary__Group_2__2__Impl4583); 
              after(grammarAccess.getPrimaryAccess().getRightParenthesisKeyword_2_2()); 
 
             }
@@ -6039,22 +6141,177 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__Primary__Group_2__2__Impl"
 
 
+    // $ANTLR start "rule__Negation__Group__0"
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2293:1: rule__Negation__Group__0 : rule__Negation__Group__0__Impl rule__Negation__Group__1 ;
+    public final void rule__Negation__Group__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2297:1: ( rule__Negation__Group__0__Impl rule__Negation__Group__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2298:2: rule__Negation__Group__0__Impl rule__Negation__Group__1
+            {
+            pushFollow(FOLLOW_rule__Negation__Group__0__Impl_in_rule__Negation__Group__04620);
+            rule__Negation__Group__0__Impl();
+
+            state._fsp--;
+
+            pushFollow(FOLLOW_rule__Negation__Group__1_in_rule__Negation__Group__04623);
+            rule__Negation__Group__1();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Negation__Group__0"
+
+
+    // $ANTLR start "rule__Negation__Group__0__Impl"
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2305:1: rule__Negation__Group__0__Impl : ( '!' ) ;
+    public final void rule__Negation__Group__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2309:1: ( ( '!' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2310:1: ( '!' )
+            {
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2310:1: ( '!' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2311:1: '!'
+            {
+             before(grammarAccess.getNegationAccess().getExclamationMarkKeyword_0()); 
+            match(input,32,FOLLOW_32_in_rule__Negation__Group__0__Impl4651); 
+             after(grammarAccess.getNegationAccess().getExclamationMarkKeyword_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Negation__Group__0__Impl"
+
+
+    // $ANTLR start "rule__Negation__Group__1"
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2324:1: rule__Negation__Group__1 : rule__Negation__Group__1__Impl ;
+    public final void rule__Negation__Group__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2328:1: ( rule__Negation__Group__1__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2329:2: rule__Negation__Group__1__Impl
+            {
+            pushFollow(FOLLOW_rule__Negation__Group__1__Impl_in_rule__Negation__Group__14682);
+            rule__Negation__Group__1__Impl();
+
+            state._fsp--;
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Negation__Group__1"
+
+
+    // $ANTLR start "rule__Negation__Group__1__Impl"
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2335:1: rule__Negation__Group__1__Impl : ( ( rule__Negation__NegatedAssignment_1 ) ) ;
+    public final void rule__Negation__Group__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2339:1: ( ( ( rule__Negation__NegatedAssignment_1 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2340:1: ( ( rule__Negation__NegatedAssignment_1 ) )
+            {
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2340:1: ( ( rule__Negation__NegatedAssignment_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2341:1: ( rule__Negation__NegatedAssignment_1 )
+            {
+             before(grammarAccess.getNegationAccess().getNegatedAssignment_1()); 
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2342:1: ( rule__Negation__NegatedAssignment_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2342:2: rule__Negation__NegatedAssignment_1
+            {
+            pushFollow(FOLLOW_rule__Negation__NegatedAssignment_1_in_rule__Negation__Group__1__Impl4709);
+            rule__Negation__NegatedAssignment_1();
+
+            state._fsp--;
+
+
+            }
+
+             after(grammarAccess.getNegationAccess().getNegatedAssignment_1()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Negation__Group__1__Impl"
+
+
     // $ANTLR start "rule__Quantifier__Group__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2259:1: rule__Quantifier__Group__0 : rule__Quantifier__Group__0__Impl rule__Quantifier__Group__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2356:1: rule__Quantifier__Group__0 : rule__Quantifier__Group__0__Impl rule__Quantifier__Group__1 ;
     public final void rule__Quantifier__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2263:1: ( rule__Quantifier__Group__0__Impl rule__Quantifier__Group__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2264:2: rule__Quantifier__Group__0__Impl rule__Quantifier__Group__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2360:1: ( rule__Quantifier__Group__0__Impl rule__Quantifier__Group__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2361:2: rule__Quantifier__Group__0__Impl rule__Quantifier__Group__1
             {
-            pushFollow(FOLLOW_rule__Quantifier__Group__0__Impl_in_rule__Quantifier__Group__04543);
+            pushFollow(FOLLOW_rule__Quantifier__Group__0__Impl_in_rule__Quantifier__Group__04743);
             rule__Quantifier__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Quantifier__Group__1_in_rule__Quantifier__Group__04546);
+            pushFollow(FOLLOW_rule__Quantifier__Group__1_in_rule__Quantifier__Group__04746);
             rule__Quantifier__Group__1();
 
             state._fsp--;
@@ -6078,23 +6335,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Quantifier__Group__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2271:1: rule__Quantifier__Group__0__Impl : ( ( rule__Quantifier__QuantifierAssignment_0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2368:1: rule__Quantifier__Group__0__Impl : ( ( rule__Quantifier__QuantifierAssignment_0 ) ) ;
     public final void rule__Quantifier__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2275:1: ( ( ( rule__Quantifier__QuantifierAssignment_0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2276:1: ( ( rule__Quantifier__QuantifierAssignment_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2372:1: ( ( ( rule__Quantifier__QuantifierAssignment_0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2373:1: ( ( rule__Quantifier__QuantifierAssignment_0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2276:1: ( ( rule__Quantifier__QuantifierAssignment_0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2277:1: ( rule__Quantifier__QuantifierAssignment_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2373:1: ( ( rule__Quantifier__QuantifierAssignment_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2374:1: ( rule__Quantifier__QuantifierAssignment_0 )
             {
              before(grammarAccess.getQuantifierAccess().getQuantifierAssignment_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2278:1: ( rule__Quantifier__QuantifierAssignment_0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2278:2: rule__Quantifier__QuantifierAssignment_0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2375:1: ( rule__Quantifier__QuantifierAssignment_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2375:2: rule__Quantifier__QuantifierAssignment_0
             {
-            pushFollow(FOLLOW_rule__Quantifier__QuantifierAssignment_0_in_rule__Quantifier__Group__0__Impl4573);
+            pushFollow(FOLLOW_rule__Quantifier__QuantifierAssignment_0_in_rule__Quantifier__Group__0__Impl4773);
             rule__Quantifier__QuantifierAssignment_0();
 
             state._fsp--;
@@ -6125,21 +6382,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Quantifier__Group__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2288:1: rule__Quantifier__Group__1 : rule__Quantifier__Group__1__Impl rule__Quantifier__Group__2 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2385:1: rule__Quantifier__Group__1 : rule__Quantifier__Group__1__Impl rule__Quantifier__Group__2 ;
     public final void rule__Quantifier__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2292:1: ( rule__Quantifier__Group__1__Impl rule__Quantifier__Group__2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2293:2: rule__Quantifier__Group__1__Impl rule__Quantifier__Group__2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2389:1: ( rule__Quantifier__Group__1__Impl rule__Quantifier__Group__2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2390:2: rule__Quantifier__Group__1__Impl rule__Quantifier__Group__2
             {
-            pushFollow(FOLLOW_rule__Quantifier__Group__1__Impl_in_rule__Quantifier__Group__14603);
+            pushFollow(FOLLOW_rule__Quantifier__Group__1__Impl_in_rule__Quantifier__Group__14803);
             rule__Quantifier__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Quantifier__Group__2_in_rule__Quantifier__Group__14606);
+            pushFollow(FOLLOW_rule__Quantifier__Group__2_in_rule__Quantifier__Group__14806);
             rule__Quantifier__Group__2();
 
             state._fsp--;
@@ -6163,20 +6420,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Quantifier__Group__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2300:1: rule__Quantifier__Group__1__Impl : ( '(' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2397:1: rule__Quantifier__Group__1__Impl : ( '(' ) ;
     public final void rule__Quantifier__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2304:1: ( ( '(' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2305:1: ( '(' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2401:1: ( ( '(' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2402:1: ( '(' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2305:1: ( '(' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2306:1: '('
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2402:1: ( '(' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2403:1: '('
             {
              before(grammarAccess.getQuantifierAccess().getLeftParenthesisKeyword_1()); 
-            match(input,23,FOLLOW_23_in_rule__Quantifier__Group__1__Impl4634); 
+            match(input,23,FOLLOW_23_in_rule__Quantifier__Group__1__Impl4834); 
              after(grammarAccess.getQuantifierAccess().getLeftParenthesisKeyword_1()); 
 
             }
@@ -6200,21 +6457,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Quantifier__Group__2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2319:1: rule__Quantifier__Group__2 : rule__Quantifier__Group__2__Impl rule__Quantifier__Group__3 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2416:1: rule__Quantifier__Group__2 : rule__Quantifier__Group__2__Impl rule__Quantifier__Group__3 ;
     public final void rule__Quantifier__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2323:1: ( rule__Quantifier__Group__2__Impl rule__Quantifier__Group__3 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2324:2: rule__Quantifier__Group__2__Impl rule__Quantifier__Group__3
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2420:1: ( rule__Quantifier__Group__2__Impl rule__Quantifier__Group__3 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2421:2: rule__Quantifier__Group__2__Impl rule__Quantifier__Group__3
             {
-            pushFollow(FOLLOW_rule__Quantifier__Group__2__Impl_in_rule__Quantifier__Group__24665);
+            pushFollow(FOLLOW_rule__Quantifier__Group__2__Impl_in_rule__Quantifier__Group__24865);
             rule__Quantifier__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Quantifier__Group__3_in_rule__Quantifier__Group__24668);
+            pushFollow(FOLLOW_rule__Quantifier__Group__3_in_rule__Quantifier__Group__24868);
             rule__Quantifier__Group__3();
 
             state._fsp--;
@@ -6238,23 +6495,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Quantifier__Group__2__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2331:1: rule__Quantifier__Group__2__Impl : ( ( rule__Quantifier__SubjectAssignment_2 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2428:1: rule__Quantifier__Group__2__Impl : ( ( rule__Quantifier__SubjectAssignment_2 ) ) ;
     public final void rule__Quantifier__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2335:1: ( ( ( rule__Quantifier__SubjectAssignment_2 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2336:1: ( ( rule__Quantifier__SubjectAssignment_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2432:1: ( ( ( rule__Quantifier__SubjectAssignment_2 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2433:1: ( ( rule__Quantifier__SubjectAssignment_2 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2336:1: ( ( rule__Quantifier__SubjectAssignment_2 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2337:1: ( rule__Quantifier__SubjectAssignment_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2433:1: ( ( rule__Quantifier__SubjectAssignment_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2434:1: ( rule__Quantifier__SubjectAssignment_2 )
             {
              before(grammarAccess.getQuantifierAccess().getSubjectAssignment_2()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2338:1: ( rule__Quantifier__SubjectAssignment_2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2338:2: rule__Quantifier__SubjectAssignment_2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2435:1: ( rule__Quantifier__SubjectAssignment_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2435:2: rule__Quantifier__SubjectAssignment_2
             {
-            pushFollow(FOLLOW_rule__Quantifier__SubjectAssignment_2_in_rule__Quantifier__Group__2__Impl4695);
+            pushFollow(FOLLOW_rule__Quantifier__SubjectAssignment_2_in_rule__Quantifier__Group__2__Impl4895);
             rule__Quantifier__SubjectAssignment_2();
 
             state._fsp--;
@@ -6285,21 +6542,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Quantifier__Group__3"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2348:1: rule__Quantifier__Group__3 : rule__Quantifier__Group__3__Impl rule__Quantifier__Group__4 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2445:1: rule__Quantifier__Group__3 : rule__Quantifier__Group__3__Impl rule__Quantifier__Group__4 ;
     public final void rule__Quantifier__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2352:1: ( rule__Quantifier__Group__3__Impl rule__Quantifier__Group__4 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2353:2: rule__Quantifier__Group__3__Impl rule__Quantifier__Group__4
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2449:1: ( rule__Quantifier__Group__3__Impl rule__Quantifier__Group__4 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2450:2: rule__Quantifier__Group__3__Impl rule__Quantifier__Group__4
             {
-            pushFollow(FOLLOW_rule__Quantifier__Group__3__Impl_in_rule__Quantifier__Group__34725);
+            pushFollow(FOLLOW_rule__Quantifier__Group__3__Impl_in_rule__Quantifier__Group__34925);
             rule__Quantifier__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Quantifier__Group__4_in_rule__Quantifier__Group__34728);
+            pushFollow(FOLLOW_rule__Quantifier__Group__4_in_rule__Quantifier__Group__34928);
             rule__Quantifier__Group__4();
 
             state._fsp--;
@@ -6323,20 +6580,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Quantifier__Group__3__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2360:1: rule__Quantifier__Group__3__Impl : ( ':' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2457:1: rule__Quantifier__Group__3__Impl : ( ':' ) ;
     public final void rule__Quantifier__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2364:1: ( ( ':' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2365:1: ( ':' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2461:1: ( ( ':' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2462:1: ( ':' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2365:1: ( ':' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2366:1: ':'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2462:1: ( ':' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2463:1: ':'
             {
              before(grammarAccess.getQuantifierAccess().getColonKeyword_3()); 
-            match(input,32,FOLLOW_32_in_rule__Quantifier__Group__3__Impl4756); 
+            match(input,33,FOLLOW_33_in_rule__Quantifier__Group__3__Impl4956); 
              after(grammarAccess.getQuantifierAccess().getColonKeyword_3()); 
 
             }
@@ -6360,21 +6617,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Quantifier__Group__4"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2379:1: rule__Quantifier__Group__4 : rule__Quantifier__Group__4__Impl rule__Quantifier__Group__5 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2476:1: rule__Quantifier__Group__4 : rule__Quantifier__Group__4__Impl rule__Quantifier__Group__5 ;
     public final void rule__Quantifier__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2383:1: ( rule__Quantifier__Group__4__Impl rule__Quantifier__Group__5 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2384:2: rule__Quantifier__Group__4__Impl rule__Quantifier__Group__5
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2480:1: ( rule__Quantifier__Group__4__Impl rule__Quantifier__Group__5 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2481:2: rule__Quantifier__Group__4__Impl rule__Quantifier__Group__5
             {
-            pushFollow(FOLLOW_rule__Quantifier__Group__4__Impl_in_rule__Quantifier__Group__44787);
+            pushFollow(FOLLOW_rule__Quantifier__Group__4__Impl_in_rule__Quantifier__Group__44987);
             rule__Quantifier__Group__4__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Quantifier__Group__5_in_rule__Quantifier__Group__44790);
+            pushFollow(FOLLOW_rule__Quantifier__Group__5_in_rule__Quantifier__Group__44990);
             rule__Quantifier__Group__5();
 
             state._fsp--;
@@ -6398,23 +6655,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Quantifier__Group__4__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2391:1: rule__Quantifier__Group__4__Impl : ( ( rule__Quantifier__PredicateAssignment_4 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2488:1: rule__Quantifier__Group__4__Impl : ( ( rule__Quantifier__PredicateAssignment_4 ) ) ;
     public final void rule__Quantifier__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2395:1: ( ( ( rule__Quantifier__PredicateAssignment_4 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2396:1: ( ( rule__Quantifier__PredicateAssignment_4 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2492:1: ( ( ( rule__Quantifier__PredicateAssignment_4 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2493:1: ( ( rule__Quantifier__PredicateAssignment_4 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2396:1: ( ( rule__Quantifier__PredicateAssignment_4 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2397:1: ( rule__Quantifier__PredicateAssignment_4 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2493:1: ( ( rule__Quantifier__PredicateAssignment_4 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2494:1: ( rule__Quantifier__PredicateAssignment_4 )
             {
              before(grammarAccess.getQuantifierAccess().getPredicateAssignment_4()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2398:1: ( rule__Quantifier__PredicateAssignment_4 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2398:2: rule__Quantifier__PredicateAssignment_4
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2495:1: ( rule__Quantifier__PredicateAssignment_4 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2495:2: rule__Quantifier__PredicateAssignment_4
             {
-            pushFollow(FOLLOW_rule__Quantifier__PredicateAssignment_4_in_rule__Quantifier__Group__4__Impl4817);
+            pushFollow(FOLLOW_rule__Quantifier__PredicateAssignment_4_in_rule__Quantifier__Group__4__Impl5017);
             rule__Quantifier__PredicateAssignment_4();
 
             state._fsp--;
@@ -6445,16 +6702,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Quantifier__Group__5"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2408:1: rule__Quantifier__Group__5 : rule__Quantifier__Group__5__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2505:1: rule__Quantifier__Group__5 : rule__Quantifier__Group__5__Impl ;
     public final void rule__Quantifier__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2412:1: ( rule__Quantifier__Group__5__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2413:2: rule__Quantifier__Group__5__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2509:1: ( rule__Quantifier__Group__5__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2510:2: rule__Quantifier__Group__5__Impl
             {
-            pushFollow(FOLLOW_rule__Quantifier__Group__5__Impl_in_rule__Quantifier__Group__54847);
+            pushFollow(FOLLOW_rule__Quantifier__Group__5__Impl_in_rule__Quantifier__Group__55047);
             rule__Quantifier__Group__5__Impl();
 
             state._fsp--;
@@ -6478,20 +6735,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Quantifier__Group__5__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2419:1: rule__Quantifier__Group__5__Impl : ( ')' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2516:1: rule__Quantifier__Group__5__Impl : ( ')' ) ;
     public final void rule__Quantifier__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2423:1: ( ( ')' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2424:1: ( ')' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2520:1: ( ( ')' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2521:1: ( ')' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2424:1: ( ')' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2425:1: ')'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2521:1: ( ')' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2522:1: ')'
             {
              before(grammarAccess.getQuantifierAccess().getRightParenthesisKeyword_5()); 
-            match(input,24,FOLLOW_24_in_rule__Quantifier__Group__5__Impl4875); 
+            match(input,24,FOLLOW_24_in_rule__Quantifier__Group__5__Impl5075); 
              after(grammarAccess.getQuantifierAccess().getRightParenthesisKeyword_5()); 
 
             }
@@ -6515,21 +6772,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2450:1: rule__Atomic__Group__0 : rule__Atomic__Group__0__Impl rule__Atomic__Group__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2547:1: rule__Atomic__Group__0 : rule__Atomic__Group__0__Impl rule__Atomic__Group__1 ;
     public final void rule__Atomic__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2454:1: ( rule__Atomic__Group__0__Impl rule__Atomic__Group__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2455:2: rule__Atomic__Group__0__Impl rule__Atomic__Group__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2551:1: ( rule__Atomic__Group__0__Impl rule__Atomic__Group__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2552:2: rule__Atomic__Group__0__Impl rule__Atomic__Group__1
             {
-            pushFollow(FOLLOW_rule__Atomic__Group__0__Impl_in_rule__Atomic__Group__04918);
+            pushFollow(FOLLOW_rule__Atomic__Group__0__Impl_in_rule__Atomic__Group__05118);
             rule__Atomic__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Atomic__Group__1_in_rule__Atomic__Group__04921);
+            pushFollow(FOLLOW_rule__Atomic__Group__1_in_rule__Atomic__Group__05121);
             rule__Atomic__Group__1();
 
             state._fsp--;
@@ -6553,23 +6810,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2462:1: rule__Atomic__Group__0__Impl : ( ( rule__Atomic__FunctionAssignment_0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2559:1: rule__Atomic__Group__0__Impl : ( ( rule__Atomic__FunctionAssignment_0 ) ) ;
     public final void rule__Atomic__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2466:1: ( ( ( rule__Atomic__FunctionAssignment_0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2467:1: ( ( rule__Atomic__FunctionAssignment_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2563:1: ( ( ( rule__Atomic__FunctionAssignment_0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2564:1: ( ( rule__Atomic__FunctionAssignment_0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2467:1: ( ( rule__Atomic__FunctionAssignment_0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2468:1: ( rule__Atomic__FunctionAssignment_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2564:1: ( ( rule__Atomic__FunctionAssignment_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2565:1: ( rule__Atomic__FunctionAssignment_0 )
             {
              before(grammarAccess.getAtomicAccess().getFunctionAssignment_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2469:1: ( rule__Atomic__FunctionAssignment_0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2469:2: rule__Atomic__FunctionAssignment_0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2566:1: ( rule__Atomic__FunctionAssignment_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2566:2: rule__Atomic__FunctionAssignment_0
             {
-            pushFollow(FOLLOW_rule__Atomic__FunctionAssignment_0_in_rule__Atomic__Group__0__Impl4948);
+            pushFollow(FOLLOW_rule__Atomic__FunctionAssignment_0_in_rule__Atomic__Group__0__Impl5148);
             rule__Atomic__FunctionAssignment_0();
 
             state._fsp--;
@@ -6600,21 +6857,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2479:1: rule__Atomic__Group__1 : rule__Atomic__Group__1__Impl rule__Atomic__Group__2 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2576:1: rule__Atomic__Group__1 : rule__Atomic__Group__1__Impl rule__Atomic__Group__2 ;
     public final void rule__Atomic__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2483:1: ( rule__Atomic__Group__1__Impl rule__Atomic__Group__2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2484:2: rule__Atomic__Group__1__Impl rule__Atomic__Group__2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2580:1: ( rule__Atomic__Group__1__Impl rule__Atomic__Group__2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2581:2: rule__Atomic__Group__1__Impl rule__Atomic__Group__2
             {
-            pushFollow(FOLLOW_rule__Atomic__Group__1__Impl_in_rule__Atomic__Group__14978);
+            pushFollow(FOLLOW_rule__Atomic__Group__1__Impl_in_rule__Atomic__Group__15178);
             rule__Atomic__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Atomic__Group__2_in_rule__Atomic__Group__14981);
+            pushFollow(FOLLOW_rule__Atomic__Group__2_in_rule__Atomic__Group__15181);
             rule__Atomic__Group__2();
 
             state._fsp--;
@@ -6638,20 +6895,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2491:1: rule__Atomic__Group__1__Impl : ( '(' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2588:1: rule__Atomic__Group__1__Impl : ( '(' ) ;
     public final void rule__Atomic__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2495:1: ( ( '(' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2496:1: ( '(' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2592:1: ( ( '(' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2593:1: ( '(' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2496:1: ( '(' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2497:1: '('
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2593:1: ( '(' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2594:1: '('
             {
              before(grammarAccess.getAtomicAccess().getLeftParenthesisKeyword_1()); 
-            match(input,23,FOLLOW_23_in_rule__Atomic__Group__1__Impl5009); 
+            match(input,23,FOLLOW_23_in_rule__Atomic__Group__1__Impl5209); 
              after(grammarAccess.getAtomicAccess().getLeftParenthesisKeyword_1()); 
 
             }
@@ -6675,21 +6932,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group__2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2510:1: rule__Atomic__Group__2 : rule__Atomic__Group__2__Impl rule__Atomic__Group__3 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2607:1: rule__Atomic__Group__2 : rule__Atomic__Group__2__Impl rule__Atomic__Group__3 ;
     public final void rule__Atomic__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2514:1: ( rule__Atomic__Group__2__Impl rule__Atomic__Group__3 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2515:2: rule__Atomic__Group__2__Impl rule__Atomic__Group__3
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2611:1: ( rule__Atomic__Group__2__Impl rule__Atomic__Group__3 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2612:2: rule__Atomic__Group__2__Impl rule__Atomic__Group__3
             {
-            pushFollow(FOLLOW_rule__Atomic__Group__2__Impl_in_rule__Atomic__Group__25040);
+            pushFollow(FOLLOW_rule__Atomic__Group__2__Impl_in_rule__Atomic__Group__25240);
             rule__Atomic__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Atomic__Group__3_in_rule__Atomic__Group__25043);
+            pushFollow(FOLLOW_rule__Atomic__Group__3_in_rule__Atomic__Group__25243);
             rule__Atomic__Group__3();
 
             state._fsp--;
@@ -6713,20 +6970,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group__2__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2522:1: rule__Atomic__Group__2__Impl : ( ( rule__Atomic__Group_2__0 )? ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2619:1: rule__Atomic__Group__2__Impl : ( ( rule__Atomic__Group_2__0 )? ) ;
     public final void rule__Atomic__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2526:1: ( ( ( rule__Atomic__Group_2__0 )? ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2527:1: ( ( rule__Atomic__Group_2__0 )? )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2623:1: ( ( ( rule__Atomic__Group_2__0 )? ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2624:1: ( ( rule__Atomic__Group_2__0 )? )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2527:1: ( ( rule__Atomic__Group_2__0 )? )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2528:1: ( rule__Atomic__Group_2__0 )?
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2624:1: ( ( rule__Atomic__Group_2__0 )? )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2625:1: ( rule__Atomic__Group_2__0 )?
             {
              before(grammarAccess.getAtomicAccess().getGroup_2()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2529:1: ( rule__Atomic__Group_2__0 )?
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2626:1: ( rule__Atomic__Group_2__0 )?
             int alt17=2;
             int LA17_0 = input.LA(1);
 
@@ -6735,9 +6992,9 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
             }
             switch (alt17) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2529:2: rule__Atomic__Group_2__0
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2626:2: rule__Atomic__Group_2__0
                     {
-                    pushFollow(FOLLOW_rule__Atomic__Group_2__0_in_rule__Atomic__Group__2__Impl5070);
+                    pushFollow(FOLLOW_rule__Atomic__Group_2__0_in_rule__Atomic__Group__2__Impl5270);
                     rule__Atomic__Group_2__0();
 
                     state._fsp--;
@@ -6771,16 +7028,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group__3"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2539:1: rule__Atomic__Group__3 : rule__Atomic__Group__3__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2636:1: rule__Atomic__Group__3 : rule__Atomic__Group__3__Impl ;
     public final void rule__Atomic__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2543:1: ( rule__Atomic__Group__3__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2544:2: rule__Atomic__Group__3__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2640:1: ( rule__Atomic__Group__3__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2641:2: rule__Atomic__Group__3__Impl
             {
-            pushFollow(FOLLOW_rule__Atomic__Group__3__Impl_in_rule__Atomic__Group__35101);
+            pushFollow(FOLLOW_rule__Atomic__Group__3__Impl_in_rule__Atomic__Group__35301);
             rule__Atomic__Group__3__Impl();
 
             state._fsp--;
@@ -6804,20 +7061,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group__3__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2550:1: rule__Atomic__Group__3__Impl : ( ')' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2647:1: rule__Atomic__Group__3__Impl : ( ')' ) ;
     public final void rule__Atomic__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2554:1: ( ( ')' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2555:1: ( ')' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2651:1: ( ( ')' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2652:1: ( ')' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2555:1: ( ')' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2556:1: ')'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2652:1: ( ')' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2653:1: ')'
             {
              before(grammarAccess.getAtomicAccess().getRightParenthesisKeyword_3()); 
-            match(input,24,FOLLOW_24_in_rule__Atomic__Group__3__Impl5129); 
+            match(input,24,FOLLOW_24_in_rule__Atomic__Group__3__Impl5329); 
              after(grammarAccess.getAtomicAccess().getRightParenthesisKeyword_3()); 
 
             }
@@ -6841,21 +7098,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group_2__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2577:1: rule__Atomic__Group_2__0 : rule__Atomic__Group_2__0__Impl rule__Atomic__Group_2__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2674:1: rule__Atomic__Group_2__0 : rule__Atomic__Group_2__0__Impl rule__Atomic__Group_2__1 ;
     public final void rule__Atomic__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2581:1: ( rule__Atomic__Group_2__0__Impl rule__Atomic__Group_2__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2582:2: rule__Atomic__Group_2__0__Impl rule__Atomic__Group_2__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2678:1: ( rule__Atomic__Group_2__0__Impl rule__Atomic__Group_2__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2679:2: rule__Atomic__Group_2__0__Impl rule__Atomic__Group_2__1
             {
-            pushFollow(FOLLOW_rule__Atomic__Group_2__0__Impl_in_rule__Atomic__Group_2__05168);
+            pushFollow(FOLLOW_rule__Atomic__Group_2__0__Impl_in_rule__Atomic__Group_2__05368);
             rule__Atomic__Group_2__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Atomic__Group_2__1_in_rule__Atomic__Group_2__05171);
+            pushFollow(FOLLOW_rule__Atomic__Group_2__1_in_rule__Atomic__Group_2__05371);
             rule__Atomic__Group_2__1();
 
             state._fsp--;
@@ -6879,23 +7136,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group_2__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2589:1: rule__Atomic__Group_2__0__Impl : ( ( rule__Atomic__ArgsAssignment_2_0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2686:1: rule__Atomic__Group_2__0__Impl : ( ( rule__Atomic__ArgsAssignment_2_0 ) ) ;
     public final void rule__Atomic__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2593:1: ( ( ( rule__Atomic__ArgsAssignment_2_0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2594:1: ( ( rule__Atomic__ArgsAssignment_2_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2690:1: ( ( ( rule__Atomic__ArgsAssignment_2_0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2691:1: ( ( rule__Atomic__ArgsAssignment_2_0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2594:1: ( ( rule__Atomic__ArgsAssignment_2_0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2595:1: ( rule__Atomic__ArgsAssignment_2_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2691:1: ( ( rule__Atomic__ArgsAssignment_2_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2692:1: ( rule__Atomic__ArgsAssignment_2_0 )
             {
              before(grammarAccess.getAtomicAccess().getArgsAssignment_2_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2596:1: ( rule__Atomic__ArgsAssignment_2_0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2596:2: rule__Atomic__ArgsAssignment_2_0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2693:1: ( rule__Atomic__ArgsAssignment_2_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2693:2: rule__Atomic__ArgsAssignment_2_0
             {
-            pushFollow(FOLLOW_rule__Atomic__ArgsAssignment_2_0_in_rule__Atomic__Group_2__0__Impl5198);
+            pushFollow(FOLLOW_rule__Atomic__ArgsAssignment_2_0_in_rule__Atomic__Group_2__0__Impl5398);
             rule__Atomic__ArgsAssignment_2_0();
 
             state._fsp--;
@@ -6926,16 +7183,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group_2__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2606:1: rule__Atomic__Group_2__1 : rule__Atomic__Group_2__1__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2703:1: rule__Atomic__Group_2__1 : rule__Atomic__Group_2__1__Impl ;
     public final void rule__Atomic__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2610:1: ( rule__Atomic__Group_2__1__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2611:2: rule__Atomic__Group_2__1__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2707:1: ( rule__Atomic__Group_2__1__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2708:2: rule__Atomic__Group_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__Atomic__Group_2__1__Impl_in_rule__Atomic__Group_2__15228);
+            pushFollow(FOLLOW_rule__Atomic__Group_2__1__Impl_in_rule__Atomic__Group_2__15428);
             rule__Atomic__Group_2__1__Impl();
 
             state._fsp--;
@@ -6959,20 +7216,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group_2__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2617:1: rule__Atomic__Group_2__1__Impl : ( ( rule__Atomic__Group_2_1__0 )* ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2714:1: rule__Atomic__Group_2__1__Impl : ( ( rule__Atomic__Group_2_1__0 )* ) ;
     public final void rule__Atomic__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2621:1: ( ( ( rule__Atomic__Group_2_1__0 )* ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2622:1: ( ( rule__Atomic__Group_2_1__0 )* )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2718:1: ( ( ( rule__Atomic__Group_2_1__0 )* ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2719:1: ( ( rule__Atomic__Group_2_1__0 )* )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2622:1: ( ( rule__Atomic__Group_2_1__0 )* )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2623:1: ( rule__Atomic__Group_2_1__0 )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2719:1: ( ( rule__Atomic__Group_2_1__0 )* )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2720:1: ( rule__Atomic__Group_2_1__0 )*
             {
              before(grammarAccess.getAtomicAccess().getGroup_2_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2624:1: ( rule__Atomic__Group_2_1__0 )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2721:1: ( rule__Atomic__Group_2_1__0 )*
             loop18:
             do {
                 int alt18=2;
@@ -6985,9 +7242,9 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
                 switch (alt18) {
             	case 1 :
-            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2624:2: rule__Atomic__Group_2_1__0
+            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2721:2: rule__Atomic__Group_2_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__Atomic__Group_2_1__0_in_rule__Atomic__Group_2__1__Impl5255);
+            	    pushFollow(FOLLOW_rule__Atomic__Group_2_1__0_in_rule__Atomic__Group_2__1__Impl5455);
             	    rule__Atomic__Group_2_1__0();
 
             	    state._fsp--;
@@ -7024,21 +7281,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group_2_1__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2638:1: rule__Atomic__Group_2_1__0 : rule__Atomic__Group_2_1__0__Impl rule__Atomic__Group_2_1__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2735:1: rule__Atomic__Group_2_1__0 : rule__Atomic__Group_2_1__0__Impl rule__Atomic__Group_2_1__1 ;
     public final void rule__Atomic__Group_2_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2642:1: ( rule__Atomic__Group_2_1__0__Impl rule__Atomic__Group_2_1__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2643:2: rule__Atomic__Group_2_1__0__Impl rule__Atomic__Group_2_1__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2739:1: ( rule__Atomic__Group_2_1__0__Impl rule__Atomic__Group_2_1__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2740:2: rule__Atomic__Group_2_1__0__Impl rule__Atomic__Group_2_1__1
             {
-            pushFollow(FOLLOW_rule__Atomic__Group_2_1__0__Impl_in_rule__Atomic__Group_2_1__05290);
+            pushFollow(FOLLOW_rule__Atomic__Group_2_1__0__Impl_in_rule__Atomic__Group_2_1__05490);
             rule__Atomic__Group_2_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Atomic__Group_2_1__1_in_rule__Atomic__Group_2_1__05293);
+            pushFollow(FOLLOW_rule__Atomic__Group_2_1__1_in_rule__Atomic__Group_2_1__05493);
             rule__Atomic__Group_2_1__1();
 
             state._fsp--;
@@ -7062,20 +7319,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group_2_1__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2650:1: rule__Atomic__Group_2_1__0__Impl : ( ',' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2747:1: rule__Atomic__Group_2_1__0__Impl : ( ',' ) ;
     public final void rule__Atomic__Group_2_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2654:1: ( ( ',' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2655:1: ( ',' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2751:1: ( ( ',' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2752:1: ( ',' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2655:1: ( ',' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2656:1: ','
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2752:1: ( ',' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2753:1: ','
             {
              before(grammarAccess.getAtomicAccess().getCommaKeyword_2_1_0()); 
-            match(input,27,FOLLOW_27_in_rule__Atomic__Group_2_1__0__Impl5321); 
+            match(input,27,FOLLOW_27_in_rule__Atomic__Group_2_1__0__Impl5521); 
              after(grammarAccess.getAtomicAccess().getCommaKeyword_2_1_0()); 
 
             }
@@ -7099,16 +7356,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group_2_1__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2669:1: rule__Atomic__Group_2_1__1 : rule__Atomic__Group_2_1__1__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2766:1: rule__Atomic__Group_2_1__1 : rule__Atomic__Group_2_1__1__Impl ;
     public final void rule__Atomic__Group_2_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2673:1: ( rule__Atomic__Group_2_1__1__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2674:2: rule__Atomic__Group_2_1__1__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2770:1: ( rule__Atomic__Group_2_1__1__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2771:2: rule__Atomic__Group_2_1__1__Impl
             {
-            pushFollow(FOLLOW_rule__Atomic__Group_2_1__1__Impl_in_rule__Atomic__Group_2_1__15352);
+            pushFollow(FOLLOW_rule__Atomic__Group_2_1__1__Impl_in_rule__Atomic__Group_2_1__15552);
             rule__Atomic__Group_2_1__1__Impl();
 
             state._fsp--;
@@ -7132,23 +7389,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__Group_2_1__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2680:1: rule__Atomic__Group_2_1__1__Impl : ( ( rule__Atomic__ArgsAssignment_2_1_1 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2777:1: rule__Atomic__Group_2_1__1__Impl : ( ( rule__Atomic__ArgsAssignment_2_1_1 ) ) ;
     public final void rule__Atomic__Group_2_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2684:1: ( ( ( rule__Atomic__ArgsAssignment_2_1_1 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2685:1: ( ( rule__Atomic__ArgsAssignment_2_1_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2781:1: ( ( ( rule__Atomic__ArgsAssignment_2_1_1 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2782:1: ( ( rule__Atomic__ArgsAssignment_2_1_1 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2685:1: ( ( rule__Atomic__ArgsAssignment_2_1_1 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2686:1: ( rule__Atomic__ArgsAssignment_2_1_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2782:1: ( ( rule__Atomic__ArgsAssignment_2_1_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2783:1: ( rule__Atomic__ArgsAssignment_2_1_1 )
             {
              before(grammarAccess.getAtomicAccess().getArgsAssignment_2_1_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2687:1: ( rule__Atomic__ArgsAssignment_2_1_1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2687:2: rule__Atomic__ArgsAssignment_2_1_1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2784:1: ( rule__Atomic__ArgsAssignment_2_1_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2784:2: rule__Atomic__ArgsAssignment_2_1_1
             {
-            pushFollow(FOLLOW_rule__Atomic__ArgsAssignment_2_1_1_in_rule__Atomic__Group_2_1__1__Impl5379);
+            pushFollow(FOLLOW_rule__Atomic__ArgsAssignment_2_1_1_in_rule__Atomic__Group_2_1__1__Impl5579);
             rule__Atomic__ArgsAssignment_2_1_1();
 
             state._fsp--;
@@ -7179,21 +7436,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2701:1: rule__Theorem__Group__0 : rule__Theorem__Group__0__Impl rule__Theorem__Group__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2798:1: rule__Theorem__Group__0 : rule__Theorem__Group__0__Impl rule__Theorem__Group__1 ;
     public final void rule__Theorem__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2705:1: ( rule__Theorem__Group__0__Impl rule__Theorem__Group__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2706:2: rule__Theorem__Group__0__Impl rule__Theorem__Group__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2802:1: ( rule__Theorem__Group__0__Impl rule__Theorem__Group__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2803:2: rule__Theorem__Group__0__Impl rule__Theorem__Group__1
             {
-            pushFollow(FOLLOW_rule__Theorem__Group__0__Impl_in_rule__Theorem__Group__05413);
+            pushFollow(FOLLOW_rule__Theorem__Group__0__Impl_in_rule__Theorem__Group__05613);
             rule__Theorem__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Theorem__Group__1_in_rule__Theorem__Group__05416);
+            pushFollow(FOLLOW_rule__Theorem__Group__1_in_rule__Theorem__Group__05616);
             rule__Theorem__Group__1();
 
             state._fsp--;
@@ -7217,23 +7474,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2713:1: rule__Theorem__Group__0__Impl : ( ( rule__Theorem__RequirementAssignment_0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2810:1: rule__Theorem__Group__0__Impl : ( ( rule__Theorem__RequirementAssignment_0 ) ) ;
     public final void rule__Theorem__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2717:1: ( ( ( rule__Theorem__RequirementAssignment_0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2718:1: ( ( rule__Theorem__RequirementAssignment_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2814:1: ( ( ( rule__Theorem__RequirementAssignment_0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2815:1: ( ( rule__Theorem__RequirementAssignment_0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2718:1: ( ( rule__Theorem__RequirementAssignment_0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2719:1: ( rule__Theorem__RequirementAssignment_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2815:1: ( ( rule__Theorem__RequirementAssignment_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2816:1: ( rule__Theorem__RequirementAssignment_0 )
             {
              before(grammarAccess.getTheoremAccess().getRequirementAssignment_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2720:1: ( rule__Theorem__RequirementAssignment_0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2720:2: rule__Theorem__RequirementAssignment_0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2817:1: ( rule__Theorem__RequirementAssignment_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2817:2: rule__Theorem__RequirementAssignment_0
             {
-            pushFollow(FOLLOW_rule__Theorem__RequirementAssignment_0_in_rule__Theorem__Group__0__Impl5443);
+            pushFollow(FOLLOW_rule__Theorem__RequirementAssignment_0_in_rule__Theorem__Group__0__Impl5643);
             rule__Theorem__RequirementAssignment_0();
 
             state._fsp--;
@@ -7264,21 +7521,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2730:1: rule__Theorem__Group__1 : rule__Theorem__Group__1__Impl rule__Theorem__Group__2 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2827:1: rule__Theorem__Group__1 : rule__Theorem__Group__1__Impl rule__Theorem__Group__2 ;
     public final void rule__Theorem__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2734:1: ( rule__Theorem__Group__1__Impl rule__Theorem__Group__2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2735:2: rule__Theorem__Group__1__Impl rule__Theorem__Group__2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2831:1: ( rule__Theorem__Group__1__Impl rule__Theorem__Group__2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2832:2: rule__Theorem__Group__1__Impl rule__Theorem__Group__2
             {
-            pushFollow(FOLLOW_rule__Theorem__Group__1__Impl_in_rule__Theorem__Group__15473);
+            pushFollow(FOLLOW_rule__Theorem__Group__1__Impl_in_rule__Theorem__Group__15673);
             rule__Theorem__Group__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Theorem__Group__2_in_rule__Theorem__Group__15476);
+            pushFollow(FOLLOW_rule__Theorem__Group__2_in_rule__Theorem__Group__15676);
             rule__Theorem__Group__2();
 
             state._fsp--;
@@ -7302,20 +7559,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2742:1: rule__Theorem__Group__1__Impl : ( ':-' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2839:1: rule__Theorem__Group__1__Impl : ( ':-' ) ;
     public final void rule__Theorem__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2746:1: ( ( ':-' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2747:1: ( ':-' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2843:1: ( ( ':-' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2844:1: ( ':-' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2747:1: ( ':-' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2748:1: ':-'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2844:1: ( ':-' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2845:1: ':-'
             {
              before(grammarAccess.getTheoremAccess().getColonHyphenMinusKeyword_1()); 
-            match(input,33,FOLLOW_33_in_rule__Theorem__Group__1__Impl5504); 
+            match(input,34,FOLLOW_34_in_rule__Theorem__Group__1__Impl5704); 
              after(grammarAccess.getTheoremAccess().getColonHyphenMinusKeyword_1()); 
 
             }
@@ -7339,21 +7596,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2761:1: rule__Theorem__Group__2 : rule__Theorem__Group__2__Impl rule__Theorem__Group__3 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2858:1: rule__Theorem__Group__2 : rule__Theorem__Group__2__Impl rule__Theorem__Group__3 ;
     public final void rule__Theorem__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2765:1: ( rule__Theorem__Group__2__Impl rule__Theorem__Group__3 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2766:2: rule__Theorem__Group__2__Impl rule__Theorem__Group__3
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2862:1: ( rule__Theorem__Group__2__Impl rule__Theorem__Group__3 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2863:2: rule__Theorem__Group__2__Impl rule__Theorem__Group__3
             {
-            pushFollow(FOLLOW_rule__Theorem__Group__2__Impl_in_rule__Theorem__Group__25535);
+            pushFollow(FOLLOW_rule__Theorem__Group__2__Impl_in_rule__Theorem__Group__25735);
             rule__Theorem__Group__2__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Theorem__Group__3_in_rule__Theorem__Group__25538);
+            pushFollow(FOLLOW_rule__Theorem__Group__3_in_rule__Theorem__Group__25738);
             rule__Theorem__Group__3();
 
             state._fsp--;
@@ -7377,23 +7634,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__2__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2773:1: rule__Theorem__Group__2__Impl : ( ( rule__Theorem__ResultAssignment_2 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2870:1: rule__Theorem__Group__2__Impl : ( ( rule__Theorem__ResultAssignment_2 ) ) ;
     public final void rule__Theorem__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2777:1: ( ( ( rule__Theorem__ResultAssignment_2 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2778:1: ( ( rule__Theorem__ResultAssignment_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2874:1: ( ( ( rule__Theorem__ResultAssignment_2 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2875:1: ( ( rule__Theorem__ResultAssignment_2 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2778:1: ( ( rule__Theorem__ResultAssignment_2 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2779:1: ( rule__Theorem__ResultAssignment_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2875:1: ( ( rule__Theorem__ResultAssignment_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2876:1: ( rule__Theorem__ResultAssignment_2 )
             {
              before(grammarAccess.getTheoremAccess().getResultAssignment_2()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2780:1: ( rule__Theorem__ResultAssignment_2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2780:2: rule__Theorem__ResultAssignment_2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2877:1: ( rule__Theorem__ResultAssignment_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2877:2: rule__Theorem__ResultAssignment_2
             {
-            pushFollow(FOLLOW_rule__Theorem__ResultAssignment_2_in_rule__Theorem__Group__2__Impl5565);
+            pushFollow(FOLLOW_rule__Theorem__ResultAssignment_2_in_rule__Theorem__Group__2__Impl5765);
             rule__Theorem__ResultAssignment_2();
 
             state._fsp--;
@@ -7424,21 +7681,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__3"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2790:1: rule__Theorem__Group__3 : rule__Theorem__Group__3__Impl rule__Theorem__Group__4 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2887:1: rule__Theorem__Group__3 : rule__Theorem__Group__3__Impl rule__Theorem__Group__4 ;
     public final void rule__Theorem__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2794:1: ( rule__Theorem__Group__3__Impl rule__Theorem__Group__4 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2795:2: rule__Theorem__Group__3__Impl rule__Theorem__Group__4
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2891:1: ( rule__Theorem__Group__3__Impl rule__Theorem__Group__4 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2892:2: rule__Theorem__Group__3__Impl rule__Theorem__Group__4
             {
-            pushFollow(FOLLOW_rule__Theorem__Group__3__Impl_in_rule__Theorem__Group__35595);
+            pushFollow(FOLLOW_rule__Theorem__Group__3__Impl_in_rule__Theorem__Group__35795);
             rule__Theorem__Group__3__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Theorem__Group__4_in_rule__Theorem__Group__35598);
+            pushFollow(FOLLOW_rule__Theorem__Group__4_in_rule__Theorem__Group__35798);
             rule__Theorem__Group__4();
 
             state._fsp--;
@@ -7462,20 +7719,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__3__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2802:1: rule__Theorem__Group__3__Impl : ( ',' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2899:1: rule__Theorem__Group__3__Impl : ( ',' ) ;
     public final void rule__Theorem__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2806:1: ( ( ',' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2807:1: ( ',' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2903:1: ( ( ',' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2904:1: ( ',' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2807:1: ( ',' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2808:1: ','
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2904:1: ( ',' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2905:1: ','
             {
              before(grammarAccess.getTheoremAccess().getCommaKeyword_3()); 
-            match(input,27,FOLLOW_27_in_rule__Theorem__Group__3__Impl5626); 
+            match(input,27,FOLLOW_27_in_rule__Theorem__Group__3__Impl5826); 
              after(grammarAccess.getTheoremAccess().getCommaKeyword_3()); 
 
             }
@@ -7499,21 +7756,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__4"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2821:1: rule__Theorem__Group__4 : rule__Theorem__Group__4__Impl rule__Theorem__Group__5 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2918:1: rule__Theorem__Group__4 : rule__Theorem__Group__4__Impl rule__Theorem__Group__5 ;
     public final void rule__Theorem__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2825:1: ( rule__Theorem__Group__4__Impl rule__Theorem__Group__5 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2826:2: rule__Theorem__Group__4__Impl rule__Theorem__Group__5
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2922:1: ( rule__Theorem__Group__4__Impl rule__Theorem__Group__5 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2923:2: rule__Theorem__Group__4__Impl rule__Theorem__Group__5
             {
-            pushFollow(FOLLOW_rule__Theorem__Group__4__Impl_in_rule__Theorem__Group__45657);
+            pushFollow(FOLLOW_rule__Theorem__Group__4__Impl_in_rule__Theorem__Group__45857);
             rule__Theorem__Group__4__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Theorem__Group__5_in_rule__Theorem__Group__45660);
+            pushFollow(FOLLOW_rule__Theorem__Group__5_in_rule__Theorem__Group__45860);
             rule__Theorem__Group__5();
 
             state._fsp--;
@@ -7537,23 +7794,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__4__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2833:1: rule__Theorem__Group__4__Impl : ( ( rule__Theorem__CostAssignment_4 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2930:1: rule__Theorem__Group__4__Impl : ( ( rule__Theorem__CostAssignment_4 ) ) ;
     public final void rule__Theorem__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2837:1: ( ( ( rule__Theorem__CostAssignment_4 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2838:1: ( ( rule__Theorem__CostAssignment_4 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2934:1: ( ( ( rule__Theorem__CostAssignment_4 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2935:1: ( ( rule__Theorem__CostAssignment_4 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2838:1: ( ( rule__Theorem__CostAssignment_4 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2839:1: ( rule__Theorem__CostAssignment_4 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2935:1: ( ( rule__Theorem__CostAssignment_4 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2936:1: ( rule__Theorem__CostAssignment_4 )
             {
              before(grammarAccess.getTheoremAccess().getCostAssignment_4()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2840:1: ( rule__Theorem__CostAssignment_4 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2840:2: rule__Theorem__CostAssignment_4
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2937:1: ( rule__Theorem__CostAssignment_4 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2937:2: rule__Theorem__CostAssignment_4
             {
-            pushFollow(FOLLOW_rule__Theorem__CostAssignment_4_in_rule__Theorem__Group__4__Impl5687);
+            pushFollow(FOLLOW_rule__Theorem__CostAssignment_4_in_rule__Theorem__Group__4__Impl5887);
             rule__Theorem__CostAssignment_4();
 
             state._fsp--;
@@ -7584,21 +7841,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__5"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2850:1: rule__Theorem__Group__5 : rule__Theorem__Group__5__Impl rule__Theorem__Group__6 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2947:1: rule__Theorem__Group__5 : rule__Theorem__Group__5__Impl rule__Theorem__Group__6 ;
     public final void rule__Theorem__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2854:1: ( rule__Theorem__Group__5__Impl rule__Theorem__Group__6 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2855:2: rule__Theorem__Group__5__Impl rule__Theorem__Group__6
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2951:1: ( rule__Theorem__Group__5__Impl rule__Theorem__Group__6 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2952:2: rule__Theorem__Group__5__Impl rule__Theorem__Group__6
             {
-            pushFollow(FOLLOW_rule__Theorem__Group__5__Impl_in_rule__Theorem__Group__55717);
+            pushFollow(FOLLOW_rule__Theorem__Group__5__Impl_in_rule__Theorem__Group__55917);
             rule__Theorem__Group__5__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Theorem__Group__6_in_rule__Theorem__Group__55720);
+            pushFollow(FOLLOW_rule__Theorem__Group__6_in_rule__Theorem__Group__55920);
             rule__Theorem__Group__6();
 
             state._fsp--;
@@ -7622,20 +7879,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__5__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2862:1: rule__Theorem__Group__5__Impl : ( ',' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2959:1: rule__Theorem__Group__5__Impl : ( ',' ) ;
     public final void rule__Theorem__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2866:1: ( ( ',' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2867:1: ( ',' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2963:1: ( ( ',' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2964:1: ( ',' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2867:1: ( ',' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2868:1: ','
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2964:1: ( ',' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2965:1: ','
             {
              before(grammarAccess.getTheoremAccess().getCommaKeyword_5()); 
-            match(input,27,FOLLOW_27_in_rule__Theorem__Group__5__Impl5748); 
+            match(input,27,FOLLOW_27_in_rule__Theorem__Group__5__Impl5948); 
              after(grammarAccess.getTheoremAccess().getCommaKeyword_5()); 
 
             }
@@ -7659,21 +7916,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__6"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2881:1: rule__Theorem__Group__6 : rule__Theorem__Group__6__Impl rule__Theorem__Group__7 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2978:1: rule__Theorem__Group__6 : rule__Theorem__Group__6__Impl rule__Theorem__Group__7 ;
     public final void rule__Theorem__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2885:1: ( rule__Theorem__Group__6__Impl rule__Theorem__Group__7 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2886:2: rule__Theorem__Group__6__Impl rule__Theorem__Group__7
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2982:1: ( rule__Theorem__Group__6__Impl rule__Theorem__Group__7 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2983:2: rule__Theorem__Group__6__Impl rule__Theorem__Group__7
             {
-            pushFollow(FOLLOW_rule__Theorem__Group__6__Impl_in_rule__Theorem__Group__65779);
+            pushFollow(FOLLOW_rule__Theorem__Group__6__Impl_in_rule__Theorem__Group__65979);
             rule__Theorem__Group__6__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Theorem__Group__7_in_rule__Theorem__Group__65782);
+            pushFollow(FOLLOW_rule__Theorem__Group__7_in_rule__Theorem__Group__65982);
             rule__Theorem__Group__7();
 
             state._fsp--;
@@ -7697,23 +7954,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__6__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2893:1: rule__Theorem__Group__6__Impl : ( ( rule__Theorem__DescriptionAssignment_6 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2990:1: rule__Theorem__Group__6__Impl : ( ( rule__Theorem__DescriptionAssignment_6 ) ) ;
     public final void rule__Theorem__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2897:1: ( ( ( rule__Theorem__DescriptionAssignment_6 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2898:1: ( ( rule__Theorem__DescriptionAssignment_6 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2994:1: ( ( ( rule__Theorem__DescriptionAssignment_6 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2995:1: ( ( rule__Theorem__DescriptionAssignment_6 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2898:1: ( ( rule__Theorem__DescriptionAssignment_6 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2899:1: ( rule__Theorem__DescriptionAssignment_6 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2995:1: ( ( rule__Theorem__DescriptionAssignment_6 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2996:1: ( rule__Theorem__DescriptionAssignment_6 )
             {
              before(grammarAccess.getTheoremAccess().getDescriptionAssignment_6()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2900:1: ( rule__Theorem__DescriptionAssignment_6 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2900:2: rule__Theorem__DescriptionAssignment_6
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2997:1: ( rule__Theorem__DescriptionAssignment_6 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2997:2: rule__Theorem__DescriptionAssignment_6
             {
-            pushFollow(FOLLOW_rule__Theorem__DescriptionAssignment_6_in_rule__Theorem__Group__6__Impl5809);
+            pushFollow(FOLLOW_rule__Theorem__DescriptionAssignment_6_in_rule__Theorem__Group__6__Impl6009);
             rule__Theorem__DescriptionAssignment_6();
 
             state._fsp--;
@@ -7744,16 +8001,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__7"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2910:1: rule__Theorem__Group__7 : rule__Theorem__Group__7__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3007:1: rule__Theorem__Group__7 : rule__Theorem__Group__7__Impl ;
     public final void rule__Theorem__Group__7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2914:1: ( rule__Theorem__Group__7__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2915:2: rule__Theorem__Group__7__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3011:1: ( rule__Theorem__Group__7__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3012:2: rule__Theorem__Group__7__Impl
             {
-            pushFollow(FOLLOW_rule__Theorem__Group__7__Impl_in_rule__Theorem__Group__75839);
+            pushFollow(FOLLOW_rule__Theorem__Group__7__Impl_in_rule__Theorem__Group__76039);
             rule__Theorem__Group__7__Impl();
 
             state._fsp--;
@@ -7777,20 +8034,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__7__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2921:1: rule__Theorem__Group__7__Impl : ( ( rule__Theorem__Group_7__0 )? ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3018:1: rule__Theorem__Group__7__Impl : ( ( rule__Theorem__Group_7__0 )? ) ;
     public final void rule__Theorem__Group__7__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2925:1: ( ( ( rule__Theorem__Group_7__0 )? ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2926:1: ( ( rule__Theorem__Group_7__0 )? )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3022:1: ( ( ( rule__Theorem__Group_7__0 )? ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3023:1: ( ( rule__Theorem__Group_7__0 )? )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2926:1: ( ( rule__Theorem__Group_7__0 )? )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2927:1: ( rule__Theorem__Group_7__0 )?
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3023:1: ( ( rule__Theorem__Group_7__0 )? )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3024:1: ( rule__Theorem__Group_7__0 )?
             {
              before(grammarAccess.getTheoremAccess().getGroup_7()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2928:1: ( rule__Theorem__Group_7__0 )?
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3025:1: ( rule__Theorem__Group_7__0 )?
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -7799,9 +8056,9 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
             }
             switch (alt19) {
                 case 1 :
-                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2928:2: rule__Theorem__Group_7__0
+                    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3025:2: rule__Theorem__Group_7__0
                     {
-                    pushFollow(FOLLOW_rule__Theorem__Group_7__0_in_rule__Theorem__Group__7__Impl5866);
+                    pushFollow(FOLLOW_rule__Theorem__Group_7__0_in_rule__Theorem__Group__7__Impl6066);
                     rule__Theorem__Group_7__0();
 
                     state._fsp--;
@@ -7835,21 +8092,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group_7__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2954:1: rule__Theorem__Group_7__0 : rule__Theorem__Group_7__0__Impl rule__Theorem__Group_7__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3051:1: rule__Theorem__Group_7__0 : rule__Theorem__Group_7__0__Impl rule__Theorem__Group_7__1 ;
     public final void rule__Theorem__Group_7__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2958:1: ( rule__Theorem__Group_7__0__Impl rule__Theorem__Group_7__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2959:2: rule__Theorem__Group_7__0__Impl rule__Theorem__Group_7__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3055:1: ( rule__Theorem__Group_7__0__Impl rule__Theorem__Group_7__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3056:2: rule__Theorem__Group_7__0__Impl rule__Theorem__Group_7__1
             {
-            pushFollow(FOLLOW_rule__Theorem__Group_7__0__Impl_in_rule__Theorem__Group_7__05913);
+            pushFollow(FOLLOW_rule__Theorem__Group_7__0__Impl_in_rule__Theorem__Group_7__06113);
             rule__Theorem__Group_7__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Theorem__Group_7__1_in_rule__Theorem__Group_7__05916);
+            pushFollow(FOLLOW_rule__Theorem__Group_7__1_in_rule__Theorem__Group_7__06116);
             rule__Theorem__Group_7__1();
 
             state._fsp--;
@@ -7873,20 +8130,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group_7__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2966:1: rule__Theorem__Group_7__0__Impl : ( ',' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3063:1: rule__Theorem__Group_7__0__Impl : ( ',' ) ;
     public final void rule__Theorem__Group_7__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2970:1: ( ( ',' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2971:1: ( ',' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3067:1: ( ( ',' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3068:1: ( ',' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2971:1: ( ',' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2972:1: ','
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3068:1: ( ',' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3069:1: ','
             {
              before(grammarAccess.getTheoremAccess().getCommaKeyword_7_0()); 
-            match(input,27,FOLLOW_27_in_rule__Theorem__Group_7__0__Impl5944); 
+            match(input,27,FOLLOW_27_in_rule__Theorem__Group_7__0__Impl6144); 
              after(grammarAccess.getTheoremAccess().getCommaKeyword_7_0()); 
 
             }
@@ -7910,16 +8167,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group_7__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2985:1: rule__Theorem__Group_7__1 : rule__Theorem__Group_7__1__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3082:1: rule__Theorem__Group_7__1 : rule__Theorem__Group_7__1__Impl ;
     public final void rule__Theorem__Group_7__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2989:1: ( rule__Theorem__Group_7__1__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2990:2: rule__Theorem__Group_7__1__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3086:1: ( rule__Theorem__Group_7__1__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3087:2: rule__Theorem__Group_7__1__Impl
             {
-            pushFollow(FOLLOW_rule__Theorem__Group_7__1__Impl_in_rule__Theorem__Group_7__15975);
+            pushFollow(FOLLOW_rule__Theorem__Group_7__1__Impl_in_rule__Theorem__Group_7__16175);
             rule__Theorem__Group_7__1__Impl();
 
             state._fsp--;
@@ -7943,23 +8200,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group_7__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:2996:1: rule__Theorem__Group_7__1__Impl : ( ( rule__Theorem__PseudoCodeAssignment_7_1 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3093:1: rule__Theorem__Group_7__1__Impl : ( ( rule__Theorem__PseudoCodeAssignment_7_1 ) ) ;
     public final void rule__Theorem__Group_7__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3000:1: ( ( ( rule__Theorem__PseudoCodeAssignment_7_1 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3001:1: ( ( rule__Theorem__PseudoCodeAssignment_7_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3097:1: ( ( ( rule__Theorem__PseudoCodeAssignment_7_1 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3098:1: ( ( rule__Theorem__PseudoCodeAssignment_7_1 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3001:1: ( ( rule__Theorem__PseudoCodeAssignment_7_1 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3002:1: ( rule__Theorem__PseudoCodeAssignment_7_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3098:1: ( ( rule__Theorem__PseudoCodeAssignment_7_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3099:1: ( rule__Theorem__PseudoCodeAssignment_7_1 )
             {
              before(grammarAccess.getTheoremAccess().getPseudoCodeAssignment_7_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3003:1: ( rule__Theorem__PseudoCodeAssignment_7_1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3003:2: rule__Theorem__PseudoCodeAssignment_7_1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3100:1: ( rule__Theorem__PseudoCodeAssignment_7_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3100:2: rule__Theorem__PseudoCodeAssignment_7_1
             {
-            pushFollow(FOLLOW_rule__Theorem__PseudoCodeAssignment_7_1_in_rule__Theorem__Group_7__1__Impl6002);
+            pushFollow(FOLLOW_rule__Theorem__PseudoCodeAssignment_7_1_in_rule__Theorem__Group_7__1__Impl6202);
             rule__Theorem__PseudoCodeAssignment_7_1();
 
             state._fsp--;
@@ -7990,21 +8247,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Addition__Group__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3017:1: rule__Addition__Group__0 : rule__Addition__Group__0__Impl rule__Addition__Group__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3114:1: rule__Addition__Group__0 : rule__Addition__Group__0__Impl rule__Addition__Group__1 ;
     public final void rule__Addition__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3021:1: ( rule__Addition__Group__0__Impl rule__Addition__Group__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3022:2: rule__Addition__Group__0__Impl rule__Addition__Group__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3118:1: ( rule__Addition__Group__0__Impl rule__Addition__Group__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3119:2: rule__Addition__Group__0__Impl rule__Addition__Group__1
             {
-            pushFollow(FOLLOW_rule__Addition__Group__0__Impl_in_rule__Addition__Group__06036);
+            pushFollow(FOLLOW_rule__Addition__Group__0__Impl_in_rule__Addition__Group__06236);
             rule__Addition__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Addition__Group__1_in_rule__Addition__Group__06039);
+            pushFollow(FOLLOW_rule__Addition__Group__1_in_rule__Addition__Group__06239);
             rule__Addition__Group__1();
 
             state._fsp--;
@@ -8028,20 +8285,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Addition__Group__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3029:1: rule__Addition__Group__0__Impl : ( ruleMultiplication ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3126:1: rule__Addition__Group__0__Impl : ( ruleMultiplication ) ;
     public final void rule__Addition__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3033:1: ( ( ruleMultiplication ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3034:1: ( ruleMultiplication )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3130:1: ( ( ruleMultiplication ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3131:1: ( ruleMultiplication )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3034:1: ( ruleMultiplication )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3035:1: ruleMultiplication
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3131:1: ( ruleMultiplication )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3132:1: ruleMultiplication
             {
              before(grammarAccess.getAdditionAccess().getMultiplicationParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleMultiplication_in_rule__Addition__Group__0__Impl6066);
+            pushFollow(FOLLOW_ruleMultiplication_in_rule__Addition__Group__0__Impl6266);
             ruleMultiplication();
 
             state._fsp--;
@@ -8069,16 +8326,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Addition__Group__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3046:1: rule__Addition__Group__1 : rule__Addition__Group__1__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3143:1: rule__Addition__Group__1 : rule__Addition__Group__1__Impl ;
     public final void rule__Addition__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3050:1: ( rule__Addition__Group__1__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3051:2: rule__Addition__Group__1__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3147:1: ( rule__Addition__Group__1__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3148:2: rule__Addition__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__Addition__Group__1__Impl_in_rule__Addition__Group__16095);
+            pushFollow(FOLLOW_rule__Addition__Group__1__Impl_in_rule__Addition__Group__16295);
             rule__Addition__Group__1__Impl();
 
             state._fsp--;
@@ -8102,20 +8359,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Addition__Group__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3057:1: rule__Addition__Group__1__Impl : ( ( rule__Addition__Group_1__0 )* ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3154:1: rule__Addition__Group__1__Impl : ( ( rule__Addition__Group_1__0 )* ) ;
     public final void rule__Addition__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3061:1: ( ( ( rule__Addition__Group_1__0 )* ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3062:1: ( ( rule__Addition__Group_1__0 )* )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3158:1: ( ( ( rule__Addition__Group_1__0 )* ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3159:1: ( ( rule__Addition__Group_1__0 )* )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3062:1: ( ( rule__Addition__Group_1__0 )* )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3063:1: ( rule__Addition__Group_1__0 )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3159:1: ( ( rule__Addition__Group_1__0 )* )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3160:1: ( rule__Addition__Group_1__0 )*
             {
              before(grammarAccess.getAdditionAccess().getGroup_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3064:1: ( rule__Addition__Group_1__0 )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3161:1: ( rule__Addition__Group_1__0 )*
             loop20:
             do {
                 int alt20=2;
@@ -8128,9 +8385,9 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
                 switch (alt20) {
             	case 1 :
-            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3064:2: rule__Addition__Group_1__0
+            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3161:2: rule__Addition__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__Addition__Group_1__0_in_rule__Addition__Group__1__Impl6122);
+            	    pushFollow(FOLLOW_rule__Addition__Group_1__0_in_rule__Addition__Group__1__Impl6322);
             	    rule__Addition__Group_1__0();
 
             	    state._fsp--;
@@ -8167,21 +8424,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Addition__Group_1__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3078:1: rule__Addition__Group_1__0 : rule__Addition__Group_1__0__Impl rule__Addition__Group_1__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3175:1: rule__Addition__Group_1__0 : rule__Addition__Group_1__0__Impl rule__Addition__Group_1__1 ;
     public final void rule__Addition__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3082:1: ( rule__Addition__Group_1__0__Impl rule__Addition__Group_1__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3083:2: rule__Addition__Group_1__0__Impl rule__Addition__Group_1__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3179:1: ( rule__Addition__Group_1__0__Impl rule__Addition__Group_1__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3180:2: rule__Addition__Group_1__0__Impl rule__Addition__Group_1__1
             {
-            pushFollow(FOLLOW_rule__Addition__Group_1__0__Impl_in_rule__Addition__Group_1__06157);
+            pushFollow(FOLLOW_rule__Addition__Group_1__0__Impl_in_rule__Addition__Group_1__06357);
             rule__Addition__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Addition__Group_1__1_in_rule__Addition__Group_1__06160);
+            pushFollow(FOLLOW_rule__Addition__Group_1__1_in_rule__Addition__Group_1__06360);
             rule__Addition__Group_1__1();
 
             state._fsp--;
@@ -8205,21 +8462,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Addition__Group_1__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3090:1: rule__Addition__Group_1__0__Impl : ( () ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3187:1: rule__Addition__Group_1__0__Impl : ( () ) ;
     public final void rule__Addition__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3094:1: ( ( () ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3095:1: ( () )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3191:1: ( ( () ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3192:1: ( () )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3095:1: ( () )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3096:1: ()
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3192:1: ( () )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3193:1: ()
             {
              before(grammarAccess.getAdditionAccess().getAdditionLeftAction_1_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3097:1: ()
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3099:1: 
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3194:1: ()
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3196:1: 
             {
             }
 
@@ -8242,21 +8499,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Addition__Group_1__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3109:1: rule__Addition__Group_1__1 : rule__Addition__Group_1__1__Impl rule__Addition__Group_1__2 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3206:1: rule__Addition__Group_1__1 : rule__Addition__Group_1__1__Impl rule__Addition__Group_1__2 ;
     public final void rule__Addition__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3113:1: ( rule__Addition__Group_1__1__Impl rule__Addition__Group_1__2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3114:2: rule__Addition__Group_1__1__Impl rule__Addition__Group_1__2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3210:1: ( rule__Addition__Group_1__1__Impl rule__Addition__Group_1__2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3211:2: rule__Addition__Group_1__1__Impl rule__Addition__Group_1__2
             {
-            pushFollow(FOLLOW_rule__Addition__Group_1__1__Impl_in_rule__Addition__Group_1__16218);
+            pushFollow(FOLLOW_rule__Addition__Group_1__1__Impl_in_rule__Addition__Group_1__16418);
             rule__Addition__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Addition__Group_1__2_in_rule__Addition__Group_1__16221);
+            pushFollow(FOLLOW_rule__Addition__Group_1__2_in_rule__Addition__Group_1__16421);
             rule__Addition__Group_1__2();
 
             state._fsp--;
@@ -8280,23 +8537,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Addition__Group_1__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3121:1: rule__Addition__Group_1__1__Impl : ( ( rule__Addition__SymbolAssignment_1_1 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3218:1: rule__Addition__Group_1__1__Impl : ( ( rule__Addition__SymbolAssignment_1_1 ) ) ;
     public final void rule__Addition__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3125:1: ( ( ( rule__Addition__SymbolAssignment_1_1 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3126:1: ( ( rule__Addition__SymbolAssignment_1_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3222:1: ( ( ( rule__Addition__SymbolAssignment_1_1 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3223:1: ( ( rule__Addition__SymbolAssignment_1_1 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3126:1: ( ( rule__Addition__SymbolAssignment_1_1 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3127:1: ( rule__Addition__SymbolAssignment_1_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3223:1: ( ( rule__Addition__SymbolAssignment_1_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3224:1: ( rule__Addition__SymbolAssignment_1_1 )
             {
              before(grammarAccess.getAdditionAccess().getSymbolAssignment_1_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3128:1: ( rule__Addition__SymbolAssignment_1_1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3128:2: rule__Addition__SymbolAssignment_1_1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3225:1: ( rule__Addition__SymbolAssignment_1_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3225:2: rule__Addition__SymbolAssignment_1_1
             {
-            pushFollow(FOLLOW_rule__Addition__SymbolAssignment_1_1_in_rule__Addition__Group_1__1__Impl6248);
+            pushFollow(FOLLOW_rule__Addition__SymbolAssignment_1_1_in_rule__Addition__Group_1__1__Impl6448);
             rule__Addition__SymbolAssignment_1_1();
 
             state._fsp--;
@@ -8327,16 +8584,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Addition__Group_1__2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3138:1: rule__Addition__Group_1__2 : rule__Addition__Group_1__2__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3235:1: rule__Addition__Group_1__2 : rule__Addition__Group_1__2__Impl ;
     public final void rule__Addition__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3142:1: ( rule__Addition__Group_1__2__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3143:2: rule__Addition__Group_1__2__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3239:1: ( rule__Addition__Group_1__2__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3240:2: rule__Addition__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__Addition__Group_1__2__Impl_in_rule__Addition__Group_1__26278);
+            pushFollow(FOLLOW_rule__Addition__Group_1__2__Impl_in_rule__Addition__Group_1__26478);
             rule__Addition__Group_1__2__Impl();
 
             state._fsp--;
@@ -8360,23 +8617,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Addition__Group_1__2__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3149:1: rule__Addition__Group_1__2__Impl : ( ( rule__Addition__RightAssignment_1_2 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3246:1: rule__Addition__Group_1__2__Impl : ( ( rule__Addition__RightAssignment_1_2 ) ) ;
     public final void rule__Addition__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3153:1: ( ( ( rule__Addition__RightAssignment_1_2 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3154:1: ( ( rule__Addition__RightAssignment_1_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3250:1: ( ( ( rule__Addition__RightAssignment_1_2 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3251:1: ( ( rule__Addition__RightAssignment_1_2 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3154:1: ( ( rule__Addition__RightAssignment_1_2 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3155:1: ( rule__Addition__RightAssignment_1_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3251:1: ( ( rule__Addition__RightAssignment_1_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3252:1: ( rule__Addition__RightAssignment_1_2 )
             {
              before(grammarAccess.getAdditionAccess().getRightAssignment_1_2()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3156:1: ( rule__Addition__RightAssignment_1_2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3156:2: rule__Addition__RightAssignment_1_2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3253:1: ( rule__Addition__RightAssignment_1_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3253:2: rule__Addition__RightAssignment_1_2
             {
-            pushFollow(FOLLOW_rule__Addition__RightAssignment_1_2_in_rule__Addition__Group_1__2__Impl6305);
+            pushFollow(FOLLOW_rule__Addition__RightAssignment_1_2_in_rule__Addition__Group_1__2__Impl6505);
             rule__Addition__RightAssignment_1_2();
 
             state._fsp--;
@@ -8407,21 +8664,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Multiplication__Group__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3172:1: rule__Multiplication__Group__0 : rule__Multiplication__Group__0__Impl rule__Multiplication__Group__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3269:1: rule__Multiplication__Group__0 : rule__Multiplication__Group__0__Impl rule__Multiplication__Group__1 ;
     public final void rule__Multiplication__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3176:1: ( rule__Multiplication__Group__0__Impl rule__Multiplication__Group__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3177:2: rule__Multiplication__Group__0__Impl rule__Multiplication__Group__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3273:1: ( rule__Multiplication__Group__0__Impl rule__Multiplication__Group__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3274:2: rule__Multiplication__Group__0__Impl rule__Multiplication__Group__1
             {
-            pushFollow(FOLLOW_rule__Multiplication__Group__0__Impl_in_rule__Multiplication__Group__06341);
+            pushFollow(FOLLOW_rule__Multiplication__Group__0__Impl_in_rule__Multiplication__Group__06541);
             rule__Multiplication__Group__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Multiplication__Group__1_in_rule__Multiplication__Group__06344);
+            pushFollow(FOLLOW_rule__Multiplication__Group__1_in_rule__Multiplication__Group__06544);
             rule__Multiplication__Group__1();
 
             state._fsp--;
@@ -8445,20 +8702,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Multiplication__Group__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3184:1: rule__Multiplication__Group__0__Impl : ( ruleNumericalPrimary ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3281:1: rule__Multiplication__Group__0__Impl : ( ruleNumericalPrimary ) ;
     public final void rule__Multiplication__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3188:1: ( ( ruleNumericalPrimary ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3189:1: ( ruleNumericalPrimary )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3285:1: ( ( ruleNumericalPrimary ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3286:1: ( ruleNumericalPrimary )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3189:1: ( ruleNumericalPrimary )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3190:1: ruleNumericalPrimary
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3286:1: ( ruleNumericalPrimary )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3287:1: ruleNumericalPrimary
             {
              before(grammarAccess.getMultiplicationAccess().getNumericalPrimaryParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleNumericalPrimary_in_rule__Multiplication__Group__0__Impl6371);
+            pushFollow(FOLLOW_ruleNumericalPrimary_in_rule__Multiplication__Group__0__Impl6571);
             ruleNumericalPrimary();
 
             state._fsp--;
@@ -8486,16 +8743,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Multiplication__Group__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3201:1: rule__Multiplication__Group__1 : rule__Multiplication__Group__1__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3298:1: rule__Multiplication__Group__1 : rule__Multiplication__Group__1__Impl ;
     public final void rule__Multiplication__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3205:1: ( rule__Multiplication__Group__1__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3206:2: rule__Multiplication__Group__1__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3302:1: ( rule__Multiplication__Group__1__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3303:2: rule__Multiplication__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__Multiplication__Group__1__Impl_in_rule__Multiplication__Group__16400);
+            pushFollow(FOLLOW_rule__Multiplication__Group__1__Impl_in_rule__Multiplication__Group__16600);
             rule__Multiplication__Group__1__Impl();
 
             state._fsp--;
@@ -8519,20 +8776,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Multiplication__Group__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3212:1: rule__Multiplication__Group__1__Impl : ( ( rule__Multiplication__Group_1__0 )* ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3309:1: rule__Multiplication__Group__1__Impl : ( ( rule__Multiplication__Group_1__0 )* ) ;
     public final void rule__Multiplication__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3216:1: ( ( ( rule__Multiplication__Group_1__0 )* ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3217:1: ( ( rule__Multiplication__Group_1__0 )* )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3313:1: ( ( ( rule__Multiplication__Group_1__0 )* ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3314:1: ( ( rule__Multiplication__Group_1__0 )* )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3217:1: ( ( rule__Multiplication__Group_1__0 )* )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3218:1: ( rule__Multiplication__Group_1__0 )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3314:1: ( ( rule__Multiplication__Group_1__0 )* )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3315:1: ( rule__Multiplication__Group_1__0 )*
             {
              before(grammarAccess.getMultiplicationAccess().getGroup_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3219:1: ( rule__Multiplication__Group_1__0 )*
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3316:1: ( rule__Multiplication__Group_1__0 )*
             loop21:
             do {
                 int alt21=2;
@@ -8545,9 +8802,9 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
                 switch (alt21) {
             	case 1 :
-            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3219:2: rule__Multiplication__Group_1__0
+            	    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3316:2: rule__Multiplication__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__Multiplication__Group_1__0_in_rule__Multiplication__Group__1__Impl6427);
+            	    pushFollow(FOLLOW_rule__Multiplication__Group_1__0_in_rule__Multiplication__Group__1__Impl6627);
             	    rule__Multiplication__Group_1__0();
 
             	    state._fsp--;
@@ -8584,21 +8841,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Multiplication__Group_1__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3233:1: rule__Multiplication__Group_1__0 : rule__Multiplication__Group_1__0__Impl rule__Multiplication__Group_1__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3330:1: rule__Multiplication__Group_1__0 : rule__Multiplication__Group_1__0__Impl rule__Multiplication__Group_1__1 ;
     public final void rule__Multiplication__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3237:1: ( rule__Multiplication__Group_1__0__Impl rule__Multiplication__Group_1__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3238:2: rule__Multiplication__Group_1__0__Impl rule__Multiplication__Group_1__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3334:1: ( rule__Multiplication__Group_1__0__Impl rule__Multiplication__Group_1__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3335:2: rule__Multiplication__Group_1__0__Impl rule__Multiplication__Group_1__1
             {
-            pushFollow(FOLLOW_rule__Multiplication__Group_1__0__Impl_in_rule__Multiplication__Group_1__06462);
+            pushFollow(FOLLOW_rule__Multiplication__Group_1__0__Impl_in_rule__Multiplication__Group_1__06662);
             rule__Multiplication__Group_1__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Multiplication__Group_1__1_in_rule__Multiplication__Group_1__06465);
+            pushFollow(FOLLOW_rule__Multiplication__Group_1__1_in_rule__Multiplication__Group_1__06665);
             rule__Multiplication__Group_1__1();
 
             state._fsp--;
@@ -8622,21 +8879,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Multiplication__Group_1__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3245:1: rule__Multiplication__Group_1__0__Impl : ( () ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3342:1: rule__Multiplication__Group_1__0__Impl : ( () ) ;
     public final void rule__Multiplication__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3249:1: ( ( () ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3250:1: ( () )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3346:1: ( ( () ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3347:1: ( () )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3250:1: ( () )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3251:1: ()
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3347:1: ( () )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3348:1: ()
             {
              before(grammarAccess.getMultiplicationAccess().getMultiplicationLeftAction_1_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3252:1: ()
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3254:1: 
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3349:1: ()
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3351:1: 
             {
             }
 
@@ -8659,21 +8916,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Multiplication__Group_1__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3264:1: rule__Multiplication__Group_1__1 : rule__Multiplication__Group_1__1__Impl rule__Multiplication__Group_1__2 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3361:1: rule__Multiplication__Group_1__1 : rule__Multiplication__Group_1__1__Impl rule__Multiplication__Group_1__2 ;
     public final void rule__Multiplication__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3268:1: ( rule__Multiplication__Group_1__1__Impl rule__Multiplication__Group_1__2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3269:2: rule__Multiplication__Group_1__1__Impl rule__Multiplication__Group_1__2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3365:1: ( rule__Multiplication__Group_1__1__Impl rule__Multiplication__Group_1__2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3366:2: rule__Multiplication__Group_1__1__Impl rule__Multiplication__Group_1__2
             {
-            pushFollow(FOLLOW_rule__Multiplication__Group_1__1__Impl_in_rule__Multiplication__Group_1__16523);
+            pushFollow(FOLLOW_rule__Multiplication__Group_1__1__Impl_in_rule__Multiplication__Group_1__16723);
             rule__Multiplication__Group_1__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__Multiplication__Group_1__2_in_rule__Multiplication__Group_1__16526);
+            pushFollow(FOLLOW_rule__Multiplication__Group_1__2_in_rule__Multiplication__Group_1__16726);
             rule__Multiplication__Group_1__2();
 
             state._fsp--;
@@ -8697,23 +8954,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Multiplication__Group_1__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3276:1: rule__Multiplication__Group_1__1__Impl : ( ( rule__Multiplication__SymbolAssignment_1_1 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3373:1: rule__Multiplication__Group_1__1__Impl : ( ( rule__Multiplication__SymbolAssignment_1_1 ) ) ;
     public final void rule__Multiplication__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3280:1: ( ( ( rule__Multiplication__SymbolAssignment_1_1 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3281:1: ( ( rule__Multiplication__SymbolAssignment_1_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3377:1: ( ( ( rule__Multiplication__SymbolAssignment_1_1 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3378:1: ( ( rule__Multiplication__SymbolAssignment_1_1 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3281:1: ( ( rule__Multiplication__SymbolAssignment_1_1 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3282:1: ( rule__Multiplication__SymbolAssignment_1_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3378:1: ( ( rule__Multiplication__SymbolAssignment_1_1 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3379:1: ( rule__Multiplication__SymbolAssignment_1_1 )
             {
              before(grammarAccess.getMultiplicationAccess().getSymbolAssignment_1_1()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3283:1: ( rule__Multiplication__SymbolAssignment_1_1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3283:2: rule__Multiplication__SymbolAssignment_1_1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3380:1: ( rule__Multiplication__SymbolAssignment_1_1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3380:2: rule__Multiplication__SymbolAssignment_1_1
             {
-            pushFollow(FOLLOW_rule__Multiplication__SymbolAssignment_1_1_in_rule__Multiplication__Group_1__1__Impl6553);
+            pushFollow(FOLLOW_rule__Multiplication__SymbolAssignment_1_1_in_rule__Multiplication__Group_1__1__Impl6753);
             rule__Multiplication__SymbolAssignment_1_1();
 
             state._fsp--;
@@ -8744,16 +9001,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Multiplication__Group_1__2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3293:1: rule__Multiplication__Group_1__2 : rule__Multiplication__Group_1__2__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3390:1: rule__Multiplication__Group_1__2 : rule__Multiplication__Group_1__2__Impl ;
     public final void rule__Multiplication__Group_1__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3297:1: ( rule__Multiplication__Group_1__2__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3298:2: rule__Multiplication__Group_1__2__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3394:1: ( rule__Multiplication__Group_1__2__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3395:2: rule__Multiplication__Group_1__2__Impl
             {
-            pushFollow(FOLLOW_rule__Multiplication__Group_1__2__Impl_in_rule__Multiplication__Group_1__26583);
+            pushFollow(FOLLOW_rule__Multiplication__Group_1__2__Impl_in_rule__Multiplication__Group_1__26783);
             rule__Multiplication__Group_1__2__Impl();
 
             state._fsp--;
@@ -8777,23 +9034,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Multiplication__Group_1__2__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3304:1: rule__Multiplication__Group_1__2__Impl : ( ( rule__Multiplication__RightAssignment_1_2 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3401:1: rule__Multiplication__Group_1__2__Impl : ( ( rule__Multiplication__RightAssignment_1_2 ) ) ;
     public final void rule__Multiplication__Group_1__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3308:1: ( ( ( rule__Multiplication__RightAssignment_1_2 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3309:1: ( ( rule__Multiplication__RightAssignment_1_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3405:1: ( ( ( rule__Multiplication__RightAssignment_1_2 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3406:1: ( ( rule__Multiplication__RightAssignment_1_2 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3309:1: ( ( rule__Multiplication__RightAssignment_1_2 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3310:1: ( rule__Multiplication__RightAssignment_1_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3406:1: ( ( rule__Multiplication__RightAssignment_1_2 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3407:1: ( rule__Multiplication__RightAssignment_1_2 )
             {
              before(grammarAccess.getMultiplicationAccess().getRightAssignment_1_2()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3311:1: ( rule__Multiplication__RightAssignment_1_2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3311:2: rule__Multiplication__RightAssignment_1_2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3408:1: ( rule__Multiplication__RightAssignment_1_2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3408:2: rule__Multiplication__RightAssignment_1_2
             {
-            pushFollow(FOLLOW_rule__Multiplication__RightAssignment_1_2_in_rule__Multiplication__Group_1__2__Impl6610);
+            pushFollow(FOLLOW_rule__Multiplication__RightAssignment_1_2_in_rule__Multiplication__Group_1__2__Impl6810);
             rule__Multiplication__RightAssignment_1_2();
 
             state._fsp--;
@@ -8824,21 +9081,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NumericalPrimary__Group_2__0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3327:1: rule__NumericalPrimary__Group_2__0 : rule__NumericalPrimary__Group_2__0__Impl rule__NumericalPrimary__Group_2__1 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3424:1: rule__NumericalPrimary__Group_2__0 : rule__NumericalPrimary__Group_2__0__Impl rule__NumericalPrimary__Group_2__1 ;
     public final void rule__NumericalPrimary__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3331:1: ( rule__NumericalPrimary__Group_2__0__Impl rule__NumericalPrimary__Group_2__1 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3332:2: rule__NumericalPrimary__Group_2__0__Impl rule__NumericalPrimary__Group_2__1
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3428:1: ( rule__NumericalPrimary__Group_2__0__Impl rule__NumericalPrimary__Group_2__1 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3429:2: rule__NumericalPrimary__Group_2__0__Impl rule__NumericalPrimary__Group_2__1
             {
-            pushFollow(FOLLOW_rule__NumericalPrimary__Group_2__0__Impl_in_rule__NumericalPrimary__Group_2__06646);
+            pushFollow(FOLLOW_rule__NumericalPrimary__Group_2__0__Impl_in_rule__NumericalPrimary__Group_2__06846);
             rule__NumericalPrimary__Group_2__0__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__NumericalPrimary__Group_2__1_in_rule__NumericalPrimary__Group_2__06649);
+            pushFollow(FOLLOW_rule__NumericalPrimary__Group_2__1_in_rule__NumericalPrimary__Group_2__06849);
             rule__NumericalPrimary__Group_2__1();
 
             state._fsp--;
@@ -8862,20 +9119,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NumericalPrimary__Group_2__0__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3339:1: rule__NumericalPrimary__Group_2__0__Impl : ( '(' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3436:1: rule__NumericalPrimary__Group_2__0__Impl : ( '(' ) ;
     public final void rule__NumericalPrimary__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3343:1: ( ( '(' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3344:1: ( '(' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3440:1: ( ( '(' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3441:1: ( '(' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3344:1: ( '(' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3345:1: '('
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3441:1: ( '(' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3442:1: '('
             {
              before(grammarAccess.getNumericalPrimaryAccess().getLeftParenthesisKeyword_2_0()); 
-            match(input,23,FOLLOW_23_in_rule__NumericalPrimary__Group_2__0__Impl6677); 
+            match(input,23,FOLLOW_23_in_rule__NumericalPrimary__Group_2__0__Impl6877); 
              after(grammarAccess.getNumericalPrimaryAccess().getLeftParenthesisKeyword_2_0()); 
 
             }
@@ -8899,21 +9156,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NumericalPrimary__Group_2__1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3358:1: rule__NumericalPrimary__Group_2__1 : rule__NumericalPrimary__Group_2__1__Impl rule__NumericalPrimary__Group_2__2 ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3455:1: rule__NumericalPrimary__Group_2__1 : rule__NumericalPrimary__Group_2__1__Impl rule__NumericalPrimary__Group_2__2 ;
     public final void rule__NumericalPrimary__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3362:1: ( rule__NumericalPrimary__Group_2__1__Impl rule__NumericalPrimary__Group_2__2 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3363:2: rule__NumericalPrimary__Group_2__1__Impl rule__NumericalPrimary__Group_2__2
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3459:1: ( rule__NumericalPrimary__Group_2__1__Impl rule__NumericalPrimary__Group_2__2 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3460:2: rule__NumericalPrimary__Group_2__1__Impl rule__NumericalPrimary__Group_2__2
             {
-            pushFollow(FOLLOW_rule__NumericalPrimary__Group_2__1__Impl_in_rule__NumericalPrimary__Group_2__16708);
+            pushFollow(FOLLOW_rule__NumericalPrimary__Group_2__1__Impl_in_rule__NumericalPrimary__Group_2__16908);
             rule__NumericalPrimary__Group_2__1__Impl();
 
             state._fsp--;
 
-            pushFollow(FOLLOW_rule__NumericalPrimary__Group_2__2_in_rule__NumericalPrimary__Group_2__16711);
+            pushFollow(FOLLOW_rule__NumericalPrimary__Group_2__2_in_rule__NumericalPrimary__Group_2__16911);
             rule__NumericalPrimary__Group_2__2();
 
             state._fsp--;
@@ -8937,20 +9194,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NumericalPrimary__Group_2__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3370:1: rule__NumericalPrimary__Group_2__1__Impl : ( ruleNumericalPrimary ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3467:1: rule__NumericalPrimary__Group_2__1__Impl : ( ruleNumericalPrimary ) ;
     public final void rule__NumericalPrimary__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3374:1: ( ( ruleNumericalPrimary ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3375:1: ( ruleNumericalPrimary )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3471:1: ( ( ruleNumericalPrimary ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3472:1: ( ruleNumericalPrimary )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3375:1: ( ruleNumericalPrimary )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3376:1: ruleNumericalPrimary
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3472:1: ( ruleNumericalPrimary )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3473:1: ruleNumericalPrimary
             {
              before(grammarAccess.getNumericalPrimaryAccess().getNumericalPrimaryParserRuleCall_2_1()); 
-            pushFollow(FOLLOW_ruleNumericalPrimary_in_rule__NumericalPrimary__Group_2__1__Impl6738);
+            pushFollow(FOLLOW_ruleNumericalPrimary_in_rule__NumericalPrimary__Group_2__1__Impl6938);
             ruleNumericalPrimary();
 
             state._fsp--;
@@ -8978,16 +9235,16 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NumericalPrimary__Group_2__2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3387:1: rule__NumericalPrimary__Group_2__2 : rule__NumericalPrimary__Group_2__2__Impl ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3484:1: rule__NumericalPrimary__Group_2__2 : rule__NumericalPrimary__Group_2__2__Impl ;
     public final void rule__NumericalPrimary__Group_2__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3391:1: ( rule__NumericalPrimary__Group_2__2__Impl )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3392:2: rule__NumericalPrimary__Group_2__2__Impl
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3488:1: ( rule__NumericalPrimary__Group_2__2__Impl )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3489:2: rule__NumericalPrimary__Group_2__2__Impl
             {
-            pushFollow(FOLLOW_rule__NumericalPrimary__Group_2__2__Impl_in_rule__NumericalPrimary__Group_2__26767);
+            pushFollow(FOLLOW_rule__NumericalPrimary__Group_2__2__Impl_in_rule__NumericalPrimary__Group_2__26967);
             rule__NumericalPrimary__Group_2__2__Impl();
 
             state._fsp--;
@@ -9011,20 +9268,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NumericalPrimary__Group_2__2__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3398:1: rule__NumericalPrimary__Group_2__2__Impl : ( ')' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3495:1: rule__NumericalPrimary__Group_2__2__Impl : ( ')' ) ;
     public final void rule__NumericalPrimary__Group_2__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3402:1: ( ( ')' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3403:1: ( ')' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3499:1: ( ( ')' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3500:1: ( ')' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3403:1: ( ')' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3404:1: ')'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3500:1: ( ')' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3501:1: ')'
             {
              before(grammarAccess.getNumericalPrimaryAccess().getRightParenthesisKeyword_2_2()); 
-            match(input,24,FOLLOW_24_in_rule__NumericalPrimary__Group_2__2__Impl6795); 
+            match(input,24,FOLLOW_24_in_rule__NumericalPrimary__Group_2__2__Impl6995); 
              after(grammarAccess.getNumericalPrimaryAccess().getRightParenthesisKeyword_2_2()); 
 
             }
@@ -9048,20 +9305,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__GivenAssignment_1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3424:1: rule__Input__GivenAssignment_1 : ( ruleProblem ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3521:1: rule__Input__GivenAssignment_1 : ( ruleProblem ) ;
     public final void rule__Input__GivenAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3428:1: ( ( ruleProblem ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3429:1: ( ruleProblem )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3525:1: ( ( ruleProblem ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3526:1: ( ruleProblem )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3429:1: ( ruleProblem )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3430:1: ruleProblem
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3526:1: ( ruleProblem )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3527:1: ruleProblem
             {
              before(grammarAccess.getInputAccess().getGivenProblemParserRuleCall_1_0()); 
-            pushFollow(FOLLOW_ruleProblem_in_rule__Input__GivenAssignment_16837);
+            pushFollow(FOLLOW_ruleProblem_in_rule__Input__GivenAssignment_17037);
             ruleProblem();
 
             state._fsp--;
@@ -9089,23 +9346,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__TaskAssignment_3_0_0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3439:1: rule__Input__TaskAssignment_3_0_0 : ( ( rule__Input__TaskAlternatives_3_0_0_0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3536:1: rule__Input__TaskAssignment_3_0_0 : ( ( rule__Input__TaskAlternatives_3_0_0_0 ) ) ;
     public final void rule__Input__TaskAssignment_3_0_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3443:1: ( ( ( rule__Input__TaskAlternatives_3_0_0_0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3444:1: ( ( rule__Input__TaskAlternatives_3_0_0_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3540:1: ( ( ( rule__Input__TaskAlternatives_3_0_0_0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3541:1: ( ( rule__Input__TaskAlternatives_3_0_0_0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3444:1: ( ( rule__Input__TaskAlternatives_3_0_0_0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3445:1: ( rule__Input__TaskAlternatives_3_0_0_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3541:1: ( ( rule__Input__TaskAlternatives_3_0_0_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3542:1: ( rule__Input__TaskAlternatives_3_0_0_0 )
             {
              before(grammarAccess.getInputAccess().getTaskAlternatives_3_0_0_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3446:1: ( rule__Input__TaskAlternatives_3_0_0_0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3446:2: rule__Input__TaskAlternatives_3_0_0_0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3543:1: ( rule__Input__TaskAlternatives_3_0_0_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3543:2: rule__Input__TaskAlternatives_3_0_0_0
             {
-            pushFollow(FOLLOW_rule__Input__TaskAlternatives_3_0_0_0_in_rule__Input__TaskAssignment_3_0_06868);
+            pushFollow(FOLLOW_rule__Input__TaskAlternatives_3_0_0_0_in_rule__Input__TaskAssignment_3_0_07068);
             rule__Input__TaskAlternatives_3_0_0_0();
 
             state._fsp--;
@@ -9136,20 +9393,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__GoalAssignment_3_0_1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3455:1: rule__Input__GoalAssignment_3_0_1 : ( ruleProblem ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3552:1: rule__Input__GoalAssignment_3_0_1 : ( ruleProblem ) ;
     public final void rule__Input__GoalAssignment_3_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3459:1: ( ( ruleProblem ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3460:1: ( ruleProblem )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3556:1: ( ( ruleProblem ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3557:1: ( ruleProblem )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3460:1: ( ruleProblem )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3461:1: ruleProblem
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3557:1: ( ruleProblem )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3558:1: ruleProblem
             {
              before(grammarAccess.getInputAccess().getGoalProblemParserRuleCall_3_0_1_0()); 
-            pushFollow(FOLLOW_ruleProblem_in_rule__Input__GoalAssignment_3_0_16901);
+            pushFollow(FOLLOW_ruleProblem_in_rule__Input__GoalAssignment_3_0_17101);
             ruleProblem();
 
             state._fsp--;
@@ -9177,24 +9434,24 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__TaskAssignment_3_1_0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3470:1: rule__Input__TaskAssignment_3_1_0 : ( ( 'Test' ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3567:1: rule__Input__TaskAssignment_3_1_0 : ( ( 'Test' ) ) ;
     public final void rule__Input__TaskAssignment_3_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3474:1: ( ( ( 'Test' ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3475:1: ( ( 'Test' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3571:1: ( ( ( 'Test' ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3572:1: ( ( 'Test' ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3475:1: ( ( 'Test' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3476:1: ( 'Test' )
-            {
-             before(grammarAccess.getInputAccess().getTaskTestKeyword_3_1_0_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3477:1: ( 'Test' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3478:1: 'Test'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3572:1: ( ( 'Test' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3573:1: ( 'Test' )
             {
              before(grammarAccess.getInputAccess().getTaskTestKeyword_3_1_0_0()); 
-            match(input,34,FOLLOW_34_in_rule__Input__TaskAssignment_3_1_06937); 
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3574:1: ( 'Test' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3575:1: 'Test'
+            {
+             before(grammarAccess.getInputAccess().getTaskTestKeyword_3_1_0_0()); 
+            match(input,35,FOLLOW_35_in_rule__Input__TaskAssignment_3_1_07137); 
              after(grammarAccess.getInputAccess().getTaskTestKeyword_3_1_0_0()); 
 
             }
@@ -9222,20 +9479,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__GoalAssignment_3_1_2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3493:1: rule__Input__GoalAssignment_3_1_2 : ( ruleProblemNoVars ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3590:1: rule__Input__GoalAssignment_3_1_2 : ( ruleProblemNoVars ) ;
     public final void rule__Input__GoalAssignment_3_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3497:1: ( ( ruleProblemNoVars ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3498:1: ( ruleProblemNoVars )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3594:1: ( ( ruleProblemNoVars ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3595:1: ( ruleProblemNoVars )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3498:1: ( ruleProblemNoVars )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3499:1: ruleProblemNoVars
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3595:1: ( ruleProblemNoVars )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3596:1: ruleProblemNoVars
             {
              before(grammarAccess.getInputAccess().getGoalProblemNoVarsParserRuleCall_3_1_2_0()); 
-            pushFollow(FOLLOW_ruleProblemNoVars_in_rule__Input__GoalAssignment_3_1_26976);
+            pushFollow(FOLLOW_ruleProblemNoVars_in_rule__Input__GoalAssignment_3_1_27176);
             ruleProblemNoVars();
 
             state._fsp--;
@@ -9263,20 +9520,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__TheoremsAssignment_4_2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3508:1: rule__Input__TheoremsAssignment_4_2 : ( ruleTheorem ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3605:1: rule__Input__TheoremsAssignment_4_2 : ( ruleTheorem ) ;
     public final void rule__Input__TheoremsAssignment_4_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3512:1: ( ( ruleTheorem ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3513:1: ( ruleTheorem )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3609:1: ( ( ruleTheorem ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3610:1: ( ruleTheorem )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3513:1: ( ruleTheorem )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3514:1: ruleTheorem
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3610:1: ( ruleTheorem )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3611:1: ruleTheorem
             {
              before(grammarAccess.getInputAccess().getTheoremsTheoremParserRuleCall_4_2_0()); 
-            pushFollow(FOLLOW_ruleTheorem_in_rule__Input__TheoremsAssignment_4_27007);
+            pushFollow(FOLLOW_ruleTheorem_in_rule__Input__TheoremsAssignment_4_27207);
             ruleTheorem();
 
             state._fsp--;
@@ -9304,20 +9561,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Input__TheoremsAssignment_4_3_1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3523:1: rule__Input__TheoremsAssignment_4_3_1 : ( ruleTheorem ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3620:1: rule__Input__TheoremsAssignment_4_3_1 : ( ruleTheorem ) ;
     public final void rule__Input__TheoremsAssignment_4_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3527:1: ( ( ruleTheorem ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3528:1: ( ruleTheorem )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3624:1: ( ( ruleTheorem ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3625:1: ( ruleTheorem )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3528:1: ( ruleTheorem )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3529:1: ruleTheorem
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3625:1: ( ruleTheorem )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3626:1: ruleTheorem
             {
              before(grammarAccess.getInputAccess().getTheoremsTheoremParserRuleCall_4_3_1_0()); 
-            pushFollow(FOLLOW_ruleTheorem_in_rule__Input__TheoremsAssignment_4_3_17038);
+            pushFollow(FOLLOW_ruleTheorem_in_rule__Input__TheoremsAssignment_4_3_17238);
             ruleTheorem();
 
             state._fsp--;
@@ -9345,20 +9602,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ProblemNoVars__PropertyAssignment"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3538:1: rule__ProblemNoVars__PropertyAssignment : ( ruleORing ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3635:1: rule__ProblemNoVars__PropertyAssignment : ( ruleORing ) ;
     public final void rule__ProblemNoVars__PropertyAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3542:1: ( ( ruleORing ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3543:1: ( ruleORing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3639:1: ( ( ruleORing ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3640:1: ( ruleORing )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3543:1: ( ruleORing )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3544:1: ruleORing
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3640:1: ( ruleORing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3641:1: ruleORing
             {
              before(grammarAccess.getProblemNoVarsAccess().getPropertyORingParserRuleCall_0()); 
-            pushFollow(FOLLOW_ruleORing_in_rule__ProblemNoVars__PropertyAssignment7069);
+            pushFollow(FOLLOW_ruleORing_in_rule__ProblemNoVars__PropertyAssignment7269);
             ruleORing();
 
             state._fsp--;
@@ -9386,20 +9643,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Problem__VarsAssignment_0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3553:1: rule__Problem__VarsAssignment_0 : ( ruleDeclaration ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3650:1: rule__Problem__VarsAssignment_0 : ( ruleDeclaration ) ;
     public final void rule__Problem__VarsAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3557:1: ( ( ruleDeclaration ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3558:1: ( ruleDeclaration )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3654:1: ( ( ruleDeclaration ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3655:1: ( ruleDeclaration )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3558:1: ( ruleDeclaration )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3559:1: ruleDeclaration
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3655:1: ( ruleDeclaration )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3656:1: ruleDeclaration
             {
              before(grammarAccess.getProblemAccess().getVarsDeclarationParserRuleCall_0_0()); 
-            pushFollow(FOLLOW_ruleDeclaration_in_rule__Problem__VarsAssignment_07100);
+            pushFollow(FOLLOW_ruleDeclaration_in_rule__Problem__VarsAssignment_07300);
             ruleDeclaration();
 
             state._fsp--;
@@ -9427,20 +9684,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Problem__VarsAssignment_1_1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3568:1: rule__Problem__VarsAssignment_1_1 : ( ruleDeclaration ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3665:1: rule__Problem__VarsAssignment_1_1 : ( ruleDeclaration ) ;
     public final void rule__Problem__VarsAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3572:1: ( ( ruleDeclaration ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3573:1: ( ruleDeclaration )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3669:1: ( ( ruleDeclaration ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3670:1: ( ruleDeclaration )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3573:1: ( ruleDeclaration )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3574:1: ruleDeclaration
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3670:1: ( ruleDeclaration )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3671:1: ruleDeclaration
             {
              before(grammarAccess.getProblemAccess().getVarsDeclarationParserRuleCall_1_1_0()); 
-            pushFollow(FOLLOW_ruleDeclaration_in_rule__Problem__VarsAssignment_1_17131);
+            pushFollow(FOLLOW_ruleDeclaration_in_rule__Problem__VarsAssignment_1_17331);
             ruleDeclaration();
 
             state._fsp--;
@@ -9468,20 +9725,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Problem__PropertyAssignment_3"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3583:1: rule__Problem__PropertyAssignment_3 : ( ruleORing ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3680:1: rule__Problem__PropertyAssignment_3 : ( ruleORing ) ;
     public final void rule__Problem__PropertyAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3587:1: ( ( ruleORing ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3588:1: ( ruleORing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3684:1: ( ( ruleORing ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3685:1: ( ruleORing )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3588:1: ( ruleORing )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3589:1: ruleORing
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3685:1: ( ruleORing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3686:1: ruleORing
             {
              before(grammarAccess.getProblemAccess().getPropertyORingParserRuleCall_3_0()); 
-            pushFollow(FOLLOW_ruleORing_in_rule__Problem__PropertyAssignment_37162);
+            pushFollow(FOLLOW_ruleORing_in_rule__Problem__PropertyAssignment_37362);
             ruleORing();
 
             state._fsp--;
@@ -9509,20 +9766,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Declaration__TypeAssignment_0_0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3598:1: rule__Declaration__TypeAssignment_0_0 : ( ruleType ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3695:1: rule__Declaration__TypeAssignment_0_0 : ( ruleType ) ;
     public final void rule__Declaration__TypeAssignment_0_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3602:1: ( ( ruleType ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3603:1: ( ruleType )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3699:1: ( ( ruleType ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3700:1: ( ruleType )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3603:1: ( ruleType )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3604:1: ruleType
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3700:1: ( ruleType )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3701:1: ruleType
             {
              before(grammarAccess.getDeclarationAccess().getTypeTypeParserRuleCall_0_0_0()); 
-            pushFollow(FOLLOW_ruleType_in_rule__Declaration__TypeAssignment_0_07193);
+            pushFollow(FOLLOW_ruleType_in_rule__Declaration__TypeAssignment_0_07393);
             ruleType();
 
             state._fsp--;
@@ -9550,20 +9807,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Declaration__VarNameAssignment_0_2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3613:1: rule__Declaration__VarNameAssignment_0_2 : ( RULE_ID ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3710:1: rule__Declaration__VarNameAssignment_0_2 : ( RULE_ID ) ;
     public final void rule__Declaration__VarNameAssignment_0_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3617:1: ( ( RULE_ID ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3618:1: ( RULE_ID )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3714:1: ( ( RULE_ID ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3715:1: ( RULE_ID )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3618:1: ( RULE_ID )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3619:1: RULE_ID
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3715:1: ( RULE_ID )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3716:1: RULE_ID
             {
              before(grammarAccess.getDeclarationAccess().getVarNameIDTerminalRuleCall_0_2_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Declaration__VarNameAssignment_0_27224); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Declaration__VarNameAssignment_0_27424); 
              after(grammarAccess.getDeclarationAccess().getVarNameIDTerminalRuleCall_0_2_0()); 
 
             }
@@ -9587,20 +9844,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Declaration__VarNameAssignment_1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3628:1: rule__Declaration__VarNameAssignment_1 : ( RULE_ID ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3725:1: rule__Declaration__VarNameAssignment_1 : ( RULE_ID ) ;
     public final void rule__Declaration__VarNameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3632:1: ( ( RULE_ID ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3633:1: ( RULE_ID )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3729:1: ( ( RULE_ID ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3730:1: ( RULE_ID )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3633:1: ( RULE_ID )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3634:1: RULE_ID
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3730:1: ( RULE_ID )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3731:1: RULE_ID
             {
              before(grammarAccess.getDeclarationAccess().getVarNameIDTerminalRuleCall_1_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Declaration__VarNameAssignment_17255); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Declaration__VarNameAssignment_17455); 
              after(grammarAccess.getDeclarationAccess().getVarNameIDTerminalRuleCall_1_0()); 
 
             }
@@ -9624,20 +9881,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__NameAssignment_0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3643:1: rule__Type__NameAssignment_0 : ( RULE_ID ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3740:1: rule__Type__NameAssignment_0 : ( RULE_ID ) ;
     public final void rule__Type__NameAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3647:1: ( ( RULE_ID ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3648:1: ( RULE_ID )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3744:1: ( ( RULE_ID ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3745:1: ( RULE_ID )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3648:1: ( RULE_ID )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3649:1: RULE_ID
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3745:1: ( RULE_ID )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3746:1: RULE_ID
             {
              before(grammarAccess.getTypeAccess().getNameIDTerminalRuleCall_0_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Type__NameAssignment_07286); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Type__NameAssignment_07486); 
              after(grammarAccess.getTypeAccess().getNameIDTerminalRuleCall_0_0()); 
 
             }
@@ -9661,20 +9918,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Type__TemplateTypeAssignment_1_1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3658:1: rule__Type__TemplateTypeAssignment_1_1 : ( ruleType ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3755:1: rule__Type__TemplateTypeAssignment_1_1 : ( ruleType ) ;
     public final void rule__Type__TemplateTypeAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3662:1: ( ( ruleType ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3663:1: ( ruleType )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3759:1: ( ( ruleType ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3760:1: ( ruleType )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3663:1: ( ruleType )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3664:1: ruleType
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3760:1: ( ruleType )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3761:1: ruleType
             {
              before(grammarAccess.getTypeAccess().getTemplateTypeTypeParserRuleCall_1_1_0()); 
-            pushFollow(FOLLOW_ruleType_in_rule__Type__TemplateTypeAssignment_1_17317);
+            pushFollow(FOLLOW_ruleType_in_rule__Type__TemplateTypeAssignment_1_17517);
             ruleType();
 
             state._fsp--;
@@ -9702,20 +9959,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ORing__RightAssignment_1_2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3673:1: rule__ORing__RightAssignment_1_2 : ( ruleANDing ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3770:1: rule__ORing__RightAssignment_1_2 : ( ruleANDing ) ;
     public final void rule__ORing__RightAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3677:1: ( ( ruleANDing ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3678:1: ( ruleANDing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3774:1: ( ( ruleANDing ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3775:1: ( ruleANDing )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3678:1: ( ruleANDing )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3679:1: ruleANDing
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3775:1: ( ruleANDing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3776:1: ruleANDing
             {
              before(grammarAccess.getORingAccess().getRightANDingParserRuleCall_1_2_0()); 
-            pushFollow(FOLLOW_ruleANDing_in_rule__ORing__RightAssignment_1_27348);
+            pushFollow(FOLLOW_ruleANDing_in_rule__ORing__RightAssignment_1_27548);
             ruleANDing();
 
             state._fsp--;
@@ -9743,20 +10000,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ANDing__RightAssignment_1_2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3688:1: rule__ANDing__RightAssignment_1_2 : ( rulePrimary ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3785:1: rule__ANDing__RightAssignment_1_2 : ( rulePrimary ) ;
     public final void rule__ANDing__RightAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3692:1: ( ( rulePrimary ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3693:1: ( rulePrimary )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3789:1: ( ( rulePrimary ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3790:1: ( rulePrimary )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3693:1: ( rulePrimary )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3694:1: rulePrimary
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3790:1: ( rulePrimary )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3791:1: rulePrimary
             {
              before(grammarAccess.getANDingAccess().getRightPrimaryParserRuleCall_1_2_0()); 
-            pushFollow(FOLLOW_rulePrimary_in_rule__ANDing__RightAssignment_1_27379);
+            pushFollow(FOLLOW_rulePrimary_in_rule__ANDing__RightAssignment_1_27579);
             rulePrimary();
 
             state._fsp--;
@@ -9783,24 +10040,65 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__ANDing__RightAssignment_1_2"
 
 
+    // $ANTLR start "rule__Negation__NegatedAssignment_1"
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3800:1: rule__Negation__NegatedAssignment_1 : ( rulePrimary ) ;
+    public final void rule__Negation__NegatedAssignment_1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3804:1: ( ( rulePrimary ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3805:1: ( rulePrimary )
+            {
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3805:1: ( rulePrimary )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3806:1: rulePrimary
+            {
+             before(grammarAccess.getNegationAccess().getNegatedPrimaryParserRuleCall_1_0()); 
+            pushFollow(FOLLOW_rulePrimary_in_rule__Negation__NegatedAssignment_17610);
+            rulePrimary();
+
+            state._fsp--;
+
+             after(grammarAccess.getNegationAccess().getNegatedPrimaryParserRuleCall_1_0()); 
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__Negation__NegatedAssignment_1"
+
+
     // $ANTLR start "rule__Quantifier__QuantifierAssignment_0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3703:1: rule__Quantifier__QuantifierAssignment_0 : ( ( rule__Quantifier__QuantifierAlternatives_0_0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3815:1: rule__Quantifier__QuantifierAssignment_0 : ( ( rule__Quantifier__QuantifierAlternatives_0_0 ) ) ;
     public final void rule__Quantifier__QuantifierAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3707:1: ( ( ( rule__Quantifier__QuantifierAlternatives_0_0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3708:1: ( ( rule__Quantifier__QuantifierAlternatives_0_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3819:1: ( ( ( rule__Quantifier__QuantifierAlternatives_0_0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3820:1: ( ( rule__Quantifier__QuantifierAlternatives_0_0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3708:1: ( ( rule__Quantifier__QuantifierAlternatives_0_0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3709:1: ( rule__Quantifier__QuantifierAlternatives_0_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3820:1: ( ( rule__Quantifier__QuantifierAlternatives_0_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3821:1: ( rule__Quantifier__QuantifierAlternatives_0_0 )
             {
              before(grammarAccess.getQuantifierAccess().getQuantifierAlternatives_0_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3710:1: ( rule__Quantifier__QuantifierAlternatives_0_0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3710:2: rule__Quantifier__QuantifierAlternatives_0_0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3822:1: ( rule__Quantifier__QuantifierAlternatives_0_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3822:2: rule__Quantifier__QuantifierAlternatives_0_0
             {
-            pushFollow(FOLLOW_rule__Quantifier__QuantifierAlternatives_0_0_in_rule__Quantifier__QuantifierAssignment_07410);
+            pushFollow(FOLLOW_rule__Quantifier__QuantifierAlternatives_0_0_in_rule__Quantifier__QuantifierAssignment_07641);
             rule__Quantifier__QuantifierAlternatives_0_0();
 
             state._fsp--;
@@ -9831,20 +10129,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Quantifier__SubjectAssignment_2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3719:1: rule__Quantifier__SubjectAssignment_2 : ( ruleProblem ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3831:1: rule__Quantifier__SubjectAssignment_2 : ( ruleProblem ) ;
     public final void rule__Quantifier__SubjectAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3723:1: ( ( ruleProblem ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3724:1: ( ruleProblem )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3835:1: ( ( ruleProblem ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3836:1: ( ruleProblem )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3724:1: ( ruleProblem )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3725:1: ruleProblem
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3836:1: ( ruleProblem )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3837:1: ruleProblem
             {
              before(grammarAccess.getQuantifierAccess().getSubjectProblemParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleProblem_in_rule__Quantifier__SubjectAssignment_27443);
+            pushFollow(FOLLOW_ruleProblem_in_rule__Quantifier__SubjectAssignment_27674);
             ruleProblem();
 
             state._fsp--;
@@ -9872,20 +10170,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Quantifier__PredicateAssignment_4"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3734:1: rule__Quantifier__PredicateAssignment_4 : ( ruleORing ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3846:1: rule__Quantifier__PredicateAssignment_4 : ( ruleORing ) ;
     public final void rule__Quantifier__PredicateAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3738:1: ( ( ruleORing ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3739:1: ( ruleORing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3850:1: ( ( ruleORing ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3851:1: ( ruleORing )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3739:1: ( ruleORing )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3740:1: ruleORing
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3851:1: ( ruleORing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3852:1: ruleORing
             {
              before(grammarAccess.getQuantifierAccess().getPredicateORingParserRuleCall_4_0()); 
-            pushFollow(FOLLOW_ruleORing_in_rule__Quantifier__PredicateAssignment_47474);
+            pushFollow(FOLLOW_ruleORing_in_rule__Quantifier__PredicateAssignment_47705);
             ruleORing();
 
             state._fsp--;
@@ -9913,20 +10211,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__FunctionAssignment_0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3749:1: rule__Atomic__FunctionAssignment_0 : ( RULE_ID ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3861:1: rule__Atomic__FunctionAssignment_0 : ( RULE_ID ) ;
     public final void rule__Atomic__FunctionAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3753:1: ( ( RULE_ID ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3754:1: ( RULE_ID )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3865:1: ( ( RULE_ID ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3866:1: ( RULE_ID )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3754:1: ( RULE_ID )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3755:1: RULE_ID
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3866:1: ( RULE_ID )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3867:1: RULE_ID
             {
              before(grammarAccess.getAtomicAccess().getFunctionIDTerminalRuleCall_0_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Atomic__FunctionAssignment_07505); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Atomic__FunctionAssignment_07736); 
              after(grammarAccess.getAtomicAccess().getFunctionIDTerminalRuleCall_0_0()); 
 
             }
@@ -9950,20 +10248,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__ArgsAssignment_2_0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3764:1: rule__Atomic__ArgsAssignment_2_0 : ( ruleArgument ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3876:1: rule__Atomic__ArgsAssignment_2_0 : ( ruleArgument ) ;
     public final void rule__Atomic__ArgsAssignment_2_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3768:1: ( ( ruleArgument ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3769:1: ( ruleArgument )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3880:1: ( ( ruleArgument ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3881:1: ( ruleArgument )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3769:1: ( ruleArgument )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3770:1: ruleArgument
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3881:1: ( ruleArgument )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3882:1: ruleArgument
             {
              before(grammarAccess.getAtomicAccess().getArgsArgumentParserRuleCall_2_0_0()); 
-            pushFollow(FOLLOW_ruleArgument_in_rule__Atomic__ArgsAssignment_2_07536);
+            pushFollow(FOLLOW_ruleArgument_in_rule__Atomic__ArgsAssignment_2_07767);
             ruleArgument();
 
             state._fsp--;
@@ -9991,20 +10289,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Atomic__ArgsAssignment_2_1_1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3779:1: rule__Atomic__ArgsAssignment_2_1_1 : ( ruleArgument ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3891:1: rule__Atomic__ArgsAssignment_2_1_1 : ( ruleArgument ) ;
     public final void rule__Atomic__ArgsAssignment_2_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3783:1: ( ( ruleArgument ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3784:1: ( ruleArgument )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3895:1: ( ( ruleArgument ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3896:1: ( ruleArgument )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3784:1: ( ruleArgument )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3785:1: ruleArgument
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3896:1: ( ruleArgument )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3897:1: ruleArgument
             {
              before(grammarAccess.getAtomicAccess().getArgsArgumentParserRuleCall_2_1_1_0()); 
-            pushFollow(FOLLOW_ruleArgument_in_rule__Atomic__ArgsAssignment_2_1_17567);
+            pushFollow(FOLLOW_ruleArgument_in_rule__Atomic__ArgsAssignment_2_1_17798);
             ruleArgument();
 
             state._fsp--;
@@ -10032,20 +10330,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Variable__ArgAssignment"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3794:1: rule__Variable__ArgAssignment : ( RULE_ID ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3906:1: rule__Variable__ArgAssignment : ( RULE_ID ) ;
     public final void rule__Variable__ArgAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3798:1: ( ( RULE_ID ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3799:1: ( RULE_ID )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3910:1: ( ( RULE_ID ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3911:1: ( RULE_ID )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3799:1: ( RULE_ID )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3800:1: RULE_ID
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3911:1: ( RULE_ID )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3912:1: RULE_ID
             {
              before(grammarAccess.getVariableAccess().getArgIDTerminalRuleCall_0()); 
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Variable__ArgAssignment7598); 
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__Variable__ArgAssignment7829); 
              after(grammarAccess.getVariableAccess().getArgIDTerminalRuleCall_0()); 
 
             }
@@ -10069,23 +10367,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__BooleanLiteral__ValueAssignment"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3809:1: rule__BooleanLiteral__ValueAssignment : ( ( rule__BooleanLiteral__ValueAlternatives_0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3921:1: rule__BooleanLiteral__ValueAssignment : ( ( rule__BooleanLiteral__ValueAlternatives_0 ) ) ;
     public final void rule__BooleanLiteral__ValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3813:1: ( ( ( rule__BooleanLiteral__ValueAlternatives_0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3814:1: ( ( rule__BooleanLiteral__ValueAlternatives_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3925:1: ( ( ( rule__BooleanLiteral__ValueAlternatives_0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3926:1: ( ( rule__BooleanLiteral__ValueAlternatives_0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3814:1: ( ( rule__BooleanLiteral__ValueAlternatives_0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3815:1: ( rule__BooleanLiteral__ValueAlternatives_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3926:1: ( ( rule__BooleanLiteral__ValueAlternatives_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3927:1: ( rule__BooleanLiteral__ValueAlternatives_0 )
             {
              before(grammarAccess.getBooleanLiteralAccess().getValueAlternatives_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3816:1: ( rule__BooleanLiteral__ValueAlternatives_0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3816:2: rule__BooleanLiteral__ValueAlternatives_0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3928:1: ( rule__BooleanLiteral__ValueAlternatives_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3928:2: rule__BooleanLiteral__ValueAlternatives_0
             {
-            pushFollow(FOLLOW_rule__BooleanLiteral__ValueAlternatives_0_in_rule__BooleanLiteral__ValueAssignment7629);
+            pushFollow(FOLLOW_rule__BooleanLiteral__ValueAlternatives_0_in_rule__BooleanLiteral__ValueAssignment7860);
             rule__BooleanLiteral__ValueAlternatives_0();
 
             state._fsp--;
@@ -10116,20 +10414,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__RequirementAssignment_0"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3825:1: rule__Theorem__RequirementAssignment_0 : ( ruleORing ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3937:1: rule__Theorem__RequirementAssignment_0 : ( ruleORing ) ;
     public final void rule__Theorem__RequirementAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3829:1: ( ( ruleORing ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3830:1: ( ruleORing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3941:1: ( ( ruleORing ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3942:1: ( ruleORing )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3830:1: ( ruleORing )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3831:1: ruleORing
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3942:1: ( ruleORing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3943:1: ruleORing
             {
              before(grammarAccess.getTheoremAccess().getRequirementORingParserRuleCall_0_0()); 
-            pushFollow(FOLLOW_ruleORing_in_rule__Theorem__RequirementAssignment_07662);
+            pushFollow(FOLLOW_ruleORing_in_rule__Theorem__RequirementAssignment_07893);
             ruleORing();
 
             state._fsp--;
@@ -10157,20 +10455,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__ResultAssignment_2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3840:1: rule__Theorem__ResultAssignment_2 : ( ruleORing ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3952:1: rule__Theorem__ResultAssignment_2 : ( ruleORing ) ;
     public final void rule__Theorem__ResultAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3844:1: ( ( ruleORing ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3845:1: ( ruleORing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3956:1: ( ( ruleORing ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3957:1: ( ruleORing )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3845:1: ( ruleORing )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3846:1: ruleORing
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3957:1: ( ruleORing )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3958:1: ruleORing
             {
              before(grammarAccess.getTheoremAccess().getResultORingParserRuleCall_2_0()); 
-            pushFollow(FOLLOW_ruleORing_in_rule__Theorem__ResultAssignment_27693);
+            pushFollow(FOLLOW_ruleORing_in_rule__Theorem__ResultAssignment_27924);
             ruleORing();
 
             state._fsp--;
@@ -10198,20 +10496,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__CostAssignment_4"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3855:1: rule__Theorem__CostAssignment_4 : ( RULE_INT ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3967:1: rule__Theorem__CostAssignment_4 : ( RULE_INT ) ;
     public final void rule__Theorem__CostAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3859:1: ( ( RULE_INT ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3860:1: ( RULE_INT )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3971:1: ( ( RULE_INT ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3972:1: ( RULE_INT )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3860:1: ( RULE_INT )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3861:1: RULE_INT
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3972:1: ( RULE_INT )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3973:1: RULE_INT
             {
              before(grammarAccess.getTheoremAccess().getCostINTTerminalRuleCall_4_0()); 
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Theorem__CostAssignment_47724); 
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Theorem__CostAssignment_47955); 
              after(grammarAccess.getTheoremAccess().getCostINTTerminalRuleCall_4_0()); 
 
             }
@@ -10235,20 +10533,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__DescriptionAssignment_6"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3870:1: rule__Theorem__DescriptionAssignment_6 : ( RULE_STRING ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3982:1: rule__Theorem__DescriptionAssignment_6 : ( RULE_STRING ) ;
     public final void rule__Theorem__DescriptionAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3874:1: ( ( RULE_STRING ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3875:1: ( RULE_STRING )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3986:1: ( ( RULE_STRING ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3987:1: ( RULE_STRING )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3875:1: ( RULE_STRING )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3876:1: RULE_STRING
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3987:1: ( RULE_STRING )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3988:1: RULE_STRING
             {
              before(grammarAccess.getTheoremAccess().getDescriptionSTRINGTerminalRuleCall_6_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__Theorem__DescriptionAssignment_67755); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__Theorem__DescriptionAssignment_67986); 
              after(grammarAccess.getTheoremAccess().getDescriptionSTRINGTerminalRuleCall_6_0()); 
 
             }
@@ -10272,20 +10570,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__PseudoCodeAssignment_7_1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3885:1: rule__Theorem__PseudoCodeAssignment_7_1 : ( RULE_STRING ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3997:1: rule__Theorem__PseudoCodeAssignment_7_1 : ( RULE_STRING ) ;
     public final void rule__Theorem__PseudoCodeAssignment_7_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3889:1: ( ( RULE_STRING ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3890:1: ( RULE_STRING )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4001:1: ( ( RULE_STRING ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4002:1: ( RULE_STRING )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3890:1: ( RULE_STRING )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3891:1: RULE_STRING
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4002:1: ( RULE_STRING )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4003:1: RULE_STRING
             {
              before(grammarAccess.getTheoremAccess().getPseudoCodeSTRINGTerminalRuleCall_7_1_0()); 
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__Theorem__PseudoCodeAssignment_7_17786); 
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__Theorem__PseudoCodeAssignment_7_18017); 
              after(grammarAccess.getTheoremAccess().getPseudoCodeSTRINGTerminalRuleCall_7_1_0()); 
 
             }
@@ -10309,23 +10607,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Addition__SymbolAssignment_1_1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3900:1: rule__Addition__SymbolAssignment_1_1 : ( ( rule__Addition__SymbolAlternatives_1_1_0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4012:1: rule__Addition__SymbolAssignment_1_1 : ( ( rule__Addition__SymbolAlternatives_1_1_0 ) ) ;
     public final void rule__Addition__SymbolAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3904:1: ( ( ( rule__Addition__SymbolAlternatives_1_1_0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3905:1: ( ( rule__Addition__SymbolAlternatives_1_1_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4016:1: ( ( ( rule__Addition__SymbolAlternatives_1_1_0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4017:1: ( ( rule__Addition__SymbolAlternatives_1_1_0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3905:1: ( ( rule__Addition__SymbolAlternatives_1_1_0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3906:1: ( rule__Addition__SymbolAlternatives_1_1_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4017:1: ( ( rule__Addition__SymbolAlternatives_1_1_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4018:1: ( rule__Addition__SymbolAlternatives_1_1_0 )
             {
              before(grammarAccess.getAdditionAccess().getSymbolAlternatives_1_1_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3907:1: ( rule__Addition__SymbolAlternatives_1_1_0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3907:2: rule__Addition__SymbolAlternatives_1_1_0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4019:1: ( rule__Addition__SymbolAlternatives_1_1_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4019:2: rule__Addition__SymbolAlternatives_1_1_0
             {
-            pushFollow(FOLLOW_rule__Addition__SymbolAlternatives_1_1_0_in_rule__Addition__SymbolAssignment_1_17817);
+            pushFollow(FOLLOW_rule__Addition__SymbolAlternatives_1_1_0_in_rule__Addition__SymbolAssignment_1_18048);
             rule__Addition__SymbolAlternatives_1_1_0();
 
             state._fsp--;
@@ -10356,20 +10654,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Addition__RightAssignment_1_2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3916:1: rule__Addition__RightAssignment_1_2 : ( ruleMultiplication ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4028:1: rule__Addition__RightAssignment_1_2 : ( ruleMultiplication ) ;
     public final void rule__Addition__RightAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3920:1: ( ( ruleMultiplication ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3921:1: ( ruleMultiplication )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4032:1: ( ( ruleMultiplication ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4033:1: ( ruleMultiplication )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3921:1: ( ruleMultiplication )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3922:1: ruleMultiplication
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4033:1: ( ruleMultiplication )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4034:1: ruleMultiplication
             {
              before(grammarAccess.getAdditionAccess().getRightMultiplicationParserRuleCall_1_2_0()); 
-            pushFollow(FOLLOW_ruleMultiplication_in_rule__Addition__RightAssignment_1_27850);
+            pushFollow(FOLLOW_ruleMultiplication_in_rule__Addition__RightAssignment_1_28081);
             ruleMultiplication();
 
             state._fsp--;
@@ -10397,23 +10695,23 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Multiplication__SymbolAssignment_1_1"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3931:1: rule__Multiplication__SymbolAssignment_1_1 : ( ( rule__Multiplication__SymbolAlternatives_1_1_0 ) ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4043:1: rule__Multiplication__SymbolAssignment_1_1 : ( ( rule__Multiplication__SymbolAlternatives_1_1_0 ) ) ;
     public final void rule__Multiplication__SymbolAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3935:1: ( ( ( rule__Multiplication__SymbolAlternatives_1_1_0 ) ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3936:1: ( ( rule__Multiplication__SymbolAlternatives_1_1_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4047:1: ( ( ( rule__Multiplication__SymbolAlternatives_1_1_0 ) ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4048:1: ( ( rule__Multiplication__SymbolAlternatives_1_1_0 ) )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3936:1: ( ( rule__Multiplication__SymbolAlternatives_1_1_0 ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3937:1: ( rule__Multiplication__SymbolAlternatives_1_1_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4048:1: ( ( rule__Multiplication__SymbolAlternatives_1_1_0 ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4049:1: ( rule__Multiplication__SymbolAlternatives_1_1_0 )
             {
              before(grammarAccess.getMultiplicationAccess().getSymbolAlternatives_1_1_0()); 
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3938:1: ( rule__Multiplication__SymbolAlternatives_1_1_0 )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3938:2: rule__Multiplication__SymbolAlternatives_1_1_0
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4050:1: ( rule__Multiplication__SymbolAlternatives_1_1_0 )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4050:2: rule__Multiplication__SymbolAlternatives_1_1_0
             {
-            pushFollow(FOLLOW_rule__Multiplication__SymbolAlternatives_1_1_0_in_rule__Multiplication__SymbolAssignment_1_17881);
+            pushFollow(FOLLOW_rule__Multiplication__SymbolAlternatives_1_1_0_in_rule__Multiplication__SymbolAssignment_1_18112);
             rule__Multiplication__SymbolAlternatives_1_1_0();
 
             state._fsp--;
@@ -10444,20 +10742,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Multiplication__RightAssignment_1_2"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3947:1: rule__Multiplication__RightAssignment_1_2 : ( ruleNumericalPrimary ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4059:1: rule__Multiplication__RightAssignment_1_2 : ( ruleNumericalPrimary ) ;
     public final void rule__Multiplication__RightAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3951:1: ( ( ruleNumericalPrimary ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3952:1: ( ruleNumericalPrimary )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4063:1: ( ( ruleNumericalPrimary ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4064:1: ( ruleNumericalPrimary )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3952:1: ( ruleNumericalPrimary )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3953:1: ruleNumericalPrimary
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4064:1: ( ruleNumericalPrimary )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4065:1: ruleNumericalPrimary
             {
              before(grammarAccess.getMultiplicationAccess().getRightNumericalPrimaryParserRuleCall_1_2_0()); 
-            pushFollow(FOLLOW_ruleNumericalPrimary_in_rule__Multiplication__RightAssignment_1_27914);
+            pushFollow(FOLLOW_ruleNumericalPrimary_in_rule__Multiplication__RightAssignment_1_28145);
             ruleNumericalPrimary();
 
             state._fsp--;
@@ -10485,20 +10783,20 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NumberLiteral__ValueAssignment"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3962:1: rule__NumberLiteral__ValueAssignment : ( RULE_INT ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4074:1: rule__NumberLiteral__ValueAssignment : ( RULE_INT ) ;
     public final void rule__NumberLiteral__ValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3966:1: ( ( RULE_INT ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3967:1: ( RULE_INT )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4078:1: ( ( RULE_INT ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4079:1: ( RULE_INT )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3967:1: ( RULE_INT )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3968:1: RULE_INT
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4079:1: ( RULE_INT )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:4080:1: RULE_INT
             {
              before(grammarAccess.getNumberLiteralAccess().getValueINTTerminalRuleCall_0()); 
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__NumberLiteral__ValueAssignment7945); 
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__NumberLiteral__ValueAssignment8176); 
              after(grammarAccess.getNumberLiteralAccess().getValueINTTerminalRuleCall_0()); 
 
             }
@@ -10549,312 +10847,322 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rulePrimary_in_entryRulePrimary481 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRulePrimary488 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__Primary__Alternatives_in_rulePrimary514 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQuantifier_in_entryRuleQuantifier541 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleQuantifier548 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Quantifier__Group__0_in_ruleQuantifier574 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAtomic_in_entryRuleAtomic601 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAtomic608 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Atomic__Group__0_in_ruleAtomic634 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleArgument_in_entryRuleArgument661 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleArgument668 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAddition_in_ruleArgument694 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariable_in_entryRuleVariable720 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleVariable727 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Variable__ArgAssignment_in_ruleVariable753 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleBooleanLiteral_in_entryRuleBooleanLiteral780 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleBooleanLiteral787 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__BooleanLiteral__ValueAssignment_in_ruleBooleanLiteral813 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleTheorem_in_entryRuleTheorem840 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleTheorem847 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__0_in_ruleTheorem873 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAddition_in_entryRuleAddition900 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAddition907 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Addition__Group__0_in_ruleAddition933 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMultiplication_in_entryRuleMultiplication960 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleMultiplication967 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Multiplication__Group__0_in_ruleMultiplication993 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNumericalPrimary_in_entryRuleNumericalPrimary1020 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleNumericalPrimary1027 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NumericalPrimary__Alternatives_in_ruleNumericalPrimary1053 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNumberLiteral_in_entryRuleNumberLiteral1080 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleNumberLiteral1087 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NumberLiteral__ValueAssignment_in_ruleNumberLiteral1113 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_3_0__0_in_rule__Input__Alternatives_31149 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_3_1__0_in_rule__Input__Alternatives_31167 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_11_in_rule__Input__TaskAlternatives_3_0_0_01201 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_12_in_rule__Input__TaskAlternatives_3_0_0_01221 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Declaration__Group_0__0_in_rule__Declaration__Alternatives1255 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Declaration__VarNameAssignment_1_in_rule__Declaration__Alternatives1273 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAtomic_in_rule__Primary__Alternatives1306 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQuantifier_in_rule__Primary__Alternatives1323 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Primary__Group_2__0_in_rule__Primary__Alternatives1340 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleBooleanLiteral_in_rule__Primary__Alternatives1358 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_13_in_rule__Quantifier__QuantifierAlternatives_0_01391 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_14_in_rule__Quantifier__QuantifierAlternatives_0_01411 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_15_in_rule__BooleanLiteral__ValueAlternatives_01446 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_16_in_rule__BooleanLiteral__ValueAlternatives_01466 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_rule__Addition__SymbolAlternatives_1_1_01501 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__Addition__SymbolAlternatives_1_1_01521 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_19_in_rule__Multiplication__SymbolAlternatives_1_1_01556 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_20_in_rule__Multiplication__SymbolAlternatives_1_1_01576 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNumberLiteral_in_rule__NumericalPrimary__Alternatives1610 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAtomic_in_rule__NumericalPrimary__Alternatives1627 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NumericalPrimary__Group_2__0_in_rule__NumericalPrimary__Alternatives1644 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariable_in_rule__NumericalPrimary__Alternatives1662 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group__0__Impl_in_rule__Input__Group__01692 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__Input__Group__1_in_rule__Input__Group__01695 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_21_in_rule__Input__Group__0__Impl1723 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group__1__Impl_in_rule__Input__Group__11754 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_rule__Input__Group__2_in_rule__Input__Group__11757 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__GivenAssignment_1_in_rule__Input__Group__1__Impl1784 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group__2__Impl_in_rule__Input__Group__21814 = new BitSet(new long[]{0x0000000400001800L});
-    public static final BitSet FOLLOW_rule__Input__Group__3_in_rule__Input__Group__21817 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_rule__Input__Group__2__Impl1845 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group__3__Impl_in_rule__Input__Group__31876 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_rule__Input__Group__4_in_rule__Input__Group__31879 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Alternatives_3_in_rule__Input__Group__3__Impl1906 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group__4__Impl_in_rule__Input__Group__41936 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_4__0_in_rule__Input__Group__4__Impl1963 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_3_0__0__Impl_in_rule__Input__Group_3_0__02004 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__Input__Group_3_0__1_in_rule__Input__Group_3_0__02007 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__TaskAssignment_3_0_0_in_rule__Input__Group_3_0__0__Impl2034 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_3_0__1__Impl_in_rule__Input__Group_3_0__12064 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__GoalAssignment_3_0_1_in_rule__Input__Group_3_0__1__Impl2091 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_3_1__0__Impl_in_rule__Input__Group_3_1__02125 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_rule__Input__Group_3_1__1_in_rule__Input__Group_3_1__02128 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__TaskAssignment_3_1_0_in_rule__Input__Group_3_1__0__Impl2155 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_3_1__1__Impl_in_rule__Input__Group_3_1__12185 = new BitSet(new long[]{0x000000000081E010L});
-    public static final BitSet FOLLOW_rule__Input__Group_3_1__2_in_rule__Input__Group_3_1__12188 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_rule__Input__Group_3_1__1__Impl2216 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_3_1__2__Impl_in_rule__Input__Group_3_1__22247 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_rule__Input__Group_3_1__3_in_rule__Input__Group_3_1__22250 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__GoalAssignment_3_1_2_in_rule__Input__Group_3_1__2__Impl2277 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_3_1__3__Impl_in_rule__Input__Group_3_1__32307 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__Input__Group_3_1__3__Impl2335 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_4__0__Impl_in_rule__Input__Group_4__02374 = new BitSet(new long[]{0x0000000002000000L});
-    public static final BitSet FOLLOW_rule__Input__Group_4__1_in_rule__Input__Group_4__02377 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_rule__Input__Group_4__0__Impl2405 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_4__1__Impl_in_rule__Input__Group_4__12436 = new BitSet(new long[]{0x000000000081E010L});
-    public static final BitSet FOLLOW_rule__Input__Group_4__2_in_rule__Input__Group_4__12439 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_rule__Input__Group_4__1__Impl2467 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_4__2__Impl_in_rule__Input__Group_4__22498 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_rule__Input__Group_4__3_in_rule__Input__Group_4__22501 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__TheoremsAssignment_4_2_in_rule__Input__Group_4__2__Impl2528 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_4__3__Impl_in_rule__Input__Group_4__32558 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_rule__Input__Group_4__4_in_rule__Input__Group_4__32561 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_4_3__0_in_rule__Input__Group_4__3__Impl2588 = new BitSet(new long[]{0x0000000000400002L});
-    public static final BitSet FOLLOW_rule__Input__Group_4__4__Impl_in_rule__Input__Group_4__42619 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_rule__Input__Group_4__4__Impl2648 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_4_3__0__Impl_in_rule__Input__Group_4_3__02691 = new BitSet(new long[]{0x000000000081E010L});
-    public static final BitSet FOLLOW_rule__Input__Group_4_3__1_in_rule__Input__Group_4_3__02694 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_rule__Input__Group_4_3__0__Impl2722 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__Group_4_3__1__Impl_in_rule__Input__Group_4_3__12753 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__TheoremsAssignment_4_3_1_in_rule__Input__Group_4_3__1__Impl2780 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Problem__Group__0__Impl_in_rule__Problem__Group__02814 = new BitSet(new long[]{0x000000000C000000L});
-    public static final BitSet FOLLOW_rule__Problem__Group__1_in_rule__Problem__Group__02817 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Problem__VarsAssignment_0_in_rule__Problem__Group__0__Impl2844 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Problem__Group__1__Impl_in_rule__Problem__Group__12874 = new BitSet(new long[]{0x000000000C000000L});
-    public static final BitSet FOLLOW_rule__Problem__Group__2_in_rule__Problem__Group__12877 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Problem__Group_1__0_in_rule__Problem__Group__1__Impl2904 = new BitSet(new long[]{0x0000000008000002L});
-    public static final BitSet FOLLOW_rule__Problem__Group__2__Impl_in_rule__Problem__Group__22935 = new BitSet(new long[]{0x000000000081E010L});
-    public static final BitSet FOLLOW_rule__Problem__Group__3_in_rule__Problem__Group__22938 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_26_in_rule__Problem__Group__2__Impl2966 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Problem__Group__3__Impl_in_rule__Problem__Group__32997 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Problem__PropertyAssignment_3_in_rule__Problem__Group__3__Impl3024 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Problem__Group_1__0__Impl_in_rule__Problem__Group_1__03062 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__Problem__Group_1__1_in_rule__Problem__Group_1__03065 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_rule__Problem__Group_1__0__Impl3093 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Problem__Group_1__1__Impl_in_rule__Problem__Group_1__13124 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Problem__VarsAssignment_1_1_in_rule__Problem__Group_1__1__Impl3151 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Declaration__Group_0__0__Impl_in_rule__Declaration__Group_0__03185 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_rule__Declaration__Group_0__1_in_rule__Declaration__Group_0__03188 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Declaration__TypeAssignment_0_0_in_rule__Declaration__Group_0__0__Impl3215 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Declaration__Group_0__1__Impl_in_rule__Declaration__Group_0__13245 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__Declaration__Group_0__2_in_rule__Declaration__Group_0__13248 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_rule__Declaration__Group_0__1__Impl3276 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Declaration__Group_0__2__Impl_in_rule__Declaration__Group_0__23307 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_rule__Declaration__Group_0__3_in_rule__Declaration__Group_0__23310 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Declaration__VarNameAssignment_0_2_in_rule__Declaration__Group_0__2__Impl3337 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Declaration__Group_0__3__Impl_in_rule__Declaration__Group_0__33367 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__Declaration__Group_0__3__Impl3395 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Type__Group__0__Impl_in_rule__Type__Group__03434 = new BitSet(new long[]{0x0000000010000000L});
-    public static final BitSet FOLLOW_rule__Type__Group__1_in_rule__Type__Group__03437 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Type__NameAssignment_0_in_rule__Type__Group__0__Impl3464 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Type__Group__1__Impl_in_rule__Type__Group__13494 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Type__Group_1__0_in_rule__Type__Group__1__Impl3521 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Type__Group_1__0__Impl_in_rule__Type__Group_1__03556 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__Type__Group_1__1_in_rule__Type__Group_1__03559 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_rule__Type__Group_1__0__Impl3587 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Type__Group_1__1__Impl_in_rule__Type__Group_1__13618 = new BitSet(new long[]{0x0000000020000000L});
-    public static final BitSet FOLLOW_rule__Type__Group_1__2_in_rule__Type__Group_1__13621 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Type__TemplateTypeAssignment_1_1_in_rule__Type__Group_1__1__Impl3648 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Type__Group_1__2__Impl_in_rule__Type__Group_1__23678 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_29_in_rule__Type__Group_1__2__Impl3706 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ORing__Group__0__Impl_in_rule__ORing__Group__03743 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_rule__ORing__Group__1_in_rule__ORing__Group__03746 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleANDing_in_rule__ORing__Group__0__Impl3773 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ORing__Group__1__Impl_in_rule__ORing__Group__13802 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ORing__Group_1__0_in_rule__ORing__Group__1__Impl3829 = new BitSet(new long[]{0x0000000040000002L});
-    public static final BitSet FOLLOW_rule__ORing__Group_1__0__Impl_in_rule__ORing__Group_1__03864 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_rule__ORing__Group_1__1_in_rule__ORing__Group_1__03867 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ORing__Group_1__1__Impl_in_rule__ORing__Group_1__13925 = new BitSet(new long[]{0x000000000081E010L});
-    public static final BitSet FOLLOW_rule__ORing__Group_1__2_in_rule__ORing__Group_1__13928 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_30_in_rule__ORing__Group_1__1__Impl3956 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ORing__Group_1__2__Impl_in_rule__ORing__Group_1__23987 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ORing__RightAssignment_1_2_in_rule__ORing__Group_1__2__Impl4014 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ANDing__Group__0__Impl_in_rule__ANDing__Group__04050 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_rule__ANDing__Group__1_in_rule__ANDing__Group__04053 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePrimary_in_rule__ANDing__Group__0__Impl4080 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ANDing__Group__1__Impl_in_rule__ANDing__Group__14109 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ANDing__Group_1__0_in_rule__ANDing__Group__1__Impl4136 = new BitSet(new long[]{0x0000000080000002L});
-    public static final BitSet FOLLOW_rule__ANDing__Group_1__0__Impl_in_rule__ANDing__Group_1__04171 = new BitSet(new long[]{0x0000000080000000L});
-    public static final BitSet FOLLOW_rule__ANDing__Group_1__1_in_rule__ANDing__Group_1__04174 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ANDing__Group_1__1__Impl_in_rule__ANDing__Group_1__14232 = new BitSet(new long[]{0x000000000081E010L});
-    public static final BitSet FOLLOW_rule__ANDing__Group_1__2_in_rule__ANDing__Group_1__14235 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_31_in_rule__ANDing__Group_1__1__Impl4263 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ANDing__Group_1__2__Impl_in_rule__ANDing__Group_1__24294 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ANDing__RightAssignment_1_2_in_rule__ANDing__Group_1__2__Impl4321 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Primary__Group_2__0__Impl_in_rule__Primary__Group_2__04357 = new BitSet(new long[]{0x000000000081E010L});
-    public static final BitSet FOLLOW_rule__Primary__Group_2__1_in_rule__Primary__Group_2__04360 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_rule__Primary__Group_2__0__Impl4388 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Primary__Group_2__1__Impl_in_rule__Primary__Group_2__14419 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_rule__Primary__Group_2__2_in_rule__Primary__Group_2__14422 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleORing_in_rule__Primary__Group_2__1__Impl4449 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Primary__Group_2__2__Impl_in_rule__Primary__Group_2__24478 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__Primary__Group_2__2__Impl4506 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Quantifier__Group__0__Impl_in_rule__Quantifier__Group__04543 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_rule__Quantifier__Group__1_in_rule__Quantifier__Group__04546 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Quantifier__QuantifierAssignment_0_in_rule__Quantifier__Group__0__Impl4573 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Quantifier__Group__1__Impl_in_rule__Quantifier__Group__14603 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_rule__Quantifier__Group__2_in_rule__Quantifier__Group__14606 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_rule__Quantifier__Group__1__Impl4634 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Quantifier__Group__2__Impl_in_rule__Quantifier__Group__24665 = new BitSet(new long[]{0x0000000100000000L});
-    public static final BitSet FOLLOW_rule__Quantifier__Group__3_in_rule__Quantifier__Group__24668 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Quantifier__SubjectAssignment_2_in_rule__Quantifier__Group__2__Impl4695 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Quantifier__Group__3__Impl_in_rule__Quantifier__Group__34725 = new BitSet(new long[]{0x000000000081E010L});
-    public static final BitSet FOLLOW_rule__Quantifier__Group__4_in_rule__Quantifier__Group__34728 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_rule__Quantifier__Group__3__Impl4756 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Quantifier__Group__4__Impl_in_rule__Quantifier__Group__44787 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_rule__Quantifier__Group__5_in_rule__Quantifier__Group__44790 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Quantifier__PredicateAssignment_4_in_rule__Quantifier__Group__4__Impl4817 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Quantifier__Group__5__Impl_in_rule__Quantifier__Group__54847 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__Quantifier__Group__5__Impl4875 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Atomic__Group__0__Impl_in_rule__Atomic__Group__04918 = new BitSet(new long[]{0x0000000000800000L});
-    public static final BitSet FOLLOW_rule__Atomic__Group__1_in_rule__Atomic__Group__04921 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Atomic__FunctionAssignment_0_in_rule__Atomic__Group__0__Impl4948 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Atomic__Group__1__Impl_in_rule__Atomic__Group__14978 = new BitSet(new long[]{0x0000000001800030L});
-    public static final BitSet FOLLOW_rule__Atomic__Group__2_in_rule__Atomic__Group__14981 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_rule__Atomic__Group__1__Impl5009 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Atomic__Group__2__Impl_in_rule__Atomic__Group__25040 = new BitSet(new long[]{0x0000000001800030L});
-    public static final BitSet FOLLOW_rule__Atomic__Group__3_in_rule__Atomic__Group__25043 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Atomic__Group_2__0_in_rule__Atomic__Group__2__Impl5070 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Atomic__Group__3__Impl_in_rule__Atomic__Group__35101 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__Atomic__Group__3__Impl5129 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Atomic__Group_2__0__Impl_in_rule__Atomic__Group_2__05168 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_rule__Atomic__Group_2__1_in_rule__Atomic__Group_2__05171 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Atomic__ArgsAssignment_2_0_in_rule__Atomic__Group_2__0__Impl5198 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Atomic__Group_2__1__Impl_in_rule__Atomic__Group_2__15228 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Atomic__Group_2_1__0_in_rule__Atomic__Group_2__1__Impl5255 = new BitSet(new long[]{0x0000000008000002L});
-    public static final BitSet FOLLOW_rule__Atomic__Group_2_1__0__Impl_in_rule__Atomic__Group_2_1__05290 = new BitSet(new long[]{0x0000000000800030L});
-    public static final BitSet FOLLOW_rule__Atomic__Group_2_1__1_in_rule__Atomic__Group_2_1__05293 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_rule__Atomic__Group_2_1__0__Impl5321 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Atomic__Group_2_1__1__Impl_in_rule__Atomic__Group_2_1__15352 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Atomic__ArgsAssignment_2_1_1_in_rule__Atomic__Group_2_1__1__Impl5379 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__0__Impl_in_rule__Theorem__Group__05413 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__1_in_rule__Theorem__Group__05416 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__RequirementAssignment_0_in_rule__Theorem__Group__0__Impl5443 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__1__Impl_in_rule__Theorem__Group__15473 = new BitSet(new long[]{0x000000000081E010L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__2_in_rule__Theorem__Group__15476 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_33_in_rule__Theorem__Group__1__Impl5504 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__2__Impl_in_rule__Theorem__Group__25535 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__3_in_rule__Theorem__Group__25538 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__ResultAssignment_2_in_rule__Theorem__Group__2__Impl5565 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__3__Impl_in_rule__Theorem__Group__35595 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__4_in_rule__Theorem__Group__35598 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_rule__Theorem__Group__3__Impl5626 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__4__Impl_in_rule__Theorem__Group__45657 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__5_in_rule__Theorem__Group__45660 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__CostAssignment_4_in_rule__Theorem__Group__4__Impl5687 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__5__Impl_in_rule__Theorem__Group__55717 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__6_in_rule__Theorem__Group__55720 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_rule__Theorem__Group__5__Impl5748 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__6__Impl_in_rule__Theorem__Group__65779 = new BitSet(new long[]{0x0000000008000000L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__7_in_rule__Theorem__Group__65782 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__DescriptionAssignment_6_in_rule__Theorem__Group__6__Impl5809 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__Group__7__Impl_in_rule__Theorem__Group__75839 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__Group_7__0_in_rule__Theorem__Group__7__Impl5866 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__Group_7__0__Impl_in_rule__Theorem__Group_7__05913 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_rule__Theorem__Group_7__1_in_rule__Theorem__Group_7__05916 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_rule__Theorem__Group_7__0__Impl5944 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__Group_7__1__Impl_in_rule__Theorem__Group_7__15975 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Theorem__PseudoCodeAssignment_7_1_in_rule__Theorem__Group_7__1__Impl6002 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Addition__Group__0__Impl_in_rule__Addition__Group__06036 = new BitSet(new long[]{0x0000000000060000L});
-    public static final BitSet FOLLOW_rule__Addition__Group__1_in_rule__Addition__Group__06039 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMultiplication_in_rule__Addition__Group__0__Impl6066 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Addition__Group__1__Impl_in_rule__Addition__Group__16095 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Addition__Group_1__0_in_rule__Addition__Group__1__Impl6122 = new BitSet(new long[]{0x0000000000060002L});
-    public static final BitSet FOLLOW_rule__Addition__Group_1__0__Impl_in_rule__Addition__Group_1__06157 = new BitSet(new long[]{0x0000000000060000L});
-    public static final BitSet FOLLOW_rule__Addition__Group_1__1_in_rule__Addition__Group_1__06160 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Addition__Group_1__1__Impl_in_rule__Addition__Group_1__16218 = new BitSet(new long[]{0x0000000000800030L});
-    public static final BitSet FOLLOW_rule__Addition__Group_1__2_in_rule__Addition__Group_1__16221 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Addition__SymbolAssignment_1_1_in_rule__Addition__Group_1__1__Impl6248 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Addition__Group_1__2__Impl_in_rule__Addition__Group_1__26278 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Addition__RightAssignment_1_2_in_rule__Addition__Group_1__2__Impl6305 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Multiplication__Group__0__Impl_in_rule__Multiplication__Group__06341 = new BitSet(new long[]{0x0000000000180000L});
-    public static final BitSet FOLLOW_rule__Multiplication__Group__1_in_rule__Multiplication__Group__06344 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNumericalPrimary_in_rule__Multiplication__Group__0__Impl6371 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Multiplication__Group__1__Impl_in_rule__Multiplication__Group__16400 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Multiplication__Group_1__0_in_rule__Multiplication__Group__1__Impl6427 = new BitSet(new long[]{0x0000000000180002L});
-    public static final BitSet FOLLOW_rule__Multiplication__Group_1__0__Impl_in_rule__Multiplication__Group_1__06462 = new BitSet(new long[]{0x0000000000180000L});
-    public static final BitSet FOLLOW_rule__Multiplication__Group_1__1_in_rule__Multiplication__Group_1__06465 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Multiplication__Group_1__1__Impl_in_rule__Multiplication__Group_1__16523 = new BitSet(new long[]{0x0000000000800030L});
-    public static final BitSet FOLLOW_rule__Multiplication__Group_1__2_in_rule__Multiplication__Group_1__16526 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Multiplication__SymbolAssignment_1_1_in_rule__Multiplication__Group_1__1__Impl6553 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Multiplication__Group_1__2__Impl_in_rule__Multiplication__Group_1__26583 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Multiplication__RightAssignment_1_2_in_rule__Multiplication__Group_1__2__Impl6610 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NumericalPrimary__Group_2__0__Impl_in_rule__NumericalPrimary__Group_2__06646 = new BitSet(new long[]{0x0000000000800030L});
-    public static final BitSet FOLLOW_rule__NumericalPrimary__Group_2__1_in_rule__NumericalPrimary__Group_2__06649 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_23_in_rule__NumericalPrimary__Group_2__0__Impl6677 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NumericalPrimary__Group_2__1__Impl_in_rule__NumericalPrimary__Group_2__16708 = new BitSet(new long[]{0x0000000001000000L});
-    public static final BitSet FOLLOW_rule__NumericalPrimary__Group_2__2_in_rule__NumericalPrimary__Group_2__16711 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNumericalPrimary_in_rule__NumericalPrimary__Group_2__1__Impl6738 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__NumericalPrimary__Group_2__2__Impl_in_rule__NumericalPrimary__Group_2__26767 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_24_in_rule__NumericalPrimary__Group_2__2__Impl6795 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleProblem_in_rule__Input__GivenAssignment_16837 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Input__TaskAlternatives_3_0_0_0_in_rule__Input__TaskAssignment_3_0_06868 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleProblem_in_rule__Input__GoalAssignment_3_0_16901 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_34_in_rule__Input__TaskAssignment_3_1_06937 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleProblemNoVars_in_rule__Input__GoalAssignment_3_1_26976 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleTheorem_in_rule__Input__TheoremsAssignment_4_27007 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleTheorem_in_rule__Input__TheoremsAssignment_4_3_17038 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleORing_in_rule__ProblemNoVars__PropertyAssignment7069 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDeclaration_in_rule__Problem__VarsAssignment_07100 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDeclaration_in_rule__Problem__VarsAssignment_1_17131 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleORing_in_rule__Problem__PropertyAssignment_37162 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleType_in_rule__Declaration__TypeAssignment_0_07193 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__Declaration__VarNameAssignment_0_27224 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__Declaration__VarNameAssignment_17255 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__Type__NameAssignment_07286 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleType_in_rule__Type__TemplateTypeAssignment_1_17317 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleANDing_in_rule__ORing__RightAssignment_1_27348 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePrimary_in_rule__ANDing__RightAssignment_1_27379 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Quantifier__QuantifierAlternatives_0_0_in_rule__Quantifier__QuantifierAssignment_07410 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleProblem_in_rule__Quantifier__SubjectAssignment_27443 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleORing_in_rule__Quantifier__PredicateAssignment_47474 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__Atomic__FunctionAssignment_07505 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleArgument_in_rule__Atomic__ArgsAssignment_2_07536 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleArgument_in_rule__Atomic__ArgsAssignment_2_1_17567 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__Variable__ArgAssignment7598 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__BooleanLiteral__ValueAlternatives_0_in_rule__BooleanLiteral__ValueAssignment7629 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleORing_in_rule__Theorem__RequirementAssignment_07662 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleORing_in_rule__Theorem__ResultAssignment_27693 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Theorem__CostAssignment_47724 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__Theorem__DescriptionAssignment_67755 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__Theorem__PseudoCodeAssignment_7_17786 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Addition__SymbolAlternatives_1_1_0_in_rule__Addition__SymbolAssignment_1_17817 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMultiplication_in_rule__Addition__RightAssignment_1_27850 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__Multiplication__SymbolAlternatives_1_1_0_in_rule__Multiplication__SymbolAssignment_1_17881 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNumericalPrimary_in_rule__Multiplication__RightAssignment_1_27914 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__NumberLiteral__ValueAssignment7945 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNegation_in_entryRuleNegation541 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleNegation548 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Negation__Group__0_in_ruleNegation574 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQuantifier_in_entryRuleQuantifier601 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleQuantifier608 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Quantifier__Group__0_in_ruleQuantifier634 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAtomic_in_entryRuleAtomic661 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAtomic668 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Atomic__Group__0_in_ruleAtomic694 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleArgument_in_entryRuleArgument721 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleArgument728 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAddition_in_ruleArgument754 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariable_in_entryRuleVariable780 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleVariable787 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Variable__ArgAssignment_in_ruleVariable813 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleBooleanLiteral_in_entryRuleBooleanLiteral840 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleBooleanLiteral847 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__BooleanLiteral__ValueAssignment_in_ruleBooleanLiteral873 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleTheorem_in_entryRuleTheorem900 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleTheorem907 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__0_in_ruleTheorem933 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAddition_in_entryRuleAddition960 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAddition967 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Addition__Group__0_in_ruleAddition993 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMultiplication_in_entryRuleMultiplication1020 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleMultiplication1027 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Multiplication__Group__0_in_ruleMultiplication1053 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNumericalPrimary_in_entryRuleNumericalPrimary1080 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleNumericalPrimary1087 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NumericalPrimary__Alternatives_in_ruleNumericalPrimary1113 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNumberLiteral_in_entryRuleNumberLiteral1140 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleNumberLiteral1147 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NumberLiteral__ValueAssignment_in_ruleNumberLiteral1173 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_3_0__0_in_rule__Input__Alternatives_31209 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_3_1__0_in_rule__Input__Alternatives_31227 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_11_in_rule__Input__TaskAlternatives_3_0_0_01261 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_12_in_rule__Input__TaskAlternatives_3_0_0_01281 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Declaration__Group_0__0_in_rule__Declaration__Alternatives1315 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Declaration__VarNameAssignment_1_in_rule__Declaration__Alternatives1333 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAtomic_in_rule__Primary__Alternatives1366 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQuantifier_in_rule__Primary__Alternatives1383 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Primary__Group_2__0_in_rule__Primary__Alternatives1400 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleBooleanLiteral_in_rule__Primary__Alternatives1418 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNegation_in_rule__Primary__Alternatives1435 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_13_in_rule__Quantifier__QuantifierAlternatives_0_01468 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_14_in_rule__Quantifier__QuantifierAlternatives_0_01488 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_15_in_rule__BooleanLiteral__ValueAlternatives_01523 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_16_in_rule__BooleanLiteral__ValueAlternatives_01543 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_17_in_rule__Addition__SymbolAlternatives_1_1_01578 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_rule__Addition__SymbolAlternatives_1_1_01598 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_19_in_rule__Multiplication__SymbolAlternatives_1_1_01633 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_20_in_rule__Multiplication__SymbolAlternatives_1_1_01653 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNumberLiteral_in_rule__NumericalPrimary__Alternatives1687 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAtomic_in_rule__NumericalPrimary__Alternatives1704 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NumericalPrimary__Group_2__0_in_rule__NumericalPrimary__Alternatives1721 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVariable_in_rule__NumericalPrimary__Alternatives1739 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group__0__Impl_in_rule__Input__Group__01769 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__Input__Group__1_in_rule__Input__Group__01772 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_21_in_rule__Input__Group__0__Impl1800 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group__1__Impl_in_rule__Input__Group__11831 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_rule__Input__Group__2_in_rule__Input__Group__11834 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__GivenAssignment_1_in_rule__Input__Group__1__Impl1861 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group__2__Impl_in_rule__Input__Group__21891 = new BitSet(new long[]{0x0000000800001800L});
+    public static final BitSet FOLLOW_rule__Input__Group__3_in_rule__Input__Group__21894 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_rule__Input__Group__2__Impl1922 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group__3__Impl_in_rule__Input__Group__31953 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_rule__Input__Group__4_in_rule__Input__Group__31956 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Alternatives_3_in_rule__Input__Group__3__Impl1983 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group__4__Impl_in_rule__Input__Group__42013 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_4__0_in_rule__Input__Group__4__Impl2040 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_3_0__0__Impl_in_rule__Input__Group_3_0__02081 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__Input__Group_3_0__1_in_rule__Input__Group_3_0__02084 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__TaskAssignment_3_0_0_in_rule__Input__Group_3_0__0__Impl2111 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_3_0__1__Impl_in_rule__Input__Group_3_0__12141 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__GoalAssignment_3_0_1_in_rule__Input__Group_3_0__1__Impl2168 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_3_1__0__Impl_in_rule__Input__Group_3_1__02202 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_rule__Input__Group_3_1__1_in_rule__Input__Group_3_1__02205 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__TaskAssignment_3_1_0_in_rule__Input__Group_3_1__0__Impl2232 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_3_1__1__Impl_in_rule__Input__Group_3_1__12262 = new BitSet(new long[]{0x000000010081E010L});
+    public static final BitSet FOLLOW_rule__Input__Group_3_1__2_in_rule__Input__Group_3_1__12265 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_23_in_rule__Input__Group_3_1__1__Impl2293 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_3_1__2__Impl_in_rule__Input__Group_3_1__22324 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_rule__Input__Group_3_1__3_in_rule__Input__Group_3_1__22327 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__GoalAssignment_3_1_2_in_rule__Input__Group_3_1__2__Impl2354 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_3_1__3__Impl_in_rule__Input__Group_3_1__32384 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_rule__Input__Group_3_1__3__Impl2412 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_4__0__Impl_in_rule__Input__Group_4__02451 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_rule__Input__Group_4__1_in_rule__Input__Group_4__02454 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_rule__Input__Group_4__0__Impl2482 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_4__1__Impl_in_rule__Input__Group_4__12513 = new BitSet(new long[]{0x000000010081E010L});
+    public static final BitSet FOLLOW_rule__Input__Group_4__2_in_rule__Input__Group_4__12516 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_25_in_rule__Input__Group_4__1__Impl2544 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_4__2__Impl_in_rule__Input__Group_4__22575 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_rule__Input__Group_4__3_in_rule__Input__Group_4__22578 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__TheoremsAssignment_4_2_in_rule__Input__Group_4__2__Impl2605 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_4__3__Impl_in_rule__Input__Group_4__32635 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_rule__Input__Group_4__4_in_rule__Input__Group_4__32638 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_4_3__0_in_rule__Input__Group_4__3__Impl2665 = new BitSet(new long[]{0x0000000000400002L});
+    public static final BitSet FOLLOW_rule__Input__Group_4__4__Impl_in_rule__Input__Group_4__42696 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_rule__Input__Group_4__4__Impl2725 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_4_3__0__Impl_in_rule__Input__Group_4_3__02768 = new BitSet(new long[]{0x000000010081E010L});
+    public static final BitSet FOLLOW_rule__Input__Group_4_3__1_in_rule__Input__Group_4_3__02771 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_rule__Input__Group_4_3__0__Impl2799 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__Group_4_3__1__Impl_in_rule__Input__Group_4_3__12830 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__TheoremsAssignment_4_3_1_in_rule__Input__Group_4_3__1__Impl2857 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Problem__Group__0__Impl_in_rule__Problem__Group__02891 = new BitSet(new long[]{0x000000000C000000L});
+    public static final BitSet FOLLOW_rule__Problem__Group__1_in_rule__Problem__Group__02894 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Problem__VarsAssignment_0_in_rule__Problem__Group__0__Impl2921 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Problem__Group__1__Impl_in_rule__Problem__Group__12951 = new BitSet(new long[]{0x000000000C000000L});
+    public static final BitSet FOLLOW_rule__Problem__Group__2_in_rule__Problem__Group__12954 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Problem__Group_1__0_in_rule__Problem__Group__1__Impl2981 = new BitSet(new long[]{0x0000000008000002L});
+    public static final BitSet FOLLOW_rule__Problem__Group__2__Impl_in_rule__Problem__Group__23012 = new BitSet(new long[]{0x000000010081E010L});
+    public static final BitSet FOLLOW_rule__Problem__Group__3_in_rule__Problem__Group__23015 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_rule__Problem__Group__2__Impl3043 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Problem__Group__3__Impl_in_rule__Problem__Group__33074 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Problem__PropertyAssignment_3_in_rule__Problem__Group__3__Impl3101 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Problem__Group_1__0__Impl_in_rule__Problem__Group_1__03139 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__Problem__Group_1__1_in_rule__Problem__Group_1__03142 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_rule__Problem__Group_1__0__Impl3170 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Problem__Group_1__1__Impl_in_rule__Problem__Group_1__13201 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Problem__VarsAssignment_1_1_in_rule__Problem__Group_1__1__Impl3228 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Declaration__Group_0__0__Impl_in_rule__Declaration__Group_0__03262 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_rule__Declaration__Group_0__1_in_rule__Declaration__Group_0__03265 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Declaration__TypeAssignment_0_0_in_rule__Declaration__Group_0__0__Impl3292 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Declaration__Group_0__1__Impl_in_rule__Declaration__Group_0__13322 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__Declaration__Group_0__2_in_rule__Declaration__Group_0__13325 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_23_in_rule__Declaration__Group_0__1__Impl3353 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Declaration__Group_0__2__Impl_in_rule__Declaration__Group_0__23384 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_rule__Declaration__Group_0__3_in_rule__Declaration__Group_0__23387 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Declaration__VarNameAssignment_0_2_in_rule__Declaration__Group_0__2__Impl3414 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Declaration__Group_0__3__Impl_in_rule__Declaration__Group_0__33444 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_rule__Declaration__Group_0__3__Impl3472 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Type__Group__0__Impl_in_rule__Type__Group__03511 = new BitSet(new long[]{0x0000000010000000L});
+    public static final BitSet FOLLOW_rule__Type__Group__1_in_rule__Type__Group__03514 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Type__NameAssignment_0_in_rule__Type__Group__0__Impl3541 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Type__Group__1__Impl_in_rule__Type__Group__13571 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Type__Group_1__0_in_rule__Type__Group__1__Impl3598 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Type__Group_1__0__Impl_in_rule__Type__Group_1__03633 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__Type__Group_1__1_in_rule__Type__Group_1__03636 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_28_in_rule__Type__Group_1__0__Impl3664 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Type__Group_1__1__Impl_in_rule__Type__Group_1__13695 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_rule__Type__Group_1__2_in_rule__Type__Group_1__13698 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Type__TemplateTypeAssignment_1_1_in_rule__Type__Group_1__1__Impl3725 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Type__Group_1__2__Impl_in_rule__Type__Group_1__23755 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_29_in_rule__Type__Group_1__2__Impl3783 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ORing__Group__0__Impl_in_rule__ORing__Group__03820 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_rule__ORing__Group__1_in_rule__ORing__Group__03823 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleANDing_in_rule__ORing__Group__0__Impl3850 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ORing__Group__1__Impl_in_rule__ORing__Group__13879 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ORing__Group_1__0_in_rule__ORing__Group__1__Impl3906 = new BitSet(new long[]{0x0000000040000002L});
+    public static final BitSet FOLLOW_rule__ORing__Group_1__0__Impl_in_rule__ORing__Group_1__03941 = new BitSet(new long[]{0x0000000040000000L});
+    public static final BitSet FOLLOW_rule__ORing__Group_1__1_in_rule__ORing__Group_1__03944 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ORing__Group_1__1__Impl_in_rule__ORing__Group_1__14002 = new BitSet(new long[]{0x000000010081E010L});
+    public static final BitSet FOLLOW_rule__ORing__Group_1__2_in_rule__ORing__Group_1__14005 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_rule__ORing__Group_1__1__Impl4033 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ORing__Group_1__2__Impl_in_rule__ORing__Group_1__24064 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ORing__RightAssignment_1_2_in_rule__ORing__Group_1__2__Impl4091 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ANDing__Group__0__Impl_in_rule__ANDing__Group__04127 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_rule__ANDing__Group__1_in_rule__ANDing__Group__04130 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePrimary_in_rule__ANDing__Group__0__Impl4157 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ANDing__Group__1__Impl_in_rule__ANDing__Group__14186 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ANDing__Group_1__0_in_rule__ANDing__Group__1__Impl4213 = new BitSet(new long[]{0x0000000080000002L});
+    public static final BitSet FOLLOW_rule__ANDing__Group_1__0__Impl_in_rule__ANDing__Group_1__04248 = new BitSet(new long[]{0x0000000080000000L});
+    public static final BitSet FOLLOW_rule__ANDing__Group_1__1_in_rule__ANDing__Group_1__04251 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ANDing__Group_1__1__Impl_in_rule__ANDing__Group_1__14309 = new BitSet(new long[]{0x000000010081E010L});
+    public static final BitSet FOLLOW_rule__ANDing__Group_1__2_in_rule__ANDing__Group_1__14312 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_31_in_rule__ANDing__Group_1__1__Impl4340 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ANDing__Group_1__2__Impl_in_rule__ANDing__Group_1__24371 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ANDing__RightAssignment_1_2_in_rule__ANDing__Group_1__2__Impl4398 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Primary__Group_2__0__Impl_in_rule__Primary__Group_2__04434 = new BitSet(new long[]{0x000000010081E010L});
+    public static final BitSet FOLLOW_rule__Primary__Group_2__1_in_rule__Primary__Group_2__04437 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_23_in_rule__Primary__Group_2__0__Impl4465 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Primary__Group_2__1__Impl_in_rule__Primary__Group_2__14496 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_rule__Primary__Group_2__2_in_rule__Primary__Group_2__14499 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleORing_in_rule__Primary__Group_2__1__Impl4526 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Primary__Group_2__2__Impl_in_rule__Primary__Group_2__24555 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_rule__Primary__Group_2__2__Impl4583 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Negation__Group__0__Impl_in_rule__Negation__Group__04620 = new BitSet(new long[]{0x000000010081E010L});
+    public static final BitSet FOLLOW_rule__Negation__Group__1_in_rule__Negation__Group__04623 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_32_in_rule__Negation__Group__0__Impl4651 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Negation__Group__1__Impl_in_rule__Negation__Group__14682 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Negation__NegatedAssignment_1_in_rule__Negation__Group__1__Impl4709 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Quantifier__Group__0__Impl_in_rule__Quantifier__Group__04743 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_rule__Quantifier__Group__1_in_rule__Quantifier__Group__04746 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Quantifier__QuantifierAssignment_0_in_rule__Quantifier__Group__0__Impl4773 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Quantifier__Group__1__Impl_in_rule__Quantifier__Group__14803 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_rule__Quantifier__Group__2_in_rule__Quantifier__Group__14806 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_23_in_rule__Quantifier__Group__1__Impl4834 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Quantifier__Group__2__Impl_in_rule__Quantifier__Group__24865 = new BitSet(new long[]{0x0000000200000000L});
+    public static final BitSet FOLLOW_rule__Quantifier__Group__3_in_rule__Quantifier__Group__24868 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Quantifier__SubjectAssignment_2_in_rule__Quantifier__Group__2__Impl4895 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Quantifier__Group__3__Impl_in_rule__Quantifier__Group__34925 = new BitSet(new long[]{0x000000010081E010L});
+    public static final BitSet FOLLOW_rule__Quantifier__Group__4_in_rule__Quantifier__Group__34928 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_33_in_rule__Quantifier__Group__3__Impl4956 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Quantifier__Group__4__Impl_in_rule__Quantifier__Group__44987 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_rule__Quantifier__Group__5_in_rule__Quantifier__Group__44990 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Quantifier__PredicateAssignment_4_in_rule__Quantifier__Group__4__Impl5017 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Quantifier__Group__5__Impl_in_rule__Quantifier__Group__55047 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_rule__Quantifier__Group__5__Impl5075 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Atomic__Group__0__Impl_in_rule__Atomic__Group__05118 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_rule__Atomic__Group__1_in_rule__Atomic__Group__05121 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Atomic__FunctionAssignment_0_in_rule__Atomic__Group__0__Impl5148 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Atomic__Group__1__Impl_in_rule__Atomic__Group__15178 = new BitSet(new long[]{0x0000000001800030L});
+    public static final BitSet FOLLOW_rule__Atomic__Group__2_in_rule__Atomic__Group__15181 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_23_in_rule__Atomic__Group__1__Impl5209 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Atomic__Group__2__Impl_in_rule__Atomic__Group__25240 = new BitSet(new long[]{0x0000000001800030L});
+    public static final BitSet FOLLOW_rule__Atomic__Group__3_in_rule__Atomic__Group__25243 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Atomic__Group_2__0_in_rule__Atomic__Group__2__Impl5270 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Atomic__Group__3__Impl_in_rule__Atomic__Group__35301 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_rule__Atomic__Group__3__Impl5329 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Atomic__Group_2__0__Impl_in_rule__Atomic__Group_2__05368 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_rule__Atomic__Group_2__1_in_rule__Atomic__Group_2__05371 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Atomic__ArgsAssignment_2_0_in_rule__Atomic__Group_2__0__Impl5398 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Atomic__Group_2__1__Impl_in_rule__Atomic__Group_2__15428 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Atomic__Group_2_1__0_in_rule__Atomic__Group_2__1__Impl5455 = new BitSet(new long[]{0x0000000008000002L});
+    public static final BitSet FOLLOW_rule__Atomic__Group_2_1__0__Impl_in_rule__Atomic__Group_2_1__05490 = new BitSet(new long[]{0x0000000000800030L});
+    public static final BitSet FOLLOW_rule__Atomic__Group_2_1__1_in_rule__Atomic__Group_2_1__05493 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_rule__Atomic__Group_2_1__0__Impl5521 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Atomic__Group_2_1__1__Impl_in_rule__Atomic__Group_2_1__15552 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Atomic__ArgsAssignment_2_1_1_in_rule__Atomic__Group_2_1__1__Impl5579 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__0__Impl_in_rule__Theorem__Group__05613 = new BitSet(new long[]{0x0000000400000000L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__1_in_rule__Theorem__Group__05616 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__RequirementAssignment_0_in_rule__Theorem__Group__0__Impl5643 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__1__Impl_in_rule__Theorem__Group__15673 = new BitSet(new long[]{0x000000010081E010L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__2_in_rule__Theorem__Group__15676 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_34_in_rule__Theorem__Group__1__Impl5704 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__2__Impl_in_rule__Theorem__Group__25735 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__3_in_rule__Theorem__Group__25738 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__ResultAssignment_2_in_rule__Theorem__Group__2__Impl5765 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__3__Impl_in_rule__Theorem__Group__35795 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__4_in_rule__Theorem__Group__35798 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_rule__Theorem__Group__3__Impl5826 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__4__Impl_in_rule__Theorem__Group__45857 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__5_in_rule__Theorem__Group__45860 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__CostAssignment_4_in_rule__Theorem__Group__4__Impl5887 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__5__Impl_in_rule__Theorem__Group__55917 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__6_in_rule__Theorem__Group__55920 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_rule__Theorem__Group__5__Impl5948 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__6__Impl_in_rule__Theorem__Group__65979 = new BitSet(new long[]{0x0000000008000000L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__7_in_rule__Theorem__Group__65982 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__DescriptionAssignment_6_in_rule__Theorem__Group__6__Impl6009 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__Group__7__Impl_in_rule__Theorem__Group__76039 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__Group_7__0_in_rule__Theorem__Group__7__Impl6066 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__Group_7__0__Impl_in_rule__Theorem__Group_7__06113 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_rule__Theorem__Group_7__1_in_rule__Theorem__Group_7__06116 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_rule__Theorem__Group_7__0__Impl6144 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__Group_7__1__Impl_in_rule__Theorem__Group_7__16175 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Theorem__PseudoCodeAssignment_7_1_in_rule__Theorem__Group_7__1__Impl6202 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Addition__Group__0__Impl_in_rule__Addition__Group__06236 = new BitSet(new long[]{0x0000000000060000L});
+    public static final BitSet FOLLOW_rule__Addition__Group__1_in_rule__Addition__Group__06239 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMultiplication_in_rule__Addition__Group__0__Impl6266 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Addition__Group__1__Impl_in_rule__Addition__Group__16295 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Addition__Group_1__0_in_rule__Addition__Group__1__Impl6322 = new BitSet(new long[]{0x0000000000060002L});
+    public static final BitSet FOLLOW_rule__Addition__Group_1__0__Impl_in_rule__Addition__Group_1__06357 = new BitSet(new long[]{0x0000000000060000L});
+    public static final BitSet FOLLOW_rule__Addition__Group_1__1_in_rule__Addition__Group_1__06360 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Addition__Group_1__1__Impl_in_rule__Addition__Group_1__16418 = new BitSet(new long[]{0x0000000000800030L});
+    public static final BitSet FOLLOW_rule__Addition__Group_1__2_in_rule__Addition__Group_1__16421 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Addition__SymbolAssignment_1_1_in_rule__Addition__Group_1__1__Impl6448 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Addition__Group_1__2__Impl_in_rule__Addition__Group_1__26478 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Addition__RightAssignment_1_2_in_rule__Addition__Group_1__2__Impl6505 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Multiplication__Group__0__Impl_in_rule__Multiplication__Group__06541 = new BitSet(new long[]{0x0000000000180000L});
+    public static final BitSet FOLLOW_rule__Multiplication__Group__1_in_rule__Multiplication__Group__06544 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNumericalPrimary_in_rule__Multiplication__Group__0__Impl6571 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Multiplication__Group__1__Impl_in_rule__Multiplication__Group__16600 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Multiplication__Group_1__0_in_rule__Multiplication__Group__1__Impl6627 = new BitSet(new long[]{0x0000000000180002L});
+    public static final BitSet FOLLOW_rule__Multiplication__Group_1__0__Impl_in_rule__Multiplication__Group_1__06662 = new BitSet(new long[]{0x0000000000180000L});
+    public static final BitSet FOLLOW_rule__Multiplication__Group_1__1_in_rule__Multiplication__Group_1__06665 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Multiplication__Group_1__1__Impl_in_rule__Multiplication__Group_1__16723 = new BitSet(new long[]{0x0000000000800030L});
+    public static final BitSet FOLLOW_rule__Multiplication__Group_1__2_in_rule__Multiplication__Group_1__16726 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Multiplication__SymbolAssignment_1_1_in_rule__Multiplication__Group_1__1__Impl6753 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Multiplication__Group_1__2__Impl_in_rule__Multiplication__Group_1__26783 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Multiplication__RightAssignment_1_2_in_rule__Multiplication__Group_1__2__Impl6810 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NumericalPrimary__Group_2__0__Impl_in_rule__NumericalPrimary__Group_2__06846 = new BitSet(new long[]{0x0000000000800030L});
+    public static final BitSet FOLLOW_rule__NumericalPrimary__Group_2__1_in_rule__NumericalPrimary__Group_2__06849 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_23_in_rule__NumericalPrimary__Group_2__0__Impl6877 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NumericalPrimary__Group_2__1__Impl_in_rule__NumericalPrimary__Group_2__16908 = new BitSet(new long[]{0x0000000001000000L});
+    public static final BitSet FOLLOW_rule__NumericalPrimary__Group_2__2_in_rule__NumericalPrimary__Group_2__16911 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNumericalPrimary_in_rule__NumericalPrimary__Group_2__1__Impl6938 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__NumericalPrimary__Group_2__2__Impl_in_rule__NumericalPrimary__Group_2__26967 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_rule__NumericalPrimary__Group_2__2__Impl6995 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleProblem_in_rule__Input__GivenAssignment_17037 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Input__TaskAlternatives_3_0_0_0_in_rule__Input__TaskAssignment_3_0_07068 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleProblem_in_rule__Input__GoalAssignment_3_0_17101 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_35_in_rule__Input__TaskAssignment_3_1_07137 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleProblemNoVars_in_rule__Input__GoalAssignment_3_1_27176 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleTheorem_in_rule__Input__TheoremsAssignment_4_27207 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleTheorem_in_rule__Input__TheoremsAssignment_4_3_17238 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleORing_in_rule__ProblemNoVars__PropertyAssignment7269 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDeclaration_in_rule__Problem__VarsAssignment_07300 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDeclaration_in_rule__Problem__VarsAssignment_1_17331 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleORing_in_rule__Problem__PropertyAssignment_37362 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleType_in_rule__Declaration__TypeAssignment_0_07393 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__Declaration__VarNameAssignment_0_27424 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__Declaration__VarNameAssignment_17455 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__Type__NameAssignment_07486 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleType_in_rule__Type__TemplateTypeAssignment_1_17517 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleANDing_in_rule__ORing__RightAssignment_1_27548 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePrimary_in_rule__ANDing__RightAssignment_1_27579 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePrimary_in_rule__Negation__NegatedAssignment_17610 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Quantifier__QuantifierAlternatives_0_0_in_rule__Quantifier__QuantifierAssignment_07641 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleProblem_in_rule__Quantifier__SubjectAssignment_27674 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleORing_in_rule__Quantifier__PredicateAssignment_47705 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__Atomic__FunctionAssignment_07736 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleArgument_in_rule__Atomic__ArgsAssignment_2_07767 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleArgument_in_rule__Atomic__ArgsAssignment_2_1_17798 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__Variable__ArgAssignment7829 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__BooleanLiteral__ValueAlternatives_0_in_rule__BooleanLiteral__ValueAssignment7860 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleORing_in_rule__Theorem__RequirementAssignment_07893 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleORing_in_rule__Theorem__ResultAssignment_27924 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Theorem__CostAssignment_47955 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__Theorem__DescriptionAssignment_67986 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__Theorem__PseudoCodeAssignment_7_18017 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Addition__SymbolAlternatives_1_1_0_in_rule__Addition__SymbolAssignment_1_18048 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMultiplication_in_rule__Addition__RightAssignment_1_28081 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__Multiplication__SymbolAlternatives_1_1_0_in_rule__Multiplication__SymbolAssignment_1_18112 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNumericalPrimary_in_rule__Multiplication__RightAssignment_1_28145 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__NumberLiteral__ValueAssignment8176 = new BitSet(new long[]{0x0000000000000002L});
 
 }

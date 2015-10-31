@@ -61,6 +61,7 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getANDingAccess().getGroup(), "rule__ANDing__Group__0");
 					put(grammarAccess.getANDingAccess().getGroup_1(), "rule__ANDing__Group_1__0");
 					put(grammarAccess.getPrimaryAccess().getGroup_2(), "rule__Primary__Group_2__0");
+					put(grammarAccess.getNegationAccess().getGroup(), "rule__Negation__Group__0");
 					put(grammarAccess.getQuantifierAccess().getGroup(), "rule__Quantifier__Group__0");
 					put(grammarAccess.getAtomicAccess().getGroup(), "rule__Atomic__Group__0");
 					put(grammarAccess.getAtomicAccess().getGroup_2(), "rule__Atomic__Group_2__0");
@@ -90,6 +91,7 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getTypeAccess().getTemplateTypeAssignment_1_1(), "rule__Type__TemplateTypeAssignment_1_1");
 					put(grammarAccess.getORingAccess().getRightAssignment_1_2(), "rule__ORing__RightAssignment_1_2");
 					put(grammarAccess.getANDingAccess().getRightAssignment_1_2(), "rule__ANDing__RightAssignment_1_2");
+					put(grammarAccess.getNegationAccess().getNegatedAssignment_1(), "rule__Negation__NegatedAssignment_1");
 					put(grammarAccess.getQuantifierAccess().getQuantifierAssignment_0(), "rule__Quantifier__QuantifierAssignment_0");
 					put(grammarAccess.getQuantifierAccess().getSubjectAssignment_2(), "rule__Quantifier__SubjectAssignment_2");
 					put(grammarAccess.getQuantifierAccess().getPredicateAssignment_4(), "rule__Quantifier__PredicateAssignment_4");

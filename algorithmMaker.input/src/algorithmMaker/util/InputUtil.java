@@ -2,6 +2,8 @@ package algorithmMaker.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Hashtable;
 
@@ -16,6 +18,7 @@ import algorithmMaker.input.Atomic;
 import algorithmMaker.input.BooleanLiteral;
 import algorithmMaker.input.Declaration;
 import algorithmMaker.input.Input;
+import algorithmMaker.input.Negation;
 import algorithmMaker.input.ORing;
 import algorithmMaker.input.Problem;
 import algorithmMaker.input.Property;
@@ -24,10 +27,17 @@ import algorithmMaker.input.Type;
 import algorithmMaker.input.Variable;
 import algorithmMaker.input.impl.InputFactoryImpl;
 
+/**
+ * The class for basic operations on the ecore Input objects. Anything that does
+ * a fundamental transform of the objects should instead go in
+ * TransformUtil.java in the AlgorithMaker project.
+ * 
+ * @author Dwight Naylor
+ */
 public class InputUtil {
 
-	private static final String CHILD_TYPE_MARKER = "child_type_";
-	private static final String TYPE_MARKER = "type_";
+	public static final String CHILD_TYPE_MARKER = "child_type_";
+	public static final String TYPE_MARKER = "type_";
 	public static final String BOUND = "BOUND";
 	public static final String UNBOUND = "UNBOUND";
 	public static final String EQUAL = "equal";
@@ -35,11 +45,21 @@ public class InputUtil {
 	public static final String TEST = "Test";
 	public static final String FIND = "Find";
 
+	public static final Comparator<EObject> INPUT_COMPARATOR = new Comparator<EObject>() {
+		@Override
+		public int compare(EObject input1, EObject input2) {
+			return input2.toString().compareTo(input1.toString());
+		}
+	};
+
 	/**
-	 * All of the types that should appear in the reduced kernel language
+	 * All of the types that should appear in the reduced kernel language. These
+	 * are listed here to allow for easy switch-statement use over all of the
+	 * kernel types. Just use a switch statement over the
+	 * kernelType(object.getClass()) of your object.
 	 */
 	public static enum KernelType {
-		Input, Problem, ORing, ANDing, Atomic, Quantifier, BooleanLiteral
+		Input, Problem, ORing, ANDing, Atomic, Quantifier, BooleanLiteral, Negation
 	}
 
 	public static KernelType kernelType(EObject object) {
@@ -57,6 +77,8 @@ public class InputUtil {
 			return KernelType.Quantifier;
 		else if (object instanceof BooleanLiteral)
 			return KernelType.BooleanLiteral;
+		else if (object instanceof Negation)
+			return KernelType.Negation;
 
 		return null;
 	}
@@ -112,12 +134,40 @@ public class InputUtil {
 		if (properties.size() == 0)
 			return null;
 
-		Property rhs = properties.get(0);
-		for (int i = 1; i < properties.size(); i++) {
-			ANDing newRhs = InputFactoryImpl.eINSTANCE.createANDing();
-			newRhs.setRight(rhs);
-			newRhs.setLeft(properties.get(i));
-			rhs = newRhs;
+		int index = 0;
+		Property rhs = null;
+		while (rhs == null) {
+			rhs = properties.get(index++);
+		}
+		for (; index < properties.size(); index++) {
+			Property cur = properties.get(index);
+			if (cur != null) {
+				ANDing newRhs = InputFactoryImpl.eINSTANCE.createANDing();
+				newRhs.setRight(rhs);
+				newRhs.setLeft(cur);
+				rhs = newRhs;
+			}
+		}
+		return rhs;
+	}
+
+	public static Property orTogether(ArrayList<Property> properties) {
+		if (properties.size() == 0)
+			return null;
+
+		int index = 0;
+		Property rhs = null;
+		while (rhs == null) {
+			rhs = properties.get(index++);
+		}
+		for (; index < properties.size(); index++) {
+			Property cur = properties.get(index);
+			if (cur != null) {
+				ORing newRhs = InputFactoryImpl.eINSTANCE.createORing();
+				newRhs.setRight(rhs);
+				newRhs.setLeft(cur);
+				rhs = newRhs;
+			}
 		}
 		return rhs;
 	}
@@ -200,11 +250,9 @@ public class InputUtil {
 	public static Atomic getAtomic(String function, String... args) {
 		Atomic atomic = InputFactoryImpl.eINSTANCE.createAtomic();
 		atomic.setFunction(function);
-		ArrayList<Argument> actualArgs = new ArrayList<Argument>();
 		for (String arg : args)
-			actualArgs.add(getVariable(arg));
+			atomic.getArgs().add(getVariable(arg));
 
-		atomic.getArgs().addAll(actualArgs);
 		return atomic;
 	}
 
@@ -247,26 +295,134 @@ public class InputUtil {
 		return declarations.stream().map(x -> x.getVarName()).toArray(size -> new String[size]);
 	}
 
-	public static void desugar(Input input) {
-		desugar(input.getGiven());
-		desugar(input.getGoal());
+	/**
+	 * Canonicalizes the given Property (makes a new version that is
+	 * canonicalized) according to the rules at
+	 * http://integral-table.com/downloads/logic.pdf. No changes are made to the
+	 * original input.<br>
+	 * <br>
+	 * Rules not included:<br>
+	 * Associative : grouping is eliminated during parsing
+	 */
+	public static Property canonicalize(Property cur) {
+		if (cur == null)
+			return null;
+
+		// Rules added according to their listing at
+		// http://integral-table.com/downloads/logic.pdf
+
+		switch (InputUtil.kernelType(cur)) {
+		case ANDing: {
+			ANDing anding = (ANDing) cur;
+			// RULE: Idempotent
+			HashSet<Property> hashedANDed = new HashSet<Property>(InputUtil.getANDed(anding));
+
+			// RULE: Identity
+			hashedANDed.remove(InputUtil.getBooleanLiteral(true));
+			// RULE: Universal Bound
+			if (hashedANDed.contains(InputUtil.getBooleanLiteral(false)))
+				return InputUtil.getBooleanLiteral(false);
+			// RULE: Negation
+			for (Property possibleNegation : hashedANDed)
+				if (possibleNegation instanceof Negation
+						&& hashedANDed.contains(((Negation) possibleNegation).getNegated()))
+					return InputUtil.getBooleanLiteral(false);
+			// RULE: Absorption
+			for (Property possibleORing : hashedANDed)
+				if (possibleORing instanceof ORing)
+					for (Property ORed : getORed((ORing) possibleORing))
+						if (hashedANDed.contains(ORed)) {
+							hashedANDed.remove(possibleORing);
+							break;
+						}
+
+			ArrayList<Property> andedNoRepeats = new ArrayList<Property>(hashedANDed);
+			// RULE: Commutative
+			Collections.sort(andedNoRepeats, INPUT_COMPARATOR);
+			andedNoRepeats.replaceAll(x -> canonicalize(x));
+			return InputUtil.andTogether(andedNoRepeats);
+		}
+		case ORing: {
+			ORing oring = (ORing) cur;
+			// RULE: Idempotent
+			HashSet<Property> hashedORed = new HashSet<Property>(InputUtil.getORed(oring));
+			// RULE: Identity
+			hashedORed.remove(InputUtil.getBooleanLiteral(false));
+			// RULE: Universal Bound
+			if (hashedORed.contains(InputUtil.getBooleanLiteral(true)))
+				return InputUtil.getBooleanLiteral(true);
+			// RULE: Negation
+			for (Property possibleNegation : hashedORed)
+				if (possibleNegation instanceof Negation
+						&& hashedORed.contains(((Negation) possibleNegation).getNegated()))
+					return InputUtil.getBooleanLiteral(true);
+			// RULE: Absorption
+			for (Property possibleANDing : hashedORed)
+				if (possibleANDing instanceof ANDing)
+					for (Property ANDed : getANDed((ANDing) possibleANDing))
+						if (hashedORed.contains(ANDed)) {
+							hashedORed.remove(possibleANDing);
+							break;
+						}
+
+			ArrayList<Property> oredNoRepeats = new ArrayList<Property>(hashedORed);
+			// RULE: Commutative
+			Collections.sort(oredNoRepeats, INPUT_COMPARATOR);
+			oredNoRepeats.replaceAll(x -> canonicalize(x));
+			return InputUtil.andTogether(oredNoRepeats);
+		}
+		case Negation: {
+			Negation negation = (Negation) cur;
+			// RULE: Double Negative
+			Property negated = negation.getNegated();
+			if (negated instanceof Negation)
+				return canonicalize(((Negation) negated).getNegated());
+
+			// RULE: Demorgan's Law (AND)
+			if (negated instanceof ANDing) {
+				ArrayList<Property> children = InputUtil.getANDed((ANDing) negated);
+				children.replaceAll(x -> getNegated(InputUtil.stupidCopy(x)));
+				return orTogether(children);
+			}
+			// RULE: Demorgan's Law (OR)
+			if (negated instanceof ORing) {
+				ArrayList<Property> children = InputUtil.getORed((ORing) negated);
+				children.replaceAll(x -> getNegated(InputUtil.stupidCopy(x)));
+				return andTogether(children);
+			}
+
+			return InputUtil.stupidCopy(negation);
+		}
+		case Quantifier: {
+			Quantifier quantifier = (Quantifier) cur;
+			Property newSubject = canonicalize(quantifier.getSubject().getProperty());
+			Property newPredicate = canonicalize(quantifier.getPredicate());
+			// TODO: Deal with quantifier canonicalization (negation...)
+
+			Quantifier ret = (Quantifier) InputUtil.stupidCopy(cur);
+			ret.getSubject().setProperty(newSubject);
+			ret.setPredicate(newPredicate);
+			return ret;
+		}
+		case BooleanLiteral:
+		case Atomic:
+		case Input:
+		case Problem:
+		default:
+			return InputUtil.stupidCopy(cur);
+		}
 	}
 
-	public static void desugar(Problem problem) {
-		ArrayList<Property> properties = new ArrayList<Property>();
-		properties.add(problem.getProperty());
-		for (Declaration declaration : problem.getVars()) {
-			Type type = declaration.getType();
-			if (type != null) {
-				properties.add(InputUtil.getAtomic(TYPE_MARKER + type.getName(), declaration.getVarName()));
-				if (type.getTemplateType() != null)
-					properties.add(InputUtil.getAtomic(CHILD_TYPE_MARKER + type.getTemplateType(),
-							declaration.getVarName()));
+	private static Negation getNegated(Property x) {
+		Negation ret = InputFactoryImpl.eINSTANCE.createNegation();
+		ret.setNegated(x);
+		return ret;
+	}
 
-				declaration.setType(null);
-			}
-		}
-		problem.setProperty(InputUtil.andTogether(properties));
+	private static BooleanLiteral getBooleanLiteral(boolean b) {
+		BooleanLiteral ret = InputFactoryImpl.eINSTANCE.createBooleanLiteral();
+		ret.setValue((b + "").toUpperCase());
+		return ret;
 	}
 
 	public static EObject reduce(EObject cur, InputConverter reducer) {
@@ -311,13 +467,13 @@ public class InputUtil {
 		case Quantifier: {
 			Quantifier quantifier = (Quantifier) cur;
 			EObject newRequirement = reduce(quantifier.getSubject(), reducer);
-			EObject newResult = reduce(quantifier.getSubject(), reducer);
+			EObject newResult = reduce(quantifier.getPredicate(), reducer);
 			if (newRequirement == null || newResult == null)
 				return null;
 
 			Quantifier quantifierRet = InputUtil.stupidCopy((Quantifier) cur);
 			quantifierRet.setSubject((Problem) newRequirement);
-			quantifierRet.setSubject((Problem) newResult);
+			quantifierRet.setPredicate((Property) newResult);
 			return reducer.apply(quantifierRet);
 		}
 		case Problem: {
@@ -337,9 +493,18 @@ public class InputUtil {
 			inputRet.setGoal((Problem) newGoal);
 			return reducer.apply(inputRet);
 		}
+		case Negation:
+			EObject negated = reduce(((Negation) cur).getNegated(), reducer);
+			if (negated == null)
+				return null;
+
+			Negation ret = InputFactoryImpl.eINSTANCE.createNegation();
+			ret.setNegated((Property) negated);
+			return ret;
 		case Atomic:
+			return reducer.apply(InputUtil.stupidCopy((Atomic) cur));
 		case BooleanLiteral:
-			return reducer.apply(cur);
+			return reducer.apply(InputUtil.stupidCopy((BooleanLiteral) cur));
 		default:
 			throw new UnsupportedOperationException("Only kernel types can be passed to a reducer.");
 		}
@@ -372,5 +537,36 @@ public class InputUtil {
 
 	public static String getDeclaredChildType(String function) {
 		return function.substring(CHILD_TYPE_MARKER.length());
+	}
+
+	public static ArrayList<Property> getTopLevelAtomics(Property property) {
+		if (property instanceof Atomic)
+			return new ArrayList<Property>(Collections.singleton((Atomic) property));
+		else if (property instanceof ANDing)
+			return getANDed((ANDing) property);
+
+		return new ArrayList<Property>();
+	}
+
+	public static void desugar(Input input) {
+		desugar(input.getGiven());
+		desugar(input.getGoal());
+	}
+
+	public static void desugar(Problem problem) {
+		ArrayList<Property> properties = new ArrayList<Property>();
+		properties.add(problem.getProperty());
+		for (Declaration declaration : problem.getVars()) {
+			Type type = declaration.getType();
+			if (type != null) {
+				properties.add(InputUtil.getAtomic(InputUtil.TYPE_MARKER + type.getName(), declaration.getVarName()));
+				if (type.getTemplateType() != null)
+					properties.add(InputUtil.getAtomic(InputUtil.CHILD_TYPE_MARKER + type.getTemplateType(),
+							declaration.getVarName()));
+
+				declaration.setType(null);
+			}
+		}
+		problem.setProperty(InputUtil.andTogether(properties));
 	}
 }

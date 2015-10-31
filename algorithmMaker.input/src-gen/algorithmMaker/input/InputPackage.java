@@ -242,6 +242,34 @@ public interface InputPackage extends EPackage
   int PROPERTY_FEATURE_COUNT = 0;
 
   /**
+   * The meta object id for the '{@link algorithmMaker.input.impl.NegationImpl <em>Negation</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see algorithmMaker.input.impl.NegationImpl
+   * @see algorithmMaker.input.impl.InputPackageImpl#getNegation()
+   * @generated
+   */
+  int NEGATION = 5;
+
+  /**
+   * The feature id for the '<em><b>Negated</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NEGATION__NEGATED = PROPERTY_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Negation</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int NEGATION_FEATURE_COUNT = PROPERTY_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link algorithmMaker.input.impl.QuantifierImpl <em>Quantifier</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -249,7 +277,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getQuantifier()
    * @generated
    */
-  int QUANTIFIER = 5;
+  int QUANTIFIER = 6;
 
   /**
    * The feature id for the '<em><b>Quantifier</b></em>' attribute.
@@ -295,7 +323,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getAtomic()
    * @generated
    */
-  int ATOMIC = 6;
+  int ATOMIC = 7;
 
   /**
    * The feature id for the '<em><b>Function</b></em>' attribute.
@@ -332,7 +360,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getArgument()
    * @generated
    */
-  int ARGUMENT = 7;
+  int ARGUMENT = 8;
 
   /**
    * The number of structural features of the '<em>Argument</em>' class.
@@ -351,7 +379,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getNumericalProperty()
    * @generated
    */
-  int NUMERICAL_PROPERTY = 11;
+  int NUMERICAL_PROPERTY = 12;
 
   /**
    * The number of structural features of the '<em>Numerical Property</em>' class.
@@ -370,7 +398,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getVariable()
    * @generated
    */
-  int VARIABLE = 8;
+  int VARIABLE = 9;
 
   /**
    * The feature id for the '<em><b>Arg</b></em>' attribute.
@@ -398,7 +426,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getBooleanLiteral()
    * @generated
    */
-  int BOOLEAN_LITERAL = 9;
+  int BOOLEAN_LITERAL = 10;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -426,7 +454,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getTheorem()
    * @generated
    */
-  int THEOREM = 10;
+  int THEOREM = 11;
 
   /**
    * The feature id for the '<em><b>Requirement</b></em>' containment reference.
@@ -490,7 +518,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getNumberLiteral()
    * @generated
    */
-  int NUMBER_LITERAL = 12;
+  int NUMBER_LITERAL = 13;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -518,7 +546,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getORing()
    * @generated
    */
-  int ORING = 13;
+  int ORING = 14;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -555,7 +583,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getANDing()
    * @generated
    */
-  int AN_DING = 14;
+  int AN_DING = 15;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -592,7 +620,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getAddition()
    * @generated
    */
-  int ADDITION = 15;
+  int ADDITION = 16;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -638,7 +666,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getMultiplication()
    * @generated
    */
-  int MULTIPLICATION = 16;
+  int MULTIPLICATION = 17;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -836,6 +864,27 @@ public interface InputPackage extends EPackage
    * @generated
    */
   EClass getProperty();
+
+  /**
+   * Returns the meta object for class '{@link algorithmMaker.input.Negation <em>Negation</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Negation</em>'.
+   * @see algorithmMaker.input.Negation
+   * @generated
+   */
+  EClass getNegation();
+
+  /**
+   * Returns the meta object for the containment reference '{@link algorithmMaker.input.Negation#getNegated <em>Negated</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Negated</em>'.
+   * @see algorithmMaker.input.Negation#getNegated()
+   * @see #getNegation()
+   * @generated
+   */
+  EReference getNegation_Negated();
 
   /**
    * Returns the meta object for class '{@link algorithmMaker.input.Quantifier <em>Quantifier</em>}'.
@@ -1362,6 +1411,24 @@ public interface InputPackage extends EPackage
      * @generated
      */
     EClass PROPERTY = eINSTANCE.getProperty();
+
+    /**
+     * The meta object literal for the '{@link algorithmMaker.input.impl.NegationImpl <em>Negation</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see algorithmMaker.input.impl.NegationImpl
+     * @see algorithmMaker.input.impl.InputPackageImpl#getNegation()
+     * @generated
+     */
+    EClass NEGATION = eINSTANCE.getNegation();
+
+    /**
+     * The meta object literal for the '<em><b>Negated</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference NEGATION__NEGATED = eINSTANCE.getNegation_Negated();
 
     /**
      * The meta object literal for the '{@link algorithmMaker.input.impl.QuantifierImpl <em>Quantifier</em>}' class.

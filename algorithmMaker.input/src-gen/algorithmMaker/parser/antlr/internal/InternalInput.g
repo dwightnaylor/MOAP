@@ -700,7 +700,60 @@ rulePrimary returns [EObject current=null]
         $current = $this_BooleanLiteral_5.current; 
         afterParserOrEnumRuleCall();
     }
+
+    |
+    { 
+        newCompositeNode(grammarAccess.getPrimaryAccess().getNegationParserRuleCall_4()); 
+    }
+    this_Negation_6=ruleNegation
+    { 
+        $current = $this_Negation_6.current; 
+        afterParserOrEnumRuleCall();
+    }
 )
+;
+
+
+
+
+
+// Entry rule entryRuleNegation
+entryRuleNegation returns [EObject current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getNegationRule()); }
+	 iv_ruleNegation=ruleNegation 
+	 { $current=$iv_ruleNegation.current; } 
+	 EOF 
+;
+
+// Rule Negation
+ruleNegation returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(	otherlv_0='!' 
+    {
+    	newLeafNode(otherlv_0, grammarAccess.getNegationAccess().getExclamationMarkKeyword_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getNegationAccess().getNegatedPrimaryParserRuleCall_1_0()); 
+	    }
+		lv_negated_1_0=rulePrimary		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getNegationRule());
+	        }
+       		set(
+       			$current, 
+       			"negated",
+        		lv_negated_1_0, 
+        		"Primary");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))
 ;
 
 

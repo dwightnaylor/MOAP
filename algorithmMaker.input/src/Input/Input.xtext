@@ -29,7 +29,10 @@ ANDing returns Property:
 	Primary ({ANDing.left=current} '&' right=Primary)*;
 
 Primary returns Property:
-	Atomic | Quantifier | ('(' ORing ')') | BooleanLiteral;
+	Atomic | Quantifier | ('(' ORing ')') | BooleanLiteral | Negation;
+
+Negation:
+	'!' negated=Primary;
 
 Quantifier:
 	quantifier=('forall' | 'exists') '(' subject=Problem ':' predicate=ORing ')';

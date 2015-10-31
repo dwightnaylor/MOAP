@@ -87,6 +87,7 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     '('*
 	 *
 	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) '!' negated=Primary
 	 *     (rule start) (ambiguity) Function=ID
 	 *     (rule start) (ambiguity) quantifier='exists'
 	 *     (rule start) (ambiguity) quantifier='forall'

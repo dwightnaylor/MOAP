@@ -21,11 +21,18 @@ import algorithmMaker.input.impl.InputFactoryImpl;
 import algorithmMaker.util.InputConverter;
 import algorithmMaker.util.InputUtil;
 
+/**
+ * A class for fundamental transformations of input. All simple operations
+ * should instead go in InputUtil.java in the algorithmMaker.input project.
+ * 
+ * @author Dwight Naylor
+ */
 public class TransformUtil {
 
 	public static final MultistageTheorem GIVEN_PROBLEM = new MultistageTheorem(null, null, null, 0, "GIVEN PROBLEM",
 			null);
 	public static final Theorem GIVEN = new QuickTheorem(null, null, 0, "GIVEN");
+	public static final Theorem REFLEXIVE = new QuickTheorem(null, null, 0, "Reflexive Property");
 	public static final Theorem GOAL = new QuickTheorem(null, null, 0, "GOAL");
 	public static final Theorem EQUAL = new QuickTheorem(null, null, 0, "Equal variables share properties.");
 
@@ -40,39 +47,42 @@ public class TransformUtil {
 	 * Reduces the given input by taking things out of the goal if they are in
 	 * the given, and reducing variable use in both halves.
 	 */
-	public static Input simplify(Input input, Chainer chainer) {
+	public static Input removeAtomics(Input input, Chainer chainer) {
 		Input inputRet = InputUtil.stupidCopy(input);
 
 		Property given = input.getGiven().getProperty();
 		if (given != null) {
-			Property simplifiedGiven = (Property) simplify(given, new HashSet<Atomic>());
-			inputRet.getGiven().setProperty(
-					simplifiedGiven == null ? QuickParser.parseProperty("TRUE") : simplifiedGiven);
+			Property reducedGiven = (Property) removeAtomics(given, new HashSet<Atomic>());
+			inputRet.getGiven().setProperty(reducedGiven == null ? QuickParser.parseProperty("TRUE") : reducedGiven);
 		}
 
 		chainer.chain(inputRet.getGiven().getProperty(), GIVEN);
 		HashSet<Atomic> atomicsToRemove = chainer.copyAtomics();
 		Property find = input.getGoal().getProperty();
 		if (find != null) {
-			Property simplifiedFind = (Property) simplify(find, atomicsToRemove);
-			inputRet.getGoal().setProperty(simplifiedFind == null ? QuickParser.parseProperty("TRUE") : simplifiedFind);
+			Property reducedFind = (Property) removeAtomics(find, atomicsToRemove);
+			inputRet.getGoal().setProperty(reducedFind == null ? QuickParser.parseProperty("TRUE") : reducedFind);
 		}
 
 		InputUtil.compactVariables(inputRet.getGiven());
-		// InputUtil.compactVariables(inputRet.getGoal());
 		return inputRet;
 	}
 
-	public static EObject simplify(EObject originalObject, HashSet<Atomic> atomicsToRemove) {
+	public static EObject removeAtomics(EObject originalObject) {
+		return removeAtomics(originalObject, new HashSet<Atomic>());
+	}
+
+	public static EObject removeAtomics(EObject originalObject, HashSet<Atomic> atomicsToRemove) {
 		return InputUtil.reduce(originalObject, new InputConverter() {
 			@Override
 			public EObject apply(EObject cur) {
 				if (cur instanceof Atomic) {
 					if (atomicsToRemove.contains(cur) || ((Atomic) cur).getFunction().equals(InputUtil.BOUND)
-							|| ((Atomic) cur).getFunction().equals(InputUtil.UNBOUND))
+							|| ((Atomic) cur).getFunction().equals(InputUtil.UNBOUND)) {
 						return null;
+					}
 
-					atomicsToRemove.add((Atomic) cur);
+					// atomicsToRemove.add((Atomic) cur);
 				}
 				return cur;
 			}
@@ -105,28 +115,32 @@ public class TransformUtil {
 		return (Problem) InputUtil.reduce(problem, new InputConverter() {
 			@Override
 			public EObject apply(EObject cur) {
-				if (cur instanceof Atomic) {
-					String function = ((Atomic) cur).getFunction();
-					if (InputUtil.isTypeAtomic(function)) {
-						Declaration declaration = InputUtil.findDeclarationFor((Variable) ((Atomic) cur).getArgs().get(
-								0));
-						if (declaration.getType() == null)
-							declaration.setType(InputFactoryImpl.eINSTANCE.createType());
+				if (cur instanceof Problem) {
+					ArrayList<Property> topLevelAtomics = InputUtil.getTopLevelAtomics(((Problem) cur).getProperty());
+					for (int i = 0; i < topLevelAtomics.size(); i++) {
+						Atomic atomic = (Atomic) topLevelAtomics.get(i);
+						String function = atomic.getFunction();
+						if (InputUtil.isTypeAtomic(function)) {
+							Declaration declaration = InputUtil.findDeclarationFor((Variable) atomic.getArgs().get(0));
+							if (declaration.getType() == null)
+								declaration.setType(InputFactoryImpl.eINSTANCE.createType());
 
-						declaration.getType().setName(InputUtil.getDeclaredType(function));
-						return null;
-					}
-					if (InputUtil.isChildTypeAtomic(function)) {
-						Declaration declaration = InputUtil.findDeclarationFor((Variable) ((Atomic) cur).getArgs().get(
-								0));
-						if (declaration.getType() == null)
-							declaration.setType(InputFactoryImpl.eINSTANCE.createType());
+							declaration.getType().setName(InputUtil.getDeclaredType(function));
+							topLevelAtomics.remove(i--);
+						}
+						if (InputUtil.isChildTypeAtomic(function)) {
+							Declaration declaration = InputUtil.findDeclarationFor((Variable) atomic.getArgs().get(0));
+							if (declaration.getType() == null)
+								declaration.setType(InputFactoryImpl.eINSTANCE.createType());
 
-						Type childType = InputFactoryImpl.eINSTANCE.createType();
-						childType.setName(InputUtil.getDeclaredChildType(function));
-						declaration.getType().setTemplateType(childType);
-						return null;
+							Type childType = InputFactoryImpl.eINSTANCE.createType();
+							childType.setName(InputUtil.getDeclaredChildType(function));
+							declaration.getType().setTemplateType(childType);
+							topLevelAtomics.remove(i--);
+						}
 					}
+					((Problem) cur).setProperty(InputUtil.andTogether(topLevelAtomics));
+					return cur;
 				}
 				return cur;
 			}

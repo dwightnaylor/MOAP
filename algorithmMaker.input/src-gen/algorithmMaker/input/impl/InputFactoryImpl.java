@@ -69,6 +69,7 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
       case InputPackage.DECLARATION: return createDeclaration();
       case InputPackage.TYPE: return createType();
       case InputPackage.PROPERTY: return createProperty();
+      case InputPackage.NEGATION: return createNegation();
       case InputPackage.QUANTIFIER: return createQuantifier();
       case InputPackage.ATOMIC: return createAtomic();
       case InputPackage.ARGUMENT: return createArgument();
@@ -139,6 +140,17 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
   {
     PropertyImpl property = new PropertyImpl();
     return property;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Negation createNegation()
+  {
+    NegationImpl negation = new NegationImpl();
+    return negation;
   }
 
   /**

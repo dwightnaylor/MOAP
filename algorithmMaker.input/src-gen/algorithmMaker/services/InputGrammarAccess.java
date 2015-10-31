@@ -383,12 +383,13 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cORingParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
 		private final RuleCall cBooleanLiteralParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cNegationParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		
 		//Primary returns Property:
-		//	Atomic | Quantifier | "(" ORing ")" | BooleanLiteral;
+		//	Atomic | Quantifier | "(" ORing ")" | BooleanLiteral | Negation;
 		@Override public ParserRule getRule() { return rule; }
 
-		//Atomic | Quantifier | "(" ORing ")" | BooleanLiteral
+		//Atomic | Quantifier | "(" ORing ")" | BooleanLiteral | Negation
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//Atomic
@@ -411,6 +412,33 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 
 		//BooleanLiteral
 		public RuleCall getBooleanLiteralParserRuleCall_3() { return cBooleanLiteralParserRuleCall_3; }
+
+		//Negation
+		public RuleCall getNegationParserRuleCall_4() { return cNegationParserRuleCall_4; }
+	}
+
+	public class NegationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Negation");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cExclamationMarkKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final Assignment cNegatedAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cNegatedPrimaryParserRuleCall_1_0 = (RuleCall)cNegatedAssignment_1.eContents().get(0);
+		
+		//Negation:
+		//	"!" negated=Primary;
+		@Override public ParserRule getRule() { return rule; }
+
+		//"!" negated=Primary
+		public Group getGroup() { return cGroup; }
+
+		//"!"
+		public Keyword getExclamationMarkKeyword_0() { return cExclamationMarkKeyword_0; }
+
+		//negated=Primary
+		public Assignment getNegatedAssignment_1() { return cNegatedAssignment_1; }
+
+		//Primary
+		public RuleCall getNegatedPrimaryParserRuleCall_1_0() { return cNegatedPrimaryParserRuleCall_1_0; }
 	}
 
 	public class QuantifierElements extends AbstractParserRuleElementFinder {
@@ -811,6 +839,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	private final ORingElements pORing;
 	private final ANDingElements pANDing;
 	private final PrimaryElements pPrimary;
+	private final NegationElements pNegation;
 	private final QuantifierElements pQuantifier;
 	private final AtomicElements pAtomic;
 	private final ArgumentElements pArgument;
@@ -839,6 +868,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		this.pORing = new ORingElements();
 		this.pANDing = new ANDingElements();
 		this.pPrimary = new PrimaryElements();
+		this.pNegation = new NegationElements();
 		this.pQuantifier = new QuantifierElements();
 		this.pAtomic = new AtomicElements();
 		this.pArgument = new ArgumentElements();
@@ -951,13 +981,23 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Primary returns Property:
-	//	Atomic | Quantifier | "(" ORing ")" | BooleanLiteral;
+	//	Atomic | Quantifier | "(" ORing ")" | BooleanLiteral | Negation;
 	public PrimaryElements getPrimaryAccess() {
 		return pPrimary;
 	}
 	
 	public ParserRule getPrimaryRule() {
 		return getPrimaryAccess().getRule();
+	}
+
+	//Negation:
+	//	"!" negated=Primary;
+	public NegationElements getNegationAccess() {
+		return pNegation;
+	}
+	
+	public ParserRule getNegationRule() {
+		return getNegationAccess().getRule();
 	}
 
 	//Quantifier:

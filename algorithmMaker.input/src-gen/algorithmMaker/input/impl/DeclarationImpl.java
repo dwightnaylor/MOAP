@@ -260,8 +260,9 @@ public class DeclarationImpl extends MinimalEObjectImpl.Container implements Dec
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append(type == null ? "" : type + " ");
+		ret.append(type == null ? "" : type + "(");
 		ret.append(varName);
+		ret.append(type == null ? "" : ")");
 		return ret.toString();
 	}
 
