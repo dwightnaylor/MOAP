@@ -45,6 +45,9 @@ public class InputUtil {
 	public static final String TEST = "Test";
 	public static final String FIND = "Find";
 
+	public static final String FORALL = "forall";
+	public static final String EXISTS = "exists";
+
 	public static final Comparator<EObject> INPUT_COMPARATOR = new Comparator<EObject>() {
 		@Override
 		public int compare(EObject input1, EObject input2) {
@@ -328,6 +331,8 @@ public class InputUtil {
 
 			// RULE: Identity
 			hashedANDed.remove(InputUtil.getBooleanLiteral(true));
+			if(hashedANDed.isEmpty())
+				return InputUtil.getBooleanLiteral(true);
 			// RULE: Universal Bound
 			if (hashedANDed.contains(InputUtil.getBooleanLiteral(false)))
 				return InputUtil.getBooleanLiteral(false);
@@ -357,6 +362,8 @@ public class InputUtil {
 			HashSet<Property> hashedORed = new HashSet<Property>(InputUtil.getORed(oring));
 			// RULE: Identity
 			hashedORed.remove(InputUtil.getBooleanLiteral(false));
+			if(hashedORed.isEmpty())
+				return InputUtil.getBooleanLiteral(false);
 			// RULE: Universal Bound
 			if (hashedORed.contains(InputUtil.getBooleanLiteral(true)))
 				return InputUtil.getBooleanLiteral(true);
@@ -398,6 +405,17 @@ public class InputUtil {
 				ArrayList<Property> children = InputUtil.getORed((ORing) negated);
 				children.replaceAll(x -> getNegated(InputUtil.stupidCopy(x)));
 				return andTogether(children);
+			}
+			//RULE: Quantifier Negation Sinking
+			if (negated instanceof Quantifier) {
+				Quantifier ret = InputUtil.stupidCopy((Quantifier) negated);
+				if (((Quantifier) negated).getQuantifier().equals(InputUtil.FORALL))
+					ret.setQuantifier(InputUtil.EXISTS);
+				else if (((Quantifier) negated).getQuantifier().equals(InputUtil.EXISTS))
+					ret.setQuantifier(InputUtil.FORALL);
+
+				ret.setPredicate(InputUtil.getNegated(ret.getPredicate()));
+				return ret;
 			}
 
 			return InputUtil.stupidCopy(negation);

@@ -50,6 +50,8 @@ public class InputUtilTests {
 		tasks.add(new String[] { "a(x) & FALSE", "FALSE" });
 		tasks.add(new String[] { "!(a(x) & b(x))", "!a(x) | !b(x)" });
 		tasks.add(new String[] { "!(a(x) | b(x))", "!a(x) & !b(x)" });
+		tasks.add(new String[] { "(a(x) & !d(x)) & (b(x) & d(x)) | (c(x) & !c(x))", "FALSE" });
+		tasks.add(new String[] { "!forall(x st a(x): b(x))", "exists(x st a(x) : !b(x))" });
 		for (String[] task : tasks) {
 			Property originalProperty = QuickParser.parseProperty(task[0]);
 			// The simplified version goes here
