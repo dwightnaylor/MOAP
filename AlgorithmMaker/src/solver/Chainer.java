@@ -1,9 +1,13 @@
 package solver;
 
+import inputHandling.TransformUtil;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
 
+import theorems.Fact;
+import theorems.MultistageTheorem;
 import algorithmMaker.input.ANDing;
 import algorithmMaker.input.Argument;
 import algorithmMaker.input.Atomic;
@@ -13,9 +17,6 @@ import algorithmMaker.input.Theorem;
 import algorithmMaker.util.InputUtil;
 import bindings.Binding;
 import bindings.MutableBinding;
-import inputHandling.TransformUtil;
-import theorems.Fact;
-import theorems.MultistageTheorem;
 
 /**
  * Chains together facts using existing theorems to arrive at conclusions.
@@ -264,8 +265,8 @@ public class Chainer {
 			}
 		} else {
 			InputUtil.revar(theorem.getResult(), binding.getArguments());
-			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem,
-					binding.getPrerequisites().toArray(new Fact<?>[0]));
+			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem, binding.getPrerequisites()
+					.toArray(new Fact<?>[0]));
 		}
 	}
 
@@ -275,8 +276,8 @@ public class Chainer {
 	 * NOTE: Assumes atomicsToSatisfy has all of the atomics of the same
 	 * function type as the asserted atomic at the end.
 	 */
-	private void attemptPropagation(Theorem theorem, ArrayList<Property> atomicsToSatisfy, int index, Fact<Atomic> fact,
-			boolean usedAsserted, MutableBinding binding) {
+	private void attemptPropagation(Theorem theorem, ArrayList<Property> atomicsToSatisfy, int index,
+			Fact<Atomic> fact, boolean usedAsserted, MutableBinding binding) {
 		// base case : when we've fulfilled all the atomics, we can assert our
 		// result.
 		if (index == atomicsToSatisfy.size()) {

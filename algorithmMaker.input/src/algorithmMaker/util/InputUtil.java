@@ -331,7 +331,7 @@ public class InputUtil {
 
 			// RULE: Identity
 			hashedANDed.remove(InputUtil.getBooleanLiteral(true));
-			if(hashedANDed.isEmpty())
+			if (hashedANDed.isEmpty())
 				return InputUtil.getBooleanLiteral(true);
 			// RULE: Universal Bound
 			if (hashedANDed.contains(InputUtil.getBooleanLiteral(false)))
@@ -362,7 +362,7 @@ public class InputUtil {
 			HashSet<Property> hashedORed = new HashSet<Property>(InputUtil.getORed(oring));
 			// RULE: Identity
 			hashedORed.remove(InputUtil.getBooleanLiteral(false));
-			if(hashedORed.isEmpty())
+			if (hashedORed.isEmpty())
 				return InputUtil.getBooleanLiteral(false);
 			// RULE: Universal Bound
 			if (hashedORed.contains(InputUtil.getBooleanLiteral(true)))
@@ -406,7 +406,7 @@ public class InputUtil {
 				children.replaceAll(x -> getNegated(InputUtil.stupidCopy(x)));
 				return andTogether(children);
 			}
-			//RULE: Quantifier Negation Sinking
+			// RULE: Quantifier Negation Sinking
 			if (negated instanceof Quantifier) {
 				Quantifier ret = InputUtil.stupidCopy((Quantifier) negated);
 				if (((Quantifier) negated).getQuantifier().equals(InputUtil.FORALL))
@@ -424,7 +424,8 @@ public class InputUtil {
 			Quantifier quantifier = (Quantifier) cur;
 			Property newSubject = getOneStepCanonizalized(quantifier.getSubject().getProperty());
 			Property newPredicate = getOneStepCanonizalized(quantifier.getPredicate());
-			// TODO: Deal with quantifier canonicalization (negation...)
+			// TODO (low): Deal with quantifier ordering (FA(E) vs E(FA))
+			// TODO (low): Deal with quantifier splitting
 
 			Quantifier ret = (Quantifier) InputUtil.stupidCopy(cur);
 			ret.getSubject().setProperty(newSubject);
