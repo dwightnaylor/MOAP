@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Stack;
 
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EObject;
+
+import theorems.Fact;
 import algorithmMaker.input.Argument;
-import algorithmMaker.input.Atomic;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Variable;
-import theorems.Fact;
+import algorithmMaker.util.InputUtil;
 
 public class MutableBinding extends Binding {
 	public void bind(String originalVar, Argument newVar) {
@@ -21,21 +24,25 @@ public class MutableBinding extends Binding {
 
 	private Stack<ArrayList<String>> lastBindings = new Stack<ArrayList<String>>();
 
-	public void applyBinding(Atomic original, Fact<Atomic> asserted) {
-		lastBindings.push(new ArrayList<String>());
-		// TODO:DN: Recursively go down a numerical argument and do any variable
-		// bindings we can do
-		for (int i = 0; i < original.getArgs().size(); i++) {
-			if (original.getArgs().get(i) instanceof Variable) {
-				String arg = ((Variable) original.getArgs().get(i)).getArg();
-				if (!bindings.containsKey(arg))
-					lastBindings.peek().add(arg);
+	public void applyBinding(Property original, Fact<? extends Property> asserted) {
+		if (!InputUtil.devar(original).equals(InputUtil.devar(asserted.property)))
+			throw new IllegalArgumentException("Cannot bind two non-equivalent properties \"" + original + "\" and \""
+					+ asserted.property + "\"");
 
-				bind(arg, asserted.property.getArgs().get(i));
-			} else if (!original.getArgs().get(i).equals(asserted.property.getArgs().get(i))) {
-				throw new UnsupportedOperationException("Can't bind a non-variable to something");
+		ArrayList<String> newBindings = new ArrayList<String>();
+		TreeIterator<EObject> originalContents = original.eAllContents();
+		TreeIterator<EObject> assertedContents = asserted.property.eAllContents();
+		while (originalContents.hasNext()) {
+			EObject cur = originalContents.next();
+			if (cur instanceof Variable) {
+				String arg = ((Variable) cur).getArg();
+				if (!bindings.containsKey(arg))
+					newBindings.add(arg);
+
+				bind(arg, (Variable) assertedContents.next());
 			}
 		}
+		lastBindings.push(newBindings);
 
 		prerequisites.add(asserted);
 	}

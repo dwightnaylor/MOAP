@@ -11,6 +11,7 @@ import org.junit.Test;
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Argument;
 import algorithmMaker.input.Property;
+import algorithmMaker.util.InputUtil;
 
 public class InputUtilTests {
 
@@ -63,5 +64,10 @@ public class InputUtilTests {
 
 			assertEquals(simplifiedProperty.toString(), task[1]);
 		}
+	}
+
+	@Test
+	public void testDevar() {
+		assertEquals(InputUtil.getAtomic("a", "_"), devar(parseProperty("a(x)")));
 	}
 }

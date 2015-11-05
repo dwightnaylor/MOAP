@@ -104,14 +104,14 @@ public class ProblemSolver {
 
 						Property givenResult = mst.getGivenResult();
 						if (givenResult != null) {
-							newBinding.addBindingsFrom(doBindings(newProblem.getGiven(), usedVars,
-									InputUtil.getBindings(givenResult)));
+							newBinding.addBindingsFrom(
+									doBindings(newProblem.getGiven(), usedVars, InputUtil.getBindings(givenResult)));
 							newGivenParts.add(InputUtil.revar(givenResult, newBinding.getArguments()));
 						}
 						Property findResult = mst.getFindResult();
 						if (findResult != null) {
-							newBinding.addBindingsFrom(doBindings(newProblem.getGoal(), usedVars,
-									InputUtil.getBindings(findResult)));
+							newBinding.addBindingsFrom(
+									doBindings(newProblem.getGoal(), usedVars, InputUtil.getBindings(findResult)));
 							newGoalParts.add(InputUtil.revar(findResult, newBinding.getArguments()));
 						}
 
@@ -152,7 +152,6 @@ public class ProblemSolver {
 		newProblem.getGiven().setProperty(InputUtil.canonicalize(newProblem.getGiven().getProperty()));
 		newProblem.getGoal().setProperty(InputUtil.canonicalize(newProblem.getGoal().getProperty()));
 		if (!reachedProblemStates.contains(newProblem)) {
-			System.out.println(newProblem);
 			reachedProblemStates.add(newProblem);
 			ProblemState newProblemState = new ProblemState(newProblem, problemState, multistageTheorem, binding);
 
@@ -185,36 +184,29 @@ public class ProblemSolver {
 	}
 
 	public static void main(String[] args) {
-		System.out
-				.println(runWebSolver(new String[] { "Given list<int>(a), list<int>(b); Find c st child(a,c) & child(b,c) & even(c)" }));
-		// ArrayList<Theorem> theorems = TheoremParser.parseFiles();
-		// theorems.addAll(MultiTheoremParser.parseFiles());
-		// String problemString =
-		// // Problems...
-		// // "Given list<int>(x); Find z st child(x,z) & forall(y st child(x,y)
-		// :
-		// // lessThanEqual(y,z))";
-		// //
-		// "Given list<int>(a), list<int>(b); Find c st child(a,c) & child(b,c) & even(c)";
-		// "Given list<int>(a); Find b,c st child(a,b) & child(a,c) & equal(b,c)";
-		// Input input = QuickParser.parseInput(problemString);
-		// InputUtil.desugar(input);
-		// ProblemState solution = new ProblemSolver(input, theorems.toArray(new
-		// Theorem[0])).getSolution();
-		// if (solution == null)
-		// System.out.println("I couldn't solve your problem. You'll have to find a better robot :-(");
-		//
-		// ProblemState solutionSave = solution;
-		// if (solution != null) {
-		// StringBuffer problems = new StringBuffer();
-		// do {
-		// problems.insert(0, TransformUtil.makePretty(solution.problem) +
-		// "\n");
-		// solution = solution.parentState;
-		// } while (solution != null);
-		// System.out.println(problems);
-		// }
-		//
-		// System.out.println(ProblemState.getOutputString(solutionSave));
+		ArrayList<Theorem> theorems = TheoremParser.parseFiles();
+		theorems.addAll(MultiTheoremParser.parseFiles());
+		String problemString =
+		// Problems...
+		// "Given list<int>(x); Find z st child(x,z) & forall(y st child(x,y) :
+		// lessThanEqual(y,z))";
+//				"Given list<int>(a), list<int>(b); Find c st child(a,c) & child(b,c) & even(c)";
+		"Given list<int>(a); Find b,c st child(a,b) & child(a,c) & equal(b,c)";
+		Input input = QuickParser.parseInput(problemString);
+		InputUtil.desugar(input);
+		ProblemState solution = new ProblemSolver(input, theorems.toArray(new Theorem[0])).getSolution();
+		if (solution == null)
+			System.out.println("I couldn't solve your problem. You'll have to find a better robot :-(");
+
+		ProblemState solutionSave = solution;
+		if (solution != null) {
+			StringBuffer problems = new StringBuffer();
+			do {
+				problems.insert(0, TransformUtil.makePretty(solution.problem) + "\n");
+				solution = solution.parentState;
+			} while (solution != null);
+		}
+
+		System.out.println(ProblemState.getOutputString(solutionSave));
 	}
 }

@@ -1,5 +1,4 @@
-import static algorithmMaker.QuickParser.parseProblem;
-import static algorithmMaker.QuickParser.parseProperty;
+import static algorithmMaker.QuickParser.*;
 import static org.junit.Assert.*;
 
 import java.util.HashSet;
@@ -42,18 +41,11 @@ public class TransformUtilTests {
 		}
 	}
 
-	// TODO:DN: Put this back in when we have better simplification
-	// @Test
-	// public void testSimplifyDuplicateRemoval() {
-	// HashSet<Atomic> atomicsToRemove = new HashSet<Atomic>();
-	// assertEquals(TransformUtil.simplify(parseProperty("a(x) & a(x)"),
-	// atomicsToRemove), parseProperty("a(x)"));
-	// }
-
 	@Test
 	public void testSimplifyBoundRemoval() {
 		assertEquals(
-				TransformUtil.removeAtomics(parseProperty(InputUtil.BOUND + "(x) & " + InputUtil.UNBOUND + "(x) & a(x)")),
+				TransformUtil
+						.removeAtomics(parseProperty(InputUtil.BOUND + "(x) & " + InputUtil.UNBOUND + "(x) & a(x)")),
 				parseProperty("a(x)"));
 		// situation that was failing in practice
 		assertEquals(TransformUtil.removeAtomics(parseProblem("a st " + InputUtil.BOUND + "(a) & x(a)")),
@@ -61,10 +53,22 @@ public class TransformUtilTests {
 	}
 
 	@Test
-	public void testMakePretty() {
+	public void testMakePrettyForProblems() {
 		assertEquals(parseProblem("int(a) st blah(a)"),
 				TransformUtil.makePretty(parseProblem("a st type_int(a) & blah(a)")));
 		assertEquals(parseProblem("list<int>(a) st blah(a)"),
 				TransformUtil.makePretty(parseProblem("a st type_list(a) & child_type_int(a) & blah(a)")));
+
+		String[] sames = { "y st forall(x st blah(x): something(x))", "x st a(x,x)" };
+		for (String same : sames)
+			assertEquals(parseProblem(same), TransformUtil.makePretty(parseProblem(same)));
+	}
+
+	@Test
+	public void testMakePrettyForInputs() {
+		String[] sames = { "Given b st TRUE; Test(even(b))",
+				"Given a,b; Test(equal(b,c) & equal(c,b))" };
+		for (String same : sames)
+			assertEquals(parseInput(same), TransformUtil.makePretty(parseInput(same)));
 	}
 }

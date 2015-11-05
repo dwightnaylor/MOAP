@@ -3,11 +3,10 @@ package bindings;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import theorems.Fact;
 import algorithmMaker.input.Argument;
-import algorithmMaker.input.Atomic;
 import algorithmMaker.input.Property;
 import algorithmMaker.util.InputUtil;
-import theorems.Fact;
 
 public class Binding {
 	Hashtable<String, Argument> bindings = new Hashtable<String, Argument>();
@@ -29,16 +28,8 @@ public class Binding {
 		return true;
 	}
 
-	public boolean canBind(Atomic original, Atomic asserted) {
-		if (!original.getFunction().equals(asserted.getFunction()))
-			throw new UnsupportedOperationException();
-
-		for (int i = 0; i < original.getArgs().size(); i++)
-			if (bindings.containsKey(original.getArgs().get(i))
-					&& !hasBinding(original.getArgs().get(i), asserted.getArgs().get(i)))
-				return false;
-
-		return true;
+	public boolean canBind(Property original, Property asserted) {
+		return InputUtil.devar(original).equals(InputUtil.devar(asserted));
 	}
 
 	public Hashtable<Argument, Argument> getArguments() {

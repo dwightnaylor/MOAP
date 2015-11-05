@@ -116,31 +116,33 @@ public class TransformUtil {
 			@Override
 			public EObject apply(EObject cur) {
 				if (cur instanceof Problem) {
-					ArrayList<Property> topLevelAtomics = InputUtil.getTopLevelAtomics(((Problem) cur).getProperty());
+					ArrayList<Property> topLevelAtomics = InputUtil.getTopLevelElements(((Problem) cur).getProperty());
 					for (int i = 0; i < topLevelAtomics.size(); i++) {
-						Atomic atomic = (Atomic) topLevelAtomics.get(i);
-						String function = atomic.getFunction();
-						if (InputUtil.isTypeAtomic(function)) {
-							Declaration declaration = InputUtil.findDeclarationFor((Variable) atomic.getArgs().get(0));
-							if (declaration.getType() == null)
-								declaration.setType(InputFactoryImpl.eINSTANCE.createType());
+						if (topLevelAtomics.get(i) instanceof Atomic) {
+							Atomic atomic = (Atomic) topLevelAtomics.get(i);
+							String function = atomic.getFunction();
+							if (InputUtil.isTypeAtomic(function)) {
+								Declaration declaration = InputUtil.findDeclarationFor((Variable) atomic.getArgs().get(
+										0));
+								if (declaration.getType() == null)
+									declaration.setType(InputFactoryImpl.eINSTANCE.createType());
 
-							declaration.getType().setName(InputUtil.getDeclaredType(function));
-							topLevelAtomics.remove(i--);
-						}
-						if (InputUtil.isChildTypeAtomic(function)) {
-							Declaration declaration = InputUtil.findDeclarationFor((Variable) atomic.getArgs().get(0));
-							if (declaration.getType() == null)
-								declaration.setType(InputFactoryImpl.eINSTANCE.createType());
+								declaration.getType().setName(InputUtil.getDeclaredType(function));
+								topLevelAtomics.remove(i--);
+							} else if (InputUtil.isChildTypeAtomic(function)) {
+								Declaration declaration = InputUtil.findDeclarationFor((Variable) atomic.getArgs().get(
+										0));
+								if (declaration.getType() == null)
+									declaration.setType(InputFactoryImpl.eINSTANCE.createType());
 
-							Type childType = InputFactoryImpl.eINSTANCE.createType();
-							childType.setName(InputUtil.getDeclaredChildType(function));
-							declaration.getType().setTemplateType(childType);
-							topLevelAtomics.remove(i--);
+								Type childType = InputFactoryImpl.eINSTANCE.createType();
+								childType.setName(InputUtil.getDeclaredChildType(function));
+								declaration.getType().setTemplateType(childType);
+								topLevelAtomics.remove(i--);
+							}
 						}
 					}
 					((Problem) cur).setProperty(InputUtil.andTogether(topLevelAtomics));
-					return cur;
 				}
 				return cur;
 			}

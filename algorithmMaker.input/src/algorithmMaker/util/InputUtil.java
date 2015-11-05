@@ -51,7 +51,7 @@ public class InputUtil {
 	public static final Comparator<EObject> INPUT_COMPARATOR = new Comparator<EObject>() {
 		@Override
 		public int compare(EObject input1, EObject input2) {
-			return input2.toString().compareTo(input1.toString());
+			return input1.toString().compareTo(input2.toString());
 		}
 	};
 
@@ -59,7 +59,9 @@ public class InputUtil {
 	 * All of the types that should appear in the reduced kernel language. These
 	 * are listed here to allow for easy switch-statement use over all of the
 	 * kernel types. Just use a switch statement over the
-	 * kernelType(object.getClass()) of your object.
+	 * kernelType(object.getClass()) of your object.<br>
+	 * <br>
+	 * These all seem to be subclasses of Property...
 	 */
 	public static enum KernelType {
 		Input, Problem, ORing, ANDing, Atomic, Quantifier, BooleanLiteral, Negation
@@ -134,15 +136,15 @@ public class InputUtil {
 	}
 
 	public static Property andTogether(ArrayList<Property> properties) {
-		if (properties.size() == 0)
-			return null;
-
-		int index = 0;
+		int index = properties.size() - 1;
 		Property rhs = null;
 		while (rhs == null) {
-			rhs = properties.get(index++);
+			if (index == -1)
+				return null;
+
+			rhs = properties.get(index--);
 		}
-		for (; index < properties.size(); index++) {
+		for (; index >= 0; index--) {
 			Property cur = properties.get(index);
 			if (cur != null) {
 				ANDing newRhs = InputFactoryImpl.eINSTANCE.createANDing();
@@ -155,15 +157,15 @@ public class InputUtil {
 	}
 
 	public static Property orTogether(ArrayList<Property> properties) {
-		if (properties.size() == 0)
-			return null;
-
-		int index = 0;
+		int index = properties.size() - 1;
 		Property rhs = null;
 		while (rhs == null) {
-			rhs = properties.get(index++);
+			if (index == -1)
+				return null;
+
+			rhs = properties.get(index--);
 		}
-		for (; index < properties.size(); index++) {
+		for (; index >= 0; index--) {
 			Property cur = properties.get(index);
 			if (cur != null) {
 				ORing newRhs = InputFactoryImpl.eINSTANCE.createORing();
@@ -505,10 +507,8 @@ public class InputUtil {
 			return reducer.apply(quantifierRet);
 		}
 		case Problem: {
-			EObject property = reduce(((Problem) cur).getProperty(), reducer);
-
 			Problem problemRet = InputUtil.stupidCopy((Problem) cur);
-			problemRet.setProperty((Property) property);
+			problemRet.setProperty((Property) reduce(problemRet.getProperty(), reducer));
 			return reducer.apply(problemRet);
 		}
 		case Input: {
@@ -567,13 +567,11 @@ public class InputUtil {
 		return function.substring(CHILD_TYPE_MARKER.length());
 	}
 
-	public static ArrayList<Property> getTopLevelAtomics(Property property) {
-		if (property instanceof Atomic)
-			return new ArrayList<Property>(Collections.singleton((Atomic) property));
-		else if (property instanceof ANDing)
+	public static ArrayList<Property> getTopLevelElements(Property property) {
+		if (property instanceof ANDing)
 			return getANDed((ANDing) property);
-
-		return new ArrayList<Property>();
+		else
+			return new ArrayList<Property>(Collections.singleton(property));
 	}
 
 	public static void desugar(Input input) {
@@ -596,5 +594,21 @@ public class InputUtil {
 			}
 		}
 		problem.setProperty(InputUtil.andTogether(properties));
+	}
+
+	/**
+	 * Removes all variable names from the given object, replacing them with
+	 * nameless variables. This is used for using the "structure" of an
+	 * expression as its hash key, or for counting similar expressions.
+	 */
+	public static Property devar(Property object) {
+		Property ret = InputUtil.stupidCopy(object);
+		TreeIterator<EObject> contents = ret.eAllContents();
+		while (contents.hasNext()) {
+			EObject cur = contents.next();
+			if (cur instanceof Variable)
+				((Variable) cur).setArg("_");
+		}
+		return ret;
 	}
 }
