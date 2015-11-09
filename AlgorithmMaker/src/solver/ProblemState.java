@@ -33,29 +33,19 @@ public class ProblemState implements Comparable<ProblemState> {
 	}
 
 	public static String getOutputString(ProblemState solution) {
-		System.out.println("===============");
 		StringBuffer output = new StringBuffer();
 		while (solution != null) {
 			// Don't try to show pseudocode used to get from the given to the
 			// first step.
 			if (solution.parentState != null) {
 				if (output.length() > 0) {
-					System.out.println("ORIGINAL:");
-					System.out.println(output);
 					output.insert(0, "\t");
 					for (int i = 0; i < output.length(); i++)
 						if (output.charAt(i) == '\n')
 							output.insert(i + 1, "\t");
-					System.out.println("TABBED:");
-					System.out.println(output);
 				}
 
-				String code = solution.rootTheoremBinding.revar(solution.rootTheorem.getPseudoCode());
-				System.out.println("ADDING::::::::::");
-				System.out.println(code);
-				System.out.println("TO:");
-				System.out.println(output);
-				output.insert(0, code + "\n");
+				output.insert(0, solution.rootTheoremBinding.revar(solution.rootTheorem.getPseudoCode()) + "\n");
 			}
 
 			solution = solution.parentState;
