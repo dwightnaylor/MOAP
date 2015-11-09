@@ -1,7 +1,11 @@
 import static algorithmMaker.QuickParser.parseProperty;
+import static algorithmMaker.util.InputUtil.canonicalize;
+import static algorithmMaker.util.InputUtil.devar;
+import static algorithmMaker.util.InputUtil.getVariable;
+import static algorithmMaker.util.InputUtil.revar;
+import static algorithmMaker.util.InputUtil.stupidCopy;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static algorithmMaker.util.InputUtil.*;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

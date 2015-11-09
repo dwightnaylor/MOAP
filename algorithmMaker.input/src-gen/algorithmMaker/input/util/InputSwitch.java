@@ -2,12 +2,29 @@
  */
 package algorithmMaker.input.util;
 
-import algorithmMaker.input.*;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-
 import org.eclipse.emf.ecore.util.Switch;
+
+import algorithmMaker.input.ANDing;
+import algorithmMaker.input.Addition;
+import algorithmMaker.input.Argument;
+import algorithmMaker.input.Atomic;
+import algorithmMaker.input.BooleanLiteral;
+import algorithmMaker.input.Declaration;
+import algorithmMaker.input.Input;
+import algorithmMaker.input.InputPackage;
+import algorithmMaker.input.Multiplication;
+import algorithmMaker.input.Negation;
+import algorithmMaker.input.NumberLiteral;
+import algorithmMaker.input.NumericalProperty;
+import algorithmMaker.input.ORing;
+import algorithmMaker.input.Problem;
+import algorithmMaker.input.Property;
+import algorithmMaker.input.Quantifier;
+import algorithmMaker.input.Theorem;
+import algorithmMaker.input.Type;
+import algorithmMaker.input.Variable;
 
 /**
  * <!-- begin-user-doc -->

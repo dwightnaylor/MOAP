@@ -35,7 +35,7 @@ public class Chainer {
 	private boolean isGivenChainer = true;
 
 	private Hashtable<Property, Fact<? extends Property>> properties = new Hashtable<Property, Fact<? extends Property>>();
-	private Hashtable<Property, HashSet<Fact<? extends Property>>> propertiesByStructure = new Hashtable<Property, HashSet<Fact<? extends Property>>>();
+	public Hashtable<Property, HashSet<Fact<? extends Property>>> propertiesByStructure = new Hashtable<Property, HashSet<Fact<? extends Property>>>();
 	private Hashtable<String, HashSet<Fact<? extends Property>>> propertiesByVariable = new Hashtable<String, HashSet<Fact<? extends Property>>>();
 	/**
 	 * The equality atomics for each given variable (namely, all of the
@@ -116,11 +116,11 @@ public class Chainer {
 	}
 
 	public void chain(Property property, Theorem theorem, Fact<?>... prerequisites) {
-		if (property instanceof Atomic)
-			chain(new Fact<Atomic>((Atomic) property, theorem, prerequisites));
-		else if (property instanceof ANDing)
+		if (property instanceof ANDing)
 			for (Property anded : InputUtil.getANDed((ANDing) property))
 				chain(anded, theorem, prerequisites);
+		else
+			chain(new Fact<Property>(property, theorem, prerequisites));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -170,8 +170,7 @@ public class Chainer {
 						}
 
 					// Add the equality to the table. Only need to do one way
-					// because
-					// the theorem for ab=ba will get the other.
+					// because the theorem for ab=ba will get the other.
 					if (!equalities.contains(arg1))
 						equalities.put(arg1, new HashSet<Fact<Atomic>>());
 
@@ -180,25 +179,17 @@ public class Chainer {
 			}
 
 			// For all vars that have other vars equal to them, apply the new
-			// rule
-			// to them
+			// rule to them
 			if (fact.property instanceof Atomic && !InputUtil.isSpecial(((Atomic) fact.property).getFunction()))
 				for (Argument arg : atomic.getArgs()) {
 					if (equalities.containsKey(arg))
 						for (Fact<Atomic> equalVar : equalities.get(arg)) {
 							Hashtable<Argument, Argument> revars = new Hashtable<Argument, Argument>();
 							revars.put(arg, equalVar.property.getArgs().get(1));
-							chain(new Fact<Atomic>((Atomic) InputUtil.revar(fact.property, revars),
-									TransformUtil.EQUAL, equalVar, fact));
+							chain(new Fact<Atomic>((Atomic) InputUtil.revar(fact.property, revars), TransformUtil.EQUAL,
+									equalVar, fact));
 						}
 				}
-		} else {
-			try {
-				throw new Exception("Can only have atomics as results for now.");
-			} catch (Exception e) {
-				e.printStackTrace();
-				System.exit(0);
-			}
 		}
 
 		// Go through all of the theorems that use this atomic's function
@@ -268,8 +259,8 @@ public class Chainer {
 			}
 		} else {
 			InputUtil.revar(theorem.getResult(), binding.getArguments());
-			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem, binding.getPrerequisites()
-					.toArray(new Fact<?>[0]));
+			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem,
+					binding.getPrerequisites().toArray(new Fact<?>[0]));
 		}
 	}
 
@@ -306,12 +297,9 @@ public class Chainer {
 		}
 	}
 
-	public HashSet<Atomic> copyAtomics() {
-		HashSet<Atomic> atomics = new HashSet<Atomic>();
-		for (Property property : properties.keySet())
-			if (property instanceof Atomic)
-				atomics.add((Atomic) property);
-
+	public HashSet<Property> copyProperties() {
+		HashSet<Property> atomics = new HashSet<Property>();
+		atomics.addAll(properties.keySet());
 		return atomics;
 	}
 }

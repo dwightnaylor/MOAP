@@ -5,6 +5,7 @@ import static algorithmMaker.util.InputUtil.BOUND;
 import static algorithmMaker.util.InputUtil.EQUAL;
 import static algorithmMaker.util.InputUtil.FIND;
 import static algorithmMaker.util.InputUtil.TEST;
+import static algorithmMaker.util.InputUtil.UNBOUND;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,9 +13,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import theorems.MultistageTheorem;
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Property;
-import theorems.MultistageTheorem;
 
 public class MultiTheoremParser {
 	private static String[] inputFiles = { "multitheorems" };
@@ -58,7 +59,7 @@ public class MultiTheoremParser {
 	}
 
 	private static void addBruteForceFindTheorems(ArrayList<MultistageTheorem> ret) {
-		MultistageTheorem bruteForce = new MultistageTheorem(parseProperty("enumerable(x)"),
+		MultistageTheorem bruteForce = new MultistageTheorem(parseProperty(UNBOUND + "(y) & enumerable(x)"),
 				parseProperty("child(x,y)"), parseProperty("child(x,y)"), null, 10, "Brute force.",
 				"foreach child <y> of <x>");
 		bruteForce.requireGoalTask(FIND);
@@ -84,11 +85,28 @@ public class MultiTheoremParser {
 		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)", EQUAL + "(x,y)", "if <x> == <y>" });
 		tests.add(
 				new String[] { BOUND + "(x)&" + BOUND + "(y)&" + BOUND + "(z)", "plus(x,y,z)", "if <x> + <y> == <z>" });
+		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)", "lessThanEqual(x,y)", "if <x> <= <y>" });
 		for (String[] test : tests) {
 			MultistageTheorem testing = new MultistageTheorem(parseProperty(test[0]), parseProperty(test[1]),
 					parseProperty(test[1]), null, 1, "Simple test.", test[2]);
 			testing.requireGoalTask(TEST);
 			ret.add(testing);
+			MultistageTheorem negatedTesting = new MultistageTheorem(parseProperty(test[0]),
+					parseProperty("!" + test[1]), parseProperty("!" + test[1]), null, 1, "Simple negated test.",
+					invert(test[2]));
+			negatedTesting.requireGoalTask(TEST);
+			ret.add(negatedTesting);
 		}
+	}
+
+	private static String invert(String compare) {
+		String[][] pairs = { { " == ", " != " }, { " < ", " >= " }, { " > ", " <= " } };
+		for (String[] pair : pairs) {
+			if (compare.contains(pair[0]))
+				return compare.replace(pair[0], pair[1]);
+			if (compare.contains(pair[1]))
+				return compare.replace(pair[1], pair[0]);
+		}
+		return "NEGATED(" + compare + ")";
 	}
 }

@@ -1,21 +1,21 @@
 import static algorithmMaker.QuickParser.parseProperty;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
-import inputHandling.MultiTheoremParser;
-import inputHandling.TheoremParser;
-import inputHandling.TransformUtil;
-
 import org.junit.Test;
 
-import solver.ProblemSolver;
-import solver.ProblemState;
-import theorems.MultistageTheorem;
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.util.InputUtil;
+import inputHandling.MultiTheoremParser;
+import inputHandling.TheoremParser;
+import inputHandling.TransformUtil;
+import solver.ProblemSolver;
+import solver.ProblemState;
+import theorems.MultistageTheorem;
 
 public class SolverTests {
 	@Test
@@ -71,7 +71,7 @@ public class SolverTests {
 		probsAndSols.add(new String[] { "Given list<int>(a); Find b st child(a,b) & even(b)",
 				"foreach child b of a\n\tif b % 2 == 0\n\t\t" });
 		probsAndSols.add(new String[] { "Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c) & even(c)",
-				"foreach child c of b\n\tif c % 2 == 0\n\t\tforeach child d of a\n\t\t\tif d == c\n\t\t\t\t" });
+				"foreach child c of b\n\tif c % 2 == 0\n\t\tforeach child na of a\n\t\t\tif c == na\n\t\t\t\t" });
 		probsAndSols.add(new String[] { "Given int(a), int(b), int(c); Test(plus(c,b,a))", "if c + b == a\n\t" });
 		for (String[] ps : probsAndSols) {
 			Input input = QuickParser.parseInput(ps[0]);

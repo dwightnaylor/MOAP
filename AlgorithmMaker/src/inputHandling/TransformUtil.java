@@ -47,20 +47,30 @@ public class TransformUtil {
 	 * Reduces the given input by taking things out of the goal if they are in
 	 * the given, and reducing variable use in both halves.
 	 */
-	public static Input removeAtomics(Input input, Chainer chainer) {
+	public static Input removeGivenFromGoal(Input input, Chainer chainer) {
 		Input inputRet = InputUtil.stupidCopy(input);
+		HashSet<Property> toRemove = new HashSet<Property>();
+		ArrayList<Declaration> vars = new ArrayList<Declaration>();
+		vars.addAll(input.getGiven().getVars());
+		vars.addAll(input.getGoal().getVars());
+		for (Declaration declaration : vars) {
+			String varName = declaration.getVarName();
+			toRemove.add(InputUtil.getAtomic(InputUtil.EQUAL, varName, varName));
+			toRemove.add(InputUtil.getAtomic(InputUtil.BOUND, varName));
+			toRemove.add(InputUtil.getAtomic(InputUtil.UNBOUND, varName));
+		}
 
 		Property given = input.getGiven().getProperty();
 		if (given != null) {
-			Property reducedGiven = (Property) removeAtomics(given, new HashSet<Atomic>());
+			Property reducedGiven = (Property) removeProperties(given, toRemove);
 			inputRet.getGiven().setProperty(reducedGiven == null ? QuickParser.parseProperty("TRUE") : reducedGiven);
 		}
 
 		chainer.chain(inputRet.getGiven().getProperty(), GIVEN);
-		HashSet<Atomic> atomicsToRemove = chainer.copyAtomics();
+		toRemove.addAll(chainer.copyProperties());
 		Property find = input.getGoal().getProperty();
 		if (find != null) {
-			Property reducedFind = (Property) removeAtomics(find, atomicsToRemove);
+			Property reducedFind = (Property) removeProperties(find, toRemove);
 			inputRet.getGoal().setProperty(reducedFind == null ? QuickParser.parseProperty("TRUE") : reducedFind);
 		}
 
@@ -68,22 +78,13 @@ public class TransformUtil {
 		return inputRet;
 	}
 
-	public static EObject removeAtomics(EObject originalObject) {
-		return removeAtomics(originalObject, new HashSet<Atomic>());
-	}
-
-	public static EObject removeAtomics(EObject originalObject, HashSet<Atomic> atomicsToRemove) {
+	public static EObject removeProperties(EObject originalObject, HashSet<? extends Property> toRemove) {
 		return InputUtil.reduce(originalObject, new InputConverter() {
 			@Override
 			public EObject apply(EObject cur) {
-				if (cur instanceof Atomic) {
-					if (atomicsToRemove.contains(cur) || ((Atomic) cur).getFunction().equals(InputUtil.BOUND)
-							|| ((Atomic) cur).getFunction().equals(InputUtil.UNBOUND)) {
-						return null;
-					}
+				if (toRemove.contains(cur))
+					return null;
 
-					// atomicsToRemove.add((Atomic) cur);
-				}
 				return cur;
 			}
 		});

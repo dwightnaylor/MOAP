@@ -1,9 +1,10 @@
-import static algorithmMaker.QuickParser.*;
-import static org.junit.Assert.*;
+import static algorithmMaker.QuickParser.parseInput;
+import static algorithmMaker.QuickParser.parseProblem;
+import static algorithmMaker.QuickParser.parseProperty;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.HashSet;
-
-import inputHandling.TransformUtil;
 
 import org.junit.Test;
 
@@ -11,23 +12,23 @@ import algorithmMaker.QuickParser;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.Property;
-import algorithmMaker.util.InputUtil;
+import inputHandling.TransformUtil;
 
 public class TransformUtilTests {
 	@Test
-	public void testSimplify() {
+	public void testRemoveProperties() {
 		// All of the nullified tests
 		HashSet<Atomic> atomicsToRemove = new HashSet<Atomic>();
 		atomicsToRemove.add((Atomic) parseProperty("a(x)"));
-		assertNull(TransformUtil.removeAtomics(null, atomicsToRemove));
-		assertNull(TransformUtil.removeAtomics(parseProperty("a(x)"), atomicsToRemove));
-		assertNull(TransformUtil.removeAtomics(parseProperty("a(x) & a(x)"), atomicsToRemove));
+		assertNull(TransformUtil.removeProperties(null, atomicsToRemove));
+		assertNull(TransformUtil.removeProperties(parseProperty("a(x)"), atomicsToRemove));
+		assertNull(TransformUtil.removeProperties(parseProperty("a(x) & a(x)"), atomicsToRemove));
 
 		// Tests for no simplification
 		String[] sames = { "child(x,z) & forall(y st child(x,y) : lessThanEqual(y,z))" };
 		for (String same : sames) {
 			Property prop = QuickParser.parseProperty(same);
-			assertEquals(prop, TransformUtil.removeAtomics(prop));
+			assertEquals(prop, TransformUtil.removeProperties(prop, new HashSet<Atomic>()));
 		}
 	}
 
@@ -37,19 +38,8 @@ public class TransformUtilTests {
 		String[] sames = { "Given x st a(x); Find y st a(y)", "Given x st a(x); Find y st a(y)" };
 		for (String same : sames) {
 			Input prop = QuickParser.parseInput(same);
-			assertEquals(prop, TransformUtil.removeAtomics(prop));
+			assertEquals(prop, TransformUtil.removeProperties(prop, new HashSet<Atomic>()));
 		}
-	}
-
-	@Test
-	public void testSimplifyBoundRemoval() {
-		assertEquals(
-				TransformUtil
-						.removeAtomics(parseProperty(InputUtil.BOUND + "(x) & " + InputUtil.UNBOUND + "(x) & a(x)")),
-				parseProperty("a(x)"));
-		// situation that was failing in practice
-		assertEquals(TransformUtil.removeAtomics(parseProblem("a st " + InputUtil.BOUND + "(a) & x(a)")),
-				parseProblem("a st x(a)"));
 	}
 
 	@Test
@@ -66,8 +56,7 @@ public class TransformUtilTests {
 
 	@Test
 	public void testMakePrettyForInputs() {
-		String[] sames = { "Given b st TRUE; Test(even(b))",
-				"Given a,b; Test(equal(b,c) & equal(c,b))" };
+		String[] sames = { "Given b st TRUE; Test(even(b))", "Given b,c st TRUE; Test(equal(b,c) & equal(c,b))" };
 		for (String same : sames)
 			assertEquals(parseInput(same), TransformUtil.makePretty(parseInput(same)));
 	}

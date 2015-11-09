@@ -1,14 +1,14 @@
 import static algorithmMaker.QuickParser.parseProperty;
 import static algorithmMaker.QuickParser.parseTheorem;
 import static org.junit.Assert.assertTrue;
-import inputHandling.TransformUtil;
 
 import org.junit.Test;
 
-import solver.Chainer;
-import theorems.MultistageTheorem;
 import algorithmMaker.QuickParser;
 import algorithmMaker.util.InputUtil;
+import inputHandling.TransformUtil;
+import solver.Chainer;
+import theorems.MultistageTheorem;
 
 public class ChainerTests {
 
@@ -117,5 +117,12 @@ public class ChainerTests {
 		basicChainer.chain(parseProperty(InputUtil.EQUAL + "(a,b)"), TransformUtil.GIVEN);
 		basicChainer.chain(parseProperty("a(x)"), TransformUtil.GIVEN);
 		assertTrue(basicChainer.hasProperty(parseProperty("a(b)")));
+	}
+	
+	@Test
+	public void testNegationChaining(){
+		Chainer basicChainer = new Chainer(parseTheorem("!a(x):-b(x),0,GIVEN"));
+		basicChainer.chain(parseProperty("!a(q)"), TransformUtil.GIVEN);
+		assertTrue(basicChainer.hasProperty(parseProperty("b(q)")));
 	}
 }

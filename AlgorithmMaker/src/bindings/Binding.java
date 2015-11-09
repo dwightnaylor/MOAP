@@ -9,6 +9,7 @@ import algorithmMaker.input.Property;
 import algorithmMaker.util.InputUtil;
 
 public class Binding {
+	public static final Binding EMPTY = new MutableBinding().getImmutable();
 	Hashtable<String, Argument> bindings = new Hashtable<String, Argument>();
 	ArrayList<Fact<? extends Property>> prerequisites = new ArrayList<Fact<? extends Property>>();
 
@@ -55,5 +56,11 @@ public class Binding {
 
 	public int size() {
 		return bindings.size();
+	}
+
+	public static Binding singleton(String string, Argument argument) {
+		MutableBinding ret = new MutableBinding();
+		ret.bind(string, argument);
+		return ret.getImmutable();
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.List;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -125,9 +126,25 @@ public class InputUtil {
 		return (P) QuickParser.parseProperty(property.toString());
 	}
 
-	@SuppressWarnings("unchecked")
-	public static <P extends Problem> P stupidCopy(P problem) {
-		return (P) QuickParser.parseProblem(problem.toString());
+	public static HashSet<String> getDeclaredVars(Input input) {
+		HashSet<String> ret = new HashSet<String>();
+		TreeIterator<EObject> contents = input.eAllContents();
+		while (contents.hasNext()) {
+			EObject next = contents.next();
+			if (next instanceof Declaration)
+				ret.add(((Declaration) next).getVarName());
+		}
+		return ret;
+	}
+
+	public static Problem stupidCopy(Problem problem) {
+		if (problem.getVars() == null || problem.getVars().size() == 0) {
+			Problem ret = InputFactoryImpl.eINSTANCE.createProblem();
+			ret.setProperty(problem.getProperty() == null ? InputUtil.getBooleanLiteral(true) : stupidCopy(problem
+					.getProperty()));
+			return ret;
+		}
+		return QuickParser.parseProblem(problem.toString());
 	}
 
 	@SuppressWarnings("unchecked")
@@ -135,7 +152,7 @@ public class InputUtil {
 		return (I) QuickParser.parseInput(input.toString());
 	}
 
-	public static Property andTogether(ArrayList<Property> properties) {
+	public static Property andTogether(List<Property> properties) {
 		int index = properties.size() - 1;
 		Property rhs = null;
 		while (rhs == null) {
@@ -156,7 +173,7 @@ public class InputUtil {
 		return rhs;
 	}
 
-	public static Property orTogether(ArrayList<Property> properties) {
+	public static Property orTogether(List<Property> properties) {
 		int index = properties.size() - 1;
 		Property rhs = null;
 		while (rhs == null) {
@@ -443,13 +460,13 @@ public class InputUtil {
 		}
 	}
 
-	private static Negation getNegated(Property x) {
+	public static Negation getNegated(Property x) {
 		Negation ret = InputFactoryImpl.eINSTANCE.createNegation();
 		ret.setNegated(x);
 		return ret;
 	}
 
-	private static BooleanLiteral getBooleanLiteral(boolean b) {
+	public static BooleanLiteral getBooleanLiteral(boolean b) {
 		BooleanLiteral ret = InputFactoryImpl.eINSTANCE.createBooleanLiteral();
 		ret.setValue((b + "").toUpperCase());
 		return ret;
@@ -508,7 +525,8 @@ public class InputUtil {
 		}
 		case Problem: {
 			Problem problemRet = InputUtil.stupidCopy((Problem) cur);
-			problemRet.setProperty((Property) reduce(problemRet.getProperty(), reducer));
+			Property reducedProperty = (Property) reduce(problemRet.getProperty(), reducer);
+			problemRet.setProperty(reducedProperty == null ? InputUtil.getBooleanLiteral(true) : reducedProperty);
 			return reducer.apply(problemRet);
 		}
 		case Input: {
@@ -528,7 +546,7 @@ public class InputUtil {
 
 			Negation ret = InputFactoryImpl.eINSTANCE.createNegation();
 			ret.setNegated((Property) negated);
-			return ret;
+			return reducer.apply(ret);
 		case Atomic:
 			return reducer.apply(InputUtil.stupidCopy((Atomic) cur));
 		case BooleanLiteral:
@@ -596,19 +614,39 @@ public class InputUtil {
 		problem.setProperty(InputUtil.andTogether(properties));
 	}
 
+	private static Hashtable<Property, Property> devarred = new Hashtable<Property, Property>();
+
 	/**
 	 * Removes all variable names from the given object, replacing them with
 	 * nameless variables. This is used for using the "structure" of an
 	 * expression as its hash key, or for counting similar expressions.
 	 */
 	public static Property devar(Property object) {
-		Property ret = InputUtil.stupidCopy(object);
-		TreeIterator<EObject> contents = ret.eAllContents();
-		while (contents.hasNext()) {
-			EObject cur = contents.next();
-			if (cur instanceof Variable)
-				((Variable) cur).setArg("_");
+		if (!devarred.containsKey(object)) {
+			Property ret = InputUtil.stupidCopy(object);
+			TreeIterator<EObject> contents = ret.eAllContents();
+			while (contents.hasNext()) {
+				EObject cur = contents.next();
+				if (cur instanceof Variable)
+					((Variable) cur).setArg("_");
+			}
+			devarred.put(object, ret);
 		}
+		return devarred.get(object);
+	}
+
+	public static Argument createArgument(String arg) {
+		Variable ret = InputFactoryImpl.eINSTANCE.createVariable();
+		ret.setArg(arg);
 		return ret;
+	}
+
+	public static String getUnusedVar(HashSet<String> usedVars) {
+		for (char ret = 'a'; ret <= 'z'; ret++) {
+			String retString = "n" + ret;
+			if (!usedVars.contains(retString))
+				return retString;
+		}
+		return null;
 	}
 }

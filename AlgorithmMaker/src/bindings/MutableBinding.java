@@ -26,20 +26,22 @@ public class MutableBinding extends Binding {
 
 	public void applyBinding(Property original, Fact<? extends Property> asserted) {
 		if (!InputUtil.devar(original).equals(InputUtil.devar(asserted.property)))
-			throw new IllegalArgumentException("Cannot bind two non-equivalent properties \"" + original + "\" and \""
-					+ asserted.property + "\"");
+			throw new IllegalArgumentException(
+					"Cannot bind two non-equivalent properties \"" + original + "\" and \"" + asserted.property + "\"");
 
 		ArrayList<String> newBindings = new ArrayList<String>();
+
 		TreeIterator<EObject> originalContents = original.eAllContents();
 		TreeIterator<EObject> assertedContents = asserted.property.eAllContents();
 		while (originalContents.hasNext()) {
-			EObject cur = originalContents.next();
-			if (cur instanceof Variable) {
-				String arg = ((Variable) cur).getArg();
+			EObject nextOriginal = originalContents.next();
+			EObject nextAsserted = assertedContents.next();
+			if (nextOriginal instanceof Variable) {
+				String arg = ((Variable) nextOriginal).getArg();
 				if (!bindings.containsKey(arg))
 					newBindings.add(arg);
 
-				bind(arg, (Variable) assertedContents.next());
+				bind(arg, (Variable) nextAsserted);
 			}
 		}
 		lastBindings.push(newBindings);
