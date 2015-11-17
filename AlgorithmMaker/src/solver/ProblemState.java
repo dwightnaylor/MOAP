@@ -29,7 +29,7 @@ public class ProblemState implements Comparable<ProblemState> {
 
 	@Override
 	public int compareTo(ProblemState other) {
-		return problem.getGoal().toString().compareTo(other.problem.getGoal().toString());
+		return problem.getGoal().toString().length() - other.problem.getGoal().toString().length();
 	}
 
 	public static String getOutputString(ProblemState solution) {

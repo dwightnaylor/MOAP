@@ -26,6 +26,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Type/templateType"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//Property"/>
+    <genClasses ecoreClass="Input.ecore#//ProblemShell">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//ProblemShell/problem"/>
+    </genClasses>
     <genClasses ecoreClass="Input.ecore#//Negation">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Negation/negated"/>
     </genClasses>

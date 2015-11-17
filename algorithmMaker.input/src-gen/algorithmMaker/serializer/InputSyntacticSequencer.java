@@ -3,8 +3,9 @@
  */
 package algorithmMaker.serializer;
 
+import algorithmMaker.services.InputGrammarAccess;
+import com.google.inject.Inject;
 import java.util.List;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.IGrammarAccess;
 import org.eclipse.xtext.RuleCall;
@@ -15,26 +16,22 @@ import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISyn
 import org.eclipse.xtext.serializer.analysis.ISyntacticSequencerPDAProvider.ISynTransition;
 import org.eclipse.xtext.serializer.sequencer.AbstractSyntacticSequencer;
 
-import com.google.inject.Inject;
-
-import algorithmMaker.services.InputGrammarAccess;
-
 @SuppressWarnings("all")
 public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected InputGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_Input_SemicolonKeyword_4_4_q;
 	protected AbstractElementAlias match_NumericalPrimary_LeftParenthesisKeyword_2_0_a;
-	protected AbstractElementAlias match_Primary_LeftParenthesisKeyword_2_0_a;
-	protected AbstractElementAlias match_Primary_LeftParenthesisKeyword_2_0_p;
+	protected AbstractElementAlias match_Primary_LeftParenthesisKeyword_3_0_a;
+	protected AbstractElementAlias match_Primary_LeftParenthesisKeyword_3_0_p;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (InputGrammarAccess) access;
 		match_Input_SemicolonKeyword_4_4_q = new TokenAlias(false, true, grammarAccess.getInputAccess().getSemicolonKeyword_4_4());
 		match_NumericalPrimary_LeftParenthesisKeyword_2_0_a = new TokenAlias(true, true, grammarAccess.getNumericalPrimaryAccess().getLeftParenthesisKeyword_2_0());
-		match_Primary_LeftParenthesisKeyword_2_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_2_0());
-		match_Primary_LeftParenthesisKeyword_2_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_2_0());
+		match_Primary_LeftParenthesisKeyword_3_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_3_0());
+		match_Primary_LeftParenthesisKeyword_3_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_3_0());
 	}
 	
 	@Override
@@ -53,10 +50,10 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_Input_SemicolonKeyword_4_4_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_NumericalPrimary_LeftParenthesisKeyword_2_0_a.equals(syntax))
 				emit_NumericalPrimary_LeftParenthesisKeyword_2_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Primary_LeftParenthesisKeyword_2_0_a.equals(syntax))
-				emit_Primary_LeftParenthesisKeyword_2_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Primary_LeftParenthesisKeyword_2_0_p.equals(syntax))
-				emit_Primary_LeftParenthesisKeyword_2_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Primary_LeftParenthesisKeyword_3_0_a.equals(syntax))
+				emit_Primary_LeftParenthesisKeyword_3_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Primary_LeftParenthesisKeyword_3_0_p.equals(syntax))
+				emit_Primary_LeftParenthesisKeyword_3_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -91,6 +88,7 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '!' negated=Primary
+	 *     (rule start) (ambiguity) '{' problem=Problem
 	 *     (rule start) (ambiguity) Function=ID
 	 *     (rule start) (ambiguity) quantifier='exists'
 	 *     (rule start) (ambiguity) quantifier='forall'
@@ -99,7 +97,7 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) {ANDing.left=}
 	 *     (rule start) (ambiguity) {ORing.left=}
 	 */
-	protected void emit_Primary_LeftParenthesisKeyword_2_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Primary_LeftParenthesisKeyword_3_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -111,7 +109,7 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) {ANDing.left=}
 	 *     (rule start) (ambiguity) {ORing.left=}
 	 */
-	protected void emit_Primary_LeftParenthesisKeyword_2_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Primary_LeftParenthesisKeyword_3_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

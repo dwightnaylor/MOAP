@@ -26,6 +26,10 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Property"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProblemShell" eSuperTypes="#//Property">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="problem" eType="#//Problem"
+        containment="true"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Negation" eSuperTypes="#//Property">
     <eStructuralFeatures xsi:type="ecore:EReference" name="negated" eType="#//Property"
         containment="true"/>

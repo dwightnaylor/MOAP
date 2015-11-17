@@ -3,8 +3,8 @@
 package algorithmMaker.input.impl;
 
 import algorithmMaker.input.InputPackage;
-import algorithmMaker.input.Negation;
-import algorithmMaker.input.Property;
+import algorithmMaker.input.Problem;
+import algorithmMaker.input.ProblemShell;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -16,35 +16,35 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Negation</b></em>'.
+ * An implementation of the model object '<em><b>Problem Shell</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link algorithmMaker.input.impl.NegationImpl#getNegated <em>Negated</em>}</li>
+ *   <li>{@link algorithmMaker.input.impl.ProblemShellImpl#getProblem <em>Problem</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class NegationImpl extends PropertyImpl implements Negation
+public class ProblemShellImpl extends PropertyImpl implements ProblemShell
 {
   /**
-   * The cached value of the '{@link #getNegated() <em>Negated</em>}' containment reference.
+   * The cached value of the '{@link #getProblem() <em>Problem</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getNegated()
+   * @see #getProblem()
    * @generated
    * @ordered
    */
-  protected Property negated;
+  protected Problem problem;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected NegationImpl()
+  protected ProblemShellImpl()
   {
     super();
   }
@@ -57,7 +57,7 @@ public class NegationImpl extends PropertyImpl implements Negation
   @Override
   protected EClass eStaticClass()
   {
-    return InputPackage.Literals.NEGATION;
+    return InputPackage.Literals.PROBLEM_SHELL;
   }
 
   /**
@@ -65,9 +65,9 @@ public class NegationImpl extends PropertyImpl implements Negation
    * <!-- end-user-doc -->
    * @generated
    */
-  public Property getNegated()
+  public Problem getProblem()
   {
-    return negated;
+    return problem;
   }
 
   /**
@@ -75,13 +75,13 @@ public class NegationImpl extends PropertyImpl implements Negation
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetNegated(Property newNegated, NotificationChain msgs)
+  public NotificationChain basicSetProblem(Problem newProblem, NotificationChain msgs)
   {
-    Property oldNegated = negated;
-    negated = newNegated;
+    Problem oldProblem = problem;
+    problem = newProblem;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InputPackage.NEGATION__NEGATED, oldNegated, newNegated);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InputPackage.PROBLEM_SHELL__PROBLEM, oldProblem, newProblem);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -92,20 +92,20 @@ public class NegationImpl extends PropertyImpl implements Negation
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setNegated(Property newNegated)
+  public void setProblem(Problem newProblem)
   {
-    if (newNegated != negated)
+    if (newProblem != problem)
     {
       NotificationChain msgs = null;
-      if (negated != null)
-        msgs = ((InternalEObject)negated).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InputPackage.NEGATION__NEGATED, null, msgs);
-      if (newNegated != null)
-        msgs = ((InternalEObject)newNegated).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InputPackage.NEGATION__NEGATED, null, msgs);
-      msgs = basicSetNegated(newNegated, msgs);
+      if (problem != null)
+        msgs = ((InternalEObject)problem).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InputPackage.PROBLEM_SHELL__PROBLEM, null, msgs);
+      if (newProblem != null)
+        msgs = ((InternalEObject)newProblem).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InputPackage.PROBLEM_SHELL__PROBLEM, null, msgs);
+      msgs = basicSetProblem(newProblem, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.NEGATION__NEGATED, newNegated, newNegated));
+      eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.PROBLEM_SHELL__PROBLEM, newProblem, newProblem));
   }
 
   /**
@@ -118,8 +118,8 @@ public class NegationImpl extends PropertyImpl implements Negation
   {
     switch (featureID)
     {
-      case InputPackage.NEGATION__NEGATED:
-        return basicSetNegated(null, msgs);
+      case InputPackage.PROBLEM_SHELL__PROBLEM:
+        return basicSetProblem(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -134,8 +134,8 @@ public class NegationImpl extends PropertyImpl implements Negation
   {
     switch (featureID)
     {
-      case InputPackage.NEGATION__NEGATED:
-        return getNegated();
+      case InputPackage.PROBLEM_SHELL__PROBLEM:
+        return getProblem();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -150,8 +150,8 @@ public class NegationImpl extends PropertyImpl implements Negation
   {
     switch (featureID)
     {
-      case InputPackage.NEGATION__NEGATED:
-        setNegated((Property)newValue);
+      case InputPackage.PROBLEM_SHELL__PROBLEM:
+        setProblem((Problem)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -167,8 +167,8 @@ public class NegationImpl extends PropertyImpl implements Negation
   {
     switch (featureID)
     {
-      case InputPackage.NEGATION__NEGATED:
-        setNegated((Property)null);
+      case InputPackage.PROBLEM_SHELL__PROBLEM:
+        setProblem((Problem)null);
         return;
     }
     super.eUnset(featureID);
@@ -184,8 +184,8 @@ public class NegationImpl extends PropertyImpl implements Negation
   {
     switch (featureID)
     {
-      case InputPackage.NEGATION__NEGATED:
-        return negated != null;
+      case InputPackage.PROBLEM_SHELL__PROBLEM:
+        return problem != null;
     }
     return super.eIsSet(featureID);
   }
@@ -194,7 +194,7 @@ public class NegationImpl extends PropertyImpl implements Negation
 
 	public int hashCode() {
 		int ret = getClass().hashCode();
-		ret += negated == null ? 0 :negated.hashCode();
+		ret += problem == null ? 0 :problem.hashCode();
 		return ret;
 	}
 
@@ -206,9 +206,9 @@ public class NegationImpl extends PropertyImpl implements Negation
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append('!' + (negated instanceof algorithmMaker.input.ANDing | negated instanceof algorithmMaker.input.ORing ? "(" : "") + negated.toString() + (negated instanceof algorithmMaker.input.ANDing | negated instanceof algorithmMaker.input.ORing ? ")" : ""));
+		ret.append('{' + problem.toString() + '}');
 		return ret.toString();
 	}
 
 
-} //NegationImpl
+} //ProblemShellImpl

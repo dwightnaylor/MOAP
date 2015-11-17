@@ -2,29 +2,12 @@
  */
 package algorithmMaker.input.util;
 
+import algorithmMaker.input.*;
+
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.util.Switch;
 
-import algorithmMaker.input.ANDing;
-import algorithmMaker.input.Addition;
-import algorithmMaker.input.Argument;
-import algorithmMaker.input.Atomic;
-import algorithmMaker.input.BooleanLiteral;
-import algorithmMaker.input.Declaration;
-import algorithmMaker.input.Input;
-import algorithmMaker.input.InputPackage;
-import algorithmMaker.input.Multiplication;
-import algorithmMaker.input.Negation;
-import algorithmMaker.input.NumberLiteral;
-import algorithmMaker.input.NumericalProperty;
-import algorithmMaker.input.ORing;
-import algorithmMaker.input.Problem;
-import algorithmMaker.input.Property;
-import algorithmMaker.input.Quantifier;
-import algorithmMaker.input.Theorem;
-import algorithmMaker.input.Type;
-import algorithmMaker.input.Variable;
+import org.eclipse.emf.ecore.util.Switch;
 
 /**
  * <!-- begin-user-doc -->
@@ -121,6 +104,14 @@ public class InputSwitch<T> extends Switch<T>
       {
         Property property = (Property)theEObject;
         T result = caseProperty(property);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case InputPackage.PROBLEM_SHELL:
+      {
+        ProblemShell problemShell = (ProblemShell)theEObject;
+        T result = caseProblemShell(problemShell);
+        if (result == null) result = caseProperty(problemShell);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -312,6 +303,22 @@ public class InputSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseProperty(Property object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Problem Shell</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Problem Shell</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseProblemShell(ProblemShell object)
   {
     return null;
   }

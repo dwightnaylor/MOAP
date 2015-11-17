@@ -3,14 +3,6 @@
  */
 package algorithmMaker.serializer;
 
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
-import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
-import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
-import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
-
-import com.google.inject.Inject;
-
 import algorithmMaker.input.ANDing;
 import algorithmMaker.input.Addition;
 import algorithmMaker.input.Atomic;
@@ -23,11 +15,25 @@ import algorithmMaker.input.Negation;
 import algorithmMaker.input.NumberLiteral;
 import algorithmMaker.input.ORing;
 import algorithmMaker.input.Problem;
+import algorithmMaker.input.ProblemShell;
 import algorithmMaker.input.Quantifier;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.input.Type;
 import algorithmMaker.input.Variable;
 import algorithmMaker.services.InputGrammarAccess;
+import com.google.inject.Inject;
+import com.google.inject.Provider;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
+import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
+import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
+import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
+import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
+import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
+import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
+import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
+import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
+import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 
 @SuppressWarnings("all")
 public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer {
@@ -78,6 +84,9 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 					return; 
 				}
 				else break;
+			case InputPackage.PROBLEM_SHELL:
+				sequence_ProblemShell(context, (ProblemShell) semanticObject); 
+				return; 
 			case InputPackage.QUANTIFIER:
 				sequence_Quantifier(context, (Quantifier) semanticObject); 
 				return; 
@@ -142,7 +151,7 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     ((type=Type varName=ID) | varName=ID)
+	 *     (type=Type? (varName=ID | varName=ID))
 	 */
 	protected void sequence_Declaration(EObject context, Declaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -229,7 +238,23 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     (vars+=Declaration vars+=Declaration* property=ORing)
+	 *     problem=Problem
+	 */
+	protected void sequence_ProblemShell(EObject context, ProblemShell semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.PROBLEM_SHELL__PROBLEM) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.PROBLEM_SHELL__PROBLEM));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getProblemShellAccess().getProblemProblemParserRuleCall_1_0(), semanticObject.getProblem());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (vars+=Declaration vars+=Declaration* property=ORing?)
 	 */
 	protected void sequence_Problem(EObject context, Problem semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

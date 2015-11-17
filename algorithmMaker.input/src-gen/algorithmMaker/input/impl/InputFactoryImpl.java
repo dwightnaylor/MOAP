@@ -2,32 +2,15 @@
  */
 package algorithmMaker.input.impl;
 
+import algorithmMaker.input.*;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.impl.EFactoryImpl;
-import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
-import algorithmMaker.input.ANDing;
-import algorithmMaker.input.Addition;
-import algorithmMaker.input.Argument;
-import algorithmMaker.input.Atomic;
-import algorithmMaker.input.BooleanLiteral;
-import algorithmMaker.input.Declaration;
-import algorithmMaker.input.Input;
-import algorithmMaker.input.InputFactory;
-import algorithmMaker.input.InputPackage;
-import algorithmMaker.input.Multiplication;
-import algorithmMaker.input.Negation;
-import algorithmMaker.input.NumberLiteral;
-import algorithmMaker.input.NumericalProperty;
-import algorithmMaker.input.ORing;
-import algorithmMaker.input.Problem;
-import algorithmMaker.input.Property;
-import algorithmMaker.input.Quantifier;
-import algorithmMaker.input.Theorem;
-import algorithmMaker.input.Type;
-import algorithmMaker.input.Variable;
+import org.eclipse.emf.ecore.impl.EFactoryImpl;
+
+import org.eclipse.emf.ecore.plugin.EcorePlugin;
 
 /**
  * <!-- begin-user-doc -->
@@ -86,6 +69,7 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
       case InputPackage.DECLARATION: return createDeclaration();
       case InputPackage.TYPE: return createType();
       case InputPackage.PROPERTY: return createProperty();
+      case InputPackage.PROBLEM_SHELL: return createProblemShell();
       case InputPackage.NEGATION: return createNegation();
       case InputPackage.QUANTIFIER: return createQuantifier();
       case InputPackage.ATOMIC: return createAtomic();
@@ -157,6 +141,17 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
   {
     PropertyImpl property = new PropertyImpl();
     return property;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ProblemShell createProblemShell()
+  {
+    ProblemShellImpl problemShell = new ProblemShellImpl();
+    return problemShell;
   }
 
   /**

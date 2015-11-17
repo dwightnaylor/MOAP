@@ -2,30 +2,14 @@
  */
 package algorithmMaker.input.util;
 
+import algorithmMaker.input.*;
+
 import org.eclipse.emf.common.notify.Adapter;
 import org.eclipse.emf.common.notify.Notifier;
-import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
-import org.eclipse.emf.ecore.EObject;
 
-import algorithmMaker.input.ANDing;
-import algorithmMaker.input.Addition;
-import algorithmMaker.input.Argument;
-import algorithmMaker.input.Atomic;
-import algorithmMaker.input.BooleanLiteral;
-import algorithmMaker.input.Declaration;
-import algorithmMaker.input.Input;
-import algorithmMaker.input.InputPackage;
-import algorithmMaker.input.Multiplication;
-import algorithmMaker.input.Negation;
-import algorithmMaker.input.NumberLiteral;
-import algorithmMaker.input.NumericalProperty;
-import algorithmMaker.input.ORing;
-import algorithmMaker.input.Problem;
-import algorithmMaker.input.Property;
-import algorithmMaker.input.Quantifier;
-import algorithmMaker.input.Theorem;
-import algorithmMaker.input.Type;
-import algorithmMaker.input.Variable;
+import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
+
+import org.eclipse.emf.ecore.EObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -114,6 +98,11 @@ public class InputAdapterFactory extends AdapterFactoryImpl
       public Adapter caseProperty(Property object)
       {
         return createPropertyAdapter();
+      }
+      @Override
+      public Adapter caseProblemShell(ProblemShell object)
+      {
+        return createProblemShellAdapter();
       }
       @Override
       public Adapter caseNegation(Negation object)
@@ -273,6 +262,21 @@ public class InputAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPropertyAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.ProblemShell <em>Problem Shell</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see algorithmMaker.input.ProblemShell
+   * @generated
+   */
+  public Adapter createProblemShellAdapter()
   {
     return null;
   }

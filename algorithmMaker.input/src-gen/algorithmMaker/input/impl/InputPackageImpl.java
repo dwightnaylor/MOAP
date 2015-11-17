@@ -2,12 +2,6 @@
  */
 package algorithmMaker.input.impl;
 
-import org.eclipse.emf.ecore.EAttribute;
-import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.EPackage;
-import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.impl.EPackageImpl;
-
 import algorithmMaker.input.ANDing;
 import algorithmMaker.input.Addition;
 import algorithmMaker.input.Argument;
@@ -23,11 +17,19 @@ import algorithmMaker.input.NumberLiteral;
 import algorithmMaker.input.NumericalProperty;
 import algorithmMaker.input.ORing;
 import algorithmMaker.input.Problem;
+import algorithmMaker.input.ProblemShell;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Quantifier;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.input.Type;
 import algorithmMaker.input.Variable;
+
+import org.eclipse.emf.ecore.EAttribute;
+import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.ecore.EReference;
+
+import org.eclipse.emf.ecore.impl.EPackageImpl;
 
 /**
  * <!-- begin-user-doc -->
@@ -71,6 +73,13 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * @generated
    */
   private EClass propertyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass problemShellEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -374,6 +383,26 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
   public EClass getProperty()
   {
     return propertyEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getProblemShell()
+  {
+    return problemShellEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getProblemShell_Problem()
+  {
+    return (EReference)problemShellEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -796,6 +825,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
 
     propertyEClass = createEClass(PROPERTY);
 
+    problemShellEClass = createEClass(PROBLEM_SHELL);
+    createEReference(problemShellEClass, PROBLEM_SHELL__PROBLEM);
+
     negationEClass = createEClass(NEGATION);
     createEReference(negationEClass, NEGATION__NEGATED);
 
@@ -876,6 +908,7 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    problemShellEClass.getESuperTypes().add(this.getProperty());
     negationEClass.getESuperTypes().add(this.getProperty());
     quantifierEClass.getESuperTypes().add(this.getProperty());
     atomicEClass.getESuperTypes().add(this.getProperty());
@@ -909,6 +942,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     initEReference(getType_TemplateType(), this.getType(), null, "templateType", null, 0, 1, Type.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(problemShellEClass, ProblemShell.class, "ProblemShell", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getProblemShell_Problem(), this.getProblem(), null, "problem", null, 0, 1, ProblemShell.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(negationEClass, Negation.class, "Negation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getNegation_Negated(), this.getProperty(), null, "negated", null, 0, 1, Negation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

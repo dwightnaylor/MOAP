@@ -257,14 +257,16 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 			ret.append("\t\tret.append(value);" + NL);
 			break;
 		case "Declaration":
-			ret.append("\t\tret.append(type == null ? \"\" : type + \"(\");" + NL);
+			ret.append("\t\tret.append(type == null ? \"\" : (type + \" \"));" + NL);
 			ret.append("\t\tret.append(varName);" + NL);
-			ret.append("\t\tret.append(type == null ? \"\" : \")\");" + NL);
 			break;
 		case "Type":
 			ret.append("\t\tret.append(name);" + NL);
 			ret.append("\t\tif (templateType != null)" + NL);
 			ret.append("\t\t\tret.append('<' + templateType.toString() + '>');" + NL);
+			break;
+		case "ProblemShell":
+			ret.append("\t\tret.append('{' + problem.toString() + '}');" + NL);
 			break;
 		case "Negation":
 			ret.append(

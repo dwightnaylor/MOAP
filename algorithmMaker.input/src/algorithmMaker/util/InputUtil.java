@@ -22,8 +22,10 @@ import algorithmMaker.input.Input;
 import algorithmMaker.input.Negation;
 import algorithmMaker.input.ORing;
 import algorithmMaker.input.Problem;
+import algorithmMaker.input.ProblemShell;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Quantifier;
+import algorithmMaker.input.Theorem;
 import algorithmMaker.input.Type;
 import algorithmMaker.input.Variable;
 import algorithmMaker.input.impl.InputFactoryImpl;
@@ -65,7 +67,7 @@ public class InputUtil {
 	 * These all seem to be subclasses of Property...
 	 */
 	public static enum KernelType {
-		Input, Problem, ORing, ANDing, Atomic, Quantifier, BooleanLiteral, Negation
+		Input, Problem, ORing, ANDing, Atomic, Quantifier, BooleanLiteral, Negation, ProblemShell
 	}
 
 	public static KernelType kernelType(EObject object) {
@@ -85,6 +87,8 @@ public class InputUtil {
 			return KernelType.BooleanLiteral;
 		else if (object instanceof Negation)
 			return KernelType.Negation;
+		else if (object instanceof ProblemShell)
+			return KernelType.ProblemShell;
 
 		return null;
 	}
@@ -120,10 +124,22 @@ public class InputUtil {
 		return clone;
 	}
 
+	public static Theorem getConverse(Theorem theorem) {
+		Theorem ret = stupidCopy(theorem);
+		Property save = ret.getRequirement();
+		ret.setRequirement(ret.getResult());
+		ret.setResult(save);
+		return ret;
+	}
+
 	@SuppressWarnings("unchecked")
 	public static <P extends Property> P stupidCopy(P property) {
 		// TODO:DN: Fix these three stupid methods and find a better way...
 		return (P) QuickParser.parseProperty(property.toString());
+	}
+
+	public static Theorem stupidCopy(Theorem theorem) {
+		return (Theorem) QuickParser.parseTheorem(theorem.toString());
 	}
 
 	public static HashSet<String> getDeclaredVars(Input input) {
@@ -273,12 +289,12 @@ public class InputUtil {
 		Atomic atomic = InputFactoryImpl.eINSTANCE.createAtomic();
 		atomic.setFunction(function);
 		for (String arg : args)
-			atomic.getArgs().add(getVariable(arg));
+			atomic.getArgs().add(createVariable(arg));
 
 		return atomic;
 	}
 
-	public static Variable getVariable(String arg) {
+	public static Variable createVariable(String arg) {
 		Variable var = InputFactoryImpl.eINSTANCE.createVariable();
 		var.setArg(arg);
 		return var;
@@ -451,6 +467,14 @@ public class InputUtil {
 			ret.setPredicate(newPredicate);
 			return ret;
 		}
+		case ProblemShell: {
+			ProblemShell problemShell = (ProblemShell) cur;
+			Property newProperty = getOneStepCanonizalized(problemShell.getProblem().getProperty());
+
+			ProblemShell ret = (ProblemShell) InputUtil.stupidCopy(cur);
+			ret.getProblem().setProperty(newProperty);
+			return ret;
+		}
 		case BooleanLiteral:
 		case Atomic:
 		case Input:
@@ -539,7 +563,7 @@ public class InputUtil {
 			inputRet.setGoal((Problem) newGoal);
 			return reducer.apply(inputRet);
 		}
-		case Negation:
+		case Negation: {
 			EObject negated = reduce(((Negation) cur).getNegated(), reducer);
 			if (negated == null)
 				return null;
@@ -547,6 +571,9 @@ public class InputUtil {
 			Negation ret = InputFactoryImpl.eINSTANCE.createNegation();
 			ret.setNegated((Property) negated);
 			return reducer.apply(ret);
+		}
+		case ProblemShell:
+			return reducer.apply(InputUtil.stupidCopy((ProblemShell) cur));
 		case Atomic:
 			return reducer.apply(InputUtil.stupidCopy((Atomic) cur));
 		case BooleanLiteral:
@@ -600,6 +627,8 @@ public class InputUtil {
 	public static void desugar(Problem problem) {
 		ArrayList<Property> properties = new ArrayList<Property>();
 		properties.add(problem.getProperty());
+		// Go through all the declarations and remove their type declaration.
+		// Replace it with type declaration atomics.
 		for (Declaration declaration : problem.getVars()) {
 			Type type = declaration.getType();
 			if (type != null) {
@@ -612,6 +641,56 @@ public class InputUtil {
 			}
 		}
 		problem.setProperty(InputUtil.andTogether(properties));
+
+		// This whole chunk is JUST for removing nested atomics.
+		final HashSet<String> allVars = InputUtil.getAllVars(problem);
+		problem.setProperty((Property) InputUtil.reduce(problem.getProperty(), new InputConverter() {
+			@Override
+			public EObject apply(EObject cur) {
+				if (cur instanceof Atomic) {
+					// Find any nested atomics
+					Hashtable<Argument, String> nestedArgs = new Hashtable<Argument, String>();
+					for (Argument arg : ((Atomic) cur).getArgs())
+						if (arg instanceof Atomic && !nestedArgs.containsKey(arg)) {
+							String newVar = getUnusedVar(allVars);
+							allVars.add(newVar);
+							nestedArgs.put(arg, newVar);
+						}
+
+					// If we find any, replace the whole atomic with a
+					// problemshell, with the nested atomics inside
+					if (!nestedArgs.isEmpty()) {
+						Atomic newAtomic = InputUtil.stupidCopy((Atomic) cur);
+						newAtomic.getArgs().clear();
+
+						for (Argument arg : ((Atomic) cur).getArgs()) {
+							if (nestedArgs.containsKey(arg))
+								newAtomic.getArgs().add(InputUtil.createVariable(nestedArgs.get(arg)));
+							else
+								newAtomic.getArgs().add(InputUtil.createVariable(((Variable) arg).getArg()));
+						}
+
+						Problem retProblem = InputFactoryImpl.eINSTANCE.createProblem();
+						ArrayList<Property> newProperties = new ArrayList<Property>();
+						for (Argument oldArg : nestedArgs.keySet()) {
+							String var = nestedArgs.get(oldArg);
+							retProblem.getVars().add(InputUtil.createDeclaration(var));
+							Atomic newArg = InputUtil.stupidCopy((Atomic) oldArg);
+							newArg.getArgs().add(InputUtil.createVariable(var));
+							newProperties.add((Atomic) newArg);
+						}
+
+						newProperties.add(newAtomic);
+						retProblem.setProperty(InputUtil.andTogether(newProperties));
+
+						ProblemShell ret = InputFactoryImpl.eINSTANCE.createProblemShell();
+						ret.setProblem(retProblem);
+						return ret;
+					}
+				}
+				return cur;
+			}
+		}));
 	}
 
 	private static Hashtable<Property, Property> devarred = new Hashtable<Property, Property>();
@@ -648,5 +727,16 @@ public class InputUtil {
 				return retString;
 		}
 		return null;
+	}
+
+	public static HashSet<String> getAllVars(Problem goal) {
+		HashSet<String> vars = new HashSet<String>();
+		TreeIterator<EObject> contents = goal.eAllContents();
+		while (contents.hasNext()) {
+			EObject next = contents.next();
+			if (next instanceof Variable)
+				vars.add(((Variable) next).getArg());
+		}
+		return vars;
 	}
 }

@@ -1,7 +1,8 @@
 import static algorithmMaker.QuickParser.parseProperty;
 import static algorithmMaker.util.InputUtil.canonicalize;
+import static algorithmMaker.util.InputUtil.createVariable;
+import static algorithmMaker.util.InputUtil.desugar;
 import static algorithmMaker.util.InputUtil.devar;
-import static algorithmMaker.util.InputUtil.getVariable;
 import static algorithmMaker.util.InputUtil.revar;
 import static algorithmMaker.util.InputUtil.stupidCopy;
 import static org.junit.Assert.assertEquals;
@@ -14,6 +15,7 @@ import org.junit.Test;
 
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Argument;
+import algorithmMaker.input.Input;
 import algorithmMaker.input.Property;
 import algorithmMaker.util.InputUtil;
 
@@ -25,7 +27,7 @@ public class InputUtilTests {
 		// Tests if a revar can switch out simple things
 		assertEquals(parseProperty("a(y)"), revar(parseProperty("a(x)"), new Hashtable<Argument, Argument>() {
 			{
-				put(getVariable("x"), getVariable("y"));
+				put(createVariable("x"), createVariable("y"));
 			}
 		}));
 	}
@@ -63,10 +65,35 @@ public class InputUtilTests {
 			Property simplifiedProperty = canonicalize(originalProperty);
 
 			if (!QuickParser.parseProperty(task[1]).equals(simplifiedProperty))
-				System.err.println("\"" + originalProperty + "\" Should reduce to \"" + task[1]
-						+ "\" but it instead reduced to \"" + simplifiedProperty + '"');
+				System.err.println("\"" + originalProperty + "\" Should canonicalize to \"" + task[1]
+						+ "\" but it instead canonicalized to \"" + simplifiedProperty + '"');
 
 			assertEquals(simplifiedProperty.toString(), task[1]);
+		}
+	}
+
+	@Test
+	public void testDesugar() {
+		ArrayList<String[]> tasks = new ArrayList<String[]>();
+		tasks.add(new String[] { "Given x; Find y st test(y)", "Given x; Find y st test(y)" });
+		tasks.add(new String[] { "Given list<int> x; Find y st test(y)",
+				"Given x st type_list(x) & child_type_int(x); Find y st test(y)" });
+		tasks.add(new String[] { "Given x; Find y st test(test1(y))",
+				"Given x; Find y st {na st test1(y,na) & test(na)}" });
+		tasks.add(new String[] { "Given list<int> x,int s; Find i,j st index(x,i) & index(x,j) & equal(plus(get(x,i),get(x,j)),s)",
+				"xxx" });
+		for (String[] task : tasks) {
+			Input original = QuickParser.parseInput(task[0]);
+			String originalToString = original.toString();
+			// The simplified version goes here
+			desugar(original);
+			String simplifiedToString = original.toString();
+
+			if (!task[1].equals(simplifiedToString))
+				System.err.println("\"" + originalToString + "\" Should desugar to \"" + task[1]
+						+ "\" but it instead desugared to \"" + simplifiedToString + '"');
+
+			assertEquals(simplifiedToString, task[1]);
 		}
 	}
 

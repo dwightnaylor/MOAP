@@ -3,10 +3,9 @@
  */
 package algorithmMaker.parser.antlr;
 
-import org.eclipse.xtext.parser.antlr.XtextTokenStream;
-
 import com.google.inject.Inject;
 
+import org.eclipse.xtext.parser.antlr.XtextTokenStream;
 import algorithmMaker.services.InputGrammarAccess;
 
 public class InputParser extends org.eclipse.xtext.parser.antlr.AbstractAntlrParser {

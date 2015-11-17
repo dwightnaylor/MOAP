@@ -2,10 +2,10 @@
  */
 package algorithmMaker.input.impl;
 
-import org.eclipse.emf.ecore.EClass;
-
 import algorithmMaker.input.InputPackage;
 import algorithmMaker.input.NumericalProperty;
+
+import org.eclipse.emf.ecore.EClass;
 
 /**
  * <!-- begin-user-doc -->

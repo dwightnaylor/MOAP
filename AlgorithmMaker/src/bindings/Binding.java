@@ -37,7 +37,7 @@ public class Binding {
 		// TODO:DN: Don't clone here maybe
 		Hashtable<Argument, Argument> ret = new Hashtable<Argument, Argument>();
 		for (String key : bindings.keySet())
-			ret.put(InputUtil.getVariable(key), bindings.get(key));
+			ret.put(InputUtil.createVariable(key), bindings.get(key));
 
 		return ret;
 	}
