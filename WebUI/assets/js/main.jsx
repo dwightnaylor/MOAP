@@ -3,9 +3,13 @@
 "use strict";
 
 var React = require("react");
+var ReactDOM = require("react-dom");
+var ReactRouter = require("react-router");
+var Router = ReactRouter.Router;
+var Route = ReactRouter.Route;
+var Link = ReactRouter.Link;
 var injectEventTapPlugin = require("react-tap-event-plugin");
 var mui = require("material-ui");
-var ThemeManager = new mui.Styles.ThemeManager();
 var AppBar = mui.AppBar;
 var TextField = mui.TextField;
 var RaisedButton = mui.RaisedButton;
@@ -46,12 +50,10 @@ var Main = React.createClass({
   },
 
   childContextTypes: {
-    muiTheme: React.PropTypes.object
   },
 
   getChildContext() {
     return {
-      muiTheme: ThemeManager.getCurrentTheme()
     };
   },
 
@@ -117,6 +119,32 @@ var Main = React.createClass({
   }
 });
 
-React.render(<Main />, document.getElementById('main-header'));
+var Help = React.createClass({
+  getInitialState: function() {
+    return {
+    };
+  },
+  childContextTypes: {
+  },
+  getChildContext() {
+    return {
+    };
+  },
+  render() {
+    return (
+      <div>
+        <h1>
+          Help Page
+        </h1>
+      </div>
+    );
+  }
+});
 
-module.exports = Main;
+ReactDOM.render((
+  <Router>
+    <Route path="/" component={Main}>
+      <Route path="help" component={Help}/>
+    </Route>
+  </Router>
+), document.getElementById('main-header'));
