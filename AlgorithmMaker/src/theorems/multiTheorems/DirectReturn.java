@@ -9,6 +9,9 @@ public class DirectReturn extends MultistageTheorem {
 	public static final String VAR_NAME = "var";
 
 	public DirectReturn() {
-		super(null, null, null, 0, DESCRIPTION, "return <" + VAR_NAME + ">");
+		super(null, null, null, 0, DESCRIPTION, "" /*
+													 * "return <" + VAR_NAME +
+													 * ">"
+													 */);
 	}
 }

@@ -3032,11 +3032,11 @@ rule__Theorem__Group__1__Impl
     }
 :
 (
-{ before(grammarAccess.getTheoremAccess().getColonHyphenMinusKeyword_1()); }
+{ before(grammarAccess.getTheoremAccess().getHyphenMinusGreaterThanSignKeyword_1()); }
 
-	':-' 
+	'->' 
 
-{ after(grammarAccess.getTheoremAccess().getColonHyphenMinusKeyword_1()); }
+{ after(grammarAccess.getTheoremAccess().getHyphenMinusGreaterThanSignKeyword_1()); }
 )
 
 ;

@@ -1155,9 +1155,9 @@ ruleTheorem returns [EObject current=null]
 	    }
 
 )
-)	otherlv_1=':-' 
+)	otherlv_1='->' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getTheoremAccess().getColonHyphenMinusKeyword_1());
+    	newLeafNode(otherlv_1, grammarAccess.getTheoremAccess().getHyphenMinusGreaterThanSignKeyword_1());
     }
 (
 (

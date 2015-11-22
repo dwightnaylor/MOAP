@@ -186,8 +186,8 @@ public class Chainer {
 						for (Fact<Atomic> equalVar : equalities.get(arg)) {
 							Hashtable<Argument, Argument> revars = new Hashtable<Argument, Argument>();
 							revars.put(arg, equalVar.property.getArgs().get(1));
-							chain(new Fact<Atomic>((Atomic) InputUtil.revar(fact.property, revars), TransformUtil.EQUAL,
-									equalVar, fact));
+							chain(new Fact<Atomic>((Atomic) InputUtil.revar(fact.property, revars),
+									TransformUtil.EQUAL, equalVar, fact));
 						}
 				}
 		}
@@ -230,7 +230,7 @@ public class Chainer {
 			// If the requirement isn't a compound one, then we know we satisfy
 			// it already, because there's nothing else to look for.
 			binding.applyBinding(requirement, fact);
-			attemptChaining(theorem, binding);
+			attemptChaining(theorem, binding.getImmutable());
 		}
 	}
 
@@ -258,9 +258,19 @@ public class Chainer {
 				}
 			}
 		} else {
-			InputUtil.revar(theorem.getResult(), binding.getArguments());
-			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem,
-					binding.getPrerequisites().toArray(new Fact<?>[0]));
+			HashSet<String> declaredVars = InputUtil.getDeclaredVars(theorem.getResult());
+			if (declaredVars.size() > 0) {
+				MutableBinding newBinding = new MutableBinding();
+				newBinding.addBindingsFrom(binding);
+				for (String originalVar : declaredVars) {
+					String newVar = InputUtil.getUnusedVar(declaredVars);
+					declaredVars.add(newVar);
+					newBinding.bind(originalVar, InputUtil.createVariable(newVar));
+				}
+				binding = newBinding;
+			}
+			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem, binding.getPrerequisites()
+					.toArray(new Fact<?>[0]));
 		}
 	}
 
@@ -296,7 +306,7 @@ public class Chainer {
 			}
 		}
 	}
-
+	
 	public HashSet<Property> copyProperties() {
 		HashSet<Property> atomics = new HashSet<Property>();
 		atomics.addAll(properties.keySet());

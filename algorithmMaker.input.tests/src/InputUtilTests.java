@@ -80,8 +80,6 @@ public class InputUtilTests {
 				"Given x st type_list(x) & child_type_int(x); Find y st test(y)" });
 		tasks.add(new String[] { "Given x; Find y st test(test1(y))",
 				"Given x; Find y st {na st test1(y,na) & test(na)}" });
-		tasks.add(new String[] { "Given list<int> x,int s; Find i,j st index(x,i) & index(x,j) & equal(plus(get(x,i),get(x,j)),s)",
-				"xxx" });
 		for (String[] task : tasks) {
 			Input original = QuickParser.parseInput(task[0]);
 			String originalToString = original.toString();

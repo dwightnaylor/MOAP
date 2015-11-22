@@ -650,7 +650,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cRequirementAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cRequirementORingParserRuleCall_0_0 = (RuleCall)cRequirementAssignment_0.eContents().get(0);
-		private final Keyword cColonHyphenMinusKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cHyphenMinusGreaterThanSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cResultAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cResultORingParserRuleCall_2_0 = (RuleCall)cResultAssignment_2.eContents().get(0);
 		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
@@ -665,10 +665,10 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cPseudoCodeSTRINGTerminalRuleCall_7_1_0 = (RuleCall)cPseudoCodeAssignment_7_1.eContents().get(0);
 		
 		//Theorem:
-		//	Requirement=ORing ":-" Result=ORing "," Cost=INT "," Description=STRING ("," PseudoCode=STRING)?;
+		//	Requirement=ORing "->" Result=ORing "," Cost=INT "," Description=STRING ("," PseudoCode=STRING)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//Requirement=ORing ":-" Result=ORing "," Cost=INT "," Description=STRING ("," PseudoCode=STRING)?
+		//Requirement=ORing "->" Result=ORing "," Cost=INT "," Description=STRING ("," PseudoCode=STRING)?
 		public Group getGroup() { return cGroup; }
 
 		//Requirement=ORing
@@ -677,8 +677,8 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		//ORing
 		public RuleCall getRequirementORingParserRuleCall_0_0() { return cRequirementORingParserRuleCall_0_0; }
 
-		//":-"
-		public Keyword getColonHyphenMinusKeyword_1() { return cColonHyphenMinusKeyword_1; }
+		//"->"
+		public Keyword getHyphenMinusGreaterThanSignKeyword_1() { return cHyphenMinusGreaterThanSignKeyword_1; }
 
 		//Result=ORing
 		public Assignment getResultAssignment_2() { return cResultAssignment_2; }
@@ -1103,7 +1103,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Theorem:
-	//	Requirement=ORing ":-" Result=ORing "," Cost=INT "," Description=STRING ("," PseudoCode=STRING)?;
+	//	Requirement=ORing "->" Result=ORing "," Cost=INT "," Description=STRING ("," PseudoCode=STRING)?;
 	public TheoremElements getTheoremAccess() {
 		return pTheorem;
 	}

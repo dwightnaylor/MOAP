@@ -23,6 +23,11 @@ public class MultistageTheorem extends QuickTheorem {
 		this.findResult = findResult;
 	}
 
+	public MultistageTheorem copy() {
+		return new MultistageTheorem(this.getRequirement(), this.findRequirement, this.givenResult, this.findResult,
+				this.getCost(), this.getDescription(), this.getPseudoCode());
+	}
+
 	public Property getFindRequirement() {
 		return findRequirement;
 	}
@@ -42,8 +47,8 @@ public class MultistageTheorem extends QuickTheorem {
 	public void requireGoalTask(String requiredGoalTask) {
 		this.requiredGoalTask = requiredGoalTask;
 	}
-	
-	public void setNewGoalTask(String task){
+
+	public void setNewGoalTask(String task) {
 		this.newGoalTask = task;
 	}
 }

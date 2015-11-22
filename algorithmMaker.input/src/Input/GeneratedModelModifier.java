@@ -251,7 +251,7 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 			ret.append("\t\tret.append(quantifier + '(' + subject + \" : \" + predicate + ')');" + NL);
 			break;
 		case "Theorem":
-			ret.append("\t\tret.append(requirement + \":-\" + result + ',' + cost + ',' + description);" + NL);
+			ret.append("\t\tret.append(requirement + \"->\" + result + ',' + cost + ',' + description);" + NL);
 			break;
 		case "BooleanLiteral":
 			ret.append("\t\tret.append(value);" + NL);

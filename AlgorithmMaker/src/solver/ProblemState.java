@@ -6,15 +6,19 @@ import theorems.MultistageTheorem;
 
 public class ProblemState implements Comparable<ProblemState> {
 	public Input problem;
-	ProblemState parentState;
+	public ProblemState parentState;
 	Binding rootTheoremBinding;
-	MultistageTheorem rootTheorem;
+	public MultistageTheorem rootTheorem;
 
 	public ProblemState(Input problem, ProblemState parentState, MultistageTheorem multistageTheorem, Binding binding) {
 		this.problem = problem;
 		this.parentState = parentState;
 		this.rootTheorem = multistageTheorem;
 		this.rootTheoremBinding = binding;
+	}
+	
+	public String toString() {
+		return problem.toString();
 	}
 
 	public int getDepth() {

@@ -22,7 +22,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalInputParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'Find'", "'Count'", "'forall'", "'exists'", "'TRUE'", "'FALSE'", "'+'", "'-'", "'*'", "'/'", "'Given'", "';'", "'('", "')'", "'Theorems:'", "','", "'st'", "'<'", "'>'", "'|'", "'&'", "'{'", "'}'", "'!'", "':'", "':-'", "'Test'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'Find'", "'Count'", "'forall'", "'exists'", "'TRUE'", "'FALSE'", "'+'", "'-'", "'*'", "'/'", "'Given'", "';'", "'('", "')'", "'Theorems:'", "','", "'st'", "'<'", "'>'", "'|'", "'&'", "'{'", "'}'", "'!'", "':'", "'->'", "'Test'"
     };
     public static final int RULE_STRING=6;
     public static final int RULE_SL_COMMENT=8;
@@ -8068,21 +8068,21 @@ public class InternalInputParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Theorem__Group__1__Impl"
-    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3029:1: rule__Theorem__Group__1__Impl : ( ':-' ) ;
+    // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3029:1: rule__Theorem__Group__1__Impl : ( '->' ) ;
     public final void rule__Theorem__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3033:1: ( ( ':-' ) )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3034:1: ( ':-' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3033:1: ( ( '->' ) )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3034:1: ( '->' )
             {
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3034:1: ( ':-' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3035:1: ':-'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3034:1: ( '->' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:3035:1: '->'
             {
-             before(grammarAccess.getTheoremAccess().getColonHyphenMinusKeyword_1()); 
+             before(grammarAccess.getTheoremAccess().getHyphenMinusGreaterThanSignKeyword_1()); 
             match(input,36,FOLLOW_36_in_rule__Theorem__Group__1__Impl6088); 
-             after(grammarAccess.getTheoremAccess().getColonHyphenMinusKeyword_1()); 
+             after(grammarAccess.getTheoremAccess().getHyphenMinusGreaterThanSignKeyword_1()); 
 
             }
 

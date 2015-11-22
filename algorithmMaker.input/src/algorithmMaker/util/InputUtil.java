@@ -117,9 +117,45 @@ public class InputUtil {
 			EObject cur = contents.next();
 			if (cur instanceof Atomic)
 				((Atomic) cur).getArgs().replaceAll(x -> revars.containsKey(x) ? EcoreUtil.copy(revars.get(x)) : x);
+			
+			// FIXME: DN: Don't use a direct cast here
+			if (cur instanceof Declaration
+					&& revars.containsKey(InputUtil.createVariable(((Declaration) cur).getVarName())))
+				((Declaration) cur).setVarName(((Variable) revars.get(InputUtil.createVariable(((Declaration) cur)
+						.getVarName()))).getArg());
 		}
 		if (clone instanceof Atomic)
 			((Atomic) clone).getArgs().replaceAll(x -> revars.containsKey(x) ? EcoreUtil.copy(revars.get(x)) : x);
+
+		if (clone instanceof Declaration
+				&& revars.containsKey(InputUtil.createVariable(((Declaration) clone).getVarName())))
+			((Declaration) clone).setVarName(((Variable) revars.get(InputUtil.createVariable(((Declaration) clone)
+					.getVarName()))).getArg());
+
+		return clone;
+	}
+
+	public static Problem revar(Problem problem, Hashtable<Argument, Argument> revars) {
+		Problem clone = stupidCopy(problem);
+		TreeIterator<EObject> contents = clone.eAllContents();
+		while (contents.hasNext()) {
+			EObject cur = contents.next();
+			if (cur instanceof Atomic)
+				((Atomic) cur).getArgs().replaceAll(x -> revars.containsKey(x) ? EcoreUtil.copy(revars.get(x)) : x);
+
+			// FIXME: DN: Don't use a direct cast here
+			if (cur instanceof Declaration
+					&& revars.containsKey(InputUtil.createVariable(((Declaration) cur).getVarName())))
+				((Declaration) cur).setVarName(((Variable) revars.get(InputUtil.createVariable(((Declaration) cur)
+						.getVarName()))).getArg());
+		}
+		if (clone instanceof Atomic)
+			((Atomic) clone).getArgs().replaceAll(x -> revars.containsKey(x) ? EcoreUtil.copy(revars.get(x)) : x);
+
+		if (clone instanceof Declaration
+				&& revars.containsKey(InputUtil.createVariable(((Declaration) clone).getVarName())))
+			((Declaration) clone).setVarName(((Variable) revars.get(InputUtil.createVariable(((Declaration) clone)
+					.getVarName()))).getArg());
 
 		return clone;
 	}
@@ -142,7 +178,7 @@ public class InputUtil {
 		return (Theorem) QuickParser.parseTheorem(theorem.toString());
 	}
 
-	public static HashSet<String> getDeclaredVars(Input input) {
+	public static HashSet<String> getDeclaredVars(EObject input) {
 		HashSet<String> ret = new HashSet<String>();
 		TreeIterator<EObject> contents = input.eAllContents();
 		while (contents.hasNext()) {
@@ -650,26 +686,11 @@ public class InputUtil {
 				if (cur instanceof Atomic) {
 					// Find any nested atomics
 					Hashtable<Argument, String> nestedArgs = new Hashtable<Argument, String>();
-					for (Argument arg : ((Atomic) cur).getArgs())
-						if (arg instanceof Atomic && !nestedArgs.containsKey(arg)) {
-							String newVar = getUnusedVar(allVars);
-							allVars.add(newVar);
-							nestedArgs.put(arg, newVar);
-						}
+					addNestedArgs((Atomic) cur, allVars, nestedArgs);
 
 					// If we find any, replace the whole atomic with a
 					// problemshell, with the nested atomics inside
 					if (!nestedArgs.isEmpty()) {
-						Atomic newAtomic = InputUtil.stupidCopy((Atomic) cur);
-						newAtomic.getArgs().clear();
-
-						for (Argument arg : ((Atomic) cur).getArgs()) {
-							if (nestedArgs.containsKey(arg))
-								newAtomic.getArgs().add(InputUtil.createVariable(nestedArgs.get(arg)));
-							else
-								newAtomic.getArgs().add(InputUtil.createVariable(((Variable) arg).getArg()));
-						}
-
 						Problem retProblem = InputFactoryImpl.eINSTANCE.createProblem();
 						ArrayList<Property> newProperties = new ArrayList<Property>();
 						for (Argument oldArg : nestedArgs.keySet()) {
@@ -680,7 +701,7 @@ public class InputUtil {
 							newProperties.add((Atomic) newArg);
 						}
 
-						newProperties.add(newAtomic);
+						newProperties.add((Atomic) cur);
 						retProblem.setProperty(InputUtil.andTogether(newProperties));
 
 						ProblemShell ret = InputFactoryImpl.eINSTANCE.createProblemShell();
@@ -689,6 +710,34 @@ public class InputUtil {
 					}
 				}
 				return cur;
+			}
+
+			private void addNestedArgs(Atomic atomic, final HashSet<String> allVars,
+					Hashtable<Argument, String> nestedArgs) {
+				ArrayList<Argument> newArgs = new ArrayList<Argument>();
+				for (Argument arg : atomic.getArgs()) {
+					String newVarName;
+					if (arg instanceof Atomic) {
+						if (nestedArgs.containsKey(arg)) {
+							newVarName = nestedArgs.get(arg);
+						} else {
+							addNestedArgs((Atomic) arg, allVars, nestedArgs);
+							String newVar = getUnusedVar(allVars);
+							allVars.add(newVar);
+							nestedArgs.put(arg, newVar);
+							newVarName = newVar;
+						}
+					} else
+						// Assuming all argument are either atomics or
+						// variables for now...
+						newVarName = ((Variable) arg).getArg();
+
+					newArgs.add(InputUtil.createVariable(newVarName));
+				}
+
+				atomic.getArgs().clear();
+				for (Argument newArg : newArgs)
+					atomic.getArgs().add(newArg);
 			}
 		}));
 	}
@@ -714,12 +763,6 @@ public class InputUtil {
 		return devarred.get(object);
 	}
 
-	public static Argument createArgument(String arg) {
-		Variable ret = InputFactoryImpl.eINSTANCE.createVariable();
-		ret.setArg(arg);
-		return ret;
-	}
-
 	public static String getUnusedVar(HashSet<String> usedVars) {
 		for (char ret = 'a'; ret <= 'z'; ret++) {
 			String retString = "n" + ret;
@@ -729,7 +772,7 @@ public class InputUtil {
 		return null;
 	}
 
-	public static HashSet<String> getAllVars(Problem goal) {
+	public static HashSet<String> getAllVars(EObject goal) {
 		HashSet<String> vars = new HashSet<String>();
 		TreeIterator<EObject> contents = goal.eAllContents();
 		while (contents.hasNext()) {
@@ -737,6 +780,9 @@ public class InputUtil {
 			if (next instanceof Variable)
 				vars.add(((Variable) next).getArg());
 		}
+		if (goal instanceof Variable)
+			vars.add(((Variable) goal).getArg());
+
 		return vars;
 	}
 }

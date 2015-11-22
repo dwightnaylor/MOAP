@@ -575,10 +575,10 @@ public class InternalInputLexer extends Lexer {
         try {
             int _type = T__36;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:36:7: ( ':-' )
-            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:36:9: ':-'
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:36:7: ( '->' )
+            // ../algorithmMaker.input.ui/src-gen/algorithmMaker/ui/contentassist/antlr/internal/InternalInput.g:36:9: '->'
             {
-            match(":-"); 
+            match("->"); 
 
 
             }
@@ -1361,36 +1361,37 @@ public class InternalInputLexer extends Lexer {
 
     protected DFA12 dfa12 = new DFA12(this);
     static final String DFA12_eotS =
-        "\1\uffff\5\41\3\uffff\1\55\1\41\4\uffff\1\41\7\uffff\1\74\1\36"+
-        "\2\uffff\2\36\2\uffff\2\41\1\uffff\6\41\6\uffff\1\41\4\uffff\1\111"+
-        "\14\uffff\11\41\1\uffff\1\123\4\41\1\130\1\41\1\132\1\41\1\uffff"+
-        "\1\134\1\135\2\41\1\uffff\1\41\1\uffff\1\141\2\uffff\1\142\1\143"+
-        "\1\41\3\uffff\2\41\1\uffff";
+        "\1\uffff\5\41\1\uffff\1\52\1\uffff\1\56\1\41\4\uffff\1\41\10\uffff"+
+        "\1\36\2\uffff\2\36\2\uffff\2\41\1\uffff\6\41\7\uffff\1\41\4\uffff"+
+        "\1\111\13\uffff\11\41\1\uffff\1\123\4\41\1\130\1\41\1\132\1\41\1"+
+        "\uffff\1\134\1\135\2\41\1\uffff\1\41\1\uffff\1\141\2\uffff\1\142"+
+        "\1\143\1\41\3\uffff\2\41\1\uffff";
     static final String DFA12_eofS =
         "\147\uffff";
     static final String DFA12_minS =
-        "\1\0\1\101\2\157\1\170\1\122\3\uffff\1\52\1\151\4\uffff\1\164\7"+
-        "\uffff\1\55\1\101\2\uffff\2\0\2\uffff\1\156\1\114\1\uffff\1\165"+
-        "\1\162\1\151\1\125\1\145\1\163\6\uffff\1\166\4\uffff\1\60\14\uffff"+
-        "\1\144\1\123\1\156\1\141\1\163\1\105\1\157\1\164\1\145\1\uffff\1"+
-        "\60\1\105\1\164\1\154\1\164\1\60\1\162\1\60\1\156\1\uffff\2\60\1"+
-        "\154\1\163\1\uffff\1\145\1\uffff\1\60\2\uffff\2\60\1\155\3\uffff"+
-        "\1\163\1\72\1\uffff";
+        "\1\0\1\101\2\157\1\170\1\122\1\uffff\1\76\1\uffff\1\52\1\151\4"+
+        "\uffff\1\164\10\uffff\1\101\2\uffff\2\0\2\uffff\1\156\1\114\1\uffff"+
+        "\1\165\1\162\1\151\1\125\1\145\1\163\7\uffff\1\166\4\uffff\1\60"+
+        "\13\uffff\1\144\1\123\1\156\1\141\1\163\1\105\1\157\1\164\1\145"+
+        "\1\uffff\1\60\1\105\1\164\1\154\1\164\1\60\1\162\1\60\1\156\1\uffff"+
+        "\2\60\1\154\1\163\1\uffff\1\145\1\uffff\1\60\2\uffff\2\60\1\155"+
+        "\3\uffff\1\163\1\72\1\uffff";
     static final String DFA12_maxS =
-        "\1\uffff\1\151\2\157\1\170\1\150\3\uffff\1\57\1\151\4\uffff\1\164"+
-        "\7\uffff\1\55\1\172\2\uffff\2\uffff\2\uffff\1\156\1\114\1\uffff"+
-        "\1\165\1\162\1\151\1\125\1\145\1\163\6\uffff\1\166\4\uffff\1\172"+
-        "\14\uffff\1\144\1\123\1\156\1\141\1\163\1\105\1\157\1\164\1\145"+
-        "\1\uffff\1\172\1\105\1\164\1\154\1\164\1\172\1\162\1\172\1\156\1"+
-        "\uffff\2\172\1\154\1\163\1\uffff\1\145\1\uffff\1\172\2\uffff\2\172"+
-        "\1\155\3\uffff\1\163\1\72\1\uffff";
+        "\1\uffff\1\151\2\157\1\170\1\150\1\uffff\1\76\1\uffff\1\57\1\151"+
+        "\4\uffff\1\164\10\uffff\1\172\2\uffff\2\uffff\2\uffff\1\156\1\114"+
+        "\1\uffff\1\165\1\162\1\151\1\125\1\145\1\163\7\uffff\1\166\4\uffff"+
+        "\1\172\13\uffff\1\144\1\123\1\156\1\141\1\163\1\105\1\157\1\164"+
+        "\1\145\1\uffff\1\172\1\105\1\164\1\154\1\164\1\172\1\162\1\172\1"+
+        "\156\1\uffff\2\172\1\154\1\163\1\uffff\1\145\1\uffff\1\172\2\uffff"+
+        "\2\172\1\155\3\uffff\1\163\1\72\1\uffff";
     static final String DFA12_acceptS =
-        "\6\uffff\1\7\1\10\1\11\2\uffff\1\14\1\15\1\16\1\20\1\uffff\1\22"+
-        "\1\23\1\24\1\25\1\26\1\27\1\30\2\uffff\1\34\1\35\2\uffff\1\41\1"+
-        "\42\2\uffff\1\34\6\uffff\1\7\1\10\1\11\1\37\1\40\1\12\1\uffff\1"+
-        "\14\1\15\1\16\1\20\1\uffff\1\22\1\23\1\24\1\25\1\26\1\27\1\30\1"+
-        "\32\1\31\1\35\1\36\1\41\11\uffff\1\21\11\uffff\1\1\4\uffff\1\5\1"+
-        "\uffff\1\33\1\uffff\1\6\1\2\3\uffff\1\13\1\3\1\4\2\uffff\1\17";
+        "\6\uffff\1\7\1\uffff\1\11\2\uffff\1\14\1\15\1\16\1\20\1\uffff\1"+
+        "\22\1\23\1\24\1\25\1\26\1\27\1\30\1\31\1\uffff\1\34\1\35\2\uffff"+
+        "\1\41\1\42\2\uffff\1\34\6\uffff\1\7\1\32\1\10\1\11\1\37\1\40\1\12"+
+        "\1\uffff\1\14\1\15\1\16\1\20\1\uffff\1\22\1\23\1\24\1\25\1\26\1"+
+        "\27\1\30\1\31\1\35\1\36\1\41\11\uffff\1\21\11\uffff\1\1\4\uffff"+
+        "\1\5\1\uffff\1\33\1\uffff\1\6\1\2\3\uffff\1\13\1\3\1\4\2\uffff\1"+
+        "\17";
     static final String DFA12_specialS =
         "\1\1\32\uffff\1\0\1\2\112\uffff}>";
     static final String[] DFA12_transitionS = {
@@ -1405,23 +1406,23 @@ public class InternalInputLexer extends Lexer {
             "\1\44",
             "\1\45\22\uffff\1\47\2\uffff\1\46",
             "",
+            "\1\51",
             "",
-            "",
-            "\1\53\4\uffff\1\54",
-            "\1\56",
-            "",
-            "",
-            "",
-            "",
-            "\1\63",
+            "\1\54\4\uffff\1\55",
+            "\1\57",
             "",
             "",
             "",
             "",
+            "\1\64",
             "",
             "",
             "",
-            "\1\73",
+            "",
+            "",
+            "",
+            "",
+            "",
             "\32\41\4\uffff\1\41\1\uffff\32\41",
             "",
             "",
@@ -1444,13 +1445,13 @@ public class InternalInputLexer extends Lexer {
             "",
             "",
             "",
+            "",
             "\1\110",
             "",
             "",
             "",
             "",
             "\12\41\7\uffff\32\41\4\uffff\1\41\1\uffff\32\41",
-            "",
             "",
             "",
             "",

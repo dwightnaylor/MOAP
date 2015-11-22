@@ -11,15 +11,15 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 
-import com.google.inject.Guice;
-import com.google.inject.Injector;
-
 import algorithmMaker.input.Input;
 import algorithmMaker.input.InputPackage;
 import algorithmMaker.input.Problem;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.parser.antlr.InputParser;
+
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 
 public class QuickParser {
 

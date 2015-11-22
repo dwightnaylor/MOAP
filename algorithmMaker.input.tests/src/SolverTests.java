@@ -1,6 +1,5 @@
 import static algorithmMaker.QuickParser.parseProperty;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
@@ -77,11 +76,18 @@ public class SolverTests {
 				"foreach index y of x\n\tif x.get(y) == y" });
 		probsAndSols.add(new String[] { "Given list x; Find y,z st child(x,y) & child(x,z) & equal(y,z)",
 				"foreach child y of x\n\tforeach child z of x\n\t\tif y == z" });
+		probsAndSols.add(new String[] { "Given list a, list b; Find c st child(a,c) & !child(b,c)", "" });
 		for (String[] ps : probsAndSols) {
 			Input input = QuickParser.parseInput(ps[0]);
 			InputUtil.desugar(input);
 			String actualSolution = ProblemState.getOutputString(new ProblemSolver(input, theorems
 					.toArray(new Theorem[0])).getSolution());
+			if (actualSolution == null) {
+				System.err.println("No solution for problem \"" + ps[0] + "\"");
+				System.out.println("Expected a solution starting with :");
+				System.out.println(ps[1] + "\n");
+			}
+			assertNotNull(actualSolution);
 			String desiredAdjusted = ps[1].trim();
 			String actualAdjusted = actualSolution.trim().substring(0,
 					Math.min(actualSolution.trim().length(), desiredAdjusted.length()));

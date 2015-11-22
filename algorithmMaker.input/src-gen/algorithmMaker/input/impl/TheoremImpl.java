@@ -442,7 +442,7 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append(requirement + ":-" + result + ',' + cost + ',' + description);
+		ret.append(requirement + "->" + result + ',' + cost + ',' + description);
 		return ret.toString();
 	}
 

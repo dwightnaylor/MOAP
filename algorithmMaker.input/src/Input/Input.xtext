@@ -4,6 +4,11 @@ grammar algorithmMaker.Input with org.eclipse.xtext.common.Terminals
 //TODO: Nested atomics?? Worry about this...
 //TODO: Deal with variables declared inside a test() condition
 //TODO: if get(x,i,xi) is used, test for index(x,i) automatically
+//FIXME: Make sugar a separate syntactic artifact that can be completely removed after desugaring.
+//		 The most prominent example of this is for nested atomics. The way these are done now is by allowing
+//		 a general nested atomic input style. This is terrible. The core syntax just shouldn't allow this,
+//		 but we should have a separate syntactic element that is only used in parsing which does allow it.
+//		 Then when we desugar, we can get rid of it.
 generate input "http://www.Input"
 
 //NOTE: Any changes to the formatting should be reflected with changes here.
@@ -54,7 +59,7 @@ BooleanLiteral:
 	value=("TRUE" | "FALSE");
 
 Theorem:
-	Requirement=ORing ":-" Result=ORing ',' Cost=INT ',' Description=STRING (',' PseudoCode=STRING)?;
+	Requirement=ORing "->" Result=ORing ',' Cost=INT ',' Description=STRING (',' PseudoCode=STRING)?;
 
 	//**********Math things**********
 Addition returns NumericalProperty:
