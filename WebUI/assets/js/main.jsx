@@ -4,23 +4,21 @@
 
 var React = require("react");
 var ReactDOM = require("react-dom");
-var ReactRouter = require("react-router");
-var Router = ReactRouter.Router;
-var Route = ReactRouter.Route;
-var Link = ReactRouter.Link;
 var injectEventTapPlugin = require("react-tap-event-plugin");
 var mui = require("material-ui");
 var AppBar = mui.AppBar;
 var TextField = mui.TextField;
 var RaisedButton = mui.RaisedButton;
 var CircularProgress = mui.CircularProgress;
+var IconButton = mui.IconButton;
 
 injectEventTapPlugin();
 
 var Main = React.createClass({
   getInitialState: function() {
     return {
-      isLoading: false
+      isLoading: false,
+      helpActive: false
     };
   },
 
@@ -49,6 +47,11 @@ var Main = React.createClass({
     right: 'auto'
   },
 
+  helpButtonStyle: {
+    width: '40px',
+    height: '40px'
+  },
+
   childContextTypes: {
   },
 
@@ -59,10 +62,27 @@ var Main = React.createClass({
 
   render() {
     return (
+
       <div>
         <AppBar
           title="Mother of All Programs"
+          iconElementRight={
+            <RaisedButton
+              primary={true}
+              label="Help"
+              onClick={this.toggleHelp}
+              style={this.helpButtonStyle}
+            /> 
+          }
         />
+        {
+          this.state.helpActive ?
+          <div style={{position: 'fixed', right: '0px', top: '64px', bottom: '0px', height: 'auto', padding: '0px 10px', width: '22%', backgroundColor: '#ddd'}}>
+            <Help 
+            />
+          </div>
+          : null
+        }
         <TextField
           id="problemSubmissionField"
           ref="problemSubmissionField"
@@ -116,6 +136,10 @@ var Main = React.createClass({
         this.setState({ isLoading: false });
       }.bind(this)
     });
+  },
+
+  toggleHelp() {
+    this.setState({ helpActive: !this.state.helpActive });   
   }
 });
 
@@ -133,18 +157,28 @@ var Help = React.createClass({
   render() {
     return (
       <div>
-        <h1>
-          Help Page
-        </h1>
+        <h2>Hello, and Welcome to MOAP!</h2>
+        <p>MOAP (the Mother Of All Programs) is a program that automatically generates computer algorithms for you! To use MOAP, you simply have to enter your problem in our input language, and MOAP will give you the pseudocode to solve your problem.</p>
+
+        <p>What is this input language? It's very simple, and is meant to be very similar to the way you explain a problem naturally. We've included some examples here:</p>
+
+        <p>"Find an even number in a list of numbers"<br />
+        <strong>Given list&lt;int&gt; x; Find y st child(x,y) & even(y)</strong></p>
+
+        <p>"Given a list of things, find two things that are equal"<br />
+        <strong>Given list x; Find y,z st child(x,y) & child(x,z) & equal(y,z)</strong></p>
+
+        <p>"Given a list of numbers, find the largest one"<br />
+        <strong>Given list&lt;number&gt; x; Find z st child(x,z) & forall(y st child(x,y) : lessThanEqual(y,z))</strong></p>
+        
+        <p>The Two-Sum Problem:<br />
+        "Given a list of numbers and a number s, find two numbers in the list which sum to s"<br />
+        <strong>Given list x, int s; Find y,z st child(x,y) & child(x,z) & plus(y,z,s)</strong></p>
       </div>
     );
   }
 });
 
 ReactDOM.render((
-  <Router>
-    <Route path="/" component={Main}>
-      <Route path="help" component={Help}/>
-    </Route>
-  </Router>
+  <Main />
 ), document.getElementById('main-header'));
