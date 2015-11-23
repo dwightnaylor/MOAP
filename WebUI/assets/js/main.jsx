@@ -44,7 +44,8 @@ var Main = React.createClass({
     width: '40%',
     margin: '15px auto',
     left: 'auto',
-    right: 'auto'
+    right: 'auto',
+    color: '#000'
   },
 
   helpButtonStyle: {
@@ -128,7 +129,7 @@ var Main = React.createClass({
       crossDomain: false,
       data: "problem="+escape(submissionString),
       success: function(resp){
-        this.refs.problemSolutionField.setValue(resp.response);
+        this.refs.problemSolutionField.setValue(resp);
         this.setState({ isLoading: false });
       }.bind(this),
       error: function(XMLHttpRequest, textStatus, errorThrown){

@@ -4,3 +4,7 @@ body {
   padding: 0px;
   margin: 0px;
 }
+
+#problemSolutionField {
+  color: #000 !important;
+}
