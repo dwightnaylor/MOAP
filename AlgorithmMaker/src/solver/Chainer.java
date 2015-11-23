@@ -8,28 +8,21 @@ import java.util.Hashtable;
 
 import theorems.Fact;
 import theorems.MultistageTheorem;
-import algorithmMaker.input.ANDing;
-import algorithmMaker.input.Argument;
-import algorithmMaker.input.Atomic;
-import algorithmMaker.input.Property;
-import algorithmMaker.input.Theorem;
-import algorithmMaker.input.Variable;
+import algorithmMaker.input.*;
 import algorithmMaker.util.InputUtil;
 import bindings.Binding;
 import bindings.MutableBinding;
 
 /**
- * Chains together facts using existing theorems to arrive at conclusions.
- * Includes "costs" for each theorem, which allow a priority-queue to determine
- * when each theorem should be applied.
+ * Chains together facts using existing theorems to arrive at conclusions. Includes "costs" for each theorem, which
+ * allow a priority-queue to determine when each theorem should be applied.
  * 
  * @author Dwight Naylor
  * @since 9/14/15
  */
 public class Chainer {
 	/**
-	 * Map from the method name to the list of theorems that may be looking for
-	 * its use.
+	 * Map from the method name to the list of theorems that may be looking for its use.
 	 */
 	private Hashtable<Property, HashSet<Theorem>> theoremCatchers = new Hashtable<Property, HashSet<Theorem>>();
 	private boolean isGivenChainer = true;
@@ -38,8 +31,8 @@ public class Chainer {
 	public Hashtable<Property, HashSet<Fact<? extends Property>>> propertiesByStructure = new Hashtable<Property, HashSet<Fact<? extends Property>>>();
 	private Hashtable<String, HashSet<Fact<? extends Property>>> propertiesByVariable = new Hashtable<String, HashSet<Fact<? extends Property>>>();
 	/**
-	 * The equality atomics for each given variable (namely, all of the
-	 * equals(x,y) assertions for which x is the key variable)
+	 * The equality atomics for each given variable (namely, all of the equals(x,y) assertions for which x is the key
+	 * variable)
 	 */
 	private Hashtable<Argument, HashSet<Fact<Atomic>>> equalities = new Hashtable<Argument, HashSet<Fact<Atomic>>>();
 
@@ -200,9 +193,8 @@ public class Chainer {
 	}
 
 	/**
-	 * Attempts to propagate new facts from the asserted fact, using the given
-	 * theorem. Assumes that the asserted fact has already been added to the
-	 * database.
+	 * Attempts to propagate new facts from the asserted fact, using the given theorem. Assumes that the asserted fact
+	 * has already been added to the database.
 	 */
 	private void attemptPropagation(Theorem theorem, Fact<? extends Property> fact, Property asserted,
 			MutableBinding binding) {
@@ -269,6 +261,7 @@ public class Chainer {
 				}
 				binding = newBinding;
 			}
+
 			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem, binding.getPrerequisites()
 					.toArray(new Fact<?>[0]));
 		}
@@ -285,7 +278,7 @@ public class Chainer {
 
 		Atomic toSatisfy = (Atomic) atomicsToSatisfy.get(index);
 		if (index == lastUsableIndex && !usedAsserted) {
-			if (!binding.canBind(toSatisfy, fact.property))
+			if (!InputUtil.devar(toSatisfy).equals(InputUtil.devar(fact.property)))
 				return;
 
 			binding.applyBinding(toSatisfy, fact);
@@ -295,7 +288,7 @@ public class Chainer {
 			binding.undoLastBinding();
 		} else {
 			for (Fact<? extends Property> candidate : propertiesByStructure.get(InputUtil.devar(toSatisfy))) {
-				if (binding.canBind(toSatisfy, candidate.property)) {
+				if (InputUtil.devar(toSatisfy).equals(InputUtil.devar(candidate.property))) {
 					binding.applyBinding(toSatisfy, candidate);
 
 					attemptPropagation(theorem, atomicsToSatisfy, index + 1, fact,
@@ -306,7 +299,7 @@ public class Chainer {
 			}
 		}
 	}
-	
+
 	public HashSet<Property> copyProperties() {
 		HashSet<Property> atomics = new HashSet<Property>();
 		atomics.addAll(properties.keySet());

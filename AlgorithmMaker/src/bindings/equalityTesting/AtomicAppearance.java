@@ -4,16 +4,14 @@ public class AtomicAppearance extends Appearance {
 	final String function;
 	final int argumentNumber;
 
-	public AtomicAppearance(String function, int argumentNumber) {
+	public AtomicAppearance(String function, int argumentNumber, Appearance parentAppearance) {
+		super(parentAppearance);
 		this.function = function;
 		this.argumentNumber = argumentNumber;
 	}
 
 	@Override
-	public int compareTo(Appearance appearance) {
-		if (getClass() != appearance.getClass()) {
-			return getClass().toString().compareTo(appearance.getClass().toString());
-		}
+	public int compareToSameType(Appearance appearance) {
 		AtomicAppearance other = (AtomicAppearance) appearance;
 		int functionCompare = function.compareTo(other.function);
 		if (functionCompare != 0)
@@ -23,16 +21,7 @@ public class AtomicAppearance extends Appearance {
 	}
 
 	@Override
-	public boolean equals(Object object) {
-		if (!(object instanceof AtomicAppearance))
-			return false;
-
-		AtomicAppearance other = (AtomicAppearance) object;
-		return function.equals(other.function) && argumentNumber == other.argumentNumber;
-	}
-
-	@Override
-	public int hashCode() {
+	public int hashDeclaredData() {
 		return function.hashCode() + argumentNumber;
 	}
 }

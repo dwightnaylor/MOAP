@@ -59,6 +59,11 @@ public class QuickParser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+//		if (resource.getErrors().size() > 0) {
+//			System.err.println(queryString + " has errors " + resource.getErrors());
+//			return null;
+//		}
+
 		return resource.getContents().get(0);
 	}
 }

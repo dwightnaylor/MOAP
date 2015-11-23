@@ -70,19 +70,19 @@ public class MultiTheoremParser {
 		ArrayList<String[]> tests = new ArrayList<String[]>();
 		tests.add(new String[] { BOUND + "(x)", "even(x)", "if <x> % 2 == 0" });
 		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)", EQUAL + "(x,y)", "if <x> == <y>" });
-		tests.add(
-				new String[] { BOUND + "(x)&" + BOUND + "(y)&" + BOUND + "(z)", "plus(x,y,z)", "if <x> + <y> == <z>" });
+		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)&" + BOUND + "(z)", "plus(x,y,z)", "if <x> + <y> == <z>" });
 		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)", "lessThanEqual(x,y)", "if <x> <= <y>" });
 		tests.add(new String[] { BOUND + "(x) & " + BOUND + "(i) & " + BOUND + "(xi)", "get(x,i,xi)",
 				"if <x>.get(<i>) == <xi>" });
+
+		tests.add(new String[] { "HACKfast_child_check(x) & " + BOUND + "(y)", "child(x,y)", "if <x>.contains(<y>)" });
 		for (String[] test : tests) {
 			MultistageTheorem testing = new MultistageTheorem(parseProperty(test[0]), parseProperty(test[1]),
 					parseProperty(test[1]), null, 1, "Simple test.", test[2]);
 			testing.requireGoalTask(TEST);
 			ret.add(testing);
-			MultistageTheorem negatedTesting = new MultistageTheorem(parseProperty(test[0]),
-					parseProperty("!" + test[1]), parseProperty("!" + test[1]), null, 1, "Simple negated test.",
-					invert(test[2]));
+			MultistageTheorem negatedTesting = new MultistageTheorem(parseProperty(test[0]), parseProperty("!"
+					+ test[1]), parseProperty("!" + test[1]), null, 1, "Simple negated test.", invert(test[2]));
 			negatedTesting.requireGoalTask(TEST);
 			ret.add(negatedTesting);
 		}
@@ -112,6 +112,6 @@ public class MultiTheoremParser {
 			if (compare.contains(pair[1]))
 				return compare.replace(pair[1], pair[0]);
 		}
-		return "NEGATED(" + compare + ")";
+		return compare.replace("if ", "if !");
 	}
 }

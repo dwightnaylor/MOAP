@@ -268,7 +268,7 @@ public class ProblemSolver {
 			}
 			addProblemState(newProblem, problemState, new MultistageTheorem(null, null, null, 0,
 					"Brute-force checking of a quantifier.", code.toString()), Binding.singleton("nb",
-					InputUtil.createVariable(InputUtil.getUnusedVar(declaredVars))));
+					InputUtil.getUnusedVar(declaredVars)));
 		}
 	}
 

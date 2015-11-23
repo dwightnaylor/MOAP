@@ -22,8 +22,8 @@ import algorithmMaker.util.InputConverter;
 import algorithmMaker.util.InputUtil;
 
 /**
- * A class for fundamental transformations of input. All simple operations
- * should instead go in InputUtil.java in the algorithmMaker.input project.
+ * A class for fundamental transformations of input. All simple operations should instead go in InputUtil.java in the
+ * algorithmMaker.input project.
  * 
  * @author Dwight Naylor
  */
@@ -37,15 +37,12 @@ public class TransformUtil {
 	public static final Theorem EQUAL = new QuickTheorem(null, null, 0, "Equal variables share properties.");
 
 	public static boolean isSolved(Problem problem) {
-		// TODO:DN: Do this better
-		Problem solved = QuickParser.parseProblem("x st TRUE");
-		solved.getVars().clear();
-		return solved.equals(problem);
+		return problem.getProperty().equals(InputUtil.getBooleanLiteral(true));
 	}
 
 	/**
-	 * Reduces the given input by taking things out of the goal if they are in
-	 * the given, and reducing variable use in both halves.
+	 * Reduces the given input by taking things out of the goal if they are in the given, and reducing variable use in
+	 * both halves.
 	 */
 	public static Input removeGivenFromGoal(Input input, Chainer chainer) {
 		Input inputRet = InputUtil.stupidCopy(input);

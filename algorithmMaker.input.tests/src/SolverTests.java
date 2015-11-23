@@ -30,9 +30,9 @@ public class SolverTests {
 
 	@Test
 	public void testProblemResolution() {
-		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty("a(x)"), parseProperty("b(x)"),
-				parseProperty("b(x)"), null, 0, "test", null);
-		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x st a(x); Find x st b(x)"),
+		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty("a(x)"), parseProperty("b(x,y)"),
+				parseProperty("b(x,y)"), null, 0, "test", null);
+		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x st a(x); Find y st b(x,y)"),
 				multistageTheorem);
 		solver.branch();
 		solver.branch();
@@ -67,6 +67,8 @@ public class SolverTests {
 		ArrayList<Theorem> theorems = TheoremParser.parseFiles();
 		theorems.addAll(MultiTheoremParser.parseFiles());
 		ArrayList<String[]> probsAndSols = new ArrayList<String[]>();
+		// These are all the problem/solution pairs. If there is no solution or only part of a solution, the program
+		// will only make sure the real solution matches up until whatever's given (no given means any solution works).
 		probsAndSols.add(new String[] { "Given list<int>(a); Find b st child(a,b) & even(b)",
 				"foreach child b of a\n\tif b % 2 == 0\n\t\t" });
 		probsAndSols.add(new String[] { "Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c) & even(c)",
@@ -75,8 +77,12 @@ public class SolverTests {
 		probsAndSols.add(new String[] { "Given array x; Find y st index(x,y) & get(x,y,y)",
 				"foreach index y of x\n\tif x.get(y) == y" });
 		probsAndSols.add(new String[] { "Given list x; Find y,z st child(x,y) & child(x,z) & equal(y,z)",
-				"foreach child y of x\n\tforeach child z of x\n\t\tif y == z" });
+				"foreach child y of x\n\tforeach child z of x" });
 		probsAndSols.add(new String[] { "Given list a, list b; Find c st child(a,c) & !child(b,c)", "" });
+		probsAndSols.add(new String[] {
+				"Given list a, list b, list c; Find d st child(a,d) & child(b,d) & !child(c,d)", "" });
+		probsAndSols.add(new String[] {
+				"Given list a, hashset b, hashset c; Find d st child(a,d) & child(b,d) & !child(c,d)", "" });
 		for (String[] ps : probsAndSols) {
 			Input input = QuickParser.parseInput(ps[0]);
 			InputUtil.desugar(input);

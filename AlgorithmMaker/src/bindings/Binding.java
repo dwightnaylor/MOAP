@@ -10,11 +10,32 @@ import algorithmMaker.util.InputUtil;
 
 public class Binding {
 	public static final Binding EMPTY = new MutableBinding().getImmutable();
+
 	Hashtable<String, Argument> bindings = new Hashtable<String, Argument>();
 	ArrayList<Fact<? extends Property>> prerequisites = new ArrayList<Fact<? extends Property>>();
 
 	public String toString() {
 		return "Binding:" + bindings.toString();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!(obj instanceof Binding))
+			return false;
+
+		Binding binding = (Binding) obj;
+		if (bindings.size() != binding.bindings.size())
+			return false;
+
+		for (String var : bindings.keySet()) {
+			if (!binding.bindings.containsKey(var))
+				return false;
+
+			if (!binding.bindings.get(var).equals(bindings.get(var)))
+				return false;
+		}
+
+		return true;
 	}
 
 	public boolean hasBinding(Argument originalVar, Argument newVar) {
@@ -23,14 +44,14 @@ public class Binding {
 
 	public boolean canHaveAdditionalBindings(Binding other) {
 		for (String var : other.bindings.keySet())
-			if (bindings.containsKey(var) && !bindings.get(var).equals(other.bindings.get(var)))
+			if (!canBind(var, other.bindings.get(var)))
 				return false;
 
 		return true;
 	}
 
-	public boolean canBind(Property original, Property asserted) {
-		return InputUtil.devar(original).equals(InputUtil.devar(asserted));
+	public boolean canBind(String original, Argument asserted) {
+		return !bindings.containsKey(original) || bindings.get(original).equals(asserted);
 	}
 
 	public Hashtable<Argument, Argument> getArguments() {
@@ -58,9 +79,17 @@ public class Binding {
 		return bindings.size();
 	}
 
-	public static Binding singleton(String string, Argument argument) {
+	public static Binding singleton(String string, String argument) {
 		MutableBinding ret = new MutableBinding();
-		ret.bind(string, argument);
+		ret.bind(string, InputUtil.createVariable(argument));
+		return ret.getImmutable();
+	}
+
+	public static Binding createBinding(String[][] bindings) {
+		MutableBinding ret = new MutableBinding();
+		for (String[] binding : bindings)
+			ret.bind(binding[0], InputUtil.createVariable(binding[1]));
+
 		return ret.getImmutable();
 	}
 }

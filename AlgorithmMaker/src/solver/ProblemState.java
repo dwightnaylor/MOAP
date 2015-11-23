@@ -1,11 +1,13 @@
 package solver;
 
+import inputHandling.TransformUtil;
 import algorithmMaker.input.Input;
 import bindings.Binding;
 import theorems.MultistageTheorem;
 
 public class ProblemState implements Comparable<ProblemState> {
 	public Input problem;
+	private String toStringSave;
 	public ProblemState parentState;
 	Binding rootTheoremBinding;
 	public MultistageTheorem rootTheorem;
@@ -16,9 +18,12 @@ public class ProblemState implements Comparable<ProblemState> {
 		this.rootTheorem = multistageTheorem;
 		this.rootTheoremBinding = binding;
 	}
-	
+
 	public String toString() {
-		return problem.toString();
+		if (toStringSave == null)
+			toStringSave = TransformUtil.makePretty(problem).toString();
+
+		return toStringSave;
 	}
 
 	public int getDepth() {
