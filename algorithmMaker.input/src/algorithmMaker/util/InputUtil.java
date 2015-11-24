@@ -31,8 +31,9 @@ import algorithmMaker.input.Variable;
 import algorithmMaker.input.impl.InputFactoryImpl;
 
 /**
- * The class for basic operations on the ecore Input objects. Anything that does a fundamental transform of the objects
- * should instead go in TransformUtil.java in the AlgorithMaker project.
+ * The class for basic operations on the ecore Input objects. Anything that does
+ * a fundamental transform of the objects should instead go in
+ * TransformUtil.java in the AlgorithMaker project.
  * 
  * @author Dwight Naylor
  */
@@ -58,8 +59,9 @@ public class InputUtil {
 	};
 
 	/**
-	 * All of the types that should appear in the reduced kernel language. These are listed here to allow for easy
-	 * switch-statement use over all of the kernel types. Just use a switch statement over the
+	 * All of the types that should appear in the reduced kernel language. These
+	 * are listed here to allow for easy switch-statement use over all of the
+	 * kernel types. Just use a switch statement over the
 	 * kernelType(object.getClass()) of your object.<br>
 	 * <br>
 	 * These all seem to be subclasses of Property...
@@ -90,18 +92,6 @@ public class InputUtil {
 
 		return null;
 	}
-	
-	/**
-	 * Sets the given problem to contain all the variables that appear within it.
-	 */
-	public static void compactVariables(Problem problem) {
-		problem.getVars().clear();
-		ArrayList<Declaration> declarations = new ArrayList<Declaration>();
-		for (String var : InputUtil.getUnboundVariables(problem.getProperty()))
-			declarations.add(createDeclaration(var));
-
-		problem.getVars().addAll(declarations);
-	}
 
 	public static Property sort(Property original) {
 		if (!(original instanceof ANDing))
@@ -113,8 +103,10 @@ public class InputUtil {
 	}
 
 	/**
-	 * Creates a copy of the given property, but with all variables converted according to the given hashtable. <br>
-	 * TODO: Make this and the binding.revar and binding.applybinding more clearly named and separated.
+	 * Creates a copy of the given property, but with all variables converted
+	 * according to the given hashtable. <br>
+	 * TODO: Make this and the binding.revar and binding.applybinding more
+	 * clearly named and separated.
 	 */
 	public static Property revar(Property property, Hashtable<Argument, Argument> revars) {
 		Property clone = stupidCopy(property);
@@ -127,16 +119,16 @@ public class InputUtil {
 			// FIXME: DN: Don't use a direct cast here
 			if (cur instanceof Declaration
 					&& revars.containsKey(InputUtil.createVariable(((Declaration) cur).getVarName())))
-				((Declaration) cur).setVarName(((Variable) revars.get(InputUtil.createVariable(((Declaration) cur)
-						.getVarName()))).getArg());
+				((Declaration) cur).setVarName(
+						((Variable) revars.get(InputUtil.createVariable(((Declaration) cur).getVarName()))).getArg());
 		}
 		if (clone instanceof Atomic)
 			((Atomic) clone).getArgs().replaceAll(x -> revars.containsKey(x) ? EcoreUtil.copy(revars.get(x)) : x);
 
 		if (clone instanceof Declaration
 				&& revars.containsKey(InputUtil.createVariable(((Declaration) clone).getVarName())))
-			((Declaration) clone).setVarName(((Variable) revars.get(InputUtil.createVariable(((Declaration) clone)
-					.getVarName()))).getArg());
+			((Declaration) clone).setVarName(
+					((Variable) revars.get(InputUtil.createVariable(((Declaration) clone).getVarName()))).getArg());
 
 		return clone;
 	}
@@ -152,16 +144,16 @@ public class InputUtil {
 			// FIXME: DN: Don't use a direct cast here
 			if (cur instanceof Declaration
 					&& revars.containsKey(InputUtil.createVariable(((Declaration) cur).getVarName())))
-				((Declaration) cur).setVarName(((Variable) revars.get(InputUtil.createVariable(((Declaration) cur)
-						.getVarName()))).getArg());
+				((Declaration) cur).setVarName(
+						((Variable) revars.get(InputUtil.createVariable(((Declaration) cur).getVarName()))).getArg());
 		}
 		if (clone instanceof Atomic)
 			((Atomic) clone).getArgs().replaceAll(x -> revars.containsKey(x) ? EcoreUtil.copy(revars.get(x)) : x);
 
 		if (clone instanceof Declaration
 				&& revars.containsKey(InputUtil.createVariable(((Declaration) clone).getVarName())))
-			((Declaration) clone).setVarName(((Variable) revars.get(InputUtil.createVariable(((Declaration) clone)
-					.getVarName()))).getArg());
+			((Declaration) clone).setVarName(
+					((Variable) revars.get(InputUtil.createVariable(((Declaration) clone).getVarName()))).getArg());
 
 		return clone;
 	}
@@ -198,8 +190,8 @@ public class InputUtil {
 	public static Problem stupidCopy(Problem problem) {
 		if (problem.getVars() == null || problem.getVars().size() == 0) {
 			Problem ret = InputFactoryImpl.eINSTANCE.createProblem();
-			ret.setProperty(problem.getProperty() == null ? InputUtil.getBooleanLiteral(true) : stupidCopy(problem
-					.getProperty()));
+			ret.setProperty(problem.getProperty() == null ? InputUtil.getBooleanLiteral(true)
+					: stupidCopy(problem.getProperty()));
 			return ret;
 		}
 		return QuickParser.parseProblem(problem.toString());
@@ -252,11 +244,22 @@ public class InputUtil {
 		return rhs;
 	}
 
-	public static EObject getDeclaringObject(EObject property, String var) {
+	public static EObject getDeclaringObject(Variable property) {
 		EObject parent = property;
+		String var = property.getArg();
 		while (parent != null) {
 			if (parent instanceof Problem)
 				for (Declaration declaration : ((Problem) parent).getVars())
+					if (var.equals(declaration.getVarName()))
+						return parent;
+
+			if (parent instanceof Input)
+				for (Declaration declaration : ((Input) parent).getGiven().getVars())
+					if (var.equals(declaration.getVarName()))
+						return parent;
+
+			if (parent instanceof Quantifier)
+				for (Declaration declaration : ((Quantifier) parent).getSubject().getVars())
 					if (var.equals(declaration.getVarName()))
 						return parent;
 
@@ -265,6 +268,7 @@ public class InputUtil {
 		return null;
 	}
 
+	// FIXME: DN: Redo this method, ignores input/quantifier declarations!
 	public static HashSet<String> getUnboundVariables(EObject property) {
 		HashSet<String> unboundVars = new HashSet<String>();
 		TreeIterator<EObject> contents = property.eAllContents();
@@ -272,7 +276,7 @@ public class InputUtil {
 			// Iterate through everything, including the property itself
 			if (property instanceof Variable) {
 				String arg = ((Variable) property).getArg();
-				if (getDeclaringObject(property, arg) == null)
+				if (getDeclaringObject(((Variable) property)) == null)
 					unboundVars.add(arg);
 			}
 
@@ -376,8 +380,10 @@ public class InputUtil {
 	}
 
 	/**
-	 * Canonicalizes the given Property (makes a new version that is canonicalized) according to the rules at
-	 * http://integral-table.com/downloads/logic.pdf. No changes are made to the original input.<br>
+	 * Canonicalizes the given Property (makes a new version that is
+	 * canonicalized) according to the rules at
+	 * http://integral-table.com/downloads/logic.pdf. No changes are made to the
+	 * original input.<br>
 	 * <br>
 	 * Rules not included:<br>
 	 * Associative : grouping is eliminated during parsing
@@ -749,8 +755,9 @@ public class InputUtil {
 	private static Hashtable<Property, Property> devarred = new Hashtable<Property, Property>();
 
 	/**
-	 * Removes all variable names from the given object, replacing them with nameless variables. This is used for using
-	 * the "structure" of an expression as its hash key, or for counting similar expressions.
+	 * Removes all variable names from the given object, replacing them with
+	 * nameless variables. This is used for using the "structure" of an
+	 * expression as its hash key, or for counting similar expressions.
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends Property> T devar(T object) {

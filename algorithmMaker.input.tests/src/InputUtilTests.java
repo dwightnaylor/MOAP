@@ -97,6 +97,6 @@ public class InputUtilTests {
 
 	@Test
 	public void testDevar() {
-		assertEquals(InputUtil.getAtomic("a", "_"), devar(parseProperty("a(x)")));
+		assertEquals(InputUtil.getAtomic("a", "_"), devar(InputUtil.getAtomic("a", "x")));
 	}
 }

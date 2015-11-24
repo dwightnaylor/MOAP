@@ -21,7 +21,7 @@ public class ToStringTests {
 
 	@Test
 	public void testToStringForInputs() {
-		String[] originals = { "Given x st a(x); Find y st a(y)", "Given x st a(x); Test a(y)",
+		String[] originals = { "Given x st a(x); Find y st a(y)", "Given x st a(x); Test b(x)",
 				"Given x,y st type_list(x) & child(x,y); Test even(y)",
 				"Given list<int> x; Find z st child(x,z) & forall(y st child(x,y) : lessThanEqual(y,z))",
 				"Given list<int> x; Find y st child(x,y) & even(y)"};

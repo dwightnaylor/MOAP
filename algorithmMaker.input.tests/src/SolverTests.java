@@ -43,7 +43,7 @@ public class SolverTests {
 	public void testMultipleBranchingExclusion() {
 		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty("a(x)"), parseProperty("b(x)"),
 				parseProperty("b(x)"), null, 0, "test", null);
-		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x st a(x) & a(x); Find x st b(x)"),
+		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x st a(x) & a(x); Test b(x)"),
 				multistageTheorem);
 		solver.branch();
 		assertEquals(QuickParser.parseInput("Given x st a(x) & b(x);"), solver.problemStates.peek().problem);
@@ -54,7 +54,7 @@ public class SolverTests {
 		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty(InputUtil.BOUND + "(x) & "
 				+ InputUtil.BOUND + "(y)"), parseProperty("equal(x,y)"), parseProperty("equal(x,y)"), null, 0, "test",
 				null);
-		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x,y st a(x,y); Find x st equal(x,y)"),
+		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x,y st a(x,y); Test equal(x,y)"),
 				multistageTheorem);
 		solver.branch();
 		assertEquals(QuickParser.parseInput("Given x,y st a(x,y) & equal(x,y);"), solver.problemStates.peek().problem);
@@ -88,8 +88,8 @@ public class SolverTests {
 					.toArray(new Theorem[0])).getSolution());
 			if (actualSolution == null) {
 				System.err.println("No solution for problem \"" + ps[0] + "\"");
-				System.out.println("Expected a solution starting with :");
-				System.out.println(ps[1] + "\n");
+				System.err.println("Expected a solution starting with :");
+				System.err.println(ps[1] + "\n");
 			}
 			assertNotNull(actualSolution);
 			String desiredAdjusted = ps[1].trim();

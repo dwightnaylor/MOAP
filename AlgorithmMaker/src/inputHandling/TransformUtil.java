@@ -22,8 +22,8 @@ import algorithmMaker.util.InputConverter;
 import algorithmMaker.util.InputUtil;
 
 /**
- * A class for fundamental transformations of input. All simple operations should instead go in InputUtil.java in the
- * algorithmMaker.input project.
+ * A class for fundamental transformations of input. All simple operations
+ * should instead go in InputUtil.java in the algorithmMaker.input project.
  * 
  * @author Dwight Naylor
  */
@@ -41,14 +41,13 @@ public class TransformUtil {
 	}
 
 	/**
-	 * Reduces the given input by taking things out of the goal if they are in the given, and reducing variable use in
-	 * both halves.
+	 * Reduces the given input by taking things out of the goal if they are in
+	 * the given, and reducing variable use in both halves.
 	 */
-	public static Input removeGivenFromGoal(Input input, Chainer chainer) {
+	public static void removeGivenFromGoal(Input input, Chainer chainer) {
 		if (input.getGoal() == null)
-			return input;
+			return;
 
-		Input inputRet = InputUtil.stupidCopy(input);
 		HashSet<Property> toRemove = new HashSet<Property>();
 		ArrayList<Declaration> vars = new ArrayList<Declaration>();
 		vars.addAll(input.getGiven().getVars());
@@ -63,23 +62,39 @@ public class TransformUtil {
 		Property given = input.getGiven().getProperty();
 		if (given != null) {
 			Property reducedGiven = (Property) removeProperties(given, toRemove);
-			inputRet.getGiven().setProperty(reducedGiven == null ? QuickParser.parseProperty("TRUE") : reducedGiven);
+			input.getGiven().setProperty(reducedGiven == null ? QuickParser.parseProperty("TRUE") : reducedGiven);
 		}
 
-		chainer.chain(inputRet.getGiven().getProperty(), GIVEN);
+		chainer.chain(input.getGiven().getProperty(), GIVEN);
 		toRemove.addAll(chainer.copyProperties());
 		Property find = input.getGoal().getProperty();
 		if (find != null) {
 			Property reducedFind = (Property) removeProperties(find, toRemove);
-			inputRet.getGoal().setProperty(reducedFind == null ? QuickParser.parseProperty("TRUE") : reducedFind);
+			input.getGoal().setProperty(reducedFind == null ? QuickParser.parseProperty("TRUE") : reducedFind);
 		}
 
-		InputUtil.compactVariables(inputRet.getGiven());
+		compactVariables(input.getGiven(), input.getGoal());
 
-		if (inputRet.getGoal().getProperty().equals(InputUtil.getBooleanLiteral(true)))
-			inputRet.setGoal(null);
-		
-		return inputRet;
+		if (input.getGoal().getProperty().equals(InputUtil.getBooleanLiteral(true)))
+			input.setGoal(null);
+	}
+
+	/**
+	 * Sets the given problem to contain all the variables that appear within
+	 * it. Removes any of the variables in the given from the goal.
+	 */
+	public static void compactVariables(Problem given, Problem goal) {
+		given.getVars().clear();
+		ArrayList<Declaration> declarations = new ArrayList<Declaration>();
+		for (String var : InputUtil.getUnboundVariables(given.getProperty()))
+			declarations.add(InputUtil.createDeclaration(var));
+
+		given.getVars().addAll(declarations);
+
+		// This is done in n^2 time here because we want to preserve order and
+		// I'm lazy.
+		for (Declaration declaration : given.getVars())
+			goal.getVars().removeIf(x -> x.getVarName().equals(declaration.getVarName()));
 	}
 
 	public static EObject removeProperties(EObject originalObject, HashSet<? extends Property> toRemove) {
@@ -127,16 +142,16 @@ public class TransformUtil {
 							Atomic atomic = (Atomic) topLevelAtomics.get(i);
 							String function = atomic.getFunction();
 							if (InputUtil.isTypeAtomic(function)) {
-								Declaration declaration = InputUtil.findDeclarationFor((Variable) atomic.getArgs().get(
-										0));
+								Declaration declaration = InputUtil
+										.findDeclarationFor((Variable) atomic.getArgs().get(0));
 								if (declaration.getType() == null)
 									declaration.setType(InputFactoryImpl.eINSTANCE.createType());
 
 								declaration.getType().setName(InputUtil.getDeclaredType(function));
 								topLevelAtomics.remove(i--);
 							} else if (InputUtil.isChildTypeAtomic(function)) {
-								Declaration declaration = InputUtil.findDeclarationFor((Variable) atomic.getArgs().get(
-										0));
+								Declaration declaration = InputUtil
+										.findDeclarationFor((Variable) atomic.getArgs().get(0));
 								if (declaration.getType() == null)
 									declaration.setType(InputFactoryImpl.eINSTANCE.createType());
 
