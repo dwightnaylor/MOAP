@@ -14,6 +14,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link algorithmMaker.input.Theorem#getRequirement <em>Requirement</em>}</li>
+ *   <li>{@link algorithmMaker.input.Theorem#getImplication <em>Implication</em>}</li>
  *   <li>{@link algorithmMaker.input.Theorem#getResult <em>Result</em>}</li>
  *   <li>{@link algorithmMaker.input.Theorem#getCost <em>Cost</em>}</li>
  *   <li>{@link algorithmMaker.input.Theorem#getDescription <em>Description</em>}</li>
@@ -51,6 +52,32 @@ public interface Theorem extends EObject
    * @generated
    */
   void setRequirement(Property value);
+
+  /**
+   * Returns the value of the '<em><b>Implication</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Implication</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Implication</em>' attribute.
+   * @see #setImplication(String)
+   * @see algorithmMaker.input.InputPackage#getTheorem_Implication()
+   * @model
+   * @generated
+   */
+  String getImplication();
+
+  /**
+   * Sets the value of the '{@link algorithmMaker.input.Theorem#getImplication <em>Implication</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Implication</em>' attribute.
+   * @see #getImplication()
+   * @generated
+   */
+  void setImplication(String value);
 
   /**
    * Returns the value of the '<em><b>Result</b></em>' containment reference.

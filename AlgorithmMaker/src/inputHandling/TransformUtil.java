@@ -45,6 +45,9 @@ public class TransformUtil {
 	 * both halves.
 	 */
 	public static Input removeGivenFromGoal(Input input, Chainer chainer) {
+		if (input.getGoal() == null)
+			return input;
+
 		Input inputRet = InputUtil.stupidCopy(input);
 		HashSet<Property> toRemove = new HashSet<Property>();
 		ArrayList<Declaration> vars = new ArrayList<Declaration>();
@@ -72,6 +75,10 @@ public class TransformUtil {
 		}
 
 		InputUtil.compactVariables(inputRet.getGiven());
+
+		if (inputRet.getGoal().getProperty().equals(InputUtil.getBooleanLiteral(true)))
+			inputRet.setGoal(null);
+		
 		return inputRet;
 	}
 

@@ -44,9 +44,9 @@ public class TransformUtilTests {
 
 	@Test
 	public void testMakePrettyForProblems() {
-		assertEquals(parseProblem("int(a) st blah(a)"),
+		assertEquals(parseProblem("int a st blah(a)"),
 				TransformUtil.makePretty(parseProblem("a st type_int(a) & blah(a)")));
-		assertEquals(parseProblem("list<int>(a) st blah(a)"),
+		assertEquals(parseProblem("list<int> a st blah(a)"),
 				TransformUtil.makePretty(parseProblem("a st type_list(a) & child_type_int(a) & blah(a)")));
 
 		String[] sames = { "y st forall(x st blah(x): something(x))", "x st a(x,x)" };

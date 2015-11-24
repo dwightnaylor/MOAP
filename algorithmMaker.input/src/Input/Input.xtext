@@ -13,17 +13,21 @@ generate input "http://www.Input"
 
 //NOTE: Any changes to the formatting should be reflected with changes here.
 Input:
-	'Given' given=Problem ';' ((task=("Find" | "Count") goal=Problem) | (task="Test" '(' goal=ProblemNoVars ')'))
+	'Given' given=ProblemPropertyOptional ';' ((task=("Find" | "Count") goal=Problem) | (task="Test" goal=(Problem |
+	ProblemNoVars)))?
 	(';' "Theorems:" theorems+=Theorem (';' theorems+=Theorem)* ';'?)?;
 
 ProblemNoVars returns Problem:
 	property=ORing;
 
-Problem:
+ProblemPropertyOptional returns Problem:
 	(vars+=Declaration) (',' vars+=Declaration)* ('st' property=ORing)?;
 
+Problem:
+	(vars+=Declaration) (',' vars+=Declaration)* 'st' property=ORing;
+
 Declaration:
-	(type=Type)? (varName=ID | ('(' varName=ID ')'));
+	(type=Type)? varName=ID;
 
 Type:
 	name=ID ('<' templateType=Type '>')?;
@@ -59,7 +63,9 @@ BooleanLiteral:
 	value=("TRUE" | "FALSE");
 
 Theorem:
-	Requirement=ORing "->" Result=ORing ',' Cost=INT ',' Description=STRING (',' PseudoCode=STRING)?;
+	Requirement=ORing
+	Implication=("->" | "<-" | "<->")
+	Result=ORing ',' Cost=INT ',' Description=STRING (',' PseudoCode=STRING)?;
 
 	//**********Math things**********
 Addition returns NumericalProperty:

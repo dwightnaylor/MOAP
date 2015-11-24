@@ -28,6 +28,11 @@ public class QuickTheorem extends MinimalEObjectImpl.Container implements Theore
 	}
 
 	@Override
+	public String getImplication() {
+		return "->";
+	}
+
+	@Override
 	public Property getRequirement() {
 		return requirement;
 	}
@@ -74,6 +79,11 @@ public class QuickTheorem extends MinimalEObjectImpl.Container implements Theore
 
 	@Override
 	public void setPseudoCode(String value) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setImplication(String value) {
 		throw new UnsupportedOperationException();
 	}
 }

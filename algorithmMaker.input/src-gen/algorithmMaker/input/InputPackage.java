@@ -494,13 +494,22 @@ public interface InputPackage extends EPackage
   int THEOREM__REQUIREMENT = 0;
 
   /**
+   * The feature id for the '<em><b>Implication</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int THEOREM__IMPLICATION = 1;
+
+  /**
    * The feature id for the '<em><b>Result</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int THEOREM__RESULT = 1;
+  int THEOREM__RESULT = 2;
 
   /**
    * The feature id for the '<em><b>Cost</b></em>' attribute.
@@ -509,7 +518,7 @@ public interface InputPackage extends EPackage
    * @generated
    * @ordered
    */
-  int THEOREM__COST = 2;
+  int THEOREM__COST = 3;
 
   /**
    * The feature id for the '<em><b>Description</b></em>' attribute.
@@ -518,7 +527,7 @@ public interface InputPackage extends EPackage
    * @generated
    * @ordered
    */
-  int THEOREM__DESCRIPTION = 3;
+  int THEOREM__DESCRIPTION = 4;
 
   /**
    * The feature id for the '<em><b>Pseudo Code</b></em>' attribute.
@@ -527,7 +536,7 @@ public interface InputPackage extends EPackage
    * @generated
    * @ordered
    */
-  int THEOREM__PSEUDO_CODE = 4;
+  int THEOREM__PSEUDO_CODE = 5;
 
   /**
    * The number of structural features of the '<em>Theorem</em>' class.
@@ -536,7 +545,7 @@ public interface InputPackage extends EPackage
    * @generated
    * @ordered
    */
-  int THEOREM_FEATURE_COUNT = 5;
+  int THEOREM_FEATURE_COUNT = 6;
 
   /**
    * The meta object id for the '{@link algorithmMaker.input.impl.NumberLiteralImpl <em>Number Literal</em>}' class.
@@ -1084,6 +1093,17 @@ public interface InputPackage extends EPackage
   EReference getTheorem_Requirement();
 
   /**
+   * Returns the meta object for the attribute '{@link algorithmMaker.input.Theorem#getImplication <em>Implication</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Implication</em>'.
+   * @see algorithmMaker.input.Theorem#getImplication()
+   * @see #getTheorem()
+   * @generated
+   */
+  EAttribute getTheorem_Implication();
+
+  /**
    * Returns the meta object for the containment reference '{@link algorithmMaker.input.Theorem#getResult <em>Result</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1620,6 +1640,14 @@ public interface InputPackage extends EPackage
      * @generated
      */
     EReference THEOREM__REQUIREMENT = eINSTANCE.getTheorem_Requirement();
+
+    /**
+     * The meta object literal for the '<em><b>Implication</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute THEOREM__IMPLICATION = eINSTANCE.getTheorem_Implication();
 
     /**
      * The meta object literal for the '<em><b>Result</b></em>' containment reference feature.

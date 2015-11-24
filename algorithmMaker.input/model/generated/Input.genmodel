@@ -50,6 +50,7 @@
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//Theorem">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Theorem/Requirement"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/Implication"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Theorem/Result"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/Cost"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/Description"/>

@@ -384,7 +384,7 @@ public class InputImpl extends MinimalEObjectImpl.Container implements Input
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append("Given " + given + "; " + (task.equals("Test") ? (task + '(' + goal + ')') : (task + ' ' + goal)));
+		ret.append("Given " + given + ";" + (goal == null ? "" : (" " + (task + ' ' + goal))));
 		return ret.toString();
 	}
 

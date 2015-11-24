@@ -39,10 +39,11 @@ public class InputParser extends AbstractContentAssistParser {
 				{
 					put(grammarAccess.getInputAccess().getAlternatives_3(), "rule__Input__Alternatives_3");
 					put(grammarAccess.getInputAccess().getTaskAlternatives_3_0_0_0(), "rule__Input__TaskAlternatives_3_0_0_0");
-					put(grammarAccess.getDeclarationAccess().getAlternatives_1(), "rule__Declaration__Alternatives_1");
+					put(grammarAccess.getInputAccess().getGoalAlternatives_3_1_1_0(), "rule__Input__GoalAlternatives_3_1_1_0");
 					put(grammarAccess.getPrimaryAccess().getAlternatives(), "rule__Primary__Alternatives");
 					put(grammarAccess.getQuantifierAccess().getQuantifierAlternatives_0_0(), "rule__Quantifier__QuantifierAlternatives_0_0");
 					put(grammarAccess.getBooleanLiteralAccess().getValueAlternatives_0(), "rule__BooleanLiteral__ValueAlternatives_0");
+					put(grammarAccess.getTheoremAccess().getImplicationAlternatives_1_0(), "rule__Theorem__ImplicationAlternatives_1_0");
 					put(grammarAccess.getAdditionAccess().getSymbolAlternatives_1_1_0(), "rule__Addition__SymbolAlternatives_1_1_0");
 					put(grammarAccess.getMultiplicationAccess().getSymbolAlternatives_1_1_0(), "rule__Multiplication__SymbolAlternatives_1_1_0");
 					put(grammarAccess.getNumericalPrimaryAccess().getAlternatives(), "rule__NumericalPrimary__Alternatives");
@@ -51,11 +52,12 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInputAccess().getGroup_3_1(), "rule__Input__Group_3_1__0");
 					put(grammarAccess.getInputAccess().getGroup_4(), "rule__Input__Group_4__0");
 					put(grammarAccess.getInputAccess().getGroup_4_3(), "rule__Input__Group_4_3__0");
+					put(grammarAccess.getProblemPropertyOptionalAccess().getGroup(), "rule__ProblemPropertyOptional__Group__0");
+					put(grammarAccess.getProblemPropertyOptionalAccess().getGroup_1(), "rule__ProblemPropertyOptional__Group_1__0");
+					put(grammarAccess.getProblemPropertyOptionalAccess().getGroup_2(), "rule__ProblemPropertyOptional__Group_2__0");
 					put(grammarAccess.getProblemAccess().getGroup(), "rule__Problem__Group__0");
 					put(grammarAccess.getProblemAccess().getGroup_1(), "rule__Problem__Group_1__0");
-					put(grammarAccess.getProblemAccess().getGroup_2(), "rule__Problem__Group_2__0");
 					put(grammarAccess.getDeclarationAccess().getGroup(), "rule__Declaration__Group__0");
-					put(grammarAccess.getDeclarationAccess().getGroup_1_1(), "rule__Declaration__Group_1_1__0");
 					put(grammarAccess.getTypeAccess().getGroup(), "rule__Type__Group__0");
 					put(grammarAccess.getTypeAccess().getGroup_1(), "rule__Type__Group_1__0");
 					put(grammarAccess.getORingAccess().getGroup(), "rule__ORing__Group__0");
@@ -80,16 +82,18 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInputAccess().getTaskAssignment_3_0_0(), "rule__Input__TaskAssignment_3_0_0");
 					put(grammarAccess.getInputAccess().getGoalAssignment_3_0_1(), "rule__Input__GoalAssignment_3_0_1");
 					put(grammarAccess.getInputAccess().getTaskAssignment_3_1_0(), "rule__Input__TaskAssignment_3_1_0");
-					put(grammarAccess.getInputAccess().getGoalAssignment_3_1_2(), "rule__Input__GoalAssignment_3_1_2");
+					put(grammarAccess.getInputAccess().getGoalAssignment_3_1_1(), "rule__Input__GoalAssignment_3_1_1");
 					put(grammarAccess.getInputAccess().getTheoremsAssignment_4_2(), "rule__Input__TheoremsAssignment_4_2");
 					put(grammarAccess.getInputAccess().getTheoremsAssignment_4_3_1(), "rule__Input__TheoremsAssignment_4_3_1");
 					put(grammarAccess.getProblemNoVarsAccess().getPropertyAssignment(), "rule__ProblemNoVars__PropertyAssignment");
+					put(grammarAccess.getProblemPropertyOptionalAccess().getVarsAssignment_0(), "rule__ProblemPropertyOptional__VarsAssignment_0");
+					put(grammarAccess.getProblemPropertyOptionalAccess().getVarsAssignment_1_1(), "rule__ProblemPropertyOptional__VarsAssignment_1_1");
+					put(grammarAccess.getProblemPropertyOptionalAccess().getPropertyAssignment_2_1(), "rule__ProblemPropertyOptional__PropertyAssignment_2_1");
 					put(grammarAccess.getProblemAccess().getVarsAssignment_0(), "rule__Problem__VarsAssignment_0");
 					put(grammarAccess.getProblemAccess().getVarsAssignment_1_1(), "rule__Problem__VarsAssignment_1_1");
-					put(grammarAccess.getProblemAccess().getPropertyAssignment_2_1(), "rule__Problem__PropertyAssignment_2_1");
+					put(grammarAccess.getProblemAccess().getPropertyAssignment_3(), "rule__Problem__PropertyAssignment_3");
 					put(grammarAccess.getDeclarationAccess().getTypeAssignment_0(), "rule__Declaration__TypeAssignment_0");
-					put(grammarAccess.getDeclarationAccess().getVarNameAssignment_1_0(), "rule__Declaration__VarNameAssignment_1_0");
-					put(grammarAccess.getDeclarationAccess().getVarNameAssignment_1_1_1(), "rule__Declaration__VarNameAssignment_1_1_1");
+					put(grammarAccess.getDeclarationAccess().getVarNameAssignment_1(), "rule__Declaration__VarNameAssignment_1");
 					put(grammarAccess.getTypeAccess().getNameAssignment_0(), "rule__Type__NameAssignment_0");
 					put(grammarAccess.getTypeAccess().getTemplateTypeAssignment_1_1(), "rule__Type__TemplateTypeAssignment_1_1");
 					put(grammarAccess.getORingAccess().getRightAssignment_1_2(), "rule__ORing__RightAssignment_1_2");
@@ -105,6 +109,7 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getVariableAccess().getArgAssignment(), "rule__Variable__ArgAssignment");
 					put(grammarAccess.getBooleanLiteralAccess().getValueAssignment(), "rule__BooleanLiteral__ValueAssignment");
 					put(grammarAccess.getTheoremAccess().getRequirementAssignment_0(), "rule__Theorem__RequirementAssignment_0");
+					put(grammarAccess.getTheoremAccess().getImplicationAssignment_1(), "rule__Theorem__ImplicationAssignment_1");
 					put(grammarAccess.getTheoremAccess().getResultAssignment_2(), "rule__Theorem__ResultAssignment_2");
 					put(grammarAccess.getTheoremAccess().getCostAssignment_4(), "rule__Theorem__CostAssignment_4");
 					put(grammarAccess.getTheoremAccess().getDescriptionAssignment_6(), "rule__Theorem__DescriptionAssignment_6");

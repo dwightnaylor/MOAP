@@ -1,5 +1,3 @@
-import inputHandling.TransformUtil;
-
 import java.awt.*;
 
 import javax.swing.JFrame;
@@ -9,9 +7,7 @@ import org.apache.commons.collections15.Transformer;
 import solver.ProblemSolver;
 import solver.ProblemState;
 import theorems.MultistageTheorem;
-import edu.uci.ics.jung.algorithms.layout.CircleLayout;
-import edu.uci.ics.jung.algorithms.layout.Layout;
-import edu.uci.ics.jung.algorithms.layout.TreeLayout;
+import edu.uci.ics.jung.algorithms.layout.*;
 import edu.uci.ics.jung.graph.Forest;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
@@ -43,7 +39,7 @@ public class Viewer {
 		});
 		vv.getRenderContext().setVertexFillPaintTransformer(new Transformer<ProblemState, Paint>() {
 			public Paint transform(ProblemState problem) {
-				if (TransformUtil.isSolved(problem.problem.getGoal()))
+				if (problem.problem.getGoal() == null)
 					return Color.GREEN;
 
 				return Color.RED;

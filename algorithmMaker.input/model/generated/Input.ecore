@@ -56,6 +56,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="Theorem">
     <eStructuralFeatures xsi:type="ecore:EReference" name="Requirement" eType="#//Property"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Implication" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="Result" eType="#//Property"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>

@@ -570,9 +570,19 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EAttribute getTheorem_Implication()
+  {
+    return (EAttribute)theoremEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EReference getTheorem_Result()
   {
-    return (EReference)theoremEClass.getEStructuralFeatures().get(1);
+    return (EReference)theoremEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -582,7 +592,7 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    */
   public EAttribute getTheorem_Cost()
   {
-    return (EAttribute)theoremEClass.getEStructuralFeatures().get(2);
+    return (EAttribute)theoremEClass.getEStructuralFeatures().get(3);
   }
 
   /**
@@ -592,7 +602,7 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    */
   public EAttribute getTheorem_Description()
   {
-    return (EAttribute)theoremEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)theoremEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -602,7 +612,7 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    */
   public EAttribute getTheorem_PseudoCode()
   {
-    return (EAttribute)theoremEClass.getEStructuralFeatures().get(4);
+    return (EAttribute)theoremEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -850,6 +860,7 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
 
     theoremEClass = createEClass(THEOREM);
     createEReference(theoremEClass, THEOREM__REQUIREMENT);
+    createEAttribute(theoremEClass, THEOREM__IMPLICATION);
     createEReference(theoremEClass, THEOREM__RESULT);
     createEAttribute(theoremEClass, THEOREM__COST);
     createEAttribute(theoremEClass, THEOREM__DESCRIPTION);
@@ -968,6 +979,7 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
 
     initEClass(theoremEClass, Theorem.class, "Theorem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getTheorem_Requirement(), this.getProperty(), null, "Requirement", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getTheorem_Implication(), ecorePackage.getEString(), "Implication", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getTheorem_Result(), this.getProperty(), null, "Result", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTheorem_Cost(), ecorePackage.getEInt(), "Cost", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTheorem_Description(), ecorePackage.getEString(), "Description", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

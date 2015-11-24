@@ -24,6 +24,7 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * </p>
  * <ul>
  *   <li>{@link algorithmMaker.input.impl.TheoremImpl#getRequirement <em>Requirement</em>}</li>
+ *   <li>{@link algorithmMaker.input.impl.TheoremImpl#getImplication <em>Implication</em>}</li>
  *   <li>{@link algorithmMaker.input.impl.TheoremImpl#getResult <em>Result</em>}</li>
  *   <li>{@link algorithmMaker.input.impl.TheoremImpl#getCost <em>Cost</em>}</li>
  *   <li>{@link algorithmMaker.input.impl.TheoremImpl#getDescription <em>Description</em>}</li>
@@ -43,6 +44,26 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
    * @ordered
    */
   protected Property requirement;
+
+  /**
+   * The default value of the '{@link #getImplication() <em>Implication</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getImplication()
+   * @generated
+   * @ordered
+   */
+  protected static final String IMPLICATION_EDEFAULT = null;
+
+  /**
+   * The cached value of the '{@link #getImplication() <em>Implication</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getImplication()
+   * @generated
+   * @ordered
+   */
+  protected String implication = IMPLICATION_EDEFAULT;
 
   /**
    * The cached value of the '{@link #getResult() <em>Result</em>}' containment reference.
@@ -181,6 +202,29 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
     }
     else if (eNotificationRequired())
       eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.THEOREM__REQUIREMENT, newRequirement, newRequirement));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public String getImplication()
+  {
+    return implication;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setImplication(String newImplication)
+  {
+    String oldImplication = implication;
+    implication = newImplication;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.THEOREM__IMPLICATION, oldImplication, implication));
   }
 
   /**
@@ -330,6 +374,8 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
     {
       case InputPackage.THEOREM__REQUIREMENT:
         return getRequirement();
+      case InputPackage.THEOREM__IMPLICATION:
+        return getImplication();
       case InputPackage.THEOREM__RESULT:
         return getResult();
       case InputPackage.THEOREM__COST:
@@ -354,6 +400,9 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
     {
       case InputPackage.THEOREM__REQUIREMENT:
         setRequirement((Property)newValue);
+        return;
+      case InputPackage.THEOREM__IMPLICATION:
+        setImplication((String)newValue);
         return;
       case InputPackage.THEOREM__RESULT:
         setResult((Property)newValue);
@@ -384,6 +433,9 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
       case InputPackage.THEOREM__REQUIREMENT:
         setRequirement((Property)null);
         return;
+      case InputPackage.THEOREM__IMPLICATION:
+        setImplication(IMPLICATION_EDEFAULT);
+        return;
       case InputPackage.THEOREM__RESULT:
         setResult((Property)null);
         return;
@@ -412,6 +464,8 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
     {
       case InputPackage.THEOREM__REQUIREMENT:
         return requirement != null;
+      case InputPackage.THEOREM__IMPLICATION:
+        return IMPLICATION_EDEFAULT == null ? implication != null : !IMPLICATION_EDEFAULT.equals(implication);
       case InputPackage.THEOREM__RESULT:
         return result != null;
       case InputPackage.THEOREM__COST:
@@ -427,6 +481,7 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
 	public int hashCode() {
 		int ret = getClass().hashCode();
 		ret += requirement == null ? 0 :requirement.hashCode();
+		ret += implication == null ? 0 :implication.hashCode();
 		ret += result == null ? 0 :result.hashCode();
 			ret += cost;
 		ret += description == null ? 0 :description.hashCode();
@@ -442,7 +497,7 @@ public class TheoremImpl extends MinimalEObjectImpl.Container implements Theorem
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append(requirement + "->" + result + ',' + cost + ',' + '"' + description + '"');
+		ret.append(requirement + " " + implication + " " + result + ',' + cost + ',' + '"' + description + '"');
 		return ret.toString();
 	}
 

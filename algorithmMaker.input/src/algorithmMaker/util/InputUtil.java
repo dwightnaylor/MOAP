@@ -90,7 +90,7 @@ public class InputUtil {
 
 		return null;
 	}
-
+	
 	/**
 	 * Sets the given problem to contain all the variables that appear within it.
 	 */

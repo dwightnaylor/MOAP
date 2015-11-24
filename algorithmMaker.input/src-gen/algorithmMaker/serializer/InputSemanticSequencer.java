@@ -79,6 +79,10 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 					sequence_ProblemNoVars(context, (Problem) semanticObject); 
 					return; 
 				}
+				else if(context == grammarAccess.getProblemPropertyOptionalRule()) {
+					sequence_ProblemPropertyOptional(context, (Problem) semanticObject); 
+					return; 
+				}
 				else if(context == grammarAccess.getProblemRule()) {
 					sequence_Problem(context, (Problem) semanticObject); 
 					return; 
@@ -151,7 +155,7 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     (type=Type? (varName=ID | varName=ID))
+	 *     (type=Type? varName=ID)
 	 */
 	protected void sequence_Declaration(EObject context, Declaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -160,7 +164,11 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     (given=Problem (((task='Find' | task='Count') goal=Problem) | (task='Test' goal=ProblemNoVars)) (theorems+=Theorem theorems+=Theorem*)?)
+	 *     (
+	 *         given=ProblemPropertyOptional 
+	 *         (((task='Find' | task='Count') goal=Problem) | (task='Test' (goal=Problem | goal=ProblemNoVars)))? 
+	 *         (theorems+=Theorem theorems+=Theorem*)?
+	 *     )
 	 */
 	protected void sequence_Input(EObject context, Input semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -238,6 +246,15 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
+	 *     (vars+=Declaration vars+=Declaration* property=ORing?)
+	 */
+	protected void sequence_ProblemPropertyOptional(EObject context, Problem semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     problem=Problem
 	 */
 	protected void sequence_ProblemShell(EObject context, ProblemShell semanticObject) {
@@ -254,7 +271,7 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     (vars+=Declaration vars+=Declaration* property=ORing?)
+	 *     (vars+=Declaration vars+=Declaration* property=ORing)
 	 */
 	protected void sequence_Problem(EObject context, Problem semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -272,7 +289,14 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     (Requirement=ORing Result=ORing Cost=INT Description=STRING PseudoCode=STRING?)
+	 *     (
+	 *         Requirement=ORing 
+	 *         (Implication='->' | Implication='<-' | Implication='<->') 
+	 *         Result=ORing 
+	 *         Cost=INT 
+	 *         Description=STRING 
+	 *         PseudoCode=STRING?
+	 *     )
 	 */
 	protected void sequence_Theorem(EObject context, Theorem semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

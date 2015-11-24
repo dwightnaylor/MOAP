@@ -40,8 +40,7 @@ import bindings.MutableBinding;
 public class ProblemSolver {
 
 	/**
-	 * All of the problem states that have either been explored or been enqueued
-	 * to be explored.
+	 * All of the problem states that have either been explored or been enqueued to be explored.
 	 */
 	public Hashtable<Input, ProblemState> reachedProblems = new Hashtable<Input, ProblemState>();
 
@@ -88,9 +87,6 @@ public class ProblemSolver {
 		findChainer.addBoundVars(InputUtil.getVarNames(problem.getGiven().getVars()));
 		findChainer.previousLevelTheorems = givenChainer.nextLevelTheorems;
 		findChainer.chain(problem.getGoal().getProperty(), TransformUtil.GOAL);
-
-		// XXX:Given list x, list y, list z; Find a st child(x,a) & child(y,a) &
-		// !child(z,a)
 
 		addVariableRemovalTheorems(problem, findChainer);
 
@@ -160,9 +156,6 @@ public class ProblemSolver {
 
 		if (property instanceof ProblemShell)
 			doShellSubProblem(problemState, (ProblemShell) property);
-
-		// if (property instanceof Negation)
-		// doNegationSubProblem(problemState, (Negation) property);
 	}
 
 	private void doShellSubProblem(ProblemState problemState, ProblemShell shell) {
@@ -287,17 +280,21 @@ public class ProblemSolver {
 
 	private void addProblemState(Input newProblem, ProblemState parentState, MultistageTheorem multistageTheorem,
 			Binding binding) {
+		if (newProblem.getGoal().getProperty().equals(InputUtil.getBooleanLiteral(true)))
+			newProblem.setGoal(null);
+
 		// Simplify the problem
 		newProblem = TransformUtil.removeGivenFromGoal(newProblem, new Chainer(theorems));
 
 		newProblem.getGiven().setProperty(InputUtil.canonicalize(newProblem.getGiven().getProperty()));
-		newProblem.getGoal().setProperty(InputUtil.canonicalize(newProblem.getGoal().getProperty()));
+		if (newProblem.getGoal() != null)
+			newProblem.getGoal().setProperty(InputUtil.canonicalize(newProblem.getGoal().getProperty()));
 		if (!reachedProblems.containsKey(newProblem)) {
 			// System.out.println(this + ":::::" + TransformUtil.makePretty(newProblem));
 			ProblemState newProblemState = new ProblemState(newProblem, parentState, multistageTheorem, binding);
 			reachedProblems.put(newProblem, newProblemState);
 
-			if (TransformUtil.isSolved(newProblem.getGoal()))
+			if (newProblem.getGoal() == null)
 				solved = newProblemState;
 
 			problemStates.add(newProblemState);
