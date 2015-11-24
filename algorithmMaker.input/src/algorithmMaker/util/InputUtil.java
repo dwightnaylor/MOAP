@@ -268,7 +268,6 @@ public class InputUtil {
 		return null;
 	}
 
-	// FIXME: DN: Redo this method, ignores input/quantifier declarations!
 	public static HashSet<String> getUnboundVariables(EObject property) {
 		HashSet<String> unboundVars = new HashSet<String>();
 		TreeIterator<EObject> contents = property.eAllContents();
