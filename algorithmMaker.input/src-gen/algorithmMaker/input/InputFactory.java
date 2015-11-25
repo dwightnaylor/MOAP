@@ -95,6 +95,15 @@ public interface InputFactory extends EFactory
   Quantifier createQuantifier();
 
   /**
+   * Returns a new object of class '<em>Sugar Atomic</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Sugar Atomic</em>'.
+   * @generated
+   */
+  SugarAtomic createSugarAtomic();
+
+  /**
    * Returns a new object of class '<em>Atomic</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -102,24 +111,6 @@ public interface InputFactory extends EFactory
    * @generated
    */
   Atomic createAtomic();
-
-  /**
-   * Returns a new object of class '<em>Argument</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Argument</em>'.
-   * @generated
-   */
-  Argument createArgument();
-
-  /**
-   * Returns a new object of class '<em>Variable</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Variable</em>'.
-   * @generated
-   */
-  Variable createVariable();
 
   /**
    * Returns a new object of class '<em>Boolean Literal</em>'.
@@ -140,13 +131,13 @@ public interface InputFactory extends EFactory
   Theorem createTheorem();
 
   /**
-   * Returns a new object of class '<em>Numerical Property</em>'.
+   * Returns a new object of class '<em>Sugar Numerical Property</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Numerical Property</em>'.
+   * @return a new object of class '<em>Sugar Numerical Property</em>'.
    * @generated
    */
-  NumericalProperty createNumericalProperty();
+  SugarNumericalProperty createSugarNumericalProperty();
 
   /**
    * Returns a new object of class '<em>Number Literal</em>'.
@@ -176,22 +167,22 @@ public interface InputFactory extends EFactory
   ANDing createANDing();
 
   /**
-   * Returns a new object of class '<em>Addition</em>'.
+   * Returns a new object of class '<em>Sugar Addition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Addition</em>'.
+   * @return a new object of class '<em>Sugar Addition</em>'.
    * @generated
    */
-  Addition createAddition();
+  SugarAddition createSugarAddition();
 
   /**
-   * Returns a new object of class '<em>Multiplication</em>'.
+   * Returns a new object of class '<em>Sugar Multiplication</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Multiplication</em>'.
+   * @return a new object of class '<em>Sugar Multiplication</em>'.
    * @generated
    */
-  Multiplication createMultiplication();
+  SugarMultiplication createSugarMultiplication();
 
   /**
    * Returns the package supported by this factory.

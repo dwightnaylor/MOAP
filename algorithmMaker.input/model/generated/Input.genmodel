@@ -37,13 +37,13 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Quantifier/subject"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Quantifier/predicate"/>
     </genClasses>
+    <genClasses ecoreClass="Input.ecore#//SugarAtomic">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//SugarAtomic/Function"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//SugarAtomic/args"/>
+    </genClasses>
     <genClasses ecoreClass="Input.ecore#//Atomic">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Atomic/Function"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Atomic/args"/>
-    </genClasses>
-    <genClasses ecoreClass="Input.ecore#//Argument"/>
-    <genClasses ecoreClass="Input.ecore#//Variable">
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Variable/arg"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Atomic/args"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//BooleanLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//BooleanLiteral/value"/>
@@ -56,7 +56,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/Description"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/PseudoCode"/>
     </genClasses>
-    <genClasses ecoreClass="Input.ecore#//NumericalProperty"/>
+    <genClasses ecoreClass="Input.ecore#//SugarNumericalProperty"/>
     <genClasses ecoreClass="Input.ecore#//NumberLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//NumberLiteral/value"/>
     </genClasses>
@@ -68,15 +68,15 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//ANDing/left"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//ANDing/right"/>
     </genClasses>
-    <genClasses ecoreClass="Input.ecore#//Addition">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Addition/left"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Addition/symbol"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Addition/right"/>
+    <genClasses ecoreClass="Input.ecore#//SugarAddition">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//SugarAddition/left"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//SugarAddition/symbol"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//SugarAddition/right"/>
     </genClasses>
-    <genClasses ecoreClass="Input.ecore#//Multiplication">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Multiplication/left"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Multiplication/symbol"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Multiplication/right"/>
+    <genClasses ecoreClass="Input.ecore#//SugarMultiplication">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//SugarMultiplication/left"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//SugarMultiplication/symbol"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//SugarMultiplication/right"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

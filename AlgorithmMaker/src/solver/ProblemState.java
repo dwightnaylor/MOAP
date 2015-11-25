@@ -42,10 +42,10 @@ public class ProblemState implements Comparable<ProblemState> {
 			return 0;
 
 		if (problem.getGoal() == null)
-			return -1;
+			return 1;
 
 		if (other.problem.getGoal() == null)
-			return 1;
+			return -1;
 
 		return problem.getGoal().toString().length() - other.problem.getGoal().toString().length();
 	}

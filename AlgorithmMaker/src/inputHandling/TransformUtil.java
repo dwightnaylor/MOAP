@@ -16,7 +16,6 @@ import algorithmMaker.input.Problem;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.input.Type;
-import algorithmMaker.input.Variable;
 import algorithmMaker.input.impl.InputFactoryImpl;
 import algorithmMaker.util.InputConverter;
 import algorithmMaker.util.InputUtil;
@@ -54,9 +53,9 @@ public class TransformUtil {
 		vars.addAll(input.getGoal().getVars());
 		for (Declaration declaration : vars) {
 			String varName = declaration.getVarName();
-			toRemove.add(InputUtil.getAtomic(InputUtil.EQUAL, varName, varName));
-			toRemove.add(InputUtil.getAtomic(InputUtil.BOUND, varName));
-			toRemove.add(InputUtil.getAtomic(InputUtil.UNBOUND, varName));
+			toRemove.add(InputUtil.createAtomic(InputUtil.EQUAL, varName, varName));
+			toRemove.add(InputUtil.createAtomic(InputUtil.BOUND, varName));
+			toRemove.add(InputUtil.createAtomic(InputUtil.UNBOUND, varName));
 		}
 
 		Property given = input.getGiven().getProperty();
@@ -142,16 +141,14 @@ public class TransformUtil {
 							Atomic atomic = (Atomic) topLevelAtomics.get(i);
 							String function = atomic.getFunction();
 							if (InputUtil.isTypeAtomic(function)) {
-								Declaration declaration = InputUtil
-										.findDeclarationFor((Variable) atomic.getArgs().get(0));
+								Declaration declaration = InputUtil.getDeclaration(atomic, atomic.getArgs().get(0));
 								if (declaration.getType() == null)
 									declaration.setType(InputFactoryImpl.eINSTANCE.createType());
 
 								declaration.getType().setName(InputUtil.getDeclaredType(function));
 								topLevelAtomics.remove(i--);
 							} else if (InputUtil.isChildTypeAtomic(function)) {
-								Declaration declaration = InputUtil
-										.findDeclarationFor((Variable) atomic.getArgs().get(0));
+								Declaration declaration = InputUtil.getDeclaration(atomic, atomic.getArgs().get(0));
 								if (declaration.getType() == null)
 									declaration.setType(InputFactoryImpl.eINSTANCE.createType());
 

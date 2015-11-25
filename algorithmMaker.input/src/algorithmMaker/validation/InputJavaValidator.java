@@ -14,8 +14,7 @@ import algorithmMaker.util.InputUtil;
 /**
  * This class contains custom validation rules.
  *
- * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html#
- * validation
+ * See https://www.eclipse.org/Xtext/documentation/303_runtime_concepts.html# validation
  */
 public class InputJavaValidator extends algorithmMaker.validation.AbstractInputJavaValidator {
 	// TODO:Validation: do typechecking
@@ -60,8 +59,11 @@ public class InputJavaValidator extends algorithmMaker.validation.AbstractInputJ
 	}
 
 	@Check
-	public void checkForUndeclaredVariable(Variable variable) {
-		if (InputUtil.getDeclaringObject(variable) == null)
-			error(variable.getArg() + " cannot be resolved to a variable.", InputPackage.Literals.VARIABLE__ARG);
+	public void checkForUndeclaredVariables(Atomic atomic) {
+		for (int i = 0; i < atomic.getArgs().size(); i++) {
+			String variable = atomic.getArgs().get(i);
+			if (InputUtil.getDeclaration(atomic, variable) == null)
+				error(variable + " cannot be resolved to a variable.", atomic, InputPackage.Literals.ATOMIC__ARGS, i);
+		}
 	}
 }

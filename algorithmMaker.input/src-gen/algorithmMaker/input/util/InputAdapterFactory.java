@@ -115,19 +115,14 @@ public class InputAdapterFactory extends AdapterFactoryImpl
         return createQuantifierAdapter();
       }
       @Override
+      public Adapter caseSugarAtomic(SugarAtomic object)
+      {
+        return createSugarAtomicAdapter();
+      }
+      @Override
       public Adapter caseAtomic(Atomic object)
       {
         return createAtomicAdapter();
-      }
-      @Override
-      public Adapter caseArgument(Argument object)
-      {
-        return createArgumentAdapter();
-      }
-      @Override
-      public Adapter caseVariable(Variable object)
-      {
-        return createVariableAdapter();
       }
       @Override
       public Adapter caseBooleanLiteral(BooleanLiteral object)
@@ -140,9 +135,9 @@ public class InputAdapterFactory extends AdapterFactoryImpl
         return createTheoremAdapter();
       }
       @Override
-      public Adapter caseNumericalProperty(NumericalProperty object)
+      public Adapter caseSugarNumericalProperty(SugarNumericalProperty object)
       {
-        return createNumericalPropertyAdapter();
+        return createSugarNumericalPropertyAdapter();
       }
       @Override
       public Adapter caseNumberLiteral(NumberLiteral object)
@@ -160,14 +155,14 @@ public class InputAdapterFactory extends AdapterFactoryImpl
         return createANDingAdapter();
       }
       @Override
-      public Adapter caseAddition(Addition object)
+      public Adapter caseSugarAddition(SugarAddition object)
       {
-        return createAdditionAdapter();
+        return createSugarAdditionAdapter();
       }
       @Override
-      public Adapter caseMultiplication(Multiplication object)
+      public Adapter caseSugarMultiplication(SugarMultiplication object)
       {
-        return createMultiplicationAdapter();
+        return createSugarMultiplicationAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -312,6 +307,21 @@ public class InputAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.SugarAtomic <em>Sugar Atomic</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see algorithmMaker.input.SugarAtomic
+   * @generated
+   */
+  public Adapter createSugarAtomicAdapter()
+  {
+    return null;
+  }
+
+  /**
    * Creates a new adapter for an object of class '{@link algorithmMaker.input.Atomic <em>Atomic</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
@@ -322,36 +332,6 @@ public class InputAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAtomicAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link algorithmMaker.input.Argument <em>Argument</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see algorithmMaker.input.Argument
-   * @generated
-   */
-  public Adapter createArgumentAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link algorithmMaker.input.Variable <em>Variable</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see algorithmMaker.input.Variable
-   * @generated
-   */
-  public Adapter createVariableAdapter()
   {
     return null;
   }
@@ -387,16 +367,16 @@ public class InputAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link algorithmMaker.input.NumericalProperty <em>Numerical Property</em>}'.
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.SugarNumericalProperty <em>Sugar Numerical Property</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see algorithmMaker.input.NumericalProperty
+   * @see algorithmMaker.input.SugarNumericalProperty
    * @generated
    */
-  public Adapter createNumericalPropertyAdapter()
+  public Adapter createSugarNumericalPropertyAdapter()
   {
     return null;
   }
@@ -447,31 +427,31 @@ public class InputAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link algorithmMaker.input.Addition <em>Addition</em>}'.
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.SugarAddition <em>Sugar Addition</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see algorithmMaker.input.Addition
+   * @see algorithmMaker.input.SugarAddition
    * @generated
    */
-  public Adapter createAdditionAdapter()
+  public Adapter createSugarAdditionAdapter()
   {
     return null;
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link algorithmMaker.input.Multiplication <em>Multiplication</em>}'.
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.SugarMultiplication <em>Sugar Multiplication</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see algorithmMaker.input.Multiplication
+   * @see algorithmMaker.input.SugarMultiplication
    * @generated
    */
-  public Adapter createMultiplicationAdapter()
+  public Adapter createSugarMultiplicationAdapter()
   {
     return null;
   }

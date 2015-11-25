@@ -22,6 +22,7 @@ public class SolverTests {
 	public void testProblemStateChange() {
 		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty("enumerable(x)"),
 				parseProperty("child(x,y)"), parseProperty("child(x,y)"), null, 0, "enumerable things", null);
+		multistageTheorem.setNewGoalTask(InputUtil.TEST);
 		ProblemSolver solver = new ProblemSolver(
 				QuickParser.parseInput("Given x st enumerable(x); Find y st child(x,y) & something(x)"),
 				multistageTheorem);

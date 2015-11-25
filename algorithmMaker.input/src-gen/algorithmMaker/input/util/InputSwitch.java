@@ -131,29 +131,21 @@ public class InputSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case InputPackage.SUGAR_ATOMIC:
+      {
+        SugarAtomic sugarAtomic = (SugarAtomic)theEObject;
+        T result = caseSugarAtomic(sugarAtomic);
+        if (result == null) result = caseProperty(sugarAtomic);
+        if (result == null) result = caseSugarNumericalProperty(sugarAtomic);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case InputPackage.ATOMIC:
       {
         Atomic atomic = (Atomic)theEObject;
         T result = caseAtomic(atomic);
         if (result == null) result = caseProperty(atomic);
-        if (result == null) result = caseNumericalProperty(atomic);
-        if (result == null) result = caseArgument(atomic);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case InputPackage.ARGUMENT:
-      {
-        Argument argument = (Argument)theEObject;
-        T result = caseArgument(argument);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case InputPackage.VARIABLE:
-      {
-        Variable variable = (Variable)theEObject;
-        T result = caseVariable(variable);
-        if (result == null) result = caseNumericalProperty(variable);
-        if (result == null) result = caseArgument(variable);
+        if (result == null) result = caseSugarNumericalProperty(atomic);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -172,11 +164,10 @@ public class InputSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case InputPackage.NUMERICAL_PROPERTY:
+      case InputPackage.SUGAR_NUMERICAL_PROPERTY:
       {
-        NumericalProperty numericalProperty = (NumericalProperty)theEObject;
-        T result = caseNumericalProperty(numericalProperty);
-        if (result == null) result = caseArgument(numericalProperty);
+        SugarNumericalProperty sugarNumericalProperty = (SugarNumericalProperty)theEObject;
+        T result = caseSugarNumericalProperty(sugarNumericalProperty);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -184,8 +175,7 @@ public class InputSwitch<T> extends Switch<T>
       {
         NumberLiteral numberLiteral = (NumberLiteral)theEObject;
         T result = caseNumberLiteral(numberLiteral);
-        if (result == null) result = caseNumericalProperty(numberLiteral);
-        if (result == null) result = caseArgument(numberLiteral);
+        if (result == null) result = caseSugarNumericalProperty(numberLiteral);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -205,21 +195,19 @@ public class InputSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case InputPackage.ADDITION:
+      case InputPackage.SUGAR_ADDITION:
       {
-        Addition addition = (Addition)theEObject;
-        T result = caseAddition(addition);
-        if (result == null) result = caseNumericalProperty(addition);
-        if (result == null) result = caseArgument(addition);
+        SugarAddition sugarAddition = (SugarAddition)theEObject;
+        T result = caseSugarAddition(sugarAddition);
+        if (result == null) result = caseSugarNumericalProperty(sugarAddition);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case InputPackage.MULTIPLICATION:
+      case InputPackage.SUGAR_MULTIPLICATION:
       {
-        Multiplication multiplication = (Multiplication)theEObject;
-        T result = caseMultiplication(multiplication);
-        if (result == null) result = caseNumericalProperty(multiplication);
-        if (result == null) result = caseArgument(multiplication);
+        SugarMultiplication sugarMultiplication = (SugarMultiplication)theEObject;
+        T result = caseSugarMultiplication(sugarMultiplication);
+        if (result == null) result = caseSugarNumericalProperty(sugarMultiplication);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -356,6 +344,22 @@ public class InputSwitch<T> extends Switch<T>
   }
 
   /**
+   * Returns the result of interpreting the object as an instance of '<em>Sugar Atomic</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Sugar Atomic</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSugarAtomic(SugarAtomic object)
+  {
+    return null;
+  }
+
+  /**
    * Returns the result of interpreting the object as an instance of '<em>Atomic</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -367,38 +371,6 @@ public class InputSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAtomic(Atomic object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Argument</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Argument</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseArgument(Argument object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>Variable</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Variable</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseVariable(Variable object)
   {
     return null;
   }
@@ -436,17 +408,17 @@ public class InputSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Numerical Property</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Sugar Numerical Property</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Numerical Property</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Sugar Numerical Property</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseNumericalProperty(NumericalProperty object)
+  public T caseSugarNumericalProperty(SugarNumericalProperty object)
   {
     return null;
   }
@@ -500,33 +472,33 @@ public class InputSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Addition</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Sugar Addition</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Addition</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Sugar Addition</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseAddition(Addition object)
+  public T caseSugarAddition(SugarAddition object)
   {
     return null;
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Multiplication</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>Sugar Multiplication</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Multiplication</em>'.
+   * @return the result of interpreting the object as an instance of '<em>Sugar Multiplication</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseMultiplication(Multiplication object)
+  public T caseSugarMultiplication(SugarMultiplication object)
   {
     return null;
   }

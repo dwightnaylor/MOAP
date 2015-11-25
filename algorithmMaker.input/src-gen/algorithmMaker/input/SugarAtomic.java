@@ -6,22 +6,22 @@ import org.eclipse.emf.common.util.EList;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Atomic</b></em>'.
+ * A representation of the model object '<em><b>Sugar Atomic</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link algorithmMaker.input.Atomic#getFunction <em>Function</em>}</li>
- *   <li>{@link algorithmMaker.input.Atomic#getArgs <em>Args</em>}</li>
+ *   <li>{@link algorithmMaker.input.SugarAtomic#getFunction <em>Function</em>}</li>
+ *   <li>{@link algorithmMaker.input.SugarAtomic#getArgs <em>Args</em>}</li>
  * </ul>
  *
- * @see algorithmMaker.input.InputPackage#getAtomic()
+ * @see algorithmMaker.input.InputPackage#getSugarAtomic()
  * @model
  * @generated
  */
-public interface Atomic extends Property, SugarNumericalProperty
+public interface SugarAtomic extends Property, SugarNumericalProperty
 {
   /**
    * Returns the value of the '<em><b>Function</b></em>' attribute.
@@ -33,14 +33,14 @@ public interface Atomic extends Property, SugarNumericalProperty
    * <!-- end-user-doc -->
    * @return the value of the '<em>Function</em>' attribute.
    * @see #setFunction(String)
-   * @see algorithmMaker.input.InputPackage#getAtomic_Function()
+   * @see algorithmMaker.input.InputPackage#getSugarAtomic_Function()
    * @model
    * @generated
    */
   String getFunction();
 
   /**
-   * Sets the value of the '{@link algorithmMaker.input.Atomic#getFunction <em>Function</em>}' attribute.
+   * Sets the value of the '{@link algorithmMaker.input.SugarAtomic#getFunction <em>Function</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Function</em>' attribute.
@@ -50,19 +50,19 @@ public interface Atomic extends Property, SugarNumericalProperty
   void setFunction(String value);
 
   /**
-   * Returns the value of the '<em><b>Args</b></em>' attribute list.
-   * The list contents are of type {@link java.lang.String}.
+   * Returns the value of the '<em><b>Args</b></em>' containment reference list.
+   * The list contents are of type {@link algorithmMaker.input.SugarNumericalProperty}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Args</em>' attribute list isn't clear,
+   * If the meaning of the '<em>Args</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Args</em>' attribute list.
-   * @see algorithmMaker.input.InputPackage#getAtomic_Args()
-   * @model unique="false"
+   * @return the value of the '<em>Args</em>' containment reference list.
+   * @see algorithmMaker.input.InputPackage#getSugarAtomic_Args()
+   * @model containment="true"
    * @generated
    */
-  EList<String> getArgs();
+  EList<SugarNumericalProperty> getArgs();
 
-} // Atomic
+} // SugarAtomic

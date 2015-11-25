@@ -72,17 +72,16 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
       case InputPackage.PROBLEM_SHELL: return createProblemShell();
       case InputPackage.NEGATION: return createNegation();
       case InputPackage.QUANTIFIER: return createQuantifier();
+      case InputPackage.SUGAR_ATOMIC: return createSugarAtomic();
       case InputPackage.ATOMIC: return createAtomic();
-      case InputPackage.ARGUMENT: return createArgument();
-      case InputPackage.VARIABLE: return createVariable();
       case InputPackage.BOOLEAN_LITERAL: return createBooleanLiteral();
       case InputPackage.THEOREM: return createTheorem();
-      case InputPackage.NUMERICAL_PROPERTY: return createNumericalProperty();
+      case InputPackage.SUGAR_NUMERICAL_PROPERTY: return createSugarNumericalProperty();
       case InputPackage.NUMBER_LITERAL: return createNumberLiteral();
       case InputPackage.ORING: return createORing();
       case InputPackage.AN_DING: return createANDing();
-      case InputPackage.ADDITION: return createAddition();
-      case InputPackage.MULTIPLICATION: return createMultiplication();
+      case InputPackage.SUGAR_ADDITION: return createSugarAddition();
+      case InputPackage.SUGAR_MULTIPLICATION: return createSugarMultiplication();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -181,32 +180,21 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
    * <!-- end-user-doc -->
    * @generated
    */
+  public SugarAtomic createSugarAtomic()
+  {
+    SugarAtomicImpl sugarAtomic = new SugarAtomicImpl();
+    return sugarAtomic;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public Atomic createAtomic()
   {
     AtomicImpl atomic = new AtomicImpl();
     return atomic;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Argument createArgument()
-  {
-    ArgumentImpl argument = new ArgumentImpl();
-    return argument;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Variable createVariable()
-  {
-    VariableImpl variable = new VariableImpl();
-    return variable;
   }
 
   /**
@@ -236,10 +224,10 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public NumericalProperty createNumericalProperty()
+  public SugarNumericalProperty createSugarNumericalProperty()
   {
-    NumericalPropertyImpl numericalProperty = new NumericalPropertyImpl();
-    return numericalProperty;
+    SugarNumericalPropertyImpl sugarNumericalProperty = new SugarNumericalPropertyImpl();
+    return sugarNumericalProperty;
   }
 
   /**
@@ -280,10 +268,10 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Addition createAddition()
+  public SugarAddition createSugarAddition()
   {
-    AdditionImpl addition = new AdditionImpl();
-    return addition;
+    SugarAdditionImpl sugarAddition = new SugarAdditionImpl();
+    return sugarAddition;
   }
 
   /**
@@ -291,10 +279,10 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Multiplication createMultiplication()
+  public SugarMultiplication createSugarMultiplication()
   {
-    MultiplicationImpl multiplication = new MultiplicationImpl();
-    return multiplication;
+    SugarMultiplicationImpl sugarMultiplication = new SugarMultiplicationImpl();
+    return sugarMultiplication;
   }
 
   /**

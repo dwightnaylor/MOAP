@@ -1,9 +1,5 @@
 package solver;
 
-import inputHandling.MultiTheoremParser;
-import inputHandling.TheoremParser;
-import inputHandling.TransformUtil;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -16,8 +12,6 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import theorems.MultistageTheorem;
-import theorems.multiTheorems.DirectReturn;
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.Declaration;
@@ -27,10 +21,14 @@ import algorithmMaker.input.ProblemShell;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Quantifier;
 import algorithmMaker.input.Theorem;
-import algorithmMaker.input.Variable;
 import algorithmMaker.util.InputUtil;
 import bindings.Binding;
 import bindings.MutableBinding;
+import inputHandling.MultiTheoremParser;
+import inputHandling.TheoremParser;
+import inputHandling.TransformUtil;
+import theorems.MultistageTheorem;
+import theorems.multiTheorems.DirectReturn;
 
 /**
  * Translates an input between various states until a solution is reached.
@@ -40,8 +38,7 @@ import bindings.MutableBinding;
 public class ProblemSolver {
 
 	/**
-	 * All of the problem states that have either been explored or been enqueued
-	 * to be explored.
+	 * All of the problem states that have either been explored or been enqueued to be explored.
 	 */
 	public Hashtable<Input, ProblemState> reachedProblems = new Hashtable<Input, ProblemState>();
 
@@ -60,8 +57,8 @@ public class ProblemSolver {
 		this.theorems = theorems;
 		this.invertedTheorems = new Theorem[theorems.length];
 		for (int i = 0; i < theorems.length; i++)
-			invertedTheorems[i] = theorems[i] instanceof MultistageTheorem ? theorems[i]
-					: InputUtil.getConverse(theorems[i]);
+			invertedTheorems[i] = theorems[i] instanceof MultistageTheorem ? theorems[i] : InputUtil
+					.getConverse(theorems[i]);
 
 		addProblemState(problem, null, null, null);
 	}
@@ -79,8 +76,7 @@ public class ProblemSolver {
 
 		Chainer givenChainer = new Chainer(theorems);
 		givenChainer.addBoundVars(InputUtil.getVarNames(problem.getGiven().getVars()));
-		// NOTE: This line has to go after the bound vars, or all variables in
-		// the goal will be unbound.
+		// NOTE: This line has to go after the bound vars, or all variables in the goal will be unbound.
 		givenChainer.addUnboundVars(InputUtil.getAllVars(problem.getGoal()).toArray(new String[0]));
 		givenChainer.chain(problem.getGiven().getProperty(), TransformUtil.GIVEN);
 
@@ -109,7 +105,7 @@ public class ProblemSolver {
 					newGoalParts.add(newProblem.getGoal().getProperty());
 
 					if (mst instanceof DirectReturn) {
-						String varToRemove = ((Variable) binding.getArguments().values().iterator().next()).getArg();
+						String varToRemove = binding.getArguments().values().iterator().next();
 						newProblem.getGoal().getVars().removeIf(x -> x.getVarName().equals(varToRemove));
 					} else {
 						HashSet<String> usedVars = new HashSet<String>();
@@ -121,14 +117,14 @@ public class ProblemSolver {
 
 						Property givenResult = mst.getGivenResult();
 						if (givenResult != null) {
-							newBinding.addBindingsFrom(
-									doBindings(newProblem.getGiven(), usedVars, InputUtil.getBindings(givenResult)));
+							newBinding.addBindingsFrom(doBindings(newProblem.getGiven(), usedVars,
+									InputUtil.getBindings(givenResult)));
 							newGivenParts.add(InputUtil.revar(givenResult, newBinding.getArguments()));
 						}
 						Property findResult = mst.getFindResult();
 						if (findResult != null) {
-							newBinding.addBindingsFrom(
-									doBindings(newProblem.getGoal(), usedVars, InputUtil.getBindings(findResult)));
+							newBinding.addBindingsFrom(doBindings(newProblem.getGoal(), usedVars,
+									InputUtil.getBindings(findResult)));
 							newGoalParts.add(InputUtil.revar(findResult, newBinding.getArguments()));
 						}
 
@@ -150,8 +146,8 @@ public class ProblemSolver {
 					findChainer.copyProperties());
 	}
 
-	private void doSubProblemMultitheorems(ProblemState problemState, Property property, HashSet<Property> givenChainer,
-			HashSet<Property> findChainer) {
+	private void doSubProblemMultitheorems(ProblemState problemState, Property property,
+			HashSet<Property> givenChainer, HashSet<Property> findChainer) {
 		if (property instanceof Quantifier)
 			doQuantifierSubProblemFor(problemState, (Quantifier) property, givenChainer, findChainer);
 
@@ -171,11 +167,13 @@ public class ProblemSolver {
 		if (subSolvers.get(subProblem).solved != null) {
 			// The new problem with the constraint removed
 			Input newProblem = InputUtil.stupidCopy(problemState.problem);
-			newProblem.setGoal((Problem) TransformUtil.removeProperties(newProblem.getGoal(),
-					new HashSet<Property>(Collections.singleton(shell))));
+			newProblem.setGoal((Problem) TransformUtil.removeProperties(newProblem.getGoal(), new HashSet<Property>(
+					Collections.singleton(shell))));
 			newProblem.setTask(InputUtil.FIND);
-			newProblem.getGiven().setProperty(InputUtil
-					.andTogether(Arrays.asList(new Property[] { shell, newProblem.getGiven().getProperty() })));
+			newProblem.getGiven()
+					.setProperty(
+							InputUtil.andTogether(Arrays.asList(new Property[] { shell,
+									newProblem.getGiven().getProperty() })));
 			// The code to add to the pseudocode
 			StringBuffer code = new StringBuffer();
 			code.append(ProblemState.getOutputString(subSolvers.get(subProblem).solved) + "\n");
@@ -189,9 +187,8 @@ public class ProblemSolver {
 				declaredVars.addAll(InputUtil.getDeclaredVars(solved.problem));
 				solved = solved.parentState;
 			}
-			addProblemState(newProblem, problemState,
-					new MultistageTheorem(null, null, null, 0, "Solving of a problem shell", code.toString()),
-					new Binding());
+			addProblemState(newProblem, problemState, new MultistageTheorem(null, null, null, 0,
+					"Solving of a problem shell", code.toString()), new Binding());
 		}
 	}
 
@@ -204,7 +201,7 @@ public class ProblemSolver {
 		// Add all the declarations from the given
 		boundVars.addAll(givenChainer.stream()
 				.filter(x -> x instanceof Atomic && ((Atomic) x).getFunction().equals(InputUtil.BOUND))
-				.map(x -> ((Variable) ((Atomic) x).getArgs().get(0)).getArg()).collect(Collectors.toList()));
+				.map(x -> ((Atomic) x).getArgs().get(0)).collect(Collectors.toList()));
 		for (String variable : InputUtil.getAllVars(quantifier)) {
 			if (!boundVars.contains(variable))
 				return;
@@ -217,12 +214,13 @@ public class ProblemSolver {
 		for (String var : InputUtil.getDeclaredVars(subject)) {
 			String newVar = InputUtil.getUnusedVar(usedVars);
 			usedVars.add(newVar);
-			rebindingForQuantifier.bind(var, InputUtil.createVariable(newVar));
+			rebindingForQuantifier.bind(var, newVar);
 		}
 		Problem newGoal = InputUtil.stupidCopy(InputUtil.revar(subject, rebindingForQuantifier.getArguments()));
-		newGoal.setProperty(InputUtil.canonicalize(InputUtil.andTogether(
-				Arrays.asList(new Property[] { newGoal.getProperty(), InputUtil.getNegated(InputUtil.stupidCopy(
-						InputUtil.revar(quantifier.getPredicate(), rebindingForQuantifier.getArguments()))) }))));
+		newGoal.setProperty(InputUtil.canonicalize(InputUtil.andTogether(Arrays.asList(new Property[] {
+				newGoal.getProperty(),
+				InputUtil.getNegated(InputUtil.stupidCopy(InputUtil.revar(quantifier.getPredicate(),
+						rebindingForQuantifier.getArguments()))) }))));
 		subProblem.setGoal(newGoal);
 		subProblem.setTask(InputUtil.FIND);
 		if (!subSolvers.containsKey(subProblem)) {
@@ -235,11 +233,12 @@ public class ProblemSolver {
 			// to the given
 			Input newProblem = InputUtil.stupidCopy(problemState.problem);
 			// FIXME: DN: This is stupid way of removing properties here
-			newProblem.setGoal((Problem) TransformUtil.removeProperties(newProblem.getGoal(),
-					new HashSet<Property>(Collections.singleton(quantifier))));
+			newProblem.setGoal((Problem) TransformUtil.removeProperties(newProblem.getGoal(), new HashSet<Property>(
+					Collections.singleton(quantifier))));
 			newProblem.setTask(InputUtil.FIND);
-			newProblem.getGiven().setProperty(InputUtil
-					.andTogether(Arrays.asList(new Property[] { quantifier, newProblem.getGiven().getProperty() })));
+			newProblem.getGiven().setProperty(
+					InputUtil.andTogether(Arrays.asList(new Property[] { quantifier,
+							newProblem.getGiven().getProperty() })));
 
 			// The code to add to the pseudocode
 			StringBuffer code = new StringBuffer();
@@ -257,10 +256,9 @@ public class ProblemSolver {
 				declaredVars.addAll(InputUtil.getDeclaredVars(solved.problem));
 				solved = solved.parentState;
 			}
-			addProblemState(
-					newProblem, problemState, new MultistageTheorem(null, null, null, 0,
-							"Brute-force checking of a quantifier.", code.toString()),
-					Binding.singleton("nb", InputUtil.getUnusedVar(declaredVars)));
+			addProblemState(newProblem, problemState, new MultistageTheorem(null, null, null, 0,
+					"Brute-force checking of a quantifier.", code.toString()), Binding.singleton("nb",
+					InputUtil.getUnusedVar(declaredVars)));
 		}
 	}
 
@@ -269,7 +267,7 @@ public class ProblemSolver {
 		MutableBinding binding = new MutableBinding();
 		for (String var : vars) {
 			String unusedVar = InputUtil.getUnusedVar(usedVars);
-			binding.bind(var, InputUtil.createVariable(unusedVar));
+			binding.bind(var, unusedVar);
 			problem.getVars().add(InputUtil.createDeclaration(unusedVar));
 			break;
 		}
@@ -288,9 +286,9 @@ public class ProblemSolver {
 		newProblem.getGiven().setProperty(InputUtil.canonicalize(newProblem.getGiven().getProperty()));
 		if (newProblem.getGoal() != null)
 			newProblem.getGoal().setProperty(InputUtil.canonicalize(newProblem.getGoal().getProperty()));
+
 		if (!reachedProblems.containsKey(newProblem)) {
-			// System.out.println(this + ":::::" +
-			// TransformUtil.makePretty(newProblem));
+//			System.out.println(this + ":::::" + TransformUtil.makePretty(newProblem));
 			ProblemState newProblemState = new ProblemState(newProblem, parentState, multistageTheorem, binding);
 			reachedProblems.put(newProblem, newProblemState);
 
@@ -307,7 +305,7 @@ public class ProblemSolver {
 			// If the variable is unused...
 			if (!unbound.contains(var.getVarName())) {
 				MutableBinding binding = new MutableBinding();
-				binding.bind(DirectReturn.VAR_NAME, InputUtil.createVariable(var.getVarName()));
+				binding.bind(DirectReturn.VAR_NAME, var.getVarName());
 				findChainer.nextLevelTheorems.put(new DirectReturn(),
 						new ArrayList<Binding>(Collections.singleton(binding.getImmutable())));
 			}

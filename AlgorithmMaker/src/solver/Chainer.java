@@ -34,7 +34,7 @@ public class Chainer {
 	 * The equality atomics for each given variable (namely, all of the equals(x,y) assertions for which x is the key
 	 * variable)
 	 */
-	private Hashtable<Argument, HashSet<Fact<Atomic>>> equalities = new Hashtable<Argument, HashSet<Fact<Atomic>>>();
+	private Hashtable<String, HashSet<Fact<Atomic>>> equalities = new Hashtable<String, HashSet<Fact<Atomic>>>();
 
 	/**
 	 * All of the theorems to pass on to the next layer of chaining
@@ -63,15 +63,15 @@ public class Chainer {
 
 	public void addBoundVars(String... vars) {
 		for (String var : vars) {
-			chain(InputUtil.getAtomic(InputUtil.BOUND, var), TransformUtil.GIVEN);
-			chain(InputUtil.getAtomic(InputUtil.EQUAL, var, var), TransformUtil.REFLEXIVE);
+			chain(InputUtil.createAtomic(InputUtil.BOUND, var), TransformUtil.GIVEN);
+			chain(InputUtil.createAtomic(InputUtil.EQUAL, var, var), TransformUtil.REFLEXIVE);
 		}
 	}
 
 	public void addUnboundVars(String... vars) {
 		for (String var : vars)
-			if (!hasProperty(InputUtil.getAtomic(InputUtil.BOUND, var)))
-				chain(InputUtil.getAtomic(InputUtil.UNBOUND, var), TransformUtil.GIVEN);
+			if (!hasProperty(InputUtil.createAtomic(InputUtil.BOUND, var)))
+				chain(InputUtil.createAtomic(InputUtil.UNBOUND, var), TransformUtil.GIVEN);
 	}
 
 	private Property getRequirement(Theorem theorem) {
@@ -88,7 +88,7 @@ public class Chainer {
 		propertiesByVariable = new Hashtable<String, HashSet<Fact<? extends Property>>>();
 		nextLevelTheorems = new Hashtable<MultistageTheorem, ArrayList<Binding>>();
 		previousLevelTheorems = new Hashtable<MultistageTheorem, ArrayList<Binding>>();
-		equalities = new Hashtable<Argument, HashSet<Fact<Atomic>>>();
+		equalities = new Hashtable<String, HashSet<Fact<Atomic>>>();
 	}
 
 	public boolean hasProperty(Property property) {
@@ -133,51 +133,47 @@ public class Chainer {
 			Atomic atomic = (Atomic) fact.property;
 			String function = atomic.getFunction();
 
-			for (Argument var : atomic.getArgs()) {
-				if (var instanceof Variable) {
-					String arg = ((Variable) var).getArg();
-					if (!propertiesByVariable.containsKey(arg))
-						propertiesByVariable.put(arg, new HashSet<Fact<? extends Property>>());
+			for (String var : atomic.getArgs()) {
+				if (!propertiesByVariable.containsKey(var))
+					propertiesByVariable.put(var, new HashSet<Fact<? extends Property>>());
 
-					propertiesByVariable.get(arg).add(fact);
-				}
+				propertiesByVariable.get(var).add(fact);
 			}
 
 			// If we're adding a new equality, perform updates of all the old
 			// rules
 			if (function.equals(InputUtil.EQUAL)) {
-				Argument arg1 = atomic.getArgs().get(0);
-				Argument arg2 = atomic.getArgs().get(1);
-				if (arg1 instanceof Variable && arg2 instanceof Variable) {
-					// TODO:DN: Deal with equality for non-variable arguments
-					if (propertiesByVariable.containsKey(((Variable) arg1).getArg()))
-						for (Fact<? extends Property> oldFact : propertiesByVariable.get(((Variable) arg1).getArg())) {
-							if (oldFact.property instanceof Atomic
-									&& InputUtil.isSpecial(((Atomic) oldFact.property).getFunction()))
-								continue;
+				// TODO:DN: Deal with equality for non-variable arguments
+				if (propertiesByVariable.containsKey(atomic.getArgs().get(0)))
+					for (Fact<? extends Property> oldFact : propertiesByVariable.get(atomic.getArgs().get(1))) {
+						if (oldFact.property instanceof Atomic
+								&& InputUtil.isSpecial(((Atomic) oldFact.property).getFunction()))
+							continue;
 
-							Hashtable<Argument, Argument> revars = new Hashtable<Argument, Argument>();
-							revars.put(arg1, arg2);
-							chain(new Fact<Atomic>((Atomic) InputUtil.revar(oldFact.property, revars),
-									TransformUtil.EQUAL, oldFact, fact));
-						}
+						Hashtable<String, String> revars = new Hashtable<String, String>();
+						revars.put(atomic.getArgs().get(1), atomic.getArgs().get(0));
+						chain(new Fact<Atomic>((Atomic) InputUtil.revar(oldFact.property, revars), TransformUtil.EQUAL,
+								oldFact, fact));
+					}
 
-					// Add the equality to the table. Only need to do one way
-					// because the theorem for ab=ba will get the other.
-					if (!equalities.contains(arg1))
-						equalities.put(arg1, new HashSet<Fact<Atomic>>());
+				// Add the equality to the table. Only need to do one way
+				// because the theorem for ab=ba will get the other.
+				if (!equalities.contains(atomic.getArgs().get(0)))
+					equalities.put(atomic.getArgs().get(0), new HashSet<Fact<Atomic>>());
 
-					equalities.get(arg1).add((Fact<Atomic>) fact);
-				}
+				equalities.get(atomic.getArgs().get(0)).add((Fact<Atomic>) fact);
 			}
 
 			// For all vars that have other vars equal to them, apply the new
 			// rule to them
 			if (fact.property instanceof Atomic && !InputUtil.isSpecial(((Atomic) fact.property).getFunction()))
-				for (Argument arg : atomic.getArgs()) {
+				for (String arg : atomic.getArgs()) {
 					if (equalities.containsKey(arg))
 						for (Fact<Atomic> equalVar : equalities.get(arg)) {
-							Hashtable<Argument, Argument> revars = new Hashtable<Argument, Argument>();
+							if (arg.equals(equalVar.property.getArgs().get(1)))
+								continue;
+
+							Hashtable<String, String> revars = new Hashtable<String, String>();
 							revars.put(arg, equalVar.property.getArgs().get(1));
 							chain(new Fact<Atomic>((Atomic) InputUtil.revar(fact.property, revars),
 									TransformUtil.EQUAL, equalVar, fact));
@@ -257,7 +253,7 @@ public class Chainer {
 				for (String originalVar : declaredVars) {
 					String newVar = InputUtil.getUnusedVar(declaredVars);
 					declaredVars.add(newVar);
-					newBinding.bind(originalVar, InputUtil.createVariable(newVar));
+					newBinding.bind(originalVar, newVar);
 				}
 				binding = newBinding;
 			}

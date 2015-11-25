@@ -1,6 +1,5 @@
 import static algorithmMaker.QuickParser.parseProperty;
 import static algorithmMaker.util.InputUtil.canonicalize;
-import static algorithmMaker.util.InputUtil.createVariable;
 import static algorithmMaker.util.InputUtil.desugar;
 import static algorithmMaker.util.InputUtil.devar;
 import static algorithmMaker.util.InputUtil.revar;
@@ -14,7 +13,6 @@ import java.util.Hashtable;
 import org.junit.Test;
 
 import algorithmMaker.QuickParser;
-import algorithmMaker.input.Argument;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.Property;
 import algorithmMaker.util.InputUtil;
@@ -25,9 +23,9 @@ public class InputUtilTests {
 	@Test
 	public void testRevar() {
 		// Tests if a revar can switch out simple things
-		assertEquals(parseProperty("a(y)"), revar(parseProperty("a(x)"), new Hashtable<Argument, Argument>() {
+		assertEquals(parseProperty("a(y)"), revar(parseProperty("a(x)"), new Hashtable<String, String>() {
 			{
-				put(createVariable("x"), createVariable("y"));
+				put("x", "y");
 			}
 		}));
 	}
@@ -79,7 +77,7 @@ public class InputUtilTests {
 		tasks.add(new String[] { "Given list<int> x; Find y st test(y)",
 				"Given x st type_list(x) & child_type_int(x); Find y st test(y)" });
 		tasks.add(new String[] { "Given x; Find y st test(test1(y))",
-				"Given x; Find y st {na st test1(y,na) & test(na)}" });
+				"Given x; Find y st {na st test(na) & test1(y,na)}" });
 		for (String[] task : tasks) {
 			Input original = QuickParser.parseInput(task[0]);
 			String originalToString = original.toString();
@@ -97,6 +95,6 @@ public class InputUtilTests {
 
 	@Test
 	public void testDevar() {
-		assertEquals(InputUtil.getAtomic("a", "_"), devar(InputUtil.getAtomic("a", "x")));
+		assertEquals(InputUtil.createAtomic("a", "_"), devar(InputUtil.createAtomic("a", "x")));
 	}
 }

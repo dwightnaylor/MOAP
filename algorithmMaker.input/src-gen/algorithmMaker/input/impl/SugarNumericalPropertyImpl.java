@@ -2,8 +2,8 @@
  */
 package algorithmMaker.input.impl;
 
-import algorithmMaker.input.Argument;
 import algorithmMaker.input.InputPackage;
+import algorithmMaker.input.SugarNumericalProperty;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -11,19 +11,19 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Argument</b></em>'.
+ * An implementation of the model object '<em><b>Sugar Numerical Property</b></em>'.
  * <!-- end-user-doc -->
  *
  * @generated
  */
-public class ArgumentImpl extends MinimalEObjectImpl.Container implements Argument
+public class SugarNumericalPropertyImpl extends MinimalEObjectImpl.Container implements SugarNumericalProperty
 {
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected ArgumentImpl()
+  protected SugarNumericalPropertyImpl()
   {
     super();
   }
@@ -36,7 +36,7 @@ public class ArgumentImpl extends MinimalEObjectImpl.Container implements Argume
   @Override
   protected EClass eStaticClass()
   {
-    return InputPackage.Literals.ARGUMENT;
+    return InputPackage.Literals.SUGAR_NUMERICAL_PROPERTY;
   }
 
-} //ArgumentImpl
+} //SugarNumericalPropertyImpl

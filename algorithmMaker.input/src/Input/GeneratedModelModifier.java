@@ -200,10 +200,10 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 					+ NL);
 			break;
 		// TODO:DN: Worry about parenthesizing arithmetic output
-		case "Addition":
+		case "SugarAddition":
 			ret.append("\t\tret.append(left + \" \" + symbol + \" \" + right);" + NL);
 			break;
-		case "Multiplication":
+		case "SugarMultiplication":
 			ret.append("\t\tret.append(left + \" \" + symbol + \" \" + right);" + NL);
 			break;
 		case "NumberLiteral":
@@ -216,7 +216,16 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 			ret.append("\t\tret.append(function);" + NL);
 			ret.append("\t\tif (args != null && args.size() > 0){" + NL);
 			ret.append("\t\t\tret.append('(');" + NL);
-			ret.append("\t\t\tfor (Argument arg : args)" + NL);
+			ret.append("\t\t\tfor (String arg : args)" + NL);
+			ret.append("\t\t\t\tret.append(arg + ',');" + NL);
+			ret.append("\t\t\tret.setCharAt(ret.length() - 1, ')');" + NL);
+			ret.append("\t\t}" + NL);
+			break;
+		case "SugarAtomic":
+			ret.append("\t\tret.append(function);" + NL);
+			ret.append("\t\tif (args != null && args.size() > 0){" + NL);
+			ret.append("\t\t\tret.append('(');" + NL);
+			ret.append("\t\t\tfor (SugarNumericalProperty arg : args)" + NL);
 			ret.append("\t\t\t\tret.append(arg.toString() + ',');" + NL);
 			ret.append("\t\t\tret.setCharAt(ret.length() - 1, ')');" + NL);
 			ret.append("\t\t}" + NL);

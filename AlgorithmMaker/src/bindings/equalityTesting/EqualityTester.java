@@ -8,21 +8,26 @@ import bindings.Binding;
 import bindings.MutableBinding;
 
 /**
- * This class is for third-order canonicalization. This is the removal of variable name value from an expression.
- * Namely, the point is to be able to recognize the equivalence of "a(x) & b(x)" and "a(y) & b(y)", but reject the
- * equivalence of "a(x,y) & a(y,z)" and "a(x,y) & a(z,t)". This is also used in theorem chaining to recognize equivalent
- * expressions.
+ * This class is for third-order canonicalization. This is the removal of
+ * variable name value from an expression. Namely, the point is to be able to
+ * recognize the equivalence of "a(x) & b(x)" and "a(y) & b(y)", but reject the
+ * equivalence of "a(x,y) & a(y,z)" and "a(x,y) & a(z,t)". This is also used in
+ * theorem chaining to recognize equivalent expressions.
  * 
  * @author Dwight Naylor
  */
 public class EqualityTester {
 	/**
-	 * Finds all the bindings from the original property to the new property that will make the two equivalent.<br>
+	 * Finds all the bindings from the original property to the new property
+	 * that will make the two equivalent.<br>
 	 * <br>
-	 * This is used to determine the equivalences between two expressions regardless of variable naming. It is more
-	 * complicated than InputUtil.devar(Property) because it will also take into account relationships between the
-	 * variables. For example, <code> a(x,y) & a(y,z) </code>and <code> a(x,y) & a(z,q) </code> would both devar to
-	 * <code> a(_,_) & a(_,_)</code>, but they are not equivalent in terms of variable relations.
+	 * This is used to determine the equivalences between two expressions
+	 * regardless of variable naming. It is more complicated than
+	 * InputUtil.devar(Property) because it will also take into account
+	 * relationships between the variables. For example,
+	 * <code> a(x,y) & a(y,z) </code>and <code> a(x,y) & a(z,q) </code> would
+	 * both devar to <code> a(_,_) & a(_,_)</code>, but they are not equivalent
+	 * in terms of variable relations.
 	 */
 	public static List<Binding> getEquivalentBindings(Property originalProperty, Property newProperty) {
 		originalProperty = InputUtil.canonicalize(originalProperty);
@@ -54,8 +59,8 @@ public class EqualityTester {
 	}
 
 	private static void addLegalBindings(ArrayList<Binding> legalBindings, MutableBinding binding,
-			ArrayList<Appearance> appearances, int index, int subIndex, Property originalProperty,
-			Property newProperty, Hashtable<Appearance, ArrayList<String>> originalAppearances,
+			ArrayList<Appearance> appearances, int index, int subIndex, Property originalProperty, Property newProperty,
+			Hashtable<Appearance, ArrayList<String>> originalAppearances,
 			Hashtable<Appearance, ArrayList<String>> newAppearances) {
 		if (index == appearances.size()) {
 			if (InputUtil.canonicalize(InputUtil.revar(originalProperty, binding.getArguments())).equals(newProperty))
@@ -66,8 +71,8 @@ public class EqualityTester {
 		Appearance appearance = appearances.get(index);
 		String currentVar = originalAppearances.get(appearance).get(subIndex);
 		for (String varToRevar : newAppearances.get(appearance)) {
-			if (binding.canBind(currentVar, InputUtil.createVariable(varToRevar))) {
-				binding.bind(currentVar, InputUtil.createVariable(varToRevar));
+			if (binding.canBind(currentVar, varToRevar)) {
+				binding.bind(currentVar, varToRevar);
 				if (subIndex == originalAppearances.get(appearance).size() - 1)
 					addLegalBindings(legalBindings, binding, appearances, index + 1, 0, originalProperty, newProperty,
 							originalAppearances, newAppearances);
@@ -106,7 +111,7 @@ public class EqualityTester {
 				if (!appearances.containsKey(appearance))
 					appearances.put(appearance, new ArrayList<String>());
 
-				appearances.get(appearance).add(((Variable) atomic.getArgs().get(i)).getArg());
+				appearances.get(appearance).add(atomic.getArgs().get(i));
 			}
 			return;
 		}
@@ -116,8 +121,8 @@ public class EqualityTester {
 		}
 		case Quantifier: {
 			Quantifier quantifier = (Quantifier) property;
-			addAppearances(quantifier.getSubject().getProperty(), appearances, new QuantifierAppearance(quantifier,
-					true, prefix));
+			addAppearances(quantifier.getSubject().getProperty(), appearances,
+					new QuantifierAppearance(quantifier, true, prefix));
 			addAppearances(quantifier.getPredicate(), appearances, new QuantifierAppearance(quantifier, false, prefix));
 			return;
 		}
