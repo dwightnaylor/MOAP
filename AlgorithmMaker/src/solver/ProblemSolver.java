@@ -288,7 +288,7 @@ public class ProblemSolver {
 			newProblem.getGoal().setProperty(InputUtil.canonicalize(newProblem.getGoal().getProperty()));
 
 		if (!reachedProblems.containsKey(newProblem)) {
-//			System.out.println(this + ":::::" + TransformUtil.makePretty(newProblem));
+			// System.out.println(this + ":::::" + TransformUtil.makePretty(newProblem));
 			ProblemState newProblemState = new ProblemState(newProblem, parentState, multistageTheorem, binding);
 			reachedProblems.put(newProblem, newProblemState);
 
@@ -319,7 +319,7 @@ public class ProblemSolver {
 	public static ProblemSolver runSolver(String problemString) {
 		ArrayList<Theorem> theorems = TheoremParser.parseFiles();
 		theorems.addAll(MultiTheoremParser.parseFiles());
-		Input input = QuickParser.parseInput(problemString);
+		Input input = QuickParser.parseInputDirty(problemString);
 		InputUtil.desugar(input);
 		ProblemSolver ret = new ProblemSolver(input, theorems.toArray(new Theorem[0]));
 		ret.getSolution();
@@ -337,7 +337,7 @@ public class ProblemSolver {
 				s.close();
 				System.exit(0);
 			}
-			Input input = QuickParser.parseInput(problemString);
+			Input input = QuickParser.parseInputDirty(problemString);
 			InputUtil.desugar(input);
 			ProblemState solution = new ProblemSolver(input, theorems.toArray(new Theorem[0])).getSolution();
 			if (solution == null)

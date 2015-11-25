@@ -77,6 +77,7 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
       case InputPackage.BOOLEAN_LITERAL: return createBooleanLiteral();
       case InputPackage.THEOREM: return createTheorem();
       case InputPackage.SUGAR_NUMERICAL_PROPERTY: return createSugarNumericalProperty();
+      case InputPackage.SUGAR_VARIABLE: return createSugarVariable();
       case InputPackage.NUMBER_LITERAL: return createNumberLiteral();
       case InputPackage.ORING: return createORing();
       case InputPackage.AN_DING: return createANDing();
@@ -228,6 +229,17 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
   {
     SugarNumericalPropertyImpl sugarNumericalProperty = new SugarNumericalPropertyImpl();
     return sugarNumericalProperty;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public SugarVariable createSugarVariable()
+  {
+    SugarVariableImpl sugarVariable = new SugarVariableImpl();
+    return sugarVariable;
   }
 
   /**

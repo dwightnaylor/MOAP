@@ -57,6 +57,9 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/PseudoCode"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//SugarNumericalProperty"/>
+    <genClasses ecoreClass="Input.ecore#//SugarVariable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//SugarVariable/arg"/>
+    </genClasses>
     <genClasses ecoreClass="Input.ecore#//NumberLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//NumberLiteral/value"/>
     </genClasses>

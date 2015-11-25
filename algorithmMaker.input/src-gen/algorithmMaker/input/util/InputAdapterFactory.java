@@ -140,6 +140,11 @@ public class InputAdapterFactory extends AdapterFactoryImpl
         return createSugarNumericalPropertyAdapter();
       }
       @Override
+      public Adapter caseSugarVariable(SugarVariable object)
+      {
+        return createSugarVariableAdapter();
+      }
+      @Override
       public Adapter caseNumberLiteral(NumberLiteral object)
       {
         return createNumberLiteralAdapter();
@@ -377,6 +382,21 @@ public class InputAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createSugarNumericalPropertyAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.SugarVariable <em>Sugar Variable</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see algorithmMaker.input.SugarVariable
+   * @generated
+   */
+  public Adapter createSugarVariableAdapter()
   {
     return null;
   }

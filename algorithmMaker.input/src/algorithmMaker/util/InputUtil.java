@@ -652,19 +652,32 @@ public class InputUtil {
 				if (!(cur instanceof SugarAtomic))
 					return cur;
 
-				HashSet<Atomic> newAtomics = new HashSet<Atomic>();
+				ArrayList<Atomic> newAtomics = new ArrayList<Atomic>();
 				Hashtable<SugarNumericalProperty, String> nestedArgs = new Hashtable<SugarNumericalProperty, String>();
 				denest((SugarAtomic) cur, InputUtil.getAllVars(problem), nestedArgs, newAtomics, false);
+				if (newAtomics.size() == 1)
+					return newAtomics.iterator().next();
 
-				ProblemShell ret = InputUtil.createProblemShell(InputUtil.createProblem(nestedArgs.values(),
+				ArrayList<String> varsToDeclare = new ArrayList<String>();
+				for (SugarNumericalProperty property : nestedArgs.keySet())
+					if (!(property instanceof SugarVariable))
+						varsToDeclare.add(nestedArgs.get(property));
+
+				Collections.sort(varsToDeclare);
+
+				return InputUtil.createProblemShell(InputUtil.createProblem(varsToDeclare,
 						InputUtil.andTogether(newAtomics)));
-				return ret;
 			}
 
 			private void denest(SugarNumericalProperty property, HashSet<String> allVars,
-					Hashtable<SugarNumericalProperty, String> nestedArgs, HashSet<Atomic> newAtomics, boolean nested) {
+					Hashtable<SugarNumericalProperty, String> nestedArgs, ArrayList<Atomic> newAtomics, boolean nested) {
 				if (nestedArgs.containsKey(property))
 					return;
+
+				if (property instanceof SugarVariable) {
+					nestedArgs.put(property, ((SugarVariable) property).getArg());
+					return;
+				}
 
 				String newArg = null;
 				if (nested) {

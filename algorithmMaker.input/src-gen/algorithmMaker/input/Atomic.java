@@ -21,7 +21,7 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface Atomic extends Property, SugarNumericalProperty
+public interface Atomic extends Property
 {
   /**
    * Returns the value of the '<em><b>Function</b></em>' attribute.

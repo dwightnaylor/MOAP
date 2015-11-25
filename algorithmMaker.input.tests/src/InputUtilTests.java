@@ -1,6 +1,5 @@
 import static algorithmMaker.QuickParser.parseProperty;
 import static algorithmMaker.util.InputUtil.canonicalize;
-import static algorithmMaker.util.InputUtil.desugar;
 import static algorithmMaker.util.InputUtil.devar;
 import static algorithmMaker.util.InputUtil.revar;
 import static algorithmMaker.util.InputUtil.stupidCopy;
@@ -77,16 +76,15 @@ public class InputUtilTests {
 		tasks.add(new String[] { "Given list<int> x; Find y st test(y)",
 				"Given x st type_list(x) & child_type_int(x); Find y st test(y)" });
 		tasks.add(new String[] { "Given x; Find y st test(test1(y))",
-				"Given x; Find y st {na st test(na) & test1(y,na)}" });
+				"Given x; Find y st {na st test1(y,na) & test(na)}" });
+		tasks.add(new String[] { "Given x; Find y st equal(x+y,x-y)",
+				"Given x; Find y st {na,nb st plus(x,y,na) & minus(x,y,nb) & equal(na,nb)}" });
 		for (String[] task : tasks) {
-			Input original = QuickParser.parseInput(task[0]);
-			String originalToString = original.toString();
-			// The simplified version goes here
-			desugar(original);
+			Input original = QuickParser.parseInputDirty(task[0]);
 			String simplifiedToString = original.toString();
 
 			if (!task[1].equals(simplifiedToString))
-				System.err.println("\"" + originalToString + "\" Should desugar to \"" + task[1]
+				System.err.println("\"" + task[0] + "\" Should desugar to \"" + task[1]
 						+ "\" but it instead desugared to \"" + simplifiedToString + '"');
 
 			assertEquals(simplifiedToString, task[1]);

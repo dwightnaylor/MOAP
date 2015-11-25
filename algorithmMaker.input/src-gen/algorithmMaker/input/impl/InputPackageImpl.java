@@ -20,6 +20,7 @@ import algorithmMaker.input.SugarAddition;
 import algorithmMaker.input.SugarAtomic;
 import algorithmMaker.input.SugarMultiplication;
 import algorithmMaker.input.SugarNumericalProperty;
+import algorithmMaker.input.SugarVariable;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.input.Type;
 
@@ -128,6 +129,13 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * @generated
    */
   private EClass sugarNumericalPropertyEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass sugarVariableEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -622,6 +630,26 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getSugarVariable()
+  {
+    return sugarVariableEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getSugarVariable_Arg()
+  {
+    return (EAttribute)sugarVariableEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getNumberLiteral()
   {
     return numberLiteralEClass;
@@ -859,6 +887,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
 
     sugarNumericalPropertyEClass = createEClass(SUGAR_NUMERICAL_PROPERTY);
 
+    sugarVariableEClass = createEClass(SUGAR_VARIABLE);
+    createEAttribute(sugarVariableEClass, SUGAR_VARIABLE__ARG);
+
     numberLiteralEClass = createEClass(NUMBER_LITERAL);
     createEAttribute(numberLiteralEClass, NUMBER_LITERAL__VALUE);
 
@@ -916,8 +947,8 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     sugarAtomicEClass.getESuperTypes().add(this.getProperty());
     sugarAtomicEClass.getESuperTypes().add(this.getSugarNumericalProperty());
     atomicEClass.getESuperTypes().add(this.getProperty());
-    atomicEClass.getESuperTypes().add(this.getSugarNumericalProperty());
     booleanLiteralEClass.getESuperTypes().add(this.getProperty());
+    sugarVariableEClass.getESuperTypes().add(this.getSugarNumericalProperty());
     numberLiteralEClass.getESuperTypes().add(this.getSugarNumericalProperty());
     oRingEClass.getESuperTypes().add(this.getProperty());
     anDingEClass.getESuperTypes().add(this.getProperty());
@@ -976,6 +1007,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     initEAttribute(getTheorem_PseudoCode(), ecorePackage.getEString(), "PseudoCode", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(sugarNumericalPropertyEClass, SugarNumericalProperty.class, "SugarNumericalProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(sugarVariableEClass, SugarVariable.class, "SugarVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getSugarVariable_Arg(), ecorePackage.getEString(), "arg", null, 0, 1, SugarVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(numberLiteralEClass, NumberLiteral.class, "NumberLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getNumberLiteral_Value(), ecorePackage.getEInt(), "value", null, 0, 1, NumberLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

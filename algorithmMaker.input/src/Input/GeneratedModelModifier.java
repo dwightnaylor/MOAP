@@ -209,7 +209,7 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 		case "NumberLiteral":
 			ret.append("\t\tret.append(value);" + NL);
 			break;
-		case "Variable":
+		case "SugarVariable":
 			ret.append("\t\tret.append(arg);" + NL);
 			break;
 		case "Atomic":
@@ -222,7 +222,7 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 			ret.append("\t\t}" + NL);
 			break;
 		case "SugarAtomic":
-			ret.append("\t\tret.append(function);" + NL);
+			ret.append("\t\tret.append(function + \":\");" + NL);
 			ret.append("\t\tif (args != null && args.size() > 0){" + NL);
 			ret.append("\t\t\tret.append('(');" + NL);
 			ret.append("\t\t\tfor (SugarNumericalProperty arg : args)" + NL);

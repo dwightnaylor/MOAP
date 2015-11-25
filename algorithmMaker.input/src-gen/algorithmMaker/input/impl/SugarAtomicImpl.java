@@ -238,7 +238,7 @@ public class SugarAtomicImpl extends PropertyImpl implements SugarAtomic
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append(function);
+		ret.append(function + ":");
 		if (args != null && args.size() > 0){
 			ret.append('(');
 			for (SugarNumericalProperty arg : args)

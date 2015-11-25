@@ -145,7 +145,6 @@ public class InputSwitch<T> extends Switch<T>
         Atomic atomic = (Atomic)theEObject;
         T result = caseAtomic(atomic);
         if (result == null) result = caseProperty(atomic);
-        if (result == null) result = caseSugarNumericalProperty(atomic);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -168,6 +167,14 @@ public class InputSwitch<T> extends Switch<T>
       {
         SugarNumericalProperty sugarNumericalProperty = (SugarNumericalProperty)theEObject;
         T result = caseSugarNumericalProperty(sugarNumericalProperty);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case InputPackage.SUGAR_VARIABLE:
+      {
+        SugarVariable sugarVariable = (SugarVariable)theEObject;
+        T result = caseSugarVariable(sugarVariable);
+        if (result == null) result = caseSugarNumericalProperty(sugarVariable);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -419,6 +426,22 @@ public class InputSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseSugarNumericalProperty(SugarNumericalProperty object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Sugar Variable</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Sugar Variable</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseSugarVariable(SugarVariable object)
   {
     return null;
   }

@@ -46,7 +46,7 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="args" upperBound="-1" eType="#//SugarNumericalProperty"
         containment="true"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Atomic" eSuperTypes="#//Property #//SugarNumericalProperty">
+  <eClassifiers xsi:type="ecore:EClass" name="Atomic" eSuperTypes="#//Property">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Function" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="args" unique="false" upperBound="-1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -65,6 +65,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="PseudoCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SugarNumericalProperty"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SugarVariable" eSuperTypes="#//SugarNumericalProperty">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="arg" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NumberLiteral" eSuperTypes="#//SugarNumericalProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
   </eClassifiers>

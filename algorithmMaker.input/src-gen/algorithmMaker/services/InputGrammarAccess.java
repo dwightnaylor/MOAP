@@ -423,10 +423,10 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		//	Atomic | SugarAtomic | Quantifier | ProblemShell | "(" ORing ")" | BooleanLiteral | Negation;
 		@Override public ParserRule getRule() { return rule; }
 
-		//-> Atomic | SugarAtomic | Quantifier | ProblemShell | "(" ORing ")" | BooleanLiteral | Negation
+		//Atomic | SugarAtomic | Quantifier | ProblemShell | "(" ORing ")" | BooleanLiteral | Negation
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//-> Atomic
+		//Atomic
 		public RuleCall getAtomicParserRuleCall_0() { return cAtomicParserRuleCall_0; }
 
 		//SugarAtomic
@@ -570,21 +570,22 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cFunctionAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cFunctionIDTerminalRuleCall_0_0 = (RuleCall)cFunctionAssignment_0.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Assignment cArgsAssignment_2_0 = (Assignment)cGroup_2.eContents().get(0);
-		private final RuleCall cArgsSugarAdditionParserRuleCall_2_0_0 = (RuleCall)cArgsAssignment_2_0.eContents().get(0);
-		private final Group cGroup_2_1 = (Group)cGroup_2.eContents().get(1);
-		private final Keyword cCommaKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
-		private final Assignment cArgsAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
-		private final RuleCall cArgsSugarAdditionParserRuleCall_2_1_1_0 = (RuleCall)cArgsAssignment_2_1_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
+		private final Keyword cColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Assignment cArgsAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final RuleCall cArgsSugarAdditionParserRuleCall_3_0_0 = (RuleCall)cArgsAssignment_3_0.eContents().get(0);
+		private final Group cGroup_3_1 = (Group)cGroup_3.eContents().get(1);
+		private final Keyword cCommaKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
+		private final Assignment cArgsAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
+		private final RuleCall cArgsSugarAdditionParserRuleCall_3_1_1_0 = (RuleCall)cArgsAssignment_3_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//SugarAtomic:
-		//	Function=ID "(" (args+=SugarAddition ("," args+=SugarAddition)*)? ")";
+		//	Function=ID ":" "(" (args+=SugarAddition ("," args+=SugarAddition)*)? ")";
 		@Override public ParserRule getRule() { return rule; }
 
-		//Function=ID "(" (args+=SugarAddition ("," args+=SugarAddition)*)? ")"
+		//Function=ID ":" "(" (args+=SugarAddition ("," args+=SugarAddition)*)? ")"
 		public Group getGroup() { return cGroup; }
 
 		//Function=ID
@@ -593,32 +594,35 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getFunctionIDTerminalRuleCall_0_0() { return cFunctionIDTerminalRuleCall_0_0; }
 
+		//":"
+		public Keyword getColonKeyword_1() { return cColonKeyword_1; }
+
 		//"("
-		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
+		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
 
 		//(args+=SugarAddition ("," args+=SugarAddition)*)?
-		public Group getGroup_2() { return cGroup_2; }
+		public Group getGroup_3() { return cGroup_3; }
 
 		//args+=SugarAddition
-		public Assignment getArgsAssignment_2_0() { return cArgsAssignment_2_0; }
+		public Assignment getArgsAssignment_3_0() { return cArgsAssignment_3_0; }
 
 		//SugarAddition
-		public RuleCall getArgsSugarAdditionParserRuleCall_2_0_0() { return cArgsSugarAdditionParserRuleCall_2_0_0; }
+		public RuleCall getArgsSugarAdditionParserRuleCall_3_0_0() { return cArgsSugarAdditionParserRuleCall_3_0_0; }
 
 		//("," args+=SugarAddition)*
-		public Group getGroup_2_1() { return cGroup_2_1; }
+		public Group getGroup_3_1() { return cGroup_3_1; }
 
 		//","
-		public Keyword getCommaKeyword_2_1_0() { return cCommaKeyword_2_1_0; }
+		public Keyword getCommaKeyword_3_1_0() { return cCommaKeyword_3_1_0; }
 
 		//args+=SugarAddition
-		public Assignment getArgsAssignment_2_1_1() { return cArgsAssignment_2_1_1; }
+		public Assignment getArgsAssignment_3_1_1() { return cArgsAssignment_3_1_1; }
 
 		//SugarAddition
-		public RuleCall getArgsSugarAdditionParserRuleCall_2_1_1_0() { return cArgsSugarAdditionParserRuleCall_2_1_1_0; }
+		public RuleCall getArgsSugarAdditionParserRuleCall_3_1_1_0() { return cArgsSugarAdditionParserRuleCall_3_1_1_0; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
 	}
 
 	public class AtomicElements extends AbstractParserRuleElementFinder {
@@ -892,40 +896,56 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SugarNumericalPrimary");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cNumberLiteralParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cAtomicParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cSugarAtomicParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
-		private final Keyword cLeftParenthesisKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final RuleCall cSugarNumericalPrimaryParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
+		private final RuleCall cSugarAtomicParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final Group cGroup_2 = (Group)cAlternatives.eContents().get(2);
+		private final Keyword cLeftParenthesisKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final RuleCall cSugarNumericalPrimaryParserRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
+		private final RuleCall cSugarVariableParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
 		
 		//SugarNumericalPrimary returns SugarNumericalProperty:
-		//	NumberLiteral | -> Atomic | SugarAtomic | "(" SugarNumericalPrimary ")";
+		//	NumberLiteral | SugarAtomic | "(" SugarNumericalPrimary ")" | SugarVariable;
 		@Override public ParserRule getRule() { return rule; }
 
-		//NumberLiteral | -> Atomic | SugarAtomic | "(" SugarNumericalPrimary ")"
+		//NumberLiteral | SugarAtomic | "(" SugarNumericalPrimary ")" | SugarVariable
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//NumberLiteral
 		public RuleCall getNumberLiteralParserRuleCall_0() { return cNumberLiteralParserRuleCall_0; }
 
-		//-> Atomic
-		public RuleCall getAtomicParserRuleCall_1() { return cAtomicParserRuleCall_1; }
-
 		//SugarAtomic
-		public RuleCall getSugarAtomicParserRuleCall_2() { return cSugarAtomicParserRuleCall_2; }
+		public RuleCall getSugarAtomicParserRuleCall_1() { return cSugarAtomicParserRuleCall_1; }
 
 		//"(" SugarNumericalPrimary ")"
-		public Group getGroup_3() { return cGroup_3; }
+		public Group getGroup_2() { return cGroup_2; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_3_0() { return cLeftParenthesisKeyword_3_0; }
+		public Keyword getLeftParenthesisKeyword_2_0() { return cLeftParenthesisKeyword_2_0; }
 
 		//SugarNumericalPrimary
-		public RuleCall getSugarNumericalPrimaryParserRuleCall_3_1() { return cSugarNumericalPrimaryParserRuleCall_3_1; }
+		public RuleCall getSugarNumericalPrimaryParserRuleCall_2_1() { return cSugarNumericalPrimaryParserRuleCall_2_1; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_3_2() { return cRightParenthesisKeyword_3_2; }
+		public Keyword getRightParenthesisKeyword_2_2() { return cRightParenthesisKeyword_2_2; }
+
+		//SugarVariable
+		public RuleCall getSugarVariableParserRuleCall_3() { return cSugarVariableParserRuleCall_3; }
+	}
+
+	public class SugarVariableElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SugarVariable");
+		private final Assignment cArgAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cArgIDTerminalRuleCall_0 = (RuleCall)cArgAssignment.eContents().get(0);
+		
+		//SugarVariable:
+		//	arg=ID;
+		@Override public ParserRule getRule() { return rule; }
+
+		//arg=ID
+		public Assignment getArgAssignment() { return cArgAssignment; }
+
+		//ID
+		public RuleCall getArgIDTerminalRuleCall_0() { return cArgIDTerminalRuleCall_0; }
 	}
 
 	public class NumberLiteralElements extends AbstractParserRuleElementFinder {
@@ -964,6 +984,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	private final SugarAdditionElements pSugarAddition;
 	private final SugarMultiplicationElements pSugarMultiplication;
 	private final SugarNumericalPrimaryElements pSugarNumericalPrimary;
+	private final SugarVariableElements pSugarVariable;
 	private final NumberLiteralElements pNumberLiteral;
 	
 	private final Grammar grammar;
@@ -994,6 +1015,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		this.pSugarAddition = new SugarAdditionElements();
 		this.pSugarMultiplication = new SugarMultiplicationElements();
 		this.pSugarNumericalPrimary = new SugarNumericalPrimaryElements();
+		this.pSugarVariable = new SugarVariableElements();
 		this.pNumberLiteral = new NumberLiteralElements();
 	}
 	
@@ -1147,7 +1169,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SugarAtomic:
-	//	Function=ID "(" (args+=SugarAddition ("," args+=SugarAddition)*)? ")";
+	//	Function=ID ":" "(" (args+=SugarAddition ("," args+=SugarAddition)*)? ")";
 	public SugarAtomicElements getSugarAtomicAccess() {
 		return pSugarAtomic;
 	}
@@ -1209,13 +1231,23 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//SugarNumericalPrimary returns SugarNumericalProperty:
-	//	NumberLiteral | -> Atomic | SugarAtomic | "(" SugarNumericalPrimary ")";
+	//	NumberLiteral | SugarAtomic | "(" SugarNumericalPrimary ")" | SugarVariable;
 	public SugarNumericalPrimaryElements getSugarNumericalPrimaryAccess() {
 		return pSugarNumericalPrimary;
 	}
 	
 	public ParserRule getSugarNumericalPrimaryRule() {
 		return getSugarNumericalPrimaryAccess().getRule();
+	}
+
+	//SugarVariable:
+	//	arg=ID;
+	public SugarVariableElements getSugarVariableAccess() {
+		return pSugarVariable;
+	}
+	
+	public ParserRule getSugarVariableRule() {
+		return getSugarVariableAccess().getRule();
 	}
 
 	//NumberLiteral:

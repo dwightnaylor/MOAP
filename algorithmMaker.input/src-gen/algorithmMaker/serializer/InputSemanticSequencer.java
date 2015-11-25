@@ -18,6 +18,7 @@ import algorithmMaker.input.Quantifier;
 import algorithmMaker.input.SugarAddition;
 import algorithmMaker.input.SugarAtomic;
 import algorithmMaker.input.SugarMultiplication;
+import algorithmMaker.input.SugarVariable;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.input.Type;
 import algorithmMaker.services.InputGrammarAccess;
@@ -96,6 +97,9 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				return; 
 			case InputPackage.SUGAR_MULTIPLICATION:
 				sequence_SugarMultiplication(context, (SugarMultiplication) semanticObject); 
+				return; 
+			case InputPackage.SUGAR_VARIABLE:
+				sequence_SugarVariable(context, (SugarVariable) semanticObject); 
 				return; 
 			case InputPackage.THEOREM:
 				sequence_Theorem(context, (Theorem) semanticObject); 
@@ -293,6 +297,22 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 */
 	protected void sequence_SugarMultiplication(EObject context, SugarMultiplication semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     arg=ID
+	 */
+	protected void sequence_SugarVariable(EObject context, SugarVariable semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.SUGAR_VARIABLE__ARG) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.SUGAR_VARIABLE__ARG));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getSugarVariableAccess().getArgIDTerminalRuleCall_0(), semanticObject.getArg());
+		feeder.finish();
 	}
 	
 	

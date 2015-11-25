@@ -23,7 +23,7 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_Input_SemicolonKeyword_4_4_q;
 	protected AbstractElementAlias match_Primary_LeftParenthesisKeyword_4_0_a;
 	protected AbstractElementAlias match_Primary_LeftParenthesisKeyword_4_0_p;
-	protected AbstractElementAlias match_SugarNumericalPrimary_LeftParenthesisKeyword_3_0_a;
+	protected AbstractElementAlias match_SugarNumericalPrimary_LeftParenthesisKeyword_2_0_a;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -31,7 +31,7 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_Input_SemicolonKeyword_4_4_q = new TokenAlias(false, true, grammarAccess.getInputAccess().getSemicolonKeyword_4_4());
 		match_Primary_LeftParenthesisKeyword_4_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_4_0());
 		match_Primary_LeftParenthesisKeyword_4_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_4_0());
-		match_SugarNumericalPrimary_LeftParenthesisKeyword_3_0_a = new TokenAlias(true, true, grammarAccess.getSugarNumericalPrimaryAccess().getLeftParenthesisKeyword_3_0());
+		match_SugarNumericalPrimary_LeftParenthesisKeyword_2_0_a = new TokenAlias(true, true, grammarAccess.getSugarNumericalPrimaryAccess().getLeftParenthesisKeyword_2_0());
 	}
 	
 	@Override
@@ -52,8 +52,8 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_Primary_LeftParenthesisKeyword_4_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_Primary_LeftParenthesisKeyword_4_0_p.equals(syntax))
 				emit_Primary_LeftParenthesisKeyword_4_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_SugarNumericalPrimary_LeftParenthesisKeyword_3_0_a.equals(syntax))
-				emit_SugarNumericalPrimary_LeftParenthesisKeyword_3_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_SugarNumericalPrimary_LeftParenthesisKeyword_2_0_a.equals(syntax))
+				emit_SugarNumericalPrimary_LeftParenthesisKeyword_2_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -106,9 +106,10 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) Function=ID
+	 *     (rule start) (ambiguity) arg=ID
 	 *     (rule start) (ambiguity) value=INT
 	 */
-	protected void emit_SugarNumericalPrimary_LeftParenthesisKeyword_3_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_SugarNumericalPrimary_LeftParenthesisKeyword_2_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

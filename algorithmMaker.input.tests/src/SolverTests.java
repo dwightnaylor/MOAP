@@ -72,7 +72,7 @@ public class SolverTests {
 				"foreach child b of a\n\tif b % 2 == 0\n\t\t" });
 		probsAndSols.add(new String[] { "Given list<int> a,list<int> b; Find c st child(a,c) & child(b,c) & even(c)",
 				"foreach child c of a\n\tif c % 2 == 0\n\t\tforeach child na of b\n\t\t\t" });
-		probsAndSols.add(new String[] { "Given int a, int b, int c; Test(plus(c,b,a))", "if c + b == a\n\t" });
+		probsAndSols.add(new String[] { "Given int a, int b, int c; Test plus(c,b,a)", "if c + b == a\n\t" });
 		probsAndSols.add(new String[] { "Given array x; Find y st index(x,y) & get(x,y,y)",
 				"foreach index y of x\n\tif x.get(y) == y" });
 		probsAndSols.add(new String[] { "Given list x; Find y,z st child(x,y) & child(x,z) & equal(y,z)",
@@ -82,8 +82,10 @@ public class SolverTests {
 				"Given list a, list b, list c; Find d st child(a,d) & child(b,d) & !child(c,d)", "" });
 		probsAndSols.add(new String[] {
 				"Given list a, hashset b, hashset c; Find d st child(a,d) & child(b,d) & !child(c,d)", "" });
+		// probsAndSols.add(new String[] {
+		// "Given list<number> x, int s; Find a,b st child(x,a) & child(x,b) & equal(a+b,s)", "" });
 		for (String[] ps : probsAndSols) {
-			Input input = QuickParser.parseInput(ps[0]);
+			Input input = QuickParser.parseInputDirty(ps[0]);
 			InputUtil.desugar(input);
 			String actualSolution = ProblemState.getOutputString(new ProblemSolver(input, theorems
 					.toArray(new Theorem[0])).getSolution());

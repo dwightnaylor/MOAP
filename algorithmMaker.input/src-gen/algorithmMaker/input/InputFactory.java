@@ -140,6 +140,15 @@ public interface InputFactory extends EFactory
   SugarNumericalProperty createSugarNumericalProperty();
 
   /**
+   * Returns a new object of class '<em>Sugar Variable</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Sugar Variable</em>'.
+   * @generated
+   */
+  SugarVariable createSugarVariable();
+
+  /**
    * Returns a new object of class '<em>Number Literal</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

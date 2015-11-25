@@ -19,11 +19,21 @@ import algorithmMaker.input.Problem;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.parser.antlr.InputParser;
+import algorithmMaker.util.InputUtil;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 public class QuickParser {
+
+	private static final boolean PRINT_ERRORS_IN_PARSING = false;
+
+	public static String clean(String queryString) {
+		queryString = queryString.replaceAll("(\\w+)(\\s*)\\(", "$1:$2(");
+		queryString = queryString.replace(InputUtil.FORALL + ":", InputUtil.FORALL);
+		queryString = queryString.replace(InputUtil.EXISTS + ":", InputUtil.EXISTS);
+		return queryString;
+	}
 
 	public static Property parseProperty(String queryString) {
 		Parser.queryString = "ORing";
@@ -33,6 +43,13 @@ public class QuickParser {
 	public static Theorem parseTheorem(String queryString) {
 		Parser.queryString = "Theorem";
 		return (Theorem) parse(queryString, false);
+	}
+
+	public static Input parseInputDirty(String queryString) {
+		Parser.queryString = "Input";
+		Input parsed = (Input) parse(clean(queryString), true);
+		InputUtil.desugar(parsed);
+		return parsed;
 	}
 
 	public static Input parseInput(String queryString) {
@@ -65,14 +82,18 @@ public class QuickParser {
 
 		if (nullOnError) {
 			if (resource.getErrors().size() > 0) {
-				// System.err.println(resource.getErrors());
+				if (PRINT_ERRORS_IN_PARSING)
+					System.err.println(resource.getErrors());
+
 				return null;
 			}
 
 			Diagnostic diagnostic = Diagnostician.INSTANCE.validate(ret);
 			switch (diagnostic.getSeverity()) {
 			case Diagnostic.ERROR: {
-				// System.err.println(diagnostic.getChildren());
+				if (PRINT_ERRORS_IN_PARSING)
+					System.err.println(diagnostic.getChildren());
+
 				return null;
 			}
 			case Diagnostic.WARNING:

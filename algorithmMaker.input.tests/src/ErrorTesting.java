@@ -27,4 +27,9 @@ public class ErrorTesting {
 		assertNotEquals(null, QuickParser.parseInput("Given x; Test a(x)"));
 		assertNotEquals(null, QuickParser.parseInput("Given x; Test forall(y st a(y) : b(y))"));
 	}
+
+	@Test
+	public void testIllegalNesting() {
+		assertEquals(null, QuickParser.parseInput("Given x; Find y st a(b(z))"));
+	}
 }

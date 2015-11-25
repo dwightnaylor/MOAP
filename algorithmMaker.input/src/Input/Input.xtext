@@ -37,7 +37,7 @@ ANDing returns Property:
 	Primary ({ANDing.left=current} '&' right=Primary)*;
 
 Primary returns Property:
-	-> Atomic | SugarAtomic | Quantifier | ProblemShell | ('(' ORing ')') | BooleanLiteral | Negation;
+	Atomic | SugarAtomic | Quantifier | ProblemShell | ('(' ORing ')') | BooleanLiteral | Negation;
 
 ProblemShell:
 	'{' problem=Problem '}';
@@ -49,7 +49,7 @@ Quantifier:
 	quantifier=('forall' | 'exists') '(' subject=Problem ':' predicate=ORing ')';
 
 SugarAtomic:
-	Function=ID '(' (args+=SugarAddition (',' args+=SugarAddition)*)? ')';
+	Function=ID ':' '(' (args+=SugarAddition (',' args+=SugarAddition)*)? ')';
 
 Atomic:
 	Function=ID '(' (args+=ID (',' args+=ID)*)? ')';
@@ -70,7 +70,10 @@ SugarMultiplication returns SugarNumericalProperty:
 	SugarNumericalPrimary ({SugarMultiplication.left=current} symbol=('*' | '/') right=SugarNumericalPrimary)*;
 
 SugarNumericalPrimary returns SugarNumericalProperty:
-	NumberLiteral | -> Atomic | SugarAtomic | ('(' SugarNumericalPrimary ')');
+	NumberLiteral | SugarAtomic | ('(' SugarNumericalPrimary ')') | SugarVariable;
+
+SugarVariable:
+	arg=ID;
 
 NumberLiteral:
 	value=INT;
