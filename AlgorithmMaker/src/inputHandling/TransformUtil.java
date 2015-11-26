@@ -21,8 +21,8 @@ import algorithmMaker.util.InputConverter;
 import algorithmMaker.util.InputUtil;
 
 /**
- * A class for fundamental transformations of input. All simple operations
- * should instead go in InputUtil.java in the algorithmMaker.input project.
+ * A class for fundamental transformations of input. All simple operations should instead go in InputUtil.java in the
+ * algorithmMaker.input project.
  * 
  * @author Dwight Naylor
  */
@@ -40,8 +40,8 @@ public class TransformUtil {
 	}
 
 	/**
-	 * Reduces the given input by taking things out of the goal if they are in
-	 * the given, and reducing variable use in both halves.
+	 * Reduces the given input by taking things out of the goal if they are in the given, and reducing variable use in
+	 * both halves.
 	 */
 	public static void removeGivenFromGoal(Input input, Chainer chainer) {
 		if (input.getGoal() == null)
@@ -65,7 +65,7 @@ public class TransformUtil {
 		}
 
 		chainer.chain(input.getGiven().getProperty(), GIVEN);
-		toRemove.addAll(chainer.copyProperties());
+		toRemove.addAll(chainer.properties.keySet());
 		Property find = input.getGoal().getProperty();
 		if (find != null) {
 			Property reducedFind = (Property) removeProperties(find, toRemove);
@@ -79,8 +79,8 @@ public class TransformUtil {
 	}
 
 	/**
-	 * Sets the given problem to contain all the variables that appear within
-	 * it. Removes any of the variables in the given from the goal.
+	 * Sets the given problem to contain all the variables that appear within it. Removes any of the variables in the
+	 * given from the goal.
 	 */
 	public static void compactVariables(Problem given, Problem goal) {
 		given.getVars().clear();

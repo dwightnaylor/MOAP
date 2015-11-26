@@ -27,7 +27,7 @@ public class Chainer {
 	private Hashtable<Property, HashSet<Theorem>> theoremCatchers = new Hashtable<Property, HashSet<Theorem>>();
 	private boolean isGivenChainer = true;
 
-	private Hashtable<Property, Fact<? extends Property>> properties = new Hashtable<Property, Fact<? extends Property>>();
+	public Hashtable<Property, Fact<? extends Property>> properties = new Hashtable<Property, Fact<? extends Property>>();
 	public Hashtable<Property, HashSet<Fact<? extends Property>>> propertiesByStructure = new Hashtable<Property, HashSet<Fact<? extends Property>>>();
 	private Hashtable<String, HashSet<Fact<? extends Property>>> propertiesByVariable = new Hashtable<String, HashSet<Fact<? extends Property>>>();
 	/**
@@ -108,7 +108,8 @@ public class Chainer {
 		}
 	}
 
-	public void chain(Property property, Theorem theorem, Fact<?>... prerequisites) {
+	@SafeVarargs
+	public final void chain(Property property, Theorem theorem, Fact<? extends Property>... prerequisites) {
 		if (property instanceof ANDing)
 			for (Property anded : InputUtil.getANDed((ANDing) property))
 				chain(anded, theorem, prerequisites);
@@ -222,6 +223,7 @@ public class Chainer {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	private void attemptChaining(Theorem theorem, Binding binding) {
 		if (theorem instanceof MultistageTheorem) {
 			MultistageTheorem multistageTheorem = (MultistageTheorem) theorem;
@@ -259,7 +261,7 @@ public class Chainer {
 			}
 
 			chain(InputUtil.revar(theorem.getResult(), binding.getArguments()), theorem, binding.getPrerequisites()
-					.toArray(new Fact<?>[0]));
+					.toArray(new Fact[0]));
 		}
 	}
 
@@ -294,11 +296,5 @@ public class Chainer {
 				}
 			}
 		}
-	}
-
-	public HashSet<Property> copyProperties() {
-		HashSet<Property> atomics = new HashSet<Property>();
-		atomics.addAll(properties.keySet());
-		return atomics;
 	}
 }

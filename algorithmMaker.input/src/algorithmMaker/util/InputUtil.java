@@ -23,9 +23,6 @@ public class InputUtil {
 	public static final String UNBOUND = "UNBOUND";
 	public static final String EQUAL = "equal";
 
-	public static final String TEST = "Test";
-	public static final String FIND = "Find";
-
 	public static final String FORALL = "forall";
 	public static final String EXISTS = "exists";
 

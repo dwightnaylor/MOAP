@@ -1,17 +1,12 @@
 package solver;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Hashtable;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.PriorityQueue;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
+import display.Viewer;
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.Declaration;
@@ -91,10 +86,6 @@ public class ProblemSolver {
 			for (Entry<MultistageTheorem, ArrayList<Binding>> entry : findChainer.nextLevelTheorems.entrySet())
 				for (Binding binding : entry.getValue()) {
 					MultistageTheorem mst = entry.getKey();
-					if (mst.getRequiredGoalTask() != null
-							&& !problemState.problem.getTask().equals(mst.getRequiredGoalTask()))
-						continue;
-
 					Input newProblem = InputUtil.stupidCopy(problem);
 
 					// Make the new given (just add in all the multi-theorem
@@ -109,8 +100,8 @@ public class ProblemSolver {
 						newProblem.getGoal().getVars().removeIf(x -> x.getVarName().equals(varToRemove));
 					} else {
 						HashSet<String> usedVars = new HashSet<String>();
-						usedVars.addAll(Arrays.asList(InputUtil.getVarNames(newProblem.getGiven().getVars())));
-						usedVars.addAll(Arrays.asList(InputUtil.getVarNames(newProblem.getGoal().getVars())));
+						usedVars.addAll(InputUtil.getAllVars(newProblem.getGiven()));
+						usedVars.addAll(InputUtil.getAllVars(newProblem.getGoal()));
 
 						MutableBinding newBinding = new MutableBinding();
 						newBinding.addBindingsFrom(binding);
@@ -134,20 +125,17 @@ public class ProblemSolver {
 					newProblem.getGiven().setProperty(InputUtil.andTogether(newGivenParts));
 					newProblem.getGoal().setProperty(InputUtil.andTogether(newGoalParts));
 
-					if (mst.newGoalTask != null)
-						newProblem.setTask(mst.newGoalTask);
-
 					addProblemState(newProblem, problemState, mst, binding);
 				}
 		}
 		// Our stupid way of looking for quantifiers for theorems...
-		for (Property property : findChainer.copyProperties())
-			doSubProblemMultitheorems(problemState, property, givenChainer.copyProperties(),
-					findChainer.copyProperties());
+		for (Property property : findChainer.properties.keySet())
+			doSubProblemMultitheorems(problemState, property, givenChainer.properties.keySet(),
+					findChainer.properties.keySet());
 	}
 
-	private void doSubProblemMultitheorems(ProblemState problemState, Property property,
-			HashSet<Property> givenChainer, HashSet<Property> findChainer) {
+	private void doSubProblemMultitheorems(ProblemState problemState, Property property, Set<Property> givenChainer,
+			Set<Property> findChainer) {
 		if (property instanceof Quantifier)
 			doQuantifierSubProblemFor(problemState, (Quantifier) property, givenChainer, findChainer);
 
@@ -158,7 +146,6 @@ public class ProblemSolver {
 	private void doShellSubProblem(ProblemState problemState, ProblemShell shell) {
 		Input subProblem = InputUtil.stupidCopy(problemState.problem);
 		subProblem.setGoal(InputUtil.stupidCopy(shell.getProblem()));
-		subProblem.setTask(InputUtil.FIND);
 		if (!subSolvers.containsKey(subProblem)) {
 			ProblemSolver subSolver = new ProblemSolver(subProblem, theorems);
 			subSolver.getSolution();
@@ -169,7 +156,6 @@ public class ProblemSolver {
 			Input newProblem = InputUtil.stupidCopy(problemState.problem);
 			newProblem.setGoal((Problem) TransformUtil.removeProperties(newProblem.getGoal(), new HashSet<Property>(
 					Collections.singleton(shell))));
-			newProblem.setTask(InputUtil.FIND);
 			newProblem.getGiven()
 					.setProperty(
 							InputUtil.andTogether(Arrays.asList(new Property[] { shell,
@@ -193,7 +179,7 @@ public class ProblemSolver {
 	}
 
 	private void doQuantifierSubProblemFor(ProblemState problemState, Quantifier quantifier,
-			HashSet<Property> givenChainer, HashSet<Property> findChainer) {
+			Set<Property> givenChainer, Set<Property> findChainer) {
 		// First we check and see if all the variables used in the quantifier
 		// are bound. If any aren't, we can't solve the quantifier.
 		HashSet<String> boundVars = new HashSet<String>();
@@ -222,7 +208,6 @@ public class ProblemSolver {
 				InputUtil.getNegated(InputUtil.stupidCopy(InputUtil.revar(quantifier.getPredicate(),
 						rebindingForQuantifier.getArguments()))) }))));
 		subProblem.setGoal(newGoal);
-		subProblem.setTask(InputUtil.FIND);
 		if (!subSolvers.containsKey(subProblem)) {
 			ProblemSolver subSolver = new ProblemSolver(subProblem, theorems);
 			subSolver.getSolution();
@@ -235,7 +220,6 @@ public class ProblemSolver {
 			// FIXME: DN: This is stupid way of removing properties here
 			newProblem.setGoal((Problem) TransformUtil.removeProperties(newProblem.getGoal(), new HashSet<Property>(
 					Collections.singleton(quantifier))));
-			newProblem.setTask(InputUtil.FIND);
 			newProblem.getGiven().setProperty(
 					InputUtil.andTogether(Arrays.asList(new Property[] { quantifier,
 							newProblem.getGiven().getProperty() })));
@@ -339,7 +323,8 @@ public class ProblemSolver {
 			}
 			Input input = QuickParser.parseInputDirty(problemString);
 			InputUtil.desugar(input);
-			ProblemState solution = new ProblemSolver(input, theorems.toArray(new Theorem[0])).getSolution();
+			ProblemSolver problemSolver = new ProblemSolver(input, theorems.toArray(new Theorem[0]));
+			ProblemState solution = problemSolver.getSolution();
 			if (solution == null)
 				System.out.println("I couldn't solve your problem. You'll have to find a better robot :-(");
 			else {
@@ -354,6 +339,7 @@ public class ProblemSolver {
 
 				System.out.println(ProblemState.getOutputString(solutionSave));
 			}
+			Viewer.displaySolverResults(problemSolver);
 			System.out.println("HIT ME WITH ANOTHER ONE!");
 		}
 	}

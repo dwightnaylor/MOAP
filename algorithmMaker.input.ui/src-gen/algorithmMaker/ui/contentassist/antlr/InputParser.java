@@ -37,9 +37,8 @@ public class InputParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getInputAccess().getAlternatives_3(), "rule__Input__Alternatives_3");
-					put(grammarAccess.getInputAccess().getTaskAlternatives_3_0_0_0(), "rule__Input__TaskAlternatives_3_0_0_0");
-					put(grammarAccess.getInputAccess().getGoalAlternatives_3_1_1_0(), "rule__Input__GoalAlternatives_3_1_1_0");
+					put(grammarAccess.getInputAccess().getTaskAlternatives_3_0_0(), "rule__Input__TaskAlternatives_3_0_0");
+					put(grammarAccess.getInputAccess().getGoalAlternatives_3_1_0(), "rule__Input__GoalAlternatives_3_1_0");
 					put(grammarAccess.getPrimaryAccess().getAlternatives(), "rule__Primary__Alternatives");
 					put(grammarAccess.getQuantifierAccess().getQuantifierAlternatives_0_0(), "rule__Quantifier__QuantifierAlternatives_0_0");
 					put(grammarAccess.getBooleanLiteralAccess().getValueAlternatives_0(), "rule__BooleanLiteral__ValueAlternatives_0");
@@ -48,8 +47,7 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSugarMultiplicationAccess().getSymbolAlternatives_1_1_0(), "rule__SugarMultiplication__SymbolAlternatives_1_1_0");
 					put(grammarAccess.getSugarNumericalPrimaryAccess().getAlternatives(), "rule__SugarNumericalPrimary__Alternatives");
 					put(grammarAccess.getInputAccess().getGroup(), "rule__Input__Group__0");
-					put(grammarAccess.getInputAccess().getGroup_3_0(), "rule__Input__Group_3_0__0");
-					put(grammarAccess.getInputAccess().getGroup_3_1(), "rule__Input__Group_3_1__0");
+					put(grammarAccess.getInputAccess().getGroup_3(), "rule__Input__Group_3__0");
 					put(grammarAccess.getInputAccess().getGroup_4(), "rule__Input__Group_4__0");
 					put(grammarAccess.getInputAccess().getGroup_4_3(), "rule__Input__Group_4_3__0");
 					put(grammarAccess.getProblemPropertyOptionalAccess().getGroup(), "rule__ProblemPropertyOptional__Group__0");
@@ -82,10 +80,8 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getSugarMultiplicationAccess().getGroup_1(), "rule__SugarMultiplication__Group_1__0");
 					put(grammarAccess.getSugarNumericalPrimaryAccess().getGroup_2(), "rule__SugarNumericalPrimary__Group_2__0");
 					put(grammarAccess.getInputAccess().getGivenAssignment_1(), "rule__Input__GivenAssignment_1");
-					put(grammarAccess.getInputAccess().getTaskAssignment_3_0_0(), "rule__Input__TaskAssignment_3_0_0");
-					put(grammarAccess.getInputAccess().getGoalAssignment_3_0_1(), "rule__Input__GoalAssignment_3_0_1");
-					put(grammarAccess.getInputAccess().getTaskAssignment_3_1_0(), "rule__Input__TaskAssignment_3_1_0");
-					put(grammarAccess.getInputAccess().getGoalAssignment_3_1_1(), "rule__Input__GoalAssignment_3_1_1");
+					put(grammarAccess.getInputAccess().getTaskAssignment_3_0(), "rule__Input__TaskAssignment_3_0");
+					put(grammarAccess.getInputAccess().getGoalAssignment_3_1(), "rule__Input__GoalAssignment_3_1");
 					put(grammarAccess.getInputAccess().getTheoremsAssignment_4_2(), "rule__Input__TheoremsAssignment_4_2");
 					put(grammarAccess.getInputAccess().getTheoremsAssignment_4_3_1(), "rule__Input__TheoremsAssignment_4_3_1");
 					put(grammarAccess.getProblemNoVarsAccess().getPropertyAssignment(), "rule__ProblemNoVars__PropertyAssignment");

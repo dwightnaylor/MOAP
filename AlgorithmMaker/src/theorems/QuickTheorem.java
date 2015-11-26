@@ -27,6 +27,12 @@ public class QuickTheorem extends MinimalEObjectImpl.Container implements Theore
 		this.pseudocode = pseudocode;
 	}
 
+	public String toString() {
+		StringBuffer ret = new StringBuffer();
+		ret.append(requirement + "->" + result + ',' + cost + ',' + '"' + description + '"');
+		return ret.toString();
+	}
+
 	@Override
 	public String getImplication() {
 		return "->";

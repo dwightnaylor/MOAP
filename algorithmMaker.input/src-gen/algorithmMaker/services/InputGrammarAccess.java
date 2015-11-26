@@ -25,21 +25,15 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cGivenAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cGivenProblemPropertyOptionalParserRuleCall_1_0 = (RuleCall)cGivenAssignment_1.eContents().get(0);
 		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Alternatives cAlternatives_3 = (Alternatives)cGroup.eContents().get(3);
-		private final Group cGroup_3_0 = (Group)cAlternatives_3.eContents().get(0);
-		private final Assignment cTaskAssignment_3_0_0 = (Assignment)cGroup_3_0.eContents().get(0);
-		private final Alternatives cTaskAlternatives_3_0_0_0 = (Alternatives)cTaskAssignment_3_0_0.eContents().get(0);
-		private final Keyword cTaskFindKeyword_3_0_0_0_0 = (Keyword)cTaskAlternatives_3_0_0_0.eContents().get(0);
-		private final Keyword cTaskCountKeyword_3_0_0_0_1 = (Keyword)cTaskAlternatives_3_0_0_0.eContents().get(1);
-		private final Assignment cGoalAssignment_3_0_1 = (Assignment)cGroup_3_0.eContents().get(1);
-		private final RuleCall cGoalProblemParserRuleCall_3_0_1_0 = (RuleCall)cGoalAssignment_3_0_1.eContents().get(0);
-		private final Group cGroup_3_1 = (Group)cAlternatives_3.eContents().get(1);
-		private final Assignment cTaskAssignment_3_1_0 = (Assignment)cGroup_3_1.eContents().get(0);
-		private final Keyword cTaskTestKeyword_3_1_0_0 = (Keyword)cTaskAssignment_3_1_0.eContents().get(0);
-		private final Assignment cGoalAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
-		private final Alternatives cGoalAlternatives_3_1_1_0 = (Alternatives)cGoalAssignment_3_1_1.eContents().get(0);
-		private final RuleCall cGoalProblemParserRuleCall_3_1_1_0_0 = (RuleCall)cGoalAlternatives_3_1_1_0.eContents().get(0);
-		private final RuleCall cGoalProblemNoVarsParserRuleCall_3_1_1_0_1 = (RuleCall)cGoalAlternatives_3_1_1_0.eContents().get(1);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Assignment cTaskAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final Alternatives cTaskAlternatives_3_0_0 = (Alternatives)cTaskAssignment_3_0.eContents().get(0);
+		private final Keyword cTaskFindKeyword_3_0_0_0 = (Keyword)cTaskAlternatives_3_0_0.eContents().get(0);
+		private final Keyword cTaskCountKeyword_3_0_0_1 = (Keyword)cTaskAlternatives_3_0_0.eContents().get(1);
+		private final Assignment cGoalAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final Alternatives cGoalAlternatives_3_1_0 = (Alternatives)cGoalAssignment_3_1.eContents().get(0);
+		private final RuleCall cGoalProblemParserRuleCall_3_1_0_0 = (RuleCall)cGoalAlternatives_3_1_0.eContents().get(0);
+		private final RuleCall cGoalProblemNoVarsParserRuleCall_3_1_0_1 = (RuleCall)cGoalAlternatives_3_1_0.eContents().get(1);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cSemicolonKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Keyword cTheoremsKeyword_4_1 = (Keyword)cGroup_4.eContents().get(1);
@@ -53,12 +47,12 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		
 		////NOTE: Any changes to the formatting should be reflected with changes here.
 		// Input:
-		//	"Given" given=ProblemPropertyOptional ";" (task=("Find" | "Count") goal=Problem | task="Test" goal=(Problem |
-		//	ProblemNoVars))? (";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
+		//	"Given" given=ProblemPropertyOptional ";" (task=("Find" | "Count") goal=(Problem | ProblemNoVars))? (";" "Theorems:"
+		//	theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"Given" given=ProblemPropertyOptional ";" (task=("Find" | "Count") goal=Problem | task="Test" goal=(Problem |
-		//ProblemNoVars))? (";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?
+		//"Given" given=ProblemPropertyOptional ";" (task=("Find" | "Count") goal=(Problem | ProblemNoVars))? (";" "Theorems:"
+		//theorems+=Theorem (";" theorems+=Theorem)* ";"?)?
 		public Group getGroup() { return cGroup; }
 
 		//"Given"
@@ -73,50 +67,32 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		//";"
 		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
 
-		//(task=("Find" | "Count") goal=Problem | task="Test" goal=(Problem | ProblemNoVars))?
-		public Alternatives getAlternatives_3() { return cAlternatives_3; }
-
-		//task=("Find" | "Count") goal=Problem
-		public Group getGroup_3_0() { return cGroup_3_0; }
+		//(task=("Find" | "Count") goal=(Problem | ProblemNoVars))?
+		public Group getGroup_3() { return cGroup_3; }
 
 		//task=("Find" | "Count")
-		public Assignment getTaskAssignment_3_0_0() { return cTaskAssignment_3_0_0; }
+		public Assignment getTaskAssignment_3_0() { return cTaskAssignment_3_0; }
 
 		//"Find" | "Count"
-		public Alternatives getTaskAlternatives_3_0_0_0() { return cTaskAlternatives_3_0_0_0; }
+		public Alternatives getTaskAlternatives_3_0_0() { return cTaskAlternatives_3_0_0; }
 
 		//"Find"
-		public Keyword getTaskFindKeyword_3_0_0_0_0() { return cTaskFindKeyword_3_0_0_0_0; }
+		public Keyword getTaskFindKeyword_3_0_0_0() { return cTaskFindKeyword_3_0_0_0; }
 
 		//"Count"
-		public Keyword getTaskCountKeyword_3_0_0_0_1() { return cTaskCountKeyword_3_0_0_0_1; }
-
-		//goal=Problem
-		public Assignment getGoalAssignment_3_0_1() { return cGoalAssignment_3_0_1; }
-
-		//Problem
-		public RuleCall getGoalProblemParserRuleCall_3_0_1_0() { return cGoalProblemParserRuleCall_3_0_1_0; }
-
-		//task="Test" goal=(Problem | ProblemNoVars)
-		public Group getGroup_3_1() { return cGroup_3_1; }
-
-		//task="Test"
-		public Assignment getTaskAssignment_3_1_0() { return cTaskAssignment_3_1_0; }
-
-		//"Test"
-		public Keyword getTaskTestKeyword_3_1_0_0() { return cTaskTestKeyword_3_1_0_0; }
+		public Keyword getTaskCountKeyword_3_0_0_1() { return cTaskCountKeyword_3_0_0_1; }
 
 		//goal=(Problem | ProblemNoVars)
-		public Assignment getGoalAssignment_3_1_1() { return cGoalAssignment_3_1_1; }
+		public Assignment getGoalAssignment_3_1() { return cGoalAssignment_3_1; }
 
 		//Problem | ProblemNoVars
-		public Alternatives getGoalAlternatives_3_1_1_0() { return cGoalAlternatives_3_1_1_0; }
+		public Alternatives getGoalAlternatives_3_1_0() { return cGoalAlternatives_3_1_0; }
 
 		//Problem
-		public RuleCall getGoalProblemParserRuleCall_3_1_1_0_0() { return cGoalProblemParserRuleCall_3_1_1_0_0; }
+		public RuleCall getGoalProblemParserRuleCall_3_1_0_0() { return cGoalProblemParserRuleCall_3_1_0_0; }
 
 		//ProblemNoVars
-		public RuleCall getGoalProblemNoVarsParserRuleCall_3_1_1_0_1() { return cGoalProblemNoVarsParserRuleCall_3_1_1_0_1; }
+		public RuleCall getGoalProblemNoVarsParserRuleCall_3_1_0_1() { return cGoalProblemNoVarsParserRuleCall_3_1_0_1; }
 
 		//(";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?
 		public Group getGroup_4() { return cGroup_4; }
@@ -1048,8 +1024,8 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	
 	////NOTE: Any changes to the formatting should be reflected with changes here.
 	// Input:
-	//	"Given" given=ProblemPropertyOptional ";" (task=("Find" | "Count") goal=Problem | task="Test" goal=(Problem |
-	//	ProblemNoVars))? (";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
+	//	"Given" given=ProblemPropertyOptional ";" (task=("Find" | "Count") goal=(Problem | ProblemNoVars))? (";" "Theorems:"
+	//	theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
 	public InputElements getInputAccess() {
 		return pInput;
 	}

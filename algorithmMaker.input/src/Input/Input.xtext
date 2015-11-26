@@ -11,8 +11,7 @@ generate input "http://www.Input"
 
 //NOTE: Any changes to the formatting should be reflected with changes here.
 Input:
-	'Given' given=ProblemPropertyOptional ';' ((task=("Find" | "Count") goal=Problem) | (task="Test" goal=(Problem |
-	ProblemNoVars)))?
+	'Given' given=ProblemPropertyOptional ';' (task=("Find" | "Count") goal=(Problem | ProblemNoVars))?
 	(';' "Theorems:" theorems+=Theorem (';' theorems+=Theorem)* ';'?)?;
 
 ProblemNoVars returns Problem:

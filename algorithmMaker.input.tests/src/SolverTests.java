@@ -22,7 +22,6 @@ public class SolverTests {
 	public void testProblemStateChange() {
 		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty("enumerable(x)"),
 				parseProperty("child(x,y)"), parseProperty("child(x,y)"), null, 0, "enumerable things", null);
-		multistageTheorem.setNewGoalTask(InputUtil.TEST);
 		ProblemSolver solver = new ProblemSolver(
 				QuickParser.parseInput("Given x st enumerable(x); Find y st child(x,y) & something(x)"),
 				multistageTheorem);
@@ -44,7 +43,7 @@ public class SolverTests {
 	public void testMultipleBranchingExclusion() {
 		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty("a(x)"), parseProperty("b(x)"),
 				parseProperty("b(x)"), null, 0, "test", null);
-		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x st a(x) & a(x); Test b(x)"),
+		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x st a(x) & a(x); Find b(x)"),
 				multistageTheorem);
 		solver.branch();
 		assertEquals(QuickParser.parseInput("Given x st a(x) & b(x);"), solver.problemStates.peek().problem);
@@ -55,7 +54,7 @@ public class SolverTests {
 		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty(InputUtil.BOUND + "(x) & "
 				+ InputUtil.BOUND + "(y)"), parseProperty("equal(x,y)"), parseProperty("equal(x,y)"), null, 0, "test",
 				null);
-		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x,y st a(x,y); Test equal(x,y)"),
+		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x,y st a(x,y); Find equal(x,y)"),
 				multistageTheorem);
 		solver.branch();
 		assertEquals(QuickParser.parseInput("Given x,y st a(x,y) & equal(x,y);"), solver.problemStates.peek().problem);
@@ -72,7 +71,7 @@ public class SolverTests {
 				"foreach child b of a\n\tif b % 2 == 0\n\t\t" });
 		probsAndSols.add(new String[] { "Given list<int> a,list<int> b; Find c st child(a,c) & child(b,c) & even(c)",
 				"foreach child c of a\n\tif c % 2 == 0\n\t\tforeach child na of b\n\t\t\t" });
-		probsAndSols.add(new String[] { "Given int a, int b, int c; Test plus(c,b,a)", "if c + b == a\n\t" });
+		probsAndSols.add(new String[] { "Given int a, int b, int c; Find plus(c,b,a)", "if c + b == a\n\t" });
 		probsAndSols.add(new String[] { "Given array x; Find y st index(x,y) & get(x,y,y)",
 				"foreach index y of x\n\tif x.get(y) == y" });
 		probsAndSols.add(new String[] { "Given list x; Find y,z st child(x,y) & child(x,z) & equal(y,z)",

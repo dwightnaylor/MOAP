@@ -1,4 +1,6 @@
 package theorems;
+
+import algorithmMaker.input.Property;
 import algorithmMaker.input.Theorem;
 
 /**
@@ -9,10 +11,11 @@ import algorithmMaker.input.Theorem;
  */
 public class Fact<T> {
 	public T property;
-	Theorem theorem;
-	public Fact<?>[] prerequisites;
+	public Theorem theorem;
+	public Fact<? extends Property>[] prerequisites;
 
-	public Fact(T property, Theorem theorem, Fact<?>... prerequisites) {
+	@SafeVarargs
+	public Fact(T property, Theorem theorem, Fact<? extends Property>... prerequisites) {
 		this.property = property;
 		this.theorem = theorem;
 		this.prerequisites = prerequisites;

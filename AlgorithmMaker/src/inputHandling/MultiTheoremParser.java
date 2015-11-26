@@ -3,8 +3,6 @@ package inputHandling;
 import static algorithmMaker.QuickParser.parseProperty;
 import static algorithmMaker.util.InputUtil.BOUND;
 import static algorithmMaker.util.InputUtil.EQUAL;
-import static algorithmMaker.util.InputUtil.FIND;
-import static algorithmMaker.util.InputUtil.TEST;
 import static algorithmMaker.util.InputUtil.UNBOUND;
 
 import java.util.ArrayList;
@@ -26,12 +24,9 @@ public class MultiTheoremParser {
 		ArrayList<String[]> bruteForces = new ArrayList<String[]>();
 		bruteForces.add(new String[] { UNBOUND + "(y) & enumerable(x)", "child(x,y)", "foreach child <y> of <x>" });
 		bruteForces.add(new String[] { UNBOUND + "(y) & indexable(x)", "index(x,y)", "foreach index <y> of <x>" });
-		for (String[] cur : bruteForces) {
-			MultistageTheorem bruteForce = new MultistageTheorem(parseProperty(cur[0]), parseProperty(cur[1]),
-					parseProperty(cur[1]), null, 10, "Brute force.", cur[2]);
-			bruteForce.setNewGoalTask(TEST);
-			ret.add(bruteForce);
-		}
+		for (String[] cur : bruteForces)
+			ret.add(new MultistageTheorem(parseProperty(cur[0]), parseProperty(cur[1]), parseProperty(cur[1]), null,
+					10, "Brute force.", cur[2]));
 	}
 
 	// private static void
@@ -58,12 +53,9 @@ public class MultiTheoremParser {
 				"foreach child <ny> of <x>" });
 		bruteForces.add(new String[] { "indexable(x)", "index(x,y)", BOUND + "(ny) & index(x,ny)", EQUAL + "(y,ny)",
 				"foreach index <ny> of <x>" });
-		for (String[] cur : bruteForces) {
-			MultistageTheorem bruteForce = new MultistageTheorem(parseProperty(cur[0]), parseProperty(cur[1]),
-					parseProperty(cur[2]), parseProperty(cur[3]), 10, "Brute force.", cur[4]);
-			bruteForce.requireGoalTask(TEST);
-			ret.add(bruteForce);
-		}
+		for (String[] cur : bruteForces)
+			ret.add(new MultistageTheorem(parseProperty(cur[0]), parseProperty(cur[1]), parseProperty(cur[2]),
+					parseProperty(cur[3]), 10, "Brute force.", cur[4]));
 	}
 
 	private static void addSimpleTestingTheorems(ArrayList<MultistageTheorem> ret) {
@@ -77,14 +69,10 @@ public class MultiTheoremParser {
 
 		tests.add(new String[] { "HACKfast_child_check(x) & " + BOUND + "(y)", "child(x,y)", "if <x>.contains(<y>)" });
 		for (String[] test : tests) {
-			MultistageTheorem testing = new MultistageTheorem(parseProperty(test[0]), parseProperty(test[1]),
-					parseProperty(test[1]), null, 1, "Simple test.", test[2]);
-			testing.requireGoalTask(TEST);
-			ret.add(testing);
-			MultistageTheorem negatedTesting = new MultistageTheorem(parseProperty(test[0]), parseProperty("!"
-					+ test[1]), parseProperty("!" + test[1]), null, 1, "Simple negated test.", invert(test[2]));
-			negatedTesting.requireGoalTask(TEST);
-			ret.add(negatedTesting);
+			ret.add(new MultistageTheorem(parseProperty(test[0]), parseProperty(test[1]), parseProperty(test[1]), null,
+					1, "Simple test.", test[2]));
+			ret.add(new MultistageTheorem(parseProperty(test[0]), parseProperty("!" + test[1]), parseProperty("!"
+					+ test[1]), null, 1, "Simple negated test.", invert(test[2])));
 		}
 	}
 
@@ -95,13 +83,9 @@ public class MultiTheoremParser {
 				BOUND + "(xi) & get(x,i,xi)", "<xi> = <x>.get(<i>)" });
 		declarations.add(new String[] { BOUND + "(a) & " + BOUND + "(b) & " + UNBOUND + "(apb)",
 				BOUND + "(apb) & plus(a,b,apb)", "<apb> = <a> + <b>" });
-		for (String[] declaration : declarations) {
-			MultistageTheorem declare = new MultistageTheorem(parseProperty(declaration[0]),
-					parseProperty(declaration[1]), parseProperty(declaration[1]), null, 1, "Simple declaration.",
-					declaration[2]);
-			declare.requireGoalTask(FIND);
-			ret.add(declare);
-		}
+		for (String[] declaration : declarations)
+			ret.add(new MultistageTheorem(parseProperty(declaration[0]), parseProperty(declaration[1]),
+					parseProperty(declaration[1]), null, 1, "Simple declaration.", declaration[2]));
 	}
 
 	private static String invert(String compare) {
