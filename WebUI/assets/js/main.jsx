@@ -78,7 +78,7 @@ var Main = React.createClass({
         />
         {
           this.state.helpActive ?
-          <div style={{position: 'fixed', right: '0px', top: '64px', bottom: '0px', height: 'auto', padding: '0px 10px', width: '22%', backgroundColor: '#ddd'}}>
+          <div style={{position: 'fixed', right: '0px', top: '64px', bottom: '0px', height: 'auto', padding: '0px 10px', width: '22%', backgroundColor: '#ddd', overflow: 'auto'}}>
             <Help 
             />
           </div>
@@ -124,9 +124,9 @@ var Main = React.createClass({
     this.setState({ isLoading: true });
     var submissionString = this.refs.problemSubmissionField.getValue();
     $.ajax({
-      url: "http://localhost:8080/solve",
+      url: "http://mcanin.ch:8080/solve",
       type: "GET",
-      crossDomain: false,
+      crossDomain: true,
       data: "problem="+escape(submissionString),
       success: function(resp){
         this.refs.problemSolutionField.setValue(resp);
