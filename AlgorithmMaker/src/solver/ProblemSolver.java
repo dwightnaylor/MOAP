@@ -1,29 +1,23 @@
 package solver;
 
+import inputHandling.*;
+
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 
-import display.Viewer;
+import pseudocoders.LineCoder;
+import pseudocoders.Pseudocoder;
+import theorems.MultistageTheorem;
+import theorems.multiTheorems.DirectReturn;
 import algorithmMaker.QuickParser;
-import algorithmMaker.input.Atomic;
-import algorithmMaker.input.Declaration;
-import algorithmMaker.input.Input;
-import algorithmMaker.input.Problem;
-import algorithmMaker.input.ProblemShell;
-import algorithmMaker.input.Property;
-import algorithmMaker.input.Quantifier;
-import algorithmMaker.input.Theorem;
+import algorithmMaker.input.*;
 import algorithmMaker.util.InputUtil;
 import bindings.Binding;
 import bindings.MutableBinding;
-import inputHandling.MultiTheoremParser;
-import inputHandling.TheoremParser;
-import inputHandling.TransformUtil;
-import theorems.MultistageTheorem;
-import theorems.multiTheorems.DirectReturn;
+import display.Viewer;
 
 /**
  * Translates an input between various states until a solution is reached.
@@ -155,44 +149,6 @@ public class ProblemSolver {
 			Set<Property> findChainer) {
 		if (property instanceof Quantifier)
 			doQuantifierSubProblemFor(problemState, (Quantifier) property, givenChainer, findChainer);
-
-		if (property instanceof ProblemShell)
-			doShellSubProblem(problemState, (ProblemShell) property);
-	}
-
-	private void doShellSubProblem(ProblemState problemState, ProblemShell shell) {
-		Input subProblem = InputUtil.stupidCopy(problemState.problem);
-		subProblem.setGoal(InputUtil.stupidCopy(shell.getProblem()));
-		if (!subSolvers.containsKey(subProblem)) {
-			ProblemSolver subSolver = new ProblemSolver(subProblem, theorems);
-			subSolver.getSolution();
-			subSolvers.put(subProblem, subSolver);
-		}
-		if (subSolvers.get(subProblem).solved != null) {
-			// The new problem with the constraint removed
-			Input newProblem = InputUtil.stupidCopy(problemState.problem);
-			newProblem.setGoal((Problem) TransformUtil.removeProperties(newProblem.getGoal(), new HashSet<Property>(
-					Collections.singleton(shell))));
-			newProblem.getGiven()
-					.setProperty(
-							InputUtil.andTogether(Arrays.asList(new Property[] { shell,
-									newProblem.getGiven().getProperty() })));
-			// The code to add to the pseudocode
-			StringBuffer code = new StringBuffer();
-			code.append(ProblemState.getOutputString(subSolvers.get(subProblem).solved) + "\n");
-
-			// Find all the declared variables throughout all the problem
-			// states. We need this so that the new variable we make doesn't
-			// conflict with any of them.
-			HashSet<String> declaredVars = InputUtil.getDeclaredVars(newProblem);
-			ProblemState solved = subSolvers.get(subProblem).solved;
-			while (solved != null) {
-				declaredVars.addAll(InputUtil.getDeclaredVars(solved.problem));
-				solved = solved.parentState;
-			}
-			addProblemState(newProblem, problemState, new MultistageTheorem(null, null, null, 0,
-					"Solving of a problem shell", code.toString()), new Binding());
-		}
 	}
 
 	private void doQuantifierSubProblemFor(ProblemState problemState, Quantifier quantifier,
@@ -241,12 +197,32 @@ public class ProblemSolver {
 					InputUtil.andTogether(Arrays.asList(new Property[] { quantifier,
 							newProblem.getGiven().getProperty() })));
 
-			// The code to add to the pseudocode
-			StringBuffer code = new StringBuffer();
-			code.append("boolean <nb> = true;\n");
-			code.append(ProblemState.getOutputString(subSolvers.get(subProblem).solved)
-					+ "{\n\t\t<nb> = false;\n\t\tbreak;\n\t}\n");
-			code.append("if <nb> == " + quantifier.getQuantifier().equals(InputUtil.FORALL) + "\n\t");
+			Pseudocoder coder = new Pseudocoder() {
+				@Override
+				public void appendPseudocode(StringBuffer builder, int numTabs, ProblemState problemState,
+						String returnString) {
+					Pseudocoder.appendTabs(builder, numTabs);
+					builder.append("boolean <nb> = true;\n");
+					// FIXME: DN: This whole methodology is awful and needs to be redone later.
+					ProblemState head = subSolvers.get(subProblem).solved;
+					while (head.parentState != null) {
+						head.parentState.childStates = Collections.singletonList(head);
+						head = head.parentState;
+					}
+					head.childStates.get(0).rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs,
+							head.childStates.get(0), problemState.rootTheoremBinding.revar("<nb> = false"));
+					Pseudocoder.appendTabs(builder, numTabs);
+					builder.append("if <nb> == " + quantifier.getQuantifier().equals(InputUtil.FORALL) + "\n\t");
+					if (problemState != null)
+						if (problemState.childStates != null && problemState.childStates.size() > 0) {
+							ProblemState childState = problemState.childStates.get(0);
+							childState.rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs, childState,
+									returnString);
+						} else {
+							new LineCoder(returnString).appendPseudocode(builder, numTabs + 1, null, null);
+						}
+				}
+			};
 
 			// Find all the declared variables throughout all the problem
 			// states. We need this so that the new variable we make doesn't
@@ -258,7 +234,7 @@ public class ProblemSolver {
 				solved = solved.parentState;
 			}
 			addProblemState(newProblem, problemState, new MultistageTheorem(null, null, null, 0,
-					"Brute-force checking of a quantifier.", code.toString()), Binding.singleton("nb",
+					"Brute-force checking of a quantifier.", coder), Binding.singleton("nb",
 					InputUtil.getUnusedVar(declaredVars)));
 		}
 	}

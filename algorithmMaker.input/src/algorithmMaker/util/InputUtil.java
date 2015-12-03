@@ -46,7 +46,7 @@ public class InputUtil {
 	 * These all seem to be subclasses of Property...
 	 */
 	public static enum KernelType {
-		Input, Problem, ORing, ANDing, Atomic, Quantifier, BooleanLiteral, Negation, ProblemShell
+		Input, Problem, ORing, ANDing, Atomic, Quantifier, BooleanLiteral, Negation
 	}
 
 	public static KernelType kernelType(EObject object) {
@@ -66,8 +66,6 @@ public class InputUtil {
 			return KernelType.BooleanLiteral;
 		else if (object instanceof Negation)
 			return KernelType.Negation;
-		else if (object instanceof ProblemShell)
-			return KernelType.ProblemShell;
 
 		return null;
 	}
@@ -475,14 +473,6 @@ public class InputUtil {
 			ret.setPredicate(newPredicate);
 			return ret;
 		}
-		case ProblemShell: {
-			ProblemShell problemShell = (ProblemShell) cur;
-			Property newProperty = getOneStepCanonizalized(problemShell.getProblem().getProperty());
-
-			ProblemShell ret = (ProblemShell) InputUtil.stupidCopy(cur);
-			ret.getProblem().setProperty(newProperty);
-			return ret;
-		}
 		case BooleanLiteral:
 		case Atomic:
 		case Input:
@@ -588,8 +578,6 @@ public class InputUtil {
 			ret.setNegated((Property) negated);
 			return reducer.apply(ret);
 		}
-		case ProblemShell:
-			return reducer.apply(InputUtil.stupidCopy((ProblemShell) cur));
 		case Atomic:
 			return reducer.apply(InputUtil.stupidCopy((Atomic) cur));
 		case BooleanLiteral:
@@ -636,9 +624,6 @@ public class InputUtil {
 	}
 
 	public static void desugar(Input input) {
-		// TODO:DESUGAR: Collapse arithmetic
-		// TODO:DESUGAR: Re-nest atomics if possible
-		// TODO:DESUGAR: collapse quantifiers if possible (child_type...)
 		desugar(input.getGiven());
 		desugar(input.getGoal());
 	}
@@ -771,12 +756,6 @@ public class InputUtil {
 		return ret;
 	}
 
-	public static ProblemShell createProblemShell(Problem subProblem) {
-		ProblemShell ret = InputFactoryImpl.eINSTANCE.createProblemShell();
-		ret.setProblem(subProblem);
-		return ret;
-	}
-
 	private static Hashtable<Property, Property> devarred = new Hashtable<Property, Property>();
 
 	/**
@@ -826,5 +805,23 @@ public class InputUtil {
 				vars.add(var);
 
 		return vars;
+	}
+
+	public static boolean isArithmetic(String string) {
+		return getSymbol(string) != null;
+	}
+
+	public static String getSymbol(String function) {
+		switch (function) {
+		case ADDITION:
+			return "+";
+		case SUBTRACTION:
+			return "-";
+		case MULTIPLICATION:
+			return "*";
+		case DIVISION:
+			return "/";
+		}
+		return null;
 	}
 }

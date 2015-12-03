@@ -13,11 +13,7 @@ import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 
-import algorithmMaker.input.Input;
-import algorithmMaker.input.InputPackage;
-import algorithmMaker.input.Problem;
-import algorithmMaker.input.Property;
-import algorithmMaker.input.Theorem;
+import algorithmMaker.input.*;
 import algorithmMaker.parser.antlr.InputParser;
 import algorithmMaker.util.InputUtil;
 
@@ -33,6 +29,11 @@ public class QuickParser {
 		queryString = queryString.replace(InputUtil.FORALL + ":", InputUtil.FORALL);
 		queryString = queryString.replace(InputUtil.EXISTS + ":", InputUtil.EXISTS);
 		return queryString;
+	}
+
+	public static SugarNumericalProperty parseSugarNumericalProperty(String queryString) {
+		Parser.queryString = "SugarAddition";
+		return (SugarNumericalProperty) parse(queryString, false);
 	}
 
 	public static Property parseProperty(String queryString) {

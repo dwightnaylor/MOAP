@@ -12,7 +12,6 @@ import org.apache.commons.collections15.Transformer;
 import solver.*;
 import theorems.Fact;
 import theorems.MultistageTheorem;
-import theorems.multiTheorems.DirectReturn;
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Theorem;
@@ -27,12 +26,12 @@ public class Viewer {
 	public static Graph<ProblemState, MultistageTheorem> generateGraph(ProblemSolver solver) {
 		Graph<ProblemState, MultistageTheorem> graph = new DelegateForest<ProblemState, MultistageTheorem>();
 		for (ProblemState problemState : solver.reachedProblems.values()) {
-			if (!(problemState.rootTheorem instanceof DirectReturn)) {
+//			if (!(problemState.rootTheorem instanceof DirectReturn)) {
 				graph.addVertex(problemState);
 				if (problemState.rootTheorem != null) {
 					graph.addEdge(problemState.rootTheorem.copy(), problemState.parentState, problemState);
 				}
-			}
+//			}
 		}
 		return graph;
 	}

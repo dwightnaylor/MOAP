@@ -1,21 +1,15 @@
 package inputHandling;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 
+import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 
 import solver.Chainer;
 import theorems.MultistageTheorem;
 import theorems.QuickTheorem;
 import algorithmMaker.QuickParser;
-import algorithmMaker.input.Atomic;
-import algorithmMaker.input.Declaration;
-import algorithmMaker.input.Input;
-import algorithmMaker.input.Problem;
-import algorithmMaker.input.Property;
-import algorithmMaker.input.Theorem;
-import algorithmMaker.input.Type;
+import algorithmMaker.input.*;
 import algorithmMaker.input.impl.InputFactoryImpl;
 import algorithmMaker.util.InputConverter;
 import algorithmMaker.util.InputUtil;
@@ -127,12 +121,59 @@ public class TransformUtil {
 		return clone;
 	}
 
+	// TODO:DN: This method also has to be fixed up...god this is hacky
 	public static Input makePretty(Input problem) {
-		return (Input) InputUtil.reduce(problem, x -> x instanceof Problem ? makePretty((Problem) x) : x);
+		Input ret = InputFactoryImpl.eINSTANCE.createInput();
+		ret.setGiven(makePretty(problem.getGiven()));
+		ret.setTask(problem.getTask());
+		ret.setGoal(makePretty(problem.getGoal()));
+
+		if (ret.getGiven() != null) {
+			ret.getGiven().getVars().clear();
+			if (ret.getGiven().getProperty() != null)
+				for (String var : InputUtil.getUnboundVariables(ret.getGiven().getProperty()))
+					ret.getGiven().getVars().add(InputUtil.createDeclaration(var));
+
+			if (ret.getGoal() != null && ret.getGoal().getProperty() != null) {
+				for (String var : InputUtil.getUnboundVariables(ret.getGoal().getProperty()))
+					ret.getGiven().getVars().add(InputUtil.createDeclaration(var));
+
+				ret.getGoal().getVars().clear();
+				for (String var : InputUtil.getUnboundVariables(ret.getGoal().getProperty()))
+					ret.getGoal().getVars().add(InputUtil.createDeclaration(var));
+			}
+		}
+		return ret;
 	}
 
+	// TODO:DN: Move all desugaring and resugaring into one class!
 	public static Problem makePretty(Problem problem) {
+		if (problem == null)
+			return null;
+		// TODO:RESUGAR: Collapse arithmetic (PROPERLY, the current way is AWFUL!)
+		// TODO:RESUGAR: Re-nest atomics if possible
+		// TODO:RESUGAR: collapse quantifiers if possible (child_type...)
+		Hashtable<String, String[]> replacements = new Hashtable<String, String[]>();
+		TreeIterator<EObject> contents = (problem.eContainer() == null ? problem : problem.eContainer()).eAllContents();
+		while (contents.hasNext()) {
+			EObject cur = contents.next();
+			if (cur instanceof Atomic && InputUtil.isArithmetic(((Atomic) cur).getFunction())) {
+				Atomic atomic = (Atomic) cur;
+				replacements.put(atomic.getArgs().get(2),
+						new String[] { atomic.getArgs().get(0), InputUtil.getSymbol(atomic.getFunction()),
+								atomic.getArgs().get(1) });
+			}
+		}
 		return (Problem) InputUtil.reduce(problem, new InputConverter() {
+
+			private String breakDown(String arg, Hashtable<String, String[]> replacements) {
+				if (!replacements.containsKey(arg))
+					return arg;
+
+				String[] rep = replacements.get(arg);
+				return breakDown(rep[0], replacements) + rep[1] + breakDown(rep[2], replacements);
+			}
+
 			@Override
 			public EObject apply(EObject cur) {
 				if (cur instanceof Problem) {
@@ -157,6 +198,27 @@ public class TransformUtil {
 								childType.setName(InputUtil.getDeclaredChildType(function));
 								declaration.getType().setTemplateType(childType);
 								topLevelAtomics.remove(i--);
+							} else if (InputUtil.isArithmetic(function)) {
+								topLevelAtomics.remove(i--);
+							} else {
+								boolean useSugarAtomic = false;
+								for (String arg : atomic.getArgs())
+									if (replacements.containsKey(arg)) {
+										useSugarAtomic = true;
+										break;
+									}
+								if (useSugarAtomic) {
+									SugarAtomic newAtomic = InputFactoryImpl.eINSTANCE.createSugarAtomic();
+									for (String arg : atomic.getArgs()) {
+										newAtomic.getArgs().add(
+												QuickParser.parseSugarNumericalProperty(breakDown(arg, replacements)));
+									}
+									newAtomic.setFunction(function);
+									topLevelAtomics.add(i, newAtomic);
+								} else {
+									topLevelAtomics.add(i, InputUtil.stupidCopy(atomic));
+								}
+								topLevelAtomics.remove(i + 1);
 							}
 						}
 					}

@@ -7,6 +7,7 @@ import static algorithmMaker.util.InputUtil.UNBOUND;
 
 import java.util.ArrayList;
 
+import pseudocoders.LineCoder;
 import algorithmMaker.util.InputUtil;
 import theorems.MultistageTheorem;
 
@@ -15,7 +16,6 @@ public class MultiTheoremParser {
 	public static ArrayList<MultistageTheorem> parseFiles() {
 		ArrayList<MultistageTheorem> ret = new ArrayList<MultistageTheorem>();
 		addBruteForceFindTheorems(ret);
-		// addBruteForceTestTheorems(ret);
 		addSimpleTestingTheorems(ret);
 		addDeclarationTheorems(ret);
 		return ret;
@@ -27,37 +27,8 @@ public class MultiTheoremParser {
 		bruteForces.add(new String[] { UNBOUND + "(y) & indexable(x)", "index(x,y)", "foreach index <y> of <x>" });
 		for (String[] cur : bruteForces)
 			ret.add(new MultistageTheorem(parseProperty(cur[0]), parseProperty(cur[1]), parseProperty(cur[1]), null,
-					10, "Brute force.", cur[2]));
+					10, "Brute force.", new LineCoder(true, cur[2])));
 	}
-
-	// private static void
-	// addBruteForceTestTheorems(ArrayList<MultistageTheorem> ret) {
-	// // FIXME: DN: Shouldn't need a separate set of multitheorems for this
-	// ArrayList<String[]> bruteForces = new ArrayList<String[]>();
-	// bruteForces.add(new String[] { BOUND + "(y) & enumerable(x)",
-	// "child(x,y)",
-	// "foreach child of <x> equal to <y>" });
-	// bruteForces.add(new String[] { BOUND + "(y) & indexable(x)",
-	// "index(x,y)",
-	// "foreach index of <x> equal to <y>" });
-	// for (String[] cur : bruteForces) {
-	// MultistageTheorem bruteForce = new
-	// MultistageTheorem(parseProperty(cur[0]), parseProperty(cur[1]),
-	// parseProperty(cur[1]), null, 10, "Brute force.", cur[2]);
-	// bruteForce.requireGoalTask(TEST);
-	// ret.add(bruteForce);
-	// }
-	// }
-	// private static void addBruteForceTestTheorems(ArrayList<MultistageTheorem> ret) {
-	// ArrayList<String[]> bruteForces = new ArrayList<String[]>();
-	// bruteForces.add(new String[] { "enumerable(x)", "child(x,y)", BOUND + "(ny) & child(x,ny)", EQUAL + "(y,ny)",
-	// "foreach child <ny> of <x>" });
-	// bruteForces.add(new String[] { "indexable(x)", "index(x,y)", BOUND + "(ny) & index(x,ny)", EQUAL + "(y,ny)",
-	// "foreach index <ny> of <x>" });
-	// for (String[] cur : bruteForces)
-	// ret.add(new MultistageTheorem(parseProperty(cur[0]), parseProperty(cur[1]), parseProperty(cur[2]),
-	// parseProperty(cur[3]), 10, "Brute force.", cur[4]));
-	// }
 
 	private static void addSimpleTestingTheorems(ArrayList<MultistageTheorem> ret) {
 		ArrayList<String[]> tests = new ArrayList<String[]>();
@@ -71,9 +42,9 @@ public class MultiTheoremParser {
 		tests.add(new String[] { "HACKfast_child_check(x) & " + BOUND + "(y)", "child(x,y)", "if <x>.contains(<y>)" });
 		for (String[] test : tests) {
 			ret.add(new MultistageTheorem(parseProperty(test[0]), parseProperty(test[1]), parseProperty(test[1]), null,
-					1, "Simple test.", test[2]));
+					1, "Simple test.", new LineCoder(true, test[2])));
 			ret.add(new MultistageTheorem(parseProperty(test[0]), parseProperty("!" + test[1]), parseProperty("!"
-					+ test[1]), null, 1, "Simple negated test.", invert(test[2])));
+					+ test[1]), null, 1, "Simple negated test.", new LineCoder(true, invert(test[2]))));
 		}
 	}
 
@@ -92,7 +63,7 @@ public class MultiTheoremParser {
 				BOUND + "(apb) & " + InputUtil.DIVISION + "(a,b,apb)", "<apb> = <a> / <b>" });
 		for (String[] declaration : declarations)
 			ret.add(new MultistageTheorem(parseProperty(declaration[0]), parseProperty(declaration[1]),
-					parseProperty(declaration[1]), null, 1, "Simple declaration.", declaration[2]));
+					parseProperty(declaration[1]), null, 1, "Simple declaration.", new LineCoder(false, declaration[2])));
 	}
 
 	private static String invert(String compare) {
