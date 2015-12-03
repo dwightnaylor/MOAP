@@ -196,12 +196,13 @@ public class ProblemSolver {
 			newProblem.getGiven().setProperty(InputUtil
 					.andTogether(Arrays.asList(new Property[] { quantifier, newProblem.getGiven().getProperty() })));
 
+			String newVariable = "NEW_VARIABLE";
 			Pseudocoder coder = new Pseudocoder() {
 				@Override
 				public void appendPseudocode(StringBuffer builder, int numTabs, ProblemState problemState,
 						String returnString) {
 					Pseudocoder.appendTabs(builder, numTabs);
-					builder.append(problemState.rootTheoremBinding.revar("boolean <nb> = true;\n"));
+					builder.append(problemState.rootTheoremBinding.revar("boolean <" + newVariable + "> = true;\n"));
 					// FIXME: DN: This whole methodology is awful and needs to
 					// be redone later.
 					ProblemState head = subSolvers.get(subProblem).solved;
@@ -210,10 +211,11 @@ public class ProblemSolver {
 						head = head.parentState;
 					}
 					head.childStates.get(0).rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs,
-							head.childStates.get(0), problemState.rootTheoremBinding.revar("<nb> = false"));
+							head.childStates.get(0),
+							problemState.rootTheoremBinding.revar("<" + newVariable + "> = false"));
 					Pseudocoder.appendTabs(builder, numTabs);
-					builder.append(problemState.rootTheoremBinding
-							.revar("if <nb> == " + quantifier.getQuantifier().equals(InputUtil.FORALL) + "\n"));
+					builder.append(problemState.rootTheoremBinding.revar("if <" + newVariable + "> == "
+							+ quantifier.getQuantifier().equals(InputUtil.FORALL) + "\n"));
 					if (problemState != null)
 						if (problemState.childStates != null && problemState.childStates.size() > 0) {
 							ProblemState childState = problemState.childStates.get(0);
@@ -236,7 +238,7 @@ public class ProblemSolver {
 			}
 			addProblemState(newProblem, problemState,
 					new MultistageTheorem(null, null, null, 0, "Brute-force checking of a quantifier.", coder),
-					Binding.singleton("nb", InputUtil.getUnusedVar(declaredVars)));
+					Binding.singleton(newVariable, InputUtil.getUnusedVar(declaredVars)));
 		}
 	}
 
