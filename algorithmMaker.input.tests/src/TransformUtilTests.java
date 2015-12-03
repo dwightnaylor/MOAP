@@ -1,18 +1,17 @@
 import static algorithmMaker.QuickParser.parseInput;
+import static algorithmMaker.QuickParser.parseInputDirty;
 import static algorithmMaker.QuickParser.parseProblem;
 import static algorithmMaker.QuickParser.parseProperty;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import inputHandling.TransformUtil;
 
 import java.util.HashSet;
 
 import org.junit.Test;
 
 import algorithmMaker.QuickParser;
-import algorithmMaker.input.Atomic;
-import algorithmMaker.input.Input;
-import algorithmMaker.input.Property;
-import inputHandling.TransformUtil;
+import algorithmMaker.input.*;
 
 public class TransformUtilTests {
 	@Test
@@ -56,8 +55,11 @@ public class TransformUtilTests {
 
 	@Test
 	public void testMakePrettyForInputs() {
-		String[] sames = { "Given b st TRUE; Find even(b)", "Given b,c st TRUE; Find equal(b,c) & equal(c,b)" };
-		for (String same : sames)
-			assertEquals(parseInput(same), TransformUtil.makePretty(parseInput(same)));
+		assertEquals(parseInput("Given b st TRUE; Find even(b)"),
+				TransformUtil.makePretty(parseInputDirty("Given b st TRUE; Find even(b)")));
+		assertEquals(parseInput("Given b,c st TRUE; Find equal(b,c) & equal(c,b)"),
+				TransformUtil.makePretty(parseInputDirty("Given b,c st TRUE; Find equal(b,c) & equal(c,b)")));
+		assertEquals(parseInput("Given list x; Find y st blah(x,y)"),
+				TransformUtil.makePretty(parseInputDirty("Given list x; Find y st blah(x,y)")));
 	}
 }

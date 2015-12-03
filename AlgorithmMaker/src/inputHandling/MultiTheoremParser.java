@@ -36,8 +36,6 @@ public class MultiTheoremParser {
 		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)", EQUAL + "(x,y)", "if <x> == <y>" });
 		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)&" + BOUND + "(z)", "plus(x,y,z)", "if <x> + <y> == <z>" });
 		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)", "lessThanEqual(x,y)", "if <x> <= <y>" });
-		tests.add(new String[] { BOUND + "(x) & " + BOUND + "(i) & " + BOUND + "(xi)", "get(x,i,xi)",
-				"if <x>.get(<i>) == <xi>" });
 
 		tests.add(new String[] { "HACKfast_child_check(x) & " + BOUND + "(y)", "child(x,y)", "if <x>.contains(<y>)" });
 		for (String[] test : tests) {
@@ -50,9 +48,8 @@ public class MultiTheoremParser {
 
 	private static void addDeclarationTheorems(ArrayList<MultistageTheorem> ret) {
 		ArrayList<String[]> declarations = new ArrayList<String[]>();
-		// TODO:DN: These methods have to be non-explosive
 		declarations.add(new String[] { BOUND + "(x) & " + BOUND + "(i) & " + UNBOUND + "(xi)",
-				BOUND + "(xi) & get(x,i,xi)", "<xi> = <x>.get(<i>)" });
+				BOUND + "(xi) & get(x,i,xi)", "<xi> = <x>[<i>]" });
 		declarations.add(new String[] { BOUND + "(a) & " + BOUND + "(b) & " + UNBOUND + "(apb)",
 				BOUND + "(apb) & " + InputUtil.ADDITION + "(a,b,apb)", "<apb> = <a> + <b>" });
 		declarations.add(new String[] { BOUND + "(a) & " + BOUND + "(b) & " + UNBOUND + "(apb)",

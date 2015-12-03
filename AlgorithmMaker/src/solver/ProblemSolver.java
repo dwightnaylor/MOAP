@@ -212,7 +212,7 @@ public class ProblemSolver {
 					head.childStates.get(0).rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs,
 							head.childStates.get(0), problemState.rootTheoremBinding.revar("<nb> = false"));
 					Pseudocoder.appendTabs(builder, numTabs);
-					builder.append("if <nb> == " + quantifier.getQuantifier().equals(InputUtil.FORALL) + "\n\t");
+					builder.append("if <nb> == " + quantifier.getQuantifier().equals(InputUtil.FORALL) + "\n");
 					if (problemState != null)
 						if (problemState.childStates != null && problemState.childStates.size() > 0) {
 							ProblemState childState = problemState.childStates.get(0);

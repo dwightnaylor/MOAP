@@ -1,6 +1,7 @@
 type_list(x)->type_collection(x), 0, "Every list is a collection"
 type_array(x)->type_collection(x), 0, "Every array is a collection"
-type_array(x)->indexable(x), 0, "Every array is indexable"//Commented out for the presentation!
+type_array(x)->indexable(x), 0, "Every array is indexable"
+type_list(x)->indexable(x), 0, "Every list is indexable"
 type_collection(x)->enumerable(x),0, "Every collection is enumerable"
 type_set(x)->type_collection(x), 0, "Every set is a collection"
 type_hashset(x)-> type_set(x),0, "HashSet extends Set"

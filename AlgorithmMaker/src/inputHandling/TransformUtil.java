@@ -129,18 +129,35 @@ public class TransformUtil {
 		ret.setGoal(makePretty(problem.getGoal()));
 
 		if (ret.getGiven() != null) {
+			Hashtable<String, Declaration> originalDeclarations = new Hashtable<String, Declaration>();
+			for (Declaration declaration : ret.getGiven().getVars())
+				originalDeclarations.put(declaration.getVarName(), declaration);
+
+			if (ret.getGoal() != null)
+				for (Declaration declaration : ret.getGoal().getVars())
+					originalDeclarations.put(declaration.getVarName(), declaration);
+
 			ret.getGiven().getVars().clear();
 			if (ret.getGiven().getProperty() != null)
 				for (String var : InputUtil.getUnboundVariables(ret.getGiven().getProperty()))
-					ret.getGiven().getVars().add(InputUtil.createDeclaration(var));
+					ret.getGiven()
+							.getVars()
+							.add(originalDeclarations.containsKey(var) ? originalDeclarations.get(var) : InputUtil
+									.createDeclaration(var));
 
 			if (ret.getGoal() != null && ret.getGoal().getProperty() != null) {
 				for (String var : InputUtil.getUnboundVariables(ret.getGoal().getProperty()))
-					ret.getGiven().getVars().add(InputUtil.createDeclaration(var));
+					ret.getGiven()
+							.getVars()
+							.add(originalDeclarations.containsKey(var) ? originalDeclarations.get(var) : InputUtil
+									.createDeclaration(var));
 
 				ret.getGoal().getVars().clear();
 				for (String var : InputUtil.getUnboundVariables(ret.getGoal().getProperty()))
-					ret.getGoal().getVars().add(InputUtil.createDeclaration(var));
+					ret.getGoal()
+							.getVars()
+							.add(originalDeclarations.containsKey(var) ? originalDeclarations.get(var) : InputUtil
+									.createDeclaration(var));
 			}
 		}
 		return ret;
@@ -151,7 +168,7 @@ public class TransformUtil {
 		if (problem == null)
 			return null;
 		// TODO:RESUGAR: Collapse arithmetic (PROPERLY, the current way is AWFUL!)
-		// TODO:RESUGAR: Re-nest atomics if possible
+		// TODO:RESUGAR: Re-nest atomics if possible (PROPERLY, the current way is AWFUL!)
 		// TODO:RESUGAR: collapse quantifiers if possible (child_type...)
 		Hashtable<String, String[]> replacements = new Hashtable<String, String[]>();
 		TreeIterator<EObject> contents = (problem.eContainer() == null ? problem : problem.eContainer()).eAllContents();
