@@ -74,7 +74,7 @@ public class InputUtilTests {
 		ArrayList<String[]> tasks = new ArrayList<String[]>();
 		tasks.add(new String[] { "Given x; Find y st test(y)", "Given x; Find y st test(y)" });
 		tasks.add(new String[] { "Given list<int> x; Find y st test(y)",
-				"Given x st type_list(x) & child_type_int(x); Find y st test(y)" });
+				"Given list<int> x st type_list(x) & forall(na st child(x,na) : type_int(na)); Find y st test(y)" });
 		tasks.add(new String[] { "Given x; Find y st test(test1(y))", "Given x; Find y,na st test1(y,na) & test(na)" });
 		tasks.add(new String[] { "Given x; Find y st equal(x+y,x-y)",
 				"Given x; Find y,na,nb st plus(x,y,na) & minus(x,y,nb) & equal(na,nb)" });

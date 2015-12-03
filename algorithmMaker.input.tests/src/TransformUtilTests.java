@@ -56,7 +56,7 @@ public class TransformUtilTests {
 
 	@Test
 	public void testMakePrettyForInputs() {
-		String[] sames = { "Given b st TRUE; Test(even(b))", "Given b,c st TRUE; Test(equal(b,c) & equal(c,b))" };
+		String[] sames = { "Given b st TRUE; Find even(b)", "Given b,c st TRUE; Find equal(b,c) & equal(c,b)" };
 		for (String same : sames)
 			assertEquals(parseInput(same), TransformUtil.makePretty(parseInput(same)));
 	}

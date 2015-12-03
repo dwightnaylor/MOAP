@@ -26,7 +26,7 @@ import com.google.inject.Injector;
 
 public class QuickParser {
 
-	private static final boolean PRINT_ERRORS_IN_PARSING = false;
+	public static boolean printParsingErrors = true;
 
 	public static String clean(String queryString) {
 		queryString = queryString.replaceAll("(\\w+)(\\s*)\\(", "$1:$2(");
@@ -82,7 +82,7 @@ public class QuickParser {
 
 		if (nullOnError) {
 			if (resource.getErrors().size() > 0) {
-				if (PRINT_ERRORS_IN_PARSING) {
+				if (printParsingErrors) {
 					System.err.println("Error in parsing \"" + queryString + "\"");
 					System.err.println(resource.getErrors());
 				}
@@ -93,7 +93,7 @@ public class QuickParser {
 			Diagnostic diagnostic = Diagnostician.INSTANCE.validate(ret);
 			switch (diagnostic.getSeverity()) {
 			case Diagnostic.ERROR: {
-				if (PRINT_ERRORS_IN_PARSING) {
+				if (printParsingErrors) {
 					System.err.println("Error found in \"" + queryString + "\"");
 					System.err.println(diagnostic.getChildren());
 				}

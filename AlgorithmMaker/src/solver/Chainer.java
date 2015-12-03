@@ -2,12 +2,9 @@ package solver;
 
 import inputHandling.TransformUtil;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Hashtable;
+import java.util.*;
 
-import theorems.Fact;
-import theorems.MultistageTheorem;
+import theorems.*;
 import algorithmMaker.input.*;
 import algorithmMaker.util.InputUtil;
 import bindings.Binding;
@@ -25,16 +22,26 @@ public class Chainer {
 	 * Map from the method name to the list of theorems that may be looking for its use.
 	 */
 	private Hashtable<Property, HashSet<Theorem>> theoremCatchers = new Hashtable<Property, HashSet<Theorem>>();
+	/**
+	 * Determines whether this chainer is a "Given" chainer or a "Goal" chainer. If it's the former, then the chainer
+	 * will use the given requirement of multitheorems. If it's the latter, it will use the goal requirement.
+	 */
 	private boolean isGivenChainer = true;
 
 	public Hashtable<Property, Fact<? extends Property>> properties = new Hashtable<Property, Fact<? extends Property>>();
-	public Hashtable<Property, HashSet<Fact<? extends Property>>> propertiesByStructure = new Hashtable<Property, HashSet<Fact<? extends Property>>>();
+	private Hashtable<Property, HashSet<Fact<? extends Property>>> propertiesByStructure = new Hashtable<Property, HashSet<Fact<? extends Property>>>();
 	private Hashtable<String, HashSet<Fact<? extends Property>>> propertiesByVariable = new Hashtable<String, HashSet<Fact<? extends Property>>>();
 	/**
 	 * The equality atomics for each given variable (namely, all of the equals(x,y) assertions for which x is the key
 	 * variable)
 	 */
 	private Hashtable<String, HashSet<Fact<Atomic>>> equalities = new Hashtable<String, HashSet<Fact<Atomic>>>();
+
+	/**
+	 * All of the quantifiers used to derive given theorems. If the theorem was not derived from a quantifier, it will
+	 * not appear in this table.
+	 */
+	private Hashtable<Theorem, Fact<Quantifier>> theoremDerivations = new Hashtable<Theorem, Fact<Quantifier>>();
 
 	/**
 	 * All of the theorems to pass on to the next layer of chaining
@@ -57,7 +64,7 @@ public class Chainer {
 	public Chainer(boolean isGivenChainer, Theorem... theorems) {
 		this.isGivenChainer = isGivenChainer;
 		for (Theorem theorem : theorems)
-			addTheoremCatcher(getRequirement(theorem), theorem);
+			addTheoremCatcher(getRequirement(theorem), theorem, null);
 	}
 
 	public void addBoundVars(String... vars) {
@@ -94,11 +101,11 @@ public class Chainer {
 		return properties.containsKey(property);
 	}
 
-	private void addTheoremCatcher(Property requirement, Theorem theorem) {
+	private void addTheoremCatcher(Property requirement, Theorem theorem, Fact<? extends Quantifier> theoremBase) {
 		Property devar = InputUtil.devar(requirement);
 		if (requirement instanceof ANDing) {
 			for (Property anded : InputUtil.getANDed((ANDing) requirement))
-				addTheoremCatcher(anded, theorem);
+				addTheoremCatcher(anded, theorem, theoremBase);
 		} else {
 			if (!theoremCatchers.containsKey(devar))
 				theoremCatchers.put(devar, new HashSet<Theorem>());
@@ -118,19 +125,35 @@ public class Chainer {
 
 	@SuppressWarnings("unchecked")
 	public void chain(Fact<? extends Property> fact) {
-		if (hasProperty(fact.property))
+		Property property = fact.property;
+		if (hasProperty(property))
 			return;
 
-		properties.put(fact.property, fact);
+		properties.put(property, fact);
 
-		Property devar = (Property) InputUtil.devar(fact.property);
+		Property devar = (Property) InputUtil.devar(property);
 		if (!propertiesByStructure.containsKey(devar))
 			propertiesByStructure.put(devar, new HashSet<Fact<? extends Property>>());
 
 		propertiesByStructure.get(devar).add(fact);
 
-		if (fact.property instanceof Atomic) {
-			Atomic atomic = (Atomic) fact.property;
+		if (property instanceof Quantifier) {
+			Quantifier quantifier = (Quantifier) property;
+			if (quantifier.getQuantifier().equals(InputUtil.FORALL)) {
+				Theorem newTheorem = new QuickTheorem(quantifier.getSubject().getProperty(), quantifier.getPredicate(),
+						0, "Quantification");
+				for (Binding existingBinding : getAllFulfillmentsOf(newTheorem.getRequirement())) {
+					Fact<? extends Property>[] prerequisites = new Fact[existingBinding.getPrerequisites().size() + 1];
+					prerequisites[0] = fact;
+					System.arraycopy(existingBinding.getPrerequisites().toArray(new Fact[0]), 0, prerequisites, 1,
+							existingBinding.getPrerequisites().size());
+					chain(new Fact<Property>(InputUtil.revar(newTheorem.getResult(), existingBinding.getArguments()),
+							newTheorem, prerequisites));
+				}
+				addTheoremCatcher(newTheorem.getRequirement(), newTheorem, (Fact<? extends Quantifier>) fact);
+			}
+		} else if (property instanceof Atomic) {
+			Atomic atomic = (Atomic) property;
 			String function = atomic.getFunction();
 
 			for (String var : atomic.getArgs()) {
@@ -184,8 +207,13 @@ public class Chainer {
 		// Go through all of the theorems that use this atomic's function
 		// and check if any of them can be applied
 		if (theoremCatchers.containsKey(devar))
-			for (Theorem theorem : theoremCatchers.get(devar))
-				attemptPropagation(theorem, fact, fact.property, new MutableBinding());
+			for (Theorem theorem : theoremCatchers.get(devar)) {
+				MutableBinding binding = new MutableBinding();
+				if (theoremDerivations.containsKey(theorem))
+					binding.addPrerequisite(this.theoremDerivations.get(theorem));
+
+				attemptPropagation(theorem, fact, fact.property, binding);
+			}
 	}
 
 	/**
@@ -264,32 +292,51 @@ public class Chainer {
 		}
 	}
 
-	private void attemptPropagation(Theorem theorem, ArrayList<Property> atomicsToSatisfy, int index,
+	private void attemptPropagation(Theorem theorem, ArrayList<Property> propertiesToSatisfy, int index,
 			Fact<? extends Property> fact, boolean usedAsserted, MutableBinding binding, int lastUsableIndex) {
 		// base case : when we've fulfilled all the atomics, we can assert our result.
-		if (index == atomicsToSatisfy.size()) {
+		if (index == propertiesToSatisfy.size()) {
 			attemptChaining(theorem, binding.getImmutable());
 			return;
 		}
 
-		Atomic toSatisfy = (Atomic) atomicsToSatisfy.get(index);
+		Property toSatisfy = propertiesToSatisfy.get(index);
 		if (index == lastUsableIndex && !usedAsserted && binding.canBind(toSatisfy, fact.property)) {
 			binding.applyBinding(toSatisfy, fact);
 
-			attemptPropagation(theorem, atomicsToSatisfy, index + 1, fact, true, binding, lastUsableIndex);
+			attemptPropagation(theorem, propertiesToSatisfy, index + 1, fact, true, binding, lastUsableIndex);
 
 			binding.undoLastBinding();
 		} else {
+			// TODO:DN: This has to make sure to canonicalize quantifiers before querying for them
 			for (Fact<? extends Property> candidate : propertiesByStructure.get(InputUtil.devar(toSatisfy))) {
 				if (binding.canBind(toSatisfy, candidate.property)) {
 					binding.applyBinding(toSatisfy, candidate);
 
-					attemptPropagation(theorem, atomicsToSatisfy, index + 1, fact,
+					attemptPropagation(theorem, propertiesToSatisfy, index + 1, fact,
 							usedAsserted || candidate.equals(fact), binding, lastUsableIndex);
 
 					binding.undoLastBinding();
 				}
 			}
 		}
+	}
+
+	/**
+	 * Finds all of the bindings within this chainer's property list that fulfill the given requirement.
+	 */
+	public ArrayList<Binding> getAllFulfillmentsOf(Property original) {
+		if (original instanceof Atomic) {
+			ArrayList<Binding> ret = new ArrayList<Binding>();
+			Property devarred = InputUtil.devar((Atomic) original);
+			if (propertiesByStructure.containsKey(devarred))
+				for (Fact<? extends Property> fact : propertiesByStructure.get(devarred)) {
+					MutableBinding binding = new MutableBinding();
+					binding.applyBinding(original, fact);
+					ret.add(binding.getImmutable());
+				}
+			return ret;
+		}
+		throw new UnsupportedOperationException("Dwight was too lazy to make a generic version of this function.");
 	}
 }

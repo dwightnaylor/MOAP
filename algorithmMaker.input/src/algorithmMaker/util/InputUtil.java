@@ -119,6 +119,7 @@ public class InputUtil {
 		Property save = ret.getRequirement();
 		ret.setRequirement(ret.getResult());
 		ret.setResult(save);
+		ret.setImplication("->");
 		return ret;
 	}
 
@@ -131,7 +132,7 @@ public class InputUtil {
 				.getResult()))));
 		contrapositive.setResult(InputUtil.canonicalize(InputUtil.getNegated(InputUtil.stupidCopy(theorem
 				.getRequirement()))));
-		contrapositive.setImplication(theorem.getImplication());
+		contrapositive.setImplication("->");
 		return contrapositive;
 	}
 
@@ -491,7 +492,10 @@ public class InputUtil {
 		}
 	}
 
-	public static Negation getNegated(Property x) {
+	public static Property getNegated(Property x) {
+		if (x instanceof Negation)
+			return InputUtil.stupidCopy(((Negation) x).getNegated());
+
 		Negation ret = InputFactoryImpl.eINSTANCE.createNegation();
 		ret.setNegated(x);
 		return ret;
@@ -632,6 +636,9 @@ public class InputUtil {
 	}
 
 	public static void desugar(Input input) {
+		// TODO:DESUGAR: Collapse arithmetic
+		// TODO:DESUGAR: Re-nest atomics if possible
+		// TODO:DESUGAR: collapse quantifiers if possible (child_type...)
 		desugar(input.getGiven());
 		desugar(input.getGoal());
 	}
@@ -641,21 +648,41 @@ public class InputUtil {
 		properties.add(problem.getProperty());
 		// Go through all the declarations and remove their type declaration.
 		// Replace it with type declaration atomics.
-		for (Declaration declaration : problem.getVars()) {
-			Type type = declaration.getType();
-			if (type != null) {
-				properties
-						.add(InputUtil.createAtomic(InputUtil.TYPE_MARKER + type.getName(), declaration.getVarName()));
-				if (type.getTemplateType() != null)
-					properties.add(InputUtil.createAtomic(InputUtil.CHILD_TYPE_MARKER + type.getTemplateType(),
-							declaration.getVarName()));
+		HashSet<String> declaredVars = InputUtil.getDeclaredVars(problem);
+		for (Declaration declaration : problem.getVars())
+			if (declaration.getType() != null)
+				properties.add(getDesugaredTypeDeclaration(declaration.getType(), declaration.getVarName(),
+						declaredVars));
 
-				declaration.setType(null);
-			}
-		}
 		problem.setProperty(InputUtil.andTogether(properties));
 
 		// This whole chunk is JUST for removing nested atomics.
+		desugarNestedAtomics(problem);
+	}
+
+	private static Property getDesugaredTypeDeclaration(Type type, String varName, HashSet<String> usedVars) {
+		Property ret = createAtomic(InputUtil.TYPE_MARKER + type.getName(), varName);
+		if (type.getTemplateType() != null) {
+			String newVar = getUnusedVar(usedVars);
+			usedVars.add(newVar);
+			Quantifier quantifier = createQuantifier(InputUtil.FORALL,
+					createProblem(Collections.singleton(newVar), createAtomic("child", varName, newVar)),
+					getDesugaredTypeDeclaration(type.getTemplateType(), newVar, usedVars));
+			usedVars.remove(newVar);
+			ret = andTogether(Arrays.asList(new Property[] { ret, quantifier }));
+		}
+		return ret;
+	}
+
+	private static Quantifier createQuantifier(String quantifier, Problem subject, Property predicate) {
+		Quantifier ret = InputFactoryImpl.eINSTANCE.createQuantifier();
+		ret.setQuantifier(quantifier);
+		ret.setSubject(subject);
+		ret.setPredicate(predicate);
+		return ret;
+	}
+
+	private static void desugarNestedAtomics(Problem problem) {
 		problem.setProperty((Property) InputUtil.reduce(problem.getProperty(), new InputConverter() {
 			@Override
 			public EObject apply(EObject cur) {

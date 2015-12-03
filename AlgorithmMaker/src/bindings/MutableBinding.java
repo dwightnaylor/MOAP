@@ -7,8 +7,7 @@ import java.util.Stack;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 
-import algorithmMaker.input.Atomic;
-import algorithmMaker.input.Property;
+import algorithmMaker.input.*;
 import algorithmMaker.util.InputUtil;
 import theorems.Fact;
 
@@ -72,5 +71,9 @@ public class MutableBinding extends Binding {
 		for (String var : previousBinding.bindings.keySet())
 			if (canBind(var, previousBinding.bindings.get(var)))
 				bind(var, previousBinding.bindings.get(var));
+	}
+
+	public void addPrerequisite(Fact<? extends Property> fact) {
+		prerequisites.add(fact);
 	}
 }

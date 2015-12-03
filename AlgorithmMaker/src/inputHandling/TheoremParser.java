@@ -34,6 +34,7 @@ public class TheoremParser {
 							ret.add(InputUtil.getConverse(theorem));
 							ret.add(InputUtil.getContrapositive(InputUtil.getConverse(theorem)));
 						}
+						theorem.setImplication("->");
 					}
 				}
 

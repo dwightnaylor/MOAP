@@ -136,6 +136,24 @@ public class ChainerTests {
 		assertFalse(basicChainer.hasProperty(parseProperty("something(c)")));
 	}
 
+	@Test
+	public void testForQuantifierAsTheorem() {
+		{
+			// One test for when the quantifier comes first
+			Chainer basicChainer = new Chainer();
+			basicChainer.chain(parseProperty("forall(x st a(x) : b(x))"), TransformUtil.GIVEN);
+			basicChainer.chain(parseProperty("a(q)"), TransformUtil.GIVEN);
+			assertTrue(basicChainer.hasProperty(parseProperty("b(q)")));
+		}
+		{
+			// One test for when the quantifier comes second
+			Chainer basicChainer = new Chainer();
+			basicChainer.chain(parseProperty("a(q)"), TransformUtil.GIVEN);
+			basicChainer.chain(parseProperty("forall(x st a(x) : b(x))"), TransformUtil.GIVEN);
+			assertTrue(basicChainer.hasProperty(parseProperty("b(q)")));
+		}
+	}
+
 	// @Test
 	// public void testQuantifierChaining() {
 	// Chainer basicChainer = new Chainer(parseTheorem("forall(x st a(x,y) : b(x,y))->c(y),0,GIVEN"));
