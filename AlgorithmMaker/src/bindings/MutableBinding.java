@@ -7,14 +7,12 @@ import java.util.Stack;
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 
-import theorems.Fact;
-import algorithmMaker.input.Argument;
-import algorithmMaker.input.Property;
-import algorithmMaker.input.Variable;
+import algorithmMaker.input.*;
 import algorithmMaker.util.InputUtil;
+import theorems.Fact;
 
 public class MutableBinding extends Binding {
-	public void bind(String originalVar, Argument newVar) {
+	public void bind(String originalVar, String newVar) {
 		bindings.put(originalVar, newVar);
 	}
 
@@ -26,24 +24,29 @@ public class MutableBinding extends Binding {
 
 	public void applyBinding(Property original, Fact<? extends Property> asserted) {
 		if (!InputUtil.devar(original).equals(InputUtil.devar(asserted.property)))
-			throw new IllegalArgumentException(
-					"Cannot bind two non-equivalent properties \"" + original + "\" and \"" + asserted.property + "\"");
+			throw new IllegalArgumentException("Cannot bind two non-equivalent properties \"" + original + "\" and \""
+					+ asserted.property + "\"");
 
 		ArrayList<String> newBindings = new ArrayList<String>();
 
 		TreeIterator<EObject> originalContents = original.eAllContents();
 		TreeIterator<EObject> assertedContents = asserted.property.eAllContents();
-		while (originalContents.hasNext()) {
-			EObject nextOriginal = originalContents.next();
-			EObject nextAsserted = assertedContents.next();
-			if (nextOriginal instanceof Variable) {
-				String arg = ((Variable) nextOriginal).getArg();
-				if (!bindings.containsKey(arg))
-					newBindings.add(arg);
+		EObject nextOriginal = original;
+		EObject nextAsserted = asserted.property;
+		do {
+			if (nextOriginal instanceof Atomic) {
+				Atomic originalAtomic = (Atomic) nextOriginal;
+				for (int i = 0; i < originalAtomic.getArgs().size(); i++) {
+					String originalVar = originalAtomic.getArgs().get(i);
+					if (!bindings.containsKey(originalVar))
+						newBindings.add(originalVar);
 
-				bind(arg, (Variable) nextAsserted);
+					bind(originalVar, ((Atomic) nextAsserted).getArgs().get(i));
+				}
 			}
-		}
+			nextOriginal = originalContents.hasNext() ? originalContents.next() : null;
+			nextAsserted = assertedContents.hasNext() ? assertedContents.next() : null;
+		} while (nextOriginal != null);
 		lastBindings.push(newBindings);
 
 		prerequisites.add(asserted);
@@ -59,13 +62,18 @@ public class MutableBinding extends Binding {
 	@SuppressWarnings("unchecked")
 	public Binding getImmutable() {
 		Binding ret = new Binding();
-		ret.bindings = (Hashtable<String, Argument>) bindings.clone();
+		ret.bindings = (Hashtable<String, String>) bindings.clone();
 		ret.prerequisites = (ArrayList<Fact<? extends Property>>) prerequisites.clone();
 		return ret;
 	}
 
 	public void addBindingsFrom(Binding previousBinding) {
 		for (String var : previousBinding.bindings.keySet())
-			bind(var, previousBinding.bindings.get(var));
+			if (canBind(var, previousBinding.bindings.get(var)))
+				bind(var, previousBinding.bindings.get(var));
+	}
+
+	public void addPrerequisite(Fact<? extends Property> fact) {
+		prerequisites.add(fact);
 	}
 }

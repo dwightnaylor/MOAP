@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Theorem;
+import algorithmMaker.util.InputUtil;
 
 public class TheoremParser {
 	private static String[] inputFiles = { "theoremsv1" };
@@ -22,8 +23,19 @@ public class TheoremParser {
 					if (line.contains("//"))
 						line = line.substring(0, line.indexOf("//"));
 
-					if (line.trim().length() > 0)
-						ret.add(QuickParser.parseTheorem(line));
+					if (line.trim().length() > 0) {
+						Theorem theorem = QuickParser.parseTheorem(line);
+						if (!theorem.getImplication().equals("<-")) {
+							ret.add(theorem);
+							ret.add(InputUtil.getContrapositive(theorem));
+						}
+
+						if (!theorem.getImplication().equals("->")) {
+							ret.add(InputUtil.getConverse(theorem));
+							ret.add(InputUtil.getContrapositive(InputUtil.getConverse(theorem)));
+						}
+						theorem.setImplication("->");
+					}
 				}
 
 				br.close();

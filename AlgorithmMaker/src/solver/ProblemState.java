@@ -1,14 +1,22 @@
 package solver;
 
-import algorithmMaker.input.Input;
-import bindings.Binding;
+import inputHandling.TransformUtil;
+
+import java.util.Collections;
+import java.util.List;
+
 import theorems.MultistageTheorem;
+import algorithmMaker.input.Input;
+import algorithmMaker.util.InputUtil;
+import bindings.Binding;
 
 public class ProblemState implements Comparable<ProblemState> {
 	public Input problem;
+	private String toStringSave;
 	public ProblemState parentState;
-	Binding rootTheoremBinding;
+	public Binding rootTheoremBinding;
 	public MultistageTheorem rootTheorem;
+	public List<ProblemState> childStates;
 
 	public ProblemState(Input problem, ProblemState parentState, MultistageTheorem multistageTheorem, Binding binding) {
 		this.problem = problem;
@@ -16,9 +24,12 @@ public class ProblemState implements Comparable<ProblemState> {
 		this.rootTheorem = multistageTheorem;
 		this.rootTheoremBinding = binding;
 	}
-	
+
 	public String toString() {
-		return problem.toString();
+		if (toStringSave == null)
+			toStringSave = TransformUtil.makePretty(problem).toString();
+
+		return toStringSave;
 	}
 
 	public int getDepth() {
@@ -33,27 +44,28 @@ public class ProblemState implements Comparable<ProblemState> {
 
 	@Override
 	public int compareTo(ProblemState other) {
+		if (problem.getGoal() == null && other.problem.getGoal() == null)
+			return 0;
+
+		if (problem.getGoal() == null)
+			return 1;
+
+		if (other.problem.getGoal() == null)
+			return -1;
+
 		return problem.getGoal().toString().length() - other.problem.getGoal().toString().length();
 	}
 
 	public static String getOutputString(ProblemState solution) {
-		StringBuffer output = new StringBuffer();
-		while (solution != null) {
-			// Don't try to show pseudocode used to get from the given to the
-			// first step.
-			if (solution.parentState != null) {
-				if (output.length() > 0) {
-					output.insert(0, "\t");
-					for (int i = 0; i < output.length(); i++)
-						if (output.charAt(i) == '\n')
-							output.insert(i + 1, "\t");
-				}
-
-				output.insert(0, solution.rootTheoremBinding.revar(solution.rootTheorem.getPseudoCode()) + "\n");
-			}
-
-			solution = solution.parentState;
+		ProblemState head = solution;
+		while (head.parentState != null) {
+			head.parentState.childStates = Collections.singletonList(head);
+			head = head.parentState;
 		}
+		StringBuffer output = new StringBuffer();
+		// FIXME: DN : SERIOUSLY THIS IS DISGUSTING CHANGE IT ASAP
+		head.childStates.get(0).rootTheorem.getPseudocoder().appendPseudocode(output, 0, head.childStates.get(0),
+				"return " + InputUtil.getDeclaredVars(TransformUtil.makePretty(head.problem).getGoal()));
 		return output.toString();
 	}
 }

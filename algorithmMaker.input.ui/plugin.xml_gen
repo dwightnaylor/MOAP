@@ -422,4 +422,27 @@
     </fileTypes>
   </extension>
 
+    <!-- marker definitions for algorithmMaker.Input -->
+    <extension
+            id="input.check.fast"
+            name="Input Problem"
+            point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.xtext.ui.check.fast"/>
+        <persistent value="true"/>
+    </extension>
+    <extension
+            id="input.check.normal"
+            name="Input Problem"
+            point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.xtext.ui.check.normal"/>
+        <persistent value="true"/>
+    </extension>
+    <extension
+            id="input.check.expensive"
+            name="Input Problem"
+            point="org.eclipse.core.resources.markers">
+        <super type="org.eclipse.xtext.ui.check.expensive"/>
+        <persistent value="true"/>
+    </extension>
+
 </plugin>

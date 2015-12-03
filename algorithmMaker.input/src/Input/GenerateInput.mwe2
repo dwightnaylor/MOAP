@@ -128,6 +128,9 @@ Workflow {
     		// provides a compare view
     		fragment = compare.CompareFragment auto-inject {}
 
+			//Added for our error messages -DN
+			fragment = org.eclipse.xtext.generator.validation.JavaValidatorFragment {}
+
 			//Added for our custom equals, and hashCode methods
 			fragment = GeneratedModelModifier {}
     	}

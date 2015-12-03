@@ -41,5 +41,6 @@ public class InputStandaloneSetupGenerated implements ISetup {
 		
 
 
+
 	}
 }

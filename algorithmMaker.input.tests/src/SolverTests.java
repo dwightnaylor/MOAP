@@ -1,20 +1,21 @@
 import static algorithmMaker.QuickParser.parseProperty;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import inputHandling.MultiTheoremParser;
+import inputHandling.TheoremParser;
 
 import java.util.ArrayList;
 
 import org.junit.Test;
 
+import solver.ProblemSolver;
+import solver.ProblemState;
+import theorems.MultistageTheorem;
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.util.InputUtil;
-import inputHandling.MultiTheoremParser;
-import inputHandling.TheoremParser;
-import inputHandling.TransformUtil;
-import solver.ProblemSolver;
-import solver.ProblemState;
-import theorems.MultistageTheorem;
 
 public class SolverTests {
 	@Test
@@ -30,24 +31,22 @@ public class SolverTests {
 
 	@Test
 	public void testProblemResolution() {
-		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty("a(x)"), parseProperty("b(x)"),
-				parseProperty("b(x)"), null, 0, "test", null);
-		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x st a(x); Find x st b(x)"),
+		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty("a(x)"), parseProperty("b(x,y)"),
+				parseProperty("b(x,y)"), null, 0, "test", null);
+		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x st a(x); Find y st b(x,y)"),
 				multistageTheorem);
 		solver.branch();
-		solver.branch();
-		assertTrue(TransformUtil.isSolved(solver.problemStates.peek().problem.getGoal()));
+		assertEquals(QuickParser.parseInput("Given x,y st a(x) & b(x,y);"), solver.problemStates.peek().problem);
 	}
 
 	@Test
 	public void testMultipleBranchingExclusion() {
 		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty("a(x)"), parseProperty("b(x)"),
 				parseProperty("b(x)"), null, 0, "test", null);
-		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x st a(x) & a(x); Find x st b(x)"),
+		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x st a(x) & a(x); Find b(x)"),
 				multistageTheorem);
 		solver.branch();
-		assertEquals(QuickParser.parseInput("Given x st a(x) & b(x); Find x st TRUE"),
-				solver.problemStates.peek().problem);
+		assertEquals(QuickParser.parseInput("Given x st a(x) & b(x);"), solver.problemStates.peek().problem);
 	}
 
 	@Test
@@ -55,11 +54,10 @@ public class SolverTests {
 		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty(InputUtil.BOUND + "(x) & "
 				+ InputUtil.BOUND + "(y)"), parseProperty("equal(x,y)"), parseProperty("equal(x,y)"), null, 0, "test",
 				null);
-		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x,y st a(x,y); Find x st equal(x,y)"),
+		ProblemSolver solver = new ProblemSolver(QuickParser.parseInput("Given x,y st a(x,y); Find equal(x,y)"),
 				multistageTheorem);
 		solver.branch();
-		assertEquals(QuickParser.parseInput("Given x,y st a(x,y) & equal(x,y); Find x st TRUE"),
-				solver.problemStates.peek().problem);
+		assertEquals(QuickParser.parseInput("Given x,y st a(x,y) & equal(x,y);"), solver.problemStates.peek().problem);
 	}
 
 	@Test
@@ -67,25 +65,33 @@ public class SolverTests {
 		ArrayList<Theorem> theorems = TheoremParser.parseFiles();
 		theorems.addAll(MultiTheoremParser.parseFiles());
 		ArrayList<String[]> probsAndSols = new ArrayList<String[]>();
-		probsAndSols.add(new String[] { "Given list<int>(a); Find b st child(a,b) & even(b)",
-				"foreach child b of a\n\tif b % 2 == 0\n\t\t" });
-		probsAndSols.add(new String[] { "Given list<int>(a),list<int>(b); Find c st child(a,c) & child(b,c) & even(c)",
-				"foreach child c of a\n\tif c % 2 == 0\n\t\tforeach child na of b\n\t\t\t" });
-		probsAndSols.add(new String[] { "Given int(a), int(b), int(c); Test(plus(c,b,a))", "if c + b == a\n\t" });
-		probsAndSols.add(new String[] { "Given array x; Find y st index(x,y) & get(x,y,y)",
-				"foreach index y of x\n\tif x.get(y) == y" });
-		probsAndSols.add(new String[] { "Given list x; Find y,z st child(x,y) & child(x,z) & equal(y,z)",
-				"foreach child y of x\n\tforeach child z of x\n\t\tif y == z" });
-		probsAndSols.add(new String[] { "Given list a, list b; Find c st child(a,c) & !child(b,c)", "" });
+		// These are all the problem/solution pairs. If there is no solution or only part of a solution, the program
+		// will only make sure the real solution matches up until whatever's given (no given means any solution works).
+//		probsAndSols.add(new String[] { "Given list<int> a; Find b st child(a,b) & even(b)",
+//				"foreach child b of a\n\tif b % 2 == 0\n\t\t" });
+//		probsAndSols.add(new String[] { "Given list<int> a,list<int> b; Find c st child(a,c) & child(b,c) & even(c)",
+//				"foreach child c of a\n\tboolean nb = true;\n\tforeach child na of b" });
+//		probsAndSols.add(new String[] { "Given int a, int b, int c; Find plus(c,b,a)", "if c + b == a\n\t" });
+//		probsAndSols.add(new String[] { "Given array x; Find y st index(x,y) & get(x,y,y)",
+//				"foreach index y of x\n\tif x.get(y) == y" });
+//		probsAndSols.add(new String[] { "Given list x; Find y,z st child(x,y) & child(x,z) & equal(y,z)",
+//				"foreach child y of x\n\tforeach child z of x" });
+//		probsAndSols.add(new String[] { "Given list a, list b; Find c st child(a,c) & !child(b,c)", "" });
+//		probsAndSols.add(new String[] {
+//				"Given list a, list b, list c; Find d st child(a,d) & child(b,d) & !child(c,d)", "" });
+//		probsAndSols.add(new String[] {
+//				"Given list a, hashset b, hashset c; Find d st child(a,d) & child(b,d) & !child(c,d)", "" });
+		probsAndSols.add(new String[] { "Given a,b; Find s st plus(a,b,s)", "" });
+		// probsAndSols.add(new String[] {
+		// "Given list<number> x, int s; Find a,b st child(x,a) & child(x,b) & equal(a+b,s)", "" });
 		for (String[] ps : probsAndSols) {
-			Input input = QuickParser.parseInput(ps[0]);
-			InputUtil.desugar(input);
+			Input input = QuickParser.parseInputDirty(ps[0]);
 			String actualSolution = ProblemState.getOutputString(new ProblemSolver(input, theorems
 					.toArray(new Theorem[0])).getSolution());
 			if (actualSolution == null) {
 				System.err.println("No solution for problem \"" + ps[0] + "\"");
-				System.out.println("Expected a solution starting with :");
-				System.out.println(ps[1] + "\n");
+				System.err.println("Expected a solution starting with :");
+				System.err.println(ps[1] + "\n");
 			}
 			assertNotNull(actualSolution);
 			String desiredAdjusted = ps[1].trim();

@@ -3,7 +3,7 @@
 package algorithmMaker.input.impl;
 
 import algorithmMaker.input.InputPackage;
-import algorithmMaker.input.Variable;
+import algorithmMaker.input.SugarVariable;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -13,18 +13,18 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Variable</b></em>'.
+ * An implementation of the model object '<em><b>Sugar Variable</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link algorithmMaker.input.impl.VariableImpl#getArg <em>Arg</em>}</li>
+ *   <li>{@link algorithmMaker.input.impl.SugarVariableImpl#getArg <em>Arg</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class VariableImpl extends NumericalPropertyImpl implements Variable
+public class SugarVariableImpl extends SugarNumericalPropertyImpl implements SugarVariable
 {
   /**
    * The default value of the '{@link #getArg() <em>Arg</em>}' attribute.
@@ -51,7 +51,7 @@ public class VariableImpl extends NumericalPropertyImpl implements Variable
    * <!-- end-user-doc -->
    * @generated
    */
-  protected VariableImpl()
+  protected SugarVariableImpl()
   {
     super();
   }
@@ -64,7 +64,7 @@ public class VariableImpl extends NumericalPropertyImpl implements Variable
   @Override
   protected EClass eStaticClass()
   {
-    return InputPackage.Literals.VARIABLE;
+    return InputPackage.Literals.SUGAR_VARIABLE;
   }
 
   /**
@@ -87,7 +87,7 @@ public class VariableImpl extends NumericalPropertyImpl implements Variable
     String oldArg = arg;
     arg = newArg;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.VARIABLE__ARG, oldArg, arg));
+      eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.SUGAR_VARIABLE__ARG, oldArg, arg));
   }
 
   /**
@@ -100,7 +100,7 @@ public class VariableImpl extends NumericalPropertyImpl implements Variable
   {
     switch (featureID)
     {
-      case InputPackage.VARIABLE__ARG:
+      case InputPackage.SUGAR_VARIABLE__ARG:
         return getArg();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -116,7 +116,7 @@ public class VariableImpl extends NumericalPropertyImpl implements Variable
   {
     switch (featureID)
     {
-      case InputPackage.VARIABLE__ARG:
+      case InputPackage.SUGAR_VARIABLE__ARG:
         setArg((String)newValue);
         return;
     }
@@ -133,7 +133,7 @@ public class VariableImpl extends NumericalPropertyImpl implements Variable
   {
     switch (featureID)
     {
-      case InputPackage.VARIABLE__ARG:
+      case InputPackage.SUGAR_VARIABLE__ARG:
         setArg(ARG_EDEFAULT);
         return;
     }
@@ -150,7 +150,7 @@ public class VariableImpl extends NumericalPropertyImpl implements Variable
   {
     switch (featureID)
     {
-      case InputPackage.VARIABLE__ARG:
+      case InputPackage.SUGAR_VARIABLE__ARG:
         return ARG_EDEFAULT == null ? arg != null : !ARG_EDEFAULT.equals(arg);
     }
     return super.eIsSet(featureID);
@@ -175,4 +175,4 @@ public class VariableImpl extends NumericalPropertyImpl implements Variable
 	}
 
 
-} //VariableImpl
+} //SugarVariableImpl

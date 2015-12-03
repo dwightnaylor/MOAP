@@ -20,9 +20,8 @@ import org.eclipse.xtext.Grammar;
 import org.eclipse.xtext.generator.DefaultGeneratorFragment;
 
 /**
- * This class is solely a helper class. It's made to generate (within the
- * generated source files) the equals and hashcode methods such that the
- * contents are properly taken into account.
+ * This class is solely a helper class. It's made to generate (within the generated source files) the equals and
+ * hashcode methods such that the contents are properly taken into account.
  * 
  * @author Dwight Naylor
  * @since 9/14/15
@@ -173,8 +172,8 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 		Class<? extends EObject> classToUse = null;
 		try {
 			URLClassLoader urlClassLoader = new URLClassLoader(new URL[] { file.getParentFile().toURI().toURL() });
-			classToUse = (Class<? extends EObject>) urlClassLoader
-					.loadClass("algorithmMaker.input.impl." + className + "Impl");
+			classToUse = (Class<? extends EObject>) urlClassLoader.loadClass("algorithmMaker.input.impl." + className
+					+ "Impl");
 			urlClassLoader.close();
 		} catch (ClassNotFoundException e) {
 			return null;
@@ -197,41 +196,43 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 		case "ANDing":
 			ret.append("\t\tboolean leftIsOR = left instanceof algorithmMaker.input.ORing;" + NL);
 			ret.append("\t\tboolean rightIsOR = right instanceof algorithmMaker.input.ORing;" + NL);
-			ret.append(
-					"\t\tret.append((leftIsOR ? \"(\" : \"\") + left + (leftIsOR ? ')' : \"\") + \" & \" + (rightIsOR ? '(' : \"\") + right + (rightIsOR ? ')' : \"\"));"
-							+ NL);
+			ret.append("\t\tret.append((leftIsOR ? \"(\" : \"\") + left + (leftIsOR ? ')' : \"\") + \" & \" + (rightIsOR ? '(' : \"\") + right + (rightIsOR ? ')' : \"\"));"
+					+ NL);
 			break;
 		// TODO:DN: Worry about parenthesizing arithmetic output
-		case "Addition":
+		case "SugarAddition":
 			ret.append("\t\tret.append(left + \" \" + symbol + \" \" + right);" + NL);
 			break;
-		case "Multiplication":
+		case "SugarMultiplication":
 			ret.append("\t\tret.append(left + \" \" + symbol + \" \" + right);" + NL);
 			break;
 		case "NumberLiteral":
 			ret.append("\t\tret.append(value);" + NL);
 			break;
-		case "Variable":
+		case "SugarVariable":
 			ret.append("\t\tret.append(arg);" + NL);
 			break;
 		case "Atomic":
-			// ret.append("\t\tif
-			// (function.equals(algorithmMaker.util.InputUtil.EQUAL)) {" + NL);
-			// ret.append("\t\t\treturn args.get(0) + \"==\" + args.get(1);" +
-			// NL);
-			// ret.append("\t\t}" + NL);
 			ret.append("\t\tret.append(function);" + NL);
 			ret.append("\t\tif (args != null && args.size() > 0){" + NL);
 			ret.append("\t\t\tret.append('(');" + NL);
-			ret.append("\t\t\tfor (Argument arg : args)" + NL);
+			ret.append("\t\t\tfor (String arg : args)" + NL);
+			ret.append("\t\t\t\tret.append(arg + ',');" + NL);
+			ret.append("\t\t\tret.setCharAt(ret.length() - 1, ')');" + NL);
+			ret.append("\t\t}" + NL);
+			break;
+		case "SugarAtomic":
+			ret.append("\t\tret.append(function + \":\");" + NL);
+			ret.append("\t\tif (args != null && args.size() > 0){" + NL);
+			ret.append("\t\t\tret.append('(');" + NL);
+			ret.append("\t\t\tfor (SugarNumericalProperty arg : args)" + NL);
 			ret.append("\t\t\t\tret.append(arg.toString() + ',');" + NL);
 			ret.append("\t\t\tret.setCharAt(ret.length() - 1, ')');" + NL);
 			ret.append("\t\t}" + NL);
 			break;
 		case "Input":
-			ret.append(
-					"\t\tret.append(\"Given \" + given + \"; \" + (task.equals(\"Test\") ? (task + '(' + goal + ')') : (task + ' ' + goal)));"
-							+ NL);
+			ret.append("\t\tret.append(\"Given \" + given + \";\" + (goal == null ? \"\" : (\" \" + (task + ' ' + goal))));"
+					+ NL);
 			break;
 		case "ORing":
 			ret.append("\t\tret.append(left + \" | \" + right);" + NL);
@@ -251,7 +252,8 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 			ret.append("\t\tret.append(quantifier + '(' + subject + \" : \" + predicate + ')');" + NL);
 			break;
 		case "Theorem":
-			ret.append("\t\tret.append(requirement + \"->\" + result + ',' + cost + ',' + description);" + NL);
+			ret.append("\t\tret.append(requirement + \" \" + implication + \" \" + result + ',' + cost + ',' + '\"' + description + '\"');"
+					+ NL);
 			break;
 		case "BooleanLiteral":
 			ret.append("\t\tret.append(value);" + NL);
@@ -269,9 +271,8 @@ public class GeneratedModelModifier extends DefaultGeneratorFragment {
 			ret.append("\t\tret.append('{' + problem.toString() + '}');" + NL);
 			break;
 		case "Negation":
-			ret.append(
-					"\t\tret.append('!' + (negated instanceof algorithmMaker.input.ANDing | negated instanceof algorithmMaker.input.ORing ? \"(\" : \"\") + negated.toString() + (negated instanceof algorithmMaker.input.ANDing | negated instanceof algorithmMaker.input.ORing ? \")\" : \"\"));"
-							+ NL);
+			ret.append("\t\tret.append('!' + (negated instanceof algorithmMaker.input.ANDing | negated instanceof algorithmMaker.input.ORing ? \"(\" : \"\") + negated.toString() + (negated instanceof algorithmMaker.input.ANDing | negated instanceof algorithmMaker.input.ORing ? \")\" : \"\"));"
+					+ NL);
 			break;
 		default:
 			if (log.isInfoEnabled())

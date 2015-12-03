@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalInputParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'Given'", "';'", "'Find'", "'Count'", "'Test'", "'('", "')'", "'Theorems:'", "','", "'st'", "'<'", "'>'", "'|'", "'&'", "'{'", "'}'", "'!'", "'forall'", "'exists'", "':'", "'TRUE'", "'FALSE'", "'->'", "'+'", "'-'", "'*'", "'/'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'Given'", "';'", "'Find'", "'Count'", "'Theorems:'", "','", "'st'", "'<'", "'>'", "'|'", "'&'", "'('", "')'", "'{'", "'}'", "'!'", "'forall'", "'exists'", "':'", "'TRUE'", "'FALSE'", "'->'", "'<-'", "'<->'", "'+'", "'-'", "'*'", "'/'"
     };
     public static final int RULE_STRING=6;
     public static final int RULE_SL_COMMENT=8;
@@ -29,6 +29,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
     public static final int T__15=15;
     public static final int T__37=37;
     public static final int T__16=16;
+    public static final int T__38=38;
     public static final int T__17=17;
     public static final int T__18=18;
     public static final int T__11=11;
@@ -134,7 +135,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleInput"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:76:1: ruleInput returns [EObject current=null] : (otherlv_0= 'Given' ( (lv_given_1_0= ruleProblem ) ) otherlv_2= ';' ( ( ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( (lv_goal_4_0= ruleProblem ) ) ) | ( ( (lv_task_5_0= 'Test' ) ) otherlv_6= '(' ( (lv_goal_7_0= ruleProblemNoVars ) ) otherlv_8= ')' ) ) (otherlv_9= ';' otherlv_10= 'Theorems:' ( (lv_theorems_11_0= ruleTheorem ) ) (otherlv_12= ';' ( (lv_theorems_13_0= ruleTheorem ) ) )* (otherlv_14= ';' )? )? ) ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:76:1: ruleInput returns [EObject current=null] : (otherlv_0= 'Given' ( (lv_given_1_0= ruleProblemPropertyOptional ) ) otherlv_2= ';' ( ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( ( (lv_goal_4_1= ruleProblem | lv_goal_4_2= ruleProblemNoVars ) ) ) )? (otherlv_5= ';' otherlv_6= 'Theorems:' ( (lv_theorems_7_0= ruleTheorem ) ) (otherlv_8= ';' ( (lv_theorems_9_0= ruleTheorem ) ) )* (otherlv_10= ';' )? )? ) ;
     public final EObject ruleInput() throws RecognitionException {
         EObject current = null;
 
@@ -142,48 +143,45 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
         Token otherlv_2=null;
         Token lv_task_3_1=null;
         Token lv_task_3_2=null;
-        Token lv_task_5_0=null;
+        Token otherlv_5=null;
         Token otherlv_6=null;
         Token otherlv_8=null;
-        Token otherlv_9=null;
         Token otherlv_10=null;
-        Token otherlv_12=null;
-        Token otherlv_14=null;
         EObject lv_given_1_0 = null;
 
-        EObject lv_goal_4_0 = null;
+        EObject lv_goal_4_1 = null;
 
-        EObject lv_goal_7_0 = null;
+        EObject lv_goal_4_2 = null;
 
-        EObject lv_theorems_11_0 = null;
+        EObject lv_theorems_7_0 = null;
 
-        EObject lv_theorems_13_0 = null;
+        EObject lv_theorems_9_0 = null;
 
 
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:79:28: ( (otherlv_0= 'Given' ( (lv_given_1_0= ruleProblem ) ) otherlv_2= ';' ( ( ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( (lv_goal_4_0= ruleProblem ) ) ) | ( ( (lv_task_5_0= 'Test' ) ) otherlv_6= '(' ( (lv_goal_7_0= ruleProblemNoVars ) ) otherlv_8= ')' ) ) (otherlv_9= ';' otherlv_10= 'Theorems:' ( (lv_theorems_11_0= ruleTheorem ) ) (otherlv_12= ';' ( (lv_theorems_13_0= ruleTheorem ) ) )* (otherlv_14= ';' )? )? ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:80:1: (otherlv_0= 'Given' ( (lv_given_1_0= ruleProblem ) ) otherlv_2= ';' ( ( ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( (lv_goal_4_0= ruleProblem ) ) ) | ( ( (lv_task_5_0= 'Test' ) ) otherlv_6= '(' ( (lv_goal_7_0= ruleProblemNoVars ) ) otherlv_8= ')' ) ) (otherlv_9= ';' otherlv_10= 'Theorems:' ( (lv_theorems_11_0= ruleTheorem ) ) (otherlv_12= ';' ( (lv_theorems_13_0= ruleTheorem ) ) )* (otherlv_14= ';' )? )? )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:79:28: ( (otherlv_0= 'Given' ( (lv_given_1_0= ruleProblemPropertyOptional ) ) otherlv_2= ';' ( ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( ( (lv_goal_4_1= ruleProblem | lv_goal_4_2= ruleProblemNoVars ) ) ) )? (otherlv_5= ';' otherlv_6= 'Theorems:' ( (lv_theorems_7_0= ruleTheorem ) ) (otherlv_8= ';' ( (lv_theorems_9_0= ruleTheorem ) ) )* (otherlv_10= ';' )? )? ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:80:1: (otherlv_0= 'Given' ( (lv_given_1_0= ruleProblemPropertyOptional ) ) otherlv_2= ';' ( ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( ( (lv_goal_4_1= ruleProblem | lv_goal_4_2= ruleProblemNoVars ) ) ) )? (otherlv_5= ';' otherlv_6= 'Theorems:' ( (lv_theorems_7_0= ruleTheorem ) ) (otherlv_8= ';' ( (lv_theorems_9_0= ruleTheorem ) ) )* (otherlv_10= ';' )? )? )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:80:1: (otherlv_0= 'Given' ( (lv_given_1_0= ruleProblem ) ) otherlv_2= ';' ( ( ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( (lv_goal_4_0= ruleProblem ) ) ) | ( ( (lv_task_5_0= 'Test' ) ) otherlv_6= '(' ( (lv_goal_7_0= ruleProblemNoVars ) ) otherlv_8= ')' ) ) (otherlv_9= ';' otherlv_10= 'Theorems:' ( (lv_theorems_11_0= ruleTheorem ) ) (otherlv_12= ';' ( (lv_theorems_13_0= ruleTheorem ) ) )* (otherlv_14= ';' )? )? )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:80:3: otherlv_0= 'Given' ( (lv_given_1_0= ruleProblem ) ) otherlv_2= ';' ( ( ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( (lv_goal_4_0= ruleProblem ) ) ) | ( ( (lv_task_5_0= 'Test' ) ) otherlv_6= '(' ( (lv_goal_7_0= ruleProblemNoVars ) ) otherlv_8= ')' ) ) (otherlv_9= ';' otherlv_10= 'Theorems:' ( (lv_theorems_11_0= ruleTheorem ) ) (otherlv_12= ';' ( (lv_theorems_13_0= ruleTheorem ) ) )* (otherlv_14= ';' )? )?
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:80:1: (otherlv_0= 'Given' ( (lv_given_1_0= ruleProblemPropertyOptional ) ) otherlv_2= ';' ( ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( ( (lv_goal_4_1= ruleProblem | lv_goal_4_2= ruleProblemNoVars ) ) ) )? (otherlv_5= ';' otherlv_6= 'Theorems:' ( (lv_theorems_7_0= ruleTheorem ) ) (otherlv_8= ';' ( (lv_theorems_9_0= ruleTheorem ) ) )* (otherlv_10= ';' )? )? )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:80:3: otherlv_0= 'Given' ( (lv_given_1_0= ruleProblemPropertyOptional ) ) otherlv_2= ';' ( ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( ( (lv_goal_4_1= ruleProblem | lv_goal_4_2= ruleProblemNoVars ) ) ) )? (otherlv_5= ';' otherlv_6= 'Theorems:' ( (lv_theorems_7_0= ruleTheorem ) ) (otherlv_8= ';' ( (lv_theorems_9_0= ruleTheorem ) ) )* (otherlv_10= ';' )? )?
             {
             otherlv_0=(Token)match(input,11,FOLLOW_11_in_ruleInput122); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getInputAccess().getGivenKeyword_0());
                 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:84:1: ( (lv_given_1_0= ruleProblem ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:85:1: (lv_given_1_0= ruleProblem )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:84:1: ( (lv_given_1_0= ruleProblemPropertyOptional ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:85:1: (lv_given_1_0= ruleProblemPropertyOptional )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:85:1: (lv_given_1_0= ruleProblem )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:86:3: lv_given_1_0= ruleProblem
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:85:1: (lv_given_1_0= ruleProblemPropertyOptional )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:86:3: lv_given_1_0= ruleProblemPropertyOptional
             {
              
-            	        newCompositeNode(grammarAccess.getInputAccess().getGivenProblemParserRuleCall_1_0()); 
+            	        newCompositeNode(grammarAccess.getInputAccess().getGivenProblemPropertyOptionalParserRuleCall_1_0()); 
             	    
-            pushFollow(FOLLOW_ruleProblem_in_ruleInput143);
-            lv_given_1_0=ruleProblem();
+            pushFollow(FOLLOW_ruleProblemPropertyOptional_in_ruleInput143);
+            lv_given_1_0=ruleProblemPropertyOptional();
 
             state._fsp--;
 
@@ -195,7 +193,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
                    			current, 
                    			"given",
                     		lv_given_1_0, 
-                    		"Problem");
+                    		"ProblemPropertyOptional");
             	        afterParserOrEnumRuleCall();
             	    
 
@@ -208,30 +206,18 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_2, grammarAccess.getInputAccess().getSemicolonKeyword_2());
                 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:106:1: ( ( ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( (lv_goal_4_0= ruleProblem ) ) ) | ( ( (lv_task_5_0= 'Test' ) ) otherlv_6= '(' ( (lv_goal_7_0= ruleProblemNoVars ) ) otherlv_8= ')' ) )
-            int alt2=2;
-            int LA2_0 = input.LA(1);
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:106:1: ( ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( ( (lv_goal_4_1= ruleProblem | lv_goal_4_2= ruleProblemNoVars ) ) ) )?
+            int alt3=2;
+            int LA3_0 = input.LA(1);
 
-            if ( ((LA2_0>=13 && LA2_0<=14)) ) {
-                alt2=1;
+            if ( ((LA3_0>=13 && LA3_0<=14)) ) {
+                alt3=1;
             }
-            else if ( (LA2_0==15) ) {
-                alt2=2;
-            }
-            else {
-                NoViableAltException nvae =
-                    new NoViableAltException("", 2, 0, input);
-
-                throw nvae;
-            }
-            switch (alt2) {
+            switch (alt3) {
                 case 1 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:106:2: ( ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( (lv_goal_4_0= ruleProblem ) ) )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:106:2: ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( ( (lv_goal_4_1= ruleProblem | lv_goal_4_2= ruleProblemNoVars ) ) )
                     {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:106:2: ( ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( (lv_goal_4_0= ruleProblem ) ) )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:106:3: ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) ) ( (lv_goal_4_0= ruleProblem ) )
-                    {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:106:3: ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:106:2: ( ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) ) )
                     // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:107:1: ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) )
                     {
                     // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:107:1: ( (lv_task_3_1= 'Find' | lv_task_3_2= 'Count' ) )
@@ -257,9 +243,9 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
                         case 1 :
                             // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:109:3: lv_task_3_1= 'Find'
                             {
-                            lv_task_3_1=(Token)match(input,13,FOLLOW_13_in_ruleInput177); 
+                            lv_task_3_1=(Token)match(input,13,FOLLOW_13_in_ruleInput176); 
 
-                                    newLeafNode(lv_task_3_1, grammarAccess.getInputAccess().getTaskFindKeyword_3_0_0_0_0());
+                                    newLeafNode(lv_task_3_1, grammarAccess.getInputAccess().getTaskFindKeyword_3_0_0_0());
                                 
 
                             	        if (current==null) {
@@ -273,9 +259,9 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
                         case 2 :
                             // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:121:8: lv_task_3_2= 'Count'
                             {
-                            lv_task_3_2=(Token)match(input,14,FOLLOW_14_in_ruleInput206); 
+                            lv_task_3_2=(Token)match(input,14,FOLLOW_14_in_ruleInput205); 
 
-                                    newLeafNode(lv_task_3_2, grammarAccess.getInputAccess().getTaskCountKeyword_3_0_0_0_1());
+                                    newLeafNode(lv_task_3_2, grammarAccess.getInputAccess().getTaskCountKeyword_3_0_0_1());
                                 
 
                             	        if (current==null) {
@@ -295,31 +281,92 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:136:2: ( (lv_goal_4_0= ruleProblem ) )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:137:1: (lv_goal_4_0= ruleProblem )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:136:2: ( ( (lv_goal_4_1= ruleProblem | lv_goal_4_2= ruleProblemNoVars ) ) )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:137:1: ( (lv_goal_4_1= ruleProblem | lv_goal_4_2= ruleProblemNoVars ) )
                     {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:137:1: (lv_goal_4_0= ruleProblem )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:138:3: lv_goal_4_0= ruleProblem
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:137:1: ( (lv_goal_4_1= ruleProblem | lv_goal_4_2= ruleProblemNoVars ) )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:138:1: (lv_goal_4_1= ruleProblem | lv_goal_4_2= ruleProblemNoVars )
                     {
-                     
-                    	        newCompositeNode(grammarAccess.getInputAccess().getGoalProblemParserRuleCall_3_0_1_0()); 
-                    	    
-                    pushFollow(FOLLOW_ruleProblem_in_ruleInput243);
-                    lv_goal_4_0=ruleProblem();
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:138:1: (lv_goal_4_1= ruleProblem | lv_goal_4_2= ruleProblemNoVars )
+                    int alt2=2;
+                    int LA2_0 = input.LA(1);
 
-                    state._fsp--;
+                    if ( (LA2_0==RULE_ID) ) {
+                        int LA2_1 = input.LA(2);
+
+                        if ( (LA2_1==RULE_ID||(LA2_1>=16 && LA2_1<=18)) ) {
+                            alt2=1;
+                        }
+                        else if ( (LA2_1==22||LA2_1==29) ) {
+                            alt2=2;
+                        }
+                        else {
+                            NoViableAltException nvae =
+                                new NoViableAltException("", 2, 1, input);
+
+                            throw nvae;
+                        }
+                    }
+                    else if ( (LA2_0==22||LA2_0==24||(LA2_0>=26 && LA2_0<=28)||(LA2_0>=30 && LA2_0<=31)) ) {
+                        alt2=2;
+                    }
+                    else {
+                        NoViableAltException nvae =
+                            new NoViableAltException("", 2, 0, input);
+
+                        throw nvae;
+                    }
+                    switch (alt2) {
+                        case 1 :
+                            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:139:3: lv_goal_4_1= ruleProblem
+                            {
+                             
+                            	        newCompositeNode(grammarAccess.getInputAccess().getGoalProblemParserRuleCall_3_1_0_0()); 
+                            	    
+                            pushFollow(FOLLOW_ruleProblem_in_ruleInput244);
+                            lv_goal_4_1=ruleProblem();
+
+                            state._fsp--;
 
 
-                    	        if (current==null) {
-                    	            current = createModelElementForParent(grammarAccess.getInputRule());
-                    	        }
-                           		set(
-                           			current, 
-                           			"goal",
-                            		lv_goal_4_0, 
-                            		"Problem");
-                    	        afterParserOrEnumRuleCall();
-                    	    
+                            	        if (current==null) {
+                            	            current = createModelElementForParent(grammarAccess.getInputRule());
+                            	        }
+                                   		set(
+                                   			current, 
+                                   			"goal",
+                                    		lv_goal_4_1, 
+                                    		"Problem");
+                            	        afterParserOrEnumRuleCall();
+                            	    
+
+                            }
+                            break;
+                        case 2 :
+                            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:154:8: lv_goal_4_2= ruleProblemNoVars
+                            {
+                             
+                            	        newCompositeNode(grammarAccess.getInputAccess().getGoalProblemNoVarsParserRuleCall_3_1_0_1()); 
+                            	    
+                            pushFollow(FOLLOW_ruleProblemNoVars_in_ruleInput263);
+                            lv_goal_4_2=ruleProblemNoVars();
+
+                            state._fsp--;
+
+
+                            	        if (current==null) {
+                            	            current = createModelElementForParent(grammarAccess.getInputRule());
+                            	        }
+                                   		set(
+                                   			current, 
+                                   			"goal",
+                                    		lv_goal_4_2, 
+                                    		"ProblemNoVars");
+                            	        afterParserOrEnumRuleCall();
+                            	    
+
+                            }
+                            break;
 
                     }
 
@@ -332,112 +379,39 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
                     }
                     break;
-                case 2 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:155:6: ( ( (lv_task_5_0= 'Test' ) ) otherlv_6= '(' ( (lv_goal_7_0= ruleProblemNoVars ) ) otherlv_8= ')' )
-                    {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:155:6: ( ( (lv_task_5_0= 'Test' ) ) otherlv_6= '(' ( (lv_goal_7_0= ruleProblemNoVars ) ) otherlv_8= ')' )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:155:7: ( (lv_task_5_0= 'Test' ) ) otherlv_6= '(' ( (lv_goal_7_0= ruleProblemNoVars ) ) otherlv_8= ')'
-                    {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:155:7: ( (lv_task_5_0= 'Test' ) )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:156:1: (lv_task_5_0= 'Test' )
-                    {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:156:1: (lv_task_5_0= 'Test' )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:157:3: lv_task_5_0= 'Test'
-                    {
-                    lv_task_5_0=(Token)match(input,15,FOLLOW_15_in_ruleInput269); 
-
-                            newLeafNode(lv_task_5_0, grammarAccess.getInputAccess().getTaskTestKeyword_3_1_0_0());
-                        
-
-                    	        if (current==null) {
-                    	            current = createModelElement(grammarAccess.getInputRule());
-                    	        }
-                           		setWithLastConsumed(current, "task", lv_task_5_0, "Test");
-                    	    
-
-                    }
-
-
-                    }
-
-                    otherlv_6=(Token)match(input,16,FOLLOW_16_in_ruleInput294); 
-
-                        	newLeafNode(otherlv_6, grammarAccess.getInputAccess().getLeftParenthesisKeyword_3_1_1());
-                        
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:174:1: ( (lv_goal_7_0= ruleProblemNoVars ) )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:175:1: (lv_goal_7_0= ruleProblemNoVars )
-                    {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:175:1: (lv_goal_7_0= ruleProblemNoVars )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:176:3: lv_goal_7_0= ruleProblemNoVars
-                    {
-                     
-                    	        newCompositeNode(grammarAccess.getInputAccess().getGoalProblemNoVarsParserRuleCall_3_1_2_0()); 
-                    	    
-                    pushFollow(FOLLOW_ruleProblemNoVars_in_ruleInput315);
-                    lv_goal_7_0=ruleProblemNoVars();
-
-                    state._fsp--;
-
-
-                    	        if (current==null) {
-                    	            current = createModelElementForParent(grammarAccess.getInputRule());
-                    	        }
-                           		set(
-                           			current, 
-                           			"goal",
-                            		lv_goal_7_0, 
-                            		"ProblemNoVars");
-                    	        afterParserOrEnumRuleCall();
-                    	    
-
-                    }
-
-
-                    }
-
-                    otherlv_8=(Token)match(input,17,FOLLOW_17_in_ruleInput327); 
-
-                        	newLeafNode(otherlv_8, grammarAccess.getInputAccess().getRightParenthesisKeyword_3_1_3());
-                        
-
-                    }
-
-
-                    }
-                    break;
 
             }
 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:196:3: (otherlv_9= ';' otherlv_10= 'Theorems:' ( (lv_theorems_11_0= ruleTheorem ) ) (otherlv_12= ';' ( (lv_theorems_13_0= ruleTheorem ) ) )* (otherlv_14= ';' )? )?
-            int alt5=2;
-            int LA5_0 = input.LA(1);
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:172:4: (otherlv_5= ';' otherlv_6= 'Theorems:' ( (lv_theorems_7_0= ruleTheorem ) ) (otherlv_8= ';' ( (lv_theorems_9_0= ruleTheorem ) ) )* (otherlv_10= ';' )? )?
+            int alt6=2;
+            int LA6_0 = input.LA(1);
 
-            if ( (LA5_0==12) ) {
-                alt5=1;
+            if ( (LA6_0==12) ) {
+                alt6=1;
             }
-            switch (alt5) {
+            switch (alt6) {
                 case 1 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:196:5: otherlv_9= ';' otherlv_10= 'Theorems:' ( (lv_theorems_11_0= ruleTheorem ) ) (otherlv_12= ';' ( (lv_theorems_13_0= ruleTheorem ) ) )* (otherlv_14= ';' )?
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:172:6: otherlv_5= ';' otherlv_6= 'Theorems:' ( (lv_theorems_7_0= ruleTheorem ) ) (otherlv_8= ';' ( (lv_theorems_9_0= ruleTheorem ) ) )* (otherlv_10= ';' )?
                     {
-                    otherlv_9=(Token)match(input,12,FOLLOW_12_in_ruleInput342); 
+                    otherlv_5=(Token)match(input,12,FOLLOW_12_in_ruleInput281); 
 
-                        	newLeafNode(otherlv_9, grammarAccess.getInputAccess().getSemicolonKeyword_4_0());
+                        	newLeafNode(otherlv_5, grammarAccess.getInputAccess().getSemicolonKeyword_4_0());
                         
-                    otherlv_10=(Token)match(input,18,FOLLOW_18_in_ruleInput354); 
+                    otherlv_6=(Token)match(input,15,FOLLOW_15_in_ruleInput293); 
 
-                        	newLeafNode(otherlv_10, grammarAccess.getInputAccess().getTheoremsKeyword_4_1());
+                        	newLeafNode(otherlv_6, grammarAccess.getInputAccess().getTheoremsKeyword_4_1());
                         
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:204:1: ( (lv_theorems_11_0= ruleTheorem ) )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:205:1: (lv_theorems_11_0= ruleTheorem )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:180:1: ( (lv_theorems_7_0= ruleTheorem ) )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:181:1: (lv_theorems_7_0= ruleTheorem )
                     {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:205:1: (lv_theorems_11_0= ruleTheorem )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:206:3: lv_theorems_11_0= ruleTheorem
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:181:1: (lv_theorems_7_0= ruleTheorem )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:182:3: lv_theorems_7_0= ruleTheorem
                     {
                      
                     	        newCompositeNode(grammarAccess.getInputAccess().getTheoremsTheoremParserRuleCall_4_2_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleTheorem_in_ruleInput375);
-                    lv_theorems_11_0=ruleTheorem();
+                    pushFollow(FOLLOW_ruleTheorem_in_ruleInput314);
+                    lv_theorems_7_0=ruleTheorem();
 
                     state._fsp--;
 
@@ -448,7 +422,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
                            		add(
                            			current, 
                            			"theorems",
-                            		lv_theorems_11_0, 
+                            		lv_theorems_7_0, 
                             		"Theorem");
                     	        afterParserOrEnumRuleCall();
                     	    
@@ -458,42 +432,42 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:222:2: (otherlv_12= ';' ( (lv_theorems_13_0= ruleTheorem ) ) )*
-                    loop3:
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:198:2: (otherlv_8= ';' ( (lv_theorems_9_0= ruleTheorem ) ) )*
+                    loop4:
                     do {
-                        int alt3=2;
-                        int LA3_0 = input.LA(1);
+                        int alt4=2;
+                        int LA4_0 = input.LA(1);
 
-                        if ( (LA3_0==12) ) {
-                            int LA3_1 = input.LA(2);
+                        if ( (LA4_0==12) ) {
+                            int LA4_1 = input.LA(2);
 
-                            if ( (LA3_1==RULE_ID||LA3_1==16||LA3_1==25||(LA3_1>=27 && LA3_1<=29)||(LA3_1>=31 && LA3_1<=32)) ) {
-                                alt3=1;
+                            if ( (LA4_1==RULE_ID||LA4_1==22||LA4_1==24||(LA4_1>=26 && LA4_1<=28)||(LA4_1>=30 && LA4_1<=31)) ) {
+                                alt4=1;
                             }
 
 
                         }
 
 
-                        switch (alt3) {
+                        switch (alt4) {
                     	case 1 :
-                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:222:4: otherlv_12= ';' ( (lv_theorems_13_0= ruleTheorem ) )
+                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:198:4: otherlv_8= ';' ( (lv_theorems_9_0= ruleTheorem ) )
                     	    {
-                    	    otherlv_12=(Token)match(input,12,FOLLOW_12_in_ruleInput388); 
+                    	    otherlv_8=(Token)match(input,12,FOLLOW_12_in_ruleInput327); 
 
-                    	        	newLeafNode(otherlv_12, grammarAccess.getInputAccess().getSemicolonKeyword_4_3_0());
+                    	        	newLeafNode(otherlv_8, grammarAccess.getInputAccess().getSemicolonKeyword_4_3_0());
                     	        
-                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:226:1: ( (lv_theorems_13_0= ruleTheorem ) )
-                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:227:1: (lv_theorems_13_0= ruleTheorem )
+                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:202:1: ( (lv_theorems_9_0= ruleTheorem ) )
+                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:203:1: (lv_theorems_9_0= ruleTheorem )
                     	    {
-                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:227:1: (lv_theorems_13_0= ruleTheorem )
-                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:228:3: lv_theorems_13_0= ruleTheorem
+                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:203:1: (lv_theorems_9_0= ruleTheorem )
+                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:204:3: lv_theorems_9_0= ruleTheorem
                     	    {
                     	     
                     	    	        newCompositeNode(grammarAccess.getInputAccess().getTheoremsTheoremParserRuleCall_4_3_1_0()); 
                     	    	    
-                    	    pushFollow(FOLLOW_ruleTheorem_in_ruleInput409);
-                    	    lv_theorems_13_0=ruleTheorem();
+                    	    pushFollow(FOLLOW_ruleTheorem_in_ruleInput348);
+                    	    lv_theorems_9_0=ruleTheorem();
 
                     	    state._fsp--;
 
@@ -504,7 +478,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
                     	           		add(
                     	           			current, 
                     	           			"theorems",
-                    	            		lv_theorems_13_0, 
+                    	            		lv_theorems_9_0, 
                     	            		"Theorem");
                     	    	        afterParserOrEnumRuleCall();
                     	    	    
@@ -519,24 +493,24 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop3;
+                    	    break loop4;
                         }
                     } while (true);
 
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:244:4: (otherlv_14= ';' )?
-                    int alt4=2;
-                    int LA4_0 = input.LA(1);
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:220:4: (otherlv_10= ';' )?
+                    int alt5=2;
+                    int LA5_0 = input.LA(1);
 
-                    if ( (LA4_0==12) ) {
-                        alt4=1;
+                    if ( (LA5_0==12) ) {
+                        alt5=1;
                     }
-                    switch (alt4) {
+                    switch (alt5) {
                         case 1 :
-                            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:244:6: otherlv_14= ';'
+                            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:220:6: otherlv_10= ';'
                             {
-                            otherlv_14=(Token)match(input,12,FOLLOW_12_in_ruleInput424); 
+                            otherlv_10=(Token)match(input,12,FOLLOW_12_in_ruleInput363); 
 
-                                	newLeafNode(otherlv_14, grammarAccess.getInputAccess().getSemicolonKeyword_4_4());
+                                	newLeafNode(otherlv_10, grammarAccess.getInputAccess().getSemicolonKeyword_4_4());
                                 
 
                             }
@@ -571,7 +545,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleProblemNoVars"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:256:1: entryRuleProblemNoVars returns [EObject current=null] : iv_ruleProblemNoVars= ruleProblemNoVars EOF ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:232:1: entryRuleProblemNoVars returns [EObject current=null] : iv_ruleProblemNoVars= ruleProblemNoVars EOF ;
     public final EObject entryRuleProblemNoVars() throws RecognitionException {
         EObject current = null;
 
@@ -579,17 +553,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:257:2: (iv_ruleProblemNoVars= ruleProblemNoVars EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:258:2: iv_ruleProblemNoVars= ruleProblemNoVars EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:233:2: (iv_ruleProblemNoVars= ruleProblemNoVars EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:234:2: iv_ruleProblemNoVars= ruleProblemNoVars EOF
             {
              newCompositeNode(grammarAccess.getProblemNoVarsRule()); 
-            pushFollow(FOLLOW_ruleProblemNoVars_in_entryRuleProblemNoVars464);
+            pushFollow(FOLLOW_ruleProblemNoVars_in_entryRuleProblemNoVars403);
             iv_ruleProblemNoVars=ruleProblemNoVars();
 
             state._fsp--;
 
              current =iv_ruleProblemNoVars; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleProblemNoVars474); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleProblemNoVars413); 
 
             }
 
@@ -607,7 +581,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleProblemNoVars"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:265:1: ruleProblemNoVars returns [EObject current=null] : ( (lv_property_0_0= ruleORing ) ) ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:241:1: ruleProblemNoVars returns [EObject current=null] : ( (lv_property_0_0= ruleORing ) ) ;
     public final EObject ruleProblemNoVars() throws RecognitionException {
         EObject current = null;
 
@@ -617,19 +591,19 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:268:28: ( ( (lv_property_0_0= ruleORing ) ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:269:1: ( (lv_property_0_0= ruleORing ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:244:28: ( ( (lv_property_0_0= ruleORing ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:245:1: ( (lv_property_0_0= ruleORing ) )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:269:1: ( (lv_property_0_0= ruleORing ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:270:1: (lv_property_0_0= ruleORing )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:245:1: ( (lv_property_0_0= ruleORing ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:246:1: (lv_property_0_0= ruleORing )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:270:1: (lv_property_0_0= ruleORing )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:271:3: lv_property_0_0= ruleORing
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:246:1: (lv_property_0_0= ruleORing )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:247:3: lv_property_0_0= ruleORing
             {
              
             	        newCompositeNode(grammarAccess.getProblemNoVarsAccess().getPropertyORingParserRuleCall_0()); 
             	    
-            pushFollow(FOLLOW_ruleORing_in_ruleProblemNoVars519);
+            pushFollow(FOLLOW_ruleORing_in_ruleProblemNoVars458);
             lv_property_0_0=ruleORing();
 
             state._fsp--;
@@ -668,26 +642,26 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleProblemNoVars"
 
 
-    // $ANTLR start "entryRuleProblem"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:295:1: entryRuleProblem returns [EObject current=null] : iv_ruleProblem= ruleProblem EOF ;
-    public final EObject entryRuleProblem() throws RecognitionException {
+    // $ANTLR start "entryRuleProblemPropertyOptional"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:271:1: entryRuleProblemPropertyOptional returns [EObject current=null] : iv_ruleProblemPropertyOptional= ruleProblemPropertyOptional EOF ;
+    public final EObject entryRuleProblemPropertyOptional() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleProblem = null;
+        EObject iv_ruleProblemPropertyOptional = null;
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:296:2: (iv_ruleProblem= ruleProblem EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:297:2: iv_ruleProblem= ruleProblem EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:272:2: (iv_ruleProblemPropertyOptional= ruleProblemPropertyOptional EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:273:2: iv_ruleProblemPropertyOptional= ruleProblemPropertyOptional EOF
             {
-             newCompositeNode(grammarAccess.getProblemRule()); 
-            pushFollow(FOLLOW_ruleProblem_in_entryRuleProblem554);
-            iv_ruleProblem=ruleProblem();
+             newCompositeNode(grammarAccess.getProblemPropertyOptionalRule()); 
+            pushFollow(FOLLOW_ruleProblemPropertyOptional_in_entryRuleProblemPropertyOptional493);
+            iv_ruleProblemPropertyOptional=ruleProblemPropertyOptional();
 
             state._fsp--;
 
-             current =iv_ruleProblem; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleProblem564); 
+             current =iv_ruleProblemPropertyOptional; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleProblemPropertyOptional503); 
 
             }
 
@@ -701,12 +675,12 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleProblem"
+    // $ANTLR end "entryRuleProblemPropertyOptional"
 
 
-    // $ANTLR start "ruleProblem"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:304:1: ruleProblem returns [EObject current=null] : ( ( (lv_vars_0_0= ruleDeclaration ) ) (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )* (otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) )? ) ;
-    public final EObject ruleProblem() throws RecognitionException {
+    // $ANTLR start "ruleProblemPropertyOptional"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:280:1: ruleProblemPropertyOptional returns [EObject current=null] : ( ( (lv_vars_0_0= ruleDeclaration ) ) (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )* (otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) )? ) ;
+    public final EObject ruleProblemPropertyOptional() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_1=null;
@@ -721,29 +695,29 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:307:28: ( ( ( (lv_vars_0_0= ruleDeclaration ) ) (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )* (otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) )? ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:308:1: ( ( (lv_vars_0_0= ruleDeclaration ) ) (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )* (otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) )? )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:283:28: ( ( ( (lv_vars_0_0= ruleDeclaration ) ) (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )* (otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) )? ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:284:1: ( ( (lv_vars_0_0= ruleDeclaration ) ) (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )* (otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) )? )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:308:1: ( ( (lv_vars_0_0= ruleDeclaration ) ) (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )* (otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) )? )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:308:2: ( (lv_vars_0_0= ruleDeclaration ) ) (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )* (otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) )?
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:284:1: ( ( (lv_vars_0_0= ruleDeclaration ) ) (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )* (otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) )? )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:284:2: ( (lv_vars_0_0= ruleDeclaration ) ) (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )* (otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) )?
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:308:2: ( (lv_vars_0_0= ruleDeclaration ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:309:1: (lv_vars_0_0= ruleDeclaration )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:284:2: ( (lv_vars_0_0= ruleDeclaration ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:285:1: (lv_vars_0_0= ruleDeclaration )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:309:1: (lv_vars_0_0= ruleDeclaration )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:310:3: lv_vars_0_0= ruleDeclaration
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:285:1: (lv_vars_0_0= ruleDeclaration )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:286:3: lv_vars_0_0= ruleDeclaration
             {
              
-            	        newCompositeNode(grammarAccess.getProblemAccess().getVarsDeclarationParserRuleCall_0_0()); 
+            	        newCompositeNode(grammarAccess.getProblemPropertyOptionalAccess().getVarsDeclarationParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_ruleDeclaration_in_ruleProblem610);
+            pushFollow(FOLLOW_ruleDeclaration_in_ruleProblemPropertyOptional549);
             lv_vars_0_0=ruleDeclaration();
 
             state._fsp--;
 
 
             	        if (current==null) {
-            	            current = createModelElementForParent(grammarAccess.getProblemRule());
+            	            current = createModelElementForParent(grammarAccess.getProblemPropertyOptionalRule());
             	        }
                    		add(
                    			current, 
@@ -758,42 +732,42 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:326:2: (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )*
-            loop6:
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:302:2: (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )*
+            loop7:
             do {
-                int alt6=2;
-                int LA6_0 = input.LA(1);
+                int alt7=2;
+                int LA7_0 = input.LA(1);
 
-                if ( (LA6_0==19) ) {
-                    alt6=1;
+                if ( (LA7_0==16) ) {
+                    alt7=1;
                 }
 
 
-                switch (alt6) {
+                switch (alt7) {
             	case 1 :
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:326:4: otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:302:4: otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) )
             	    {
-            	    otherlv_1=(Token)match(input,19,FOLLOW_19_in_ruleProblem623); 
+            	    otherlv_1=(Token)match(input,16,FOLLOW_16_in_ruleProblemPropertyOptional562); 
 
-            	        	newLeafNode(otherlv_1, grammarAccess.getProblemAccess().getCommaKeyword_1_0());
+            	        	newLeafNode(otherlv_1, grammarAccess.getProblemPropertyOptionalAccess().getCommaKeyword_1_0());
             	        
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:330:1: ( (lv_vars_2_0= ruleDeclaration ) )
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:331:1: (lv_vars_2_0= ruleDeclaration )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:306:1: ( (lv_vars_2_0= ruleDeclaration ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:307:1: (lv_vars_2_0= ruleDeclaration )
             	    {
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:331:1: (lv_vars_2_0= ruleDeclaration )
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:332:3: lv_vars_2_0= ruleDeclaration
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:307:1: (lv_vars_2_0= ruleDeclaration )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:308:3: lv_vars_2_0= ruleDeclaration
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getProblemAccess().getVarsDeclarationParserRuleCall_1_1_0()); 
+            	    	        newCompositeNode(grammarAccess.getProblemPropertyOptionalAccess().getVarsDeclarationParserRuleCall_1_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleDeclaration_in_ruleProblem644);
+            	    pushFollow(FOLLOW_ruleDeclaration_in_ruleProblemPropertyOptional583);
             	    lv_vars_2_0=ruleDeclaration();
 
             	    state._fsp--;
 
 
             	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getProblemRule());
+            	    	            current = createModelElementForParent(grammarAccess.getProblemPropertyOptionalRule());
             	    	        }
             	           		add(
             	           			current, 
@@ -813,42 +787,42 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop6;
+            	    break loop7;
                 }
             } while (true);
 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:348:4: (otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) )?
-            int alt7=2;
-            int LA7_0 = input.LA(1);
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:324:4: (otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) )?
+            int alt8=2;
+            int LA8_0 = input.LA(1);
 
-            if ( (LA7_0==20) ) {
-                alt7=1;
+            if ( (LA8_0==17) ) {
+                alt8=1;
             }
-            switch (alt7) {
+            switch (alt8) {
                 case 1 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:348:6: otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:324:6: otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) )
                     {
-                    otherlv_3=(Token)match(input,20,FOLLOW_20_in_ruleProblem659); 
+                    otherlv_3=(Token)match(input,17,FOLLOW_17_in_ruleProblemPropertyOptional598); 
 
-                        	newLeafNode(otherlv_3, grammarAccess.getProblemAccess().getStKeyword_2_0());
+                        	newLeafNode(otherlv_3, grammarAccess.getProblemPropertyOptionalAccess().getStKeyword_2_0());
                         
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:352:1: ( (lv_property_4_0= ruleORing ) )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:353:1: (lv_property_4_0= ruleORing )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:328:1: ( (lv_property_4_0= ruleORing ) )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:329:1: (lv_property_4_0= ruleORing )
                     {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:353:1: (lv_property_4_0= ruleORing )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:354:3: lv_property_4_0= ruleORing
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:329:1: (lv_property_4_0= ruleORing )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:330:3: lv_property_4_0= ruleORing
                     {
                      
-                    	        newCompositeNode(grammarAccess.getProblemAccess().getPropertyORingParserRuleCall_2_1_0()); 
+                    	        newCompositeNode(grammarAccess.getProblemPropertyOptionalAccess().getPropertyORingParserRuleCall_2_1_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleORing_in_ruleProblem680);
+                    pushFollow(FOLLOW_ruleORing_in_ruleProblemPropertyOptional619);
                     lv_property_4_0=ruleORing();
 
                     state._fsp--;
 
 
                     	        if (current==null) {
-                    	            current = createModelElementForParent(grammarAccess.getProblemRule());
+                    	            current = createModelElementForParent(grammarAccess.getProblemPropertyOptionalRule());
                     	        }
                            		set(
                            			current, 
@@ -886,11 +860,215 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
+    // $ANTLR end "ruleProblemPropertyOptional"
+
+
+    // $ANTLR start "entryRuleProblem"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:354:1: entryRuleProblem returns [EObject current=null] : iv_ruleProblem= ruleProblem EOF ;
+    public final EObject entryRuleProblem() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleProblem = null;
+
+
+        try {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:355:2: (iv_ruleProblem= ruleProblem EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:356:2: iv_ruleProblem= ruleProblem EOF
+            {
+             newCompositeNode(grammarAccess.getProblemRule()); 
+            pushFollow(FOLLOW_ruleProblem_in_entryRuleProblem657);
+            iv_ruleProblem=ruleProblem();
+
+            state._fsp--;
+
+             current =iv_ruleProblem; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleProblem667); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleProblem"
+
+
+    // $ANTLR start "ruleProblem"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:363:1: ruleProblem returns [EObject current=null] : ( ( (lv_vars_0_0= ruleDeclaration ) ) (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )* otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) ) ;
+    public final EObject ruleProblem() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_1=null;
+        Token otherlv_3=null;
+        EObject lv_vars_0_0 = null;
+
+        EObject lv_vars_2_0 = null;
+
+        EObject lv_property_4_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:366:28: ( ( ( (lv_vars_0_0= ruleDeclaration ) ) (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )* otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:367:1: ( ( (lv_vars_0_0= ruleDeclaration ) ) (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )* otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) )
+            {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:367:1: ( ( (lv_vars_0_0= ruleDeclaration ) ) (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )* otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:367:2: ( (lv_vars_0_0= ruleDeclaration ) ) (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )* otherlv_3= 'st' ( (lv_property_4_0= ruleORing ) )
+            {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:367:2: ( (lv_vars_0_0= ruleDeclaration ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:368:1: (lv_vars_0_0= ruleDeclaration )
+            {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:368:1: (lv_vars_0_0= ruleDeclaration )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:369:3: lv_vars_0_0= ruleDeclaration
+            {
+             
+            	        newCompositeNode(grammarAccess.getProblemAccess().getVarsDeclarationParserRuleCall_0_0()); 
+            	    
+            pushFollow(FOLLOW_ruleDeclaration_in_ruleProblem713);
+            lv_vars_0_0=ruleDeclaration();
+
+            state._fsp--;
+
+
+            	        if (current==null) {
+            	            current = createModelElementForParent(grammarAccess.getProblemRule());
+            	        }
+                   		add(
+                   			current, 
+                   			"vars",
+                    		lv_vars_0_0, 
+                    		"Declaration");
+            	        afterParserOrEnumRuleCall();
+            	    
+
+            }
+
+
+            }
+
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:385:2: (otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) ) )*
+            loop9:
+            do {
+                int alt9=2;
+                int LA9_0 = input.LA(1);
+
+                if ( (LA9_0==16) ) {
+                    alt9=1;
+                }
+
+
+                switch (alt9) {
+            	case 1 :
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:385:4: otherlv_1= ',' ( (lv_vars_2_0= ruleDeclaration ) )
+            	    {
+            	    otherlv_1=(Token)match(input,16,FOLLOW_16_in_ruleProblem726); 
+
+            	        	newLeafNode(otherlv_1, grammarAccess.getProblemAccess().getCommaKeyword_1_0());
+            	        
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:389:1: ( (lv_vars_2_0= ruleDeclaration ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:390:1: (lv_vars_2_0= ruleDeclaration )
+            	    {
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:390:1: (lv_vars_2_0= ruleDeclaration )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:391:3: lv_vars_2_0= ruleDeclaration
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getProblemAccess().getVarsDeclarationParserRuleCall_1_1_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_ruleDeclaration_in_ruleProblem747);
+            	    lv_vars_2_0=ruleDeclaration();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getProblemRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"vars",
+            	            		lv_vars_2_0, 
+            	            		"Declaration");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop9;
+                }
+            } while (true);
+
+            otherlv_3=(Token)match(input,17,FOLLOW_17_in_ruleProblem761); 
+
+                	newLeafNode(otherlv_3, grammarAccess.getProblemAccess().getStKeyword_2());
+                
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:411:1: ( (lv_property_4_0= ruleORing ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:412:1: (lv_property_4_0= ruleORing )
+            {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:412:1: (lv_property_4_0= ruleORing )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:413:3: lv_property_4_0= ruleORing
+            {
+             
+            	        newCompositeNode(grammarAccess.getProblemAccess().getPropertyORingParserRuleCall_3_0()); 
+            	    
+            pushFollow(FOLLOW_ruleORing_in_ruleProblem782);
+            lv_property_4_0=ruleORing();
+
+            state._fsp--;
+
+
+            	        if (current==null) {
+            	            current = createModelElementForParent(grammarAccess.getProblemRule());
+            	        }
+                   		set(
+                   			current, 
+                   			"property",
+                    		lv_property_4_0, 
+                    		"ORing");
+            	        afterParserOrEnumRuleCall();
+            	    
+
+            }
+
+
+            }
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
     // $ANTLR end "ruleProblem"
 
 
     // $ANTLR start "entryRuleDeclaration"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:378:1: entryRuleDeclaration returns [EObject current=null] : iv_ruleDeclaration= ruleDeclaration EOF ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:437:1: entryRuleDeclaration returns [EObject current=null] : iv_ruleDeclaration= ruleDeclaration EOF ;
     public final EObject entryRuleDeclaration() throws RecognitionException {
         EObject current = null;
 
@@ -898,17 +1076,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:379:2: (iv_ruleDeclaration= ruleDeclaration EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:380:2: iv_ruleDeclaration= ruleDeclaration EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:438:2: (iv_ruleDeclaration= ruleDeclaration EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:439:2: iv_ruleDeclaration= ruleDeclaration EOF
             {
              newCompositeNode(grammarAccess.getDeclarationRule()); 
-            pushFollow(FOLLOW_ruleDeclaration_in_entryRuleDeclaration718);
+            pushFollow(FOLLOW_ruleDeclaration_in_entryRuleDeclaration818);
             iv_ruleDeclaration=ruleDeclaration();
 
             state._fsp--;
 
              current =iv_ruleDeclaration; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleDeclaration728); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleDeclaration828); 
 
             }
 
@@ -926,48 +1104,45 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDeclaration"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:387:1: ruleDeclaration returns [EObject current=null] : ( ( (lv_type_0_0= ruleType ) )? ( ( (lv_varName_1_0= RULE_ID ) ) | (otherlv_2= '(' ( (lv_varName_3_0= RULE_ID ) ) otherlv_4= ')' ) ) ) ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:446:1: ruleDeclaration returns [EObject current=null] : ( ( (lv_type_0_0= ruleType ) )? ( (lv_varName_1_0= RULE_ID ) ) ) ;
     public final EObject ruleDeclaration() throws RecognitionException {
         EObject current = null;
 
         Token lv_varName_1_0=null;
-        Token otherlv_2=null;
-        Token lv_varName_3_0=null;
-        Token otherlv_4=null;
         EObject lv_type_0_0 = null;
 
 
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:390:28: ( ( ( (lv_type_0_0= ruleType ) )? ( ( (lv_varName_1_0= RULE_ID ) ) | (otherlv_2= '(' ( (lv_varName_3_0= RULE_ID ) ) otherlv_4= ')' ) ) ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:391:1: ( ( (lv_type_0_0= ruleType ) )? ( ( (lv_varName_1_0= RULE_ID ) ) | (otherlv_2= '(' ( (lv_varName_3_0= RULE_ID ) ) otherlv_4= ')' ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:449:28: ( ( ( (lv_type_0_0= ruleType ) )? ( (lv_varName_1_0= RULE_ID ) ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:450:1: ( ( (lv_type_0_0= ruleType ) )? ( (lv_varName_1_0= RULE_ID ) ) )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:391:1: ( ( (lv_type_0_0= ruleType ) )? ( ( (lv_varName_1_0= RULE_ID ) ) | (otherlv_2= '(' ( (lv_varName_3_0= RULE_ID ) ) otherlv_4= ')' ) ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:391:2: ( (lv_type_0_0= ruleType ) )? ( ( (lv_varName_1_0= RULE_ID ) ) | (otherlv_2= '(' ( (lv_varName_3_0= RULE_ID ) ) otherlv_4= ')' ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:450:1: ( ( (lv_type_0_0= ruleType ) )? ( (lv_varName_1_0= RULE_ID ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:450:2: ( (lv_type_0_0= ruleType ) )? ( (lv_varName_1_0= RULE_ID ) )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:391:2: ( (lv_type_0_0= ruleType ) )?
-            int alt8=2;
-            int LA8_0 = input.LA(1);
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:450:2: ( (lv_type_0_0= ruleType ) )?
+            int alt10=2;
+            int LA10_0 = input.LA(1);
 
-            if ( (LA8_0==RULE_ID) ) {
-                int LA8_1 = input.LA(2);
+            if ( (LA10_0==RULE_ID) ) {
+                int LA10_1 = input.LA(2);
 
-                if ( (LA8_1==RULE_ID||LA8_1==16||LA8_1==21) ) {
-                    alt8=1;
+                if ( (LA10_1==RULE_ID||LA10_1==18) ) {
+                    alt10=1;
                 }
             }
-            switch (alt8) {
+            switch (alt10) {
                 case 1 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:392:1: (lv_type_0_0= ruleType )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:451:1: (lv_type_0_0= ruleType )
                     {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:392:1: (lv_type_0_0= ruleType )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:393:3: lv_type_0_0= ruleType
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:451:1: (lv_type_0_0= ruleType )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:452:3: lv_type_0_0= ruleType
                     {
                      
                     	        newCompositeNode(grammarAccess.getDeclarationAccess().getTypeTypeParserRuleCall_0_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleType_in_ruleDeclaration774);
+                    pushFollow(FOLLOW_ruleType_in_ruleDeclaration874);
                     lv_type_0_0=ruleType();
 
                     state._fsp--;
@@ -992,101 +1167,29 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:409:3: ( ( (lv_varName_1_0= RULE_ID ) ) | (otherlv_2= '(' ( (lv_varName_3_0= RULE_ID ) ) otherlv_4= ')' ) )
-            int alt9=2;
-            int LA9_0 = input.LA(1);
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:468:3: ( (lv_varName_1_0= RULE_ID ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:469:1: (lv_varName_1_0= RULE_ID )
+            {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:469:1: (lv_varName_1_0= RULE_ID )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:470:3: lv_varName_1_0= RULE_ID
+            {
+            lv_varName_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleDeclaration892); 
 
-            if ( (LA9_0==RULE_ID) ) {
-                alt9=1;
+            			newLeafNode(lv_varName_1_0, grammarAccess.getDeclarationAccess().getVarNameIDTerminalRuleCall_1_0()); 
+            		
+
+            	        if (current==null) {
+            	            current = createModelElement(grammarAccess.getDeclarationRule());
+            	        }
+                   		setWithLastConsumed(
+                   			current, 
+                   			"varName",
+                    		lv_varName_1_0, 
+                    		"ID");
+            	    
+
             }
-            else if ( (LA9_0==16) ) {
-                alt9=2;
-            }
-            else {
-                NoViableAltException nvae =
-                    new NoViableAltException("", 9, 0, input);
 
-                throw nvae;
-            }
-            switch (alt9) {
-                case 1 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:409:4: ( (lv_varName_1_0= RULE_ID ) )
-                    {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:409:4: ( (lv_varName_1_0= RULE_ID ) )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:410:1: (lv_varName_1_0= RULE_ID )
-                    {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:410:1: (lv_varName_1_0= RULE_ID )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:411:3: lv_varName_1_0= RULE_ID
-                    {
-                    lv_varName_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleDeclaration793); 
-
-                    			newLeafNode(lv_varName_1_0, grammarAccess.getDeclarationAccess().getVarNameIDTerminalRuleCall_1_0_0()); 
-                    		
-
-                    	        if (current==null) {
-                    	            current = createModelElement(grammarAccess.getDeclarationRule());
-                    	        }
-                           		setWithLastConsumed(
-                           			current, 
-                           			"varName",
-                            		lv_varName_1_0, 
-                            		"ID");
-                    	    
-
-                    }
-
-
-                    }
-
-
-                    }
-                    break;
-                case 2 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:428:6: (otherlv_2= '(' ( (lv_varName_3_0= RULE_ID ) ) otherlv_4= ')' )
-                    {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:428:6: (otherlv_2= '(' ( (lv_varName_3_0= RULE_ID ) ) otherlv_4= ')' )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:428:8: otherlv_2= '(' ( (lv_varName_3_0= RULE_ID ) ) otherlv_4= ')'
-                    {
-                    otherlv_2=(Token)match(input,16,FOLLOW_16_in_ruleDeclaration817); 
-
-                        	newLeafNode(otherlv_2, grammarAccess.getDeclarationAccess().getLeftParenthesisKeyword_1_1_0());
-                        
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:432:1: ( (lv_varName_3_0= RULE_ID ) )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:433:1: (lv_varName_3_0= RULE_ID )
-                    {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:433:1: (lv_varName_3_0= RULE_ID )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:434:3: lv_varName_3_0= RULE_ID
-                    {
-                    lv_varName_3_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleDeclaration834); 
-
-                    			newLeafNode(lv_varName_3_0, grammarAccess.getDeclarationAccess().getVarNameIDTerminalRuleCall_1_1_1_0()); 
-                    		
-
-                    	        if (current==null) {
-                    	            current = createModelElement(grammarAccess.getDeclarationRule());
-                    	        }
-                           		setWithLastConsumed(
-                           			current, 
-                           			"varName",
-                            		lv_varName_3_0, 
-                            		"ID");
-                    	    
-
-                    }
-
-
-                    }
-
-                    otherlv_4=(Token)match(input,17,FOLLOW_17_in_ruleDeclaration851); 
-
-                        	newLeafNode(otherlv_4, grammarAccess.getDeclarationAccess().getRightParenthesisKeyword_1_1_2());
-                        
-
-                    }
-
-
-                    }
-                    break;
 
             }
 
@@ -1111,7 +1214,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleType"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:462:1: entryRuleType returns [EObject current=null] : iv_ruleType= ruleType EOF ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:494:1: entryRuleType returns [EObject current=null] : iv_ruleType= ruleType EOF ;
     public final EObject entryRuleType() throws RecognitionException {
         EObject current = null;
 
@@ -1119,17 +1222,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:463:2: (iv_ruleType= ruleType EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:464:2: iv_ruleType= ruleType EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:495:2: (iv_ruleType= ruleType EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:496:2: iv_ruleType= ruleType EOF
             {
              newCompositeNode(grammarAccess.getTypeRule()); 
-            pushFollow(FOLLOW_ruleType_in_entryRuleType889);
+            pushFollow(FOLLOW_ruleType_in_entryRuleType933);
             iv_ruleType=ruleType();
 
             state._fsp--;
 
              current =iv_ruleType; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleType899); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleType943); 
 
             }
 
@@ -1147,7 +1250,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleType"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:471:1: ruleType returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '<' ( (lv_templateType_2_0= ruleType ) ) otherlv_3= '>' )? ) ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:503:1: ruleType returns [EObject current=null] : ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '<' ( (lv_templateType_2_0= ruleType ) ) otherlv_3= '>' )? ) ;
     public final EObject ruleType() throws RecognitionException {
         EObject current = null;
 
@@ -1160,19 +1263,19 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:474:28: ( ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '<' ( (lv_templateType_2_0= ruleType ) ) otherlv_3= '>' )? ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:475:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '<' ( (lv_templateType_2_0= ruleType ) ) otherlv_3= '>' )? )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:506:28: ( ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '<' ( (lv_templateType_2_0= ruleType ) ) otherlv_3= '>' )? ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:507:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '<' ( (lv_templateType_2_0= ruleType ) ) otherlv_3= '>' )? )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:475:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '<' ( (lv_templateType_2_0= ruleType ) ) otherlv_3= '>' )? )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:475:2: ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '<' ( (lv_templateType_2_0= ruleType ) ) otherlv_3= '>' )?
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:507:1: ( ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '<' ( (lv_templateType_2_0= ruleType ) ) otherlv_3= '>' )? )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:507:2: ( (lv_name_0_0= RULE_ID ) ) (otherlv_1= '<' ( (lv_templateType_2_0= ruleType ) ) otherlv_3= '>' )?
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:475:2: ( (lv_name_0_0= RULE_ID ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:476:1: (lv_name_0_0= RULE_ID )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:507:2: ( (lv_name_0_0= RULE_ID ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:508:1: (lv_name_0_0= RULE_ID )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:476:1: (lv_name_0_0= RULE_ID )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:477:3: lv_name_0_0= RULE_ID
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:508:1: (lv_name_0_0= RULE_ID )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:509:3: lv_name_0_0= RULE_ID
             {
-            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleType941); 
+            lv_name_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleType985); 
 
             			newLeafNode(lv_name_0_0, grammarAccess.getTypeAccess().getNameIDTerminalRuleCall_0_0()); 
             		
@@ -1192,31 +1295,31 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:493:2: (otherlv_1= '<' ( (lv_templateType_2_0= ruleType ) ) otherlv_3= '>' )?
-            int alt10=2;
-            int LA10_0 = input.LA(1);
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:525:2: (otherlv_1= '<' ( (lv_templateType_2_0= ruleType ) ) otherlv_3= '>' )?
+            int alt11=2;
+            int LA11_0 = input.LA(1);
 
-            if ( (LA10_0==21) ) {
-                alt10=1;
+            if ( (LA11_0==18) ) {
+                alt11=1;
             }
-            switch (alt10) {
+            switch (alt11) {
                 case 1 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:493:4: otherlv_1= '<' ( (lv_templateType_2_0= ruleType ) ) otherlv_3= '>'
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:525:4: otherlv_1= '<' ( (lv_templateType_2_0= ruleType ) ) otherlv_3= '>'
                     {
-                    otherlv_1=(Token)match(input,21,FOLLOW_21_in_ruleType959); 
+                    otherlv_1=(Token)match(input,18,FOLLOW_18_in_ruleType1003); 
 
                         	newLeafNode(otherlv_1, grammarAccess.getTypeAccess().getLessThanSignKeyword_1_0());
                         
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:497:1: ( (lv_templateType_2_0= ruleType ) )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:498:1: (lv_templateType_2_0= ruleType )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:529:1: ( (lv_templateType_2_0= ruleType ) )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:530:1: (lv_templateType_2_0= ruleType )
                     {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:498:1: (lv_templateType_2_0= ruleType )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:499:3: lv_templateType_2_0= ruleType
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:530:1: (lv_templateType_2_0= ruleType )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:531:3: lv_templateType_2_0= ruleType
                     {
                      
                     	        newCompositeNode(grammarAccess.getTypeAccess().getTemplateTypeTypeParserRuleCall_1_1_0()); 
                     	    
-                    pushFollow(FOLLOW_ruleType_in_ruleType980);
+                    pushFollow(FOLLOW_ruleType_in_ruleType1024);
                     lv_templateType_2_0=ruleType();
 
                     state._fsp--;
@@ -1238,7 +1341,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    otherlv_3=(Token)match(input,22,FOLLOW_22_in_ruleType992); 
+                    otherlv_3=(Token)match(input,19,FOLLOW_19_in_ruleType1036); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getTypeAccess().getGreaterThanSignKeyword_1_2());
                         
@@ -1269,7 +1372,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleORing"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:527:1: entryRuleORing returns [EObject current=null] : iv_ruleORing= ruleORing EOF ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:559:1: entryRuleORing returns [EObject current=null] : iv_ruleORing= ruleORing EOF ;
     public final EObject entryRuleORing() throws RecognitionException {
         EObject current = null;
 
@@ -1277,17 +1380,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:528:2: (iv_ruleORing= ruleORing EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:529:2: iv_ruleORing= ruleORing EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:560:2: (iv_ruleORing= ruleORing EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:561:2: iv_ruleORing= ruleORing EOF
             {
              newCompositeNode(grammarAccess.getORingRule()); 
-            pushFollow(FOLLOW_ruleORing_in_entryRuleORing1030);
+            pushFollow(FOLLOW_ruleORing_in_entryRuleORing1074);
             iv_ruleORing=ruleORing();
 
             state._fsp--;
 
              current =iv_ruleORing; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleORing1040); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleORing1084); 
 
             }
 
@@ -1305,7 +1408,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleORing"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:536:1: ruleORing returns [EObject current=null] : (this_ANDing_0= ruleANDing ( () otherlv_2= '|' ( (lv_right_3_0= ruleANDing ) ) )* ) ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:568:1: ruleORing returns [EObject current=null] : (this_ANDing_0= ruleANDing ( () otherlv_2= '|' ( (lv_right_3_0= ruleANDing ) ) )* ) ;
     public final EObject ruleORing() throws RecognitionException {
         EObject current = null;
 
@@ -1318,16 +1421,16 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:539:28: ( (this_ANDing_0= ruleANDing ( () otherlv_2= '|' ( (lv_right_3_0= ruleANDing ) ) )* ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:540:1: (this_ANDing_0= ruleANDing ( () otherlv_2= '|' ( (lv_right_3_0= ruleANDing ) ) )* )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:571:28: ( (this_ANDing_0= ruleANDing ( () otherlv_2= '|' ( (lv_right_3_0= ruleANDing ) ) )* ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:572:1: (this_ANDing_0= ruleANDing ( () otherlv_2= '|' ( (lv_right_3_0= ruleANDing ) ) )* )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:540:1: (this_ANDing_0= ruleANDing ( () otherlv_2= '|' ( (lv_right_3_0= ruleANDing ) ) )* )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:541:5: this_ANDing_0= ruleANDing ( () otherlv_2= '|' ( (lv_right_3_0= ruleANDing ) ) )*
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:572:1: (this_ANDing_0= ruleANDing ( () otherlv_2= '|' ( (lv_right_3_0= ruleANDing ) ) )* )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:573:5: this_ANDing_0= ruleANDing ( () otherlv_2= '|' ( (lv_right_3_0= ruleANDing ) ) )*
             {
              
                     newCompositeNode(grammarAccess.getORingAccess().getANDingParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleANDing_in_ruleORing1087);
+            pushFollow(FOLLOW_ruleANDing_in_ruleORing1131);
             this_ANDing_0=ruleANDing();
 
             state._fsp--;
@@ -1336,23 +1439,23 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
                     current = this_ANDing_0; 
                     afterParserOrEnumRuleCall();
                 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:549:1: ( () otherlv_2= '|' ( (lv_right_3_0= ruleANDing ) ) )*
-            loop11:
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:581:1: ( () otherlv_2= '|' ( (lv_right_3_0= ruleANDing ) ) )*
+            loop12:
             do {
-                int alt11=2;
-                int LA11_0 = input.LA(1);
+                int alt12=2;
+                int LA12_0 = input.LA(1);
 
-                if ( (LA11_0==23) ) {
-                    alt11=1;
+                if ( (LA12_0==20) ) {
+                    alt12=1;
                 }
 
 
-                switch (alt11) {
+                switch (alt12) {
             	case 1 :
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:549:2: () otherlv_2= '|' ( (lv_right_3_0= ruleANDing ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:581:2: () otherlv_2= '|' ( (lv_right_3_0= ruleANDing ) )
             	    {
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:549:2: ()
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:550:5: 
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:581:2: ()
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:582:5: 
             	    {
 
             	            current = forceCreateModelElementAndSet(
@@ -1362,20 +1465,20 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_2=(Token)match(input,23,FOLLOW_23_in_ruleORing1108); 
+            	    otherlv_2=(Token)match(input,20,FOLLOW_20_in_ruleORing1152); 
 
             	        	newLeafNode(otherlv_2, grammarAccess.getORingAccess().getVerticalLineKeyword_1_1());
             	        
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:559:1: ( (lv_right_3_0= ruleANDing ) )
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:560:1: (lv_right_3_0= ruleANDing )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:591:1: ( (lv_right_3_0= ruleANDing ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:592:1: (lv_right_3_0= ruleANDing )
             	    {
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:560:1: (lv_right_3_0= ruleANDing )
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:561:3: lv_right_3_0= ruleANDing
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:592:1: (lv_right_3_0= ruleANDing )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:593:3: lv_right_3_0= ruleANDing
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getORingAccess().getRightANDingParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleANDing_in_ruleORing1129);
+            	    pushFollow(FOLLOW_ruleANDing_in_ruleORing1173);
             	    lv_right_3_0=ruleANDing();
 
             	    state._fsp--;
@@ -1389,164 +1492,6 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
             	           			"right",
             	            		lv_right_3_0, 
             	            		"ANDing");
-            	    	        afterParserOrEnumRuleCall();
-            	    	    
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop11;
-                }
-            } while (true);
-
-
-            }
-
-
-            }
-
-             leaveRule(); 
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleORing"
-
-
-    // $ANTLR start "entryRuleANDing"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:585:1: entryRuleANDing returns [EObject current=null] : iv_ruleANDing= ruleANDing EOF ;
-    public final EObject entryRuleANDing() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleANDing = null;
-
-
-        try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:586:2: (iv_ruleANDing= ruleANDing EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:587:2: iv_ruleANDing= ruleANDing EOF
-            {
-             newCompositeNode(grammarAccess.getANDingRule()); 
-            pushFollow(FOLLOW_ruleANDing_in_entryRuleANDing1167);
-            iv_ruleANDing=ruleANDing();
-
-            state._fsp--;
-
-             current =iv_ruleANDing; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleANDing1177); 
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleANDing"
-
-
-    // $ANTLR start "ruleANDing"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:594:1: ruleANDing returns [EObject current=null] : (this_Primary_0= rulePrimary ( () otherlv_2= '&' ( (lv_right_3_0= rulePrimary ) ) )* ) ;
-    public final EObject ruleANDing() throws RecognitionException {
-        EObject current = null;
-
-        Token otherlv_2=null;
-        EObject this_Primary_0 = null;
-
-        EObject lv_right_3_0 = null;
-
-
-         enterRule(); 
-            
-        try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:597:28: ( (this_Primary_0= rulePrimary ( () otherlv_2= '&' ( (lv_right_3_0= rulePrimary ) ) )* ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:598:1: (this_Primary_0= rulePrimary ( () otherlv_2= '&' ( (lv_right_3_0= rulePrimary ) ) )* )
-            {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:598:1: (this_Primary_0= rulePrimary ( () otherlv_2= '&' ( (lv_right_3_0= rulePrimary ) ) )* )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:599:5: this_Primary_0= rulePrimary ( () otherlv_2= '&' ( (lv_right_3_0= rulePrimary ) ) )*
-            {
-             
-                    newCompositeNode(grammarAccess.getANDingAccess().getPrimaryParserRuleCall_0()); 
-                
-            pushFollow(FOLLOW_rulePrimary_in_ruleANDing1224);
-            this_Primary_0=rulePrimary();
-
-            state._fsp--;
-
-             
-                    current = this_Primary_0; 
-                    afterParserOrEnumRuleCall();
-                
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:607:1: ( () otherlv_2= '&' ( (lv_right_3_0= rulePrimary ) ) )*
-            loop12:
-            do {
-                int alt12=2;
-                int LA12_0 = input.LA(1);
-
-                if ( (LA12_0==24) ) {
-                    alt12=1;
-                }
-
-
-                switch (alt12) {
-            	case 1 :
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:607:2: () otherlv_2= '&' ( (lv_right_3_0= rulePrimary ) )
-            	    {
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:607:2: ()
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:608:5: 
-            	    {
-
-            	            current = forceCreateModelElementAndSet(
-            	                grammarAccess.getANDingAccess().getANDingLeftAction_1_0(),
-            	                current);
-            	        
-
-            	    }
-
-            	    otherlv_2=(Token)match(input,24,FOLLOW_24_in_ruleANDing1245); 
-
-            	        	newLeafNode(otherlv_2, grammarAccess.getANDingAccess().getAmpersandKeyword_1_1());
-            	        
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:617:1: ( (lv_right_3_0= rulePrimary ) )
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:618:1: (lv_right_3_0= rulePrimary )
-            	    {
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:618:1: (lv_right_3_0= rulePrimary )
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:619:3: lv_right_3_0= rulePrimary
-            	    {
-            	     
-            	    	        newCompositeNode(grammarAccess.getANDingAccess().getRightPrimaryParserRuleCall_1_2_0()); 
-            	    	    
-            	    pushFollow(FOLLOW_rulePrimary_in_ruleANDing1266);
-            	    lv_right_3_0=rulePrimary();
-
-            	    state._fsp--;
-
-
-            	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getANDingRule());
-            	    	        }
-            	           		set(
-            	           			current, 
-            	           			"right",
-            	            		lv_right_3_0, 
-            	            		"Primary");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -1581,11 +1526,169 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
+    // $ANTLR end "ruleORing"
+
+
+    // $ANTLR start "entryRuleANDing"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:617:1: entryRuleANDing returns [EObject current=null] : iv_ruleANDing= ruleANDing EOF ;
+    public final EObject entryRuleANDing() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleANDing = null;
+
+
+        try {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:618:2: (iv_ruleANDing= ruleANDing EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:619:2: iv_ruleANDing= ruleANDing EOF
+            {
+             newCompositeNode(grammarAccess.getANDingRule()); 
+            pushFollow(FOLLOW_ruleANDing_in_entryRuleANDing1211);
+            iv_ruleANDing=ruleANDing();
+
+            state._fsp--;
+
+             current =iv_ruleANDing; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleANDing1221); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleANDing"
+
+
+    // $ANTLR start "ruleANDing"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:626:1: ruleANDing returns [EObject current=null] : (this_Primary_0= rulePrimary ( () otherlv_2= '&' ( (lv_right_3_0= rulePrimary ) ) )* ) ;
+    public final EObject ruleANDing() throws RecognitionException {
+        EObject current = null;
+
+        Token otherlv_2=null;
+        EObject this_Primary_0 = null;
+
+        EObject lv_right_3_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:629:28: ( (this_Primary_0= rulePrimary ( () otherlv_2= '&' ( (lv_right_3_0= rulePrimary ) ) )* ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:630:1: (this_Primary_0= rulePrimary ( () otherlv_2= '&' ( (lv_right_3_0= rulePrimary ) ) )* )
+            {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:630:1: (this_Primary_0= rulePrimary ( () otherlv_2= '&' ( (lv_right_3_0= rulePrimary ) ) )* )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:631:5: this_Primary_0= rulePrimary ( () otherlv_2= '&' ( (lv_right_3_0= rulePrimary ) ) )*
+            {
+             
+                    newCompositeNode(grammarAccess.getANDingAccess().getPrimaryParserRuleCall_0()); 
+                
+            pushFollow(FOLLOW_rulePrimary_in_ruleANDing1268);
+            this_Primary_0=rulePrimary();
+
+            state._fsp--;
+
+             
+                    current = this_Primary_0; 
+                    afterParserOrEnumRuleCall();
+                
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:639:1: ( () otherlv_2= '&' ( (lv_right_3_0= rulePrimary ) ) )*
+            loop13:
+            do {
+                int alt13=2;
+                int LA13_0 = input.LA(1);
+
+                if ( (LA13_0==21) ) {
+                    alt13=1;
+                }
+
+
+                switch (alt13) {
+            	case 1 :
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:639:2: () otherlv_2= '&' ( (lv_right_3_0= rulePrimary ) )
+            	    {
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:639:2: ()
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:640:5: 
+            	    {
+
+            	            current = forceCreateModelElementAndSet(
+            	                grammarAccess.getANDingAccess().getANDingLeftAction_1_0(),
+            	                current);
+            	        
+
+            	    }
+
+            	    otherlv_2=(Token)match(input,21,FOLLOW_21_in_ruleANDing1289); 
+
+            	        	newLeafNode(otherlv_2, grammarAccess.getANDingAccess().getAmpersandKeyword_1_1());
+            	        
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:649:1: ( (lv_right_3_0= rulePrimary ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:650:1: (lv_right_3_0= rulePrimary )
+            	    {
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:650:1: (lv_right_3_0= rulePrimary )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:651:3: lv_right_3_0= rulePrimary
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getANDingAccess().getRightPrimaryParserRuleCall_1_2_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_rulePrimary_in_ruleANDing1310);
+            	    lv_right_3_0=rulePrimary();
+
+            	    state._fsp--;
+
+
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getANDingRule());
+            	    	        }
+            	           		set(
+            	           			current, 
+            	           			"right",
+            	            		lv_right_3_0, 
+            	            		"Primary");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
+
+            	    }
+
+
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop13;
+                }
+            } while (true);
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
     // $ANTLR end "ruleANDing"
 
 
     // $ANTLR start "entryRulePrimary"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:643:1: entryRulePrimary returns [EObject current=null] : iv_rulePrimary= rulePrimary EOF ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:675:1: entryRulePrimary returns [EObject current=null] : iv_rulePrimary= rulePrimary EOF ;
     public final EObject entryRulePrimary() throws RecognitionException {
         EObject current = null;
 
@@ -1593,17 +1696,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:644:2: (iv_rulePrimary= rulePrimary EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:645:2: iv_rulePrimary= rulePrimary EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:676:2: (iv_rulePrimary= rulePrimary EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:677:2: iv_rulePrimary= rulePrimary EOF
             {
              newCompositeNode(grammarAccess.getPrimaryRule()); 
-            pushFollow(FOLLOW_rulePrimary_in_entryRulePrimary1304);
+            pushFollow(FOLLOW_rulePrimary_in_entryRulePrimary1348);
             iv_rulePrimary=rulePrimary();
 
             state._fsp--;
 
              current =iv_rulePrimary; 
-            match(input,EOF,FOLLOW_EOF_in_entryRulePrimary1314); 
+            match(input,EOF,FOLLOW_EOF_in_entryRulePrimary1358); 
 
             }
 
@@ -1621,81 +1724,96 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePrimary"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:652:1: rulePrimary returns [EObject current=null] : (this_Atomic_0= ruleAtomic | this_Quantifier_1= ruleQuantifier | this_ProblemShell_2= ruleProblemShell | (otherlv_3= '(' this_ORing_4= ruleORing otherlv_5= ')' ) | this_BooleanLiteral_6= ruleBooleanLiteral | this_Negation_7= ruleNegation ) ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:684:1: rulePrimary returns [EObject current=null] : (this_Atomic_0= ruleAtomic | this_SugarAtomic_1= ruleSugarAtomic | this_Quantifier_2= ruleQuantifier | this_ProblemShell_3= ruleProblemShell | (otherlv_4= '(' this_ORing_5= ruleORing otherlv_6= ')' ) | this_BooleanLiteral_7= ruleBooleanLiteral | this_Negation_8= ruleNegation ) ;
     public final EObject rulePrimary() throws RecognitionException {
         EObject current = null;
 
-        Token otherlv_3=null;
-        Token otherlv_5=null;
+        Token otherlv_4=null;
+        Token otherlv_6=null;
         EObject this_Atomic_0 = null;
 
-        EObject this_Quantifier_1 = null;
+        EObject this_SugarAtomic_1 = null;
 
-        EObject this_ProblemShell_2 = null;
+        EObject this_Quantifier_2 = null;
 
-        EObject this_ORing_4 = null;
+        EObject this_ProblemShell_3 = null;
 
-        EObject this_BooleanLiteral_6 = null;
+        EObject this_ORing_5 = null;
 
-        EObject this_Negation_7 = null;
+        EObject this_BooleanLiteral_7 = null;
+
+        EObject this_Negation_8 = null;
 
 
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:655:28: ( (this_Atomic_0= ruleAtomic | this_Quantifier_1= ruleQuantifier | this_ProblemShell_2= ruleProblemShell | (otherlv_3= '(' this_ORing_4= ruleORing otherlv_5= ')' ) | this_BooleanLiteral_6= ruleBooleanLiteral | this_Negation_7= ruleNegation ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:656:1: (this_Atomic_0= ruleAtomic | this_Quantifier_1= ruleQuantifier | this_ProblemShell_2= ruleProblemShell | (otherlv_3= '(' this_ORing_4= ruleORing otherlv_5= ')' ) | this_BooleanLiteral_6= ruleBooleanLiteral | this_Negation_7= ruleNegation )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:687:28: ( (this_Atomic_0= ruleAtomic | this_SugarAtomic_1= ruleSugarAtomic | this_Quantifier_2= ruleQuantifier | this_ProblemShell_3= ruleProblemShell | (otherlv_4= '(' this_ORing_5= ruleORing otherlv_6= ')' ) | this_BooleanLiteral_7= ruleBooleanLiteral | this_Negation_8= ruleNegation ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:688:1: (this_Atomic_0= ruleAtomic | this_SugarAtomic_1= ruleSugarAtomic | this_Quantifier_2= ruleQuantifier | this_ProblemShell_3= ruleProblemShell | (otherlv_4= '(' this_ORing_5= ruleORing otherlv_6= ')' ) | this_BooleanLiteral_7= ruleBooleanLiteral | this_Negation_8= ruleNegation )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:656:1: (this_Atomic_0= ruleAtomic | this_Quantifier_1= ruleQuantifier | this_ProblemShell_2= ruleProblemShell | (otherlv_3= '(' this_ORing_4= ruleORing otherlv_5= ')' ) | this_BooleanLiteral_6= ruleBooleanLiteral | this_Negation_7= ruleNegation )
-            int alt13=6;
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:688:1: (this_Atomic_0= ruleAtomic | this_SugarAtomic_1= ruleSugarAtomic | this_Quantifier_2= ruleQuantifier | this_ProblemShell_3= ruleProblemShell | (otherlv_4= '(' this_ORing_5= ruleORing otherlv_6= ')' ) | this_BooleanLiteral_7= ruleBooleanLiteral | this_Negation_8= ruleNegation )
+            int alt14=7;
             switch ( input.LA(1) ) {
             case RULE_ID:
                 {
-                alt13=1;
+                int LA14_1 = input.LA(2);
+
+                if ( (LA14_1==22) ) {
+                    alt14=1;
                 }
-                break;
-            case 28:
-            case 29:
-                {
-                alt13=2;
+                else if ( (LA14_1==29) ) {
+                    alt14=2;
                 }
-                break;
-            case 25:
-                {
-                alt13=3;
+                else {
+                    NoViableAltException nvae =
+                        new NoViableAltException("", 14, 1, input);
+
+                    throw nvae;
                 }
-                break;
-            case 16:
-                {
-                alt13=4;
-                }
-                break;
-            case 31:
-            case 32:
-                {
-                alt13=5;
                 }
                 break;
             case 27:
+            case 28:
                 {
-                alt13=6;
+                alt14=3;
+                }
+                break;
+            case 24:
+                {
+                alt14=4;
+                }
+                break;
+            case 22:
+                {
+                alt14=5;
+                }
+                break;
+            case 30:
+            case 31:
+                {
+                alt14=6;
+                }
+                break;
+            case 26:
+                {
+                alt14=7;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 13, 0, input);
+                    new NoViableAltException("", 14, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt13) {
+            switch (alt14) {
                 case 1 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:657:5: this_Atomic_0= ruleAtomic
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:689:5: this_Atomic_0= ruleAtomic
                     {
                      
                             newCompositeNode(grammarAccess.getPrimaryAccess().getAtomicParserRuleCall_0()); 
                         
-                    pushFollow(FOLLOW_ruleAtomic_in_rulePrimary1361);
+                    pushFollow(FOLLOW_ruleAtomic_in_rulePrimary1405);
                     this_Atomic_0=ruleAtomic();
 
                     state._fsp--;
@@ -1708,104 +1826,122 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:667:5: this_Quantifier_1= ruleQuantifier
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:699:5: this_SugarAtomic_1= ruleSugarAtomic
                     {
                      
-                            newCompositeNode(grammarAccess.getPrimaryAccess().getQuantifierParserRuleCall_1()); 
+                            newCompositeNode(grammarAccess.getPrimaryAccess().getSugarAtomicParserRuleCall_1()); 
                         
-                    pushFollow(FOLLOW_ruleQuantifier_in_rulePrimary1388);
-                    this_Quantifier_1=ruleQuantifier();
+                    pushFollow(FOLLOW_ruleSugarAtomic_in_rulePrimary1432);
+                    this_SugarAtomic_1=ruleSugarAtomic();
 
                     state._fsp--;
 
                      
-                            current = this_Quantifier_1; 
+                            current = this_SugarAtomic_1; 
                             afterParserOrEnumRuleCall();
                         
 
                     }
                     break;
                 case 3 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:677:5: this_ProblemShell_2= ruleProblemShell
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:709:5: this_Quantifier_2= ruleQuantifier
                     {
                      
-                            newCompositeNode(grammarAccess.getPrimaryAccess().getProblemShellParserRuleCall_2()); 
+                            newCompositeNode(grammarAccess.getPrimaryAccess().getQuantifierParserRuleCall_2()); 
                         
-                    pushFollow(FOLLOW_ruleProblemShell_in_rulePrimary1415);
-                    this_ProblemShell_2=ruleProblemShell();
+                    pushFollow(FOLLOW_ruleQuantifier_in_rulePrimary1459);
+                    this_Quantifier_2=ruleQuantifier();
 
                     state._fsp--;
 
                      
-                            current = this_ProblemShell_2; 
+                            current = this_Quantifier_2; 
                             afterParserOrEnumRuleCall();
                         
 
                     }
                     break;
                 case 4 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:686:6: (otherlv_3= '(' this_ORing_4= ruleORing otherlv_5= ')' )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:719:5: this_ProblemShell_3= ruleProblemShell
                     {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:686:6: (otherlv_3= '(' this_ORing_4= ruleORing otherlv_5= ')' )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:686:8: otherlv_3= '(' this_ORing_4= ruleORing otherlv_5= ')'
-                    {
-                    otherlv_3=(Token)match(input,16,FOLLOW_16_in_rulePrimary1433); 
-
-                        	newLeafNode(otherlv_3, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_3_0());
-                        
                      
-                            newCompositeNode(grammarAccess.getPrimaryAccess().getORingParserRuleCall_3_1()); 
+                            newCompositeNode(grammarAccess.getPrimaryAccess().getProblemShellParserRuleCall_3()); 
                         
-                    pushFollow(FOLLOW_ruleORing_in_rulePrimary1455);
-                    this_ORing_4=ruleORing();
+                    pushFollow(FOLLOW_ruleProblemShell_in_rulePrimary1486);
+                    this_ProblemShell_3=ruleProblemShell();
 
                     state._fsp--;
 
                      
-                            current = this_ORing_4; 
+                            current = this_ProblemShell_3; 
                             afterParserOrEnumRuleCall();
                         
-                    otherlv_5=(Token)match(input,17,FOLLOW_17_in_rulePrimary1466); 
-
-                        	newLeafNode(otherlv_5, grammarAccess.getPrimaryAccess().getRightParenthesisKeyword_3_2());
-                        
-
-                    }
-
 
                     }
                     break;
                 case 5 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:705:5: this_BooleanLiteral_6= ruleBooleanLiteral
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:728:6: (otherlv_4= '(' this_ORing_5= ruleORing otherlv_6= ')' )
                     {
-                     
-                            newCompositeNode(grammarAccess.getPrimaryAccess().getBooleanLiteralParserRuleCall_4()); 
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:728:6: (otherlv_4= '(' this_ORing_5= ruleORing otherlv_6= ')' )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:728:8: otherlv_4= '(' this_ORing_5= ruleORing otherlv_6= ')'
+                    {
+                    otherlv_4=(Token)match(input,22,FOLLOW_22_in_rulePrimary1504); 
+
+                        	newLeafNode(otherlv_4, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_4_0());
                         
-                    pushFollow(FOLLOW_ruleBooleanLiteral_in_rulePrimary1495);
-                    this_BooleanLiteral_6=ruleBooleanLiteral();
+                     
+                            newCompositeNode(grammarAccess.getPrimaryAccess().getORingParserRuleCall_4_1()); 
+                        
+                    pushFollow(FOLLOW_ruleORing_in_rulePrimary1526);
+                    this_ORing_5=ruleORing();
 
                     state._fsp--;
 
                      
-                            current = this_BooleanLiteral_6; 
+                            current = this_ORing_5; 
+                            afterParserOrEnumRuleCall();
+                        
+                    otherlv_6=(Token)match(input,23,FOLLOW_23_in_rulePrimary1537); 
+
+                        	newLeafNode(otherlv_6, grammarAccess.getPrimaryAccess().getRightParenthesisKeyword_4_2());
+                        
+
+                    }
+
+
+                    }
+                    break;
+                case 6 :
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:747:5: this_BooleanLiteral_7= ruleBooleanLiteral
+                    {
+                     
+                            newCompositeNode(grammarAccess.getPrimaryAccess().getBooleanLiteralParserRuleCall_5()); 
+                        
+                    pushFollow(FOLLOW_ruleBooleanLiteral_in_rulePrimary1566);
+                    this_BooleanLiteral_7=ruleBooleanLiteral();
+
+                    state._fsp--;
+
+                     
+                            current = this_BooleanLiteral_7; 
                             afterParserOrEnumRuleCall();
                         
 
                     }
                     break;
-                case 6 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:715:5: this_Negation_7= ruleNegation
+                case 7 :
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:757:5: this_Negation_8= ruleNegation
                     {
                      
-                            newCompositeNode(grammarAccess.getPrimaryAccess().getNegationParserRuleCall_5()); 
+                            newCompositeNode(grammarAccess.getPrimaryAccess().getNegationParserRuleCall_6()); 
                         
-                    pushFollow(FOLLOW_ruleNegation_in_rulePrimary1522);
-                    this_Negation_7=ruleNegation();
+                    pushFollow(FOLLOW_ruleNegation_in_rulePrimary1593);
+                    this_Negation_8=ruleNegation();
 
                     state._fsp--;
 
                      
-                            current = this_Negation_7; 
+                            current = this_Negation_8; 
                             afterParserOrEnumRuleCall();
                         
 
@@ -1832,7 +1968,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleProblemShell"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:731:1: entryRuleProblemShell returns [EObject current=null] : iv_ruleProblemShell= ruleProblemShell EOF ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:773:1: entryRuleProblemShell returns [EObject current=null] : iv_ruleProblemShell= ruleProblemShell EOF ;
     public final EObject entryRuleProblemShell() throws RecognitionException {
         EObject current = null;
 
@@ -1840,17 +1976,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:732:2: (iv_ruleProblemShell= ruleProblemShell EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:733:2: iv_ruleProblemShell= ruleProblemShell EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:774:2: (iv_ruleProblemShell= ruleProblemShell EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:775:2: iv_ruleProblemShell= ruleProblemShell EOF
             {
              newCompositeNode(grammarAccess.getProblemShellRule()); 
-            pushFollow(FOLLOW_ruleProblemShell_in_entryRuleProblemShell1557);
+            pushFollow(FOLLOW_ruleProblemShell_in_entryRuleProblemShell1628);
             iv_ruleProblemShell=ruleProblemShell();
 
             state._fsp--;
 
              current =iv_ruleProblemShell; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleProblemShell1567); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleProblemShell1638); 
 
             }
 
@@ -1868,7 +2004,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleProblemShell"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:740:1: ruleProblemShell returns [EObject current=null] : (otherlv_0= '{' ( (lv_problem_1_0= ruleProblem ) ) otherlv_2= '}' ) ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:782:1: ruleProblemShell returns [EObject current=null] : (otherlv_0= '{' ( (lv_problem_1_0= ruleProblem ) ) otherlv_2= '}' ) ;
     public final EObject ruleProblemShell() throws RecognitionException {
         EObject current = null;
 
@@ -1880,26 +2016,26 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:743:28: ( (otherlv_0= '{' ( (lv_problem_1_0= ruleProblem ) ) otherlv_2= '}' ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:744:1: (otherlv_0= '{' ( (lv_problem_1_0= ruleProblem ) ) otherlv_2= '}' )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:785:28: ( (otherlv_0= '{' ( (lv_problem_1_0= ruleProblem ) ) otherlv_2= '}' ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:786:1: (otherlv_0= '{' ( (lv_problem_1_0= ruleProblem ) ) otherlv_2= '}' )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:744:1: (otherlv_0= '{' ( (lv_problem_1_0= ruleProblem ) ) otherlv_2= '}' )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:744:3: otherlv_0= '{' ( (lv_problem_1_0= ruleProblem ) ) otherlv_2= '}'
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:786:1: (otherlv_0= '{' ( (lv_problem_1_0= ruleProblem ) ) otherlv_2= '}' )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:786:3: otherlv_0= '{' ( (lv_problem_1_0= ruleProblem ) ) otherlv_2= '}'
             {
-            otherlv_0=(Token)match(input,25,FOLLOW_25_in_ruleProblemShell1604); 
+            otherlv_0=(Token)match(input,24,FOLLOW_24_in_ruleProblemShell1675); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getProblemShellAccess().getLeftCurlyBracketKeyword_0());
                 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:748:1: ( (lv_problem_1_0= ruleProblem ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:749:1: (lv_problem_1_0= ruleProblem )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:790:1: ( (lv_problem_1_0= ruleProblem ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:791:1: (lv_problem_1_0= ruleProblem )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:749:1: (lv_problem_1_0= ruleProblem )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:750:3: lv_problem_1_0= ruleProblem
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:791:1: (lv_problem_1_0= ruleProblem )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:792:3: lv_problem_1_0= ruleProblem
             {
              
             	        newCompositeNode(grammarAccess.getProblemShellAccess().getProblemProblemParserRuleCall_1_0()); 
             	    
-            pushFollow(FOLLOW_ruleProblem_in_ruleProblemShell1625);
+            pushFollow(FOLLOW_ruleProblem_in_ruleProblemShell1696);
             lv_problem_1_0=ruleProblem();
 
             state._fsp--;
@@ -1921,7 +2057,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_2=(Token)match(input,26,FOLLOW_26_in_ruleProblemShell1637); 
+            otherlv_2=(Token)match(input,25,FOLLOW_25_in_ruleProblemShell1708); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getProblemShellAccess().getRightCurlyBracketKeyword_2());
                 
@@ -1946,7 +2082,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleNegation"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:778:1: entryRuleNegation returns [EObject current=null] : iv_ruleNegation= ruleNegation EOF ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:820:1: entryRuleNegation returns [EObject current=null] : iv_ruleNegation= ruleNegation EOF ;
     public final EObject entryRuleNegation() throws RecognitionException {
         EObject current = null;
 
@@ -1954,17 +2090,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:779:2: (iv_ruleNegation= ruleNegation EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:780:2: iv_ruleNegation= ruleNegation EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:821:2: (iv_ruleNegation= ruleNegation EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:822:2: iv_ruleNegation= ruleNegation EOF
             {
              newCompositeNode(grammarAccess.getNegationRule()); 
-            pushFollow(FOLLOW_ruleNegation_in_entryRuleNegation1673);
+            pushFollow(FOLLOW_ruleNegation_in_entryRuleNegation1744);
             iv_ruleNegation=ruleNegation();
 
             state._fsp--;
 
              current =iv_ruleNegation; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleNegation1683); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleNegation1754); 
 
             }
 
@@ -1982,7 +2118,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNegation"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:787:1: ruleNegation returns [EObject current=null] : (otherlv_0= '!' ( (lv_negated_1_0= rulePrimary ) ) ) ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:829:1: ruleNegation returns [EObject current=null] : (otherlv_0= '!' ( (lv_negated_1_0= rulePrimary ) ) ) ;
     public final EObject ruleNegation() throws RecognitionException {
         EObject current = null;
 
@@ -1993,26 +2129,26 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:790:28: ( (otherlv_0= '!' ( (lv_negated_1_0= rulePrimary ) ) ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:791:1: (otherlv_0= '!' ( (lv_negated_1_0= rulePrimary ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:832:28: ( (otherlv_0= '!' ( (lv_negated_1_0= rulePrimary ) ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:833:1: (otherlv_0= '!' ( (lv_negated_1_0= rulePrimary ) ) )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:791:1: (otherlv_0= '!' ( (lv_negated_1_0= rulePrimary ) ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:791:3: otherlv_0= '!' ( (lv_negated_1_0= rulePrimary ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:833:1: (otherlv_0= '!' ( (lv_negated_1_0= rulePrimary ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:833:3: otherlv_0= '!' ( (lv_negated_1_0= rulePrimary ) )
             {
-            otherlv_0=(Token)match(input,27,FOLLOW_27_in_ruleNegation1720); 
+            otherlv_0=(Token)match(input,26,FOLLOW_26_in_ruleNegation1791); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getNegationAccess().getExclamationMarkKeyword_0());
                 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:795:1: ( (lv_negated_1_0= rulePrimary ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:796:1: (lv_negated_1_0= rulePrimary )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:837:1: ( (lv_negated_1_0= rulePrimary ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:838:1: (lv_negated_1_0= rulePrimary )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:796:1: (lv_negated_1_0= rulePrimary )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:797:3: lv_negated_1_0= rulePrimary
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:838:1: (lv_negated_1_0= rulePrimary )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:839:3: lv_negated_1_0= rulePrimary
             {
              
             	        newCompositeNode(grammarAccess.getNegationAccess().getNegatedPrimaryParserRuleCall_1_0()); 
             	    
-            pushFollow(FOLLOW_rulePrimary_in_ruleNegation1741);
+            pushFollow(FOLLOW_rulePrimary_in_ruleNegation1812);
             lv_negated_1_0=rulePrimary();
 
             state._fsp--;
@@ -2055,7 +2191,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQuantifier"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:821:1: entryRuleQuantifier returns [EObject current=null] : iv_ruleQuantifier= ruleQuantifier EOF ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:863:1: entryRuleQuantifier returns [EObject current=null] : iv_ruleQuantifier= ruleQuantifier EOF ;
     public final EObject entryRuleQuantifier() throws RecognitionException {
         EObject current = null;
 
@@ -2063,17 +2199,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:822:2: (iv_ruleQuantifier= ruleQuantifier EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:823:2: iv_ruleQuantifier= ruleQuantifier EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:864:2: (iv_ruleQuantifier= ruleQuantifier EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:865:2: iv_ruleQuantifier= ruleQuantifier EOF
             {
              newCompositeNode(grammarAccess.getQuantifierRule()); 
-            pushFollow(FOLLOW_ruleQuantifier_in_entryRuleQuantifier1777);
+            pushFollow(FOLLOW_ruleQuantifier_in_entryRuleQuantifier1848);
             iv_ruleQuantifier=ruleQuantifier();
 
             state._fsp--;
 
              current =iv_ruleQuantifier; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleQuantifier1787); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleQuantifier1858); 
 
             }
 
@@ -2091,7 +2227,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQuantifier"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:830:1: ruleQuantifier returns [EObject current=null] : ( ( ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) ) ) otherlv_1= '(' ( (lv_subject_2_0= ruleProblem ) ) otherlv_3= ':' ( (lv_predicate_4_0= ruleORing ) ) otherlv_5= ')' ) ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:872:1: ruleQuantifier returns [EObject current=null] : ( ( ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) ) ) otherlv_1= '(' ( (lv_subject_2_0= ruleProblem ) ) otherlv_3= ':' ( (lv_predicate_4_0= ruleORing ) ) otherlv_5= ')' ) ;
     public final EObject ruleQuantifier() throws RecognitionException {
         EObject current = null;
 
@@ -2108,39 +2244,39 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:833:28: ( ( ( ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) ) ) otherlv_1= '(' ( (lv_subject_2_0= ruleProblem ) ) otherlv_3= ':' ( (lv_predicate_4_0= ruleORing ) ) otherlv_5= ')' ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:834:1: ( ( ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) ) ) otherlv_1= '(' ( (lv_subject_2_0= ruleProblem ) ) otherlv_3= ':' ( (lv_predicate_4_0= ruleORing ) ) otherlv_5= ')' )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:875:28: ( ( ( ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) ) ) otherlv_1= '(' ( (lv_subject_2_0= ruleProblem ) ) otherlv_3= ':' ( (lv_predicate_4_0= ruleORing ) ) otherlv_5= ')' ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:876:1: ( ( ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) ) ) otherlv_1= '(' ( (lv_subject_2_0= ruleProblem ) ) otherlv_3= ':' ( (lv_predicate_4_0= ruleORing ) ) otherlv_5= ')' )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:834:1: ( ( ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) ) ) otherlv_1= '(' ( (lv_subject_2_0= ruleProblem ) ) otherlv_3= ':' ( (lv_predicate_4_0= ruleORing ) ) otherlv_5= ')' )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:834:2: ( ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) ) ) otherlv_1= '(' ( (lv_subject_2_0= ruleProblem ) ) otherlv_3= ':' ( (lv_predicate_4_0= ruleORing ) ) otherlv_5= ')'
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:876:1: ( ( ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) ) ) otherlv_1= '(' ( (lv_subject_2_0= ruleProblem ) ) otherlv_3= ':' ( (lv_predicate_4_0= ruleORing ) ) otherlv_5= ')' )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:876:2: ( ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) ) ) otherlv_1= '(' ( (lv_subject_2_0= ruleProblem ) ) otherlv_3= ':' ( (lv_predicate_4_0= ruleORing ) ) otherlv_5= ')'
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:834:2: ( ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:835:1: ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:876:2: ( ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:877:1: ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:835:1: ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:836:1: (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:877:1: ( (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:878:1: (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:836:1: (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' )
-            int alt14=2;
-            int LA14_0 = input.LA(1);
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:878:1: (lv_quantifier_0_1= 'forall' | lv_quantifier_0_2= 'exists' )
+            int alt15=2;
+            int LA15_0 = input.LA(1);
 
-            if ( (LA14_0==28) ) {
-                alt14=1;
+            if ( (LA15_0==27) ) {
+                alt15=1;
             }
-            else if ( (LA14_0==29) ) {
-                alt14=2;
+            else if ( (LA15_0==28) ) {
+                alt15=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 14, 0, input);
+                    new NoViableAltException("", 15, 0, input);
 
                 throw nvae;
             }
-            switch (alt14) {
+            switch (alt15) {
                 case 1 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:837:3: lv_quantifier_0_1= 'forall'
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:879:3: lv_quantifier_0_1= 'forall'
                     {
-                    lv_quantifier_0_1=(Token)match(input,28,FOLLOW_28_in_ruleQuantifier1832); 
+                    lv_quantifier_0_1=(Token)match(input,27,FOLLOW_27_in_ruleQuantifier1903); 
 
                             newLeafNode(lv_quantifier_0_1, grammarAccess.getQuantifierAccess().getQuantifierForallKeyword_0_0_0());
                         
@@ -2154,9 +2290,9 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:849:8: lv_quantifier_0_2= 'exists'
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:891:8: lv_quantifier_0_2= 'exists'
                     {
-                    lv_quantifier_0_2=(Token)match(input,29,FOLLOW_29_in_ruleQuantifier1861); 
+                    lv_quantifier_0_2=(Token)match(input,28,FOLLOW_28_in_ruleQuantifier1932); 
 
                             newLeafNode(lv_quantifier_0_2, grammarAccess.getQuantifierAccess().getQuantifierExistsKeyword_0_0_1());
                         
@@ -2178,20 +2314,20 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,16,FOLLOW_16_in_ruleQuantifier1889); 
+            otherlv_1=(Token)match(input,22,FOLLOW_22_in_ruleQuantifier1960); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getQuantifierAccess().getLeftParenthesisKeyword_1());
                 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:868:1: ( (lv_subject_2_0= ruleProblem ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:869:1: (lv_subject_2_0= ruleProblem )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:910:1: ( (lv_subject_2_0= ruleProblem ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:911:1: (lv_subject_2_0= ruleProblem )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:869:1: (lv_subject_2_0= ruleProblem )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:870:3: lv_subject_2_0= ruleProblem
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:911:1: (lv_subject_2_0= ruleProblem )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:912:3: lv_subject_2_0= ruleProblem
             {
              
             	        newCompositeNode(grammarAccess.getQuantifierAccess().getSubjectProblemParserRuleCall_2_0()); 
             	    
-            pushFollow(FOLLOW_ruleProblem_in_ruleQuantifier1910);
+            pushFollow(FOLLOW_ruleProblem_in_ruleQuantifier1981);
             lv_subject_2_0=ruleProblem();
 
             state._fsp--;
@@ -2213,20 +2349,20 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,30,FOLLOW_30_in_ruleQuantifier1922); 
+            otherlv_3=(Token)match(input,29,FOLLOW_29_in_ruleQuantifier1993); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getQuantifierAccess().getColonKeyword_3());
                 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:890:1: ( (lv_predicate_4_0= ruleORing ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:891:1: (lv_predicate_4_0= ruleORing )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:932:1: ( (lv_predicate_4_0= ruleORing ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:933:1: (lv_predicate_4_0= ruleORing )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:891:1: (lv_predicate_4_0= ruleORing )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:892:3: lv_predicate_4_0= ruleORing
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:933:1: (lv_predicate_4_0= ruleORing )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:934:3: lv_predicate_4_0= ruleORing
             {
              
             	        newCompositeNode(grammarAccess.getQuantifierAccess().getPredicateORingParserRuleCall_4_0()); 
             	    
-            pushFollow(FOLLOW_ruleORing_in_ruleQuantifier1943);
+            pushFollow(FOLLOW_ruleORing_in_ruleQuantifier2014);
             lv_predicate_4_0=ruleORing();
 
             state._fsp--;
@@ -2248,7 +2384,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,17,FOLLOW_17_in_ruleQuantifier1955); 
+            otherlv_5=(Token)match(input,23,FOLLOW_23_in_ruleQuantifier2026); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getQuantifierAccess().getRightParenthesisKeyword_5());
                 
@@ -2272,8 +2408,233 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleQuantifier"
 
 
+    // $ANTLR start "entryRuleSugarAtomic"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:962:1: entryRuleSugarAtomic returns [EObject current=null] : iv_ruleSugarAtomic= ruleSugarAtomic EOF ;
+    public final EObject entryRuleSugarAtomic() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleSugarAtomic = null;
+
+
+        try {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:963:2: (iv_ruleSugarAtomic= ruleSugarAtomic EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:964:2: iv_ruleSugarAtomic= ruleSugarAtomic EOF
+            {
+             newCompositeNode(grammarAccess.getSugarAtomicRule()); 
+            pushFollow(FOLLOW_ruleSugarAtomic_in_entryRuleSugarAtomic2062);
+            iv_ruleSugarAtomic=ruleSugarAtomic();
+
+            state._fsp--;
+
+             current =iv_ruleSugarAtomic; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleSugarAtomic2072); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleSugarAtomic"
+
+
+    // $ANTLR start "ruleSugarAtomic"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:971:1: ruleSugarAtomic returns [EObject current=null] : ( ( (lv_Function_0_0= RULE_ID ) ) otherlv_1= ':' otherlv_2= '(' ( ( (lv_args_3_0= ruleSugarAddition ) ) (otherlv_4= ',' ( (lv_args_5_0= ruleSugarAddition ) ) )* )? otherlv_6= ')' ) ;
+    public final EObject ruleSugarAtomic() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_Function_0_0=null;
+        Token otherlv_1=null;
+        Token otherlv_2=null;
+        Token otherlv_4=null;
+        Token otherlv_6=null;
+        EObject lv_args_3_0 = null;
+
+        EObject lv_args_5_0 = null;
+
+
+         enterRule(); 
+            
+        try {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:974:28: ( ( ( (lv_Function_0_0= RULE_ID ) ) otherlv_1= ':' otherlv_2= '(' ( ( (lv_args_3_0= ruleSugarAddition ) ) (otherlv_4= ',' ( (lv_args_5_0= ruleSugarAddition ) ) )* )? otherlv_6= ')' ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:975:1: ( ( (lv_Function_0_0= RULE_ID ) ) otherlv_1= ':' otherlv_2= '(' ( ( (lv_args_3_0= ruleSugarAddition ) ) (otherlv_4= ',' ( (lv_args_5_0= ruleSugarAddition ) ) )* )? otherlv_6= ')' )
+            {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:975:1: ( ( (lv_Function_0_0= RULE_ID ) ) otherlv_1= ':' otherlv_2= '(' ( ( (lv_args_3_0= ruleSugarAddition ) ) (otherlv_4= ',' ( (lv_args_5_0= ruleSugarAddition ) ) )* )? otherlv_6= ')' )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:975:2: ( (lv_Function_0_0= RULE_ID ) ) otherlv_1= ':' otherlv_2= '(' ( ( (lv_args_3_0= ruleSugarAddition ) ) (otherlv_4= ',' ( (lv_args_5_0= ruleSugarAddition ) ) )* )? otherlv_6= ')'
+            {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:975:2: ( (lv_Function_0_0= RULE_ID ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:976:1: (lv_Function_0_0= RULE_ID )
+            {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:976:1: (lv_Function_0_0= RULE_ID )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:977:3: lv_Function_0_0= RULE_ID
+            {
+            lv_Function_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleSugarAtomic2114); 
+
+            			newLeafNode(lv_Function_0_0, grammarAccess.getSugarAtomicAccess().getFunctionIDTerminalRuleCall_0_0()); 
+            		
+
+            	        if (current==null) {
+            	            current = createModelElement(grammarAccess.getSugarAtomicRule());
+            	        }
+                   		setWithLastConsumed(
+                   			current, 
+                   			"Function",
+                    		lv_Function_0_0, 
+                    		"ID");
+            	    
+
+            }
+
+
+            }
+
+            otherlv_1=(Token)match(input,29,FOLLOW_29_in_ruleSugarAtomic2131); 
+
+                	newLeafNode(otherlv_1, grammarAccess.getSugarAtomicAccess().getColonKeyword_1());
+                
+            otherlv_2=(Token)match(input,22,FOLLOW_22_in_ruleSugarAtomic2143); 
+
+                	newLeafNode(otherlv_2, grammarAccess.getSugarAtomicAccess().getLeftParenthesisKeyword_2());
+                
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1001:1: ( ( (lv_args_3_0= ruleSugarAddition ) ) (otherlv_4= ',' ( (lv_args_5_0= ruleSugarAddition ) ) )* )?
+            int alt17=2;
+            int LA17_0 = input.LA(1);
+
+            if ( ((LA17_0>=RULE_ID && LA17_0<=RULE_INT)||LA17_0==22) ) {
+                alt17=1;
+            }
+            switch (alt17) {
+                case 1 :
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1001:2: ( (lv_args_3_0= ruleSugarAddition ) ) (otherlv_4= ',' ( (lv_args_5_0= ruleSugarAddition ) ) )*
+                    {
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1001:2: ( (lv_args_3_0= ruleSugarAddition ) )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1002:1: (lv_args_3_0= ruleSugarAddition )
+                    {
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1002:1: (lv_args_3_0= ruleSugarAddition )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1003:3: lv_args_3_0= ruleSugarAddition
+                    {
+                     
+                    	        newCompositeNode(grammarAccess.getSugarAtomicAccess().getArgsSugarAdditionParserRuleCall_3_0_0()); 
+                    	    
+                    pushFollow(FOLLOW_ruleSugarAddition_in_ruleSugarAtomic2165);
+                    lv_args_3_0=ruleSugarAddition();
+
+                    state._fsp--;
+
+
+                    	        if (current==null) {
+                    	            current = createModelElementForParent(grammarAccess.getSugarAtomicRule());
+                    	        }
+                           		add(
+                           			current, 
+                           			"args",
+                            		lv_args_3_0, 
+                            		"SugarAddition");
+                    	        afterParserOrEnumRuleCall();
+                    	    
+
+                    }
+
+
+                    }
+
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1019:2: (otherlv_4= ',' ( (lv_args_5_0= ruleSugarAddition ) ) )*
+                    loop16:
+                    do {
+                        int alt16=2;
+                        int LA16_0 = input.LA(1);
+
+                        if ( (LA16_0==16) ) {
+                            alt16=1;
+                        }
+
+
+                        switch (alt16) {
+                    	case 1 :
+                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1019:4: otherlv_4= ',' ( (lv_args_5_0= ruleSugarAddition ) )
+                    	    {
+                    	    otherlv_4=(Token)match(input,16,FOLLOW_16_in_ruleSugarAtomic2178); 
+
+                    	        	newLeafNode(otherlv_4, grammarAccess.getSugarAtomicAccess().getCommaKeyword_3_1_0());
+                    	        
+                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1023:1: ( (lv_args_5_0= ruleSugarAddition ) )
+                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1024:1: (lv_args_5_0= ruleSugarAddition )
+                    	    {
+                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1024:1: (lv_args_5_0= ruleSugarAddition )
+                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1025:3: lv_args_5_0= ruleSugarAddition
+                    	    {
+                    	     
+                    	    	        newCompositeNode(grammarAccess.getSugarAtomicAccess().getArgsSugarAdditionParserRuleCall_3_1_1_0()); 
+                    	    	    
+                    	    pushFollow(FOLLOW_ruleSugarAddition_in_ruleSugarAtomic2199);
+                    	    lv_args_5_0=ruleSugarAddition();
+
+                    	    state._fsp--;
+
+
+                    	    	        if (current==null) {
+                    	    	            current = createModelElementForParent(grammarAccess.getSugarAtomicRule());
+                    	    	        }
+                    	           		add(
+                    	           			current, 
+                    	           			"args",
+                    	            		lv_args_5_0, 
+                    	            		"SugarAddition");
+                    	    	        afterParserOrEnumRuleCall();
+                    	    	    
+
+                    	    }
+
+
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop16;
+                        }
+                    } while (true);
+
+
+                    }
+                    break;
+
+            }
+
+            otherlv_6=(Token)match(input,23,FOLLOW_23_in_ruleSugarAtomic2215); 
+
+                	newLeafNode(otherlv_6, grammarAccess.getSugarAtomicAccess().getRightParenthesisKeyword_4());
+                
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleSugarAtomic"
+
+
     // $ANTLR start "entryRuleAtomic"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:920:1: entryRuleAtomic returns [EObject current=null] : iv_ruleAtomic= ruleAtomic EOF ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1053:1: entryRuleAtomic returns [EObject current=null] : iv_ruleAtomic= ruleAtomic EOF ;
     public final EObject entryRuleAtomic() throws RecognitionException {
         EObject current = null;
 
@@ -2281,17 +2642,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:921:2: (iv_ruleAtomic= ruleAtomic EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:922:2: iv_ruleAtomic= ruleAtomic EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1054:2: (iv_ruleAtomic= ruleAtomic EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1055:2: iv_ruleAtomic= ruleAtomic EOF
             {
              newCompositeNode(grammarAccess.getAtomicRule()); 
-            pushFollow(FOLLOW_ruleAtomic_in_entryRuleAtomic1991);
+            pushFollow(FOLLOW_ruleAtomic_in_entryRuleAtomic2251);
             iv_ruleAtomic=ruleAtomic();
 
             state._fsp--;
 
              current =iv_ruleAtomic; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAtomic2001); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleAtomic2261); 
 
             }
 
@@ -2309,35 +2670,33 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAtomic"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:929:1: ruleAtomic returns [EObject current=null] : ( ( (lv_Function_0_0= RULE_ID ) ) otherlv_1= '(' ( ( (lv_args_2_0= ruleArgument ) ) (otherlv_3= ',' ( (lv_args_4_0= ruleArgument ) ) )* )? otherlv_5= ')' ) ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1062:1: ruleAtomic returns [EObject current=null] : ( ( (lv_Function_0_0= RULE_ID ) ) otherlv_1= '(' ( ( (lv_args_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_args_4_0= RULE_ID ) ) )* )? otherlv_5= ')' ) ;
     public final EObject ruleAtomic() throws RecognitionException {
         EObject current = null;
 
         Token lv_Function_0_0=null;
         Token otherlv_1=null;
+        Token lv_args_2_0=null;
         Token otherlv_3=null;
+        Token lv_args_4_0=null;
         Token otherlv_5=null;
-        EObject lv_args_2_0 = null;
-
-        EObject lv_args_4_0 = null;
-
 
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:932:28: ( ( ( (lv_Function_0_0= RULE_ID ) ) otherlv_1= '(' ( ( (lv_args_2_0= ruleArgument ) ) (otherlv_3= ',' ( (lv_args_4_0= ruleArgument ) ) )* )? otherlv_5= ')' ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:933:1: ( ( (lv_Function_0_0= RULE_ID ) ) otherlv_1= '(' ( ( (lv_args_2_0= ruleArgument ) ) (otherlv_3= ',' ( (lv_args_4_0= ruleArgument ) ) )* )? otherlv_5= ')' )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1065:28: ( ( ( (lv_Function_0_0= RULE_ID ) ) otherlv_1= '(' ( ( (lv_args_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_args_4_0= RULE_ID ) ) )* )? otherlv_5= ')' ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1066:1: ( ( (lv_Function_0_0= RULE_ID ) ) otherlv_1= '(' ( ( (lv_args_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_args_4_0= RULE_ID ) ) )* )? otherlv_5= ')' )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:933:1: ( ( (lv_Function_0_0= RULE_ID ) ) otherlv_1= '(' ( ( (lv_args_2_0= ruleArgument ) ) (otherlv_3= ',' ( (lv_args_4_0= ruleArgument ) ) )* )? otherlv_5= ')' )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:933:2: ( (lv_Function_0_0= RULE_ID ) ) otherlv_1= '(' ( ( (lv_args_2_0= ruleArgument ) ) (otherlv_3= ',' ( (lv_args_4_0= ruleArgument ) ) )* )? otherlv_5= ')'
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1066:1: ( ( (lv_Function_0_0= RULE_ID ) ) otherlv_1= '(' ( ( (lv_args_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_args_4_0= RULE_ID ) ) )* )? otherlv_5= ')' )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1066:2: ( (lv_Function_0_0= RULE_ID ) ) otherlv_1= '(' ( ( (lv_args_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_args_4_0= RULE_ID ) ) )* )? otherlv_5= ')'
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:933:2: ( (lv_Function_0_0= RULE_ID ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:934:1: (lv_Function_0_0= RULE_ID )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1066:2: ( (lv_Function_0_0= RULE_ID ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1067:1: (lv_Function_0_0= RULE_ID )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:934:1: (lv_Function_0_0= RULE_ID )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:935:3: lv_Function_0_0= RULE_ID
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1067:1: (lv_Function_0_0= RULE_ID )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1068:3: lv_Function_0_0= RULE_ID
             {
-            lv_Function_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAtomic2043); 
+            lv_Function_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAtomic2303); 
 
             			newLeafNode(lv_Function_0_0, grammarAccess.getAtomicAccess().getFunctionIDTerminalRuleCall_0_0()); 
             		
@@ -2357,45 +2716,40 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,16,FOLLOW_16_in_ruleAtomic2060); 
+            otherlv_1=(Token)match(input,22,FOLLOW_22_in_ruleAtomic2320); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getAtomicAccess().getLeftParenthesisKeyword_1());
                 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:955:1: ( ( (lv_args_2_0= ruleArgument ) ) (otherlv_3= ',' ( (lv_args_4_0= ruleArgument ) ) )* )?
-            int alt16=2;
-            int LA16_0 = input.LA(1);
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1088:1: ( ( (lv_args_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_args_4_0= RULE_ID ) ) )* )?
+            int alt19=2;
+            int LA19_0 = input.LA(1);
 
-            if ( ((LA16_0>=RULE_ID && LA16_0<=RULE_INT)||LA16_0==16) ) {
-                alt16=1;
+            if ( (LA19_0==RULE_ID) ) {
+                alt19=1;
             }
-            switch (alt16) {
+            switch (alt19) {
                 case 1 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:955:2: ( (lv_args_2_0= ruleArgument ) ) (otherlv_3= ',' ( (lv_args_4_0= ruleArgument ) ) )*
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1088:2: ( (lv_args_2_0= RULE_ID ) ) (otherlv_3= ',' ( (lv_args_4_0= RULE_ID ) ) )*
                     {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:955:2: ( (lv_args_2_0= ruleArgument ) )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:956:1: (lv_args_2_0= ruleArgument )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1088:2: ( (lv_args_2_0= RULE_ID ) )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1089:1: (lv_args_2_0= RULE_ID )
                     {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:956:1: (lv_args_2_0= ruleArgument )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:957:3: lv_args_2_0= ruleArgument
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1089:1: (lv_args_2_0= RULE_ID )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1090:3: lv_args_2_0= RULE_ID
                     {
-                     
-                    	        newCompositeNode(grammarAccess.getAtomicAccess().getArgsArgumentParserRuleCall_2_0_0()); 
-                    	    
-                    pushFollow(FOLLOW_ruleArgument_in_ruleAtomic2082);
-                    lv_args_2_0=ruleArgument();
+                    lv_args_2_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAtomic2338); 
 
-                    state._fsp--;
-
+                    			newLeafNode(lv_args_2_0, grammarAccess.getAtomicAccess().getArgsIDTerminalRuleCall_2_0_0()); 
+                    		
 
                     	        if (current==null) {
-                    	            current = createModelElementForParent(grammarAccess.getAtomicRule());
+                    	            current = createModelElement(grammarAccess.getAtomicRule());
                     	        }
-                           		add(
+                           		addWithLastConsumed(
                            			current, 
                            			"args",
                             		lv_args_2_0, 
-                            		"Argument");
-                    	        afterParserOrEnumRuleCall();
+                            		"ID");
                     	    
 
                     }
@@ -2403,49 +2757,44 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:973:2: (otherlv_3= ',' ( (lv_args_4_0= ruleArgument ) ) )*
-                    loop15:
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1106:2: (otherlv_3= ',' ( (lv_args_4_0= RULE_ID ) ) )*
+                    loop18:
                     do {
-                        int alt15=2;
-                        int LA15_0 = input.LA(1);
+                        int alt18=2;
+                        int LA18_0 = input.LA(1);
 
-                        if ( (LA15_0==19) ) {
-                            alt15=1;
+                        if ( (LA18_0==16) ) {
+                            alt18=1;
                         }
 
 
-                        switch (alt15) {
+                        switch (alt18) {
                     	case 1 :
-                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:973:4: otherlv_3= ',' ( (lv_args_4_0= ruleArgument ) )
+                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1106:4: otherlv_3= ',' ( (lv_args_4_0= RULE_ID ) )
                     	    {
-                    	    otherlv_3=(Token)match(input,19,FOLLOW_19_in_ruleAtomic2095); 
+                    	    otherlv_3=(Token)match(input,16,FOLLOW_16_in_ruleAtomic2356); 
 
                     	        	newLeafNode(otherlv_3, grammarAccess.getAtomicAccess().getCommaKeyword_2_1_0());
                     	        
-                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:977:1: ( (lv_args_4_0= ruleArgument ) )
-                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:978:1: (lv_args_4_0= ruleArgument )
+                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1110:1: ( (lv_args_4_0= RULE_ID ) )
+                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1111:1: (lv_args_4_0= RULE_ID )
                     	    {
-                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:978:1: (lv_args_4_0= ruleArgument )
-                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:979:3: lv_args_4_0= ruleArgument
+                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1111:1: (lv_args_4_0= RULE_ID )
+                    	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1112:3: lv_args_4_0= RULE_ID
                     	    {
-                    	     
-                    	    	        newCompositeNode(grammarAccess.getAtomicAccess().getArgsArgumentParserRuleCall_2_1_1_0()); 
-                    	    	    
-                    	    pushFollow(FOLLOW_ruleArgument_in_ruleAtomic2116);
-                    	    lv_args_4_0=ruleArgument();
+                    	    lv_args_4_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleAtomic2373); 
 
-                    	    state._fsp--;
-
+                    	    			newLeafNode(lv_args_4_0, grammarAccess.getAtomicAccess().getArgsIDTerminalRuleCall_2_1_1_0()); 
+                    	    		
 
                     	    	        if (current==null) {
-                    	    	            current = createModelElementForParent(grammarAccess.getAtomicRule());
+                    	    	            current = createModelElement(grammarAccess.getAtomicRule());
                     	    	        }
-                    	           		add(
+                    	           		addWithLastConsumed(
                     	           			current, 
                     	           			"args",
                     	            		lv_args_4_0, 
-                    	            		"Argument");
-                    	    	        afterParserOrEnumRuleCall();
+                    	            		"ID");
                     	    	    
 
                     	    }
@@ -2458,7 +2807,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
                     	    break;
 
                     	default :
-                    	    break loop15;
+                    	    break loop18;
                         }
                     } while (true);
 
@@ -2468,7 +2817,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,17,FOLLOW_17_in_ruleAtomic2132); 
+            otherlv_5=(Token)match(input,23,FOLLOW_23_in_ruleAtomic2394); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getAtomicAccess().getRightParenthesisKeyword_3());
                 
@@ -2492,179 +2841,8 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleAtomic"
 
 
-    // $ANTLR start "entryRuleArgument"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1007:1: entryRuleArgument returns [EObject current=null] : iv_ruleArgument= ruleArgument EOF ;
-    public final EObject entryRuleArgument() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleArgument = null;
-
-
-        try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1008:2: (iv_ruleArgument= ruleArgument EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1009:2: iv_ruleArgument= ruleArgument EOF
-            {
-             newCompositeNode(grammarAccess.getArgumentRule()); 
-            pushFollow(FOLLOW_ruleArgument_in_entryRuleArgument2168);
-            iv_ruleArgument=ruleArgument();
-
-            state._fsp--;
-
-             current =iv_ruleArgument; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleArgument2178); 
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleArgument"
-
-
-    // $ANTLR start "ruleArgument"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1016:1: ruleArgument returns [EObject current=null] : this_Addition_0= ruleAddition ;
-    public final EObject ruleArgument() throws RecognitionException {
-        EObject current = null;
-
-        EObject this_Addition_0 = null;
-
-
-         enterRule(); 
-            
-        try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1019:28: (this_Addition_0= ruleAddition )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1021:5: this_Addition_0= ruleAddition
-            {
-             
-                    newCompositeNode(grammarAccess.getArgumentAccess().getAdditionParserRuleCall()); 
-                
-            pushFollow(FOLLOW_ruleAddition_in_ruleArgument2224);
-            this_Addition_0=ruleAddition();
-
-            state._fsp--;
-
-             
-                    current = this_Addition_0; 
-                    afterParserOrEnumRuleCall();
-                
-
-            }
-
-             leaveRule(); 
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleArgument"
-
-
-    // $ANTLR start "entryRuleVariable"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1037:1: entryRuleVariable returns [EObject current=null] : iv_ruleVariable= ruleVariable EOF ;
-    public final EObject entryRuleVariable() throws RecognitionException {
-        EObject current = null;
-
-        EObject iv_ruleVariable = null;
-
-
-        try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1038:2: (iv_ruleVariable= ruleVariable EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1039:2: iv_ruleVariable= ruleVariable EOF
-            {
-             newCompositeNode(grammarAccess.getVariableRule()); 
-            pushFollow(FOLLOW_ruleVariable_in_entryRuleVariable2258);
-            iv_ruleVariable=ruleVariable();
-
-            state._fsp--;
-
-             current =iv_ruleVariable; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleVariable2268); 
-
-            }
-
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "entryRuleVariable"
-
-
-    // $ANTLR start "ruleVariable"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1046:1: ruleVariable returns [EObject current=null] : ( (lv_arg_0_0= RULE_ID ) ) ;
-    public final EObject ruleVariable() throws RecognitionException {
-        EObject current = null;
-
-        Token lv_arg_0_0=null;
-
-         enterRule(); 
-            
-        try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1049:28: ( ( (lv_arg_0_0= RULE_ID ) ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1050:1: ( (lv_arg_0_0= RULE_ID ) )
-            {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1050:1: ( (lv_arg_0_0= RULE_ID ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1051:1: (lv_arg_0_0= RULE_ID )
-            {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1051:1: (lv_arg_0_0= RULE_ID )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1052:3: lv_arg_0_0= RULE_ID
-            {
-            lv_arg_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleVariable2309); 
-
-            			newLeafNode(lv_arg_0_0, grammarAccess.getVariableAccess().getArgIDTerminalRuleCall_0()); 
-            		
-
-            	        if (current==null) {
-            	            current = createModelElement(grammarAccess.getVariableRule());
-            	        }
-                   		setWithLastConsumed(
-                   			current, 
-                   			"arg",
-                    		lv_arg_0_0, 
-                    		"ID");
-            	    
-
-            }
-
-
-            }
-
-
-            }
-
-             leaveRule(); 
-        }
-         
-            catch (RecognitionException re) { 
-                recover(input,re); 
-                appendSkippedTokens();
-            } 
-        finally {
-        }
-        return current;
-    }
-    // $ANTLR end "ruleVariable"
-
-
     // $ANTLR start "entryRuleBooleanLiteral"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1076:1: entryRuleBooleanLiteral returns [EObject current=null] : iv_ruleBooleanLiteral= ruleBooleanLiteral EOF ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1140:1: entryRuleBooleanLiteral returns [EObject current=null] : iv_ruleBooleanLiteral= ruleBooleanLiteral EOF ;
     public final EObject entryRuleBooleanLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -2672,17 +2850,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1077:2: (iv_ruleBooleanLiteral= ruleBooleanLiteral EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1078:2: iv_ruleBooleanLiteral= ruleBooleanLiteral EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1141:2: (iv_ruleBooleanLiteral= ruleBooleanLiteral EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1142:2: iv_ruleBooleanLiteral= ruleBooleanLiteral EOF
             {
              newCompositeNode(grammarAccess.getBooleanLiteralRule()); 
-            pushFollow(FOLLOW_ruleBooleanLiteral_in_entryRuleBooleanLiteral2349);
+            pushFollow(FOLLOW_ruleBooleanLiteral_in_entryRuleBooleanLiteral2430);
             iv_ruleBooleanLiteral=ruleBooleanLiteral();
 
             state._fsp--;
 
              current =iv_ruleBooleanLiteral; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleBooleanLiteral2359); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleBooleanLiteral2440); 
 
             }
 
@@ -2700,7 +2878,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleBooleanLiteral"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1085:1: ruleBooleanLiteral returns [EObject current=null] : ( ( (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' ) ) ) ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1149:1: ruleBooleanLiteral returns [EObject current=null] : ( ( (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' ) ) ) ;
     public final EObject ruleBooleanLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -2710,36 +2888,36 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1088:28: ( ( ( (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' ) ) ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1089:1: ( ( (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1152:28: ( ( ( (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' ) ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1153:1: ( ( (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' ) ) )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1089:1: ( ( (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' ) ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1090:1: ( (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1153:1: ( ( (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1154:1: ( (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' ) )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1090:1: ( (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1091:1: (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1154:1: ( (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1155:1: (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1091:1: (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' )
-            int alt17=2;
-            int LA17_0 = input.LA(1);
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1155:1: (lv_value_0_1= 'TRUE' | lv_value_0_2= 'FALSE' )
+            int alt20=2;
+            int LA20_0 = input.LA(1);
 
-            if ( (LA17_0==31) ) {
-                alt17=1;
+            if ( (LA20_0==30) ) {
+                alt20=1;
             }
-            else if ( (LA17_0==32) ) {
-                alt17=2;
+            else if ( (LA20_0==31) ) {
+                alt20=2;
             }
             else {
                 NoViableAltException nvae =
-                    new NoViableAltException("", 17, 0, input);
+                    new NoViableAltException("", 20, 0, input);
 
                 throw nvae;
             }
-            switch (alt17) {
+            switch (alt20) {
                 case 1 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1092:3: lv_value_0_1= 'TRUE'
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1156:3: lv_value_0_1= 'TRUE'
                     {
-                    lv_value_0_1=(Token)match(input,31,FOLLOW_31_in_ruleBooleanLiteral2403); 
+                    lv_value_0_1=(Token)match(input,30,FOLLOW_30_in_ruleBooleanLiteral2484); 
 
                             newLeafNode(lv_value_0_1, grammarAccess.getBooleanLiteralAccess().getValueTRUEKeyword_0_0());
                         
@@ -2753,9 +2931,9 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1104:8: lv_value_0_2= 'FALSE'
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1168:8: lv_value_0_2= 'FALSE'
                     {
-                    lv_value_0_2=(Token)match(input,32,FOLLOW_32_in_ruleBooleanLiteral2432); 
+                    lv_value_0_2=(Token)match(input,31,FOLLOW_31_in_ruleBooleanLiteral2513); 
 
                             newLeafNode(lv_value_0_2, grammarAccess.getBooleanLiteralAccess().getValueFALSEKeyword_0_1());
                         
@@ -2795,7 +2973,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTheorem"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1127:1: entryRuleTheorem returns [EObject current=null] : iv_ruleTheorem= ruleTheorem EOF ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1191:1: entryRuleTheorem returns [EObject current=null] : iv_ruleTheorem= ruleTheorem EOF ;
     public final EObject entryRuleTheorem() throws RecognitionException {
         EObject current = null;
 
@@ -2803,17 +2981,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1128:2: (iv_ruleTheorem= ruleTheorem EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1129:2: iv_ruleTheorem= ruleTheorem EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1192:2: (iv_ruleTheorem= ruleTheorem EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1193:2: iv_ruleTheorem= ruleTheorem EOF
             {
              newCompositeNode(grammarAccess.getTheoremRule()); 
-            pushFollow(FOLLOW_ruleTheorem_in_entryRuleTheorem2483);
+            pushFollow(FOLLOW_ruleTheorem_in_entryRuleTheorem2564);
             iv_ruleTheorem=ruleTheorem();
 
             state._fsp--;
 
              current =iv_ruleTheorem; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleTheorem2493); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleTheorem2574); 
 
             }
 
@@ -2831,11 +3009,13 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTheorem"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1136:1: ruleTheorem returns [EObject current=null] : ( ( (lv_Requirement_0_0= ruleORing ) ) otherlv_1= '->' ( (lv_Result_2_0= ruleORing ) ) otherlv_3= ',' ( (lv_Cost_4_0= RULE_INT ) ) otherlv_5= ',' ( (lv_Description_6_0= RULE_STRING ) ) (otherlv_7= ',' ( (lv_PseudoCode_8_0= RULE_STRING ) ) )? ) ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1200:1: ruleTheorem returns [EObject current=null] : ( ( (lv_Requirement_0_0= ruleORing ) ) ( ( (lv_Implication_1_1= '->' | lv_Implication_1_2= '<-' | lv_Implication_1_3= '<->' ) ) ) ( (lv_Result_2_0= ruleORing ) ) otherlv_3= ',' ( (lv_Cost_4_0= RULE_INT ) ) otherlv_5= ',' ( (lv_Description_6_0= RULE_STRING ) ) (otherlv_7= ',' ( (lv_PseudoCode_8_0= RULE_STRING ) ) )? ) ;
     public final EObject ruleTheorem() throws RecognitionException {
         EObject current = null;
 
-        Token otherlv_1=null;
+        Token lv_Implication_1_1=null;
+        Token lv_Implication_1_2=null;
+        Token lv_Implication_1_3=null;
         Token otherlv_3=null;
         Token lv_Cost_4_0=null;
         Token otherlv_5=null;
@@ -2850,22 +3030,22 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1139:28: ( ( ( (lv_Requirement_0_0= ruleORing ) ) otherlv_1= '->' ( (lv_Result_2_0= ruleORing ) ) otherlv_3= ',' ( (lv_Cost_4_0= RULE_INT ) ) otherlv_5= ',' ( (lv_Description_6_0= RULE_STRING ) ) (otherlv_7= ',' ( (lv_PseudoCode_8_0= RULE_STRING ) ) )? ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1140:1: ( ( (lv_Requirement_0_0= ruleORing ) ) otherlv_1= '->' ( (lv_Result_2_0= ruleORing ) ) otherlv_3= ',' ( (lv_Cost_4_0= RULE_INT ) ) otherlv_5= ',' ( (lv_Description_6_0= RULE_STRING ) ) (otherlv_7= ',' ( (lv_PseudoCode_8_0= RULE_STRING ) ) )? )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1203:28: ( ( ( (lv_Requirement_0_0= ruleORing ) ) ( ( (lv_Implication_1_1= '->' | lv_Implication_1_2= '<-' | lv_Implication_1_3= '<->' ) ) ) ( (lv_Result_2_0= ruleORing ) ) otherlv_3= ',' ( (lv_Cost_4_0= RULE_INT ) ) otherlv_5= ',' ( (lv_Description_6_0= RULE_STRING ) ) (otherlv_7= ',' ( (lv_PseudoCode_8_0= RULE_STRING ) ) )? ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1204:1: ( ( (lv_Requirement_0_0= ruleORing ) ) ( ( (lv_Implication_1_1= '->' | lv_Implication_1_2= '<-' | lv_Implication_1_3= '<->' ) ) ) ( (lv_Result_2_0= ruleORing ) ) otherlv_3= ',' ( (lv_Cost_4_0= RULE_INT ) ) otherlv_5= ',' ( (lv_Description_6_0= RULE_STRING ) ) (otherlv_7= ',' ( (lv_PseudoCode_8_0= RULE_STRING ) ) )? )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1140:1: ( ( (lv_Requirement_0_0= ruleORing ) ) otherlv_1= '->' ( (lv_Result_2_0= ruleORing ) ) otherlv_3= ',' ( (lv_Cost_4_0= RULE_INT ) ) otherlv_5= ',' ( (lv_Description_6_0= RULE_STRING ) ) (otherlv_7= ',' ( (lv_PseudoCode_8_0= RULE_STRING ) ) )? )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1140:2: ( (lv_Requirement_0_0= ruleORing ) ) otherlv_1= '->' ( (lv_Result_2_0= ruleORing ) ) otherlv_3= ',' ( (lv_Cost_4_0= RULE_INT ) ) otherlv_5= ',' ( (lv_Description_6_0= RULE_STRING ) ) (otherlv_7= ',' ( (lv_PseudoCode_8_0= RULE_STRING ) ) )?
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1204:1: ( ( (lv_Requirement_0_0= ruleORing ) ) ( ( (lv_Implication_1_1= '->' | lv_Implication_1_2= '<-' | lv_Implication_1_3= '<->' ) ) ) ( (lv_Result_2_0= ruleORing ) ) otherlv_3= ',' ( (lv_Cost_4_0= RULE_INT ) ) otherlv_5= ',' ( (lv_Description_6_0= RULE_STRING ) ) (otherlv_7= ',' ( (lv_PseudoCode_8_0= RULE_STRING ) ) )? )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1204:2: ( (lv_Requirement_0_0= ruleORing ) ) ( ( (lv_Implication_1_1= '->' | lv_Implication_1_2= '<-' | lv_Implication_1_3= '<->' ) ) ) ( (lv_Result_2_0= ruleORing ) ) otherlv_3= ',' ( (lv_Cost_4_0= RULE_INT ) ) otherlv_5= ',' ( (lv_Description_6_0= RULE_STRING ) ) (otherlv_7= ',' ( (lv_PseudoCode_8_0= RULE_STRING ) ) )?
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1140:2: ( (lv_Requirement_0_0= ruleORing ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1141:1: (lv_Requirement_0_0= ruleORing )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1204:2: ( (lv_Requirement_0_0= ruleORing ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1205:1: (lv_Requirement_0_0= ruleORing )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1141:1: (lv_Requirement_0_0= ruleORing )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1142:3: lv_Requirement_0_0= ruleORing
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1205:1: (lv_Requirement_0_0= ruleORing )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1206:3: lv_Requirement_0_0= ruleORing
             {
              
             	        newCompositeNode(grammarAccess.getTheoremAccess().getRequirementORingParserRuleCall_0_0()); 
             	    
-            pushFollow(FOLLOW_ruleORing_in_ruleTheorem2539);
+            pushFollow(FOLLOW_ruleORing_in_ruleTheorem2620);
             lv_Requirement_0_0=ruleORing();
 
             state._fsp--;
@@ -2887,20 +3067,105 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,33,FOLLOW_33_in_ruleTheorem2551); 
-
-                	newLeafNode(otherlv_1, grammarAccess.getTheoremAccess().getHyphenMinusGreaterThanSignKeyword_1());
-                
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1162:1: ( (lv_Result_2_0= ruleORing ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1163:1: (lv_Result_2_0= ruleORing )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1222:2: ( ( (lv_Implication_1_1= '->' | lv_Implication_1_2= '<-' | lv_Implication_1_3= '<->' ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1223:1: ( (lv_Implication_1_1= '->' | lv_Implication_1_2= '<-' | lv_Implication_1_3= '<->' ) )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1163:1: (lv_Result_2_0= ruleORing )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1164:3: lv_Result_2_0= ruleORing
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1223:1: ( (lv_Implication_1_1= '->' | lv_Implication_1_2= '<-' | lv_Implication_1_3= '<->' ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1224:1: (lv_Implication_1_1= '->' | lv_Implication_1_2= '<-' | lv_Implication_1_3= '<->' )
+            {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1224:1: (lv_Implication_1_1= '->' | lv_Implication_1_2= '<-' | lv_Implication_1_3= '<->' )
+            int alt21=3;
+            switch ( input.LA(1) ) {
+            case 32:
+                {
+                alt21=1;
+                }
+                break;
+            case 33:
+                {
+                alt21=2;
+                }
+                break;
+            case 34:
+                {
+                alt21=3;
+                }
+                break;
+            default:
+                NoViableAltException nvae =
+                    new NoViableAltException("", 21, 0, input);
+
+                throw nvae;
+            }
+
+            switch (alt21) {
+                case 1 :
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1225:3: lv_Implication_1_1= '->'
+                    {
+                    lv_Implication_1_1=(Token)match(input,32,FOLLOW_32_in_ruleTheorem2640); 
+
+                            newLeafNode(lv_Implication_1_1, grammarAccess.getTheoremAccess().getImplicationHyphenMinusGreaterThanSignKeyword_1_0_0());
+                        
+
+                    	        if (current==null) {
+                    	            current = createModelElement(grammarAccess.getTheoremRule());
+                    	        }
+                           		setWithLastConsumed(current, "Implication", lv_Implication_1_1, null);
+                    	    
+
+                    }
+                    break;
+                case 2 :
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1237:8: lv_Implication_1_2= '<-'
+                    {
+                    lv_Implication_1_2=(Token)match(input,33,FOLLOW_33_in_ruleTheorem2669); 
+
+                            newLeafNode(lv_Implication_1_2, grammarAccess.getTheoremAccess().getImplicationLessThanSignHyphenMinusKeyword_1_0_1());
+                        
+
+                    	        if (current==null) {
+                    	            current = createModelElement(grammarAccess.getTheoremRule());
+                    	        }
+                           		setWithLastConsumed(current, "Implication", lv_Implication_1_2, null);
+                    	    
+
+                    }
+                    break;
+                case 3 :
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1249:8: lv_Implication_1_3= '<->'
+                    {
+                    lv_Implication_1_3=(Token)match(input,34,FOLLOW_34_in_ruleTheorem2698); 
+
+                            newLeafNode(lv_Implication_1_3, grammarAccess.getTheoremAccess().getImplicationLessThanSignHyphenMinusGreaterThanSignKeyword_1_0_2());
+                        
+
+                    	        if (current==null) {
+                    	            current = createModelElement(grammarAccess.getTheoremRule());
+                    	        }
+                           		setWithLastConsumed(current, "Implication", lv_Implication_1_3, null);
+                    	    
+
+                    }
+                    break;
+
+            }
+
+
+            }
+
+
+            }
+
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1264:2: ( (lv_Result_2_0= ruleORing ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1265:1: (lv_Result_2_0= ruleORing )
+            {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1265:1: (lv_Result_2_0= ruleORing )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1266:3: lv_Result_2_0= ruleORing
             {
              
             	        newCompositeNode(grammarAccess.getTheoremAccess().getResultORingParserRuleCall_2_0()); 
             	    
-            pushFollow(FOLLOW_ruleORing_in_ruleTheorem2572);
+            pushFollow(FOLLOW_ruleORing_in_ruleTheorem2735);
             lv_Result_2_0=ruleORing();
 
             state._fsp--;
@@ -2922,17 +3187,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,19,FOLLOW_19_in_ruleTheorem2584); 
+            otherlv_3=(Token)match(input,16,FOLLOW_16_in_ruleTheorem2747); 
 
                 	newLeafNode(otherlv_3, grammarAccess.getTheoremAccess().getCommaKeyword_3());
                 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1184:1: ( (lv_Cost_4_0= RULE_INT ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1185:1: (lv_Cost_4_0= RULE_INT )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1286:1: ( (lv_Cost_4_0= RULE_INT ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1287:1: (lv_Cost_4_0= RULE_INT )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1185:1: (lv_Cost_4_0= RULE_INT )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1186:3: lv_Cost_4_0= RULE_INT
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1287:1: (lv_Cost_4_0= RULE_INT )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1288:3: lv_Cost_4_0= RULE_INT
             {
-            lv_Cost_4_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleTheorem2601); 
+            lv_Cost_4_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleTheorem2764); 
 
             			newLeafNode(lv_Cost_4_0, grammarAccess.getTheoremAccess().getCostINTTerminalRuleCall_4_0()); 
             		
@@ -2952,17 +3217,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_5=(Token)match(input,19,FOLLOW_19_in_ruleTheorem2618); 
+            otherlv_5=(Token)match(input,16,FOLLOW_16_in_ruleTheorem2781); 
 
                 	newLeafNode(otherlv_5, grammarAccess.getTheoremAccess().getCommaKeyword_5());
                 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1206:1: ( (lv_Description_6_0= RULE_STRING ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1207:1: (lv_Description_6_0= RULE_STRING )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1308:1: ( (lv_Description_6_0= RULE_STRING ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1309:1: (lv_Description_6_0= RULE_STRING )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1207:1: (lv_Description_6_0= RULE_STRING )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1208:3: lv_Description_6_0= RULE_STRING
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1309:1: (lv_Description_6_0= RULE_STRING )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1310:3: lv_Description_6_0= RULE_STRING
             {
-            lv_Description_6_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleTheorem2635); 
+            lv_Description_6_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleTheorem2798); 
 
             			newLeafNode(lv_Description_6_0, grammarAccess.getTheoremAccess().getDescriptionSTRINGTerminalRuleCall_6_0()); 
             		
@@ -2982,28 +3247,28 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1224:2: (otherlv_7= ',' ( (lv_PseudoCode_8_0= RULE_STRING ) ) )?
-            int alt18=2;
-            int LA18_0 = input.LA(1);
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1326:2: (otherlv_7= ',' ( (lv_PseudoCode_8_0= RULE_STRING ) ) )?
+            int alt22=2;
+            int LA22_0 = input.LA(1);
 
-            if ( (LA18_0==19) ) {
-                alt18=1;
+            if ( (LA22_0==16) ) {
+                alt22=1;
             }
-            switch (alt18) {
+            switch (alt22) {
                 case 1 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1224:4: otherlv_7= ',' ( (lv_PseudoCode_8_0= RULE_STRING ) )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1326:4: otherlv_7= ',' ( (lv_PseudoCode_8_0= RULE_STRING ) )
                     {
-                    otherlv_7=(Token)match(input,19,FOLLOW_19_in_ruleTheorem2653); 
+                    otherlv_7=(Token)match(input,16,FOLLOW_16_in_ruleTheorem2816); 
 
                         	newLeafNode(otherlv_7, grammarAccess.getTheoremAccess().getCommaKeyword_7_0());
                         
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1228:1: ( (lv_PseudoCode_8_0= RULE_STRING ) )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1229:1: (lv_PseudoCode_8_0= RULE_STRING )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1330:1: ( (lv_PseudoCode_8_0= RULE_STRING ) )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1331:1: (lv_PseudoCode_8_0= RULE_STRING )
                     {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1229:1: (lv_PseudoCode_8_0= RULE_STRING )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1230:3: lv_PseudoCode_8_0= RULE_STRING
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1331:1: (lv_PseudoCode_8_0= RULE_STRING )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1332:3: lv_PseudoCode_8_0= RULE_STRING
                     {
-                    lv_PseudoCode_8_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleTheorem2670); 
+                    lv_PseudoCode_8_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleTheorem2833); 
 
                     			newLeafNode(lv_PseudoCode_8_0, grammarAccess.getTheoremAccess().getPseudoCodeSTRINGTerminalRuleCall_7_1_0()); 
                     		
@@ -3049,26 +3314,26 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
     // $ANTLR end "ruleTheorem"
 
 
-    // $ANTLR start "entryRuleAddition"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1254:1: entryRuleAddition returns [EObject current=null] : iv_ruleAddition= ruleAddition EOF ;
-    public final EObject entryRuleAddition() throws RecognitionException {
+    // $ANTLR start "entryRuleSugarAddition"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1356:1: entryRuleSugarAddition returns [EObject current=null] : iv_ruleSugarAddition= ruleSugarAddition EOF ;
+    public final EObject entryRuleSugarAddition() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleAddition = null;
+        EObject iv_ruleSugarAddition = null;
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1255:2: (iv_ruleAddition= ruleAddition EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1256:2: iv_ruleAddition= ruleAddition EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1357:2: (iv_ruleSugarAddition= ruleSugarAddition EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1358:2: iv_ruleSugarAddition= ruleSugarAddition EOF
             {
-             newCompositeNode(grammarAccess.getAdditionRule()); 
-            pushFollow(FOLLOW_ruleAddition_in_entryRuleAddition2713);
-            iv_ruleAddition=ruleAddition();
+             newCompositeNode(grammarAccess.getSugarAdditionRule()); 
+            pushFollow(FOLLOW_ruleSugarAddition_in_entryRuleSugarAddition2876);
+            iv_ruleSugarAddition=ruleSugarAddition();
 
             state._fsp--;
 
-             current =iv_ruleAddition; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleAddition2723); 
+             current =iv_ruleSugarAddition; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleSugarAddition2886); 
 
             }
 
@@ -3082,17 +3347,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleAddition"
+    // $ANTLR end "entryRuleSugarAddition"
 
 
-    // $ANTLR start "ruleAddition"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1263:1: ruleAddition returns [EObject current=null] : (this_Multiplication_0= ruleMultiplication ( () ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) ) ( (lv_right_3_0= ruleMultiplication ) ) )* ) ;
-    public final EObject ruleAddition() throws RecognitionException {
+    // $ANTLR start "ruleSugarAddition"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1365:1: ruleSugarAddition returns [EObject current=null] : (this_SugarMultiplication_0= ruleSugarMultiplication ( () ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) ) ( (lv_right_3_0= ruleSugarMultiplication ) ) )* ) ;
+    public final EObject ruleSugarAddition() throws RecognitionException {
         EObject current = null;
 
         Token lv_symbol_2_1=null;
         Token lv_symbol_2_2=null;
-        EObject this_Multiplication_0 = null;
+        EObject this_SugarMultiplication_0 = null;
 
         EObject lv_right_3_0 = null;
 
@@ -3100,83 +3365,83 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1266:28: ( (this_Multiplication_0= ruleMultiplication ( () ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) ) ( (lv_right_3_0= ruleMultiplication ) ) )* ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1267:1: (this_Multiplication_0= ruleMultiplication ( () ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) ) ( (lv_right_3_0= ruleMultiplication ) ) )* )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1368:28: ( (this_SugarMultiplication_0= ruleSugarMultiplication ( () ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) ) ( (lv_right_3_0= ruleSugarMultiplication ) ) )* ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1369:1: (this_SugarMultiplication_0= ruleSugarMultiplication ( () ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) ) ( (lv_right_3_0= ruleSugarMultiplication ) ) )* )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1267:1: (this_Multiplication_0= ruleMultiplication ( () ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) ) ( (lv_right_3_0= ruleMultiplication ) ) )* )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1268:5: this_Multiplication_0= ruleMultiplication ( () ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) ) ( (lv_right_3_0= ruleMultiplication ) ) )*
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1369:1: (this_SugarMultiplication_0= ruleSugarMultiplication ( () ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) ) ( (lv_right_3_0= ruleSugarMultiplication ) ) )* )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1370:5: this_SugarMultiplication_0= ruleSugarMultiplication ( () ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) ) ( (lv_right_3_0= ruleSugarMultiplication ) ) )*
             {
              
-                    newCompositeNode(grammarAccess.getAdditionAccess().getMultiplicationParserRuleCall_0()); 
+                    newCompositeNode(grammarAccess.getSugarAdditionAccess().getSugarMultiplicationParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleMultiplication_in_ruleAddition2770);
-            this_Multiplication_0=ruleMultiplication();
+            pushFollow(FOLLOW_ruleSugarMultiplication_in_ruleSugarAddition2933);
+            this_SugarMultiplication_0=ruleSugarMultiplication();
 
             state._fsp--;
 
              
-                    current = this_Multiplication_0; 
+                    current = this_SugarMultiplication_0; 
                     afterParserOrEnumRuleCall();
                 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1276:1: ( () ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) ) ( (lv_right_3_0= ruleMultiplication ) ) )*
-            loop20:
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1378:1: ( () ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) ) ( (lv_right_3_0= ruleSugarMultiplication ) ) )*
+            loop24:
             do {
-                int alt20=2;
-                int LA20_0 = input.LA(1);
+                int alt24=2;
+                int LA24_0 = input.LA(1);
 
-                if ( ((LA20_0>=34 && LA20_0<=35)) ) {
-                    alt20=1;
+                if ( ((LA24_0>=35 && LA24_0<=36)) ) {
+                    alt24=1;
                 }
 
 
-                switch (alt20) {
+                switch (alt24) {
             	case 1 :
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1276:2: () ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) ) ( (lv_right_3_0= ruleMultiplication ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1378:2: () ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) ) ( (lv_right_3_0= ruleSugarMultiplication ) )
             	    {
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1276:2: ()
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1277:5: 
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1378:2: ()
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1379:5: 
             	    {
 
             	            current = forceCreateModelElementAndSet(
-            	                grammarAccess.getAdditionAccess().getAdditionLeftAction_1_0(),
+            	                grammarAccess.getSugarAdditionAccess().getSugarAdditionLeftAction_1_0(),
             	                current);
             	        
 
             	    }
 
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1282:2: ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) )
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1283:1: ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1384:2: ( ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1385:1: ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) )
             	    {
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1283:1: ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) )
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1284:1: (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1385:1: ( (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1386:1: (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' )
             	    {
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1284:1: (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' )
-            	    int alt19=2;
-            	    int LA19_0 = input.LA(1);
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1386:1: (lv_symbol_2_1= '+' | lv_symbol_2_2= '-' )
+            	    int alt23=2;
+            	    int LA23_0 = input.LA(1);
 
-            	    if ( (LA19_0==34) ) {
-            	        alt19=1;
+            	    if ( (LA23_0==35) ) {
+            	        alt23=1;
             	    }
-            	    else if ( (LA19_0==35) ) {
-            	        alt19=2;
+            	    else if ( (LA23_0==36) ) {
+            	        alt23=2;
             	    }
             	    else {
             	        NoViableAltException nvae =
-            	            new NoViableAltException("", 19, 0, input);
+            	            new NoViableAltException("", 23, 0, input);
 
             	        throw nvae;
             	    }
-            	    switch (alt19) {
+            	    switch (alt23) {
             	        case 1 :
-            	            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1285:3: lv_symbol_2_1= '+'
+            	            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1387:3: lv_symbol_2_1= '+'
             	            {
-            	            lv_symbol_2_1=(Token)match(input,34,FOLLOW_34_in_ruleAddition2799); 
+            	            lv_symbol_2_1=(Token)match(input,35,FOLLOW_35_in_ruleSugarAddition2962); 
 
-            	                    newLeafNode(lv_symbol_2_1, grammarAccess.getAdditionAccess().getSymbolPlusSignKeyword_1_1_0_0());
+            	                    newLeafNode(lv_symbol_2_1, grammarAccess.getSugarAdditionAccess().getSymbolPlusSignKeyword_1_1_0_0());
             	                
 
             	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAdditionRule());
+            	            	            current = createModelElement(grammarAccess.getSugarAdditionRule());
             	            	        }
             	                   		setWithLastConsumed(current, "symbol", lv_symbol_2_1, null);
             	            	    
@@ -3184,15 +3449,15 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
             	            }
             	            break;
             	        case 2 :
-            	            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1297:8: lv_symbol_2_2= '-'
+            	            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1399:8: lv_symbol_2_2= '-'
             	            {
-            	            lv_symbol_2_2=(Token)match(input,35,FOLLOW_35_in_ruleAddition2828); 
+            	            lv_symbol_2_2=(Token)match(input,36,FOLLOW_36_in_ruleSugarAddition2991); 
 
-            	                    newLeafNode(lv_symbol_2_2, grammarAccess.getAdditionAccess().getSymbolHyphenMinusKeyword_1_1_0_1());
+            	                    newLeafNode(lv_symbol_2_2, grammarAccess.getSugarAdditionAccess().getSymbolHyphenMinusKeyword_1_1_0_1());
             	                
 
             	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getAdditionRule());
+            	            	            current = createModelElement(grammarAccess.getSugarAdditionRule());
             	            	        }
             	                   		setWithLastConsumed(current, "symbol", lv_symbol_2_2, null);
             	            	    
@@ -3208,29 +3473,29 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1312:2: ( (lv_right_3_0= ruleMultiplication ) )
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1313:1: (lv_right_3_0= ruleMultiplication )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1414:2: ( (lv_right_3_0= ruleSugarMultiplication ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1415:1: (lv_right_3_0= ruleSugarMultiplication )
             	    {
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1313:1: (lv_right_3_0= ruleMultiplication )
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1314:3: lv_right_3_0= ruleMultiplication
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1415:1: (lv_right_3_0= ruleSugarMultiplication )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1416:3: lv_right_3_0= ruleSugarMultiplication
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getAdditionAccess().getRightMultiplicationParserRuleCall_1_2_0()); 
+            	    	        newCompositeNode(grammarAccess.getSugarAdditionAccess().getRightSugarMultiplicationParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleMultiplication_in_ruleAddition2865);
-            	    lv_right_3_0=ruleMultiplication();
+            	    pushFollow(FOLLOW_ruleSugarMultiplication_in_ruleSugarAddition3028);
+            	    lv_right_3_0=ruleSugarMultiplication();
 
             	    state._fsp--;
 
 
             	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getAdditionRule());
+            	    	            current = createModelElementForParent(grammarAccess.getSugarAdditionRule());
             	    	        }
             	           		set(
             	           			current, 
             	           			"right",
             	            		lv_right_3_0, 
-            	            		"Multiplication");
+            	            		"SugarMultiplication");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -3244,7 +3509,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop20;
+            	    break loop24;
                 }
             } while (true);
 
@@ -3265,29 +3530,29 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleAddition"
+    // $ANTLR end "ruleSugarAddition"
 
 
-    // $ANTLR start "entryRuleMultiplication"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1338:1: entryRuleMultiplication returns [EObject current=null] : iv_ruleMultiplication= ruleMultiplication EOF ;
-    public final EObject entryRuleMultiplication() throws RecognitionException {
+    // $ANTLR start "entryRuleSugarMultiplication"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1440:1: entryRuleSugarMultiplication returns [EObject current=null] : iv_ruleSugarMultiplication= ruleSugarMultiplication EOF ;
+    public final EObject entryRuleSugarMultiplication() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleMultiplication = null;
+        EObject iv_ruleSugarMultiplication = null;
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1339:2: (iv_ruleMultiplication= ruleMultiplication EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1340:2: iv_ruleMultiplication= ruleMultiplication EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1441:2: (iv_ruleSugarMultiplication= ruleSugarMultiplication EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1442:2: iv_ruleSugarMultiplication= ruleSugarMultiplication EOF
             {
-             newCompositeNode(grammarAccess.getMultiplicationRule()); 
-            pushFollow(FOLLOW_ruleMultiplication_in_entryRuleMultiplication2903);
-            iv_ruleMultiplication=ruleMultiplication();
+             newCompositeNode(grammarAccess.getSugarMultiplicationRule()); 
+            pushFollow(FOLLOW_ruleSugarMultiplication_in_entryRuleSugarMultiplication3066);
+            iv_ruleSugarMultiplication=ruleSugarMultiplication();
 
             state._fsp--;
 
-             current =iv_ruleMultiplication; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleMultiplication2913); 
+             current =iv_ruleSugarMultiplication; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleSugarMultiplication3076); 
 
             }
 
@@ -3301,17 +3566,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleMultiplication"
+    // $ANTLR end "entryRuleSugarMultiplication"
 
 
-    // $ANTLR start "ruleMultiplication"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1347:1: ruleMultiplication returns [EObject current=null] : (this_NumericalPrimary_0= ruleNumericalPrimary ( () ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) ) ( (lv_right_3_0= ruleNumericalPrimary ) ) )* ) ;
-    public final EObject ruleMultiplication() throws RecognitionException {
+    // $ANTLR start "ruleSugarMultiplication"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1449:1: ruleSugarMultiplication returns [EObject current=null] : (this_SugarNumericalPrimary_0= ruleSugarNumericalPrimary ( () ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) ) ( (lv_right_3_0= ruleSugarNumericalPrimary ) ) )* ) ;
+    public final EObject ruleSugarMultiplication() throws RecognitionException {
         EObject current = null;
 
         Token lv_symbol_2_1=null;
         Token lv_symbol_2_2=null;
-        EObject this_NumericalPrimary_0 = null;
+        EObject this_SugarNumericalPrimary_0 = null;
 
         EObject lv_right_3_0 = null;
 
@@ -3319,83 +3584,83 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1350:28: ( (this_NumericalPrimary_0= ruleNumericalPrimary ( () ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) ) ( (lv_right_3_0= ruleNumericalPrimary ) ) )* ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1351:1: (this_NumericalPrimary_0= ruleNumericalPrimary ( () ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) ) ( (lv_right_3_0= ruleNumericalPrimary ) ) )* )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1452:28: ( (this_SugarNumericalPrimary_0= ruleSugarNumericalPrimary ( () ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) ) ( (lv_right_3_0= ruleSugarNumericalPrimary ) ) )* ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1453:1: (this_SugarNumericalPrimary_0= ruleSugarNumericalPrimary ( () ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) ) ( (lv_right_3_0= ruleSugarNumericalPrimary ) ) )* )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1351:1: (this_NumericalPrimary_0= ruleNumericalPrimary ( () ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) ) ( (lv_right_3_0= ruleNumericalPrimary ) ) )* )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1352:5: this_NumericalPrimary_0= ruleNumericalPrimary ( () ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) ) ( (lv_right_3_0= ruleNumericalPrimary ) ) )*
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1453:1: (this_SugarNumericalPrimary_0= ruleSugarNumericalPrimary ( () ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) ) ( (lv_right_3_0= ruleSugarNumericalPrimary ) ) )* )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1454:5: this_SugarNumericalPrimary_0= ruleSugarNumericalPrimary ( () ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) ) ( (lv_right_3_0= ruleSugarNumericalPrimary ) ) )*
             {
              
-                    newCompositeNode(grammarAccess.getMultiplicationAccess().getNumericalPrimaryParserRuleCall_0()); 
+                    newCompositeNode(grammarAccess.getSugarMultiplicationAccess().getSugarNumericalPrimaryParserRuleCall_0()); 
                 
-            pushFollow(FOLLOW_ruleNumericalPrimary_in_ruleMultiplication2960);
-            this_NumericalPrimary_0=ruleNumericalPrimary();
+            pushFollow(FOLLOW_ruleSugarNumericalPrimary_in_ruleSugarMultiplication3123);
+            this_SugarNumericalPrimary_0=ruleSugarNumericalPrimary();
 
             state._fsp--;
 
              
-                    current = this_NumericalPrimary_0; 
+                    current = this_SugarNumericalPrimary_0; 
                     afterParserOrEnumRuleCall();
                 
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1360:1: ( () ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) ) ( (lv_right_3_0= ruleNumericalPrimary ) ) )*
-            loop22:
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1462:1: ( () ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) ) ( (lv_right_3_0= ruleSugarNumericalPrimary ) ) )*
+            loop26:
             do {
-                int alt22=2;
-                int LA22_0 = input.LA(1);
+                int alt26=2;
+                int LA26_0 = input.LA(1);
 
-                if ( ((LA22_0>=36 && LA22_0<=37)) ) {
-                    alt22=1;
+                if ( ((LA26_0>=37 && LA26_0<=38)) ) {
+                    alt26=1;
                 }
 
 
-                switch (alt22) {
+                switch (alt26) {
             	case 1 :
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1360:2: () ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) ) ( (lv_right_3_0= ruleNumericalPrimary ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1462:2: () ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) ) ( (lv_right_3_0= ruleSugarNumericalPrimary ) )
             	    {
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1360:2: ()
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1361:5: 
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1462:2: ()
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1463:5: 
             	    {
 
             	            current = forceCreateModelElementAndSet(
-            	                grammarAccess.getMultiplicationAccess().getMultiplicationLeftAction_1_0(),
+            	                grammarAccess.getSugarMultiplicationAccess().getSugarMultiplicationLeftAction_1_0(),
             	                current);
             	        
 
             	    }
 
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1366:2: ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) )
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1367:1: ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1468:2: ( ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1469:1: ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) )
             	    {
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1367:1: ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) )
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1368:1: (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1469:1: ( (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1470:1: (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' )
             	    {
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1368:1: (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' )
-            	    int alt21=2;
-            	    int LA21_0 = input.LA(1);
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1470:1: (lv_symbol_2_1= '*' | lv_symbol_2_2= '/' )
+            	    int alt25=2;
+            	    int LA25_0 = input.LA(1);
 
-            	    if ( (LA21_0==36) ) {
-            	        alt21=1;
+            	    if ( (LA25_0==37) ) {
+            	        alt25=1;
             	    }
-            	    else if ( (LA21_0==37) ) {
-            	        alt21=2;
+            	    else if ( (LA25_0==38) ) {
+            	        alt25=2;
             	    }
             	    else {
             	        NoViableAltException nvae =
-            	            new NoViableAltException("", 21, 0, input);
+            	            new NoViableAltException("", 25, 0, input);
 
             	        throw nvae;
             	    }
-            	    switch (alt21) {
+            	    switch (alt25) {
             	        case 1 :
-            	            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1369:3: lv_symbol_2_1= '*'
+            	            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1471:3: lv_symbol_2_1= '*'
             	            {
-            	            lv_symbol_2_1=(Token)match(input,36,FOLLOW_36_in_ruleMultiplication2989); 
+            	            lv_symbol_2_1=(Token)match(input,37,FOLLOW_37_in_ruleSugarMultiplication3152); 
 
-            	                    newLeafNode(lv_symbol_2_1, grammarAccess.getMultiplicationAccess().getSymbolAsteriskKeyword_1_1_0_0());
+            	                    newLeafNode(lv_symbol_2_1, grammarAccess.getSugarMultiplicationAccess().getSymbolAsteriskKeyword_1_1_0_0());
             	                
 
             	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getMultiplicationRule());
+            	            	            current = createModelElement(grammarAccess.getSugarMultiplicationRule());
             	            	        }
             	                   		setWithLastConsumed(current, "symbol", lv_symbol_2_1, null);
             	            	    
@@ -3403,15 +3668,15 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
             	            }
             	            break;
             	        case 2 :
-            	            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1381:8: lv_symbol_2_2= '/'
+            	            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1483:8: lv_symbol_2_2= '/'
             	            {
-            	            lv_symbol_2_2=(Token)match(input,37,FOLLOW_37_in_ruleMultiplication3018); 
+            	            lv_symbol_2_2=(Token)match(input,38,FOLLOW_38_in_ruleSugarMultiplication3181); 
 
-            	                    newLeafNode(lv_symbol_2_2, grammarAccess.getMultiplicationAccess().getSymbolSolidusKeyword_1_1_0_1());
+            	                    newLeafNode(lv_symbol_2_2, grammarAccess.getSugarMultiplicationAccess().getSymbolSolidusKeyword_1_1_0_1());
             	                
 
             	            	        if (current==null) {
-            	            	            current = createModelElement(grammarAccess.getMultiplicationRule());
+            	            	            current = createModelElement(grammarAccess.getSugarMultiplicationRule());
             	            	        }
             	                   		setWithLastConsumed(current, "symbol", lv_symbol_2_2, null);
             	            	    
@@ -3427,29 +3692,29 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1396:2: ( (lv_right_3_0= ruleNumericalPrimary ) )
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1397:1: (lv_right_3_0= ruleNumericalPrimary )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1498:2: ( (lv_right_3_0= ruleSugarNumericalPrimary ) )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1499:1: (lv_right_3_0= ruleSugarNumericalPrimary )
             	    {
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1397:1: (lv_right_3_0= ruleNumericalPrimary )
-            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1398:3: lv_right_3_0= ruleNumericalPrimary
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1499:1: (lv_right_3_0= ruleSugarNumericalPrimary )
+            	    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1500:3: lv_right_3_0= ruleSugarNumericalPrimary
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getMultiplicationAccess().getRightNumericalPrimaryParserRuleCall_1_2_0()); 
+            	    	        newCompositeNode(grammarAccess.getSugarMultiplicationAccess().getRightSugarNumericalPrimaryParserRuleCall_1_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleNumericalPrimary_in_ruleMultiplication3055);
-            	    lv_right_3_0=ruleNumericalPrimary();
+            	    pushFollow(FOLLOW_ruleSugarNumericalPrimary_in_ruleSugarMultiplication3218);
+            	    lv_right_3_0=ruleSugarNumericalPrimary();
 
             	    state._fsp--;
 
 
             	    	        if (current==null) {
-            	    	            current = createModelElementForParent(grammarAccess.getMultiplicationRule());
+            	    	            current = createModelElementForParent(grammarAccess.getSugarMultiplicationRule());
             	    	        }
             	           		set(
             	           			current, 
             	           			"right",
             	            		lv_right_3_0, 
-            	            		"NumericalPrimary");
+            	            		"SugarNumericalPrimary");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -3463,7 +3728,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop22;
+            	    break loop26;
                 }
             } while (true);
 
@@ -3484,29 +3749,29 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleMultiplication"
+    // $ANTLR end "ruleSugarMultiplication"
 
 
-    // $ANTLR start "entryRuleNumericalPrimary"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1422:1: entryRuleNumericalPrimary returns [EObject current=null] : iv_ruleNumericalPrimary= ruleNumericalPrimary EOF ;
-    public final EObject entryRuleNumericalPrimary() throws RecognitionException {
+    // $ANTLR start "entryRuleSugarNumericalPrimary"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1524:1: entryRuleSugarNumericalPrimary returns [EObject current=null] : iv_ruleSugarNumericalPrimary= ruleSugarNumericalPrimary EOF ;
+    public final EObject entryRuleSugarNumericalPrimary() throws RecognitionException {
         EObject current = null;
 
-        EObject iv_ruleNumericalPrimary = null;
+        EObject iv_ruleSugarNumericalPrimary = null;
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1423:2: (iv_ruleNumericalPrimary= ruleNumericalPrimary EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1424:2: iv_ruleNumericalPrimary= ruleNumericalPrimary EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1525:2: (iv_ruleSugarNumericalPrimary= ruleSugarNumericalPrimary EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1526:2: iv_ruleSugarNumericalPrimary= ruleSugarNumericalPrimary EOF
             {
-             newCompositeNode(grammarAccess.getNumericalPrimaryRule()); 
-            pushFollow(FOLLOW_ruleNumericalPrimary_in_entryRuleNumericalPrimary3093);
-            iv_ruleNumericalPrimary=ruleNumericalPrimary();
+             newCompositeNode(grammarAccess.getSugarNumericalPrimaryRule()); 
+            pushFollow(FOLLOW_ruleSugarNumericalPrimary_in_entryRuleSugarNumericalPrimary3256);
+            iv_ruleSugarNumericalPrimary=ruleSugarNumericalPrimary();
 
             state._fsp--;
 
-             current =iv_ruleNumericalPrimary; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleNumericalPrimary3103); 
+             current =iv_ruleSugarNumericalPrimary; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleSugarNumericalPrimary3266); 
 
             }
 
@@ -3520,77 +3785,77 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "entryRuleNumericalPrimary"
+    // $ANTLR end "entryRuleSugarNumericalPrimary"
 
 
-    // $ANTLR start "ruleNumericalPrimary"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1431:1: ruleNumericalPrimary returns [EObject current=null] : (this_NumberLiteral_0= ruleNumberLiteral | this_Atomic_1= ruleAtomic | (otherlv_2= '(' this_NumericalPrimary_3= ruleNumericalPrimary otherlv_4= ')' ) | this_Variable_5= ruleVariable ) ;
-    public final EObject ruleNumericalPrimary() throws RecognitionException {
+    // $ANTLR start "ruleSugarNumericalPrimary"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1533:1: ruleSugarNumericalPrimary returns [EObject current=null] : (this_NumberLiteral_0= ruleNumberLiteral | this_SugarAtomic_1= ruleSugarAtomic | (otherlv_2= '(' this_SugarNumericalPrimary_3= ruleSugarNumericalPrimary otherlv_4= ')' ) | this_SugarVariable_5= ruleSugarVariable ) ;
+    public final EObject ruleSugarNumericalPrimary() throws RecognitionException {
         EObject current = null;
 
         Token otherlv_2=null;
         Token otherlv_4=null;
         EObject this_NumberLiteral_0 = null;
 
-        EObject this_Atomic_1 = null;
+        EObject this_SugarAtomic_1 = null;
 
-        EObject this_NumericalPrimary_3 = null;
+        EObject this_SugarNumericalPrimary_3 = null;
 
-        EObject this_Variable_5 = null;
+        EObject this_SugarVariable_5 = null;
 
 
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1434:28: ( (this_NumberLiteral_0= ruleNumberLiteral | this_Atomic_1= ruleAtomic | (otherlv_2= '(' this_NumericalPrimary_3= ruleNumericalPrimary otherlv_4= ')' ) | this_Variable_5= ruleVariable ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1435:1: (this_NumberLiteral_0= ruleNumberLiteral | this_Atomic_1= ruleAtomic | (otherlv_2= '(' this_NumericalPrimary_3= ruleNumericalPrimary otherlv_4= ')' ) | this_Variable_5= ruleVariable )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1536:28: ( (this_NumberLiteral_0= ruleNumberLiteral | this_SugarAtomic_1= ruleSugarAtomic | (otherlv_2= '(' this_SugarNumericalPrimary_3= ruleSugarNumericalPrimary otherlv_4= ')' ) | this_SugarVariable_5= ruleSugarVariable ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1537:1: (this_NumberLiteral_0= ruleNumberLiteral | this_SugarAtomic_1= ruleSugarAtomic | (otherlv_2= '(' this_SugarNumericalPrimary_3= ruleSugarNumericalPrimary otherlv_4= ')' ) | this_SugarVariable_5= ruleSugarVariable )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1435:1: (this_NumberLiteral_0= ruleNumberLiteral | this_Atomic_1= ruleAtomic | (otherlv_2= '(' this_NumericalPrimary_3= ruleNumericalPrimary otherlv_4= ')' ) | this_Variable_5= ruleVariable )
-            int alt23=4;
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1537:1: (this_NumberLiteral_0= ruleNumberLiteral | this_SugarAtomic_1= ruleSugarAtomic | (otherlv_2= '(' this_SugarNumericalPrimary_3= ruleSugarNumericalPrimary otherlv_4= ')' ) | this_SugarVariable_5= ruleSugarVariable )
+            int alt27=4;
             switch ( input.LA(1) ) {
             case RULE_INT:
                 {
-                alt23=1;
+                alt27=1;
                 }
                 break;
             case RULE_ID:
                 {
-                int LA23_2 = input.LA(2);
+                int LA27_2 = input.LA(2);
 
-                if ( (LA23_2==16) ) {
-                    alt23=2;
+                if ( (LA27_2==EOF||LA27_2==16||LA27_2==23||(LA27_2>=35 && LA27_2<=38)) ) {
+                    alt27=4;
                 }
-                else if ( (LA23_2==EOF||LA23_2==17||LA23_2==19||(LA23_2>=34 && LA23_2<=37)) ) {
-                    alt23=4;
+                else if ( (LA27_2==29) ) {
+                    alt27=2;
                 }
                 else {
                     NoViableAltException nvae =
-                        new NoViableAltException("", 23, 2, input);
+                        new NoViableAltException("", 27, 2, input);
 
                     throw nvae;
                 }
                 }
                 break;
-            case 16:
+            case 22:
                 {
-                alt23=3;
+                alt27=3;
                 }
                 break;
             default:
                 NoViableAltException nvae =
-                    new NoViableAltException("", 23, 0, input);
+                    new NoViableAltException("", 27, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt23) {
+            switch (alt27) {
                 case 1 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1436:5: this_NumberLiteral_0= ruleNumberLiteral
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1538:5: this_NumberLiteral_0= ruleNumberLiteral
                     {
                      
-                            newCompositeNode(grammarAccess.getNumericalPrimaryAccess().getNumberLiteralParserRuleCall_0()); 
+                            newCompositeNode(grammarAccess.getSugarNumericalPrimaryAccess().getNumberLiteralParserRuleCall_0()); 
                         
-                    pushFollow(FOLLOW_ruleNumberLiteral_in_ruleNumericalPrimary3150);
+                    pushFollow(FOLLOW_ruleNumberLiteral_in_ruleSugarNumericalPrimary3313);
                     this_NumberLiteral_0=ruleNumberLiteral();
 
                     state._fsp--;
@@ -3603,48 +3868,48 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1446:5: this_Atomic_1= ruleAtomic
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1548:5: this_SugarAtomic_1= ruleSugarAtomic
                     {
                      
-                            newCompositeNode(grammarAccess.getNumericalPrimaryAccess().getAtomicParserRuleCall_1()); 
+                            newCompositeNode(grammarAccess.getSugarNumericalPrimaryAccess().getSugarAtomicParserRuleCall_1()); 
                         
-                    pushFollow(FOLLOW_ruleAtomic_in_ruleNumericalPrimary3177);
-                    this_Atomic_1=ruleAtomic();
+                    pushFollow(FOLLOW_ruleSugarAtomic_in_ruleSugarNumericalPrimary3340);
+                    this_SugarAtomic_1=ruleSugarAtomic();
 
                     state._fsp--;
 
                      
-                            current = this_Atomic_1; 
+                            current = this_SugarAtomic_1; 
                             afterParserOrEnumRuleCall();
                         
 
                     }
                     break;
                 case 3 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1455:6: (otherlv_2= '(' this_NumericalPrimary_3= ruleNumericalPrimary otherlv_4= ')' )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1557:6: (otherlv_2= '(' this_SugarNumericalPrimary_3= ruleSugarNumericalPrimary otherlv_4= ')' )
                     {
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1455:6: (otherlv_2= '(' this_NumericalPrimary_3= ruleNumericalPrimary otherlv_4= ')' )
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1455:8: otherlv_2= '(' this_NumericalPrimary_3= ruleNumericalPrimary otherlv_4= ')'
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1557:6: (otherlv_2= '(' this_SugarNumericalPrimary_3= ruleSugarNumericalPrimary otherlv_4= ')' )
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1557:8: otherlv_2= '(' this_SugarNumericalPrimary_3= ruleSugarNumericalPrimary otherlv_4= ')'
                     {
-                    otherlv_2=(Token)match(input,16,FOLLOW_16_in_ruleNumericalPrimary3195); 
+                    otherlv_2=(Token)match(input,22,FOLLOW_22_in_ruleSugarNumericalPrimary3358); 
 
-                        	newLeafNode(otherlv_2, grammarAccess.getNumericalPrimaryAccess().getLeftParenthesisKeyword_2_0());
+                        	newLeafNode(otherlv_2, grammarAccess.getSugarNumericalPrimaryAccess().getLeftParenthesisKeyword_2_0());
                         
                      
-                            newCompositeNode(grammarAccess.getNumericalPrimaryAccess().getNumericalPrimaryParserRuleCall_2_1()); 
+                            newCompositeNode(grammarAccess.getSugarNumericalPrimaryAccess().getSugarNumericalPrimaryParserRuleCall_2_1()); 
                         
-                    pushFollow(FOLLOW_ruleNumericalPrimary_in_ruleNumericalPrimary3217);
-                    this_NumericalPrimary_3=ruleNumericalPrimary();
+                    pushFollow(FOLLOW_ruleSugarNumericalPrimary_in_ruleSugarNumericalPrimary3380);
+                    this_SugarNumericalPrimary_3=ruleSugarNumericalPrimary();
 
                     state._fsp--;
 
                      
-                            current = this_NumericalPrimary_3; 
+                            current = this_SugarNumericalPrimary_3; 
                             afterParserOrEnumRuleCall();
                         
-                    otherlv_4=(Token)match(input,17,FOLLOW_17_in_ruleNumericalPrimary3228); 
+                    otherlv_4=(Token)match(input,23,FOLLOW_23_in_ruleSugarNumericalPrimary3391); 
 
-                        	newLeafNode(otherlv_4, grammarAccess.getNumericalPrimaryAccess().getRightParenthesisKeyword_2_2());
+                        	newLeafNode(otherlv_4, grammarAccess.getSugarNumericalPrimaryAccess().getRightParenthesisKeyword_2_2());
                         
 
                     }
@@ -3653,18 +3918,18 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 4 :
-                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1474:5: this_Variable_5= ruleVariable
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1576:5: this_SugarVariable_5= ruleSugarVariable
                     {
                      
-                            newCompositeNode(grammarAccess.getNumericalPrimaryAccess().getVariableParserRuleCall_3()); 
+                            newCompositeNode(grammarAccess.getSugarNumericalPrimaryAccess().getSugarVariableParserRuleCall_3()); 
                         
-                    pushFollow(FOLLOW_ruleVariable_in_ruleNumericalPrimary3257);
-                    this_Variable_5=ruleVariable();
+                    pushFollow(FOLLOW_ruleSugarVariable_in_ruleSugarNumericalPrimary3420);
+                    this_SugarVariable_5=ruleSugarVariable();
 
                     state._fsp--;
 
                      
-                            current = this_Variable_5; 
+                            current = this_SugarVariable_5; 
                             afterParserOrEnumRuleCall();
                         
 
@@ -3687,11 +3952,103 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
         }
         return current;
     }
-    // $ANTLR end "ruleNumericalPrimary"
+    // $ANTLR end "ruleSugarNumericalPrimary"
+
+
+    // $ANTLR start "entryRuleSugarVariable"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1592:1: entryRuleSugarVariable returns [EObject current=null] : iv_ruleSugarVariable= ruleSugarVariable EOF ;
+    public final EObject entryRuleSugarVariable() throws RecognitionException {
+        EObject current = null;
+
+        EObject iv_ruleSugarVariable = null;
+
+
+        try {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1593:2: (iv_ruleSugarVariable= ruleSugarVariable EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1594:2: iv_ruleSugarVariable= ruleSugarVariable EOF
+            {
+             newCompositeNode(grammarAccess.getSugarVariableRule()); 
+            pushFollow(FOLLOW_ruleSugarVariable_in_entryRuleSugarVariable3455);
+            iv_ruleSugarVariable=ruleSugarVariable();
+
+            state._fsp--;
+
+             current =iv_ruleSugarVariable; 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleSugarVariable3465); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleSugarVariable"
+
+
+    // $ANTLR start "ruleSugarVariable"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1601:1: ruleSugarVariable returns [EObject current=null] : ( (lv_arg_0_0= RULE_ID ) ) ;
+    public final EObject ruleSugarVariable() throws RecognitionException {
+        EObject current = null;
+
+        Token lv_arg_0_0=null;
+
+         enterRule(); 
+            
+        try {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1604:28: ( ( (lv_arg_0_0= RULE_ID ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1605:1: ( (lv_arg_0_0= RULE_ID ) )
+            {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1605:1: ( (lv_arg_0_0= RULE_ID ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1606:1: (lv_arg_0_0= RULE_ID )
+            {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1606:1: (lv_arg_0_0= RULE_ID )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1607:3: lv_arg_0_0= RULE_ID
+            {
+            lv_arg_0_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleSugarVariable3506); 
+
+            			newLeafNode(lv_arg_0_0, grammarAccess.getSugarVariableAccess().getArgIDTerminalRuleCall_0()); 
+            		
+
+            	        if (current==null) {
+            	            current = createModelElement(grammarAccess.getSugarVariableRule());
+            	        }
+                   		setWithLastConsumed(
+                   			current, 
+                   			"arg",
+                    		lv_arg_0_0, 
+                    		"ID");
+            	    
+
+            }
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleSugarVariable"
 
 
     // $ANTLR start "entryRuleNumberLiteral"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1490:1: entryRuleNumberLiteral returns [EObject current=null] : iv_ruleNumberLiteral= ruleNumberLiteral EOF ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1631:1: entryRuleNumberLiteral returns [EObject current=null] : iv_ruleNumberLiteral= ruleNumberLiteral EOF ;
     public final EObject entryRuleNumberLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -3699,17 +4056,17 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1491:2: (iv_ruleNumberLiteral= ruleNumberLiteral EOF )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1492:2: iv_ruleNumberLiteral= ruleNumberLiteral EOF
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1632:2: (iv_ruleNumberLiteral= ruleNumberLiteral EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1633:2: iv_ruleNumberLiteral= ruleNumberLiteral EOF
             {
              newCompositeNode(grammarAccess.getNumberLiteralRule()); 
-            pushFollow(FOLLOW_ruleNumberLiteral_in_entryRuleNumberLiteral3292);
+            pushFollow(FOLLOW_ruleNumberLiteral_in_entryRuleNumberLiteral3546);
             iv_ruleNumberLiteral=ruleNumberLiteral();
 
             state._fsp--;
 
              current =iv_ruleNumberLiteral; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleNumberLiteral3302); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleNumberLiteral3556); 
 
             }
 
@@ -3727,7 +4084,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNumberLiteral"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1499:1: ruleNumberLiteral returns [EObject current=null] : ( (lv_value_0_0= RULE_INT ) ) ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1640:1: ruleNumberLiteral returns [EObject current=null] : ( (lv_value_0_0= RULE_INT ) ) ;
     public final EObject ruleNumberLiteral() throws RecognitionException {
         EObject current = null;
 
@@ -3736,16 +4093,16 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1502:28: ( ( (lv_value_0_0= RULE_INT ) ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1503:1: ( (lv_value_0_0= RULE_INT ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1643:28: ( ( (lv_value_0_0= RULE_INT ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1644:1: ( (lv_value_0_0= RULE_INT ) )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1503:1: ( (lv_value_0_0= RULE_INT ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1504:1: (lv_value_0_0= RULE_INT )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1644:1: ( (lv_value_0_0= RULE_INT ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1645:1: (lv_value_0_0= RULE_INT )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1504:1: (lv_value_0_0= RULE_INT )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1505:3: lv_value_0_0= RULE_INT
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1645:1: (lv_value_0_0= RULE_INT )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1646:3: lv_value_0_0= RULE_INT
             {
-            lv_value_0_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleNumberLiteral3343); 
+            lv_value_0_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleNumberLiteral3597); 
 
             			newLeafNode(lv_value_0_0, grammarAccess.getNumberLiteralAccess().getValueINTTerminalRuleCall_0()); 
             		
@@ -3788,134 +4145,144 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
     public static final BitSet FOLLOW_ruleInput_in_entryRuleInput75 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleInput85 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_11_in_ruleInput122 = new BitSet(new long[]{0x0000000000010010L});
-    public static final BitSet FOLLOW_ruleProblem_in_ruleInput143 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_12_in_ruleInput155 = new BitSet(new long[]{0x000000000000E000L});
-    public static final BitSet FOLLOW_13_in_ruleInput177 = new BitSet(new long[]{0x0000000000010010L});
-    public static final BitSet FOLLOW_14_in_ruleInput206 = new BitSet(new long[]{0x0000000000010010L});
-    public static final BitSet FOLLOW_ruleProblem_in_ruleInput243 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_15_in_ruleInput269 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_ruleInput294 = new BitSet(new long[]{0x00000001BA010010L});
-    public static final BitSet FOLLOW_ruleProblemNoVars_in_ruleInput315 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_ruleInput327 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_12_in_ruleInput342 = new BitSet(new long[]{0x0000000000040000L});
-    public static final BitSet FOLLOW_18_in_ruleInput354 = new BitSet(new long[]{0x00000001BA010010L});
-    public static final BitSet FOLLOW_ruleTheorem_in_ruleInput375 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_12_in_ruleInput388 = new BitSet(new long[]{0x00000001BA010010L});
-    public static final BitSet FOLLOW_ruleTheorem_in_ruleInput409 = new BitSet(new long[]{0x0000000000001002L});
-    public static final BitSet FOLLOW_12_in_ruleInput424 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleProblemNoVars_in_entryRuleProblemNoVars464 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleProblemNoVars474 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleORing_in_ruleProblemNoVars519 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleProblem_in_entryRuleProblem554 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleProblem564 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDeclaration_in_ruleProblem610 = new BitSet(new long[]{0x0000000000180002L});
-    public static final BitSet FOLLOW_19_in_ruleProblem623 = new BitSet(new long[]{0x0000000000010010L});
-    public static final BitSet FOLLOW_ruleDeclaration_in_ruleProblem644 = new BitSet(new long[]{0x0000000000180002L});
-    public static final BitSet FOLLOW_20_in_ruleProblem659 = new BitSet(new long[]{0x00000001BA010010L});
-    public static final BitSet FOLLOW_ruleORing_in_ruleProblem680 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleDeclaration_in_entryRuleDeclaration718 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleDeclaration728 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleType_in_ruleDeclaration774 = new BitSet(new long[]{0x0000000000010010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleDeclaration793 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_16_in_ruleDeclaration817 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleDeclaration834 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_ruleDeclaration851 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleType_in_entryRuleType889 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleType899 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleType941 = new BitSet(new long[]{0x0000000000200002L});
-    public static final BitSet FOLLOW_21_in_ruleType959 = new BitSet(new long[]{0x0000000000000010L});
-    public static final BitSet FOLLOW_ruleType_in_ruleType980 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_ruleType992 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleORing_in_entryRuleORing1030 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleORing1040 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleANDing_in_ruleORing1087 = new BitSet(new long[]{0x0000000000800002L});
-    public static final BitSet FOLLOW_23_in_ruleORing1108 = new BitSet(new long[]{0x00000001BA010010L});
-    public static final BitSet FOLLOW_ruleANDing_in_ruleORing1129 = new BitSet(new long[]{0x0000000000800002L});
-    public static final BitSet FOLLOW_ruleANDing_in_entryRuleANDing1167 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleANDing1177 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePrimary_in_ruleANDing1224 = new BitSet(new long[]{0x0000000001000002L});
-    public static final BitSet FOLLOW_24_in_ruleANDing1245 = new BitSet(new long[]{0x00000001BA010010L});
-    public static final BitSet FOLLOW_rulePrimary_in_ruleANDing1266 = new BitSet(new long[]{0x0000000001000002L});
-    public static final BitSet FOLLOW_rulePrimary_in_entryRulePrimary1304 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRulePrimary1314 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAtomic_in_rulePrimary1361 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQuantifier_in_rulePrimary1388 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleProblemShell_in_rulePrimary1415 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_16_in_rulePrimary1433 = new BitSet(new long[]{0x00000001BA010010L});
-    public static final BitSet FOLLOW_ruleORing_in_rulePrimary1455 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_rulePrimary1466 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleBooleanLiteral_in_rulePrimary1495 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNegation_in_rulePrimary1522 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleProblemShell_in_entryRuleProblemShell1557 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleProblemShell1567 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_25_in_ruleProblemShell1604 = new BitSet(new long[]{0x0000000000010010L});
-    public static final BitSet FOLLOW_ruleProblem_in_ruleProblemShell1625 = new BitSet(new long[]{0x0000000004000000L});
-    public static final BitSet FOLLOW_26_in_ruleProblemShell1637 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNegation_in_entryRuleNegation1673 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleNegation1683 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_27_in_ruleNegation1720 = new BitSet(new long[]{0x00000001BA010010L});
-    public static final BitSet FOLLOW_rulePrimary_in_ruleNegation1741 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQuantifier_in_entryRuleQuantifier1777 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleQuantifier1787 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_28_in_ruleQuantifier1832 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_29_in_ruleQuantifier1861 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_ruleQuantifier1889 = new BitSet(new long[]{0x0000000000010010L});
-    public static final BitSet FOLLOW_ruleProblem_in_ruleQuantifier1910 = new BitSet(new long[]{0x0000000040000000L});
-    public static final BitSet FOLLOW_30_in_ruleQuantifier1922 = new BitSet(new long[]{0x00000001BA010010L});
-    public static final BitSet FOLLOW_ruleORing_in_ruleQuantifier1943 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_ruleQuantifier1955 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAtomic_in_entryRuleAtomic1991 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAtomic2001 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleAtomic2043 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_16_in_ruleAtomic2060 = new BitSet(new long[]{0x0000000000030030L});
-    public static final BitSet FOLLOW_ruleArgument_in_ruleAtomic2082 = new BitSet(new long[]{0x00000000000A0000L});
-    public static final BitSet FOLLOW_19_in_ruleAtomic2095 = new BitSet(new long[]{0x0000000000010030L});
-    public static final BitSet FOLLOW_ruleArgument_in_ruleAtomic2116 = new BitSet(new long[]{0x00000000000A0000L});
-    public static final BitSet FOLLOW_17_in_ruleAtomic2132 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleArgument_in_entryRuleArgument2168 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleArgument2178 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAddition_in_ruleArgument2224 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariable_in_entryRuleVariable2258 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleVariable2268 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleVariable2309 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleBooleanLiteral_in_entryRuleBooleanLiteral2349 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleBooleanLiteral2359 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_31_in_ruleBooleanLiteral2403 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_32_in_ruleBooleanLiteral2432 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleTheorem_in_entryRuleTheorem2483 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleTheorem2493 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleORing_in_ruleTheorem2539 = new BitSet(new long[]{0x0000000200000000L});
-    public static final BitSet FOLLOW_33_in_ruleTheorem2551 = new BitSet(new long[]{0x00000001BA010010L});
-    public static final BitSet FOLLOW_ruleORing_in_ruleTheorem2572 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_19_in_ruleTheorem2584 = new BitSet(new long[]{0x0000000000000020L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleTheorem2601 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_19_in_ruleTheorem2618 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleTheorem2635 = new BitSet(new long[]{0x0000000000080002L});
-    public static final BitSet FOLLOW_19_in_ruleTheorem2653 = new BitSet(new long[]{0x0000000000000040L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleTheorem2670 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAddition_in_entryRuleAddition2713 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleAddition2723 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMultiplication_in_ruleAddition2770 = new BitSet(new long[]{0x0000000C00000002L});
-    public static final BitSet FOLLOW_34_in_ruleAddition2799 = new BitSet(new long[]{0x0000000000010030L});
-    public static final BitSet FOLLOW_35_in_ruleAddition2828 = new BitSet(new long[]{0x0000000000010030L});
-    public static final BitSet FOLLOW_ruleMultiplication_in_ruleAddition2865 = new BitSet(new long[]{0x0000000C00000002L});
-    public static final BitSet FOLLOW_ruleMultiplication_in_entryRuleMultiplication2903 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleMultiplication2913 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNumericalPrimary_in_ruleMultiplication2960 = new BitSet(new long[]{0x0000003000000002L});
-    public static final BitSet FOLLOW_36_in_ruleMultiplication2989 = new BitSet(new long[]{0x0000000000010030L});
-    public static final BitSet FOLLOW_37_in_ruleMultiplication3018 = new BitSet(new long[]{0x0000000000010030L});
-    public static final BitSet FOLLOW_ruleNumericalPrimary_in_ruleMultiplication3055 = new BitSet(new long[]{0x0000003000000002L});
-    public static final BitSet FOLLOW_ruleNumericalPrimary_in_entryRuleNumericalPrimary3093 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleNumericalPrimary3103 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNumberLiteral_in_ruleNumericalPrimary3150 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAtomic_in_ruleNumericalPrimary3177 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_16_in_ruleNumericalPrimary3195 = new BitSet(new long[]{0x0000000000010030L});
-    public static final BitSet FOLLOW_ruleNumericalPrimary_in_ruleNumericalPrimary3217 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_17_in_ruleNumericalPrimary3228 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVariable_in_ruleNumericalPrimary3257 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNumberLiteral_in_entryRuleNumberLiteral3292 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleNumberLiteral3302 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleNumberLiteral3343 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_11_in_ruleInput122 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleProblemPropertyOptional_in_ruleInput143 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_12_in_ruleInput155 = new BitSet(new long[]{0x0000000000007002L});
+    public static final BitSet FOLLOW_13_in_ruleInput176 = new BitSet(new long[]{0x00000000DD400010L});
+    public static final BitSet FOLLOW_14_in_ruleInput205 = new BitSet(new long[]{0x00000000DD400010L});
+    public static final BitSet FOLLOW_ruleProblem_in_ruleInput244 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_ruleProblemNoVars_in_ruleInput263 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_12_in_ruleInput281 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_15_in_ruleInput293 = new BitSet(new long[]{0x00000000DD400010L});
+    public static final BitSet FOLLOW_ruleTheorem_in_ruleInput314 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_12_in_ruleInput327 = new BitSet(new long[]{0x00000000DD400010L});
+    public static final BitSet FOLLOW_ruleTheorem_in_ruleInput348 = new BitSet(new long[]{0x0000000000001002L});
+    public static final BitSet FOLLOW_12_in_ruleInput363 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleProblemNoVars_in_entryRuleProblemNoVars403 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleProblemNoVars413 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleORing_in_ruleProblemNoVars458 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleProblemPropertyOptional_in_entryRuleProblemPropertyOptional493 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleProblemPropertyOptional503 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDeclaration_in_ruleProblemPropertyOptional549 = new BitSet(new long[]{0x0000000000030002L});
+    public static final BitSet FOLLOW_16_in_ruleProblemPropertyOptional562 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleDeclaration_in_ruleProblemPropertyOptional583 = new BitSet(new long[]{0x0000000000030002L});
+    public static final BitSet FOLLOW_17_in_ruleProblemPropertyOptional598 = new BitSet(new long[]{0x00000000DD400010L});
+    public static final BitSet FOLLOW_ruleORing_in_ruleProblemPropertyOptional619 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleProblem_in_entryRuleProblem657 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleProblem667 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDeclaration_in_ruleProblem713 = new BitSet(new long[]{0x0000000000030000L});
+    public static final BitSet FOLLOW_16_in_ruleProblem726 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleDeclaration_in_ruleProblem747 = new BitSet(new long[]{0x0000000000030000L});
+    public static final BitSet FOLLOW_17_in_ruleProblem761 = new BitSet(new long[]{0x00000000DD400010L});
+    public static final BitSet FOLLOW_ruleORing_in_ruleProblem782 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDeclaration_in_entryRuleDeclaration818 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleDeclaration828 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleType_in_ruleDeclaration874 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleDeclaration892 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleType_in_entryRuleType933 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleType943 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleType985 = new BitSet(new long[]{0x0000000000040002L});
+    public static final BitSet FOLLOW_18_in_ruleType1003 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleType_in_ruleType1024 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_19_in_ruleType1036 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleORing_in_entryRuleORing1074 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleORing1084 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleANDing_in_ruleORing1131 = new BitSet(new long[]{0x0000000000100002L});
+    public static final BitSet FOLLOW_20_in_ruleORing1152 = new BitSet(new long[]{0x00000000DD400010L});
+    public static final BitSet FOLLOW_ruleANDing_in_ruleORing1173 = new BitSet(new long[]{0x0000000000100002L});
+    public static final BitSet FOLLOW_ruleANDing_in_entryRuleANDing1211 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleANDing1221 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePrimary_in_ruleANDing1268 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_21_in_ruleANDing1289 = new BitSet(new long[]{0x00000000DD400010L});
+    public static final BitSet FOLLOW_rulePrimary_in_ruleANDing1310 = new BitSet(new long[]{0x0000000000200002L});
+    public static final BitSet FOLLOW_rulePrimary_in_entryRulePrimary1348 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRulePrimary1358 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAtomic_in_rulePrimary1405 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSugarAtomic_in_rulePrimary1432 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQuantifier_in_rulePrimary1459 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleProblemShell_in_rulePrimary1486 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_rulePrimary1504 = new BitSet(new long[]{0x00000000DD400010L});
+    public static final BitSet FOLLOW_ruleORing_in_rulePrimary1526 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_rulePrimary1537 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleBooleanLiteral_in_rulePrimary1566 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNegation_in_rulePrimary1593 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleProblemShell_in_entryRuleProblemShell1628 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleProblemShell1638 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_24_in_ruleProblemShell1675 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleProblem_in_ruleProblemShell1696 = new BitSet(new long[]{0x0000000002000000L});
+    public static final BitSet FOLLOW_25_in_ruleProblemShell1708 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNegation_in_entryRuleNegation1744 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleNegation1754 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_26_in_ruleNegation1791 = new BitSet(new long[]{0x00000000DD400010L});
+    public static final BitSet FOLLOW_rulePrimary_in_ruleNegation1812 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQuantifier_in_entryRuleQuantifier1848 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleQuantifier1858 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_27_in_ruleQuantifier1903 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_28_in_ruleQuantifier1932 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_22_in_ruleQuantifier1960 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_ruleProblem_in_ruleQuantifier1981 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_ruleQuantifier1993 = new BitSet(new long[]{0x00000000DD400010L});
+    public static final BitSet FOLLOW_ruleORing_in_ruleQuantifier2014 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_ruleQuantifier2026 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSugarAtomic_in_entryRuleSugarAtomic2062 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleSugarAtomic2072 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleSugarAtomic2114 = new BitSet(new long[]{0x0000000020000000L});
+    public static final BitSet FOLLOW_29_in_ruleSugarAtomic2131 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_22_in_ruleSugarAtomic2143 = new BitSet(new long[]{0x0000000000C00030L});
+    public static final BitSet FOLLOW_ruleSugarAddition_in_ruleSugarAtomic2165 = new BitSet(new long[]{0x0000000000810000L});
+    public static final BitSet FOLLOW_16_in_ruleSugarAtomic2178 = new BitSet(new long[]{0x0000000000400030L});
+    public static final BitSet FOLLOW_ruleSugarAddition_in_ruleSugarAtomic2199 = new BitSet(new long[]{0x0000000000810000L});
+    public static final BitSet FOLLOW_23_in_ruleSugarAtomic2215 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAtomic_in_entryRuleAtomic2251 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleAtomic2261 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAtomic2303 = new BitSet(new long[]{0x0000000000400000L});
+    public static final BitSet FOLLOW_22_in_ruleAtomic2320 = new BitSet(new long[]{0x0000000000800010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAtomic2338 = new BitSet(new long[]{0x0000000000810000L});
+    public static final BitSet FOLLOW_16_in_ruleAtomic2356 = new BitSet(new long[]{0x0000000000000010L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleAtomic2373 = new BitSet(new long[]{0x0000000000810000L});
+    public static final BitSet FOLLOW_23_in_ruleAtomic2394 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleBooleanLiteral_in_entryRuleBooleanLiteral2430 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleBooleanLiteral2440 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_30_in_ruleBooleanLiteral2484 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_31_in_ruleBooleanLiteral2513 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleTheorem_in_entryRuleTheorem2564 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleTheorem2574 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleORing_in_ruleTheorem2620 = new BitSet(new long[]{0x0000000700000000L});
+    public static final BitSet FOLLOW_32_in_ruleTheorem2640 = new BitSet(new long[]{0x00000000DD400010L});
+    public static final BitSet FOLLOW_33_in_ruleTheorem2669 = new BitSet(new long[]{0x00000000DD400010L});
+    public static final BitSet FOLLOW_34_in_ruleTheorem2698 = new BitSet(new long[]{0x00000000DD400010L});
+    public static final BitSet FOLLOW_ruleORing_in_ruleTheorem2735 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_ruleTheorem2747 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleTheorem2764 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_16_in_ruleTheorem2781 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleTheorem2798 = new BitSet(new long[]{0x0000000000010002L});
+    public static final BitSet FOLLOW_16_in_ruleTheorem2816 = new BitSet(new long[]{0x0000000000000040L});
+    public static final BitSet FOLLOW_RULE_STRING_in_ruleTheorem2833 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSugarAddition_in_entryRuleSugarAddition2876 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleSugarAddition2886 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSugarMultiplication_in_ruleSugarAddition2933 = new BitSet(new long[]{0x0000001800000002L});
+    public static final BitSet FOLLOW_35_in_ruleSugarAddition2962 = new BitSet(new long[]{0x0000000000400030L});
+    public static final BitSet FOLLOW_36_in_ruleSugarAddition2991 = new BitSet(new long[]{0x0000000000400030L});
+    public static final BitSet FOLLOW_ruleSugarMultiplication_in_ruleSugarAddition3028 = new BitSet(new long[]{0x0000001800000002L});
+    public static final BitSet FOLLOW_ruleSugarMultiplication_in_entryRuleSugarMultiplication3066 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleSugarMultiplication3076 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSugarNumericalPrimary_in_ruleSugarMultiplication3123 = new BitSet(new long[]{0x0000006000000002L});
+    public static final BitSet FOLLOW_37_in_ruleSugarMultiplication3152 = new BitSet(new long[]{0x0000000000400030L});
+    public static final BitSet FOLLOW_38_in_ruleSugarMultiplication3181 = new BitSet(new long[]{0x0000000000400030L});
+    public static final BitSet FOLLOW_ruleSugarNumericalPrimary_in_ruleSugarMultiplication3218 = new BitSet(new long[]{0x0000006000000002L});
+    public static final BitSet FOLLOW_ruleSugarNumericalPrimary_in_entryRuleSugarNumericalPrimary3256 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleSugarNumericalPrimary3266 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNumberLiteral_in_ruleSugarNumericalPrimary3313 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSugarAtomic_in_ruleSugarNumericalPrimary3340 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_22_in_ruleSugarNumericalPrimary3358 = new BitSet(new long[]{0x0000000000400030L});
+    public static final BitSet FOLLOW_ruleSugarNumericalPrimary_in_ruleSugarNumericalPrimary3380 = new BitSet(new long[]{0x0000000000800000L});
+    public static final BitSet FOLLOW_23_in_ruleSugarNumericalPrimary3391 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSugarVariable_in_ruleSugarNumericalPrimary3420 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSugarVariable_in_entryRuleSugarVariable3455 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleSugarVariable3465 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_ruleSugarVariable3506 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNumberLiteral_in_entryRuleNumberLiteral3546 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleNumberLiteral3556 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleNumberLiteral3597 = new BitSet(new long[]{0x0000000000000002L});
 
 }

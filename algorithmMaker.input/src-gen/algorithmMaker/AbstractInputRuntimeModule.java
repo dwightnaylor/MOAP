@@ -153,4 +153,9 @@ public abstract class AbstractInputRuntimeModule extends org.eclipse.xtext.commo
 		return org.eclipse.xtext.common.types.xtext.TypesAwareDefaultGlobalScopeProvider.class;
 	}
 
+	// contributed by org.eclipse.xtext.generator.validation.JavaValidatorFragment
+	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends algorithmMaker.validation.InputJavaValidator> bindInputJavaValidator() {
+		return algorithmMaker.validation.InputJavaValidator.class;
+	}
+
 }

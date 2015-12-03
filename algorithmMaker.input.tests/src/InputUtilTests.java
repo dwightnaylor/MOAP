@@ -1,7 +1,5 @@
 import static algorithmMaker.QuickParser.parseProperty;
 import static algorithmMaker.util.InputUtil.canonicalize;
-import static algorithmMaker.util.InputUtil.createVariable;
-import static algorithmMaker.util.InputUtil.desugar;
 import static algorithmMaker.util.InputUtil.devar;
 import static algorithmMaker.util.InputUtil.revar;
 import static algorithmMaker.util.InputUtil.stupidCopy;
@@ -14,7 +12,6 @@ import java.util.Hashtable;
 import org.junit.Test;
 
 import algorithmMaker.QuickParser;
-import algorithmMaker.input.Argument;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.Property;
 import algorithmMaker.util.InputUtil;
@@ -25,9 +22,9 @@ public class InputUtilTests {
 	@Test
 	public void testRevar() {
 		// Tests if a revar can switch out simple things
-		assertEquals(parseProperty("a(y)"), revar(parseProperty("a(x)"), new Hashtable<Argument, Argument>() {
+		assertEquals(parseProperty("a(y)"), revar(parseProperty("a(x)"), new Hashtable<String, String>() {
 			{
-				put(createVariable("x"), createVariable("y"));
+				put("x", "y");
 			}
 		}));
 	}
@@ -77,19 +74,23 @@ public class InputUtilTests {
 		ArrayList<String[]> tasks = new ArrayList<String[]>();
 		tasks.add(new String[] { "Given x; Find y st test(y)", "Given x; Find y st test(y)" });
 		tasks.add(new String[] { "Given list<int> x; Find y st test(y)",
-				"Given x st type_list(x) & child_type_int(x); Find y st test(y)" });
-		tasks.add(new String[] { "Given x; Find y st test(test1(y))",
-				"Given x; Find y st {na st test1(y,na) & test(na)}" });
+				"Given list<int> x st type_list(x) & forall(na st child(x,na) : type_int(na)); Find y st test(y)" });
+		tasks.add(new String[] { "Given x; Find y st test(test1(y))", "Given x; Find y,na st test1(y,na) & test(na)" });
+		tasks.add(new String[] { "Given x; Find y st equal(x+y,x-y)",
+				"Given x; Find y,na,nb st plus(x,y,na) & minus(x,y,nb) & equal(na,nb)" });
+		tasks.add(new String[] { "Given x; Find na st test(other(na))",
+				"Given x; Find na,nb st other(na,nb) & test(nb)" });
 		for (String[] task : tasks) {
-			Input original = QuickParser.parseInput(task[0]);
-			String originalToString = original.toString();
-			// The simplified version goes here
-			desugar(original);
+			Input original = QuickParser.parseInputDirty(task[0]);
 			String simplifiedToString = original.toString();
 
-			if (!task[1].equals(simplifiedToString))
-				System.err.println("\"" + originalToString + "\" Should desugar to \"" + task[1]
-						+ "\" but it instead desugared to \"" + simplifiedToString + '"');
+			if (!task[1].equals(simplifiedToString)) {
+				System.err.println(task[0]);
+				System.err.println("Should desugar to");
+				System.err.println(task[1]);
+				System.err.println("but it instead desugared to");
+				System.err.println(simplifiedToString);
+			}
 
 			assertEquals(simplifiedToString, task[1]);
 		}
@@ -97,6 +98,6 @@ public class InputUtilTests {
 
 	@Test
 	public void testDevar() {
-		assertEquals(InputUtil.getAtomic("a", "_"), devar(parseProperty("a(x)")));
+		assertEquals(InputUtil.createAtomic("a", "_"), devar(InputUtil.createAtomic("a", "x")));
 	}
 }

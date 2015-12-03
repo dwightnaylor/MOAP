@@ -2,9 +2,9 @@
  */
 package algorithmMaker.input.impl;
 
-import algorithmMaker.input.Addition;
 import algorithmMaker.input.InputPackage;
-import algorithmMaker.input.NumericalProperty;
+import algorithmMaker.input.SugarMultiplication;
+import algorithmMaker.input.SugarNumericalProperty;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -16,20 +16,20 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
 /**
  * <!-- begin-user-doc -->
- * An implementation of the model object '<em><b>Addition</b></em>'.
+ * An implementation of the model object '<em><b>Sugar Multiplication</b></em>'.
  * <!-- end-user-doc -->
  * <p>
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link algorithmMaker.input.impl.AdditionImpl#getLeft <em>Left</em>}</li>
- *   <li>{@link algorithmMaker.input.impl.AdditionImpl#getSymbol <em>Symbol</em>}</li>
- *   <li>{@link algorithmMaker.input.impl.AdditionImpl#getRight <em>Right</em>}</li>
+ *   <li>{@link algorithmMaker.input.impl.SugarMultiplicationImpl#getLeft <em>Left</em>}</li>
+ *   <li>{@link algorithmMaker.input.impl.SugarMultiplicationImpl#getSymbol <em>Symbol</em>}</li>
+ *   <li>{@link algorithmMaker.input.impl.SugarMultiplicationImpl#getRight <em>Right</em>}</li>
  * </ul>
  *
  * @generated
  */
-public class AdditionImpl extends NumericalPropertyImpl implements Addition
+public class SugarMultiplicationImpl extends SugarNumericalPropertyImpl implements SugarMultiplication
 {
   /**
    * The cached value of the '{@link #getLeft() <em>Left</em>}' containment reference.
@@ -39,7 +39,7 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
    * @generated
    * @ordered
    */
-  protected NumericalProperty left;
+  protected SugarNumericalProperty left;
 
   /**
    * The default value of the '{@link #getSymbol() <em>Symbol</em>}' attribute.
@@ -69,14 +69,14 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
    * @generated
    * @ordered
    */
-  protected NumericalProperty right;
+  protected SugarNumericalProperty right;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  protected AdditionImpl()
+  protected SugarMultiplicationImpl()
   {
     super();
   }
@@ -89,7 +89,7 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
   @Override
   protected EClass eStaticClass()
   {
-    return InputPackage.Literals.ADDITION;
+    return InputPackage.Literals.SUGAR_MULTIPLICATION;
   }
 
   /**
@@ -97,7 +97,7 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
    * <!-- end-user-doc -->
    * @generated
    */
-  public NumericalProperty getLeft()
+  public SugarNumericalProperty getLeft()
   {
     return left;
   }
@@ -107,13 +107,13 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetLeft(NumericalProperty newLeft, NotificationChain msgs)
+  public NotificationChain basicSetLeft(SugarNumericalProperty newLeft, NotificationChain msgs)
   {
-    NumericalProperty oldLeft = left;
+    SugarNumericalProperty oldLeft = left;
     left = newLeft;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InputPackage.ADDITION__LEFT, oldLeft, newLeft);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InputPackage.SUGAR_MULTIPLICATION__LEFT, oldLeft, newLeft);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -124,20 +124,20 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setLeft(NumericalProperty newLeft)
+  public void setLeft(SugarNumericalProperty newLeft)
   {
     if (newLeft != left)
     {
       NotificationChain msgs = null;
       if (left != null)
-        msgs = ((InternalEObject)left).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InputPackage.ADDITION__LEFT, null, msgs);
+        msgs = ((InternalEObject)left).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InputPackage.SUGAR_MULTIPLICATION__LEFT, null, msgs);
       if (newLeft != null)
-        msgs = ((InternalEObject)newLeft).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InputPackage.ADDITION__LEFT, null, msgs);
+        msgs = ((InternalEObject)newLeft).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InputPackage.SUGAR_MULTIPLICATION__LEFT, null, msgs);
       msgs = basicSetLeft(newLeft, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.ADDITION__LEFT, newLeft, newLeft));
+      eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.SUGAR_MULTIPLICATION__LEFT, newLeft, newLeft));
   }
 
   /**
@@ -160,7 +160,7 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
     String oldSymbol = symbol;
     symbol = newSymbol;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.ADDITION__SYMBOL, oldSymbol, symbol));
+      eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.SUGAR_MULTIPLICATION__SYMBOL, oldSymbol, symbol));
   }
 
   /**
@@ -168,7 +168,7 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
    * <!-- end-user-doc -->
    * @generated
    */
-  public NumericalProperty getRight()
+  public SugarNumericalProperty getRight()
   {
     return right;
   }
@@ -178,13 +178,13 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
    * <!-- end-user-doc -->
    * @generated
    */
-  public NotificationChain basicSetRight(NumericalProperty newRight, NotificationChain msgs)
+  public NotificationChain basicSetRight(SugarNumericalProperty newRight, NotificationChain msgs)
   {
-    NumericalProperty oldRight = right;
+    SugarNumericalProperty oldRight = right;
     right = newRight;
     if (eNotificationRequired())
     {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InputPackage.ADDITION__RIGHT, oldRight, newRight);
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InputPackage.SUGAR_MULTIPLICATION__RIGHT, oldRight, newRight);
       if (msgs == null) msgs = notification; else msgs.add(notification);
     }
     return msgs;
@@ -195,20 +195,20 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setRight(NumericalProperty newRight)
+  public void setRight(SugarNumericalProperty newRight)
   {
     if (newRight != right)
     {
       NotificationChain msgs = null;
       if (right != null)
-        msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InputPackage.ADDITION__RIGHT, null, msgs);
+        msgs = ((InternalEObject)right).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InputPackage.SUGAR_MULTIPLICATION__RIGHT, null, msgs);
       if (newRight != null)
-        msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InputPackage.ADDITION__RIGHT, null, msgs);
+        msgs = ((InternalEObject)newRight).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InputPackage.SUGAR_MULTIPLICATION__RIGHT, null, msgs);
       msgs = basicSetRight(newRight, msgs);
       if (msgs != null) msgs.dispatch();
     }
     else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.ADDITION__RIGHT, newRight, newRight));
+      eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.SUGAR_MULTIPLICATION__RIGHT, newRight, newRight));
   }
 
   /**
@@ -221,9 +221,9 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
   {
     switch (featureID)
     {
-      case InputPackage.ADDITION__LEFT:
+      case InputPackage.SUGAR_MULTIPLICATION__LEFT:
         return basicSetLeft(null, msgs);
-      case InputPackage.ADDITION__RIGHT:
+      case InputPackage.SUGAR_MULTIPLICATION__RIGHT:
         return basicSetRight(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
@@ -239,11 +239,11 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
   {
     switch (featureID)
     {
-      case InputPackage.ADDITION__LEFT:
+      case InputPackage.SUGAR_MULTIPLICATION__LEFT:
         return getLeft();
-      case InputPackage.ADDITION__SYMBOL:
+      case InputPackage.SUGAR_MULTIPLICATION__SYMBOL:
         return getSymbol();
-      case InputPackage.ADDITION__RIGHT:
+      case InputPackage.SUGAR_MULTIPLICATION__RIGHT:
         return getRight();
     }
     return super.eGet(featureID, resolve, coreType);
@@ -259,14 +259,14 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
   {
     switch (featureID)
     {
-      case InputPackage.ADDITION__LEFT:
-        setLeft((NumericalProperty)newValue);
+      case InputPackage.SUGAR_MULTIPLICATION__LEFT:
+        setLeft((SugarNumericalProperty)newValue);
         return;
-      case InputPackage.ADDITION__SYMBOL:
+      case InputPackage.SUGAR_MULTIPLICATION__SYMBOL:
         setSymbol((String)newValue);
         return;
-      case InputPackage.ADDITION__RIGHT:
-        setRight((NumericalProperty)newValue);
+      case InputPackage.SUGAR_MULTIPLICATION__RIGHT:
+        setRight((SugarNumericalProperty)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -282,14 +282,14 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
   {
     switch (featureID)
     {
-      case InputPackage.ADDITION__LEFT:
-        setLeft((NumericalProperty)null);
+      case InputPackage.SUGAR_MULTIPLICATION__LEFT:
+        setLeft((SugarNumericalProperty)null);
         return;
-      case InputPackage.ADDITION__SYMBOL:
+      case InputPackage.SUGAR_MULTIPLICATION__SYMBOL:
         setSymbol(SYMBOL_EDEFAULT);
         return;
-      case InputPackage.ADDITION__RIGHT:
-        setRight((NumericalProperty)null);
+      case InputPackage.SUGAR_MULTIPLICATION__RIGHT:
+        setRight((SugarNumericalProperty)null);
         return;
     }
     super.eUnset(featureID);
@@ -305,11 +305,11 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
   {
     switch (featureID)
     {
-      case InputPackage.ADDITION__LEFT:
+      case InputPackage.SUGAR_MULTIPLICATION__LEFT:
         return left != null;
-      case InputPackage.ADDITION__SYMBOL:
+      case InputPackage.SUGAR_MULTIPLICATION__SYMBOL:
         return SYMBOL_EDEFAULT == null ? symbol != null : !SYMBOL_EDEFAULT.equals(symbol);
-      case InputPackage.ADDITION__RIGHT:
+      case InputPackage.SUGAR_MULTIPLICATION__RIGHT:
         return right != null;
     }
     return super.eIsSet(featureID);
@@ -336,4 +336,4 @@ public class AdditionImpl extends NumericalPropertyImpl implements Addition
 	}
 
 
-} //AdditionImpl
+} //SugarMultiplicationImpl

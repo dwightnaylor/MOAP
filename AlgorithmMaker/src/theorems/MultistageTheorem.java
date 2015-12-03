@@ -1,5 +1,6 @@
 package theorems;
 
+import pseudocoders.Pseudocoder;
 import algorithmMaker.input.Property;
 
 public class MultistageTheorem extends QuickTheorem {
@@ -7,25 +8,25 @@ public class MultistageTheorem extends QuickTheorem {
 	private final Property findRequirement;
 	private final Property givenResult;
 	private final Property findResult;
-	private String requiredGoalTask;
-	public String newGoalTask;
+	private final Pseudocoder pseudocoder;
 
 	public MultistageTheorem(Property givenRequirement, Property findRequirement, Property givenResult, int cost,
-			String description, String pseudocode) {
-		this(givenRequirement, findRequirement, givenResult, null, cost, description, pseudocode);
+			String description, Pseudocoder pseudocoder) {
+		this(givenRequirement, findRequirement, givenResult, null, cost, description, pseudocoder);
 	}
 
 	public MultistageTheorem(Property givenRequirement, Property findRequirement, Property givenResult,
-			Property findResult, int cost, String description, String pseudocode) {
-		super(givenRequirement, null, cost, description, pseudocode);
+			Property findResult, int cost, String description, Pseudocoder pseudocoder) {
+		super(givenRequirement, null, cost, description, null);
 		this.findRequirement = findRequirement;
 		this.givenResult = givenResult;
 		this.findResult = findResult;
+		this.pseudocoder = pseudocoder;
 	}
 
 	public MultistageTheorem copy() {
-		return new MultistageTheorem(this.getRequirement(), this.findRequirement, this.givenResult, this.findResult,
-				this.getCost(), this.getDescription(), this.getPseudoCode());
+		return new MultistageTheorem(getRequirement(), findRequirement, givenResult, findResult, getCost(),
+				getDescription(), getPseudocoder());
 	}
 
 	public Property getFindRequirement() {
@@ -40,15 +41,7 @@ public class MultistageTheorem extends QuickTheorem {
 		return findResult;
 	}
 
-	public String getRequiredGoalTask() {
-		return requiredGoalTask;
-	}
-
-	public void requireGoalTask(String requiredGoalTask) {
-		this.requiredGoalTask = requiredGoalTask;
-	}
-
-	public void setNewGoalTask(String task) {
-		this.newGoalTask = task;
+	public Pseudocoder getPseudocoder() {
+		return pseudocoder;
 	}
 }

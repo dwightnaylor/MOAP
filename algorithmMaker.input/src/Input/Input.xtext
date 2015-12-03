@@ -1,8 +1,6 @@
 grammar algorithmMaker.Input with org.eclipse.xtext.common.Terminals
 //TODO: Sugar: math signs, comparators
 //TODO: Sugar: implies "->, <-, <->" : relies on inline declarations?
-//TODO: Nested atomics?? Worry about this...
-//TODO: Deal with variables declared inside a test() condition
 //TODO: if get(x,i,xi) is used, test for index(x,i) automatically
 //FIXME: Make sugar a separate syntactic artifact that can be completely removed after desugaring.
 //		 The most prominent example of this is for nested atomics. The way these are done now is by allowing
@@ -13,17 +11,20 @@ generate input "http://www.Input"
 
 //NOTE: Any changes to the formatting should be reflected with changes here.
 Input:
-	'Given' given=Problem ';' ((task=("Find" | "Count") goal=Problem) | (task="Test" '(' goal=ProblemNoVars ')'))
+	'Given' given=ProblemPropertyOptional ';' (task=("Find" | "Count") goal=(Problem | ProblemNoVars))?
 	(';' "Theorems:" theorems+=Theorem (';' theorems+=Theorem)* ';'?)?;
 
 ProblemNoVars returns Problem:
 	property=ORing;
 
-Problem:
+ProblemPropertyOptional returns Problem:
 	(vars+=Declaration) (',' vars+=Declaration)* ('st' property=ORing)?;
 
+Problem:
+	(vars+=Declaration) (',' vars+=Declaration)* 'st' property=ORing;
+
 Declaration:
-	(type=Type)? (varName=ID | ('(' varName=ID ')'));
+	(type=Type)? varName=ID;
 
 Type:
 	name=ID ('<' templateType=Type '>')?;
@@ -35,7 +36,7 @@ ANDing returns Property:
 	Primary ({ANDing.left=current} '&' right=Primary)*;
 
 Primary returns Property:
-	Atomic | Quantifier | ProblemShell | ('(' ORing ')') | BooleanLiteral | Negation;
+	Atomic | SugarAtomic | Quantifier | ProblemShell | ('(' ORing ')') | BooleanLiteral | Negation;
 
 ProblemShell:
 	'{' problem=Problem '}';
@@ -46,30 +47,32 @@ Negation:
 Quantifier:
 	quantifier=('forall' | 'exists') '(' subject=Problem ':' predicate=ORing ')';
 
+SugarAtomic:
+	Function=ID ':' '(' (args+=SugarAddition (',' args+=SugarAddition)*)? ')';
+
 Atomic:
-	Function=ID '(' (args+=Argument (',' args+=Argument)*)? ')';
-
-Argument:
-	Addition;
-
-Variable:
-	arg=ID;
+	Function=ID '(' (args+=ID (',' args+=ID)*)? ')';
 
 BooleanLiteral:
 	value=("TRUE" | "FALSE");
 
 Theorem:
-	Requirement=ORing "->" Result=ORing ',' Cost=INT ',' Description=STRING (',' PseudoCode=STRING)?;
+	Requirement=ORing
+	Implication=("->" | "<-" | "<->")
+	Result=ORing ',' Cost=INT ',' Description=STRING (',' PseudoCode=STRING)?;
 
 	//**********Math things**********
-Addition returns NumericalProperty:
-	Multiplication ({Addition.left=current} symbol=('+' | '-') right=Multiplication)*;
+SugarAddition returns SugarNumericalProperty:
+	SugarMultiplication ({SugarAddition.left=current} symbol=('+' | '-') right=SugarMultiplication)*;
 
-Multiplication returns NumericalProperty:
-	NumericalPrimary ({Multiplication.left=current} symbol=('*' | '/') right=NumericalPrimary)*;
+SugarMultiplication returns SugarNumericalProperty:
+	SugarNumericalPrimary ({SugarMultiplication.left=current} symbol=('*' | '/') right=SugarNumericalPrimary)*;
 
-NumericalPrimary returns NumericalProperty:
-	NumberLiteral | Atomic | ('(' NumericalPrimary ')') | Variable;
+SugarNumericalPrimary returns SugarNumericalProperty:
+	NumberLiteral | SugarAtomic | ('(' SugarNumericalPrimary ')') | SugarVariable;
+
+SugarVariable:
+	arg=ID;
 
 NumberLiteral:
 	value=INT;

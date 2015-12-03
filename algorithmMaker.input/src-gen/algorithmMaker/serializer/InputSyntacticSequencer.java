@@ -21,17 +21,17 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected InputGrammarAccess grammarAccess;
 	protected AbstractElementAlias match_Input_SemicolonKeyword_4_4_q;
-	protected AbstractElementAlias match_NumericalPrimary_LeftParenthesisKeyword_2_0_a;
-	protected AbstractElementAlias match_Primary_LeftParenthesisKeyword_3_0_a;
-	protected AbstractElementAlias match_Primary_LeftParenthesisKeyword_3_0_p;
+	protected AbstractElementAlias match_Primary_LeftParenthesisKeyword_4_0_a;
+	protected AbstractElementAlias match_Primary_LeftParenthesisKeyword_4_0_p;
+	protected AbstractElementAlias match_SugarNumericalPrimary_LeftParenthesisKeyword_2_0_a;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (InputGrammarAccess) access;
 		match_Input_SemicolonKeyword_4_4_q = new TokenAlias(false, true, grammarAccess.getInputAccess().getSemicolonKeyword_4_4());
-		match_NumericalPrimary_LeftParenthesisKeyword_2_0_a = new TokenAlias(true, true, grammarAccess.getNumericalPrimaryAccess().getLeftParenthesisKeyword_2_0());
-		match_Primary_LeftParenthesisKeyword_3_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_3_0());
-		match_Primary_LeftParenthesisKeyword_3_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_3_0());
+		match_Primary_LeftParenthesisKeyword_4_0_a = new TokenAlias(true, true, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_4_0());
+		match_Primary_LeftParenthesisKeyword_4_0_p = new TokenAlias(true, false, grammarAccess.getPrimaryAccess().getLeftParenthesisKeyword_4_0());
+		match_SugarNumericalPrimary_LeftParenthesisKeyword_2_0_a = new TokenAlias(true, true, grammarAccess.getSugarNumericalPrimaryAccess().getLeftParenthesisKeyword_2_0());
 	}
 	
 	@Override
@@ -48,12 +48,12 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
 			if(match_Input_SemicolonKeyword_4_4_q.equals(syntax))
 				emit_Input_SemicolonKeyword_4_4_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_NumericalPrimary_LeftParenthesisKeyword_2_0_a.equals(syntax))
-				emit_NumericalPrimary_LeftParenthesisKeyword_2_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Primary_LeftParenthesisKeyword_3_0_a.equals(syntax))
-				emit_Primary_LeftParenthesisKeyword_3_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_Primary_LeftParenthesisKeyword_3_0_p.equals(syntax))
-				emit_Primary_LeftParenthesisKeyword_3_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Primary_LeftParenthesisKeyword_4_0_a.equals(syntax))
+				emit_Primary_LeftParenthesisKeyword_4_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_Primary_LeftParenthesisKeyword_4_0_p.equals(syntax))
+				emit_Primary_LeftParenthesisKeyword_4_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if(match_SugarNumericalPrimary_LeftParenthesisKeyword_2_0_a.equals(syntax))
+				emit_SugarNumericalPrimary_LeftParenthesisKeyword_2_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -74,19 +74,6 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     '('*
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     (rule start) (ambiguity) Function=ID
-	 *     (rule start) (ambiguity) arg=ID
-	 *     (rule start) (ambiguity) value=INT
-	 */
-	protected void emit_NumericalPrimary_LeftParenthesisKeyword_2_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     '('*
-	 *
-	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) '!' negated=Primary
 	 *     (rule start) (ambiguity) '{' problem=Problem
 	 *     (rule start) (ambiguity) Function=ID
@@ -97,7 +84,7 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) {ANDing.left=}
 	 *     (rule start) (ambiguity) {ORing.left=}
 	 */
-	protected void emit_Primary_LeftParenthesisKeyword_3_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Primary_LeftParenthesisKeyword_4_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -109,7 +96,20 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) {ANDing.left=}
 	 *     (rule start) (ambiguity) {ORing.left=}
 	 */
-	protected void emit_Primary_LeftParenthesisKeyword_3_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_Primary_LeftParenthesisKeyword_4_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     '('*
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     (rule start) (ambiguity) Function=ID
+	 *     (rule start) (ambiguity) arg=ID
+	 *     (rule start) (ambiguity) value=INT
+	 */
+	protected void emit_SugarNumericalPrimary_LeftParenthesisKeyword_2_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

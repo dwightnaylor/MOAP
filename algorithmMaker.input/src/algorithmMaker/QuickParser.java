@@ -4,49 +4,69 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.eclipse.emf.common.util.Diagnostic;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.util.Diagnostician;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
 
-import algorithmMaker.input.Input;
-import algorithmMaker.input.InputPackage;
-import algorithmMaker.input.Problem;
-import algorithmMaker.input.Property;
-import algorithmMaker.input.Theorem;
+import algorithmMaker.input.*;
 import algorithmMaker.parser.antlr.InputParser;
+import algorithmMaker.util.InputUtil;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
 public class QuickParser {
 
+	public static boolean printParsingErrors = true;
+
+	public static String clean(String queryString) {
+		queryString = queryString.replaceAll("(\\w+)(\\s*)\\(", "$1:$2(");
+		queryString = queryString.replace(InputUtil.FORALL + ":", InputUtil.FORALL);
+		queryString = queryString.replace(InputUtil.EXISTS + ":", InputUtil.EXISTS);
+		return queryString;
+	}
+
+	public static SugarNumericalProperty parseSugarNumericalProperty(String queryString) {
+		Parser.queryString = "SugarAddition";
+		return (SugarNumericalProperty) parse(queryString, false);
+	}
+
 	public static Property parseProperty(String queryString) {
 		Parser.queryString = "ORing";
-		return (Property) parse(queryString);
+		return (Property) parse(queryString, false);
 	}
 
 	public static Theorem parseTheorem(String queryString) {
 		Parser.queryString = "Theorem";
-		return (Theorem) parse(queryString);
+		return (Theorem) parse(queryString, false);
+	}
+
+	public static Input parseInputDirty(String queryString) {
+		Parser.queryString = "Input";
+		Input parsed = (Input) parse(clean(queryString), true);
+		InputUtil.desugar(parsed);
+		return parsed;
 	}
 
 	public static Input parseInput(String queryString) {
 		Parser.queryString = "Input";
-		return (Input) parse(queryString);
+		return (Input) parse(queryString, true);
 	}
 
 	public static Problem parseProblem(String queryString) {
 		Parser.queryString = "Problem";
-		return (Problem) parse(queryString);
+		return (Problem) parse(queryString, false);
 	}
 
 	private static XtextResourceSet resourceSet;
 	private static int fileIndex = 0;
 
-	private static EObject parse(String queryString) {
+	private static EObject parse(String queryString, boolean nullOnError) {
 		if (resourceSet == null) {
 			resourceSet = new StandaloneSetup().createInjectorAndDoEMFRegistration()
 					.getInstance(XtextResourceSet.class);
@@ -59,7 +79,34 @@ public class QuickParser {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return resource.getContents().get(0);
+		EObject ret = resource.getContents().get(0);
+
+		if (nullOnError) {
+			if (resource.getErrors().size() > 0) {
+				if (printParsingErrors) {
+					System.err.println("Error in parsing \"" + queryString + "\"");
+					System.err.println(resource.getErrors());
+				}
+
+				return null;
+			}
+
+			Diagnostic diagnostic = Diagnostician.INSTANCE.validate(ret);
+			switch (diagnostic.getSeverity()) {
+			case Diagnostic.ERROR: {
+				if (printParsingErrors) {
+					System.err.println("Error found in \"" + queryString + "\"");
+					System.err.println(diagnostic.getChildren());
+				}
+
+				return null;
+			}
+			case Diagnostic.WARNING:
+				// Do nothing, warnings are fine.
+			}
+		}
+
+		return ret;
 	}
 }
 

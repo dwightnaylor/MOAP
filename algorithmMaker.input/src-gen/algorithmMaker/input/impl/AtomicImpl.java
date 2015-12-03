@@ -2,24 +2,20 @@
  */
 package algorithmMaker.input.impl;
 
-import algorithmMaker.input.Argument;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.InputPackage;
 
 import java.util.Collection;
 
 import org.eclipse.emf.common.notify.Notification;
-import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EClass;
-import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 
-import org.eclipse.emf.ecore.util.EObjectContainmentEList;
-import org.eclipse.emf.ecore.util.InternalEList;
+import org.eclipse.emf.ecore.util.EDataTypeEList;
 
 /**
  * <!-- begin-user-doc -->
@@ -58,14 +54,14 @@ public class AtomicImpl extends PropertyImpl implements Atomic
   protected String function = FUNCTION_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getArgs() <em>Args</em>}' containment reference list.
+   * The cached value of the '{@link #getArgs() <em>Args</em>}' attribute list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getArgs()
    * @generated
    * @ordered
    */
-  protected EList<Argument> args;
+  protected EList<String> args;
 
   /**
    * <!-- begin-user-doc -->
@@ -116,29 +112,13 @@ public class AtomicImpl extends PropertyImpl implements Atomic
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<Argument> getArgs()
+  public EList<String> getArgs()
   {
     if (args == null)
     {
-      args = new EObjectContainmentEList<Argument>(Argument.class, this, InputPackage.ATOMIC__ARGS);
+      args = new EDataTypeEList<String>(String.class, this, InputPackage.ATOMIC__ARGS);
     }
     return args;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  @Override
-  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
-  {
-    switch (featureID)
-    {
-      case InputPackage.ATOMIC__ARGS:
-        return ((InternalEList<?>)getArgs()).basicRemove(otherEnd, msgs);
-    }
-    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -175,7 +155,7 @@ public class AtomicImpl extends PropertyImpl implements Atomic
         return;
       case InputPackage.ATOMIC__ARGS:
         getArgs().clear();
-        getArgs().addAll((Collection<? extends Argument>)newValue);
+        getArgs().addAll((Collection<? extends String>)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -241,8 +221,8 @@ public class AtomicImpl extends PropertyImpl implements Atomic
 		ret.append(function);
 		if (args != null && args.size() > 0){
 			ret.append('(');
-			for (Argument arg : args)
-				ret.append(arg.toString() + ',');
+			for (String arg : args)
+				ret.append(arg + ',');
 			ret.setCharAt(ret.length() - 1, ')');
 		}
 		return ret.toString();
