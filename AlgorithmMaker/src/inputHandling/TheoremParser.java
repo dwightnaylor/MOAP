@@ -25,11 +25,15 @@ public class TheoremParser {
 
 					if (line.trim().length() > 0) {
 						Theorem theorem = QuickParser.parseTheorem(line);
-						if (!theorem.getImplication().equals("<-"))
+						if (!theorem.getImplication().equals("<-")) {
 							ret.add(theorem);
+							ret.add(InputUtil.getContrapositive(theorem));
+						}
 
-						if (!theorem.getImplication().equals("->"))
+						if (!theorem.getImplication().equals("->")) {
 							ret.add(InputUtil.getConverse(theorem));
+							ret.add(InputUtil.getContrapositive(InputUtil.getConverse(theorem)));
+						}
 					}
 				}
 

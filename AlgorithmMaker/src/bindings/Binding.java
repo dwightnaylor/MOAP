@@ -1,9 +1,13 @@
 package bindings;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.*;
 
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EObject;
+
+import algorithmMaker.input.Atomic;
 import algorithmMaker.input.Property;
+import algorithmMaker.util.InputUtil;
 import theorems.Fact;
 
 public class Binding {
@@ -44,6 +48,38 @@ public class Binding {
 		for (String var : other.bindings.keySet())
 			if (!canBind(var, other.bindings.get(var)))
 				return false;
+
+		return true;
+	}
+
+	// TODO:DN: Think about how this will work with quantifiers since they declare variables. Also applyBinding()...
+	public boolean canBind(Property original, Property asserted) {
+		if (!InputUtil.devar(original).equals(InputUtil.devar(asserted)))
+			return false;
+
+		Hashtable<String, String> newBindings = new Hashtable<String, String>();
+
+		TreeIterator<EObject> originalContents = original.eAllContents();
+		TreeIterator<EObject> assertedContents = asserted.eAllContents();
+		EObject nextOriginal = original;
+		EObject nextAsserted = asserted;
+		do {
+			if (nextOriginal instanceof Atomic) {
+				Atomic originalAtomic = (Atomic) nextOriginal;
+				for (int i = 0; i < originalAtomic.getArgs().size(); i++) {
+					String originalVar = originalAtomic.getArgs().get(i);
+					String assertedVar = ((Atomic) nextAsserted).getArgs().get(i);
+					if (bindings.containsKey(originalVar) && !bindings.get(originalVar).equals(assertedVar)
+							|| newBindings.containsKey(originalVar)
+							&& !newBindings.get(originalVar).equals(assertedVar))
+						return false;
+
+					newBindings.put(originalVar, assertedVar);
+				}
+			}
+			nextOriginal = originalContents.hasNext() ? originalContents.next() : null;
+			nextAsserted = assertedContents.hasNext() ? assertedContents.next() : null;
+		} while (nextOriginal != null);
 
 		return true;
 	}

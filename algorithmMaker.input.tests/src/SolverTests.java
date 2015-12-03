@@ -67,25 +67,25 @@ public class SolverTests {
 		ArrayList<String[]> probsAndSols = new ArrayList<String[]>();
 		// These are all the problem/solution pairs. If there is no solution or only part of a solution, the program
 		// will only make sure the real solution matches up until whatever's given (no given means any solution works).
-		probsAndSols.add(new String[] { "Given list<int> a; Find b st child(a,b) & even(b)",
-				"foreach child b of a\n\tif b % 2 == 0\n\t\t" });
-		probsAndSols.add(new String[] { "Given list<int> a,list<int> b; Find c st child(a,c) & child(b,c) & even(c)",
-				"foreach child c of a\n\tif c % 2 == 0\n\t\tforeach child na of b\n\t\t\t" });
-		probsAndSols.add(new String[] { "Given int a, int b, int c; Find plus(c,b,a)", "if c + b == a\n\t" });
-		probsAndSols.add(new String[] { "Given array x; Find y st index(x,y) & get(x,y,y)",
-				"foreach index y of x\n\tif x.get(y) == y" });
-		probsAndSols.add(new String[] { "Given list x; Find y,z st child(x,y) & child(x,z) & equal(y,z)",
-				"foreach child y of x\n\tforeach child z of x" });
-		probsAndSols.add(new String[] { "Given list a, list b; Find c st child(a,c) & !child(b,c)", "" });
-		probsAndSols.add(new String[] {
-				"Given list a, list b, list c; Find d st child(a,d) & child(b,d) & !child(c,d)", "" });
-		probsAndSols.add(new String[] {
-				"Given list a, hashset b, hashset c; Find d st child(a,d) & child(b,d) & !child(c,d)", "" });
+//		probsAndSols.add(new String[] { "Given list<int> a; Find b st child(a,b) & even(b)",
+//				"foreach child b of a\n\tif b % 2 == 0\n\t\t" });
+//		probsAndSols.add(new String[] { "Given list<int> a,list<int> b; Find c st child(a,c) & child(b,c) & even(c)",
+//				"foreach child c of a\n\tboolean nb = true;\n\tforeach child na of b" });
+//		probsAndSols.add(new String[] { "Given int a, int b, int c; Find plus(c,b,a)", "if c + b == a\n\t" });
+//		probsAndSols.add(new String[] { "Given array x; Find y st index(x,y) & get(x,y,y)",
+//				"foreach index y of x\n\tif x.get(y) == y" });
+//		probsAndSols.add(new String[] { "Given list x; Find y,z st child(x,y) & child(x,z) & equal(y,z)",
+//				"foreach child y of x\n\tforeach child z of x" });
+//		probsAndSols.add(new String[] { "Given list a, list b; Find c st child(a,c) & !child(b,c)", "" });
+//		probsAndSols.add(new String[] {
+//				"Given list a, list b, list c; Find d st child(a,d) & child(b,d) & !child(c,d)", "" });
+//		probsAndSols.add(new String[] {
+//				"Given list a, hashset b, hashset c; Find d st child(a,d) & child(b,d) & !child(c,d)", "" });
+		probsAndSols.add(new String[] { "Given a,b; Find s st plus(a,b,s)", "" });
 		// probsAndSols.add(new String[] {
 		// "Given list<number> x, int s; Find a,b st child(x,a) & child(x,b) & equal(a+b,s)", "" });
 		for (String[] ps : probsAndSols) {
 			Input input = QuickParser.parseInputDirty(ps[0]);
-			InputUtil.desugar(input);
 			String actualSolution = ProblemState.getOutputString(new ProblemSolver(input, theorems
 					.toArray(new Theorem[0])).getSolution());
 			if (actualSolution == null) {

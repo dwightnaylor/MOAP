@@ -122,6 +122,19 @@ public class InputUtil {
 		return ret;
 	}
 
+	public static Theorem getContrapositive(Theorem theorem) {
+		Theorem contrapositive = InputFactoryImpl.eINSTANCE.createTheorem();
+		contrapositive.setCost(theorem.getCost());
+		contrapositive.setDescription(theorem.getDescription());
+		contrapositive.setPseudoCode(theorem.getPseudoCode());
+		contrapositive.setRequirement(InputUtil.canonicalize(InputUtil.getNegated(InputUtil.stupidCopy(theorem
+				.getResult()))));
+		contrapositive.setResult(InputUtil.canonicalize(InputUtil.getNegated(InputUtil.stupidCopy(theorem
+				.getRequirement()))));
+		contrapositive.setImplication(theorem.getImplication());
+		return contrapositive;
+	}
+
 	@SuppressWarnings("unchecked")
 	public static <P extends Property> P stupidCopy(P property) {
 		// TODO:DN: Fix these three stupid methods and find a better way...
@@ -651,7 +664,7 @@ public class InputUtil {
 
 				ArrayList<Atomic> newAtomics = new ArrayList<Atomic>();
 				Hashtable<SugarNumericalProperty, String> nestedArgs = new Hashtable<SugarNumericalProperty, String>();
-				denest((SugarAtomic) cur, InputUtil.getAllVars(problem), nestedArgs, newAtomics, false);
+				denest((SugarAtomic) cur, InputUtil.getDeclaredVars(problem), nestedArgs, newAtomics, false);
 				if (newAtomics.size() == 1)
 					return newAtomics.iterator().next();
 
@@ -661,9 +674,10 @@ public class InputUtil {
 						varsToDeclare.add(nestedArgs.get(property));
 
 				Collections.sort(varsToDeclare);
+				for (String var : varsToDeclare)
+					problem.getVars().add(InputUtil.createDeclaration(var));
 
-				return InputUtil.createProblemShell(InputUtil.createProblem(varsToDeclare,
-						InputUtil.andTogether(newAtomics)));
+				return InputUtil.andTogether(newAtomics);
 			}
 
 			private void denest(SugarNumericalProperty property, HashSet<String> allVars,

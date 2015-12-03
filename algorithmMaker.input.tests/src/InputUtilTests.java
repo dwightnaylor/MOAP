@@ -75,17 +75,22 @@ public class InputUtilTests {
 		tasks.add(new String[] { "Given x; Find y st test(y)", "Given x; Find y st test(y)" });
 		tasks.add(new String[] { "Given list<int> x; Find y st test(y)",
 				"Given x st type_list(x) & child_type_int(x); Find y st test(y)" });
-		tasks.add(new String[] { "Given x; Find y st test(test1(y))",
-				"Given x; Find y st {na st test1(y,na) & test(na)}" });
+		tasks.add(new String[] { "Given x; Find y st test(test1(y))", "Given x; Find y,na st test1(y,na) & test(na)" });
 		tasks.add(new String[] { "Given x; Find y st equal(x+y,x-y)",
-				"Given x; Find y st {na,nb st plus(x,y,na) & minus(x,y,nb) & equal(na,nb)}" });
+				"Given x; Find y,na,nb st plus(x,y,na) & minus(x,y,nb) & equal(na,nb)" });
+		tasks.add(new String[] { "Given x; Find na st test(other(na))",
+				"Given x; Find na,nb st other(na,nb) & test(nb)" });
 		for (String[] task : tasks) {
 			Input original = QuickParser.parseInputDirty(task[0]);
 			String simplifiedToString = original.toString();
 
-			if (!task[1].equals(simplifiedToString))
-				System.err.println("\"" + task[0] + "\" Should desugar to \"" + task[1]
-						+ "\" but it instead desugared to \"" + simplifiedToString + '"');
+			if (!task[1].equals(simplifiedToString)) {
+				System.err.println(task[0]);
+				System.err.println("Should desugar to");
+				System.err.println(task[1]);
+				System.err.println("but it instead desugared to");
+				System.err.println(simplifiedToString);
+			}
 
 			assertEquals(simplifiedToString, task[1]);
 		}

@@ -7,6 +7,7 @@ import static algorithmMaker.util.InputUtil.UNBOUND;
 
 import java.util.ArrayList;
 
+import algorithmMaker.util.InputUtil;
 import theorems.MultistageTheorem;
 
 public class MultiTheoremParser {
@@ -14,7 +15,7 @@ public class MultiTheoremParser {
 	public static ArrayList<MultistageTheorem> parseFiles() {
 		ArrayList<MultistageTheorem> ret = new ArrayList<MultistageTheorem>();
 		addBruteForceFindTheorems(ret);
-		addBruteForceTestTheorems(ret);
+		// addBruteForceTestTheorems(ret);
 		addSimpleTestingTheorems(ret);
 		addDeclarationTheorems(ret);
 		return ret;
@@ -47,16 +48,16 @@ public class MultiTheoremParser {
 	// ret.add(bruteForce);
 	// }
 	// }
-	private static void addBruteForceTestTheorems(ArrayList<MultistageTheorem> ret) {
-		ArrayList<String[]> bruteForces = new ArrayList<String[]>();
-		bruteForces.add(new String[] { "enumerable(x)", "child(x,y)", BOUND + "(ny) & child(x,ny)", EQUAL + "(y,ny)",
-				"foreach child <ny> of <x>" });
-		bruteForces.add(new String[] { "indexable(x)", "index(x,y)", BOUND + "(ny) & index(x,ny)", EQUAL + "(y,ny)",
-				"foreach index <ny> of <x>" });
-		for (String[] cur : bruteForces)
-			ret.add(new MultistageTheorem(parseProperty(cur[0]), parseProperty(cur[1]), parseProperty(cur[2]),
-					parseProperty(cur[3]), 10, "Brute force.", cur[4]));
-	}
+	// private static void addBruteForceTestTheorems(ArrayList<MultistageTheorem> ret) {
+	// ArrayList<String[]> bruteForces = new ArrayList<String[]>();
+	// bruteForces.add(new String[] { "enumerable(x)", "child(x,y)", BOUND + "(ny) & child(x,ny)", EQUAL + "(y,ny)",
+	// "foreach child <ny> of <x>" });
+	// bruteForces.add(new String[] { "indexable(x)", "index(x,y)", BOUND + "(ny) & index(x,ny)", EQUAL + "(y,ny)",
+	// "foreach index <ny> of <x>" });
+	// for (String[] cur : bruteForces)
+	// ret.add(new MultistageTheorem(parseProperty(cur[0]), parseProperty(cur[1]), parseProperty(cur[2]),
+	// parseProperty(cur[3]), 10, "Brute force.", cur[4]));
+	// }
 
 	private static void addSimpleTestingTheorems(ArrayList<MultistageTheorem> ret) {
 		ArrayList<String[]> tests = new ArrayList<String[]>();
@@ -82,7 +83,13 @@ public class MultiTheoremParser {
 		declarations.add(new String[] { BOUND + "(x) & " + BOUND + "(i) & " + UNBOUND + "(xi)",
 				BOUND + "(xi) & get(x,i,xi)", "<xi> = <x>.get(<i>)" });
 		declarations.add(new String[] { BOUND + "(a) & " + BOUND + "(b) & " + UNBOUND + "(apb)",
-				BOUND + "(apb) & plus(a,b,apb)", "<apb> = <a> + <b>" });
+				BOUND + "(apb) & " + InputUtil.ADDITION + "(a,b,apb)", "<apb> = <a> + <b>" });
+		declarations.add(new String[] { BOUND + "(a) & " + BOUND + "(b) & " + UNBOUND + "(apb)",
+				BOUND + "(apb) & " + InputUtil.SUBTRACTION + "(a,b,apb)", "<apb> = <a> - <b>" });
+		declarations.add(new String[] { BOUND + "(a) & " + BOUND + "(b) & " + UNBOUND + "(apb)",
+				BOUND + "(apb) & " + InputUtil.MULTIPLICATION + "(a,b,apb)", "<apb> = <a> * <b>" });
+		declarations.add(new String[] { BOUND + "(a) & " + BOUND + "(b) & " + UNBOUND + "(apb)",
+				BOUND + "(apb) & " + InputUtil.DIVISION + "(a,b,apb)", "<apb> = <a> / <b>" });
 		for (String[] declaration : declarations)
 			ret.add(new MultistageTheorem(parseProperty(declaration[0]), parseProperty(declaration[1]),
 					parseProperty(declaration[1]), null, 1, "Simple declaration.", declaration[2]));

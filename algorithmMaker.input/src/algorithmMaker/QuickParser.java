@@ -82,8 +82,10 @@ public class QuickParser {
 
 		if (nullOnError) {
 			if (resource.getErrors().size() > 0) {
-				if (PRINT_ERRORS_IN_PARSING)
+				if (PRINT_ERRORS_IN_PARSING) {
+					System.err.println("Error in parsing \"" + queryString + "\"");
 					System.err.println(resource.getErrors());
+				}
 
 				return null;
 			}
@@ -91,8 +93,10 @@ public class QuickParser {
 			Diagnostic diagnostic = Diagnostician.INSTANCE.validate(ret);
 			switch (diagnostic.getSeverity()) {
 			case Diagnostic.ERROR: {
-				if (PRINT_ERRORS_IN_PARSING)
+				if (PRINT_ERRORS_IN_PARSING) {
+					System.err.println("Error found in \"" + queryString + "\"");
 					System.err.println(diagnostic.getChildren());
+				}
 
 				return null;
 			}

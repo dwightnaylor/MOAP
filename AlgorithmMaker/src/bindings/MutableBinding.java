@@ -24,7 +24,6 @@ public class MutableBinding extends Binding {
 	private Stack<ArrayList<String>> lastBindings = new Stack<ArrayList<String>>();
 
 	public void applyBinding(Property original, Fact<? extends Property> asserted) {
-		// TODO: Think about how this works with nested atomics after they're unnested
 		if (!InputUtil.devar(original).equals(InputUtil.devar(asserted.property)))
 			throw new IllegalArgumentException("Cannot bind two non-equivalent properties \"" + original + "\" and \""
 					+ asserted.property + "\"");
@@ -71,6 +70,7 @@ public class MutableBinding extends Binding {
 
 	public void addBindingsFrom(Binding previousBinding) {
 		for (String var : previousBinding.bindings.keySet())
-			bind(var, previousBinding.bindings.get(var));
+			if (canBind(var, previousBinding.bindings.get(var)))
+				bind(var, previousBinding.bindings.get(var));
 	}
 }

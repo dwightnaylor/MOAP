@@ -24,7 +24,7 @@ public class ToStringTests {
 		String[] originals = { "Given x st a(x); Find y st a(y)", "Given x st a(x); Find b(x)",
 				"Given x,y st type_list(x) & child(x,y); Find even(y)",
 				"Given list<int> x; Find z st child(x,z) & forall(y st child(x,y) : lessThanEqual(y,z))",
-				"Given list<int> x; Find y st child(x,y) & even(y)" };
+				"Given list<int> x; Find y st child(x,y) & even(y)", "Given list x,y; Find child(x,y)" };
 		for (String original : originals) {
 			String parse = parseInput(original).toString();
 			if (!original.equals(parse))

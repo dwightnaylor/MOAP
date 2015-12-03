@@ -71,12 +71,15 @@ public class ProblemSolver {
 
 		Chainer givenChainer = new Chainer(theorems);
 		givenChainer.addBoundVars(InputUtil.getVarNames(problem.getGiven().getVars()));
-		// NOTE: This line has to go after the bound vars, or all variables in the goal will be unbound.
+		// NOTE: This line has to go after the bound vars, or all variables in
+		// the goal will be unbound.
 		givenChainer.addUnboundVars(InputUtil.getAllVars(problem.getGoal()).toArray(new String[0]));
-		givenChainer.chain(problem.getGiven().getProperty(), TransformUtil.GIVEN);
+		if (problem.getGiven().getProperty() != null)
+			givenChainer.chain(problem.getGiven().getProperty(), TransformUtil.GIVEN);
 
 		Chainer findChainer = new Chainer(false, invertedTheorems);
 		findChainer.addBoundVars(InputUtil.getVarNames(problem.getGiven().getVars()));
+		findChainer.addBoundVars(InputUtil.getVarNames(problem.getGoal().getVars()));
 		findChainer.previousLevelTheorems = givenChainer.nextLevelTheorems;
 		findChainer.chain(problem.getGoal().getProperty(), TransformUtil.GOAL);
 
@@ -108,12 +111,26 @@ public class ProblemSolver {
 
 						Property givenResult = mst.getGivenResult();
 						if (givenResult != null) {
+							for (String var : InputUtil.getDeclaredVars(givenResult))
+								if (usedVars.contains(var)) {
+									String newVar = InputUtil.getUnusedVar(usedVars);
+									usedVars.add(newVar);
+									newBinding.bind(var, newVar);
+								}
+
 							newBinding.addBindingsFrom(doBindings(newProblem.getGiven(), usedVars,
 									InputUtil.getBindings(givenResult)));
 							newGivenParts.add(InputUtil.revar(givenResult, newBinding.getArguments()));
 						}
 						Property findResult = mst.getFindResult();
 						if (findResult != null) {
+							for (String var : InputUtil.getDeclaredVars(findResult))
+								if (usedVars.contains(var)) {
+									String newVar = InputUtil.getUnusedVar(usedVars);
+									usedVars.add(newVar);
+									newBinding.bind(var, newVar);
+								}
+
 							newBinding.addBindingsFrom(doBindings(newProblem.getGoal(), usedVars,
 									InputUtil.getBindings(findResult)));
 							newGoalParts.add(InputUtil.revar(findResult, newBinding.getArguments()));
@@ -267,7 +284,9 @@ public class ProblemSolver {
 		// Simplify the problem
 		TransformUtil.removeGivenFromGoal(newProblem, new Chainer(theorems));
 
-		newProblem.getGiven().setProperty(InputUtil.canonicalize(newProblem.getGiven().getProperty()));
+		if (newProblem.getGiven().getProperty() != null)
+			newProblem.getGiven().setProperty(InputUtil.canonicalize(newProblem.getGiven().getProperty()));
+
 		if (newProblem.getGoal() != null)
 			newProblem.getGoal().setProperty(InputUtil.canonicalize(newProblem.getGoal().getProperty()));
 
@@ -303,9 +322,8 @@ public class ProblemSolver {
 	public static ProblemSolver runSolver(String problemString) {
 		ArrayList<Theorem> theorems = TheoremParser.parseFiles();
 		theorems.addAll(MultiTheoremParser.parseFiles());
-		Input input = QuickParser.parseInputDirty(problemString);
-		InputUtil.desugar(input);
-		ProblemSolver ret = new ProblemSolver(input, theorems.toArray(new Theorem[0]));
+		ProblemSolver ret = new ProblemSolver(QuickParser.parseInputDirty(problemString),
+				theorems.toArray(new Theorem[0]));
 		ret.getSolution();
 		return ret;
 	}
@@ -322,7 +340,6 @@ public class ProblemSolver {
 				System.exit(0);
 			}
 			Input input = QuickParser.parseInputDirty(problemString);
-			InputUtil.desugar(input);
 			ProblemSolver problemSolver = new ProblemSolver(input, theorems.toArray(new Theorem[0]));
 			ProblemState solution = problemSolver.getSolution();
 			if (solution == null)

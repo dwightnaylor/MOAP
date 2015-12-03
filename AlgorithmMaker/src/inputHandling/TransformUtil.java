@@ -62,9 +62,9 @@ public class TransformUtil {
 		if (given != null) {
 			Property reducedGiven = (Property) removeProperties(given, toRemove);
 			input.getGiven().setProperty(reducedGiven == null ? QuickParser.parseProperty("TRUE") : reducedGiven);
-		}
 
-		chainer.chain(input.getGiven().getProperty(), GIVEN);
+			chainer.chain(input.getGiven().getProperty(), GIVEN);
+		}
 		toRemove.addAll(chainer.properties.keySet());
 		Property find = input.getGoal().getProperty();
 		if (find != null) {
@@ -72,7 +72,8 @@ public class TransformUtil {
 			input.getGoal().setProperty(reducedFind == null ? QuickParser.parseProperty("TRUE") : reducedFind);
 		}
 
-		compactVariables(input.getGiven(), input.getGoal());
+		if (given != null)
+			compactVariables(input.getGiven(), input.getGoal());
 
 		if (input.getGoal().getProperty().equals(InputUtil.getBooleanLiteral(true)))
 			input.setGoal(null);
@@ -84,11 +85,11 @@ public class TransformUtil {
 	 */
 	public static void compactVariables(Problem given, Problem goal) {
 		given.getVars().clear();
-		ArrayList<Declaration> declarations = new ArrayList<Declaration>();
 		for (String var : InputUtil.getUnboundVariables(given.getProperty()))
-			declarations.add(InputUtil.createDeclaration(var));
+			given.getVars().add(InputUtil.createDeclaration(var));
 
-		given.getVars().addAll(declarations);
+		for (String var : InputUtil.getUnboundVariables(goal.getProperty()))
+			given.getVars().add(InputUtil.createDeclaration(var));
 
 		// This is done in n^2 time here because we want to preserve order and
 		// I'm lazy.

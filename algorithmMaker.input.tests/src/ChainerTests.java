@@ -1,6 +1,7 @@
 import static algorithmMaker.QuickParser.parseProperty;
 import static algorithmMaker.QuickParser.parseTheorem;
-import static org.junit.Assert.assertTrue;
+import static algorithmMaker.util.InputUtil.BOUND;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
@@ -47,7 +48,8 @@ public class ChainerTests {
 
 	@Test
 	public void testMultipleChaining() {
-		Chainer basicChainer = new Chainer(parseTheorem("a(x)->b(x),0,\"GIVEN\""), parseTheorem("b(x)->c(x),0,\"GIVEN\""));
+		Chainer basicChainer = new Chainer(parseTheorem("a(x)->b(x),0,\"GIVEN\""),
+				parseTheorem("b(x)->c(x),0,\"GIVEN\""));
 		basicChainer.chain(parseProperty("a(y)"), TransformUtil.GIVEN);
 		assertTrue("Multiple chaining works", basicChainer.hasProperty(parseProperty("c(y)")));
 	}
@@ -126,10 +128,18 @@ public class ChainerTests {
 		assertTrue(basicChainer.hasProperty(parseProperty("b(q)")));
 	}
 
-//	@Test
-//	public void testQuantifierChaining() {
-//		Chainer basicChainer = new Chainer(parseTheorem("forall(x st a(x,y) : b(x,y))->c(y),0,GIVEN"));
-//		basicChainer.chain(parseProperty("forall(z st a(z,q) : b(z,q))"), TransformUtil.GIVEN);
-//		assertTrue(basicChainer.hasProperty(parseProperty("c(q)")));
-//	}
+	@Test
+	public void testForBoundExclusion() {
+		Chainer basicChainer = new Chainer(parseTheorem(BOUND + "(apb) & plus(a,b,apb)->something(apb)"));
+		basicChainer.chain(parseProperty(BOUND + "(a)"), TransformUtil.GIVEN);
+		basicChainer.chain(parseProperty("plus(a,b,c)"), TransformUtil.GIVEN);
+		assertFalse(basicChainer.hasProperty(parseProperty("something(c)")));
+	}
+
+	// @Test
+	// public void testQuantifierChaining() {
+	// Chainer basicChainer = new Chainer(parseTheorem("forall(x st a(x,y) : b(x,y))->c(y),0,GIVEN"));
+	// basicChainer.chain(parseProperty("forall(z st a(z,q) : b(z,q))"), TransformUtil.GIVEN);
+	// assertTrue(basicChainer.hasProperty(parseProperty("c(q)")));
+	// }
 }

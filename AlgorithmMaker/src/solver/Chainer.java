@@ -56,9 +56,8 @@ public class Chainer {
 
 	public Chainer(boolean isGivenChainer, Theorem... theorems) {
 		this.isGivenChainer = isGivenChainer;
-		for (Theorem theorem : theorems) {
+		for (Theorem theorem : theorems)
 			addTheoremCatcher(getRequirement(theorem), theorem);
-		}
 	}
 
 	public void addBoundVars(String... vars) {
@@ -267,18 +266,14 @@ public class Chainer {
 
 	private void attemptPropagation(Theorem theorem, ArrayList<Property> atomicsToSatisfy, int index,
 			Fact<? extends Property> fact, boolean usedAsserted, MutableBinding binding, int lastUsableIndex) {
-		// base case : when we've fulfilled all the atomics, we can assert our
-		// result.
+		// base case : when we've fulfilled all the atomics, we can assert our result.
 		if (index == atomicsToSatisfy.size()) {
 			attemptChaining(theorem, binding.getImmutable());
 			return;
 		}
 
 		Atomic toSatisfy = (Atomic) atomicsToSatisfy.get(index);
-		if (index == lastUsableIndex && !usedAsserted) {
-			if (!InputUtil.devar(toSatisfy).equals(InputUtil.devar(fact.property)))
-				return;
-
+		if (index == lastUsableIndex && !usedAsserted && binding.canBind(toSatisfy, fact.property)) {
 			binding.applyBinding(toSatisfy, fact);
 
 			attemptPropagation(theorem, atomicsToSatisfy, index + 1, fact, true, binding, lastUsableIndex);
@@ -286,7 +281,7 @@ public class Chainer {
 			binding.undoLastBinding();
 		} else {
 			for (Fact<? extends Property> candidate : propertiesByStructure.get(InputUtil.devar(toSatisfy))) {
-				if (InputUtil.devar(toSatisfy).equals(InputUtil.devar(candidate.property))) {
+				if (binding.canBind(toSatisfy, candidate.property)) {
 					binding.applyBinding(toSatisfy, candidate);
 
 					attemptPropagation(theorem, atomicsToSatisfy, index + 1, fact,
