@@ -16,6 +16,7 @@ import org.eclipse.xtext.resource.XtextResourceSet;
 import algorithmMaker.input.*;
 import algorithmMaker.parser.antlr.InputParser;
 import algorithmMaker.util.InputUtil;
+import algorithmMaker.util.SugarUtil;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -49,7 +50,7 @@ public class QuickParser {
 	public static Input parseInputDirty(String queryString) {
 		Parser.queryString = "Input";
 		Input parsed = (Input) parse(clean(queryString), true);
-		InputUtil.desugar(parsed);
+		SugarUtil.desugar(parsed);
 		return parsed;
 	}
 

@@ -1,13 +1,12 @@
 package solver;
 
-import inputHandling.TransformUtil;
-
 import java.util.Collections;
 import java.util.List;
 
 import theorems.MultistageTheorem;
 import algorithmMaker.input.Input;
 import algorithmMaker.util.InputUtil;
+import algorithmMaker.util.SugarUtil;
 import bindings.Binding;
 
 public class ProblemState implements Comparable<ProblemState> {
@@ -27,7 +26,7 @@ public class ProblemState implements Comparable<ProblemState> {
 
 	public String toString() {
 		if (toStringSave == null)
-			toStringSave = TransformUtil.makePretty(problem).toString();
+			toStringSave = SugarUtil.resugar(problem).toString();
 
 		return toStringSave;
 	}
@@ -65,7 +64,7 @@ public class ProblemState implements Comparable<ProblemState> {
 		StringBuffer output = new StringBuffer();
 		// FIXME: DN : SERIOUSLY THIS IS DISGUSTING CHANGE IT ASAP
 		head.childStates.get(0).rootTheorem.getPseudocoder().appendPseudocode(output, 0, head.childStates.get(0),
-				"return " + InputUtil.getDeclaredVars(TransformUtil.makePretty(head.problem).getGoal()));
+				"return " + InputUtil.getDeclaredVars(SugarUtil.resugar(head.problem).getGoal()));
 		return output.toString();
 	}
 }

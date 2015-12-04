@@ -623,128 +623,12 @@ public class InputUtil {
 			return new ArrayList<Property>(Collections.singleton(property));
 	}
 
-	public static void desugar(Input input) {
-		desugar(input.getGiven());
-		desugar(input.getGoal());
-	}
-
-	public static void desugar(Problem problem) {
-		ArrayList<Property> properties = new ArrayList<Property>();
-		properties.add(problem.getProperty());
-		// Go through all the declarations and remove their type declaration.
-		// Replace it with type declaration atomics.
-		HashSet<String> declaredVars = InputUtil.getDeclaredVars(problem);
-		for (Declaration declaration : problem.getVars())
-			if (declaration.getType() != null)
-				properties.add(getDesugaredTypeDeclaration(declaration.getType(), declaration.getVarName(),
-						declaredVars));
-
-		problem.setProperty(InputUtil.andTogether(properties));
-
-		// This whole chunk is JUST for removing nested atomics.
-		desugarNestedAtomics(problem);
-	}
-
-	private static Property getDesugaredTypeDeclaration(Type type, String varName, HashSet<String> usedVars) {
-		Property ret = createAtomic(InputUtil.TYPE_MARKER + type.getName(), varName);
-		if (type.getTemplateType() != null) {
-			String newVar = getUnusedVar(usedVars);
-			usedVars.add(newVar);
-			Quantifier quantifier = createQuantifier(InputUtil.FORALL,
-					createProblem(Collections.singleton(newVar), createAtomic("child", varName, newVar)),
-					getDesugaredTypeDeclaration(type.getTemplateType(), newVar, usedVars));
-			usedVars.remove(newVar);
-			ret = andTogether(Arrays.asList(new Property[] { ret, quantifier }));
-		}
-		return ret;
-	}
-
-	private static Quantifier createQuantifier(String quantifier, Problem subject, Property predicate) {
+	public static Quantifier createQuantifier(String quantifier, Problem subject, Property predicate) {
 		Quantifier ret = InputFactoryImpl.eINSTANCE.createQuantifier();
 		ret.setQuantifier(quantifier);
 		ret.setSubject(subject);
 		ret.setPredicate(predicate);
 		return ret;
-	}
-
-	private static void desugarNestedAtomics(Problem problem) {
-		problem.setProperty((Property) InputUtil.reduce(problem.getProperty(), new InputConverter() {
-			@Override
-			public EObject apply(EObject cur) {
-				if (!(cur instanceof SugarAtomic))
-					return cur;
-
-				ArrayList<Atomic> newAtomics = new ArrayList<Atomic>();
-				Hashtable<SugarNumericalProperty, String> nestedArgs = new Hashtable<SugarNumericalProperty, String>();
-				denest((SugarAtomic) cur, InputUtil.getDeclaredVars(problem), nestedArgs, newAtomics, false);
-				if (newAtomics.size() == 1)
-					return newAtomics.iterator().next();
-
-				ArrayList<String> varsToDeclare = new ArrayList<String>();
-				for (SugarNumericalProperty property : nestedArgs.keySet())
-					if (!(property instanceof SugarVariable))
-						varsToDeclare.add(nestedArgs.get(property));
-
-				Collections.sort(varsToDeclare);
-				for (String var : varsToDeclare)
-					problem.getVars().add(InputUtil.createDeclaration(var));
-
-				return InputUtil.andTogether(newAtomics);
-			}
-
-			private void denest(SugarNumericalProperty property, HashSet<String> allVars,
-					Hashtable<SugarNumericalProperty, String> nestedArgs, ArrayList<Atomic> newAtomics, boolean nested) {
-				if (nestedArgs.containsKey(property))
-					return;
-
-				if (property instanceof SugarVariable) {
-					nestedArgs.put(property, ((SugarVariable) property).getArg());
-					return;
-				}
-
-				String newArg = null;
-				if (nested) {
-					newArg = InputUtil.getUnusedVar(allVars);
-					allVars.add(newArg);
-					nestedArgs.put(property, newArg);
-				}
-				Atomic replacement;
-				if (property instanceof SugarAtomic) {
-					replacement = InputUtil.createAtomic(((SugarAtomic) property).getFunction());
-					for (SugarNumericalProperty argument : ((SugarAtomic) property).getArgs()) {
-						denest(argument, allVars, nestedArgs, newAtomics, true);
-						replacement.getArgs().add(nestedArgs.get(argument));
-					}
-				} else if (property instanceof Atomic) {
-					replacement = InputUtil.createAtomic(((Atomic) property).getFunction());
-					for (String argument : ((Atomic) property).getArgs())
-						replacement.getArgs().add(argument);
-
-				} else if (property instanceof SugarAddition) {
-					SugarAddition addition = (SugarAddition) property;
-					replacement = InputUtil.createAtomic(addition.getSymbol().equals("+") ? InputUtil.ADDITION
-							: InputUtil.SUBTRACTION);
-					denest(addition.getLeft(), allVars, nestedArgs, newAtomics, true);
-					denest(addition.getRight(), allVars, nestedArgs, newAtomics, true);
-					replacement.getArgs().add(nestedArgs.get(addition.getLeft()));
-					replacement.getArgs().add(nestedArgs.get(addition.getRight()));
-				} else if (property instanceof SugarMultiplication) {
-					SugarMultiplication addition = (SugarMultiplication) property;
-					replacement = InputUtil.createAtomic(addition.getSymbol().equals("*") ? InputUtil.MULTIPLICATION
-							: InputUtil.DIVISION);
-					denest(addition.getLeft(), allVars, nestedArgs, newAtomics, true);
-					denest(addition.getRight(), allVars, nestedArgs, newAtomics, true);
-					replacement.getArgs().add(nestedArgs.get(addition.getLeft()));
-					replacement.getArgs().add(nestedArgs.get(addition.getRight()));
-				} else {
-					throw new UnsupportedOperationException("Can't denest a " + property.getClass());
-				}
-				if (nested)
-					replacement.getArgs().add(newArg);
-
-				newAtomics.add(replacement);
-			}
-		}));
 	}
 
 	public static Problem createProblem(Collection<String> args, Property property) {

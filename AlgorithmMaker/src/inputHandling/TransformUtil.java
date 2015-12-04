@@ -1,8 +1,8 @@
 package inputHandling;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 
-import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
 
 import solver.Chainer;
@@ -10,7 +10,6 @@ import theorems.MultistageTheorem;
 import theorems.QuickTheorem;
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.*;
-import algorithmMaker.input.impl.InputFactoryImpl;
 import algorithmMaker.util.InputConverter;
 import algorithmMaker.util.InputUtil;
 
@@ -85,8 +84,7 @@ public class TransformUtil {
 		for (String var : InputUtil.getUnboundVariables(goal.getProperty()))
 			given.getVars().add(InputUtil.createDeclaration(var));
 
-		// This is done in n^2 time here because we want to preserve order and
-		// I'm lazy.
+		// This is done in n^2 time here because we want to preserve order and I'm lazy.
 		for (Declaration declaration : given.getVars())
 			goal.getVars().removeIf(x -> x.getVarName().equals(declaration.getVarName()));
 	}
@@ -119,130 +117,5 @@ public class TransformUtil {
 			clone.getGiven().getVars().add(InputUtil.createDeclaration(undeclaredVar));
 
 		return clone;
-	}
-
-	// TODO:DN: This method also has to be fixed up...god this is hacky
-	public static Input makePretty(Input problem) {
-		Input ret = InputFactoryImpl.eINSTANCE.createInput();
-		ret.setGiven(makePretty(problem.getGiven()));
-		ret.setTask(problem.getTask());
-		ret.setGoal(makePretty(problem.getGoal()));
-
-		if (ret.getGiven() != null) {
-			Hashtable<String, Declaration> originalDeclarations = new Hashtable<String, Declaration>();
-			for (Declaration declaration : ret.getGiven().getVars())
-				originalDeclarations.put(declaration.getVarName(), declaration);
-
-			if (ret.getGoal() != null)
-				for (Declaration declaration : ret.getGoal().getVars())
-					originalDeclarations.put(declaration.getVarName(), declaration);
-
-			ret.getGiven().getVars().clear();
-			if (ret.getGiven().getProperty() != null)
-				for (String var : InputUtil.getUnboundVariables(ret.getGiven().getProperty()))
-					ret.getGiven()
-							.getVars()
-							.add(originalDeclarations.containsKey(var) ? originalDeclarations.get(var) : InputUtil
-									.createDeclaration(var));
-
-			if (ret.getGoal() != null && ret.getGoal().getProperty() != null) {
-				for (String var : InputUtil.getUnboundVariables(ret.getGoal().getProperty()))
-					ret.getGiven()
-							.getVars()
-							.add(originalDeclarations.containsKey(var) ? originalDeclarations.get(var) : InputUtil
-									.createDeclaration(var));
-
-				ret.getGoal().getVars().clear();
-				for (String var : InputUtil.getUnboundVariables(ret.getGoal().getProperty()))
-					ret.getGoal()
-							.getVars()
-							.add(originalDeclarations.containsKey(var) ? originalDeclarations.get(var) : InputUtil
-									.createDeclaration(var));
-			}
-		}
-		return ret;
-	}
-
-	// TODO:DN: Move all desugaring and resugaring into one class!
-	public static Problem makePretty(Problem problem) {
-		if (problem == null)
-			return null;
-		// TODO:RESUGAR: Collapse arithmetic (PROPERLY, the current way is AWFUL!)
-		// TODO:RESUGAR: Re-nest atomics if possible (PROPERLY, the current way is AWFUL!)
-		// TODO:RESUGAR: collapse quantifiers if possible (child_type...)
-		Hashtable<String, String[]> replacements = new Hashtable<String, String[]>();
-		TreeIterator<EObject> contents = (problem.eContainer() == null ? problem : problem.eContainer()).eAllContents();
-		while (contents.hasNext()) {
-			EObject cur = contents.next();
-			if (cur instanceof Atomic && InputUtil.isArithmetic(((Atomic) cur).getFunction())) {
-				Atomic atomic = (Atomic) cur;
-				replacements.put(atomic.getArgs().get(2),
-						new String[] { atomic.getArgs().get(0), InputUtil.getSymbol(atomic.getFunction()),
-								atomic.getArgs().get(1) });
-			}
-		}
-		return (Problem) InputUtil.reduce(problem, new InputConverter() {
-
-			private String breakDown(String arg, Hashtable<String, String[]> replacements) {
-				if (!replacements.containsKey(arg))
-					return arg;
-
-				String[] rep = replacements.get(arg);
-				return breakDown(rep[0], replacements) + rep[1] + breakDown(rep[2], replacements);
-			}
-
-			@Override
-			public EObject apply(EObject cur) {
-				if (cur instanceof Problem) {
-					ArrayList<Property> topLevelAtomics = InputUtil.getTopLevelElements(((Problem) cur).getProperty());
-					for (int i = 0; i < topLevelAtomics.size(); i++) {
-						if (topLevelAtomics.get(i) instanceof Atomic) {
-							Atomic atomic = (Atomic) topLevelAtomics.get(i);
-							String function = atomic.getFunction();
-							if (InputUtil.isTypeAtomic(function)) {
-								Declaration declaration = InputUtil.getDeclaration(atomic, atomic.getArgs().get(0));
-								if (declaration.getType() == null)
-									declaration.setType(InputFactoryImpl.eINSTANCE.createType());
-
-								declaration.getType().setName(InputUtil.getDeclaredType(function));
-								topLevelAtomics.remove(i--);
-							} else if (InputUtil.isChildTypeAtomic(function)) {
-								Declaration declaration = InputUtil.getDeclaration(atomic, atomic.getArgs().get(0));
-								if (declaration.getType() == null)
-									declaration.setType(InputFactoryImpl.eINSTANCE.createType());
-
-								Type childType = InputFactoryImpl.eINSTANCE.createType();
-								childType.setName(InputUtil.getDeclaredChildType(function));
-								declaration.getType().setTemplateType(childType);
-								topLevelAtomics.remove(i--);
-							} else if (InputUtil.isArithmetic(function)) {
-								topLevelAtomics.remove(i--);
-							} else {
-								boolean useSugarAtomic = false;
-								for (String arg : atomic.getArgs())
-									if (replacements.containsKey(arg)) {
-										useSugarAtomic = true;
-										break;
-									}
-								if (useSugarAtomic) {
-									SugarAtomic newAtomic = InputFactoryImpl.eINSTANCE.createSugarAtomic();
-									for (String arg : atomic.getArgs()) {
-										newAtomic.getArgs().add(
-												QuickParser.parseSugarNumericalProperty(breakDown(arg, replacements)));
-									}
-									newAtomic.setFunction(function);
-									topLevelAtomics.add(i, newAtomic);
-								} else {
-									topLevelAtomics.add(i, InputUtil.stupidCopy(atomic));
-								}
-								topLevelAtomics.remove(i + 1);
-							}
-						}
-					}
-					((Problem) cur).setProperty(InputUtil.andTogether(topLevelAtomics));
-				}
-				return cur;
-			}
-		});
 	}
 }

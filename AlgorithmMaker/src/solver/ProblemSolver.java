@@ -15,6 +15,7 @@ import theorems.multiTheorems.DirectReturn;
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.*;
 import algorithmMaker.util.InputUtil;
+import algorithmMaker.util.SugarUtil;
 import bindings.Binding;
 import bindings.MutableBinding;
 import display.Viewer;
@@ -27,8 +28,7 @@ import display.Viewer;
 public class ProblemSolver {
 
 	/**
-	 * All of the problem states that have either been explored or been enqueued
-	 * to be explored.
+	 * All of the problem states that have either been explored or been enqueued to be explored.
 	 */
 	public Hashtable<Input, ProblemState> reachedProblems = new Hashtable<Input, ProblemState>();
 
@@ -47,8 +47,8 @@ public class ProblemSolver {
 		this.theorems = theorems;
 		this.invertedTheorems = new Theorem[theorems.length];
 		for (int i = 0; i < theorems.length; i++)
-			invertedTheorems[i] = theorems[i] instanceof MultistageTheorem ? theorems[i]
-					: InputUtil.getConverse(theorems[i]);
+			invertedTheorems[i] = theorems[i] instanceof MultistageTheorem ? theorems[i] : InputUtil
+					.getConverse(theorems[i]);
 
 		addProblemState(problem, null, null, null);
 	}
@@ -113,8 +113,8 @@ public class ProblemSolver {
 									newBinding.bind(var, newVar);
 								}
 
-							newBinding.addBindingsFrom(
-									doBindings(newProblem.getGiven(), usedVars, InputUtil.getBindings(givenResult)));
+							newBinding.addBindingsFrom(doBindings(newProblem.getGiven(), usedVars,
+									InputUtil.getBindings(givenResult)));
 							newGivenParts.add(InputUtil.revar(givenResult, newBinding.getArguments()));
 						}
 						Property findResult = mst.getFindResult();
@@ -126,8 +126,8 @@ public class ProblemSolver {
 									newBinding.bind(var, newVar);
 								}
 
-							newBinding.addBindingsFrom(
-									doBindings(newProblem.getGoal(), usedVars, InputUtil.getBindings(findResult)));
+							newBinding.addBindingsFrom(doBindings(newProblem.getGoal(), usedVars,
+									InputUtil.getBindings(findResult)));
 							newGoalParts.add(InputUtil.revar(findResult, newBinding.getArguments()));
 						}
 
@@ -152,8 +152,8 @@ public class ProblemSolver {
 			doQuantifierSubProblemFor(problemState, (Quantifier) property, givenChainer, findChainer);
 	}
 
-	private void doQuantifierSubProblemFor(ProblemState problemState, Quantifier quantifier, Set<Property> givenChainer,
-			Set<Property> findChainer) {
+	private void doQuantifierSubProblemFor(ProblemState problemState, Quantifier quantifier,
+			Set<Property> givenChainer, Set<Property> findChainer) {
 		// First we check and see if all the variables used in the quantifier
 		// are bound. If any aren't, we can't solve the quantifier.
 		HashSet<String> boundVars = new HashSet<String>();
@@ -177,9 +177,10 @@ public class ProblemSolver {
 			rebindingForQuantifier.bind(var, newVar);
 		}
 		Problem newGoal = InputUtil.stupidCopy(InputUtil.revar(subject, rebindingForQuantifier.getArguments()));
-		newGoal.setProperty(InputUtil.canonicalize(InputUtil.andTogether(
-				Arrays.asList(new Property[] { newGoal.getProperty(), InputUtil.getNegated(InputUtil.stupidCopy(
-						InputUtil.revar(quantifier.getPredicate(), rebindingForQuantifier.getArguments()))) }))));
+		newGoal.setProperty(InputUtil.canonicalize(InputUtil.andTogether(Arrays.asList(new Property[] {
+				newGoal.getProperty(),
+				InputUtil.getNegated(InputUtil.stupidCopy(InputUtil.revar(quantifier.getPredicate(),
+						rebindingForQuantifier.getArguments()))) }))));
 		subProblem.setGoal(newGoal);
 		if (!subSolvers.containsKey(subProblem)) {
 			ProblemSolver subSolver = new ProblemSolver(subProblem, theorems);
@@ -191,10 +192,11 @@ public class ProblemSolver {
 			// to the given
 			Input newProblem = InputUtil.stupidCopy(problemState.problem);
 			// FIXME: DN: This is stupid way of removing properties here
-			newProblem.setGoal((Problem) TransformUtil.removeProperties(newProblem.getGoal(),
-					new HashSet<Property>(Collections.singleton(quantifier))));
-			newProblem.getGiven().setProperty(InputUtil
-					.andTogether(Arrays.asList(new Property[] { quantifier, newProblem.getGiven().getProperty() })));
+			newProblem.setGoal((Problem) TransformUtil.removeProperties(newProblem.getGoal(), new HashSet<Property>(
+					Collections.singleton(quantifier))));
+			newProblem.getGiven().setProperty(
+					InputUtil.andTogether(Arrays.asList(new Property[] { quantifier,
+							newProblem.getGiven().getProperty() })));
 
 			String newVariable = "NEW_VARIABLE";
 			Pseudocoder coder = new Pseudocoder() {
@@ -219,7 +221,7 @@ public class ProblemSolver {
 					if (problemState != null)
 						if (problemState.childStates != null && problemState.childStates.size() > 0) {
 							ProblemState childState = problemState.childStates.get(0);
-							childState.rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs, childState,
+							childState.rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs + 1, childState,
 									returnString);
 						} else {
 							new LineCoder(returnString).appendPseudocode(builder, numTabs + 1, null, null);
@@ -236,9 +238,9 @@ public class ProblemSolver {
 				declaredVars.addAll(InputUtil.getDeclaredVars(solved.problem));
 				solved = solved.parentState;
 			}
-			addProblemState(newProblem, problemState,
-					new MultistageTheorem(null, null, null, 0, "Brute-force checking of a quantifier.", coder),
-					Binding.singleton(newVariable, InputUtil.getUnusedVar(declaredVars)));
+			addProblemState(newProblem, problemState, new MultistageTheorem(null, null, null, 0,
+					"Brute-force checking of a quantifier.", coder), Binding.singleton(newVariable,
+					InputUtil.getUnusedVar(declaredVars)));
 		}
 	}
 
@@ -329,7 +331,7 @@ public class ProblemSolver {
 				ProblemState solutionSave = solution;
 				StringBuffer problems = new StringBuffer();
 				do {
-					problems.insert(0, TransformUtil.makePretty(solution.problem) + "\n");
+					problems.insert(0, SugarUtil.resugar(solution.problem) + "\n");
 					solution = solution.parentState;
 				} while (solution != null);
 				System.out.println(problems);
