@@ -1,0 +1,32 @@
+Finding Even child of two lists (DONE)
+	Long Form
+		Given list<int> x, list<int> z; Find y st child(x,y) & child(z,y) & even(y)
+	Short Form
+		Given list<int> x, list<int> z, find y in x,z st even(y)
+	New Form
+		Given list<int> x, list<int> z; find y st child(x,y) & child(z,y) & even(y)
+Thought process
+	actual:
+		Given list<int> a,list<int> b; Find c st child(a,c) & child(b,c) & even(c)
+		Given list<int> a,list<int> b,c st child(b,c); Test(child(a,c) & even(c))
+		Given list<int> a,list<int> b,c st even(c) & child(b,c); Test(child(a,c))
+		Given list<int> a,list<int> b,c,d st child(a,d) & even(c) & child(b,c); Test(equal(c,d) & child(a,c))
+		Given list<int> a,list<int> b,c,d st equal(c,d) & child(a,d) & even(c) & child(b,c); Test(TRUE)
+	desired:
+		Given list<int> a,list<int> b; Find c st child(a,c) & child(b,c) & even(c)
+		Given list<int> a,list<int> b,c st child(b,c); Test(child(a,c) & even(c))
+		Given list<int> a,list<int> b,c st even(c) & child(b,c); Test(child(a,c))
+		Given list<int> a,list<int> b,c,d st child(a,d) & even(c) & child(b,c); Test(equal(c,d) & child(a,c))
+
+
+
+OLD:
+		Given list<int> x, list<int> z, find y in x,z st even(y)
+	reduces to
+		Given list<int> x, list<int> z, y in x, find y in z st even(y)
+	reduces to
+		Given list<int> x, list<int> z, y in x, y' in z, find y' st even(y') & y==y'
+	reduces to
+		Given list<int> x, list<int> z, y in x, y' in z st y==y', find y' st even(y')
+	reduces to
+		Given list<int> x, list<int> z, y in x, y' in z st y==y' & even(y'), find _ st TRUE
