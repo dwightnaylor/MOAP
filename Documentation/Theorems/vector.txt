@@ -1,0 +1,8 @@
+Vector
+type_vector(x) -> type_collection(x)
+type_vector(x) -> resizeable(x)
+type_vector(x) -> indexable(x)
+type_vector(x) -> enumerable(x)
+type_vector(x) -> ordered(x)
+type_vector(x) -> dope(x)
+

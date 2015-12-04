@@ -1,0 +1,131 @@
+
+
+Deliverables:
+Categorize theorems - ie everything related to graphs
+theorem database
+organized - can just be all in one file for now, but write out what organization WOULD be
+list of legal atomics
+"Special" theorem databases (OPTIONAL)
+one file that contains all supertypes
+special parser reads in file and converts to full format
+"list:collection" gets turned into "type_list(x)->type_collection(x),0,'every list...' "
+
+We want:
+List of data structures, each should have
+	supertypes
+	properties (enumerable, etc)
+	things to include:
+math
+less_than(x,y)-->!greater_than(x,y) & !equal(x,y)
+equal is =
+sum
+array
+type_array(x) -> collection(x)
+type_array(x) -> ordered(x)
+maybe ordered(x) -> collection(x), so don't need first one NOTE: In math, a set is a collection, and we know a set is unordered. Maybe collections are unordered as well?
+type_array(x) -> indexable(x)
+type_array(x) -> enumerable(x)
+"if you want to add something to an array, you have to resize it"
+"resizing an array takes linear time"
+type_array(x) -> fixed_size(x)
+may want to use type_javaArray(x) for java-specific things
+list
+type_list(x) -> collection(x)
+type_list(x) -> ordered(x)
+
+Vector
+type_vector(x) -> type_collection(x)
+type_vector(x) -> resizeable(x)
+type_vector(x) -> indexable(x)
+type_vector(x) -> enumerable(x)
+type_vector(x) -> ordered(x)
+type_vector(x) -> dope(x)
+set
+type_set(x) -> collection(x)
+type_set(x) -> unordered(x)
+type_set(x) -> !fixed_size(x)
+series
+type_series(x) -> unordered(x)
+graph
+could be directed, undirected
+could contain nodes, or be empty
+not a collection? 
+edge
+edge(x) -> connected(Node(y),Node(z))
+edge(x,y,z) -> connected(y,z) & type_graph_edge(x) & type_graph_node(y) & type_graph_node(z)
+node
+type_graph_node(x)
+
+must be part of a graph
+could be linked to an edge
+attributes?
+iterable
+enumerable
+ordered
+example:
+type_array(x)->ordered(x)
+some other theorem: ordered(x) -> sortable(x)
+some other theorem: sorted(x) -> ordered(x)
+unordered
+unordered(x) -> !ordered(x)
+Examples:
+type_set(x) -> unordered(x)
+ordered(x) -> !sortable(x)
+Structured - do we want these?
+examples:
+Heaps
+Hash Buckets
+B+ Trees
+Trees
+Ordered(x)
+type_graph(x)
+Root?
+even/odd/prime/other basic math things
+even(x) -> divisible(x,2)
+int/ long / float/ string/ char/etc.
+substring and other string operators
+substring(x,y) -> TRUE, 3, "java has a substring library!"
+indexing
+allows duplicates or not
+set vs series
+unions and intersections & other set theory junk
+equality, inequality, comparators
+math functions
+only insofar as we have plus(x,y) and things, no need for other stuff yet maybe
+Queue
+queue(x) -> ordered(x)
+front is defined. calling front(x) when queue(x) should return first element
+
+
+list:collection
+array:collection
+arraylist:collection
+set:collection
+collection:enumerable
+
+type_list(x)->type_collection(x), 0, "Every list is a collection"
+type_collection(x)->enumerable(x),0, "Every collection is enumerable"
+child_type_int(x) & child(x,y) -> type_int(y), 0, "All children of a collection of ints are ints"
+
+MULTITHEOREMS!!!! Take from find and given
+enumerable(x); child(x,y) ; child(x,y); 10; "We can go through all the children of an enumerable"; "foreach child <y> of <x>"
+type_int(y); even(y) ; even(y); 1; "We can check if a number is even"; "if <y> % 2 == 0"
+
+type_graph
+type_node
+type_edge
+graph_directed(x)->type_graph(x)
+graph_directed(x)->!graph_undirected(x)
+not_empty_graph(x)->exists(y st child(x,y):true)
+
+TYPING
+child_type_int(x) OR child_type(x,INT) OR child(x,y) -> type(y,INT)
+
+we may want to say something like:
+type(x,y) means "x has type y"
+child(x,y) -> type(y,z) "every child of x is of type z"
+type(x,y) & type(z,y) "x and z have the same type"
+
+Theorem needed:
+type(x,y) -> type(y,TYPE) "if x has type y, then y must be a type"
+

@@ -1,0 +1,9 @@
+type_array(x) -> collection(x)
+type_array(x) -> ordered(x)
+maybe ordered(x) -> collection(x), so don't need first one NOTE: In math, a set is a collection, and we know a set is unordered. Maybe collections are unordered as well?
+type_array(x) -> indexable(x)
+type_array(x) -> enumerable(x)
+"if you want to add something to an array, you have to resize it"
+"resizing an array takes linear time"
+type_array(x) -> fixed_size(x)
+may want to use type_javaArray(x) for java-specific things

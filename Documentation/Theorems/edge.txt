@@ -1,0 +1,2 @@
+edge(x) -> connected(Node(y),Node(z))
+edge(x,y,z) -> connected(y,z) & type_graph_edge(x) & type_graph_node(y) & type_graph_node(z)

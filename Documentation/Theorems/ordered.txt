@@ -1,0 +1,4 @@
+example:
+type_array(x)->ordered(x)
+some other theorem: ordered(x) -> sortable(x)
+some other theorem: sorted(x) -> ordered(x)
