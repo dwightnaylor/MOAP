@@ -54,7 +54,7 @@ public class ProblemSolver {
 	}
 
 	public ProblemState getSolution() {
-		while (solved == null && problemStates.size() > 0)
+		while (problemStates.size() > 0 && (solved == null || solved.cost > problemStates.peek().cost))
 			branch();
 
 		return problemStates.size() == 0 ? null : solved;
@@ -188,12 +188,11 @@ public class ProblemSolver {
 			subSolvers.put(subProblem, subSolver);
 		}
 		if (subSolvers.get(subProblem).solved != null) {
-			// The new problem with the quantifier constraint removed and added
-			// to the given
+			// The new problem with the quantifier constraint removed and added to the given
 			Input newProblem = InputUtil.stupidCopy(problemState.problem);
 			// FIXME: DN: This is stupid way of removing properties here
-			newProblem.setGoal((Problem) TransformUtil.removeProperties(newProblem.getGoal(), new HashSet<Property>(
-					Collections.singleton(quantifier))));
+			newProblem.setGoal((Problem) TransformUtil.removeProperties(newProblem.getGoal(),
+					Collections.singleton(quantifier)));
 			newProblem.getGiven().setProperty(
 					InputUtil.andTogether(Arrays.asList(new Property[] { quantifier,
 							newProblem.getGiven().getProperty() })));
@@ -205,8 +204,7 @@ public class ProblemSolver {
 						String returnString) {
 					Pseudocoder.appendTabs(builder, numTabs);
 					builder.append(problemState.rootTheoremBinding.revar("boolean <" + newVariable + "> = true;\n"));
-					// FIXME: DN: This whole methodology is awful and needs to
-					// be redone later.
+					// FIXME: DN: This whole methodology is awful and needs to be redone later.
 					ProblemState head = subSolvers.get(subProblem).solved;
 					while (head.parentState != null) {
 						head.parentState.childStates = Collections.singletonList(head);
@@ -238,7 +236,7 @@ public class ProblemSolver {
 				declaredVars.addAll(InputUtil.getDeclaredVars(solved.problem));
 				solved = solved.parentState;
 			}
-			addProblemState(newProblem, problemState, new MultistageTheorem(null, null, null, 0,
+			addProblemState(newProblem, problemState, new MultistageTheorem(null, null, null, 10,
 					"Brute-force checking of a quantifier.", coder), Binding.singleton(newVariable,
 					InputUtil.getUnusedVar(declaredVars)));
 		}
@@ -277,7 +275,7 @@ public class ProblemSolver {
 			ProblemState newProblemState = new ProblemState(newProblem, parentState, multistageTheorem, binding);
 			reachedProblems.put(newProblem, newProblemState);
 
-			if (newProblem.getGoal() == null)
+			if (newProblem.getGoal() == null && (solved == null || solved.cost > newProblemState.cost))
 				solved = newProblemState;
 
 			problemStates.add(newProblemState);

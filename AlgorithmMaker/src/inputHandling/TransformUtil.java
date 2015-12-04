@@ -1,7 +1,6 @@
 package inputHandling;
 
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 
 import org.eclipse.emf.ecore.EObject;
 
@@ -89,7 +88,7 @@ public class TransformUtil {
 			goal.getVars().removeIf(x -> x.getVarName().equals(declaration.getVarName()));
 	}
 
-	public static EObject removeProperties(EObject originalObject, HashSet<? extends Property> toRemove) {
+	public static EObject removeProperties(EObject originalObject, Set<? extends Property> toRemove) {
 		return InputUtil.reduce(originalObject, new InputConverter() {
 			@Override
 			public EObject apply(EObject cur) {

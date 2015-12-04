@@ -37,7 +37,7 @@ public class MultiTheoremParser {
 		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)&" + BOUND + "(z)", "plus(x,y,z)", "if <x> + <y> == <z>" });
 		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)", "lessThanEqual(x,y)", "if <x> <= <y>" });
 
-		tests.add(new String[] { "HACKfast_child_check(x) & " + BOUND + "(y)", "child(x,y)", "if <x>.contains(<y>)" });
+		tests.add(new String[] { "set(x) & " + BOUND + "(y)", "child(x,y)", "if <x>.contains(<y>)" });
 		for (String[] test : tests) {
 			ret.add(new MultistageTheorem(parseProperty(test[0]), parseProperty(test[1]), parseProperty(test[1]), null,
 					1, "Simple test.", new LineCoder(true, test[2])));

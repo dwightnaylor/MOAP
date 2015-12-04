@@ -10,6 +10,7 @@ import algorithmMaker.util.SugarUtil;
 import bindings.Binding;
 
 public class ProblemState implements Comparable<ProblemState> {
+	public final int cost;
 	public Input problem;
 	private String toStringSave;
 	public ProblemState parentState;
@@ -18,6 +19,8 @@ public class ProblemState implements Comparable<ProblemState> {
 	public List<ProblemState> childStates;
 
 	public ProblemState(Input problem, ProblemState parentState, MultistageTheorem multistageTheorem, Binding binding) {
+		cost = (parentState == null ? 0 : parentState.cost)
+				+ (multistageTheorem == null ? 0 : multistageTheorem.getCost());
 		this.problem = problem;
 		this.parentState = parentState;
 		this.rootTheorem = multistageTheorem;
@@ -43,16 +46,17 @@ public class ProblemState implements Comparable<ProblemState> {
 
 	@Override
 	public int compareTo(ProblemState other) {
-		if (problem.getGoal() == null && other.problem.getGoal() == null)
-			return 0;
-
-		if (problem.getGoal() == null)
-			return 1;
-
-		if (other.problem.getGoal() == null)
-			return -1;
-
-		return problem.getGoal().toString().length() - other.problem.getGoal().toString().length();
+		// if (problem.getGoal() == null && other.problem.getGoal() == null)
+		// return 0;
+		//
+		// if (problem.getGoal() == null)
+		// return 1;
+		//
+		// if (other.problem.getGoal() == null)
+		// return -1;
+		//
+		// return problem.getGoal().toString().length() - other.problem.getGoal().toString().length();
+		return cost - other.cost;
 	}
 
 	public static String getOutputString(ProblemState solution) {
@@ -62,7 +66,7 @@ public class ProblemState implements Comparable<ProblemState> {
 			head = head.parentState;
 		}
 		StringBuffer output = new StringBuffer();
-		// FIXME: DN : SERIOUSLY THIS IS DISGUSTING CHANGE IT ASAP
+		// TODO: DN: Don't just resugar to get the variables to return.
 		head.childStates.get(0).rootTheorem.getPseudocoder().appendPseudocode(output, 0, head.childStates.get(0),
 				"return " + InputUtil.getDeclaredVars(SugarUtil.resugar(head.problem).getGoal()));
 		return output.toString();

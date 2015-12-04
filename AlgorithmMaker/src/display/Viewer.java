@@ -26,12 +26,10 @@ public class Viewer {
 	public static Graph<ProblemState, MultistageTheorem> generateGraph(ProblemSolver solver) {
 		Graph<ProblemState, MultistageTheorem> graph = new DelegateForest<ProblemState, MultistageTheorem>();
 		for (ProblemState problemState : solver.reachedProblems.values()) {
-//			if (!(problemState.rootTheorem instanceof DirectReturn)) {
-				graph.addVertex(problemState);
-				if (problemState.rootTheorem != null) {
-					graph.addEdge(problemState.rootTheorem.copy(), problemState.parentState, problemState);
-				}
-//			}
+			graph.addVertex(problemState);
+			if (problemState.rootTheorem != null) {
+				graph.addEdge(problemState.rootTheorem.copy(), problemState.parentState, problemState);
+			}
 		}
 		return graph;
 	}
@@ -48,7 +46,7 @@ public class Viewer {
 		vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller<ProblemState>() {
 			@Override
 			public String transform(ProblemState v) {
-				return v.toString().replace(";", ":::::");
+				return v.cost + " ::: " + v.toString().replace(";", ":::::");
 			}
 		});
 		vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<MultistageTheorem>() {

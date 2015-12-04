@@ -1,5 +1,5 @@
 grammar algorithmMaker.Input with org.eclipse.xtext.common.Terminals
-//TODO: Sugar: math signs, comparators
+//TODO: Sugar: comparators
 //TODO: Sugar: implies "->, <-, <->" : relies on inline declarations?
 //TODO: if get(x,i,xi) is used, test for index(x,i) automatically
 //FIXME: Make sugar a separate syntactic artifact that can be completely removed after desugaring.

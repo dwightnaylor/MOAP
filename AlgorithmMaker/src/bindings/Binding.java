@@ -89,7 +89,6 @@ public class Binding {
 	}
 
 	public Hashtable<String, String> getArguments() {
-		// TODO:DN: Don't clone here maybe
 		Hashtable<String, String> ret = new Hashtable<String, String>();
 		for (String key : bindings.keySet())
 			ret.put(key, bindings.get(key));
