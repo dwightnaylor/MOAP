@@ -1,15 +1,11 @@
 package inputHandling;
 
+import static kernelLanguage.KernelFactory.*;
+
 import java.util.*;
 
-import org.eclipse.emf.ecore.EObject;
-
+import kernelLanguage.*;
 import solver.Chainer;
-import theorems.MultistageTheorem;
-import theorems.QuickTheorem;
-import algorithmMaker.QuickParser;
-import algorithmMaker.input.*;
-import algorithmMaker.util.InputConverter;
 import algorithmMaker.util.InputUtil;
 
 /**
@@ -19,102 +15,38 @@ import algorithmMaker.util.InputUtil;
  * @author Dwight Naylor
  */
 public class TransformUtil {
-
-	public static final MultistageTheorem GIVEN_PROBLEM = new MultistageTheorem(null, null, null, 0, "GIVEN PROBLEM",
-			null);
-	public static final Theorem GIVEN = new QuickTheorem(null, null, 0, "GIVEN");
-	public static final Theorem REFLEXIVE = new QuickTheorem(null, null, 0, "Reflexive Property");
-	public static final Theorem GOAL = new QuickTheorem(null, null, 0, "GOAL");
-	public static final Theorem EQUAL = new QuickTheorem(null, null, 0, "Equal variables share properties.");
-
-	public static boolean isSolved(Problem problem) {
-		return problem.getProperty().equals(InputUtil.getBooleanLiteral(true));
-	}
-
 	/**
 	 * Reduces the given input by taking things out of the goal if they are in the given, and reducing variable use in
 	 * both halves.
+	 * 
+	 * @return
 	 */
-	public static void removeGivenFromGoal(Input input, Chainer chainer) {
-		if (input.getGoal() == null)
-			return;
-
-		HashSet<Property> toRemove = new HashSet<Property>();
-		ArrayList<Declaration> vars = new ArrayList<Declaration>();
-		vars.addAll(input.getGiven().getVars());
-		vars.addAll(input.getGoal().getVars());
-		for (Declaration declaration : vars) {
-			String varName = declaration.getVarName();
-			toRemove.add(InputUtil.createAtomic(InputUtil.EQUAL, varName, varName));
-			toRemove.add(InputUtil.createAtomic(InputUtil.BOUND, varName));
-			toRemove.add(InputUtil.createAtomic(InputUtil.UNBOUND, varName));
+	public static KInput removeGivenFromGoal(KInput input, Chainer chainer) {
+		HashSet<KProperty> toRemove = new HashSet<KProperty>();
+		ArrayList<String> vars = new ArrayList<String>();
+		vars.addAll(input.given.vars);
+		vars.addAll(input.goal.vars);
+		for (String var : vars) {
+			toRemove.add(atomic(InputUtil.EQUAL, var, var));
+			toRemove.add(atomic(InputUtil.BOUND, var));
+			toRemove.add(atomic(InputUtil.UNBOUND, var));
 		}
 
-		Property given = input.getGiven().getProperty();
+		KProperty given = input.given.property;
 		if (given != null) {
-			Property reducedGiven = (Property) removeProperties(given, toRemove);
-			input.getGiven().setProperty(reducedGiven == null ? QuickParser.parseProperty("TRUE") : reducedGiven);
+			KProperty reducedGiven = given.without(toRemove.toArray(new KProperty[0]));
 
-			chainer.chain(input.getGiven().getProperty(), GIVEN);
+			input = input.withGiven(input.given.withProperty(reducedGiven == null ? TRUE : reducedGiven));
+
+			chainer.chain(input.given.property, GIVEN);
 		}
 		toRemove.addAll(chainer.properties.keySet());
-		Property find = input.getGoal().getProperty();
+		KProperty find = input.goal.property;
 		if (find != null) {
-			Property reducedFind = (Property) removeProperties(find, toRemove);
-			input.getGoal().setProperty(reducedFind == null ? QuickParser.parseProperty("TRUE") : reducedFind);
+			KProperty reducedGoal = find.without(toRemove.toArray(new KProperty[0]));
+			input = input.withGoal(input.goal.withProperty(reducedGoal == null ? TRUE : reducedGoal));
 		}
 
-		if (given != null)
-			compactVariables(input.getGiven(), input.getGoal());
-
-		if (input.getGoal().getProperty().equals(InputUtil.getBooleanLiteral(true)))
-			input.setGoal(null);
-	}
-
-	/**
-	 * Sets the given problem to contain all the variables that appear within it. Removes any of the variables in the
-	 * given from the goal.
-	 */
-	public static void compactVariables(Problem given, Problem goal) {
-		given.getVars().clear();
-		for (String var : InputUtil.getUnboundVariables(given.getProperty()))
-			given.getVars().add(InputUtil.createDeclaration(var));
-
-		for (String var : InputUtil.getUnboundVariables(goal.getProperty()))
-			given.getVars().add(InputUtil.createDeclaration(var));
-
-		// This is done in n^2 time here because we want to preserve order and I'm lazy.
-		for (Declaration declaration : given.getVars())
-			goal.getVars().removeIf(x -> x.getVarName().equals(declaration.getVarName()));
-	}
-
-	public static EObject removeProperties(EObject originalObject, Set<? extends Property> toRemove) {
-		return InputUtil.reduce(originalObject, new InputConverter() {
-			@Override
-			public EObject apply(EObject cur) {
-				if (toRemove.contains(cur))
-					return null;
-
-				return cur;
-			}
-		});
-	}
-
-	public static Input transform(Input input, MultistageTheorem... multistageTheorems) {
-		Input clone = InputUtil.stupidCopy(input);
-
-		// Put in all of the new terms that the given has
-		ArrayList<Property> newGiven = new ArrayList<Property>();
-		newGiven.add(clone.getGiven().getProperty());
-		for (MultistageTheorem mst : multistageTheorems)
-			newGiven.add(mst.getResult());
-
-		clone.getGiven().setProperty(InputUtil.andTogether(newGiven));
-
-		// Add in all of the new variables used.
-		for (String undeclaredVar : InputUtil.getUnboundVariables(clone.getGiven()))
-			clone.getGiven().getVars().add(InputUtil.createDeclaration(undeclaredVar));
-
-		return clone;
+		return input.withMinimumVariables();
 	}
 }

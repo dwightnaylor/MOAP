@@ -1,7 +1,6 @@
 package theorems;
 
-import algorithmMaker.input.Property;
-import algorithmMaker.input.Theorem;
+import kernelLanguage.*;
 
 /**
  * @author dwight
@@ -11,11 +10,11 @@ import algorithmMaker.input.Theorem;
  */
 public class Fact<T> {
 	public T property;
-	public Theorem theorem;
-	public Fact<? extends Property>[] prerequisites;
+	public KTheorem theorem;
+	public Fact<? extends KProperty>[] prerequisites;
 
 	@SafeVarargs
-	public Fact(T property, Theorem theorem, Fact<? extends Property>... prerequisites) {
+	public Fact(T property, KTheorem theorem, Fact<? extends KProperty>... prerequisites) {
 		this.property = property;
 		this.theorem = theorem;
 		this.prerequisites = prerequisites;
@@ -33,6 +32,6 @@ public class Fact<T> {
 
 	@Override
 	public boolean equals(Object obj) {
-		return obj instanceof Fact && ((Fact<?>) obj).property.equals(property);
+		return obj instanceof Fact && ((Fact<?>) obj).property == property;
 	}
 }

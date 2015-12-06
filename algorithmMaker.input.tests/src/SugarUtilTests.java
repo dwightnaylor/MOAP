@@ -1,14 +1,13 @@
-import static algorithmMaker.QuickParser.parseInput;
-import static algorithmMaker.QuickParser.parseInputDirty;
-import static algorithmMaker.QuickParser.parseProblem;
+import static algorithmMaker.QuickParser.*;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 
+import kernelLanguage.KInput;
+
 import org.junit.Test;
 
 import algorithmMaker.QuickParser;
-import algorithmMaker.input.Input;
 import algorithmMaker.util.SugarUtil;
 
 public class SugarUtilTests {
@@ -38,14 +37,14 @@ public class SugarUtilTests {
 		ArrayList<String[]> tasks = new ArrayList<String[]>();
 		tasks.add(new String[] { "Given x; Find y st test(y)", "Given x; Find y st test(y)" });
 		tasks.add(new String[] { "Given list<int> x; Find y st test(y)",
-				"Given list<int> x st type_list(x) & forall(na st child(x,na) : type_int(na)); Find y st test(y)" });
+				"Given x st type_list(x) & forall(na st child(x,na) : type_int(na)); Find y st test(y)" });
 		tasks.add(new String[] { "Given x; Find y st test(test1(y))", "Given x; Find y,na st test1(y,na) & test(na)" });
 		tasks.add(new String[] { "Given x; Find y st equal(x+y,x-y)",
 				"Given x; Find y,na,nb st plus(x,y,na) & minus(x,y,nb) & equal(na,nb)" });
 		tasks.add(new String[] { "Given x; Find na st test(other(na))",
 				"Given x; Find na,nb st other(na,nb) & test(nb)" });
 		for (String[] task : tasks) {
-			Input original = QuickParser.parseInputDirty(task[0]);
+			KInput original = (KInput) SugarUtil.convertToKernel(QuickParser.parseInputDirty(task[0]));
 			String simplifiedToString = original.toString();
 
 			if (!task[1].equals(simplifiedToString)) {

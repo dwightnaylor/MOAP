@@ -1,25 +1,26 @@
 package bindings.equalityTesting;
 
-import algorithmMaker.input.Property;
-import algorithmMaker.input.Quantifier;
-import algorithmMaker.util.InputUtil;
+import algorithmMaker.util.*;
+import kernelLanguage.*;
+import kernelLanguage.KQuantifier.Quantifier;
 
 public class QuantifierAppearance extends Appearance {
 
-	private final String quantifier;
+	private final Quantifier quantifier;
 	private final boolean inSubject;
 	private final int numVars;
-	private Property compactedSubject;
-	private Property compactedPredicate;
+	private KProperty compactedSubject;
+	private KProperty compactedPredicate;
 
-	public QuantifierAppearance(Quantifier quantifier, boolean inSubject, Appearance parentAppearance) {
+	public QuantifierAppearance(KQuantifier quantifier, boolean inSubject, Appearance parentAppearance) {
 		super(parentAppearance);
-		this.quantifier = quantifier.getQuantifier();
-		this.numVars = quantifier.getSubject().getVars().size();
+		this.quantifier = quantifier.quantifier;
+		this.numVars = quantifier.subject.vars.size();
 		this.inSubject = inSubject;
 
-		compactedSubject = InputUtil.sort(InputUtil.devar(quantifier.getSubject().getProperty()));
-		compactedPredicate = InputUtil.sort(InputUtil.devar(quantifier.getPredicate()));
+		// TODO: DN: Sort here?
+		compactedSubject = KernelUtil.devar(quantifier.subject.property);
+		compactedPredicate = KernelUtil.devar(quantifier.predicate);
 	}
 
 	@Override
@@ -41,10 +42,10 @@ public class QuantifierAppearance extends Appearance {
 			return numVars - other.numVars;
 
 		if (!compactedSubject.equals(other.compactedSubject))
-			return InputUtil.INPUT_COMPARATOR.compare(compactedSubject, other.compactedSubject);
+			return KernelUtil.KERNEL_COMPARATOR.compare(compactedSubject, other.compactedSubject);
 
 		if (!compactedPredicate.equals(other.compactedPredicate))
-			return InputUtil.INPUT_COMPARATOR.compare(compactedPredicate, other.compactedPredicate);
+			return KernelUtil.KERNEL_COMPARATOR.compare(compactedPredicate, other.compactedPredicate);
 
 		return 0;
 	}

@@ -1,6 +1,11 @@
 package algorithmMaker.util;
 
+import static kernelLanguage.KernelFactory.*;
+
 import java.util.*;
+import java.util.stream.Collectors;
+
+import kernelLanguage.*;
 
 import org.eclipse.emf.common.util.TreeIterator;
 import org.eclipse.emf.ecore.EObject;
@@ -15,12 +20,72 @@ import algorithmMaker.input.impl.InputFactoryImpl;
  * @author Dwight Naylor
  */
 public class SugarUtil {
+
+	private static final Hashtable<EObject, KObject> kernelObjects = new Hashtable<EObject, KObject>();
+
+	public static Input convertToInput(KInput input) {
+		return QuickParser.parseInput(input.toString());
+	}
+
+	public static KObject convertToKernel(EObject object) {
+		if (!kernelObjects.containsKey(object)) {
+			switch (InputUtil.kernelType(object)) {
+			case ANDing:
+				kernelObjects.put(
+						object,
+						and((KProperty) convertToKernel(((ANDing) object).getLeft()),
+								(KProperty) convertToKernel(((ANDing) object).getRight())));
+				break;
+			case Atomic:
+				kernelObjects.put(object, atomic(((Atomic) object).getFunction(), ((Atomic) object).getArgs()));
+				break;
+			case BooleanLiteral:
+				kernelObjects.put(object, bool(((BooleanLiteral) object).getValue().equals("TRUE")));
+				break;
+			case Input:
+				Problem goal = ((Input) object).getGoal();
+				kernelObjects.put(
+						object,
+						input((KProblem) convertToKernel(((Input) object).getGiven()), goal == null ? NULL_PROBLEM
+								: (KProblem) convertToKernel(goal)));
+				break;
+			case Negation:
+				kernelObjects.put(object, negate((KProperty) convertToKernel(((Negation) object).getNegated())));
+				break;
+			case Problem:
+				Property property = ((Problem) object).getProperty();
+				kernelObjects.put(
+						object,
+						problem(((Problem) object).getVars().stream().map(x -> x.getVarName())
+								.collect(Collectors.toList()), property == null ? TRUE
+								: (KProperty) convertToKernel(property)));
+				break;
+			case Quantifier:
+				kernelObjects
+						.put(object,
+								quantifier(
+										((Quantifier) object).getQuantifier().equals(InputUtil.FORALL) ? KQuantifier.Quantifier.forall
+												: KQuantifier.Quantifier.exists,
+										(KProblem) convertToKernel(((Quantifier) object).getSubject()),
+										(KProperty) convertToKernel(((Quantifier) object).getPredicate())));
+				break;
+			case ORing:
+				// FIXME: DN:...Remove ORing from the kernel. I'm sorry.
+				throw new UnsupportedOperationException();
+			}
+		}
+		return kernelObjects.get(object);
+	}
+
 	public static void desugar(Input input) {
 		desugar(input.getGiven());
 		desugar(input.getGoal());
 	}
 
 	public static void desugar(Problem problem) {
+		if (problem == null)
+			return;
+
 		ArrayList<Property> properties = new ArrayList<Property>();
 		properties.add(problem.getProperty());
 		// Go through all the declarations and remove their type declaration.
@@ -178,8 +243,10 @@ public class SugarUtil {
 	public static Problem resugar(Problem problem) {
 		if (problem == null)
 			return null;
-		// TODO:RESUGAR: Collapse arithmetic (PROPERLY, the current way is AWFUL!)
-		// TODO:RESUGAR: Re-nest atomics if possible (PROPERLY, the current way is AWFUL!)
+		// TODO:RESUGAR: Collapse arithmetic (PROPERLY, the current way is
+		// AWFUL!)
+		// TODO:RESUGAR: Re-nest atomics if possible (PROPERLY, the current way
+		// is AWFUL!)
 		// TODO:RESUGAR: collapse quantifiers if possible (child_type...)
 		Hashtable<String, String[]> replacements = new Hashtable<String, String[]>();
 		TreeIterator<EObject> contents = (problem.eContainer() == null ? problem : problem.eContainer()).eAllContents();

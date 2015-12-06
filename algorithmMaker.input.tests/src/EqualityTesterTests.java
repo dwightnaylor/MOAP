@@ -1,15 +1,13 @@
-import static algorithmMaker.QuickParser.parseProperty;
-import static bindings.equalityTesting.EqualityTester.getAppearances;
-import static bindings.equalityTesting.EqualityTester.getEquivalentBindings;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static algorithmMaker.util.KernelUtil.parseProperty;
+import static bindings.equalityTesting.EqualityTester.*;
+import static org.junit.Assert.*;
 
 import java.util.*;
 
+import kernelLanguage.*;
+
 import org.junit.Test;
 
-import algorithmMaker.input.Property;
-import algorithmMaker.input.Quantifier;
 import bindings.Binding;
 import bindings.equalityTesting.*;
 
@@ -19,7 +17,7 @@ public class EqualityTesterTests {
 
 	@Test
 	public void testGetAppearancesForBasicSingleAppearance() {
-		Property original = parseProperty("a(x) & b(x)");
+		KProperty original = parseProperty("a(x) & b(x)");
 		Hashtable<Appearance, ArrayList<String>> appearances = getAppearances(original);
 		AtomicAppearance a = new AtomicAppearance("a", 0, null);
 		AtomicAppearance b = new AtomicAppearance("b", 0, null);
@@ -35,7 +33,7 @@ public class EqualityTesterTests {
 
 	@Test
 	public void testGetAppearancesForBasicMultipleVariableAppearance() {
-		Property original = parseProperty("a(x) & b(y)");
+		KProperty original = parseProperty("a(x) & b(y)");
 		Hashtable<Appearance, ArrayList<String>> appearances = getAppearances(original);
 		AtomicAppearance a = new AtomicAppearance("a", 0, null);
 		AtomicAppearance b = new AtomicAppearance("b", 0, null);
@@ -51,7 +49,7 @@ public class EqualityTesterTests {
 
 	@Test
 	public void testGetAppearancesForBasicNegatedAppearance() {
-		Property original = parseProperty("!a(x)");
+		KProperty original = parseProperty("!a(x)");
 		Hashtable<Appearance, ArrayList<String>> appearances = getAppearances(original);
 		AtomicAppearance nota = new AtomicAppearance("a", 0, new NegatedAppearance(null));
 
@@ -63,7 +61,7 @@ public class EqualityTesterTests {
 
 	@Test
 	public void testGetAppearancesForBasicQuantifierAppearance() {
-		Quantifier original = (Quantifier) parseProperty("forall(x st a(x) : b(x))");
+		KQuantifier original = (KQuantifier) parseProperty("forall(x st a(x) : b(x))");
 		Hashtable<Appearance, ArrayList<String>> appearances = getAppearances(original);
 		Appearance quantifierSubject = new AtomicAppearance("a", 0, new QuantifierAppearance(original, true, null));
 		Appearance quantifierPredicate = new AtomicAppearance("b", 0, new QuantifierAppearance(original, false, null));
@@ -81,8 +79,8 @@ public class EqualityTesterTests {
 
 	@Test
 	public void testGetEquivalentBindingsForBasicMatching() {
-		Property original = parseProperty("a(x) & b(x)");
-		Property toTest = parseProperty("a(y) & b(y)");
+		KProperty original = parseProperty("a(x) & b(x)");
+		KProperty toTest = parseProperty("a(y) & b(y)");
 		List<Binding> equivalentBindings = getEquivalentBindings(original, toTest);
 		assertEquals(1, equivalentBindings.size());
 		assertEquals(Binding.singleton("x", "y").getArguments(), equivalentBindings.get(0).getArguments());
@@ -90,8 +88,8 @@ public class EqualityTesterTests {
 
 	@Test
 	public void testGetEquivalentBindingsForMultipleMatching() {
-		Property original = parseProperty("a(q) & b(w) & b(e)");
-		Property toTest = parseProperty("a(r) & b(t) & b(z)");
+		KProperty original = parseProperty("a(q) & b(w) & b(e)");
+		KProperty toTest = parseProperty("a(r) & b(t) & b(z)");
 		List<Binding> equivalentBindings = getEquivalentBindings(original, toTest);
 		assertEquals(2, equivalentBindings.size());
 		assertTrue(equivalentBindings.contains(Binding.createBinding(new String[][] { { "q", "r" }, { "w", "t" },
@@ -102,8 +100,8 @@ public class EqualityTesterTests {
 
 	@Test
 	public void testGetEquivalentBindingsForBasicQuantifierMatching() {
-		Property original = parseProperty("forall(x st a(x,y) : b(x,y))");
-		Property toTest = parseProperty("forall(t st a(t,z) : b(t,z))");
+		KProperty original = parseProperty("forall(x st a(x,y) : b(x,y))");
+		KProperty toTest = parseProperty("forall(t st a(t,z) : b(t,z))");
 		List<Binding> equivalentBindings = getEquivalentBindings(original, toTest);
 		assertEquals(1, equivalentBindings.size());
 		assertEquals(Binding.createBinding(new String[][] { { "x", "t" }, { "y", "z" } }).getArguments(),
@@ -112,8 +110,8 @@ public class EqualityTesterTests {
 
 	@Test
 	public void testGetEquivalentBindingsRejection() {
-		Property original = parseProperty("a(x,y) & a(y,z)");
-		Property toTest = parseProperty("a(q,w) & a(e,r)");
+		KProperty original = parseProperty("a(x,y) & a(y,z)");
+		KProperty toTest = parseProperty("a(q,w) & a(e,r)");
 		List<Binding> equivalentBindings = getEquivalentBindings(original, toTest);
 		assertEquals(0, equivalentBindings.size());
 	}
