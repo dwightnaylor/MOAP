@@ -5,23 +5,23 @@ package algorithmMaker.input;
 
 /**
  * <!-- begin-user-doc -->
- * A representation of the model object '<em><b>Sugar Multiplication</b></em>'.
+ * A representation of the model object '<em><b>Addition</b></em>'.
  * <!-- end-user-doc -->
  *
  * <p>
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link algorithmMaker.input.SugarMultiplication#getLeft <em>Left</em>}</li>
- *   <li>{@link algorithmMaker.input.SugarMultiplication#getSymbol <em>Symbol</em>}</li>
- *   <li>{@link algorithmMaker.input.SugarMultiplication#getRight <em>Right</em>}</li>
+ *   <li>{@link algorithmMaker.input.Addition#getLeft <em>Left</em>}</li>
+ *   <li>{@link algorithmMaker.input.Addition#getSymbol <em>Symbol</em>}</li>
+ *   <li>{@link algorithmMaker.input.Addition#getRight <em>Right</em>}</li>
  * </ul>
  *
- * @see algorithmMaker.input.InputPackage#getSugarMultiplication()
+ * @see algorithmMaker.input.InputPackage#getAddition()
  * @model
  * @generated
  */
-public interface SugarMultiplication extends SugarNumericalProperty
+public interface Addition extends NumericalProperty
 {
   /**
    * Returns the value of the '<em><b>Left</b></em>' containment reference.
@@ -32,22 +32,22 @@ public interface SugarMultiplication extends SugarNumericalProperty
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Left</em>' containment reference.
-   * @see #setLeft(SugarNumericalProperty)
-   * @see algorithmMaker.input.InputPackage#getSugarMultiplication_Left()
+   * @see #setLeft(NumericalProperty)
+   * @see algorithmMaker.input.InputPackage#getAddition_Left()
    * @model containment="true"
    * @generated
    */
-  SugarNumericalProperty getLeft();
+  NumericalProperty getLeft();
 
   /**
-   * Sets the value of the '{@link algorithmMaker.input.SugarMultiplication#getLeft <em>Left</em>}' containment reference.
+   * Sets the value of the '{@link algorithmMaker.input.Addition#getLeft <em>Left</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Left</em>' containment reference.
    * @see #getLeft()
    * @generated
    */
-  void setLeft(SugarNumericalProperty value);
+  void setLeft(NumericalProperty value);
 
   /**
    * Returns the value of the '<em><b>Symbol</b></em>' attribute.
@@ -59,14 +59,14 @@ public interface SugarMultiplication extends SugarNumericalProperty
    * <!-- end-user-doc -->
    * @return the value of the '<em>Symbol</em>' attribute.
    * @see #setSymbol(String)
-   * @see algorithmMaker.input.InputPackage#getSugarMultiplication_Symbol()
+   * @see algorithmMaker.input.InputPackage#getAddition_Symbol()
    * @model
    * @generated
    */
   String getSymbol();
 
   /**
-   * Sets the value of the '{@link algorithmMaker.input.SugarMultiplication#getSymbol <em>Symbol</em>}' attribute.
+   * Sets the value of the '{@link algorithmMaker.input.Addition#getSymbol <em>Symbol</em>}' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Symbol</em>' attribute.
@@ -84,21 +84,21 @@ public interface SugarMultiplication extends SugarNumericalProperty
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Right</em>' containment reference.
-   * @see #setRight(SugarNumericalProperty)
-   * @see algorithmMaker.input.InputPackage#getSugarMultiplication_Right()
+   * @see #setRight(NumericalProperty)
+   * @see algorithmMaker.input.InputPackage#getAddition_Right()
    * @model containment="true"
    * @generated
    */
-  SugarNumericalProperty getRight();
+  NumericalProperty getRight();
 
   /**
-   * Sets the value of the '{@link algorithmMaker.input.SugarMultiplication#getRight <em>Right</em>}' containment reference.
+   * Sets the value of the '{@link algorithmMaker.input.Addition#getRight <em>Right</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @param value the new value of the '<em>Right</em>' containment reference.
    * @see #getRight()
    * @generated
    */
-  void setRight(SugarNumericalProperty value);
+  void setRight(NumericalProperty value);
 
-} // SugarMultiplication
+} // Addition

@@ -33,4 +33,6 @@ Export-Package: algorithmMaker,
  algorithmMaker.services,
  algorithmMaker.util,
  algorithmMaker.validation,
- kernelLanguage
+ kernelLanguage,
+ algorithmMaker.input,
+ algorithmMaker.input.impl

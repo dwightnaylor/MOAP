@@ -344,43 +344,6 @@ public interface InputPackage extends EPackage
   int QUANTIFIER_FEATURE_COUNT = PROPERTY_FEATURE_COUNT + 3;
 
   /**
-   * The meta object id for the '{@link algorithmMaker.input.impl.SugarAtomicImpl <em>Sugar Atomic</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see algorithmMaker.input.impl.SugarAtomicImpl
-   * @see algorithmMaker.input.impl.InputPackageImpl#getSugarAtomic()
-   * @generated
-   */
-  int SUGAR_ATOMIC = 8;
-
-  /**
-   * The feature id for the '<em><b>Function</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SUGAR_ATOMIC__FUNCTION = PROPERTY_FEATURE_COUNT + 0;
-
-  /**
-   * The feature id for the '<em><b>Args</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SUGAR_ATOMIC__ARGS = PROPERTY_FEATURE_COUNT + 1;
-
-  /**
-   * The number of structural features of the '<em>Sugar Atomic</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SUGAR_ATOMIC_FEATURE_COUNT = PROPERTY_FEATURE_COUNT + 2;
-
-  /**
    * The meta object id for the '{@link algorithmMaker.input.impl.AtomicImpl <em>Atomic</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -388,7 +351,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getAtomic()
    * @generated
    */
-  int ATOMIC = 9;
+  int ATOMIC = 8;
 
   /**
    * The feature id for the '<em><b>Function</b></em>' attribute.
@@ -400,7 +363,7 @@ public interface InputPackage extends EPackage
   int ATOMIC__FUNCTION = PROPERTY_FEATURE_COUNT + 0;
 
   /**
-   * The feature id for the '<em><b>Args</b></em>' attribute list.
+   * The feature id for the '<em><b>Args</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
@@ -425,7 +388,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getBooleanLiteral()
    * @generated
    */
-  int BOOLEAN_LITERAL = 10;
+  int BOOLEAN_LITERAL = 9;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -453,7 +416,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getTheorem()
    * @generated
    */
-  int THEOREM = 11;
+  int THEOREM = 10;
 
   /**
    * The feature id for the '<em><b>Requirement</b></em>' containment reference.
@@ -519,33 +482,33 @@ public interface InputPackage extends EPackage
   int THEOREM_FEATURE_COUNT = 6;
 
   /**
-   * The meta object id for the '{@link algorithmMaker.input.impl.SugarNumericalPropertyImpl <em>Sugar Numerical Property</em>}' class.
+   * The meta object id for the '{@link algorithmMaker.input.impl.NumericalPropertyImpl <em>Numerical Property</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see algorithmMaker.input.impl.SugarNumericalPropertyImpl
-   * @see algorithmMaker.input.impl.InputPackageImpl#getSugarNumericalProperty()
+   * @see algorithmMaker.input.impl.NumericalPropertyImpl
+   * @see algorithmMaker.input.impl.InputPackageImpl#getNumericalProperty()
    * @generated
    */
-  int SUGAR_NUMERICAL_PROPERTY = 12;
+  int NUMERICAL_PROPERTY = 11;
 
   /**
-   * The number of structural features of the '<em>Sugar Numerical Property</em>' class.
+   * The number of structural features of the '<em>Numerical Property</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SUGAR_NUMERICAL_PROPERTY_FEATURE_COUNT = 0;
+  int NUMERICAL_PROPERTY_FEATURE_COUNT = 0;
 
   /**
-   * The meta object id for the '{@link algorithmMaker.input.impl.SugarVariableImpl <em>Sugar Variable</em>}' class.
+   * The meta object id for the '{@link algorithmMaker.input.impl.VariableImpl <em>Variable</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see algorithmMaker.input.impl.SugarVariableImpl
-   * @see algorithmMaker.input.impl.InputPackageImpl#getSugarVariable()
+   * @see algorithmMaker.input.impl.VariableImpl
+   * @see algorithmMaker.input.impl.InputPackageImpl#getVariable()
    * @generated
    */
-  int SUGAR_VARIABLE = 13;
+  int VARIABLE = 12;
 
   /**
    * The feature id for the '<em><b>Arg</b></em>' attribute.
@@ -554,16 +517,16 @@ public interface InputPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUGAR_VARIABLE__ARG = SUGAR_NUMERICAL_PROPERTY_FEATURE_COUNT + 0;
+  int VARIABLE__ARG = NUMERICAL_PROPERTY_FEATURE_COUNT + 0;
 
   /**
-   * The number of structural features of the '<em>Sugar Variable</em>' class.
+   * The number of structural features of the '<em>Variable</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SUGAR_VARIABLE_FEATURE_COUNT = SUGAR_NUMERICAL_PROPERTY_FEATURE_COUNT + 1;
+  int VARIABLE_FEATURE_COUNT = NUMERICAL_PROPERTY_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link algorithmMaker.input.impl.NumberLiteralImpl <em>Number Literal</em>}' class.
@@ -573,7 +536,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getNumberLiteral()
    * @generated
    */
-  int NUMBER_LITERAL = 14;
+  int NUMBER_LITERAL = 13;
 
   /**
    * The feature id for the '<em><b>Value</b></em>' attribute.
@@ -582,7 +545,7 @@ public interface InputPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NUMBER_LITERAL__VALUE = SUGAR_NUMERICAL_PROPERTY_FEATURE_COUNT + 0;
+  int NUMBER_LITERAL__VALUE = NUMERICAL_PROPERTY_FEATURE_COUNT + 0;
 
   /**
    * The number of structural features of the '<em>Number Literal</em>' class.
@@ -591,7 +554,7 @@ public interface InputPackage extends EPackage
    * @generated
    * @ordered
    */
-  int NUMBER_LITERAL_FEATURE_COUNT = SUGAR_NUMERICAL_PROPERTY_FEATURE_COUNT + 1;
+  int NUMBER_LITERAL_FEATURE_COUNT = NUMERICAL_PROPERTY_FEATURE_COUNT + 1;
 
   /**
    * The meta object id for the '{@link algorithmMaker.input.impl.ORingImpl <em>ORing</em>}' class.
@@ -601,7 +564,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getORing()
    * @generated
    */
-  int ORING = 15;
+  int ORING = 14;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -638,7 +601,7 @@ public interface InputPackage extends EPackage
    * @see algorithmMaker.input.impl.InputPackageImpl#getANDing()
    * @generated
    */
-  int AN_DING = 16;
+  int AN_DING = 15;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -668,14 +631,14 @@ public interface InputPackage extends EPackage
   int AN_DING_FEATURE_COUNT = PROPERTY_FEATURE_COUNT + 2;
 
   /**
-   * The meta object id for the '{@link algorithmMaker.input.impl.SugarAdditionImpl <em>Sugar Addition</em>}' class.
+   * The meta object id for the '{@link algorithmMaker.input.impl.AdditionImpl <em>Addition</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see algorithmMaker.input.impl.SugarAdditionImpl
-   * @see algorithmMaker.input.impl.InputPackageImpl#getSugarAddition()
+   * @see algorithmMaker.input.impl.AdditionImpl
+   * @see algorithmMaker.input.impl.InputPackageImpl#getAddition()
    * @generated
    */
-  int SUGAR_ADDITION = 17;
+  int ADDITION = 16;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -684,7 +647,7 @@ public interface InputPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUGAR_ADDITION__LEFT = SUGAR_NUMERICAL_PROPERTY_FEATURE_COUNT + 0;
+  int ADDITION__LEFT = NUMERICAL_PROPERTY_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Symbol</b></em>' attribute.
@@ -693,7 +656,7 @@ public interface InputPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUGAR_ADDITION__SYMBOL = SUGAR_NUMERICAL_PROPERTY_FEATURE_COUNT + 1;
+  int ADDITION__SYMBOL = NUMERICAL_PROPERTY_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -702,26 +665,26 @@ public interface InputPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUGAR_ADDITION__RIGHT = SUGAR_NUMERICAL_PROPERTY_FEATURE_COUNT + 2;
+  int ADDITION__RIGHT = NUMERICAL_PROPERTY_FEATURE_COUNT + 2;
 
   /**
-   * The number of structural features of the '<em>Sugar Addition</em>' class.
+   * The number of structural features of the '<em>Addition</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SUGAR_ADDITION_FEATURE_COUNT = SUGAR_NUMERICAL_PROPERTY_FEATURE_COUNT + 3;
+  int ADDITION_FEATURE_COUNT = NUMERICAL_PROPERTY_FEATURE_COUNT + 3;
 
   /**
-   * The meta object id for the '{@link algorithmMaker.input.impl.SugarMultiplicationImpl <em>Sugar Multiplication</em>}' class.
+   * The meta object id for the '{@link algorithmMaker.input.impl.MultiplicationImpl <em>Multiplication</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see algorithmMaker.input.impl.SugarMultiplicationImpl
-   * @see algorithmMaker.input.impl.InputPackageImpl#getSugarMultiplication()
+   * @see algorithmMaker.input.impl.MultiplicationImpl
+   * @see algorithmMaker.input.impl.InputPackageImpl#getMultiplication()
    * @generated
    */
-  int SUGAR_MULTIPLICATION = 18;
+  int MULTIPLICATION = 17;
 
   /**
    * The feature id for the '<em><b>Left</b></em>' containment reference.
@@ -730,7 +693,7 @@ public interface InputPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUGAR_MULTIPLICATION__LEFT = SUGAR_NUMERICAL_PROPERTY_FEATURE_COUNT + 0;
+  int MULTIPLICATION__LEFT = NUMERICAL_PROPERTY_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Symbol</b></em>' attribute.
@@ -739,7 +702,7 @@ public interface InputPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUGAR_MULTIPLICATION__SYMBOL = SUGAR_NUMERICAL_PROPERTY_FEATURE_COUNT + 1;
+  int MULTIPLICATION__SYMBOL = NUMERICAL_PROPERTY_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Right</b></em>' containment reference.
@@ -748,16 +711,16 @@ public interface InputPackage extends EPackage
    * @generated
    * @ordered
    */
-  int SUGAR_MULTIPLICATION__RIGHT = SUGAR_NUMERICAL_PROPERTY_FEATURE_COUNT + 2;
+  int MULTIPLICATION__RIGHT = NUMERICAL_PROPERTY_FEATURE_COUNT + 2;
 
   /**
-   * The number of structural features of the '<em>Sugar Multiplication</em>' class.
+   * The number of structural features of the '<em>Multiplication</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int SUGAR_MULTIPLICATION_FEATURE_COUNT = SUGAR_NUMERICAL_PROPERTY_FEATURE_COUNT + 3;
+  int MULTIPLICATION_FEATURE_COUNT = NUMERICAL_PROPERTY_FEATURE_COUNT + 3;
 
 
   /**
@@ -1006,38 +969,6 @@ public interface InputPackage extends EPackage
   EReference getQuantifier_Predicate();
 
   /**
-   * Returns the meta object for class '{@link algorithmMaker.input.SugarAtomic <em>Sugar Atomic</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Sugar Atomic</em>'.
-   * @see algorithmMaker.input.SugarAtomic
-   * @generated
-   */
-  EClass getSugarAtomic();
-
-  /**
-   * Returns the meta object for the attribute '{@link algorithmMaker.input.SugarAtomic#getFunction <em>Function</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the attribute '<em>Function</em>'.
-   * @see algorithmMaker.input.SugarAtomic#getFunction()
-   * @see #getSugarAtomic()
-   * @generated
-   */
-  EAttribute getSugarAtomic_Function();
-
-  /**
-   * Returns the meta object for the containment reference list '{@link algorithmMaker.input.SugarAtomic#getArgs <em>Args</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Args</em>'.
-   * @see algorithmMaker.input.SugarAtomic#getArgs()
-   * @see #getSugarAtomic()
-   * @generated
-   */
-  EReference getSugarAtomic_Args();
-
-  /**
    * Returns the meta object for class '{@link algorithmMaker.input.Atomic <em>Atomic</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1059,15 +990,15 @@ public interface InputPackage extends EPackage
   EAttribute getAtomic_Function();
 
   /**
-   * Returns the meta object for the attribute list '{@link algorithmMaker.input.Atomic#getArgs <em>Args</em>}'.
+   * Returns the meta object for the containment reference list '{@link algorithmMaker.input.Atomic#getArgs <em>Args</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for the attribute list '<em>Args</em>'.
+   * @return the meta object for the containment reference list '<em>Args</em>'.
    * @see algorithmMaker.input.Atomic#getArgs()
    * @see #getAtomic()
    * @generated
    */
-  EAttribute getAtomic_Args();
+  EReference getAtomic_Args();
 
   /**
    * Returns the meta object for class '{@link algorithmMaker.input.BooleanLiteral <em>Boolean Literal</em>}'.
@@ -1167,35 +1098,35 @@ public interface InputPackage extends EPackage
   EAttribute getTheorem_PseudoCode();
 
   /**
-   * Returns the meta object for class '{@link algorithmMaker.input.SugarNumericalProperty <em>Sugar Numerical Property</em>}'.
+   * Returns the meta object for class '{@link algorithmMaker.input.NumericalProperty <em>Numerical Property</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Sugar Numerical Property</em>'.
-   * @see algorithmMaker.input.SugarNumericalProperty
+   * @return the meta object for class '<em>Numerical Property</em>'.
+   * @see algorithmMaker.input.NumericalProperty
    * @generated
    */
-  EClass getSugarNumericalProperty();
+  EClass getNumericalProperty();
 
   /**
-   * Returns the meta object for class '{@link algorithmMaker.input.SugarVariable <em>Sugar Variable</em>}'.
+   * Returns the meta object for class '{@link algorithmMaker.input.Variable <em>Variable</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Sugar Variable</em>'.
-   * @see algorithmMaker.input.SugarVariable
+   * @return the meta object for class '<em>Variable</em>'.
+   * @see algorithmMaker.input.Variable
    * @generated
    */
-  EClass getSugarVariable();
+  EClass getVariable();
 
   /**
-   * Returns the meta object for the attribute '{@link algorithmMaker.input.SugarVariable#getArg <em>Arg</em>}'.
+   * Returns the meta object for the attribute '{@link algorithmMaker.input.Variable#getArg <em>Arg</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Arg</em>'.
-   * @see algorithmMaker.input.SugarVariable#getArg()
-   * @see #getSugarVariable()
+   * @see algorithmMaker.input.Variable#getArg()
+   * @see #getVariable()
    * @generated
    */
-  EAttribute getSugarVariable_Arg();
+  EAttribute getVariable_Arg();
 
   /**
    * Returns the meta object for class '{@link algorithmMaker.input.NumberLiteral <em>Number Literal</em>}'.
@@ -1283,90 +1214,90 @@ public interface InputPackage extends EPackage
   EReference getANDing_Right();
 
   /**
-   * Returns the meta object for class '{@link algorithmMaker.input.SugarAddition <em>Sugar Addition</em>}'.
+   * Returns the meta object for class '{@link algorithmMaker.input.Addition <em>Addition</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Sugar Addition</em>'.
-   * @see algorithmMaker.input.SugarAddition
+   * @return the meta object for class '<em>Addition</em>'.
+   * @see algorithmMaker.input.Addition
    * @generated
    */
-  EClass getSugarAddition();
+  EClass getAddition();
 
   /**
-   * Returns the meta object for the containment reference '{@link algorithmMaker.input.SugarAddition#getLeft <em>Left</em>}'.
+   * Returns the meta object for the containment reference '{@link algorithmMaker.input.Addition#getLeft <em>Left</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see algorithmMaker.input.SugarAddition#getLeft()
-   * @see #getSugarAddition()
+   * @see algorithmMaker.input.Addition#getLeft()
+   * @see #getAddition()
    * @generated
    */
-  EReference getSugarAddition_Left();
+  EReference getAddition_Left();
 
   /**
-   * Returns the meta object for the attribute '{@link algorithmMaker.input.SugarAddition#getSymbol <em>Symbol</em>}'.
+   * Returns the meta object for the attribute '{@link algorithmMaker.input.Addition#getSymbol <em>Symbol</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Symbol</em>'.
-   * @see algorithmMaker.input.SugarAddition#getSymbol()
-   * @see #getSugarAddition()
+   * @see algorithmMaker.input.Addition#getSymbol()
+   * @see #getAddition()
    * @generated
    */
-  EAttribute getSugarAddition_Symbol();
+  EAttribute getAddition_Symbol();
 
   /**
-   * Returns the meta object for the containment reference '{@link algorithmMaker.input.SugarAddition#getRight <em>Right</em>}'.
+   * Returns the meta object for the containment reference '{@link algorithmMaker.input.Addition#getRight <em>Right</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see algorithmMaker.input.SugarAddition#getRight()
-   * @see #getSugarAddition()
+   * @see algorithmMaker.input.Addition#getRight()
+   * @see #getAddition()
    * @generated
    */
-  EReference getSugarAddition_Right();
+  EReference getAddition_Right();
 
   /**
-   * Returns the meta object for class '{@link algorithmMaker.input.SugarMultiplication <em>Sugar Multiplication</em>}'.
+   * Returns the meta object for class '{@link algorithmMaker.input.Multiplication <em>Multiplication</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Sugar Multiplication</em>'.
-   * @see algorithmMaker.input.SugarMultiplication
+   * @return the meta object for class '<em>Multiplication</em>'.
+   * @see algorithmMaker.input.Multiplication
    * @generated
    */
-  EClass getSugarMultiplication();
+  EClass getMultiplication();
 
   /**
-   * Returns the meta object for the containment reference '{@link algorithmMaker.input.SugarMultiplication#getLeft <em>Left</em>}'.
+   * Returns the meta object for the containment reference '{@link algorithmMaker.input.Multiplication#getLeft <em>Left</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Left</em>'.
-   * @see algorithmMaker.input.SugarMultiplication#getLeft()
-   * @see #getSugarMultiplication()
+   * @see algorithmMaker.input.Multiplication#getLeft()
+   * @see #getMultiplication()
    * @generated
    */
-  EReference getSugarMultiplication_Left();
+  EReference getMultiplication_Left();
 
   /**
-   * Returns the meta object for the attribute '{@link algorithmMaker.input.SugarMultiplication#getSymbol <em>Symbol</em>}'.
+   * Returns the meta object for the attribute '{@link algorithmMaker.input.Multiplication#getSymbol <em>Symbol</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the attribute '<em>Symbol</em>'.
-   * @see algorithmMaker.input.SugarMultiplication#getSymbol()
-   * @see #getSugarMultiplication()
+   * @see algorithmMaker.input.Multiplication#getSymbol()
+   * @see #getMultiplication()
    * @generated
    */
-  EAttribute getSugarMultiplication_Symbol();
+  EAttribute getMultiplication_Symbol();
 
   /**
-   * Returns the meta object for the containment reference '{@link algorithmMaker.input.SugarMultiplication#getRight <em>Right</em>}'.
+   * Returns the meta object for the containment reference '{@link algorithmMaker.input.Multiplication#getRight <em>Right</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @return the meta object for the containment reference '<em>Right</em>'.
-   * @see algorithmMaker.input.SugarMultiplication#getRight()
-   * @see #getSugarMultiplication()
+   * @see algorithmMaker.input.Multiplication#getRight()
+   * @see #getMultiplication()
    * @generated
    */
-  EReference getSugarMultiplication_Right();
+  EReference getMultiplication_Right();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -1592,32 +1523,6 @@ public interface InputPackage extends EPackage
     EReference QUANTIFIER__PREDICATE = eINSTANCE.getQuantifier_Predicate();
 
     /**
-     * The meta object literal for the '{@link algorithmMaker.input.impl.SugarAtomicImpl <em>Sugar Atomic</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see algorithmMaker.input.impl.SugarAtomicImpl
-     * @see algorithmMaker.input.impl.InputPackageImpl#getSugarAtomic()
-     * @generated
-     */
-    EClass SUGAR_ATOMIC = eINSTANCE.getSugarAtomic();
-
-    /**
-     * The meta object literal for the '<em><b>Function</b></em>' attribute feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EAttribute SUGAR_ATOMIC__FUNCTION = eINSTANCE.getSugarAtomic_Function();
-
-    /**
-     * The meta object literal for the '<em><b>Args</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference SUGAR_ATOMIC__ARGS = eINSTANCE.getSugarAtomic_Args();
-
-    /**
      * The meta object literal for the '{@link algorithmMaker.input.impl.AtomicImpl <em>Atomic</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -1636,12 +1541,12 @@ public interface InputPackage extends EPackage
     EAttribute ATOMIC__FUNCTION = eINSTANCE.getAtomic_Function();
 
     /**
-     * The meta object literal for the '<em><b>Args</b></em>' attribute list feature.
+     * The meta object literal for the '<em><b>Args</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute ATOMIC__ARGS = eINSTANCE.getAtomic_Args();
+    EReference ATOMIC__ARGS = eINSTANCE.getAtomic_Args();
 
     /**
      * The meta object literal for the '{@link algorithmMaker.input.impl.BooleanLiteralImpl <em>Boolean Literal</em>}' class.
@@ -1720,24 +1625,24 @@ public interface InputPackage extends EPackage
     EAttribute THEOREM__PSEUDO_CODE = eINSTANCE.getTheorem_PseudoCode();
 
     /**
-     * The meta object literal for the '{@link algorithmMaker.input.impl.SugarNumericalPropertyImpl <em>Sugar Numerical Property</em>}' class.
+     * The meta object literal for the '{@link algorithmMaker.input.impl.NumericalPropertyImpl <em>Numerical Property</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see algorithmMaker.input.impl.SugarNumericalPropertyImpl
-     * @see algorithmMaker.input.impl.InputPackageImpl#getSugarNumericalProperty()
+     * @see algorithmMaker.input.impl.NumericalPropertyImpl
+     * @see algorithmMaker.input.impl.InputPackageImpl#getNumericalProperty()
      * @generated
      */
-    EClass SUGAR_NUMERICAL_PROPERTY = eINSTANCE.getSugarNumericalProperty();
+    EClass NUMERICAL_PROPERTY = eINSTANCE.getNumericalProperty();
 
     /**
-     * The meta object literal for the '{@link algorithmMaker.input.impl.SugarVariableImpl <em>Sugar Variable</em>}' class.
+     * The meta object literal for the '{@link algorithmMaker.input.impl.VariableImpl <em>Variable</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see algorithmMaker.input.impl.SugarVariableImpl
-     * @see algorithmMaker.input.impl.InputPackageImpl#getSugarVariable()
+     * @see algorithmMaker.input.impl.VariableImpl
+     * @see algorithmMaker.input.impl.InputPackageImpl#getVariable()
      * @generated
      */
-    EClass SUGAR_VARIABLE = eINSTANCE.getSugarVariable();
+    EClass VARIABLE = eINSTANCE.getVariable();
 
     /**
      * The meta object literal for the '<em><b>Arg</b></em>' attribute feature.
@@ -1745,7 +1650,7 @@ public interface InputPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute SUGAR_VARIABLE__ARG = eINSTANCE.getSugarVariable_Arg();
+    EAttribute VARIABLE__ARG = eINSTANCE.getVariable_Arg();
 
     /**
      * The meta object literal for the '{@link algorithmMaker.input.impl.NumberLiteralImpl <em>Number Literal</em>}' class.
@@ -1818,14 +1723,14 @@ public interface InputPackage extends EPackage
     EReference AN_DING__RIGHT = eINSTANCE.getANDing_Right();
 
     /**
-     * The meta object literal for the '{@link algorithmMaker.input.impl.SugarAdditionImpl <em>Sugar Addition</em>}' class.
+     * The meta object literal for the '{@link algorithmMaker.input.impl.AdditionImpl <em>Addition</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see algorithmMaker.input.impl.SugarAdditionImpl
-     * @see algorithmMaker.input.impl.InputPackageImpl#getSugarAddition()
+     * @see algorithmMaker.input.impl.AdditionImpl
+     * @see algorithmMaker.input.impl.InputPackageImpl#getAddition()
      * @generated
      */
-    EClass SUGAR_ADDITION = eINSTANCE.getSugarAddition();
+    EClass ADDITION = eINSTANCE.getAddition();
 
     /**
      * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
@@ -1833,7 +1738,7 @@ public interface InputPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SUGAR_ADDITION__LEFT = eINSTANCE.getSugarAddition_Left();
+    EReference ADDITION__LEFT = eINSTANCE.getAddition_Left();
 
     /**
      * The meta object literal for the '<em><b>Symbol</b></em>' attribute feature.
@@ -1841,7 +1746,7 @@ public interface InputPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute SUGAR_ADDITION__SYMBOL = eINSTANCE.getSugarAddition_Symbol();
+    EAttribute ADDITION__SYMBOL = eINSTANCE.getAddition_Symbol();
 
     /**
      * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
@@ -1849,17 +1754,17 @@ public interface InputPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SUGAR_ADDITION__RIGHT = eINSTANCE.getSugarAddition_Right();
+    EReference ADDITION__RIGHT = eINSTANCE.getAddition_Right();
 
     /**
-     * The meta object literal for the '{@link algorithmMaker.input.impl.SugarMultiplicationImpl <em>Sugar Multiplication</em>}' class.
+     * The meta object literal for the '{@link algorithmMaker.input.impl.MultiplicationImpl <em>Multiplication</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
-     * @see algorithmMaker.input.impl.SugarMultiplicationImpl
-     * @see algorithmMaker.input.impl.InputPackageImpl#getSugarMultiplication()
+     * @see algorithmMaker.input.impl.MultiplicationImpl
+     * @see algorithmMaker.input.impl.InputPackageImpl#getMultiplication()
      * @generated
      */
-    EClass SUGAR_MULTIPLICATION = eINSTANCE.getSugarMultiplication();
+    EClass MULTIPLICATION = eINSTANCE.getMultiplication();
 
     /**
      * The meta object literal for the '<em><b>Left</b></em>' containment reference feature.
@@ -1867,7 +1772,7 @@ public interface InputPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SUGAR_MULTIPLICATION__LEFT = eINSTANCE.getSugarMultiplication_Left();
+    EReference MULTIPLICATION__LEFT = eINSTANCE.getMultiplication_Left();
 
     /**
      * The meta object literal for the '<em><b>Symbol</b></em>' attribute feature.
@@ -1875,7 +1780,7 @@ public interface InputPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EAttribute SUGAR_MULTIPLICATION__SYMBOL = eINSTANCE.getSugarMultiplication_Symbol();
+    EAttribute MULTIPLICATION__SYMBOL = eINSTANCE.getMultiplication_Symbol();
 
     /**
      * The meta object literal for the '<em><b>Right</b></em>' containment reference feature.
@@ -1883,7 +1788,7 @@ public interface InputPackage extends EPackage
      * <!-- end-user-doc -->
      * @generated
      */
-    EReference SUGAR_MULTIPLICATION__RIGHT = eINSTANCE.getSugarMultiplication_Right();
+    EReference MULTIPLICATION__RIGHT = eINSTANCE.getMultiplication_Right();
 
   }
 

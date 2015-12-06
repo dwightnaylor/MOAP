@@ -3,26 +3,25 @@
 package algorithmMaker.input.impl;
 
 import algorithmMaker.input.ANDing;
+import algorithmMaker.input.Addition;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.BooleanLiteral;
 import algorithmMaker.input.Declaration;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.InputFactory;
 import algorithmMaker.input.InputPackage;
+import algorithmMaker.input.Multiplication;
 import algorithmMaker.input.Negation;
 import algorithmMaker.input.NumberLiteral;
+import algorithmMaker.input.NumericalProperty;
 import algorithmMaker.input.ORing;
 import algorithmMaker.input.Problem;
 import algorithmMaker.input.ProblemShell;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Quantifier;
-import algorithmMaker.input.SugarAddition;
-import algorithmMaker.input.SugarAtomic;
-import algorithmMaker.input.SugarMultiplication;
-import algorithmMaker.input.SugarNumericalProperty;
-import algorithmMaker.input.SugarVariable;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.input.Type;
+import algorithmMaker.input.Variable;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -100,13 +99,6 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass sugarAtomicEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass atomicEClass = null;
 
   /**
@@ -128,14 +120,14 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass sugarNumericalPropertyEClass = null;
+  private EClass numericalPropertyEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass sugarVariableEClass = null;
+  private EClass variableEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -163,14 +155,14 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass sugarAdditionEClass = null;
+  private EClass additionEClass = null;
 
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass sugarMultiplicationEClass = null;
+  private EClass multiplicationEClass = null;
 
   /**
    * Creates an instance of the model <b>Package</b>, registered with
@@ -470,36 +462,6 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getSugarAtomic()
-  {
-    return sugarAtomicEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getSugarAtomic_Function()
-  {
-    return (EAttribute)sugarAtomicEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getSugarAtomic_Args()
-  {
-    return (EReference)sugarAtomicEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getAtomic()
   {
     return atomicEClass;
@@ -520,9 +482,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getAtomic_Args()
+  public EReference getAtomic_Args()
   {
-    return (EAttribute)atomicEClass.getEStructuralFeatures().get(1);
+    return (EReference)atomicEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -620,9 +582,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getSugarNumericalProperty()
+  public EClass getNumericalProperty()
   {
-    return sugarNumericalPropertyEClass;
+    return numericalPropertyEClass;
   }
 
   /**
@@ -630,9 +592,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getSugarVariable()
+  public EClass getVariable()
   {
-    return sugarVariableEClass;
+    return variableEClass;
   }
 
   /**
@@ -640,9 +602,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getSugarVariable_Arg()
+  public EAttribute getVariable_Arg()
   {
-    return (EAttribute)sugarVariableEClass.getEStructuralFeatures().get(0);
+    return (EAttribute)variableEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -730,9 +692,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getSugarAddition()
+  public EClass getAddition()
   {
-    return sugarAdditionEClass;
+    return additionEClass;
   }
 
   /**
@@ -740,9 +702,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSugarAddition_Left()
+  public EReference getAddition_Left()
   {
-    return (EReference)sugarAdditionEClass.getEStructuralFeatures().get(0);
+    return (EReference)additionEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -750,9 +712,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getSugarAddition_Symbol()
+  public EAttribute getAddition_Symbol()
   {
-    return (EAttribute)sugarAdditionEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)additionEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -760,9 +722,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSugarAddition_Right()
+  public EReference getAddition_Right()
   {
-    return (EReference)sugarAdditionEClass.getEStructuralFeatures().get(2);
+    return (EReference)additionEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -770,9 +732,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getSugarMultiplication()
+  public EClass getMultiplication()
   {
-    return sugarMultiplicationEClass;
+    return multiplicationEClass;
   }
 
   /**
@@ -780,9 +742,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSugarMultiplication_Left()
+  public EReference getMultiplication_Left()
   {
-    return (EReference)sugarMultiplicationEClass.getEStructuralFeatures().get(0);
+    return (EReference)multiplicationEClass.getEStructuralFeatures().get(0);
   }
 
   /**
@@ -790,9 +752,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getSugarMultiplication_Symbol()
+  public EAttribute getMultiplication_Symbol()
   {
-    return (EAttribute)sugarMultiplicationEClass.getEStructuralFeatures().get(1);
+    return (EAttribute)multiplicationEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -800,9 +762,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getSugarMultiplication_Right()
+  public EReference getMultiplication_Right()
   {
-    return (EReference)sugarMultiplicationEClass.getEStructuralFeatures().get(2);
+    return (EReference)multiplicationEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -866,13 +828,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     createEReference(quantifierEClass, QUANTIFIER__SUBJECT);
     createEReference(quantifierEClass, QUANTIFIER__PREDICATE);
 
-    sugarAtomicEClass = createEClass(SUGAR_ATOMIC);
-    createEAttribute(sugarAtomicEClass, SUGAR_ATOMIC__FUNCTION);
-    createEReference(sugarAtomicEClass, SUGAR_ATOMIC__ARGS);
-
     atomicEClass = createEClass(ATOMIC);
     createEAttribute(atomicEClass, ATOMIC__FUNCTION);
-    createEAttribute(atomicEClass, ATOMIC__ARGS);
+    createEReference(atomicEClass, ATOMIC__ARGS);
 
     booleanLiteralEClass = createEClass(BOOLEAN_LITERAL);
     createEAttribute(booleanLiteralEClass, BOOLEAN_LITERAL__VALUE);
@@ -885,10 +843,10 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     createEAttribute(theoremEClass, THEOREM__DESCRIPTION);
     createEAttribute(theoremEClass, THEOREM__PSEUDO_CODE);
 
-    sugarNumericalPropertyEClass = createEClass(SUGAR_NUMERICAL_PROPERTY);
+    numericalPropertyEClass = createEClass(NUMERICAL_PROPERTY);
 
-    sugarVariableEClass = createEClass(SUGAR_VARIABLE);
-    createEAttribute(sugarVariableEClass, SUGAR_VARIABLE__ARG);
+    variableEClass = createEClass(VARIABLE);
+    createEAttribute(variableEClass, VARIABLE__ARG);
 
     numberLiteralEClass = createEClass(NUMBER_LITERAL);
     createEAttribute(numberLiteralEClass, NUMBER_LITERAL__VALUE);
@@ -901,15 +859,15 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     createEReference(anDingEClass, AN_DING__LEFT);
     createEReference(anDingEClass, AN_DING__RIGHT);
 
-    sugarAdditionEClass = createEClass(SUGAR_ADDITION);
-    createEReference(sugarAdditionEClass, SUGAR_ADDITION__LEFT);
-    createEAttribute(sugarAdditionEClass, SUGAR_ADDITION__SYMBOL);
-    createEReference(sugarAdditionEClass, SUGAR_ADDITION__RIGHT);
+    additionEClass = createEClass(ADDITION);
+    createEReference(additionEClass, ADDITION__LEFT);
+    createEAttribute(additionEClass, ADDITION__SYMBOL);
+    createEReference(additionEClass, ADDITION__RIGHT);
 
-    sugarMultiplicationEClass = createEClass(SUGAR_MULTIPLICATION);
-    createEReference(sugarMultiplicationEClass, SUGAR_MULTIPLICATION__LEFT);
-    createEAttribute(sugarMultiplicationEClass, SUGAR_MULTIPLICATION__SYMBOL);
-    createEReference(sugarMultiplicationEClass, SUGAR_MULTIPLICATION__RIGHT);
+    multiplicationEClass = createEClass(MULTIPLICATION);
+    createEReference(multiplicationEClass, MULTIPLICATION__LEFT);
+    createEAttribute(multiplicationEClass, MULTIPLICATION__SYMBOL);
+    createEReference(multiplicationEClass, MULTIPLICATION__RIGHT);
   }
 
   /**
@@ -944,16 +902,15 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     problemShellEClass.getESuperTypes().add(this.getProperty());
     negationEClass.getESuperTypes().add(this.getProperty());
     quantifierEClass.getESuperTypes().add(this.getProperty());
-    sugarAtomicEClass.getESuperTypes().add(this.getProperty());
-    sugarAtomicEClass.getESuperTypes().add(this.getSugarNumericalProperty());
     atomicEClass.getESuperTypes().add(this.getProperty());
+    atomicEClass.getESuperTypes().add(this.getNumericalProperty());
     booleanLiteralEClass.getESuperTypes().add(this.getProperty());
-    sugarVariableEClass.getESuperTypes().add(this.getSugarNumericalProperty());
-    numberLiteralEClass.getESuperTypes().add(this.getSugarNumericalProperty());
+    variableEClass.getESuperTypes().add(this.getNumericalProperty());
+    numberLiteralEClass.getESuperTypes().add(this.getNumericalProperty());
     oRingEClass.getESuperTypes().add(this.getProperty());
     anDingEClass.getESuperTypes().add(this.getProperty());
-    sugarAdditionEClass.getESuperTypes().add(this.getSugarNumericalProperty());
-    sugarMultiplicationEClass.getESuperTypes().add(this.getSugarNumericalProperty());
+    additionEClass.getESuperTypes().add(this.getNumericalProperty());
+    multiplicationEClass.getESuperTypes().add(this.getNumericalProperty());
 
     // Initialize classes and features; add operations and parameters
     initEClass(inputEClass, Input.class, "Input", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -987,13 +944,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     initEReference(getQuantifier_Subject(), this.getProblem(), null, "subject", null, 0, 1, Quantifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getQuantifier_Predicate(), this.getProperty(), null, "predicate", null, 0, 1, Quantifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(sugarAtomicEClass, SugarAtomic.class, "SugarAtomic", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getSugarAtomic_Function(), ecorePackage.getEString(), "Function", null, 0, 1, SugarAtomic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSugarAtomic_Args(), this.getSugarNumericalProperty(), null, "args", null, 0, -1, SugarAtomic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(atomicEClass, Atomic.class, "Atomic", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAtomic_Function(), ecorePackage.getEString(), "Function", null, 0, 1, Atomic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getAtomic_Args(), ecorePackage.getEString(), "args", null, 0, -1, Atomic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAtomic_Args(), this.getNumericalProperty(), null, "args", null, 0, -1, Atomic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(booleanLiteralEClass, BooleanLiteral.class, "BooleanLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getBooleanLiteral_Value(), ecorePackage.getEString(), "value", null, 0, 1, BooleanLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1006,10 +959,10 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     initEAttribute(getTheorem_Description(), ecorePackage.getEString(), "Description", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTheorem_PseudoCode(), ecorePackage.getEString(), "PseudoCode", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(sugarNumericalPropertyEClass, SugarNumericalProperty.class, "SugarNumericalProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEClass(numericalPropertyEClass, NumericalProperty.class, "NumericalProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(sugarVariableEClass, SugarVariable.class, "SugarVariable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEAttribute(getSugarVariable_Arg(), ecorePackage.getEString(), "arg", null, 0, 1, SugarVariable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(variableEClass, Variable.class, "Variable", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVariable_Arg(), ecorePackage.getEString(), "arg", null, 0, 1, Variable.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(numberLiteralEClass, NumberLiteral.class, "NumberLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getNumberLiteral_Value(), ecorePackage.getEInt(), "value", null, 0, 1, NumberLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1022,15 +975,15 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     initEReference(getANDing_Left(), this.getProperty(), null, "left", null, 0, 1, ANDing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getANDing_Right(), this.getProperty(), null, "right", null, 0, 1, ANDing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(sugarAdditionEClass, SugarAddition.class, "SugarAddition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSugarAddition_Left(), this.getSugarNumericalProperty(), null, "left", null, 0, 1, SugarAddition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getSugarAddition_Symbol(), ecorePackage.getEString(), "symbol", null, 0, 1, SugarAddition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSugarAddition_Right(), this.getSugarNumericalProperty(), null, "right", null, 0, 1, SugarAddition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(additionEClass, Addition.class, "Addition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getAddition_Left(), this.getNumericalProperty(), null, "left", null, 0, 1, Addition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getAddition_Symbol(), ecorePackage.getEString(), "symbol", null, 0, 1, Addition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getAddition_Right(), this.getNumericalProperty(), null, "right", null, 0, 1, Addition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
-    initEClass(sugarMultiplicationEClass, SugarMultiplication.class, "SugarMultiplication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getSugarMultiplication_Left(), this.getSugarNumericalProperty(), null, "left", null, 0, 1, SugarMultiplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getSugarMultiplication_Symbol(), ecorePackage.getEString(), "symbol", null, 0, 1, SugarMultiplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getSugarMultiplication_Right(), this.getSugarNumericalProperty(), null, "right", null, 0, 1, SugarMultiplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEClass(multiplicationEClass, Multiplication.class, "Multiplication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getMultiplication_Left(), this.getNumericalProperty(), null, "left", null, 0, 1, Multiplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getMultiplication_Symbol(), ecorePackage.getEString(), "symbol", null, 0, 1, Multiplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getMultiplication_Right(), this.getNumericalProperty(), null, "right", null, 0, 1, Multiplication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

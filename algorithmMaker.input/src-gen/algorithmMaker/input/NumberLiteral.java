@@ -19,7 +19,7 @@ package algorithmMaker.input;
  * @model
  * @generated
  */
-public interface NumberLiteral extends SugarNumericalProperty
+public interface NumberLiteral extends NumericalProperty
 {
   /**
    * Returns the value of the '<em><b>Value</b></em>' attribute.

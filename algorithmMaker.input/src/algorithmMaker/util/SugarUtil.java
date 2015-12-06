@@ -37,7 +37,10 @@ public class SugarUtil {
 								(KProperty) convertToKernel(((ANDing) object).getRight())));
 				break;
 			case Atomic:
-				kernelObjects.put(object, atomic(((Atomic) object).getFunction(), ((Atomic) object).getArgs()));
+				kernelObjects
+						.put(object,
+								atomic(((Atomic) object).getFunction(),
+										InputUtil.convertToStrings(((Atomic) object).getArgs())));
 				break;
 			case BooleanLiteral:
 				kernelObjects.put(object, bool(((BooleanLiteral) object).getValue().equals("TRUE")));
@@ -122,18 +125,18 @@ public class SugarUtil {
 		problem.setProperty((Property) InputUtil.reduce(problem.getProperty(), new InputConverter() {
 			@Override
 			public EObject apply(EObject cur) {
-				if (!(cur instanceof SugarAtomic))
+				if (!(cur instanceof Atomic))
 					return cur;
 
 				ArrayList<Atomic> newAtomics = new ArrayList<Atomic>();
-				Hashtable<SugarNumericalProperty, String> nestedArgs = new Hashtable<SugarNumericalProperty, String>();
-				denest((SugarAtomic) cur, InputUtil.getDeclaredVars(problem), nestedArgs, newAtomics, false);
+				Hashtable<NumericalProperty, String> nestedArgs = new Hashtable<NumericalProperty, String>();
+				denest((Atomic) cur, InputUtil.getDeclaredVars(problem), nestedArgs, newAtomics, false);
 				if (newAtomics.size() == 1)
 					return newAtomics.iterator().next();
 
 				ArrayList<String> varsToDeclare = new ArrayList<String>();
-				for (SugarNumericalProperty property : nestedArgs.keySet())
-					if (!(property instanceof SugarVariable))
+				for (NumericalProperty property : nestedArgs.keySet())
+					if (!(property instanceof Variable))
 						varsToDeclare.add(nestedArgs.get(property));
 
 				Collections.sort(varsToDeclare);
@@ -143,13 +146,13 @@ public class SugarUtil {
 				return InputUtil.andTogether(newAtomics);
 			}
 
-			private void denest(SugarNumericalProperty property, HashSet<String> allVars,
-					Hashtable<SugarNumericalProperty, String> nestedArgs, ArrayList<Atomic> newAtomics, boolean nested) {
+			private void denest(NumericalProperty property, HashSet<String> allVars,
+					Hashtable<NumericalProperty, String> nestedArgs, ArrayList<Atomic> newAtomics, boolean nested) {
 				if (nestedArgs.containsKey(property))
 					return;
 
-				if (property instanceof SugarVariable) {
-					nestedArgs.put(property, ((SugarVariable) property).getArg());
+				if (property instanceof Variable) {
+					nestedArgs.put(property, ((Variable) property).getArg());
 					return;
 				}
 
@@ -160,38 +163,38 @@ public class SugarUtil {
 					nestedArgs.put(property, newArg);
 				}
 				Atomic replacement;
-				if (property instanceof SugarAtomic) {
-					replacement = InputUtil.createAtomic(((SugarAtomic) property).getFunction());
-					for (SugarNumericalProperty argument : ((SugarAtomic) property).getArgs()) {
+				if (property instanceof Atomic) {
+					replacement = InputUtil.createAtomic(((Atomic) property).getFunction());
+					for (NumericalProperty argument : ((Atomic) property).getArgs()) {
 						denest(argument, allVars, nestedArgs, newAtomics, true);
-						replacement.getArgs().add(nestedArgs.get(argument));
+						replacement.getArgs().add(InputUtil.createVariable(nestedArgs.get(argument)));
 					}
 				} else if (property instanceof Atomic) {
 					replacement = InputUtil.createAtomic(((Atomic) property).getFunction());
-					for (String argument : ((Atomic) property).getArgs())
+					for (NumericalProperty argument : ((Atomic) property).getArgs())
 						replacement.getArgs().add(argument);
 
-				} else if (property instanceof SugarAddition) {
-					SugarAddition addition = (SugarAddition) property;
+				} else if (property instanceof Addition) {
+					Addition addition = (Addition) property;
 					replacement = InputUtil.createAtomic(addition.getSymbol().equals("+") ? InputUtil.ADDITION
 							: InputUtil.SUBTRACTION);
 					denest(addition.getLeft(), allVars, nestedArgs, newAtomics, true);
 					denest(addition.getRight(), allVars, nestedArgs, newAtomics, true);
-					replacement.getArgs().add(nestedArgs.get(addition.getLeft()));
-					replacement.getArgs().add(nestedArgs.get(addition.getRight()));
-				} else if (property instanceof SugarMultiplication) {
-					SugarMultiplication addition = (SugarMultiplication) property;
+					replacement.getArgs().add(InputUtil.createVariable(nestedArgs.get(addition.getLeft())));
+					replacement.getArgs().add(InputUtil.createVariable(nestedArgs.get(addition.getRight())));
+				} else if (property instanceof Multiplication) {
+					Multiplication addition = (Multiplication) property;
 					replacement = InputUtil.createAtomic(addition.getSymbol().equals("*") ? InputUtil.MULTIPLICATION
 							: InputUtil.DIVISION);
 					denest(addition.getLeft(), allVars, nestedArgs, newAtomics, true);
 					denest(addition.getRight(), allVars, nestedArgs, newAtomics, true);
-					replacement.getArgs().add(nestedArgs.get(addition.getLeft()));
-					replacement.getArgs().add(nestedArgs.get(addition.getRight()));
+					replacement.getArgs().add(InputUtil.createVariable(nestedArgs.get(addition.getLeft())));
+					replacement.getArgs().add(InputUtil.createVariable(nestedArgs.get(addition.getRight())));
 				} else {
 					throw new UnsupportedOperationException("Can't denest a " + property.getClass());
 				}
 				if (nested)
-					replacement.getArgs().add(newArg);
+					replacement.getArgs().add(InputUtil.createVariable(newArg));
 
 				newAtomics.add(replacement);
 			}
@@ -254,9 +257,9 @@ public class SugarUtil {
 			EObject cur = contents.next();
 			if (cur instanceof Atomic && InputUtil.isArithmetic(((Atomic) cur).getFunction())) {
 				Atomic atomic = (Atomic) cur;
-				replacements.put(atomic.getArgs().get(2),
-						new String[] { atomic.getArgs().get(0), InputUtil.getSymbol(atomic.getFunction()),
-								atomic.getArgs().get(1) });
+				replacements.put(((Variable) atomic.getArgs().get(2)).getArg(), new String[] {
+						((Variable) atomic.getArgs().get(0)).getArg(), InputUtil.getSymbol(atomic.getFunction()),
+						((Variable) atomic.getArgs().get(1)).getArg() });
 			}
 		}
 		return (Problem) InputUtil.reduce(problem, new InputConverter() {
@@ -278,14 +281,16 @@ public class SugarUtil {
 							Atomic atomic = (Atomic) topLevelAtomics.get(i);
 							String function = atomic.getFunction();
 							if (InputUtil.isTypeAtomic(function)) {
-								Declaration declaration = InputUtil.getDeclaration(atomic, atomic.getArgs().get(0));
+								Declaration declaration = InputUtil.getDeclaration(atomic, ((Variable) atomic.getArgs()
+										.get(0)).getArg());
 								if (declaration.getType() == null)
 									declaration.setType(InputFactoryImpl.eINSTANCE.createType());
 
 								declaration.getType().setName(InputUtil.getDeclaredType(function));
 								topLevelAtomics.remove(i--);
 							} else if (InputUtil.isChildTypeAtomic(function)) {
-								Declaration declaration = InputUtil.getDeclaration(atomic, atomic.getArgs().get(0));
+								Declaration declaration = InputUtil.getDeclaration(atomic, ((Variable) atomic.getArgs()
+										.get(0)).getArg());
 								if (declaration.getType() == null)
 									declaration.setType(InputFactoryImpl.eINSTANCE.createType());
 
@@ -296,17 +301,17 @@ public class SugarUtil {
 							} else if (InputUtil.isArithmetic(function)) {
 								topLevelAtomics.remove(i--);
 							} else {
-								boolean useSugarAtomic = false;
-								for (String arg : atomic.getArgs())
+								boolean useAtomic = false;
+								for (String arg : InputUtil.convertToStrings(atomic.getArgs()))
 									if (replacements.containsKey(arg)) {
-										useSugarAtomic = true;
+										useAtomic = true;
 										break;
 									}
-								if (useSugarAtomic) {
-									SugarAtomic newAtomic = InputFactoryImpl.eINSTANCE.createSugarAtomic();
-									for (String arg : atomic.getArgs()) {
+								if (useAtomic) {
+									Atomic newAtomic = InputFactoryImpl.eINSTANCE.createAtomic();
+									for (String arg : InputUtil.convertToStrings(atomic.getArgs())) {
 										newAtomic.getArgs().add(
-												QuickParser.parseSugarNumericalProperty(breakDown(arg, replacements)));
+												QuickParser.parseNumericalProperty(breakDown(arg, replacements)));
 									}
 									newAtomic.setFunction(function);
 									topLevelAtomics.add(i, newAtomic);

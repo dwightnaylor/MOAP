@@ -24,12 +24,12 @@ public class SugarUtilTests {
 
 	@Test
 	public void testResugarForInputs() {
-		assertEquals(parseInput("Given b st TRUE; Find even(b)"),
-				SugarUtil.resugar(parseInputDirty("Given b st TRUE; Find even(b)")));
-		assertEquals(parseInput("Given b,c st TRUE; Find equal(b,c) & equal(c,b)"),
-				SugarUtil.resugar(parseInputDirty("Given b,c st TRUE; Find equal(b,c) & equal(c,b)")));
-		assertEquals(parseInput("Given list x; Find y st blah(x,y)"),
-				SugarUtil.resugar(parseInputDirty("Given list x; Find y st blah(x,y)")));
+		assertEquals(parseInput("Given b st TRUE; Find even(b)", false),
+				SugarUtil.resugar(parseInput("Given b st TRUE; Find even(b)")));
+		assertEquals(parseInput("Given b,c st TRUE; Find equal(b,c) & equal(c,b)", false),
+				SugarUtil.resugar(parseInput("Given b,c st TRUE; Find equal(b,c) & equal(c,b)")));
+		assertEquals(parseInput("Given list x; Find y st blah(x,y)", false),
+				SugarUtil.resugar(parseInput("Given list x; Find y st blah(x,y)")));
 	}
 
 	@Test
@@ -44,7 +44,7 @@ public class SugarUtilTests {
 		tasks.add(new String[] { "Given x; Find na st test(other(na))",
 				"Given x; Find na,nb st other(na,nb) & test(nb)" });
 		for (String[] task : tasks) {
-			KInput original = (KInput) SugarUtil.convertToKernel(QuickParser.parseInputDirty(task[0]));
+			KInput original = (KInput) SugarUtil.convertToKernel(QuickParser.parseInput(task[0]));
 			String simplifiedToString = original.toString();
 
 			if (!task[1].equals(simplifiedToString)) {

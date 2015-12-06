@@ -2,7 +2,7 @@ package algorithmMaker.util;
 
 import java.util.*;
 
-import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.*;
 import org.eclipse.emf.ecore.EObject;
 
 import algorithmMaker.QuickParser;
@@ -68,70 +68,6 @@ public class InputUtil {
 			return KernelType.Negation;
 
 		return null;
-	}
-
-	public static Property sort(Property original) {
-		if (!(original instanceof ANDing))
-			return original;
-
-		ArrayList<Property> anded = getANDed((ANDing) original);
-		Collections.sort(anded, INPUT_COMPARATOR);
-		return InputUtil.andTogether(anded);
-	}
-
-	/**
-	 * Creates a copy of the given property, but with all variables converted according to the given hashtable. <br>
-	 * TODO: Make this and the binding.revar and binding.applybinding more clearly named and separated.
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T extends EObject> T revar(T property, Hashtable<String, String> revars) {
-		T clone;
-		if (property instanceof Property)
-			clone = (T) stupidCopy((Property) property);
-		else if (property instanceof Problem)
-			clone = (T) stupidCopy((Problem) property);
-		else if (property instanceof Input)
-			clone = (T) stupidCopy((Input) property);
-		else
-			throw new UnsupportedOperationException();
-		TreeIterator<EObject> contents = clone.eAllContents();
-		while (contents.hasNext()) {
-			EObject cur = contents.next();
-			if (cur instanceof Atomic)
-				((Atomic) cur).getArgs().replaceAll(x -> revars.containsKey(x) ? revars.get(x) : x);
-
-			if (cur instanceof Declaration && revars.containsKey(((Declaration) cur).getVarName()))
-				((Declaration) cur).setVarName(revars.get(((Declaration) cur).getVarName()));
-		}
-		if (clone instanceof Atomic)
-			((Atomic) clone).getArgs().replaceAll(x -> revars.containsKey(x) ? revars.get(x) : x);
-
-		if (clone instanceof Declaration && revars.containsKey(((Declaration) clone).getVarName()))
-			((Declaration) clone).setVarName(revars.get(((Declaration) clone).getVarName()));
-
-		return clone;
-	}
-
-	public static Theorem getConverse(Theorem theorem) {
-		Theorem ret = stupidCopy(theorem);
-		Property save = ret.getRequirement();
-		ret.setRequirement(ret.getResult());
-		ret.setResult(save);
-		ret.setImplication("->");
-		return ret;
-	}
-
-	public static Theorem getContrapositive(Theorem theorem) {
-		Theorem contrapositive = InputFactoryImpl.eINSTANCE.createTheorem();
-		contrapositive.setCost(theorem.getCost());
-		contrapositive.setDescription(theorem.getDescription());
-		contrapositive.setPseudoCode(theorem.getPseudoCode());
-		contrapositive.setRequirement(InputUtil.canonicalize(InputUtil.getNegated(InputUtil.stupidCopy(theorem
-				.getResult()))));
-		contrapositive.setResult(InputUtil.canonicalize(InputUtil.getNegated(InputUtil.stupidCopy(theorem
-				.getRequirement()))));
-		contrapositive.setImplication("->");
-		return contrapositive;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -236,15 +172,24 @@ public class InputUtil {
 		return null;
 	}
 
+	public static List<String> convertToStrings(EList<NumericalProperty> atomicArgs) {
+		ArrayList<String> ret = new ArrayList<String>();
+		for (NumericalProperty property : atomicArgs)
+			ret.add(((Variable) property).getArg());
+
+		return ret;
+	}
+
 	public static HashSet<String> getUnboundVariables(EObject property) {
 		HashSet<String> unboundVars = new HashSet<String>();
 		TreeIterator<EObject> contents = property.eAllContents();
 		while (true) {
 			// Iterate through everything, including the property itself
 			if (property instanceof Atomic) {
-				for (String arg : ((Atomic) property).getArgs()) {
-					if (getDeclaration(property, arg) == null)
-						unboundVars.add(arg);
+				for (NumericalProperty arg : ((Atomic) property).getArgs()) {
+					String var = ((Variable) arg).getArg();
+					if (getDeclaration(property, var) == null)
+						unboundVars.add(var);
 				}
 			}
 
@@ -303,42 +248,15 @@ public class InputUtil {
 		Atomic atomic = InputFactoryImpl.eINSTANCE.createAtomic();
 		atomic.setFunction(function);
 		for (String arg : args)
-			atomic.getArgs().add(arg);
+			atomic.getArgs().add(createVariable(arg));
 
 		return atomic;
 	}
 
-	// TODO:DN: We should check to make sure no theorems ever have bound or
-	// unbound as results.
-	public static boolean containsAtomic(Property property, String function) {
-		TreeIterator<EObject> contents = property.eAllContents();
-		while (contents.hasNext()) {
-			EObject next = contents.next();
-			if (next instanceof Atomic && ((Atomic) next).getFunction().equals(function))
-				return true;
-		}
-		return false;
-	}
-
-	public static ArrayList<String> getBindings(Property property) {
-		ArrayList<String> ret = new ArrayList<String>();
-		if (property != null) {
-			TreeIterator<EObject> contents = property.eAllContents();
-			while (contents.hasNext()) {
-				EObject next = contents.next();
-				if (next instanceof Atomic && ((Atomic) next).getFunction().equals(InputUtil.BOUND))
-					ret.add(((Atomic) next).getArgs().get(0));
-			}
-		}
+	public static Variable createVariable(String name) {
+		Variable ret = InputFactoryImpl.eINSTANCE.createVariable();
+		ret.setArg(name);
 		return ret;
-	}
-
-	public static boolean isSpecial(String function) {
-		return function.equals(BOUND) || function.equals(UNBOUND) || function.equals(EQUAL);
-	}
-
-	public static String[] getVarNames(Collection<Declaration> declarations) {
-		return declarations.stream().map(x -> x.getVarName()).toArray(size -> new String[size]);
 	}
 
 	/**
@@ -587,19 +505,6 @@ public class InputUtil {
 		}
 	}
 
-	public static Declaration findDeclarationFor(Property property, String string) {
-		EObject parent = property;
-		while (parent != null) {
-			if (parent instanceof Problem)
-				for (Declaration declaration : ((Problem) parent).getVars())
-					if (declaration.getVarName().equals(string))
-						return declaration;
-
-			parent = parent.eContainer();
-		}
-		return null;
-	}
-
 	public static boolean isTypeAtomic(String function) {
 		return function != null && function.startsWith(TYPE_MARKER);
 	}
@@ -640,32 +545,6 @@ public class InputUtil {
 		return ret;
 	}
 
-	private static Hashtable<Property, Property> devarred = new Hashtable<Property, Property>();
-
-	/**
-	 * Removes all variable names from the given object, replacing them with nameless variables. This is used for using
-	 * the "structure" of an expression as its hash key, or for counting similar expressions.
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T extends Property> T devar(T object) {
-		if (!devarred.containsKey(object)) {
-			Property ret = InputUtil.stupidCopy(object);
-			EObject cur = ret;
-			TreeIterator<EObject> contents = ret.eAllContents();
-			while (cur != null) {
-				if (cur instanceof Atomic)
-					((Atomic) cur).getArgs().replaceAll(x -> "_");
-
-				if (cur instanceof Declaration)
-					((Declaration) cur).setVarName("_");
-
-				cur = contents.hasNext() ? contents.next() : null;
-			}
-			devarred.put(object, ret);
-		}
-		return (T) devarred.get(object);
-	}
-
 	public static String getUnusedVar(HashSet<String> usedVars) {
 		for (char ret = 'a'; ret <= 'z'; ret++) {
 			String retString = "n" + ret;
@@ -673,22 +552,6 @@ public class InputUtil {
 				return retString;
 		}
 		return null;
-	}
-
-	public static HashSet<String> getAllVars(EObject object) {
-		HashSet<String> vars = new HashSet<String>();
-		TreeIterator<EObject> contents = object.eAllContents();
-		while (contents.hasNext()) {
-			EObject next = contents.next();
-			if (next instanceof Atomic)
-				for (String var : ((Atomic) next).getArgs())
-					vars.add(var);
-		}
-		if (object instanceof Atomic)
-			for (String var : ((Atomic) object).getArgs())
-				vars.add(var);
-
-		return vars;
 	}
 
 	public static boolean isArithmetic(String string) {

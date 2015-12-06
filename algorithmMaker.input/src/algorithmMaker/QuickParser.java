@@ -32,11 +32,6 @@ public class QuickParser {
 		return queryString;
 	}
 
-	public static SugarNumericalProperty parseSugarNumericalProperty(String queryString) {
-		Parser.queryString = "SugarAddition";
-		return (SugarNumericalProperty) parse(queryString, false);
-	}
-
 	public static Property parseProperty(String queryString) {
 		Parser.queryString = "ORing";
 		return (Property) parse(queryString, false);
@@ -47,16 +42,22 @@ public class QuickParser {
 		return (Theorem) parse(queryString, false);
 	}
 
-	public static Input parseInputDirty(String queryString) {
-		Parser.queryString = "Input";
-		Input parsed = (Input) parse(clean(queryString), true);
-		SugarUtil.desugar(parsed);
-		return parsed;
+	public static NumericalProperty parseNumericalProperty(String queryString) {
+		Parser.queryString = "SugarAddition";
+		return (NumericalProperty) parse(queryString, false);
 	}
 
 	public static Input parseInput(String queryString) {
+		return parseInput(queryString, true);
+	}
+
+	public static Input parseInput(String queryString, boolean desugar) {
 		Parser.queryString = "Input";
-		return (Input) parse(queryString, true);
+		Input parsed = (Input) parse(queryString, true);
+		if (desugar)
+			SugarUtil.desugar(parsed);
+
+		return parsed;
 	}
 
 	public static Problem parseProblem(String queryString) {

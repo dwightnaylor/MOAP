@@ -310,7 +310,7 @@ public class ProblemSolver {
 	public static ProblemSolver runSolver(String problemString) {
 		ArrayList<KTheorem> theorems = TheoremParser.parseFiles();
 		theorems.addAll(MultiTheoremParser.parseFiles());
-		ProblemSolver ret = new ProblemSolver((KInput) convertToKernel(QuickParser.parseInputDirty(problemString)),
+		ProblemSolver ret = new ProblemSolver((KInput) convertToKernel(QuickParser.parseInput(problemString)),
 				theorems.toArray(new KTheorem[0]));
 		ret.getSolution();
 		return ret;
@@ -327,7 +327,7 @@ public class ProblemSolver {
 				s.close();
 				System.exit(0);
 			}
-			KInput input = (KInput) SugarUtil.convertToKernel(QuickParser.parseInputDirty(problemString));
+			KInput input = (KInput) SugarUtil.convertToKernel(QuickParser.parseInput(problemString));
 			ProblemSolver problemSolver = new ProblemSolver(input, theorems.toArray(new KTheorem[0]));
 			ProblemState solution = problemSolver.getSolution();
 			if (solution == null)

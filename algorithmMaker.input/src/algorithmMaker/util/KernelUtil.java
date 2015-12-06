@@ -43,7 +43,7 @@ public class KernelUtil {
 	}
 
 	public static KInput parseInput(String string) {
-		return (KInput) SugarUtil.convertToKernel(QuickParser.parseInputDirty(string));
+		return (KInput) SugarUtil.convertToKernel(QuickParser.parseInput(string));
 	}
 
 	public static KProperty parseProperty(String string) {
