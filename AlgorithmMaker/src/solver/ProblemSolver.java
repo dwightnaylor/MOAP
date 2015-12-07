@@ -152,12 +152,15 @@ public class ProblemSolver {
 			KQuantifier quantifier = (KQuantifier) property;
 			doQuantifierSubProblemFor(problemState, quantifier, givenChainer, findChainer);
 			if (KernelUtil.satisfies(quantifier, KernelUtil.TRANSITIVITY)) {
-				if (quantifier.subject.property instanceof KAtomic) {
-					KAtomic atomic = (KAtomic) quantifier.subject.property;
-					if (atomic.function.equals("child") && givenChainer.contains(atomic(BOUND, atomic.args.get(0)))) {
-						doTransitivityCarrySubProblemFor(problemState, quantifier);
+				// FIXME: This is such a hack...
+				if (!(quantifier.predicate instanceof KAtomic && ((KAtomic) quantifier.predicate).function
+						.equals(EQUAL)))
+					if (quantifier.subject.property instanceof KAtomic) {
+						KAtomic atomic = (KAtomic) quantifier.subject.property;
+						if (atomic.function.equals("child") && givenChainer.contains(atomic(BOUND, atomic.args.get(0)))) {
+							doTransitivityCarrySubProblemFor(problemState, quantifier);
+						}
 					}
-				}
 			}
 		}
 	}
@@ -193,7 +196,7 @@ public class ProblemSolver {
 			KInput newProblem = problemState.problem;
 			// FIXME: DN: This isn't the best way to do transitive quantifier breaking...
 			String parent = ((KAtomic) quantifier.subject.property).args.get(0);
-			String other = ((KAtomic) quantifier.subject.property).args.get(0);
+			String other = subProblem.goal.vars.get(0);
 			KAtomic newChildConstraint = atomic("child", parent, undeclaredVar);
 			newProblem = newProblem.withGoal((KProblem) newProblem.goal.withProperty(newProblem.goal.property
 					.without(and(quantifier, newChildConstraint))));
