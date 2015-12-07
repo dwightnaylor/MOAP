@@ -127,7 +127,7 @@ var Main = React.createClass({
       url: "http://mcanin.ch:8080/solve",
       type: "GET",
       crossDomain: true,
-      data: "problem="+escape(submissionString),
+      data: "problem="+escape(submissionString).replace(/\+/g, "%2B").replace(/\-/g, "%2D").replace(/\//g, "%2F").replace(/\*/g, "%2A"),
       success: function(resp){
         this.refs.problemSolutionField.setValue(resp);
         this.setState({ isLoading: false });

@@ -311,9 +311,9 @@ public class ProblemSolver {
 	public static void main(String[] args) {
 		ArrayList<Theorem> theorems = TheoremParser.parseFiles();
 		theorems.addAll(MultiTheoremParser.parseFiles());
-		System.out.println("GIMME A PROBLEM!");
+		//System.out.println("GIMME A PROBLEM!");
 		Scanner s = new Scanner(System.in);
-		while (true) {
+		//while (true) {
 			String problemString = s.nextLine();
 			if (problemString.equalsIgnoreCase("exit")) {
 				s.close();
@@ -336,8 +336,8 @@ public class ProblemSolver {
 
 				System.out.println(ProblemState.getOutputString(solutionSave));
 			}
-			Viewer.displaySolverResults(problemSolver);
-			System.out.println("HIT ME WITH ANOTHER ONE!");
-		}
+			//Viewer.displaySolverResults(problemSolver);
+			//System.out.println("HIT ME WITH ANOTHER ONE!");
+		//}
 	}
 }
