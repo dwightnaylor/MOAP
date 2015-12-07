@@ -185,12 +185,10 @@ public class InputUtil {
 		TreeIterator<EObject> contents = property.eAllContents();
 		while (true) {
 			// Iterate through everything, including the property itself
-			if (property instanceof Atomic) {
-				for (NumericalProperty arg : ((Atomic) property).getArgs()) {
-					String var = ((Variable) arg).getArg();
-					if (getDeclaration(property, var) == null)
-						unboundVars.add(var);
-				}
+			if (property instanceof Variable) {
+				String var = ((Variable) property).getArg();
+				if (getDeclaration(property, var) == null)
+					unboundVars.add(var);
 			}
 
 			if (contents.hasNext())

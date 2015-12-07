@@ -43,7 +43,7 @@ public class QuickParser {
 	}
 
 	public static NumericalProperty parseNumericalProperty(String queryString) {
-		Parser.queryString = "SugarAddition";
+		Parser.queryString = "Addition";
 		return (NumericalProperty) parse(queryString, false);
 	}
 
