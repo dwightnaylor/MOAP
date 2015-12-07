@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 import kernelLanguage.*;
 import pseudocoders.*;
 import theorems.MultistageTheorem;
-import theorems.multiTheorems.DirectReturn;
 import algorithmMaker.QuickParser;
 import algorithmMaker.util.*;
 import bindings.*;
@@ -74,8 +73,6 @@ public class ProblemSolver {
 		goalChainer.previousLevelTheorems = givenChainer.nextLevelTheorems;
 		goalChainer.chain(problem.goal.property, GOAL);
 
-		addVariableRemovalTheorems(problem, goalChainer);
-
 		if (goalChainer.nextLevelTheorems.size() > 0) {
 			for (Entry<MultistageTheorem, ArrayList<Binding>> entry : goalChainer.nextLevelTheorems.entrySet())
 				for (Binding binding : entry.getValue()) {
@@ -89,58 +86,53 @@ public class ProblemSolver {
 					ArrayList<KProperty> newGoalParts = new ArrayList<KProperty>();
 					newGoalParts.add(newProblem.goal.property);
 
-					if (mst instanceof DirectReturn) {
-						String varToRemove = binding.getArguments().values().iterator().next();
-						newProblem = newProblem.withGoal(newProblem.goal.withoutVars(varToRemove));
-					} else {
-						HashSet<String> usedVars = new HashSet<String>();
-						usedVars.addAll(newProblem.given.vars);
-						usedVars.addAll(newProblem.goal.vars);
+					HashSet<String> usedVars = new HashSet<String>();
+					usedVars.addAll(newProblem.given.vars);
+					usedVars.addAll(newProblem.goal.vars);
 
-						MutableBinding newBinding = new MutableBinding();
-						newBinding.addBindingsFrom(binding);
+					MutableBinding newBinding = new MutableBinding();
+					newBinding.addBindingsFrom(binding);
 
-						KProperty givenResult = mst.getGivenResult();
-						KProperty goalResult = mst.getGoalResult();
+					KProperty givenResult = mst.getGivenResult();
+					KProperty goalResult = mst.getGoalResult();
 
-						if (givenResult != null) {
-							for (String var : KernelUtil.getDeclaredVars(givenResult))
-								if (usedVars.contains(var)) {
-									String newVar = InputUtil.getUnusedVar(usedVars);
-									usedVars.add(newVar);
-									newBinding.bind(var, newVar);
-								}
+					if (givenResult != null) {
+						for (String var : KernelUtil.getDeclaredVars(givenResult))
+							if (usedVars.contains(var)) {
+								String newVar = InputUtil.getUnusedVar(usedVars);
+								usedVars.add(newVar);
+								newBinding.bind(var, newVar);
+							}
 
-							Binding rebinding = rebind(
-									KernelUtil.getAtomics(givenResult, BOUND).stream().map(x -> x.args.get(0))
-											.collect(Collectors.toList()), usedVars);
-							List<String> newVars = new ArrayList<String>();
-							newVars.addAll(newProblem.goal.vars);
-							newVars.addAll(rebinding.getArguments().keySet());
-							newBinding.addBindingsFrom(rebinding);
-							newGivenParts.add(revar(givenResult, newBinding.getArguments()));
-						}
-						if (goalResult != null) {
-							for (String var : getDeclaredVars(goalResult))
-								if (usedVars.contains(var)) {
-									String newVar = InputUtil.getUnusedVar(usedVars);
-									usedVars.add(newVar);
-									newBinding.bind(var, newVar);
-								}
-
-							Binding rebinding = rebind(
-									KernelUtil.getAtomics(goalResult, BOUND).stream().map(x -> x.args.get(0))
-											.collect(Collectors.toList()), usedVars);
-							List<String> newVars = new ArrayList<String>();
-							newVars.addAll(newProblem.goal.vars);
-							newVars.addAll(rebinding.getArguments().keySet());
-							newProblem = newProblem.withGoal(newProblem.goal.withVars(newVars));
-							newBinding.addBindingsFrom(rebinding);
-							newGoalParts.add(revar(goalResult, newBinding.getArguments()));
-						}
-
-						binding = newBinding.getImmutable();
+						Binding rebinding = rebind(
+								KernelUtil.getAtomics(givenResult, BOUND).stream().map(x -> x.args.get(0))
+										.collect(Collectors.toList()), usedVars);
+						List<String> newVars = new ArrayList<String>();
+						newVars.addAll(newProblem.goal.vars);
+						newVars.addAll(rebinding.getArguments().keySet());
+						newBinding.addBindingsFrom(rebinding);
+						newGivenParts.add(revar(givenResult, newBinding.getArguments()));
 					}
+					if (goalResult != null) {
+						for (String var : getDeclaredVars(goalResult))
+							if (usedVars.contains(var)) {
+								String newVar = InputUtil.getUnusedVar(usedVars);
+								usedVars.add(newVar);
+								newBinding.bind(var, newVar);
+							}
+
+						Binding rebinding = rebind(
+								KernelUtil.getAtomics(goalResult, BOUND).stream().map(x -> x.args.get(0))
+										.collect(Collectors.toList()), usedVars);
+						List<String> newVars = new ArrayList<String>();
+						newVars.addAll(newProblem.goal.vars);
+						newVars.addAll(rebinding.getArguments().keySet());
+						newProblem = newProblem.withGoal(newProblem.goal.withVars(newVars));
+						newBinding.addBindingsFrom(rebinding);
+						newGoalParts.add(revar(goalResult, newBinding.getArguments()));
+					}
+
+					binding = newBinding.getImmutable();
 
 					newProblem = newProblem.withGiven(newProblem.given.withProperty(and(newGivenParts)));
 					newProblem = newProblem.withGoal(newProblem.goal.withProperty(and(newGoalParts)));
@@ -156,8 +148,87 @@ public class ProblemSolver {
 
 	private void doSubProblemMultitheorems(ProblemState problemState, KProperty property, Set<KProperty> givenChainer,
 			Set<KProperty> findChainer) {
-		if (property instanceof KQuantifier)
-			doQuantifierSubProblemFor(problemState, (KQuantifier) property, givenChainer, findChainer);
+		if (property instanceof KQuantifier) {
+			KQuantifier quantifier = (KQuantifier) property;
+			doQuantifierSubProblemFor(problemState, quantifier, givenChainer, findChainer);
+			if (KernelUtil.satisfies(quantifier, KernelUtil.TRANSITIVITY)) {
+				if (quantifier.subject.property instanceof KAtomic) {
+					KAtomic atomic = (KAtomic) quantifier.subject.property;
+					if (atomic.function.equals("child") && givenChainer.contains(atomic(BOUND, atomic.args.get(0)))) {
+						doTransitivityCarrySubProblemFor(problemState, quantifier);
+					}
+				}
+			}
+		}
+	}
+
+	private void doTransitivityCarrySubProblemFor(ProblemState problemState, KQuantifier quantifier) {
+		// First we check and see if all the variables used in the quantifier
+		// are bound. If any aren't, we can't solve the quantifier.
+		HashSet<String> boundVars = new HashSet<String>();
+		boundVars.addAll(getDeclaredVars(quantifier));
+		// Add all the declarations from the given
+		boundVars.addAll(problemState.problem.given.vars);
+		String undeclaredVar = null;
+		for (String variable : variables(quantifier)) {
+			if (!boundVars.contains(variable))
+				if (undeclaredVar == null)
+					undeclaredVar = variable;
+				else
+					return;
+		}
+		// There must be exactly one undeclared variable for this to work...
+		if (undeclaredVar == null)
+			return;
+
+		// Build the subproblem
+		KInput subProblem = getSubProblemForTransitiveQuantifier(problemState.problem, quantifier);
+		if (!subSolvers.containsKey(subProblem)) {
+			ProblemSolver subSolver = new ProblemSolver(subProblem, theorems);
+			subSolvers.put(subProblem, subSolver);
+			subSolver.getSolution();
+		}
+		if (subSolvers.get(subProblem).solved != null) {
+			// The new problem with the quantifier constraint removed and added to the given
+			KInput newProblem = problemState.problem;
+			// FIXME: DN: This isn't the best way to do transitive quantifier breaking...
+			String parent = ((KAtomic) quantifier.subject.property).args.get(0);
+			String other = ((KAtomic) quantifier.subject.property).args.get(0);
+			KAtomic newChildConstraint = atomic("child", parent, undeclaredVar);
+			newProblem = newProblem.withGoal((KProblem) newProblem.goal.withProperty(newProblem.goal.property
+					.without(and(quantifier, newChildConstraint))));
+			newProblem = newProblem.withGiven(newProblem.given.withProperty(and(quantifier, newChildConstraint,
+					newProblem.given.property)));
+
+			final String varToBind = undeclaredVar;
+			Pseudocoder coder = new Pseudocoder() {
+				@Override
+				public void appendPseudocode(StringBuffer builder, int numTabs, ProblemState problemState,
+						String returnString) {
+					Pseudocoder.appendTabs(builder, numTabs);
+					builder.append(varToBind + " = " + parent + ".any()\n");
+					// FIXME: DN: This whole methodology is awful and needs to be redone later.
+					ProblemState head = subSolvers.get(subProblem).solved;
+					while (head.parentState != null) {
+						head.parentState.childStates = Collections.singletonList(head);
+						head = head.parentState;
+					}
+					head.childStates.get(0).rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs,
+							head.childStates.get(0), varToBind + " = " + other);
+					if (problemState != null)
+						if (problemState.childStates != null && problemState.childStates.size() > 0) {
+							ProblemState childState = problemState.childStates.get(0);
+							childState.rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs + 1, childState,
+									null);
+						} else {
+							new LineCoder(returnString).appendPseudocode(builder, numTabs, null, returnString);
+						}
+				}
+			};
+
+			addProblemState(newProblem, problemState, new MultistageTheorem(null, null, null, 10,
+					"Smart checking for transitive quantifier", coder), Binding.EMPTY);
+		}
 	}
 
 	private void doQuantifierSubProblemFor(ProblemState problemState, KQuantifier quantifier,
@@ -253,7 +324,24 @@ public class ProblemSolver {
 		return problem.withGoal(newGoal);
 	}
 
-	// TODO:DN: Refactor and remove this method
+	/**
+	 * Produces a subproblem which, if solved, provides a new "top" for the given transitive quantifier.
+	 */
+	public static KInput getSubProblemForTransitiveQuantifier(KInput problem, KQuantifier quantifier) {
+		MutableBinding rebindingForQuantifier = new MutableBinding();
+		HashSet<String> usedVars = new HashSet<String>(variables(problem));
+		for (String var : getDeclaredVars(quantifier.subject)) {
+			String newVar = InputUtil.getUnusedVar(usedVars);
+			usedVars.add(newVar);
+			rebindingForQuantifier.bind(var, newVar);
+		}
+
+		KProblem newGoal = revar(quantifier.subject, rebindingForQuantifier.getArguments());
+		KProperty newPredicate = revar(quantifier.predicate, rebindingForQuantifier.getArguments());
+		newGoal = newGoal.withProperty((KProperty) canonicalize(and(newGoal.property, negate(newPredicate))));
+		return problem.withGoal(newGoal);
+	}
+
 	private static Binding rebind(List<String> vars, HashSet<String> usedVars) {
 		MutableBinding binding = new MutableBinding();
 		for (String var : vars) {
@@ -287,19 +375,6 @@ public class ProblemSolver {
 				solved = newProblemState;
 
 			problemStates.add(newProblemState);
-		}
-	}
-
-	private void addVariableRemovalTheorems(KInput problem, Chainer findChainer) {
-		HashSet<String> unbound = getUndeclaredVars(problem.goal.property);
-		for (String var : problem.goal.vars) {
-			// If the variable is unused...
-			if (!unbound.contains(var)) {
-				MutableBinding binding = new MutableBinding();
-				binding.bind(DirectReturn.VAR_NAME, var);
-				findChainer.nextLevelTheorems.put(new DirectReturn(),
-						new ArrayList<Binding>(Collections.singleton(binding.getImmutable())));
-			}
 		}
 	}
 

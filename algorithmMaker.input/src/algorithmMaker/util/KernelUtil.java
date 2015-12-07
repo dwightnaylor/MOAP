@@ -8,10 +8,12 @@ import java.util.stream.*;
 
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Theorem;
+import algorithmMaker.util.metaProperties.*;
 import kernelLanguage.*;
 
 public class KernelUtil {
-
+	public static final Transitivity TRANSITIVITY = new Transitivity();
+	
 	public static final Comparator<KObject> KERNEL_COMPARATOR = new Comparator<KObject>() {
 		@Override
 		public int compare(KObject input1, KObject input2) {
@@ -19,6 +21,7 @@ public class KernelUtil {
 		}
 	};
 
+	// TODO:DN: Should BooleanLiteral be in the kernel? It should be c14d out.
 	public static enum KType {
 		KANDing, KAtomic, KBooleanLiteral, KInput, KNegation, KProblem, KQuantifier
 	}
@@ -91,7 +94,8 @@ public class KernelUtil {
 		return undeclaredVars;
 	}
 
-	private static void addUndeclaredVars(KObject object, HashSet<String> undeclaredVars, HashSet<String> declaredVars) {
+	private static void addUndeclaredVars(KObject object, HashSet<String> undeclaredVars,
+			HashSet<String> declaredVars) {
 		switch (KType(object)) {
 		case KANDing:
 			KANDing anding = (KANDing) object;
@@ -172,6 +176,23 @@ public class KernelUtil {
 
 	public static KObject canonicalize(KObject object) {
 		return map(object, KernelMapper.CANONICALIZER);
+	}
+
+	public static boolean satisfies(KProperty object, MetaProperty property) {
+		switch (KType(object)) {
+		case KAtomic:
+			return property.hasAtomic(((KAtomic) object).function);
+		case KANDing:
+			return satisfies(((KANDing) object).lhs, property) & satisfies(((KANDing) object).rhs, property);
+		case KNegation:
+			return satisfies(((KNegation) object).negated, property);
+		case KQuantifier:
+			return satisfies(((KQuantifier) object).predicate, property);
+		case KInput:
+		case KProblem:
+		case KBooleanLiteral:
+		}
+		return false;
 	}
 
 	public static ArrayList<KObject> contents(KObject object) {
@@ -267,8 +288,8 @@ public class KernelUtil {
 				break;
 			case KProblem:
 				KProperty reducedProperty = (KProperty) map(((KProblem) object).property, mapper);
-				mapper.cache.put(object, mapper.apply(problem(((KProblem) object).vars, reducedProperty == null ? TRUE
-						: reducedProperty)));
+				mapper.cache.put(object, mapper
+						.apply(problem(((KProblem) object).vars, reducedProperty == null ? TRUE : reducedProperty)));
 				break;
 			case KQuantifier:
 				KQuantifier quantifier = (KQuantifier) object;
@@ -279,8 +300,8 @@ public class KernelUtil {
 					break;
 				}
 
-				mapper.cache.put(object, mapper.apply(quantifier(((KQuantifier) object).quantifier, (KProblem) subject,
-						(KProperty) predicate)));
+				mapper.cache.put(object, mapper.apply(
+						quantifier(((KQuantifier) object).quantifier, (KProblem) subject, (KProperty) predicate)));
 				break;
 
 			case KAtomic:

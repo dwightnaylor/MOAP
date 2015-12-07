@@ -105,6 +105,10 @@ public class KernelFactory {
 		return andings.get(lhs).get(rhs);
 	}
 
+	public static KProperty and(KProperty... contents) {
+		return and(Arrays.asList(contents));
+	}
+
 	public static KProperty and(List<KProperty> contents) {
 		int index = contents.size() - 1;
 		KProperty rhs = null;

@@ -53,7 +53,6 @@ public class ProblemState implements Comparable<ProblemState> {
 			head = head.parentState;
 		}
 		StringBuffer output = new StringBuffer();
-		// TODO: DN: Don't just resugar to get the variables to return.
 		head.childStates.get(0).rootTheorem.getPseudocoder().appendPseudocode(output, 0, head.childStates.get(0),
 				"return " + head.problem.goal.vars);
 		return output.toString();
