@@ -1,44 +1,44 @@
 package theorems;
 
+import kernelLanguage.*;
 import pseudocoders.Pseudocoder;
-import algorithmMaker.input.Property;
 
-public class MultistageTheorem extends QuickTheorem {
+public class MultistageTheorem extends KTheorem {
 
-	private final Property findRequirement;
-	private final Property givenResult;
-	private final Property findResult;
+	private final KProperty goalRequirement;
+	private final KProperty givenResult;
+	private final KProperty goalResult;
 	private final Pseudocoder pseudocoder;
 
-	public MultistageTheorem(Property givenRequirement, Property findRequirement, Property givenResult, int cost,
+	public MultistageTheorem(KProperty givenRequirement, KProperty goalRequirement, KProperty givenResult, int cost,
 			String description, Pseudocoder pseudocoder) {
-		this(givenRequirement, findRequirement, givenResult, null, cost, description, pseudocoder);
+		this(givenRequirement, goalRequirement, givenResult, null, cost, description, pseudocoder);
 	}
 
-	public MultistageTheorem(Property givenRequirement, Property findRequirement, Property givenResult,
-			Property findResult, int cost, String description, Pseudocoder pseudocoder) {
-		super(givenRequirement, null, cost, description, null);
-		this.findRequirement = findRequirement;
+	public MultistageTheorem(KProperty givenRequirement, KProperty goalRequirement, KProperty givenResult,
+			KProperty goalResult, int cost, String description, Pseudocoder pseudocoder) {
+		super(givenRequirement, null, cost, description);
+		this.goalRequirement = goalRequirement;
 		this.givenResult = givenResult;
-		this.findResult = findResult;
+		this.goalResult = goalResult;
 		this.pseudocoder = pseudocoder;
 	}
 
 	public MultistageTheorem copy() {
-		return new MultistageTheorem(getRequirement(), findRequirement, givenResult, findResult, getCost(),
-				getDescription(), getPseudocoder());
+		return new MultistageTheorem(requirement, goalRequirement, givenResult, goalResult, cost, description,
+				getPseudocoder());
 	}
 
-	public Property getFindRequirement() {
-		return findRequirement;
+	public KProperty getGoalRequirement() {
+		return goalRequirement;
 	}
 
-	public Property getGivenResult() {
+	public KProperty getGivenResult() {
 		return givenResult;
 	}
 
-	public Property getFindResult() {
-		return findResult;
+	public KProperty getGoalResult() {
+		return goalResult;
 	}
 
 	public Pseudocoder getPseudocoder() {

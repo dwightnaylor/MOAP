@@ -1,12 +1,7 @@
 grammar algorithmMaker.Input with org.eclipse.xtext.common.Terminals
-//TODO: Sugar: math signs, comparators
-//TODO: Sugar: implies "->, <-, <->" : relies on inline declarations?
+//TODO: : comparators
+//TODO: : implies "->, <-, <->" : relies on inline declarations?
 //TODO: if get(x,i,xi) is used, test for index(x,i) automatically
-//FIXME: Make sugar a separate syntactic artifact that can be completely removed after desugaring.
-//		 The most prominent example of this is for nested atomics. The way these are done now is by allowing
-//		 a general nested atomic input style. This is terrible. The core syntax just shouldn't allow this,
-//		 but we should have a separate syntactic element that is only used in parsing which does allow it.
-//		 Then when we desugar, we can get rid of it.
 generate input "http://www.Input"
 
 //NOTE: Any changes to the formatting should be reflected with changes here.
@@ -36,7 +31,7 @@ ANDing returns Property:
 	Primary ({ANDing.left=current} '&' right=Primary)*;
 
 Primary returns Property:
-	Atomic | SugarAtomic | Quantifier | ProblemShell | ('(' ORing ')') | BooleanLiteral | Negation;
+	Atomic | Quantifier | ProblemShell | ('(' ORing ')') | BooleanLiteral | Negation;
 
 ProblemShell:
 	'{' problem=Problem '}';
@@ -47,11 +42,8 @@ Negation:
 Quantifier:
 	quantifier=('forall' | 'exists') '(' subject=Problem ':' predicate=ORing ')';
 
-SugarAtomic:
-	Function=ID ':' '(' (args+=SugarAddition (',' args+=SugarAddition)*)? ')';
-
 Atomic:
-	Function=ID '(' (args+=ID (',' args+=ID)*)? ')';
+	Function=ID '(' (args+=Addition (',' args+=Addition)*)? ')';
 
 BooleanLiteral:
 	value=("TRUE" | "FALSE");
@@ -62,16 +54,16 @@ Theorem:
 	Result=ORing ',' Cost=INT ',' Description=STRING (',' PseudoCode=STRING)?;
 
 	//**********Math things**********
-SugarAddition returns SugarNumericalProperty:
-	SugarMultiplication ({SugarAddition.left=current} symbol=('+' | '-') right=SugarMultiplication)*;
+Addition returns NumericalProperty:
+	Multiplication ({Addition.left=current} symbol=('+' | '-') right=Multiplication)*;
 
-SugarMultiplication returns SugarNumericalProperty:
-	SugarNumericalPrimary ({SugarMultiplication.left=current} symbol=('*' | '/') right=SugarNumericalPrimary)*;
+Multiplication returns NumericalProperty:
+	NumericalPrimary ({Multiplication.left=current} symbol=('*' | '/') right=NumericalPrimary)*;
 
-SugarNumericalPrimary returns SugarNumericalProperty:
-	NumberLiteral | SugarAtomic | ('(' SugarNumericalPrimary ')') | SugarVariable;
+NumericalPrimary returns NumericalProperty:
+	NumberLiteral | Atomic | ('(' NumericalPrimary ')') | Variable;
 
-SugarVariable:
+Variable:
 	arg=ID;
 
 NumberLiteral:

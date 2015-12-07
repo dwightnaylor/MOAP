@@ -25,8 +25,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: algorithmMaker,
  algorithmMaker.formatting,
  algorithmMaker.generator,
- algorithmMaker.input,
- algorithmMaker.input.impl,
  algorithmMaker.input.util,
  algorithmMaker.parser.antlr,
  algorithmMaker.parser.antlr.internal,
@@ -34,4 +32,7 @@ Export-Package: algorithmMaker,
  algorithmMaker.serializer,
  algorithmMaker.services,
  algorithmMaker.util,
- algorithmMaker.validation
+ algorithmMaker.validation,
+ kernelLanguage,
+ algorithmMaker.input,
+ algorithmMaker.input.impl

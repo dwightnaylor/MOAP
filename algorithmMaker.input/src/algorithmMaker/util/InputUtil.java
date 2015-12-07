@@ -2,7 +2,7 @@ package algorithmMaker.util;
 
 import java.util.*;
 
-import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.common.util.*;
 import org.eclipse.emf.ecore.EObject;
 
 import algorithmMaker.QuickParser;
@@ -68,70 +68,6 @@ public class InputUtil {
 			return KernelType.Negation;
 
 		return null;
-	}
-
-	public static Property sort(Property original) {
-		if (!(original instanceof ANDing))
-			return original;
-
-		ArrayList<Property> anded = getANDed((ANDing) original);
-		Collections.sort(anded, INPUT_COMPARATOR);
-		return InputUtil.andTogether(anded);
-	}
-
-	/**
-	 * Creates a copy of the given property, but with all variables converted according to the given hashtable. <br>
-	 * TODO: Make this and the binding.revar and binding.applybinding more clearly named and separated.
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T extends EObject> T revar(T property, Hashtable<String, String> revars) {
-		T clone;
-		if (property instanceof Property)
-			clone = (T) stupidCopy((Property) property);
-		else if (property instanceof Problem)
-			clone = (T) stupidCopy((Problem) property);
-		else if (property instanceof Input)
-			clone = (T) stupidCopy((Input) property);
-		else
-			throw new UnsupportedOperationException();
-		TreeIterator<EObject> contents = clone.eAllContents();
-		while (contents.hasNext()) {
-			EObject cur = contents.next();
-			if (cur instanceof Atomic)
-				((Atomic) cur).getArgs().replaceAll(x -> revars.containsKey(x) ? revars.get(x) : x);
-
-			if (cur instanceof Declaration && revars.containsKey(((Declaration) cur).getVarName()))
-				((Declaration) cur).setVarName(revars.get(((Declaration) cur).getVarName()));
-		}
-		if (clone instanceof Atomic)
-			((Atomic) clone).getArgs().replaceAll(x -> revars.containsKey(x) ? revars.get(x) : x);
-
-		if (clone instanceof Declaration && revars.containsKey(((Declaration) clone).getVarName()))
-			((Declaration) clone).setVarName(revars.get(((Declaration) clone).getVarName()));
-
-		return clone;
-	}
-
-	public static Theorem getConverse(Theorem theorem) {
-		Theorem ret = stupidCopy(theorem);
-		Property save = ret.getRequirement();
-		ret.setRequirement(ret.getResult());
-		ret.setResult(save);
-		ret.setImplication("->");
-		return ret;
-	}
-
-	public static Theorem getContrapositive(Theorem theorem) {
-		Theorem contrapositive = InputFactoryImpl.eINSTANCE.createTheorem();
-		contrapositive.setCost(theorem.getCost());
-		contrapositive.setDescription(theorem.getDescription());
-		contrapositive.setPseudoCode(theorem.getPseudoCode());
-		contrapositive.setRequirement(InputUtil.canonicalize(InputUtil.getNegated(InputUtil.stupidCopy(theorem
-				.getResult()))));
-		contrapositive.setResult(InputUtil.canonicalize(InputUtil.getNegated(InputUtil.stupidCopy(theorem
-				.getRequirement()))));
-		contrapositive.setImplication("->");
-		return contrapositive;
 	}
 
 	@SuppressWarnings("unchecked")
@@ -236,16 +172,23 @@ public class InputUtil {
 		return null;
 	}
 
+	public static List<String> convertToStrings(EList<NumericalProperty> atomicArgs) {
+		ArrayList<String> ret = new ArrayList<String>();
+		for (NumericalProperty property : atomicArgs)
+			ret.add(((Variable) property).getArg());
+
+		return ret;
+	}
+
 	public static HashSet<String> getUnboundVariables(EObject property) {
 		HashSet<String> unboundVars = new HashSet<String>();
 		TreeIterator<EObject> contents = property.eAllContents();
 		while (true) {
 			// Iterate through everything, including the property itself
-			if (property instanceof Atomic) {
-				for (String arg : ((Atomic) property).getArgs()) {
-					if (getDeclaration(property, arg) == null)
-						unboundVars.add(arg);
-				}
+			if (property instanceof Variable) {
+				String var = ((Variable) property).getArg();
+				if (getDeclaration(property, var) == null)
+					unboundVars.add(var);
 			}
 
 			if (contents.hasNext())
@@ -303,42 +246,15 @@ public class InputUtil {
 		Atomic atomic = InputFactoryImpl.eINSTANCE.createAtomic();
 		atomic.setFunction(function);
 		for (String arg : args)
-			atomic.getArgs().add(arg);
+			atomic.getArgs().add(createVariable(arg));
 
 		return atomic;
 	}
 
-	// TODO:DN: We should check to make sure no theorems ever have bound or
-	// unbound as results.
-	public static boolean containsAtomic(Property property, String function) {
-		TreeIterator<EObject> contents = property.eAllContents();
-		while (contents.hasNext()) {
-			EObject next = contents.next();
-			if (next instanceof Atomic && ((Atomic) next).getFunction().equals(function))
-				return true;
-		}
-		return false;
-	}
-
-	public static ArrayList<String> getBindings(Property property) {
-		ArrayList<String> ret = new ArrayList<String>();
-		if (property != null) {
-			TreeIterator<EObject> contents = property.eAllContents();
-			while (contents.hasNext()) {
-				EObject next = contents.next();
-				if (next instanceof Atomic && ((Atomic) next).getFunction().equals(InputUtil.BOUND))
-					ret.add(((Atomic) next).getArgs().get(0));
-			}
-		}
+	public static Variable createVariable(String name) {
+		Variable ret = InputFactoryImpl.eINSTANCE.createVariable();
+		ret.setArg(name);
 		return ret;
-	}
-
-	public static boolean isSpecial(String function) {
-		return function.equals(BOUND) || function.equals(UNBOUND) || function.equals(EQUAL);
-	}
-
-	public static String[] getVarNames(Collection<Declaration> declarations) {
-		return declarations.stream().map(x -> x.getVarName()).toArray(size -> new String[size]);
 	}
 
 	/**
@@ -587,19 +503,6 @@ public class InputUtil {
 		}
 	}
 
-	public static Declaration findDeclarationFor(Property property, String string) {
-		EObject parent = property;
-		while (parent != null) {
-			if (parent instanceof Problem)
-				for (Declaration declaration : ((Problem) parent).getVars())
-					if (declaration.getVarName().equals(string))
-						return declaration;
-
-			parent = parent.eContainer();
-		}
-		return null;
-	}
-
 	public static boolean isTypeAtomic(String function) {
 		return function != null && function.startsWith(TYPE_MARKER);
 	}
@@ -623,128 +526,12 @@ public class InputUtil {
 			return new ArrayList<Property>(Collections.singleton(property));
 	}
 
-	public static void desugar(Input input) {
-		desugar(input.getGiven());
-		desugar(input.getGoal());
-	}
-
-	public static void desugar(Problem problem) {
-		ArrayList<Property> properties = new ArrayList<Property>();
-		properties.add(problem.getProperty());
-		// Go through all the declarations and remove their type declaration.
-		// Replace it with type declaration atomics.
-		HashSet<String> declaredVars = InputUtil.getDeclaredVars(problem);
-		for (Declaration declaration : problem.getVars())
-			if (declaration.getType() != null)
-				properties.add(getDesugaredTypeDeclaration(declaration.getType(), declaration.getVarName(),
-						declaredVars));
-
-		problem.setProperty(InputUtil.andTogether(properties));
-
-		// This whole chunk is JUST for removing nested atomics.
-		desugarNestedAtomics(problem);
-	}
-
-	private static Property getDesugaredTypeDeclaration(Type type, String varName, HashSet<String> usedVars) {
-		Property ret = createAtomic(InputUtil.TYPE_MARKER + type.getName(), varName);
-		if (type.getTemplateType() != null) {
-			String newVar = getUnusedVar(usedVars);
-			usedVars.add(newVar);
-			Quantifier quantifier = createQuantifier(InputUtil.FORALL,
-					createProblem(Collections.singleton(newVar), createAtomic("child", varName, newVar)),
-					getDesugaredTypeDeclaration(type.getTemplateType(), newVar, usedVars));
-			usedVars.remove(newVar);
-			ret = andTogether(Arrays.asList(new Property[] { ret, quantifier }));
-		}
-		return ret;
-	}
-
-	private static Quantifier createQuantifier(String quantifier, Problem subject, Property predicate) {
+	public static Quantifier createQuantifier(String quantifier, Problem subject, Property predicate) {
 		Quantifier ret = InputFactoryImpl.eINSTANCE.createQuantifier();
 		ret.setQuantifier(quantifier);
 		ret.setSubject(subject);
 		ret.setPredicate(predicate);
 		return ret;
-	}
-
-	private static void desugarNestedAtomics(Problem problem) {
-		problem.setProperty((Property) InputUtil.reduce(problem.getProperty(), new InputConverter() {
-			@Override
-			public EObject apply(EObject cur) {
-				if (!(cur instanceof SugarAtomic))
-					return cur;
-
-				ArrayList<Atomic> newAtomics = new ArrayList<Atomic>();
-				Hashtable<SugarNumericalProperty, String> nestedArgs = new Hashtable<SugarNumericalProperty, String>();
-				denest((SugarAtomic) cur, InputUtil.getDeclaredVars(problem), nestedArgs, newAtomics, false);
-				if (newAtomics.size() == 1)
-					return newAtomics.iterator().next();
-
-				ArrayList<String> varsToDeclare = new ArrayList<String>();
-				for (SugarNumericalProperty property : nestedArgs.keySet())
-					if (!(property instanceof SugarVariable))
-						varsToDeclare.add(nestedArgs.get(property));
-
-				Collections.sort(varsToDeclare);
-				for (String var : varsToDeclare)
-					problem.getVars().add(InputUtil.createDeclaration(var));
-
-				return InputUtil.andTogether(newAtomics);
-			}
-
-			private void denest(SugarNumericalProperty property, HashSet<String> allVars,
-					Hashtable<SugarNumericalProperty, String> nestedArgs, ArrayList<Atomic> newAtomics, boolean nested) {
-				if (nestedArgs.containsKey(property))
-					return;
-
-				if (property instanceof SugarVariable) {
-					nestedArgs.put(property, ((SugarVariable) property).getArg());
-					return;
-				}
-
-				String newArg = null;
-				if (nested) {
-					newArg = InputUtil.getUnusedVar(allVars);
-					allVars.add(newArg);
-					nestedArgs.put(property, newArg);
-				}
-				Atomic replacement;
-				if (property instanceof SugarAtomic) {
-					replacement = InputUtil.createAtomic(((SugarAtomic) property).getFunction());
-					for (SugarNumericalProperty argument : ((SugarAtomic) property).getArgs()) {
-						denest(argument, allVars, nestedArgs, newAtomics, true);
-						replacement.getArgs().add(nestedArgs.get(argument));
-					}
-				} else if (property instanceof Atomic) {
-					replacement = InputUtil.createAtomic(((Atomic) property).getFunction());
-					for (String argument : ((Atomic) property).getArgs())
-						replacement.getArgs().add(argument);
-
-				} else if (property instanceof SugarAddition) {
-					SugarAddition addition = (SugarAddition) property;
-					replacement = InputUtil.createAtomic(addition.getSymbol().equals("+") ? InputUtil.ADDITION
-							: InputUtil.SUBTRACTION);
-					denest(addition.getLeft(), allVars, nestedArgs, newAtomics, true);
-					denest(addition.getRight(), allVars, nestedArgs, newAtomics, true);
-					replacement.getArgs().add(nestedArgs.get(addition.getLeft()));
-					replacement.getArgs().add(nestedArgs.get(addition.getRight()));
-				} else if (property instanceof SugarMultiplication) {
-					SugarMultiplication addition = (SugarMultiplication) property;
-					replacement = InputUtil.createAtomic(addition.getSymbol().equals("*") ? InputUtil.MULTIPLICATION
-							: InputUtil.DIVISION);
-					denest(addition.getLeft(), allVars, nestedArgs, newAtomics, true);
-					denest(addition.getRight(), allVars, nestedArgs, newAtomics, true);
-					replacement.getArgs().add(nestedArgs.get(addition.getLeft()));
-					replacement.getArgs().add(nestedArgs.get(addition.getRight()));
-				} else {
-					throw new UnsupportedOperationException("Can't denest a " + property.getClass());
-				}
-				if (nested)
-					replacement.getArgs().add(newArg);
-
-				newAtomics.add(replacement);
-			}
-		}));
 	}
 
 	public static Problem createProblem(Collection<String> args, Property property) {
@@ -756,32 +543,6 @@ public class InputUtil {
 		return ret;
 	}
 
-	private static Hashtable<Property, Property> devarred = new Hashtable<Property, Property>();
-
-	/**
-	 * Removes all variable names from the given object, replacing them with nameless variables. This is used for using
-	 * the "structure" of an expression as its hash key, or for counting similar expressions.
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T extends Property> T devar(T object) {
-		if (!devarred.containsKey(object)) {
-			Property ret = InputUtil.stupidCopy(object);
-			EObject cur = ret;
-			TreeIterator<EObject> contents = ret.eAllContents();
-			while (cur != null) {
-				if (cur instanceof Atomic)
-					((Atomic) cur).getArgs().replaceAll(x -> "_");
-
-				if (cur instanceof Declaration)
-					((Declaration) cur).setVarName("_");
-
-				cur = contents.hasNext() ? contents.next() : null;
-			}
-			devarred.put(object, ret);
-		}
-		return (T) devarred.get(object);
-	}
-
 	public static String getUnusedVar(HashSet<String> usedVars) {
 		for (char ret = 'a'; ret <= 'z'; ret++) {
 			String retString = "n" + ret;
@@ -789,22 +550,6 @@ public class InputUtil {
 				return retString;
 		}
 		return null;
-	}
-
-	public static HashSet<String> getAllVars(EObject object) {
-		HashSet<String> vars = new HashSet<String>();
-		TreeIterator<EObject> contents = object.eAllContents();
-		while (contents.hasNext()) {
-			EObject next = contents.next();
-			if (next instanceof Atomic)
-				for (String var : ((Atomic) next).getArgs())
-					vars.add(var);
-		}
-		if (object instanceof Atomic)
-			for (String var : ((Atomic) object).getArgs())
-				vars.add(var);
-
-		return vars;
 	}
 
 	public static boolean isArithmetic(String string) {

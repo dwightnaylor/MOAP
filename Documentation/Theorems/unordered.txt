@@ -1,0 +1,4 @@
+unordered(x) -> !ordered(x)
+Examples:
+type_set(x) -> unordered(x)
+ordered(x) -> !sortable(x)

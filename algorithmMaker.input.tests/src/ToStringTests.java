@@ -26,9 +26,12 @@ public class ToStringTests {
 				"Given list<int> x; Find z st child(x,z) & forall(y st child(x,y) : lessThanEqual(y,z))",
 				"Given list<int> x; Find y st child(x,y) & even(y)", "Given list x,y; Find child(x,y)" };
 		for (String original : originals) {
-			String parse = parseInput(original).toString();
-			if (!original.equals(parse))
-				System.err.println('"' + original + "\" has a broken toString(), yields \"" + parse + '"');
+			String parse = parseInput(original, false).toString();
+			if (!original.equals(parse)) {
+				System.err.println(original);
+				System.err.println("Has a broken toString(). Should be the same as the original, but is :");
+				System.err.println(parse);
+			}
 
 			assertEquals(original, parse);
 		}

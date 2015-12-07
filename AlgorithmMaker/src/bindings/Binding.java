@@ -1,20 +1,17 @@
 package bindings;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Hashtable;
 
-import org.eclipse.emf.common.util.TreeIterator;
-import org.eclipse.emf.ecore.EObject;
-
-import algorithmMaker.input.Atomic;
-import algorithmMaker.input.Property;
-import algorithmMaker.util.InputUtil;
+import algorithmMaker.util.KernelUtil;
+import kernelLanguage.KProperty;
 import theorems.Fact;
 
 public class Binding {
 	public static final Binding EMPTY = new MutableBinding().getImmutable();
 
 	Hashtable<String, String> bindings = new Hashtable<String, String>();
-	ArrayList<Fact<? extends Property>> prerequisites = new ArrayList<Fact<? extends Property>>();
+	ArrayList<Fact<? extends KProperty>> prerequisites = new ArrayList<Fact<? extends KProperty>>();
 
 	public String toString() {
 		return "Binding:" + bindings.toString();
@@ -52,34 +49,25 @@ public class Binding {
 		return true;
 	}
 
-	// TODO:DN: Think about how this will work with quantifiers since they declare variables. Also applyBinding()...
-	public boolean canBind(Property original, Property asserted) {
-		if (!InputUtil.devar(original).equals(InputUtil.devar(asserted)))
+	// TODO:DN: Think about how this will work with quantifiers since they
+	// declare variables. Also applyBinding()...
+	public boolean canBind(KProperty original, KProperty asserted) {
+		if (!KernelUtil.devar(original).equals(KernelUtil.devar(asserted)))
 			return false;
 
 		Hashtable<String, String> newBindings = new Hashtable<String, String>();
 
-		TreeIterator<EObject> originalContents = original.eAllContents();
-		TreeIterator<EObject> assertedContents = asserted.eAllContents();
-		EObject nextOriginal = original;
-		EObject nextAsserted = asserted;
-		do {
-			if (nextOriginal instanceof Atomic) {
-				Atomic originalAtomic = (Atomic) nextOriginal;
-				for (int i = 0; i < originalAtomic.getArgs().size(); i++) {
-					String originalVar = originalAtomic.getArgs().get(i);
-					String assertedVar = ((Atomic) nextAsserted).getArgs().get(i);
-					if (bindings.containsKey(originalVar) && !bindings.get(originalVar).equals(assertedVar)
-							|| newBindings.containsKey(originalVar)
-							&& !newBindings.get(originalVar).equals(assertedVar))
-						return false;
+		ArrayList<String> originalVars = KernelUtil.variables(original);
+		ArrayList<String> assertedVars = KernelUtil.variables(asserted);
+		for (int i = 0; i < originalVars.size(); i++) {
+			String originalVar = originalVars.get(i);
+			String assertedVar = assertedVars.get(i);
+			if (bindings.containsKey(originalVar) && !bindings.get(originalVar).equals(assertedVar)
+					|| newBindings.containsKey(originalVar) && !newBindings.get(originalVar).equals(assertedVar))
+				return false;
 
-					newBindings.put(originalVar, assertedVar);
-				}
-			}
-			nextOriginal = originalContents.hasNext() ? originalContents.next() : null;
-			nextAsserted = assertedContents.hasNext() ? assertedContents.next() : null;
-		} while (nextOriginal != null);
+			newBindings.put(originalVar, assertedVar);
+		}
 
 		return true;
 	}
@@ -89,7 +77,6 @@ public class Binding {
 	}
 
 	public Hashtable<String, String> getArguments() {
-		// TODO:DN: Don't clone here maybe
 		Hashtable<String, String> ret = new Hashtable<String, String>();
 		for (String key : bindings.keySet())
 			ret.put(key, bindings.get(key));
@@ -97,7 +84,7 @@ public class Binding {
 		return ret;
 	}
 
-	public ArrayList<Fact<? extends Property>> getPrerequisites() {
+	public ArrayList<Fact<? extends KProperty>> getPrerequisites() {
 		return prerequisites;
 	}
 

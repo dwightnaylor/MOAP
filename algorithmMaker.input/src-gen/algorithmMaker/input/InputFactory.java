@@ -95,15 +95,6 @@ public interface InputFactory extends EFactory
   Quantifier createQuantifier();
 
   /**
-   * Returns a new object of class '<em>Sugar Atomic</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Sugar Atomic</em>'.
-   * @generated
-   */
-  SugarAtomic createSugarAtomic();
-
-  /**
    * Returns a new object of class '<em>Atomic</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -131,22 +122,22 @@ public interface InputFactory extends EFactory
   Theorem createTheorem();
 
   /**
-   * Returns a new object of class '<em>Sugar Numerical Property</em>'.
+   * Returns a new object of class '<em>Numerical Property</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Sugar Numerical Property</em>'.
+   * @return a new object of class '<em>Numerical Property</em>'.
    * @generated
    */
-  SugarNumericalProperty createSugarNumericalProperty();
+  NumericalProperty createNumericalProperty();
 
   /**
-   * Returns a new object of class '<em>Sugar Variable</em>'.
+   * Returns a new object of class '<em>Variable</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Sugar Variable</em>'.
+   * @return a new object of class '<em>Variable</em>'.
    * @generated
    */
-  SugarVariable createSugarVariable();
+  Variable createVariable();
 
   /**
    * Returns a new object of class '<em>Number Literal</em>'.
@@ -176,22 +167,22 @@ public interface InputFactory extends EFactory
   ANDing createANDing();
 
   /**
-   * Returns a new object of class '<em>Sugar Addition</em>'.
+   * Returns a new object of class '<em>Addition</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Sugar Addition</em>'.
+   * @return a new object of class '<em>Addition</em>'.
    * @generated
    */
-  SugarAddition createSugarAddition();
+  Addition createAddition();
 
   /**
-   * Returns a new object of class '<em>Sugar Multiplication</em>'.
+   * Returns a new object of class '<em>Multiplication</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Sugar Multiplication</em>'.
+   * @return a new object of class '<em>Multiplication</em>'.
    * @generated
    */
-  SugarMultiplication createSugarMultiplication();
+  Multiplication createMultiplication();
 
   /**
    * Returns the package supported by this factory.

@@ -1,5 +1,7 @@
 package inputHandling;
 
+import static kernelLanguage.KernelFactory.*;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -7,14 +9,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import algorithmMaker.QuickParser;
-import algorithmMaker.input.Theorem;
-import algorithmMaker.util.InputUtil;
+import algorithmMaker.util.*;
+import kernelLanguage.*;
 
 public class TheoremParser {
 	private static String[] inputFiles = { "theoremsv1" };
 
-	public static ArrayList<Theorem> parseFiles() {
-		ArrayList<Theorem> ret = new ArrayList<Theorem>();
+	public static ArrayList<KTheorem> parseFiles() {
+		ArrayList<KTheorem> ret = new ArrayList<KTheorem>();
 		try {
 			for (String fileName : inputFiles) {
 				BufferedReader br = new BufferedReader(new FileReader(new File(fileName)));
@@ -24,17 +26,16 @@ public class TheoremParser {
 						line = line.substring(0, line.indexOf("//"));
 
 					if (line.trim().length() > 0) {
-						Theorem theorem = QuickParser.parseTheorem(line);
-						if (!theorem.getImplication().equals("<-")) {
+						if (line.contains("->")) {
+							KTheorem theorem = parseTheorem(line);
 							ret.add(theorem);
-							ret.add(InputUtil.getContrapositive(theorem));
+							ret.add(theorem.getContrapositive());
 						}
-
-						if (!theorem.getImplication().equals("->")) {
-							ret.add(InputUtil.getConverse(theorem));
-							ret.add(InputUtil.getContrapositive(InputUtil.getConverse(theorem)));
+						if (line.contains("<-")) {
+							KTheorem theorem = parseReverseTheorem(line);
+							ret.add(theorem);
+							ret.add(theorem.getContrapositive());
 						}
-						theorem.setImplication("->");
 					}
 				}
 
@@ -44,5 +45,38 @@ public class TheoremParser {
 			e.printStackTrace();
 		}
 		return ret;
+	}
+
+	private static KTheorem parseTheorem(String string) {
+		int quote = string.indexOf('"');
+		int lastComma = string.lastIndexOf(',', quote);
+		int nextToLastComma = string.lastIndexOf(',', lastComma - 1);
+		int index = string.indexOf("->");
+		String requirement = string.substring(0, index);
+		if (requirement.charAt(requirement.length() - 1) == '<')
+			requirement = requirement.substring(0, requirement.length() - 1);
+
+		String result = string.substring(index + 2, nextToLastComma);
+		int cost = Integer.parseInt(string.substring(nextToLastComma + 1, lastComma).trim());
+		String description = string.substring(quote + 1, string.lastIndexOf('"'));
+		return theorem((KProperty) SugarUtil.convertToKernel(QuickParser.parseProperty(requirement)),
+				(KProperty) SugarUtil.convertToKernel(QuickParser.parseProperty(result)), cost, description);
+	}
+
+	private static KTheorem parseReverseTheorem(String string) {
+		int quote = string.indexOf('"');
+		int lastComma = string.lastIndexOf(',', quote);
+		int nextToLastComma = string.lastIndexOf(',', lastComma - 1);
+		int index = string.indexOf("->");
+		String requirement = string.substring(0, index);
+
+		String result = string.substring(index + 2, nextToLastComma);
+		if (result.charAt(1) == '<')
+			result = result.substring(1);
+
+		int cost = Integer.parseInt(string.substring(nextToLastComma + 1, lastComma).trim());
+		String description = string.substring(quote + 1, string.lastIndexOf('"'));
+		return theorem((KProperty) SugarUtil.convertToKernel(QuickParser.parseProperty(result)),
+				(KProperty) SugarUtil.convertToKernel(QuickParser.parseProperty(requirement)), cost, description);
 	}
 }

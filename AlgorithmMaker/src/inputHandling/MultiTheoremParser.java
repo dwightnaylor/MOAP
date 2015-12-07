@@ -1,14 +1,12 @@
 package inputHandling;
 
-import static algorithmMaker.QuickParser.parseProperty;
-import static algorithmMaker.util.InputUtil.BOUND;
-import static algorithmMaker.util.InputUtil.EQUAL;
-import static algorithmMaker.util.InputUtil.UNBOUND;
+import static algorithmMaker.util.InputUtil.*;
+import static algorithmMaker.util.KernelUtil.parseProperty;
 
 import java.util.ArrayList;
 
-import pseudocoders.LineCoder;
 import algorithmMaker.util.InputUtil;
+import pseudocoders.LineCoder;
 import theorems.MultistageTheorem;
 
 public class MultiTheoremParser {
@@ -36,8 +34,9 @@ public class MultiTheoremParser {
 		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)", EQUAL + "(x,y)", "if <x> == <y>" });
 		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)&" + BOUND + "(z)", "plus(x,y,z)", "if <x> + <y> == <z>" });
 		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)", "lessThanEqual(x,y)", "if <x> <= <y>" });
+		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)", "greaterThanEqual(x,y)", "if <x> >= <y>" });
 
-		tests.add(new String[] { "HACKfast_child_check(x) & " + BOUND + "(y)", "child(x,y)", "if <x>.contains(<y>)" });
+		tests.add(new String[] { TYPE_MARKER + "hashset(x) & " + BOUND + "(y)", "child(x,y)", "if <x>.contains(<y>)" });
 		for (String[] test : tests) {
 			ret.add(new MultistageTheorem(parseProperty(test[0]), parseProperty(test[1]), parseProperty(test[1]), null,
 					1, "Simple test.", new LineCoder(true, test[2])));
@@ -58,6 +57,10 @@ public class MultiTheoremParser {
 				BOUND + "(apb) & " + InputUtil.MULTIPLICATION + "(a,b,apb)", "<apb> = <a> * <b>" });
 		declarations.add(new String[] { BOUND + "(a) & " + BOUND + "(b) & " + UNBOUND + "(apb)",
 				BOUND + "(apb) & " + InputUtil.DIVISION + "(a,b,apb)", "<apb> = <a> / <b>" });
+
+		declarations.add(new String[] { BOUND + "(x)& type_priorityqueue(x)" + UNBOUND + "(y)",
+				"child(x,y) & forall(z st child(x,z) : lessThanEqual(y,z))", "<y> = <x>.poll()" });
+
 		for (String[] declaration : declarations)
 			ret.add(new MultistageTheorem(parseProperty(declaration[0]), parseProperty(declaration[1]),
 					parseProperty(declaration[1]), null, 1, "Simple declaration.", new LineCoder(false, declaration[2])));

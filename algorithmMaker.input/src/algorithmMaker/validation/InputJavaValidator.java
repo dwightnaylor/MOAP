@@ -59,11 +59,8 @@ public class InputJavaValidator extends algorithmMaker.validation.AbstractInputJ
 	}
 
 	@Check
-	public void checkForUndeclaredVariables(Atomic atomic) {
-		for (int i = 0; i < atomic.getArgs().size(); i++) {
-			String variable = atomic.getArgs().get(i);
-			if (InputUtil.getDeclaration(atomic, variable) == null)
-				error(variable + " cannot be resolved to a variable.", atomic, InputPackage.Literals.ATOMIC__ARGS, i);
-		}
+	public void checkForUndeclaredVariables(Variable variable) {
+		if (InputUtil.getDeclaration(variable, variable.getArg()) == null)
+			error(variable + " cannot be resolved to a variable.", variable, InputPackage.Literals.VARIABLE__ARG);
 	}
 }

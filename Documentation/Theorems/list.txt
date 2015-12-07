@@ -1,0 +1,2 @@
+type_list(x) -> collection(x)
+type_list(x) -> ordered(x)

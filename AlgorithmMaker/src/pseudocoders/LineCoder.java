@@ -28,7 +28,7 @@ public class LineCoder implements Pseudocoder {
 				childState.rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs + (tabChildren ? 1 : 0),
 						childState, returnString);
 			} else {
-				new LineCoder(returnString).appendPseudocode(builder, numTabs + 1, null, null);
+				new LineCoder(returnString).appendPseudocode(builder, numTabs + (tabChildren ? 1 : 0), null, null);
 			}
 	}
 }

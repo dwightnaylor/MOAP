@@ -1,0 +1,16 @@
+Two-sum (POSSIBLE)
+		Given a list of numbers, find two that sum to a given number 
+	Long form
+		Given list<int> x,int s; Find i,j st index(x,i) & index(x,j) & equal(plus(get(x,i),get(x,j)),s)
+	Short form
+		Given list<int> x, int s, Find indices i,j in x st x[i] + x[j] = s
+	could also be:
+		Given list<int> x, int s, Find i,j in x st i + j = s
+	New form
+		Given(list<int> x, int s), Find(index i, index j st index(x,i) & index(x,j) & x[i] + x[j] = s)
+	Thought process
+		We need to bind i
+		Use brute-force, try all possible indices of x
+		We need to bind j
+		Same thing, try all possible
+		Then just check if the two sum properly and return current bindings for i,j if they do

@@ -1,32 +1,37 @@
 package bindings.equalityTesting;
 
 import java.util.*;
+import kernelLanguage.*;
 
-import algorithmMaker.input.*;
-import algorithmMaker.util.InputUtil;
+import algorithmMaker.util.KernelUtil;
 import bindings.Binding;
 import bindings.MutableBinding;
 
 /**
- * This class is for third-order canonicalization. This is the removal of variable name value from an expression.
- * Namely, the point is to be able to recognize the equivalence of "a(x) & b(x)" and "a(y) & b(y)", but reject the
- * equivalence of "a(x,y) & a(y,z)" and "a(x,y) & a(z,t)". This is also used in theorem chaining to recognize equivalent
- * expressions.
+ * This class is for third-order canonicalization. This is the removal of
+ * variable name value from an expression. Namely, the point is to be able to
+ * recognize the equivalence of "a(x) & b(x)" and "a(y) & b(y)", but reject the
+ * equivalence of "a(x,y) & a(y,z)" and "a(x,y) & a(z,t)". This is also used in
+ * theorem chaining to recognize equivalent expressions.
  * 
  * @author Dwight Naylor
  */
 public class EqualityTester {
 	/**
-	 * Finds all the bindings from the original property to the new property that will make the two equivalent.<br>
+	 * Finds all the bindings from the original property to the new property
+	 * that will make the two equivalent.<br>
 	 * <br>
-	 * This is used to determine the equivalences between two expressions regardless of variable naming. It is more
-	 * complicated than InputUtil.devar(Property) because it will also take into account relationships between the
-	 * variables. For example, <code> a(x,y) & a(y,z) </code>and <code> a(x,y) & a(z,q) </code> would both devar to
-	 * <code> a(_,_) & a(_,_)</code>, but they are not equivalent in terms of variable relations.
+	 * This is used to determine the equivalences between two expressions
+	 * regardless of variable naming. It is more complicated than
+	 * InputUtil.devar(Property) because it will also take into account
+	 * relationships between the variables. For example,
+	 * <code> a(x,y) & a(y,z) </code>and <code> a(x,y) & a(z,q) </code> would
+	 * both devar to <code> a(_,_) & a(_,_)</code>, but they are not equivalent
+	 * in terms of variable relations.
 	 */
-	public static List<Binding> getEquivalentBindings(Property originalProperty, Property newProperty) {
-		originalProperty = InputUtil.canonicalize(originalProperty);
-		newProperty = InputUtil.canonicalize(newProperty);
+	public static List<Binding> getEquivalentBindings(KProperty originalProperty, KProperty newProperty) {
+		originalProperty = (KProperty) KernelUtil.canonicalize(originalProperty);
+		newProperty = (KProperty) KernelUtil.canonicalize(newProperty);
 
 		Hashtable<Appearance, ArrayList<String>> originalAppearances = getAppearances(originalProperty);
 		Hashtable<Appearance, ArrayList<String>> newAppearances = getAppearances(newProperty);
@@ -54,11 +59,11 @@ public class EqualityTester {
 	}
 
 	private static void addLegalBindings(ArrayList<Binding> legalBindings, MutableBinding binding,
-			ArrayList<Appearance> appearances, int index, int subIndex, Property originalProperty,
-			Property newProperty, Hashtable<Appearance, ArrayList<String>> originalAppearances,
+			ArrayList<Appearance> appearances, int index, int subIndex, KProperty originalProperty,
+			KProperty newProperty, Hashtable<Appearance, ArrayList<String>> originalAppearances,
 			Hashtable<Appearance, ArrayList<String>> newAppearances) {
 		if (index == appearances.size()) {
-			if (InputUtil.canonicalize(InputUtil.revar(originalProperty, binding.getArguments())).equals(newProperty))
+			if (KernelUtil.canonicalize(KernelUtil.revar(originalProperty, binding.getArguments())).equals(newProperty))
 				legalBindings.add(binding.getImmutable());
 
 			return;
@@ -80,48 +85,46 @@ public class EqualityTester {
 		}
 	}
 
-	public static Hashtable<Appearance, ArrayList<String>> getAppearances(Property property) {
+	public static Hashtable<Appearance, ArrayList<String>> getAppearances(KProperty property) {
 		Hashtable<Appearance, ArrayList<String>> appearances = new Hashtable<Appearance, ArrayList<String>>();
 		addAppearances(property, appearances, null);
 		return appearances;
 	}
 
-	private static void addAppearances(Property property, Hashtable<Appearance, ArrayList<String>> appearances,
+	private static void addAppearances(KProperty property, Hashtable<Appearance, ArrayList<String>> appearances,
 			Appearance prefix) {
-		switch (InputUtil.kernelType(property)) {
-		case ANDing: {
-			for (Property subProperty : InputUtil.getANDed((ANDing) property)) {
+		switch (KernelUtil.KType(property)) {
+		case KANDing: {
+			for (KProperty subProperty : KernelUtil.getANDed((KANDing) property)) {
 				addAppearances(subProperty, appearances, prefix);
 			}
 			return;
 		}
-		case Atomic: {
-			Atomic atomic = (Atomic) property;
-			for (int i = 0; i < atomic.getArgs().size(); i++) {
-				AtomicAppearance appearance = new AtomicAppearance(atomic.getFunction(), i, prefix);
+		case KAtomic: {
+			KAtomic atomic = (KAtomic) property;
+			for (int i = 0; i < atomic.args.size(); i++) {
+				AtomicAppearance appearance = new AtomicAppearance(atomic.function, i, prefix);
 				if (!appearances.containsKey(appearance))
 					appearances.put(appearance, new ArrayList<String>());
 
-				appearances.get(appearance).add(atomic.getArgs().get(i));
+				appearances.get(appearance).add(atomic.args.get(i));
 			}
 			return;
 		}
-		case Negation: {
-			addAppearances(((Negation) property).getNegated(), appearances, new NegatedAppearance(prefix));
+		case KNegation: {
+			addAppearances(((KNegation) property).negated, appearances, new NegatedAppearance(prefix));
 			return;
 		}
-		case Quantifier: {
-			Quantifier quantifier = (Quantifier) property;
-			addAppearances(quantifier.getSubject().getProperty(), appearances, new QuantifierAppearance(quantifier,
-					true, prefix));
-			addAppearances(quantifier.getPredicate(), appearances, new QuantifierAppearance(quantifier, false, prefix));
+		case KQuantifier: {
+			KQuantifier quantifier = (KQuantifier) property;
+			addAppearances(quantifier.subject.property, appearances,
+					new QuantifierAppearance(quantifier, true, prefix));
+			addAppearances(quantifier.predicate, appearances, new QuantifierAppearance(quantifier, false, prefix));
 			return;
 		}
-		case Problem:
-		case Input:
-		case ORing:
-			throw new UnsupportedOperationException();
-		case BooleanLiteral:
+		case KProblem:
+		case KInput:
+		case KBooleanLiteral:
 		}
 	}
 }
