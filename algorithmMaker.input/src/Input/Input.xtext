@@ -2,11 +2,6 @@ grammar algorithmMaker.Input with org.eclipse.xtext.common.Terminals
 //TODO: : comparators
 //TODO: : implies "->, <-, <->" : relies on inline declarations?
 //TODO: if get(x,i,xi) is used, test for index(x,i) automatically
-//FIXME: Make  a separate syntactic artifact that can be completely removed after deing.
-//		 The most prominent example of this is for nested atomics. The way these are done now is by allowing
-//		 a general nested atomic input style. This is terrible. The core syntax just shouldn't allow this,
-//		 but we should have a separate syntactic element that is only used in parsing which does allow it.
-//		 Then when we de, we can get rid of it.
 generate input "http://www.Input"
 
 //NOTE: Any changes to the formatting should be reflected with changes here.

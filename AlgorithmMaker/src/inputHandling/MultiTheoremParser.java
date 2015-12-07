@@ -57,6 +57,10 @@ public class MultiTheoremParser {
 				BOUND + "(apb) & " + InputUtil.MULTIPLICATION + "(a,b,apb)", "<apb> = <a> * <b>" });
 		declarations.add(new String[] { BOUND + "(a) & " + BOUND + "(b) & " + UNBOUND + "(apb)",
 				BOUND + "(apb) & " + InputUtil.DIVISION + "(a,b,apb)", "<apb> = <a> / <b>" });
+
+		declarations.add(new String[] { BOUND + "(x)& type_priorityqueue(x)" + UNBOUND + "(y)",
+				"child(x,y) & forall(z st child(x,z) : lessThanEqual(y,z))", "<y> = <x>.poll()" });
+
 		for (String[] declaration : declarations)
 			ret.add(new MultistageTheorem(parseProperty(declaration[0]), parseProperty(declaration[1]),
 					parseProperty(declaration[1]), null, 1, "Simple declaration.", new LineCoder(false, declaration[2])));
