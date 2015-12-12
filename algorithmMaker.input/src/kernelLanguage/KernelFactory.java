@@ -42,8 +42,12 @@ public class KernelFactory {
 		if (cost != ret.cost)
 			throw new RuntimeException("Cannot have multiple costs for the same theorem.");
 
-		if (!description.equals(ret.description))
+		if (!Objects.equals(description, ret.description)) {
+			System.err.println("Multiple descriptions for theorem:" + ret);
+			System.err.println("Original was " + ret.description);
+			System.err.println("New is " + description);
 			throw new RuntimeException("Cannot have multiple descriptions for the same theorem.");
+		}
 
 		return ret;
 	}

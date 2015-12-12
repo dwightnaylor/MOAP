@@ -27,6 +27,6 @@ public class KTheorem {
 	}
 
 	public KTheorem getConverse() {
-		return theorem(result, requirement, cost, "Converse of " + description);
+		return theorem(result, requirement, cost, description);
 	}
 }

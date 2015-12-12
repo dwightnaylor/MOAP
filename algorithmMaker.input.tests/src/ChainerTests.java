@@ -101,7 +101,7 @@ public class ChainerTests {
 
 	@Test
 	public void testBasicPrerequisites() {
-		Chainer basicChainer = new Chainer(parseTheorem("a(x)->b(x),0,\"Test theorem\""));
+		Chainer basicChainer = new Chainer(parseTheorem("a(x)->b(x),0,\"GIVEN\""));
 		basicChainer.chain(parseProperty("a(x)"), GIVEN);
 		assertTrue("Fact recording works", basicChainer.getProperty(parseProperty("b(x)")).prerequisites.length == 1);
 	}
@@ -164,16 +164,16 @@ public class ChainerTests {
 		{
 			// One test for when the quantifier comes first
 			Chainer basicChainer = new Chainer();
-			basicChainer.chain(parseProperty("forall(x st a(x) : b(x))"), GIVEN);
-			basicChainer.chain(parseProperty("a(q)"), GIVEN);
-			assertTrue(basicChainer.hasProperty(parseProperty("b(q)")));
+			basicChainer.chain(parseProperty("forall(x st aq(x) : bq(x))"), GIVEN);
+			basicChainer.chain(parseProperty("aq(q)"), GIVEN);
+			assertTrue(basicChainer.hasProperty(parseProperty("bq(q)")));
 		}
 		{
 			// One test for when the quantifier comes second
 			Chainer basicChainer = new Chainer();
-			basicChainer.chain(parseProperty("a(q)"), GIVEN);
-			basicChainer.chain(parseProperty("forall(x st a(x) : b(x))"), GIVEN);
-			assertTrue(basicChainer.hasProperty(parseProperty("b(q)")));
+			basicChainer.chain(parseProperty("aq(q)"), GIVEN);
+			basicChainer.chain(parseProperty("forall(x st aq(x) : bq(x))"), GIVEN);
+			assertTrue(basicChainer.hasProperty(parseProperty("bq(q)")));
 		}
 	}
 
