@@ -24,15 +24,16 @@ public class MultiTheoremParser {
 		bruteForces.add(new String[] { UNBOUND + "(y) & enumerable(x)", "child(x,y)", "foreach child <y> of <x>" });
 		bruteForces.add(new String[] { UNBOUND + "(y) & indexable(x)", "index(x,y)", "foreach index <y> of <x>" });
 		for (String[] cur : bruteForces)
-			ret.add(new MultistageTheorem(parseProperty(cur[0]), parseProperty(cur[1]), parseProperty(cur[1]), null,
-					10, "Brute force.", new LineCoder(true, cur[2])));
+			ret.add(new MultistageTheorem(parseProperty(cur[0]), parseProperty(cur[1]), parseProperty(cur[1]), null, 10,
+					"Brute force.", new LineCoder(true, cur[2])));
 	}
 
 	private static void addSimpleTestingTheorems(ArrayList<MultistageTheorem> ret) {
 		ArrayList<String[]> tests = new ArrayList<String[]>();
 		tests.add(new String[] { BOUND + "(x)", "even(x)", "if <x> % 2 == 0" });
 		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)", EQUAL + "(x,y)", "if <x> == <y>" });
-		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)&" + BOUND + "(z)", "plus(x,y,z)", "if <x> + <y> == <z>" });
+		tests.add(
+				new String[] { BOUND + "(x)&" + BOUND + "(y)&" + BOUND + "(z)", "plus(x,y,z)", "if <x> + <y> == <z>" });
 		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)", "lessThanEqual(x,y)", "if <x> <= <y>" });
 		tests.add(new String[] { BOUND + "(x)&" + BOUND + "(y)", "greaterThanEqual(x,y)", "if <x> >= <y>" });
 
@@ -40,8 +41,9 @@ public class MultiTheoremParser {
 		for (String[] test : tests) {
 			ret.add(new MultistageTheorem(parseProperty(test[0]), parseProperty(test[1]), parseProperty(test[1]), null,
 					1, "Simple test.", new LineCoder(true, test[2])));
-			ret.add(new MultistageTheorem(parseProperty(test[0]), parseProperty("!" + test[1]), parseProperty("!"
-					+ test[1]), null, 1, "Simple negated test.", new LineCoder(true, invert(test[2]))));
+			ret.add(new MultistageTheorem(parseProperty(test[0]), parseProperty("!" + test[1]),
+					parseProperty("!" + test[1]), null, 1, "Simple negated test.",
+					new LineCoder(true, invert(test[2]))));
 		}
 	}
 
@@ -58,12 +60,13 @@ public class MultiTheoremParser {
 		declarations.add(new String[] { BOUND + "(a) & " + BOUND + "(b) & " + UNBOUND + "(apb)",
 				BOUND + "(apb) & " + InputUtil.DIVISION + "(a,b,apb)", "<apb> = <a> / <b>" });
 
-		declarations.add(new String[] { BOUND + "(x)& type_priorityqueue(x)" + UNBOUND + "(y)",
+		declarations.add(new String[] { BOUND + "(x) & type_priorityqueue(x)" + UNBOUND + "(y)",
 				"child(x,y) & forall(z st child(x,z) : lessThanEqual(y,z))", "<y> = <x>.poll()" });
 
 		for (String[] declaration : declarations)
 			ret.add(new MultistageTheorem(parseProperty(declaration[0]), parseProperty(declaration[1]),
-					parseProperty(declaration[1]), null, 1, "Simple declaration.", new LineCoder(false, declaration[2])));
+					parseProperty(declaration[1]), null, 1, "Simple declaration.",
+					new LineCoder(false, declaration[2])));
 	}
 
 	private static String invert(String compare) {

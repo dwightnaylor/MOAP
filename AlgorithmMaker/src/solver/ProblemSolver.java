@@ -9,13 +9,13 @@ import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+import display.Viewer;
 import kernelLanguage.*;
 import pseudocoders.*;
 import theorems.MultistageTheorem;
 import algorithmMaker.QuickParser;
 import algorithmMaker.util.*;
 import bindings.*;
-import display.Viewer;
 
 /**
  * Translates an input between various states until a solution is reached.
@@ -23,6 +23,7 @@ import display.Viewer;
  * @author Dwight Naylor
  */
 public class ProblemSolver {
+	private static final boolean SHOW_GRAPH = true;
 
 	/**
 	 * All of the problem states that have either been explored or been enqueued to be explored.
@@ -31,13 +32,9 @@ public class ProblemSolver {
 
 	// Everything in this queue is assumed to be simplified already
 	public PriorityQueue<ProblemState> problemStates = new PriorityQueue<ProblemState>();
-
 	private static Hashtable<KInput, ProblemSolver> subSolvers = new Hashtable<KInput, ProblemSolver>();
-
 	ProblemState solved = null;
-
 	private final KTheorem[] theorems;
-
 	private final KTheorem[] invertedTheorems;
 
 	public ProblemSolver(KInput problem, KTheorem... theorems) {
@@ -62,7 +59,8 @@ public class ProblemSolver {
 
 		Chainer givenChainer = new Chainer(theorems);
 		givenChainer.addBoundVars(problem.given.vars.toArray(new String[0]));
-		// NOTE: This line has to go after the bound vars, or all variables in the goal will be unbound.
+		// NOTE: This line has to go after the bound vars, or all variables in
+		// the goal will be unbound.
 		givenChainer.addUnboundVars(variables(problem.goal).toArray(new String[0]));
 		if (problem.given.property != null)
 			givenChainer.chain(problem.given.property, GIVEN);
@@ -152,15 +150,11 @@ public class ProblemSolver {
 			KQuantifier quantifier = (KQuantifier) property;
 			doQuantifierSubProblemFor(problemState, quantifier, givenChainer, findChainer);
 			if (KernelUtil.satisfies(quantifier, KernelUtil.TRANSITIVITY)) {
-				// FIXME: This is such a hack...
+				// FIXME: This is such a hack... like, all of this.
 				if (!(quantifier.predicate instanceof KAtomic && ((KAtomic) quantifier.predicate).function
-						.equals(EQUAL)))
-					if (quantifier.subject.property instanceof KAtomic) {
-						KAtomic atomic = (KAtomic) quantifier.subject.property;
-						if (atomic.function.equals("child") && givenChainer.contains(atomic(BOUND, atomic.args.get(0)))) {
-							doTransitivityCarrySubProblemFor(problemState, quantifier);
-						}
-					}
+						.equals(EQUAL))) {
+					doTransitivityCarrySubProblemFor(problemState, quantifier);
+				}
 			}
 		}
 	}
@@ -192,9 +186,11 @@ public class ProblemSolver {
 			subSolver.getSolution();
 		}
 		if (subSolvers.get(subProblem).solved != null) {
-			// The new problem with the quantifier constraint removed and added to the given
+			// The new problem with the quantifier constraint removed and added
+			// to the given
 			KInput newProblem = problemState.problem;
-			// FIXME: DN: This isn't the best way to do transitive quantifier breaking...
+			// FIXME: DN: This isn't the best way to do transitive quantifier
+			// breaking...
 			String parent = ((KAtomic) quantifier.subject.property).args.get(0);
 			String other = subProblem.goal.vars.get(0);
 			KAtomic newChildConstraint = atomic("child", parent, undeclaredVar);
@@ -210,7 +206,8 @@ public class ProblemSolver {
 						String returnString) {
 					Pseudocoder.appendTabs(builder, numTabs);
 					builder.append(varToBind + " = " + parent + ".any()\n");
-					// FIXME: DN: This whole methodology is awful and needs to be redone later.
+					// FIXME: DN: This whole methodology is awful and needs to
+					// be redone later.
 					ProblemState head = subSolvers.get(subProblem).solved;
 					while (head.parentState != null) {
 						head.parentState.childStates = Collections.singletonList(head);
@@ -254,7 +251,8 @@ public class ProblemSolver {
 			subSolver.getSolution();
 		}
 		if (subSolvers.get(subProblem).solved != null) {
-			// The new problem with the quantifier constraint removed and added to the given
+			// The new problem with the quantifier constraint removed and added
+			// to the given
 			KInput newProblem = problemState.problem;
 			// FIXME: DN: This is a stupid way of removing properties here
 			newProblem = newProblem.withGoal((KProblem) newProblem.goal.withProperty(newProblem.goal.property
@@ -269,7 +267,8 @@ public class ProblemSolver {
 						String returnString) {
 					Pseudocoder.appendTabs(builder, numTabs);
 					builder.append(problemState.rootTheoremBinding.revar("boolean <" + newVariable + "> = true;\n"));
-					// FIXME: DN: This whole methodology is awful and needs to be redone later.
+					// FIXME: DN: This whole methodology is awful and needs to
+					// be redone later.
 					ProblemState head = subSolvers.get(subProblem).solved;
 					while (head.parentState != null) {
 						head.parentState.childStates = Collections.singletonList(head);
@@ -397,9 +396,9 @@ public class ProblemSolver {
 	public static void main(String[] args) {
 		ArrayList<KTheorem> theorems = TheoremParser.parseFiles();
 		theorems.addAll(MultiTheoremParser.parseFiles());
-		//System.out.println("GIMME A PROBLEM!");
+		System.out.println("GIMME A PROBLEM!");
 		Scanner s = new Scanner(System.in);
-		//while (true) {
+		while (true) {
 			String problemString = s.nextLine();
 			if (problemString.equalsIgnoreCase("exit")) {
 				s.close();
@@ -411,7 +410,6 @@ public class ProblemSolver {
 			if (solution == null)
 				System.out.println("I couldn't solve your problem. You'll have to find a better robot :-(");
 			else {
-				// System.out.println(makePretty(input));
 				ProblemState solutionSave = solution;
 				StringBuffer problems = new StringBuffer();
 				do {
@@ -422,8 +420,9 @@ public class ProblemSolver {
 
 				System.out.println(ProblemState.getOutputString(solutionSave));
 			}
-			//Viewer.displaySolverResults(problemSolver);
-			//System.out.println("HIT ME WITH ANOTHER ONE!");
-		//}
+			if (SHOW_GRAPH)
+				Viewer.displaySolverResults(problemSolver);
+			System.out.println("HIT ME WITH ANOTHER ONE!");
+		}
 	}
 }

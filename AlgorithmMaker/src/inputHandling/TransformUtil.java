@@ -4,9 +4,10 @@ import static kernelLanguage.KernelFactory.*;
 
 import java.util.*;
 
+import bindings.*;
 import kernelLanguage.*;
 import solver.Chainer;
-import algorithmMaker.util.InputUtil;
+import algorithmMaker.util.*;
 
 /**
  * A class for fundamental transformations of input. All simple operations should instead go in InputUtil.java in the
@@ -47,6 +48,21 @@ public class TransformUtil {
 			input = input.withGoal(input.goal.withProperty(reducedGoal == null ? TRUE : reducedGoal));
 		}
 
-		return input.withMinimumVariables();
+		HashSet<String> allUsedVars = new HashSet<String>();
+		allUsedVars.addAll(input.given.vars);
+		allUsedVars.addAll(input.goal.vars);
+		KProblem newGiven = removeRenestedDeclarations(input.given, allUsedVars);
+		KProblem newGoal = removeRenestedDeclarations(input.goal, allUsedVars);
+		return input.withGiven(newGiven).withGoal(newGoal).withMinimumVariables();
+	}
+
+	private static KProblem removeRenestedDeclarations(KProblem problem, HashSet<String> allUsedVars) {
+		MutableBinding revars = new MutableBinding();
+		for (String var : KernelUtil.getDeclaredVars(problem.property)) {
+			String newVar = InputUtil.getUnusedVar(allUsedVars);
+			allUsedVars.add(newVar);
+			revars.bind(var, newVar);
+		}
+		return problem.withProperty(KernelUtil.revar(problem.property, revars.getArguments()));
 	}
 }

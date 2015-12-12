@@ -202,8 +202,11 @@ public class Chainer {
 
 		// Go through all of the theorems that use this atomic's function
 		// and check if any of them can be applied
+		// We clone the theoremCatcher list because it could be modified inside the loop and we want to be alerted if
+		// that happens.
+		// TODO: DN: Make sure the modified internal loop doesn't ignore the new theorem when chaining
 		if (theoremCatchers.containsKey(devar))
-			for (KTheorem theorem : theoremCatchers.get(devar)) {
+			for (KTheorem theorem : (HashSet<KTheorem>) theoremCatchers.get(devar).clone()) {
 				MutableBinding binding = new MutableBinding();
 				if (theoremDerivations.containsKey(theorem))
 					binding.addPrerequisite(this.theoremDerivations.get(theorem));
@@ -332,6 +335,12 @@ public class Chainer {
 					ret.add(binding.getImmutable());
 				}
 			return ret;
+		} else if (original instanceof KANDing) {
+			// TODO: DN: Don't use brute-enumeration for this, it's awful... but it sure is easy.
+			HashSet<Binding> ret = new HashSet<Binding>(getAllFulfillmentsOf(((KANDing) original).lhs));
+			ret.retainAll(new HashSet<Binding>(getAllFulfillmentsOf(((KANDing) original).lhs)));
+			// @hashorder
+			return new ArrayList<Binding>(ret);
 		}
 		throw new UnsupportedOperationException("Dwight was too lazy to make a generic version of this function.");
 	}

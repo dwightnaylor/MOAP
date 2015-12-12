@@ -148,6 +148,8 @@ public class SugarUtil {
 
 			private void denest(NumericalProperty property, HashSet<String> allVars,
 					Hashtable<NumericalProperty, String> nestedArgs, ArrayList<Atomic> newAtomics, boolean nested) {
+				// FIXME: DN: this should only happen with things that are confirmed equal. We don't want, for example
+				// equal(child(x),child(x)) to be convert to equal(na,na)
 				if (nestedArgs.containsKey(property))
 					return;
 

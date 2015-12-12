@@ -183,7 +183,7 @@ public class KernelUtil {
 		case KAtomic:
 			return property.hasAtomic(((KAtomic) object).function);
 		case KANDing:
-			return satisfies(((KANDing) object).lhs, property) & satisfies(((KANDing) object).rhs, property);
+			return satisfies(((KANDing) object).lhs, property) || satisfies(((KANDing) object).rhs, property);
 		case KNegation:
 			return satisfies(((KNegation) object).negated, property);
 		case KQuantifier:

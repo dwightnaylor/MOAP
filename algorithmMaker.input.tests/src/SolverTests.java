@@ -93,11 +93,12 @@ public class SolverTests {
 		// random-order solutions because of hashing.
 		// These are all the problem/solution pairs. If there is no solution or only part of a solution, the program
 		// will only make sure the real solution matches up until whatever's given (no given means any solution works).
-		probsAndSols.add(new String[] { "Given list<int> a; Find b st child(a,b) & even(b)",
-				"foreach child b of a\n\tif b % 2 == 0\n\t\t" });
+		probsAndSols.add(new String[] { "Given list<int> a; Find b st child(a,b) & even(b)", "foreach child b of a",
+				"if b % 2 == 0", "return [b]" });
 		probsAndSols.add(new String[] { "Given list<int> a,list<int> b; Find c st child(a,c) & child(b,c) & even(c)",
-				"foreach child c of a\n\tif c % 2 == 0\n\t\tboolean na = true;\n\t\tforeach child nb of b" });
-		probsAndSols.add(new String[] { "Given int a, int b, int c; Find plus(c,b,a)", "if c + b == a\n\t" });
+				"foreach child c of a", "if c % 2 == 0", "boolean na = true;", "foreach child nb of b", "na = false",
+				"if na == false", "return [c]" });
+		probsAndSols.add(new String[] { "Given int a, int b, int c; Find plus(c,b,a)", "if c + b == a" });
 		probsAndSols.add(new String[] { "Given array x; Find y st index(x,y) & equal(get(x,y),y)",
 				"foreach index y of x\n\tna = x[y]" });
 		probsAndSols.add(new String[] { "Given list x; Find y,z st child(x,y) & child(x,z) & equal(y,z)",
@@ -113,8 +114,8 @@ public class SolverTests {
 				"foreach child d of a\n\t" });
 		probsAndSols.add(new String[] {
 				"Given array<number> A; Find y st child(A,y) & forall(z st child(A,z): lessThanEqual(z,y))", "" });
-		probsAndSols.add(new String[] { "Given list<int> x, list<int> z; Find y st child(x,y) & child(z,y) & even(y)",
-				"" });
+		probsAndSols
+				.add(new String[] { "Given list<number> x, int s; Find a,b st child(x,a) & child(x,b) & equal(a+b,s)", "" });
 		for (String[] ps : probsAndSols) {
 			KInput input = (KInput) SugarUtil.convertToKernel(QuickParser.parseInput(ps[0]));
 			ProblemState actualSolution = new ProblemSolver(input, theorems.toArray(new KTheorem[0])).getSolution();
@@ -123,17 +124,20 @@ public class SolverTests {
 			}
 			assertNotNull(actualSolution);
 			String solutionString = ProblemState.getOutputString(actualSolution);
-			String desiredAdjusted = ps[1].trim();
-			String actualAdjusted = solutionString.trim().substring(0,
-					Math.min(solutionString.trim().length(), desiredAdjusted.length()));
-			if (!desiredAdjusted.equals(actualAdjusted)) {
-				System.err.println("Wrong solution for problem \"" + ps[0] + "\"");
-				System.err.println("Expected:");
-				System.err.println(ps[1] + "\n");
-				System.err.println("But was:");
-				System.err.println(solutionString + "\n");
+			boolean hasAllParts = true;
+			for (int i = 1; i < ps.length; i++) {
+				String part = ps[i];
+				if (!solutionString.contains(part)) {
+					System.err.println("Wrong solution for problem \"" + ps[0] + "\"");
+					System.err.println("Expected solution to contain:");
+					System.err.println(part + "\n");
+					System.err.println("But was:");
+					System.err.println(solutionString + "\n");
+					hasAllParts = false;
+					break;
+				}
 			}
-			assertEquals(desiredAdjusted, actualAdjusted);
+			assertTrue(hasAllParts);
 		}
 	}
 }
