@@ -13,6 +13,7 @@ import algorithmMaker.util.*;
 import kernelLanguage.*;
 
 public class TheoremParser {
+	private static final String EXTENDS = " extends ";
 	private static String[] inputFiles = { "theoremsv1" };
 
 	public static ArrayList<KTheorem> parseFiles() {
@@ -26,15 +27,19 @@ public class TheoremParser {
 						line = line.substring(0, line.indexOf("//"));
 
 					if (line.trim().length() > 0) {
-						if (line.contains("->")) {
-							KTheorem theorem = parseTheorem(line);
-							ret.add(theorem);
-							ret.add(theorem.getContrapositive());
-						}
-						if (line.contains("<-")) {
-							KTheorem theorem = parseReverseTheorem(line);
-							ret.add(theorem);
-							ret.add(theorem.getContrapositive());
+						if (line.contains(EXTENDS)) {
+							ret.add(parseExtension(line));
+						} else {
+							if (line.contains("->")) {
+								KTheorem theorem = parseTheorem(line);
+								ret.add(theorem);
+								ret.add(theorem.getContrapositive());
+							}
+							if (line.contains("<-")) {
+								KTheorem theorem = parseReverseTheorem(line);
+								ret.add(theorem);
+								ret.add(theorem.getContrapositive());
+							}
 						}
 					}
 				}
@@ -45,6 +50,14 @@ public class TheoremParser {
 			e.printStackTrace();
 		}
 		return ret;
+	}
+
+	private static KTheorem parseExtension(String line) {
+		int split = line.indexOf(EXTENDS);
+		String subClass = line.substring(0, split);
+		String superClass = line.substring(split + EXTENDS.length(), line.length());
+		return theorem(atomic(KernelFactory.TYPE_MARKER + subClass + "(x)"), atomic(KernelFactory.TYPE_MARKER
+				+ superClass + "(x)"), 0, "Every " + subClass + " is a " + superClass);
 	}
 
 	private static KTheorem parseTheorem(String string) {

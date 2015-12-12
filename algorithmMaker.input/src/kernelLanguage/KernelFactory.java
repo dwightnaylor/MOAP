@@ -13,6 +13,7 @@ public class KernelFactory {
 	private static Hashtable<KProperty, KNegation> negations = new Hashtable<KProperty, KNegation>();
 	private static Hashtable<List<String>, Hashtable<KProperty, KProblem>> problems = new Hashtable<List<String>, Hashtable<KProperty, KProblem>>();
 	private static Hashtable<Quantifier, Hashtable<KProblem, Hashtable<KProperty, KQuantifier>>> quantifiers = new Hashtable<Quantifier, Hashtable<KProblem, Hashtable<KProperty, KQuantifier>>>();
+	private static Hashtable<KProperty, Hashtable<KProperty, KTheorem>> theorems = new Hashtable<KProperty, Hashtable<KProperty, KTheorem>>();
 
 	public static final String TYPE_MARKER = "type_";
 	public static final String BOUND = "BOUND";
@@ -31,7 +32,20 @@ public class KernelFactory {
 	public static final KProblem NULL_PROBLEM = problem(Collections.emptyList(), TRUE);
 
 	public static KTheorem theorem(KProperty requirement, KProperty result, int cost, String description) {
-		return new KTheorem(requirement, result, cost, description);
+		if (!theorems.containsKey(requirement))
+			theorems.put(requirement, new Hashtable<KProperty, KTheorem>());
+
+		if (!theorems.get(requirement).containsKey(result))
+			theorems.get(requirement).put(result, new KTheorem(requirement, result, cost, description));
+
+		KTheorem ret = theorems.get(requirement).get(result);
+		if (cost != ret.cost)
+			throw new RuntimeException("Cannot have multiple costs for the same theorem.");
+
+		if (!description.equals(ret.description))
+			throw new RuntimeException("Cannot have multiple descriptions for the same theorem.");
+
+		return ret;
 	}
 
 	public static KQuantifier quantifier(Quantifier quantifier, KProblem subject, KProperty predicate) {

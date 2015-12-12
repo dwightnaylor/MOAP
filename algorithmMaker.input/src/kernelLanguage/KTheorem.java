@@ -9,8 +9,7 @@ public class KTheorem {
 	public final int cost;
 	public final String description;
 
-	// TODO: Privatize theorems
-	public KTheorem(KProperty requirement, KProperty result, int cost, String description) {
+	protected KTheorem(KProperty requirement, KProperty result, int cost, String description) {
 		this.requirement = requirement;
 		this.result = result;
 		this.cost = cost;
