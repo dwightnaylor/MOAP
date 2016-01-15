@@ -9,6 +9,7 @@ import kernelLanguage.KProperty;
 import theorems.Fact;
 
 public class MutableBinding extends Binding {
+
 	public void bind(String originalVar, String newVar) {
 		bindings.put(originalVar, newVar);
 	}
@@ -17,7 +18,7 @@ public class MutableBinding extends Binding {
 		bindings.remove(arg);
 	}
 
-	private Stack<ArrayList<String>> lastBindings = new Stack<ArrayList<String>>();
+	protected Stack<ArrayList<String>> lastBindings = new Stack<ArrayList<String>>();
 
 	public void applyBinding(KProperty original, Fact<? extends KProperty> asserted) {
 		if (!KernelUtil.devar(original).equals(KernelUtil.devar(asserted.property)))
@@ -42,7 +43,7 @@ public class MutableBinding extends Binding {
 
 	public void undoLastBinding() {
 		for (String binding : lastBindings.pop())
-			bindings.remove(binding);
+			removeBinding(binding);
 
 		prerequisites.remove(prerequisites.size() - 1);
 	}

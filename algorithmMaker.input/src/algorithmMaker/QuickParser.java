@@ -1,36 +1,22 @@
 package algorithmMaker;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
-import org.eclipse.emf.common.util.Diagnostic;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.emf.common.util.*;
+import org.eclipse.emf.ecore.*;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.Diagnostician;
-import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.resource.XtextResourceSet;
+import org.eclipse.xtext.resource.*;
+
+import com.google.inject.*;
 
 import algorithmMaker.input.*;
 import algorithmMaker.parser.antlr.InputParser;
-import algorithmMaker.util.InputUtil;
 import algorithmMaker.util.SugarUtil;
-
-import com.google.inject.Guice;
-import com.google.inject.Injector;
 
 public class QuickParser {
 
 	public static boolean printParsingErrors = true;
-
-	public static String clean(String queryString) {
-		queryString = queryString.replaceAll("(\\w+)(\\s*)\\(", "$1:$2(");
-		queryString = queryString.replace(InputUtil.FORALL + ":", InputUtil.FORALL);
-		queryString = queryString.replace(InputUtil.EXISTS + ":", InputUtil.EXISTS);
-		return queryString;
-	}
 
 	public static Property parseProperty(String queryString) {
 		Parser.queryString = "ORing";

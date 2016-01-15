@@ -3,19 +3,19 @@ package solver;
 import static algorithmMaker.util.KernelUtil.*;
 import static algorithmMaker.util.SugarUtil.*;
 import static kernelLanguage.KernelFactory.*;
-import inputHandling.*;
 
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
-import display.Viewer;
-import kernelLanguage.*;
-import pseudocoders.*;
-import theorems.MultistageTheorem;
 import algorithmMaker.QuickParser;
 import algorithmMaker.util.*;
 import bindings.*;
+import display.Viewer;
+import inputHandling.*;
+import kernelLanguage.*;
+import pseudocoders.*;
+import theorems.MultistageTheorem;
 
 /**
  * Translates an input between various states until a solution is reached.
@@ -26,7 +26,8 @@ public class ProblemSolver {
 	private static final boolean SHOW_GRAPH = true;
 
 	/**
-	 * All of the problem states that have either been explored or been enqueued to be explored.
+	 * All of the problem states that have either been explored or been enqueued
+	 * to be explored.
 	 */
 	public Hashtable<KInput, ProblemState> reachedProblems = new Hashtable<KInput, ProblemState>();
 
@@ -102,9 +103,8 @@ public class ProblemSolver {
 								newBinding.bind(var, newVar);
 							}
 
-						Binding rebinding = rebind(
-								KernelUtil.getAtomics(givenResult, BOUND).stream().map(x -> x.args.get(0))
-										.collect(Collectors.toList()), usedVars);
+						Binding rebinding = rebind(KernelUtil.getAtomics(givenResult, BOUND).stream()
+								.map(x -> x.args.get(0)).collect(Collectors.toList()), usedVars);
 						List<String> newVars = new ArrayList<String>();
 						newVars.addAll(newProblem.goal.vars);
 						newVars.addAll(rebinding.getArguments().keySet());
@@ -119,9 +119,8 @@ public class ProblemSolver {
 								newBinding.bind(var, newVar);
 							}
 
-						Binding rebinding = rebind(
-								KernelUtil.getAtomics(goalResult, BOUND).stream().map(x -> x.args.get(0))
-										.collect(Collectors.toList()), usedVars);
+						Binding rebinding = rebind(KernelUtil.getAtomics(goalResult, BOUND).stream()
+								.map(x -> x.args.get(0)).collect(Collectors.toList()), usedVars);
 						List<String> newVars = new ArrayList<String>();
 						newVars.addAll(newProblem.goal.vars);
 						newVars.addAll(rebinding.getArguments().keySet());
@@ -146,89 +145,109 @@ public class ProblemSolver {
 
 	private void doSubProblemMultitheorems(ProblemState problemState, KProperty property, Set<KProperty> givenChainer,
 			Set<KProperty> findChainer) {
+		// This whole way of catching multi-theorems is sort of hacky. Ideally
+		// we'd like to have it all done within the
+		// theorem chainer, and then we could just "pick them up" here. The
+		// reason that isn't done is because the
+		// chainer doesn't handle quantifiers very well.
 		if (property instanceof KQuantifier) {
 			KQuantifier quantifier = (KQuantifier) property;
 			doQuantifierSubProblemFor(problemState, quantifier, givenChainer, findChainer);
-			if (KernelUtil.satisfies(quantifier, KernelUtil.TRANSITIVITY)) {
-				// FIXME: This is such a hack... like, all of this.
-				if (!(quantifier.predicate instanceof KAtomic && ((KAtomic) quantifier.predicate).function
-						.equals(EQUAL))) {
-					doTransitivityCarrySubProblemFor(problemState, quantifier);
+			if (quantifier.isUniversal()) {
+				// if the the quantifier's predicate is transitive...
+				if (KernelUtil.satisfies(quantifier.predicate, TRANSITIVITY)) {
+					doTransitiveQuantifierClosure(problemState, quantifier, givenChainer, findChainer);
 				}
 			}
 		}
 	}
 
-	private void doTransitivityCarrySubProblemFor(ProblemState problemState, KQuantifier quantifier) {
-		// First we check and see if all the variables used in the quantifier
-		// are bound. If any aren't, we can't solve the quantifier.
-		HashSet<String> boundVars = new HashSet<String>();
-		boundVars.addAll(getDeclaredVars(quantifier));
-		// Add all the declarations from the given
-		boundVars.addAll(problemState.problem.given.vars);
-		String undeclaredVar = null;
-		for (String variable : variables(quantifier)) {
-			if (!boundVars.contains(variable))
-				if (undeclaredVar == null)
-					undeclaredVar = variable;
-				else
-					return;
-		}
-		// There must be exactly one undeclared variable for this to work...
-		if (undeclaredVar == null)
-			return;
+	private void doTransitiveQuantifierClosure(ProblemState problemState, KQuantifier quantifier,
+			Set<KProperty> givenChainer, Set<KProperty> findChainer) {
+		MutableBinding usedVariables = new MutableBinding();
+		ArrayList<KAtomic> involvedAtomics = KernelUtil.getInvolvedAtomics(quantifier.predicate, TRANSITIVITY);
+		for (KAtomic atomic : involvedAtomics)
+			usedVariables.bind(atomic.args.get(0), atomic.args.get(1));
 
-		// Build the subproblem
-		KInput subProblem = getSubProblemForTransitiveQuantifier(problemState.problem, quantifier);
-		if (!subSolvers.containsKey(subProblem)) {
-			ProblemSolver subSolver = new ProblemSolver(subProblem, theorems);
-			subSolvers.put(subProblem, subSolver);
-			subSolver.getSolution();
-		}
-		if (subSolvers.get(subProblem).solved != null) {
-			// The new problem with the quantifier constraint removed and added
-			// to the given
-			KInput newProblem = problemState.problem;
-			// FIXME: DN: This isn't the best way to do transitive quantifier
-			// breaking...
-			String parent = ((KAtomic) quantifier.subject.property).args.get(0);
-			String other = subProblem.goal.vars.get(0);
-			KAtomic newChildConstraint = atomic("child", parent, undeclaredVar);
-			newProblem = newProblem.withGoal((KProblem) newProblem.goal.withProperty(newProblem.goal.property
-					.without(and(quantifier, newChildConstraint))));
-			newProblem = newProblem.withGiven(newProblem.given.withProperty(and(quantifier, newChildConstraint,
-					newProblem.given.property)));
-
-			final String varToBind = undeclaredVar;
-			Pseudocoder coder = new Pseudocoder() {
-				@Override
-				public void appendPseudocode(StringBuffer builder, int numTabs, ProblemState problemState,
-						String returnString) {
-					Pseudocoder.appendTabs(builder, numTabs);
-					builder.append(varToBind + " = " + parent + ".any()\n");
-					// FIXME: DN: This whole methodology is awful and needs to
-					// be redone later.
-					ProblemState head = subSolvers.get(subProblem).solved;
-					while (head.parentState != null) {
-						head.parentState.childStates = Collections.singletonList(head);
-						head = head.parentState;
-					}
-					head.childStates.get(0).rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs,
-							head.childStates.get(0), varToBind + " = " + other);
-					if (problemState != null)
-						if (problemState.childStates != null && problemState.childStates.size() > 0) {
-							ProblemState childState = problemState.childStates.get(0);
-							childState.rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs + 1, childState,
-									null);
-						} else {
-							new LineCoder(returnString).appendPseudocode(builder, numTabs, null, returnString);
-						}
+		// We then have to make sure this quantifier is a true transitive
+		// quantifier.
+		ArrayList<Binding> bindings = Binding.findBindingWithin(problemState.problem.goal.property,
+				quantifier.subject.property, usedVariables.getImmutable());
+		// We do this by finding all possible "matches" from outside the
+		// quantifier to the inside of the quantifier
+		if (bindings != null)
+			for (Binding binding : bindings) {
+				KInput enumerationProblem = input(problemState.problem.given, quantifier.subject);
+				if (!subSolvers.containsKey(enumerationProblem)) {
+					ProblemSolver subSolver = new ProblemSolver(enumerationProblem, theorems);
+					subSolvers.put(enumerationProblem, subSolver);
+					subSolver.getSolution();
 				}
-			};
+				KProperty goalNonQuantifierPart = revar(quantifier.subject.property,
+						binding.getInverse().getArguments());
+				KProperty transitivityGiven = and(problemState.problem.given.property, quantifier.subject.property,
+						goalNonQuantifierPart);
+				if (subSolvers.get(enumerationProblem).solved == null)
+					return;
 
-			addProblemState(newProblem, problemState, new MultistageTheorem(null, null, null, 10,
-					"Smart checking for transitive quantifier", coder), Binding.EMPTY);
-		}
+				KInput[] testProblems = new KInput[involvedAtomics.size()];
+				for (int i = 0; i < involvedAtomics.size(); i++) {
+					KAtomic atomic = involvedAtomics.get(i);
+					testProblems[i] = input(
+							problem(new ArrayList<String>(KernelUtil.getUndeclaredVars(transitivityGiven)),
+									transitivityGiven),
+							problem(new ArrayList<String>(), negate(atomic)));
+					if (!subSolvers.containsKey(testProblems[i])) {
+						ProblemSolver subSolver = new ProblemSolver(testProblems[i], theorems);
+						subSolvers.put(testProblems[i], subSolver);
+						subSolver.getSolution();
+					}
+					if (subSolvers.get(testProblems[i]).solved == null)
+						return;
+				}
+				KInput newProblem = problemState.problem;
+				newProblem = newProblem
+						.withGiven(newProblem.given.withProperty(and(quantifier, goalNonQuantifierPart)));
+				newProblem = TransformUtil.removeGivenFromGoal(newProblem, new Chainer(theorems));
+
+				String newVariable = "NV";
+				Pseudocoder coder = new Pseudocoder() {
+					@Override
+					public void appendPseudocode(StringBuffer builder, int numTabs, ProblemState problemState,
+							Pseudocoder returnCoder, Binding unusedBinding) {
+						for (int i = 0; i < testProblems.length; i++) {
+							Pseudocoder.appendTabs(builder, numTabs);
+							builder.append(problemState.rootTheoremBinding
+									.revar(involvedAtomics.get(i).args.get(0) + " = null;\n"));
+						}
+						ArrayList<Binding> testBindings = new ArrayList<Binding>();
+						ArrayList<Pseudocoder> testCoders = new ArrayList<Pseudocoder>();
+						ArrayList<String> testLines = new ArrayList<String>();
+						for (int i = 0; i < testProblems.length; i++) {
+							String arg0 = involvedAtomics.get(i).args.get(0);
+							String arg1 = involvedAtomics.get(i).args.get(1);
+							testLines.add("if " + arg0 + " == null");
+							String assign = "\t" + arg0 + " = " + arg1;
+							testLines.add(assign);
+							testBindings.add(Binding.createBinding(new String[][] { { "x", arg1 }, { "y", arg0 } }));
+							testBindings.add(Binding.EMPTY);
+							Pseudocoder pseudocoder = getRootSolvedState(testProblems[i]).rootTheorem.getPseudocoder();
+							testCoders.add(pseudocoder);
+							testCoders.add(new LineCoder(false, assign));
+						}
+						testBindings.add(0, Binding.EMPTY);
+						testCoders.add(0, new LineCoder(testLines.toArray(new String[0])));
+						ProblemState rootState = getRootSolvedState(enumerationProblem);
+						rootState.rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs, rootState,
+								new SequentialCoder(testCoders, testBindings), binding);
+					}
+				};
+
+				addProblemState(newProblem,
+						problemState, new MultistageTheorem(null, null, null, 10,
+								"Basic optimization on a transitive quantifier", coder),
+						Binding.singleton(newVariable, "TESTVAR"));
+			}
 	}
 
 	private void doQuantifierSubProblemFor(ProblemState problemState, KQuantifier quantifier,
@@ -255,18 +274,18 @@ public class ProblemSolver {
 			// to the given
 			KInput newProblem = problemState.problem;
 			// FIXME: DN: This is a stupid way of removing properties here
-			newProblem = newProblem.withGoal((KProblem) newProblem.goal.withProperty(newProblem.goal.property
-					.without(quantifier)));
-			newProblem = newProblem.withGiven(newProblem.given.withProperty(and(Arrays.asList(new KProperty[] {
-					quantifier, newProblem.given.property }))));
+			newProblem = newProblem
+					.withGoal((KProblem) newProblem.goal.withProperty(newProblem.goal.property.without(quantifier)));
+			newProblem = newProblem.withGiven(newProblem.given.withProperty(quantifier));
 
 			String newVariable = "NEW_VARIABLE";
 			Pseudocoder coder = new Pseudocoder() {
 				@Override
 				public void appendPseudocode(StringBuffer builder, int numTabs, ProblemState problemState,
-						String returnString) {
+						Pseudocoder returnCoder, Binding unusedBinding) {
 					Pseudocoder.appendTabs(builder, numTabs);
-					builder.append(problemState.rootTheoremBinding.revar("boolean <" + newVariable + "> = true;\n"));
+					Binding binding = problemState.rootTheoremBinding;
+					builder.append(binding.revar("boolean <" + newVariable + "> = true;\n"));
 					// FIXME: DN: This whole methodology is awful and needs to
 					// be redone later.
 					ProblemState head = subSolvers.get(subProblem).solved;
@@ -274,19 +293,18 @@ public class ProblemSolver {
 						head.parentState.childStates = Collections.singletonList(head);
 						head = head.parentState;
 					}
-					head.childStates.get(0).rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs,
-							head.childStates.get(0),
-							problemState.rootTheoremBinding.revar("<" + newVariable + "> = false"));
+					ProblemState mainState = head.childStates.get(0);
+					mainState.rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs, mainState,
+							new LineCoder(binding.revar("<" + newVariable + "> = false")), binding);
 					Pseudocoder.appendTabs(builder, numTabs);
-					builder.append(problemState.rootTheoremBinding.revar("if <" + newVariable + "> == "
-							+ quantifier.isUniversal() + "\n"));
+					builder.append(binding.revar("if <" + newVariable + "> == " + quantifier.isUniversal() + "\n"));
 					if (problemState != null)
 						if (problemState.childStates != null && problemState.childStates.size() > 0) {
 							ProblemState childState = problemState.childStates.get(0);
 							childState.rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs + 1, childState,
-									returnString);
+									returnCoder, binding);
 						} else {
-							new LineCoder(returnString).appendPseudocode(builder, numTabs + 1, null, null);
+							returnCoder.appendPseudocode(builder, numTabs + 1, null, null, binding);
 						}
 				}
 			};
@@ -300,9 +318,9 @@ public class ProblemSolver {
 				declaredVars.addAll(solved.problem.given.vars);
 				solved = solved.parentState;
 			}
-			addProblemState(newProblem, problemState, new MultistageTheorem(null, null, null, 10,
-					"Brute-force checking of a quantifier.", coder), Binding.singleton(newVariable,
-					InputUtil.getUnusedVar(declaredVars)));
+			addProblemState(newProblem, problemState,
+					new MultistageTheorem(null, null, null, 10, "Brute-force checking of a quantifier.", coder),
+					Binding.singleton(newVariable, InputUtil.getUnusedVar(declaredVars)));
 		}
 	}
 
@@ -321,13 +339,14 @@ public class ProblemSolver {
 		}
 		KProblem newGoal = revar(quantifier.subject, rebindingForQuantifier.getArguments());
 		KProperty newPredicate = revar(quantifier.predicate, rebindingForQuantifier.getArguments());
-		newGoal = newGoal.withProperty((KProperty) canonicalize(and(newGoal.property,
-				quantifier.isUniversal() ? negate(newPredicate) : newPredicate)));
+		newGoal = newGoal.withProperty((KProperty) canonicalize(
+				and(newGoal.property, quantifier.isUniversal() ? negate(newPredicate) : newPredicate)));
 		return problem.withGoal(newGoal);
 	}
 
 	/**
-	 * Produces a subproblem which, if solved, provides a new "top" for the given transitive quantifier.
+	 * Produces a subproblem which, if solved, provides a new "top" for the
+	 * given transitive quantifier.
 	 */
 	public static KInput getSubProblemForTransitiveQuantifier(KInput problem, KQuantifier quantifier) {
 		MutableBinding rebindingForQuantifier = new MutableBinding();
@@ -361,15 +380,14 @@ public class ProblemSolver {
 		newProblem = TransformUtil.removeGivenFromGoal(newProblem, new Chainer(theorems));
 
 		if (newProblem.given.property != null)
-			newProblem = newProblem.withGiven(newProblem.given
-					.withProperty((KProperty) canonicalize(newProblem.given.property)));
+			newProblem = newProblem
+					.withGiven(newProblem.given.withProperty((KProperty) canonicalize(newProblem.given.property)));
 
 		if (newProblem.goal != null)
-			newProblem = newProblem.withGoal(newProblem.goal
-					.withProperty((KProperty) canonicalize(newProblem.goal.property)));
+			newProblem = newProblem
+					.withGoal(newProblem.goal.withProperty((KProperty) canonicalize(newProblem.goal.property)));
 
 		if (!reachedProblems.containsKey(newProblem)) {
-			// System.out.println(this + ":::::" + newProblem);
 			ProblemState newProblemState = new ProblemState(newProblem, parentState, multistageTheorem, binding);
 			reachedProblems.put(newProblem, newProblemState);
 
@@ -380,13 +398,22 @@ public class ProblemSolver {
 		}
 	}
 
+	private ProblemState getRootSolvedState(KInput enumerationProblem) {
+		ProblemState head = subSolvers.get(enumerationProblem).solved;
+		while (head.parentState != null) {
+			head.parentState.childStates = Collections.singletonList(head);
+			head = head.parentState;
+		}
+		return head.childStates.get(0);
+	}
+
 	public static String runWebSolver(String[] problemString) {
 		return ProblemState.getOutputString(runSolver(problemString[0]).getSolution());
 	}
 
 	public static ProblemSolver runSolver(String problemString) {
 		ArrayList<KTheorem> theorems = TheoremParser.parseFiles();
-		theorems.addAll(MultiTheoremParser.parseFiles());
+		theorems.addAll(MultiTheoremParser.getMultiTheorems());
 		ProblemSolver ret = new ProblemSolver((KInput) convertToKernel(QuickParser.parseInput(problemString)),
 				theorems.toArray(new KTheorem[0]));
 		ret.getSolution();
@@ -395,7 +422,7 @@ public class ProblemSolver {
 
 	public static void main(String[] args) {
 		ArrayList<KTheorem> theorems = TheoremParser.parseFiles();
-		theorems.addAll(MultiTheoremParser.parseFiles());
+		theorems.addAll(MultiTheoremParser.getMultiTheorems());
 		System.out.println("GIMME A PROBLEM!");
 		Scanner s = new Scanner(System.in);
 		while (true) {
@@ -404,7 +431,7 @@ public class ProblemSolver {
 				s.close();
 				System.exit(0);
 			}
-			KInput input = (KInput) SugarUtil.convertToKernel(QuickParser.parseInput(problemString));
+			KInput input = (KInput) convertToKernel(QuickParser.parseInput(problemString));
 			ProblemSolver problemSolver = new ProblemSolver(input, theorems.toArray(new KTheorem[0]));
 			ProblemState solution = problemSolver.getSolution();
 			if (solution == null)
@@ -422,6 +449,7 @@ public class ProblemSolver {
 			}
 			if (SHOW_GRAPH)
 				Viewer.displaySolverResults(problemSolver);
+
 			System.out.println("HIT ME WITH ANOTHER ONE!");
 		}
 	}

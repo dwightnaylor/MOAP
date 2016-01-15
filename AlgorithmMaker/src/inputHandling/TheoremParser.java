@@ -56,8 +56,8 @@ public class TheoremParser {
 		int split = line.indexOf(EXTENDS);
 		String subClass = line.substring(0, split);
 		String superClass = line.substring(split + EXTENDS.length(), line.length());
-		return theorem(atomic(KernelFactory.TYPE_MARKER + subClass + "(x)"), atomic(KernelFactory.TYPE_MARKER
-				+ superClass + "(x)"), 0, "Every " + subClass + " is a " + superClass);
+		return theorem(atomic(KernelFactory.TYPE_MARKER + subClass, "x"),
+				atomic(KernelFactory.TYPE_MARKER + superClass, "x"), 0, "Every " + subClass + " is a " + superClass);
 	}
 
 	private static KTheorem parseTheorem(String string) {

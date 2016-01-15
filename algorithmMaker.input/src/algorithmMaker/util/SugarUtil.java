@@ -203,7 +203,6 @@ public class SugarUtil {
 		}));
 	}
 
-	// TODO:DN: This method also has to be fixed up...god this is hacky
 	public static Input resugar(Input problem) {
 		Input ret = InputFactoryImpl.eINSTANCE.createInput();
 		ret.setGiven(resugar(problem.getGiven()));
@@ -248,8 +247,7 @@ public class SugarUtil {
 	public static Problem resugar(Problem problem) {
 		if (problem == null)
 			return null;
-		// TODO:RESUGAR: Collapse arithmetic (PROPERLY, the current way is AWFUL!)
-		// TODO:RESUGAR: Re-nest atomics if possible (PROPERLY, the current way is AWFUL!)
+		// TODO:RESUGAR: Collapse arithmetic and renest atomics (PROPERLY, the current way is AWFUL!)
 		// TODO:RESUGAR: collapse quantifiers if possible (child_type...)
 		Hashtable<String, String[]> replacements = new Hashtable<String, String[]>();
 		TreeIterator<EObject> contents = (problem.eContainer() == null ? problem : problem.eContainer()).eAllContents();

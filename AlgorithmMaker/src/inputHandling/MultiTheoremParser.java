@@ -11,7 +11,7 @@ import theorems.MultistageTheorem;
 
 public class MultiTheoremParser {
 
-	public static ArrayList<MultistageTheorem> parseFiles() {
+	public static ArrayList<MultistageTheorem> getMultiTheorems() {
 		ArrayList<MultistageTheorem> ret = new ArrayList<MultistageTheorem>();
 		addBruteForceFindTheorems(ret);
 		addSimpleTestingTheorems(ret);
@@ -59,6 +59,11 @@ public class MultiTheoremParser {
 				BOUND + "(apb) & " + InputUtil.MULTIPLICATION + "(a,b,apb)", "<apb> = <a> * <b>" });
 		declarations.add(new String[] { BOUND + "(a) & " + BOUND + "(b) & " + UNBOUND + "(apb)",
 				BOUND + "(apb) & " + InputUtil.DIVISION + "(a,b,apb)", "<apb> = <a> / <b>" });
+		declarations
+				.add(new String[] {
+						BOUND + "(a) & " + BOUND + "(b) & " + UNBOUND + "(dab) & " + TYPE_MARKER + "point(a) & "
+								+ TYPE_MARKER + "point(b)",
+						BOUND + "(dab) & distance(a,b,dab)", "<dab> = distance(<a>,<b>)" });
 
 		declarations.add(new String[] { BOUND + "(x) & type_priorityqueue(x)" + UNBOUND + "(y)",
 				"child(x,y) & forall(z st child(x,z) : lessThanEqual(y,z))", "<y> = <x>.poll()" });

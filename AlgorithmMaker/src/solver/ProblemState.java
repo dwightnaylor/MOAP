@@ -3,6 +3,7 @@ package solver;
 import java.util.*;
 
 import kernelLanguage.KInput;
+import pseudocoders.LineCoder;
 import theorems.MultistageTheorem;
 import algorithmMaker.util.SugarUtil;
 import bindings.Binding;
@@ -16,7 +17,8 @@ public class ProblemState implements Comparable<ProblemState> {
 	public MultistageTheorem rootTheorem;
 	public List<ProblemState> childStates;
 
-	public ProblemState(KInput problem, ProblemState parentState, MultistageTheorem multistageTheorem, Binding binding) {
+	public ProblemState(KInput problem, ProblemState parentState, MultistageTheorem multistageTheorem,
+			Binding binding) {
 		cost = (parentState == null ? 0 : parentState.cost) + (multistageTheorem == null ? 0 : multistageTheorem.cost);
 		this.problem = problem;
 		this.parentState = parentState;
@@ -54,7 +56,7 @@ public class ProblemState implements Comparable<ProblemState> {
 		}
 		StringBuffer output = new StringBuffer();
 		head.childStates.get(0).rootTheorem.getPseudocoder().appendPseudocode(output, 0, head.childStates.get(0),
-				"return " + head.problem.goal.vars);
+				new LineCoder("return " + head.problem.goal.vars), head.rootTheoremBinding);
 		return output.toString();
 	}
 }

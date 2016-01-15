@@ -29,4 +29,8 @@ public class KTheorem {
 	public KTheorem getConverse() {
 		return theorem(result, requirement, cost, description);
 	}
+	
+	public static void main(String[] args) {
+		while(true){}
+	}
 }

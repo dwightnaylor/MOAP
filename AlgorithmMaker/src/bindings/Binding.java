@@ -1,10 +1,12 @@
 package bindings;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
+import static algorithmMaker.util.KernelUtil.*;
+import static kernelLanguage.KernelFactory.*;
+
+import java.util.*;
 
 import algorithmMaker.util.KernelUtil;
-import kernelLanguage.KProperty;
+import kernelLanguage.*;
 import theorems.Fact;
 
 public class Binding {
@@ -26,13 +28,9 @@ public class Binding {
 		if (bindings.size() != binding.bindings.size())
 			return false;
 
-		for (String var : bindings.keySet()) {
-			if (!binding.bindings.containsKey(var))
+		for (String var : bindings.keySet())
+			if (!binding.bindings.containsKey(var) || !binding.bindings.get(var).equals(bindings.get(var)))
 				return false;
-
-			if (!binding.bindings.get(var).equals(bindings.get(var)))
-				return false;
-		}
 
 		return true;
 	}
@@ -55,21 +53,20 @@ public class Binding {
 		if (!KernelUtil.devar(original).equals(KernelUtil.devar(asserted)))
 			return false;
 
-		Hashtable<String, String> newBindings = new Hashtable<String, String>();
+		MutableBinding newBindings = new MutableBinding();
 
 		ArrayList<String> originalVars = KernelUtil.variables(original);
 		ArrayList<String> assertedVars = KernelUtil.variables(asserted);
 		for (int i = 0; i < originalVars.size(); i++) {
 			String originalVar = originalVars.get(i);
 			String assertedVar = assertedVars.get(i);
-			if (bindings.containsKey(originalVar) && !bindings.get(originalVar).equals(assertedVar)
-					|| newBindings.containsKey(originalVar) && !newBindings.get(originalVar).equals(assertedVar))
+			if (!newBindings.canBind(originalVar, assertedVar))
 				return false;
 
-			newBindings.put(originalVar, assertedVar);
+			newBindings.bind(originalVar, assertedVar);
 		}
 
-		return true;
+		return canHaveAdditionalBindings(newBindings);
 	}
 
 	public boolean canBind(String original, String asserted) {
@@ -90,7 +87,7 @@ public class Binding {
 
 	public String revar(String pseudoCode) {
 		String newCode = pseudoCode;
-		for (String original : bindings.keySet())
+		for (String original : bindings.keySet()) 
 			newCode = newCode.replaceAll('<' + original + '>', bindings.get(original).toString());
 
 		return newCode;
@@ -112,5 +109,99 @@ public class Binding {
 			ret.bind(binding[0], binding[1]);
 
 		return ret.getImmutable();
+	}
+
+	/**
+	 * Finds all of the bindings from variables within container to variables
+	 * within content which will make content a sub-property of container. <br>
+	 * <br>
+	 * NOTE: Due to the fact that I'm lazy, this method currently only uses the
+	 * surface-representation of the given properties, meaning it will not
+	 * "dig down" to find if a deeper equivalence exists.
+	 * 
+	 * @param container
+	 * @param mappedContent
+	 * @param theorems
+	 * @param originalBinding
+	 *            Must be either one or zero bindings. If there is a binding, it
+	 *            is the binding that all other bindings must contain.
+	 * @return
+	 */
+	public static ArrayList<Binding> findBindingWithin(KProperty container, KProperty content,
+			Binding... originalBinding) {
+		if (originalBinding.length > 1)
+			throw new IllegalArgumentException("There can only be one originalBinding");
+
+		// TODO: Make this method use deep similarity for analyzing the given
+		// properties
+		Hashtable<KProperty, ArrayList<KProperty>> containerByStructure = new Hashtable<KProperty, ArrayList<KProperty>>();
+		for (KProperty anded : KernelUtil.getANDed(container)) {
+			KProperty devar = devar(anded);
+			if (!containerByStructure.containsKey(devar))
+				containerByStructure.put(devar, new ArrayList<KProperty>());
+
+			containerByStructure.get(devar).add(anded);
+		}
+		ArrayList<KProperty> structures = new ArrayList<KProperty>();
+		Hashtable<KProperty, ArrayList<KProperty>> contentByStructure = new Hashtable<KProperty, ArrayList<KProperty>>();
+		for (KProperty anded : KernelUtil.getANDed(content)) {
+			KProperty devar = devar(anded);
+			if (!containerByStructure.containsKey(devar)) {
+				return null;
+			}
+			if (!contentByStructure.containsKey(devar)) {
+				structures.add(devar);
+				contentByStructure.put(devar, new ArrayList<KProperty>());
+			}
+
+			contentByStructure.get(devar).add(anded);
+		}
+
+		ArrayList<Binding> ret = new ArrayList<Binding>();
+		OneToOneBinding binding = new OneToOneBinding();
+		if (originalBinding.length > 0)
+			binding.addBindingsFrom(originalBinding[0]);
+
+		addBindingsWithin(ret, binding, containerByStructure, contentByStructure, structures, 0);
+		return ret;
+	}
+
+	public Binding getInverse() {
+		MutableBinding ret = new MutableBinding();
+		for (String key : bindings.keySet()) {
+			if (ret.bindings.containsKey(bindings.get(key)))
+				throw new IllegalArgumentException(
+						"Can only invert a binding that is one-to-one. The binding " + this + " was not.");
+
+			ret.bind(bindings.get(key), key);
+		}
+		return ret.getImmutable();
+	}
+
+	/**
+	 * Helper method used for trying all possible combinations for a given
+	 * container/content pair.
+	 */
+	private static void addBindingsWithin(ArrayList<Binding> bindingList, OneToOneBinding binding,
+			Hashtable<KProperty, ArrayList<KProperty>> containerByStructure,
+			Hashtable<KProperty, ArrayList<KProperty>> contentByStructure, ArrayList<KProperty> structures,
+			int structureIndex) {
+		if (structureIndex == structures.size()) {
+			bindingList.add(binding.getImmutable());
+			return;
+		}
+
+		for (KProperty containerProp : containerByStructure.get(structures.get(structureIndex))) {
+			for (KProperty contentProp : contentByStructure.get(structures.get(structureIndex))) {
+				if (binding.canBind(containerProp, contentProp)) {
+					binding.applyBinding(containerProp, new Fact<KProperty>(contentProp, NULL));
+					addBindingsWithin(bindingList, binding, containerByStructure, contentByStructure, structures,
+							structureIndex + 1);
+					binding.undoLastBinding();
+				} else {
+					return;
+				}
+			}
+		}
 	}
 }

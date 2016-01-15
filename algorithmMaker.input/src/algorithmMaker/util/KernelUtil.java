@@ -13,7 +13,7 @@ import kernelLanguage.*;
 
 public class KernelUtil {
 	public static final Transitivity TRANSITIVITY = new Transitivity();
-	
+
 	public static final Comparator<KObject> KERNEL_COMPARATOR = new Comparator<KObject>() {
 		@Override
 		public int compare(KObject input1, KObject input2) {
@@ -51,6 +51,71 @@ public class KernelUtil {
 
 	public static KProperty parseProperty(String string) {
 		return (KProperty) SugarUtil.convertToKernel(QuickParser.parseProperty(string));
+	}
+
+	public static ArrayList<ArrayList<String>> getDistinctProblems(KObject property) {
+		ArrayList<ArrayList<String>> ret = new ArrayList<ArrayList<String>>();
+		Hashtable<String, HashSet<KAtomic>> atomics = new Hashtable<String, HashSet<KAtomic>>();
+		accumulate(property, new Consumer<KObject>() {
+			@Override
+			public void accept(KObject t) {
+				if (t instanceof KAtomic)
+					for (String var : ((KAtomic) t).args) {
+						if (!atomics.containsKey(var))
+							atomics.put(var, new HashSet<KAtomic>());
+
+						atomics.get(var).add((KAtomic) t);
+					}
+			}
+		});
+		HashSet<String> exploredVars = new HashSet<String>();
+		for (String var : atomics.keySet()) {
+			if (exploredVars.contains(var))
+				continue;
+			exploredVars.add(var);
+
+			ArrayList<String> varsInCurrentGroup = new ArrayList<String>(Collections.singleton(var));
+			for (int i = 0; i < varsInCurrentGroup.size(); i++) {
+				for (KAtomic atomic : atomics.get(varsInCurrentGroup.get(i))) {
+					for (String arg : atomic.args) {
+						if (exploredVars.contains(arg))
+							continue;
+						exploredVars.add(arg);
+
+						varsInCurrentGroup.add(arg);
+					}
+				}
+			}
+			ret.add(varsInCurrentGroup);
+		}
+		return ret;
+	}
+
+	public static void main(String[] args) {
+		KInput input = parseInput(
+				"Given list x, list y; Find q st something(q) & forall(a,z st child(x,a) & child(y,z) : blah(q,z))");
+		ArrayList<ArrayList<String>> distinctProblems = getDistinctProblems(input);
+		for (ArrayList<String> vars : distinctProblems) {
+			System.out.println(KernelUtil.map(input, new KernelMapper() {
+				@Override
+				public KObject calculateConversion(KObject object) {
+					if (object instanceof KAtomic) {
+						KAtomic atomic = (KAtomic) object;
+						for (String arg : atomic.args) {
+							if (!vars.contains(arg))
+								return null;
+						}
+					}
+					if (object instanceof KProblem) {
+						ArrayList<String> varsToInclude = new ArrayList<String>(((KProblem) object).vars);
+						varsToInclude.removeIf(x -> !vars.contains(x));
+						return ((KProblem) object).withVars(varsToInclude);
+					}
+					return object;
+				}
+			}));
+		}
+		System.out.println(distinctProblems);
 	}
 
 	public static KTheorem parseTheorem(String string) {
@@ -151,9 +216,13 @@ public class KernelUtil {
 		});
 	}
 
-	public static ArrayList<KProperty> getANDed(KANDing a) {
+	public static ArrayList<KProperty> getANDed(KProperty a) {
 		ArrayList<KProperty> ret = new ArrayList<KProperty>();
-		addANDed(a, ret);
+		if (a instanceof KANDing) {
+			addANDed((KANDing) a, ret);
+		} else {
+			ret.add(a);
+		}
 		return ret;
 	}
 
@@ -176,6 +245,37 @@ public class KernelUtil {
 
 	public static KObject canonicalize(KObject object) {
 		return map(object, KernelMapper.CANONICALIZER);
+	}
+
+	public static ArrayList<KAtomic> getInvolvedAtomics(KProperty object, MetaProperty property) {
+		ArrayList<KAtomic> ret = new ArrayList<KAtomic>();
+		addInvolvedAtomics(ret, object, property);
+		return ret;
+	}
+
+	private static void addInvolvedAtomics(ArrayList<KAtomic> ret, KProperty object, MetaProperty property) {
+		switch (KType(object)) {
+		case KAtomic: {
+			KAtomic atomic = (KAtomic) object;
+			if (property.hasAtomic(atomic.function))
+				ret.add(atomic);
+
+			return;
+		}
+		case KANDing:
+			addInvolvedAtomics(ret, ((KANDing) object).lhs, property);
+			addInvolvedAtomics(ret, ((KANDing) object).rhs, property);
+			return;
+		case KNegation:
+			addInvolvedAtomics(ret, ((KNegation) object).negated, property);
+			return;
+		case KQuantifier:
+			addInvolvedAtomics(ret, ((KQuantifier) object).predicate, property);
+			return;
+		case KInput:
+		case KProblem:
+		case KBooleanLiteral:
+		}
 	}
 
 	public static boolean satisfies(KProperty object, MetaProperty property) {

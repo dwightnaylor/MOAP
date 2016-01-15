@@ -24,6 +24,11 @@ public class KernelFactory {
 	public static final String MULTIPLICATION = "times";
 	public static final String DIVISION = "divide";
 
+	/**
+	 * The theorem used to defend proofs done where no defense should be needed.
+	 * A "dummy" theorem. Used for internal proving and the like.
+	 */
+	public static final KTheorem NULL = new KTheorem(null, null, 0, "NULL");
 	public static final KTheorem GIVEN = new KTheorem(null, null, 0, "GIVEN");
 	public static final KTheorem REFLEXIVE = new KTheorem(null, null, 0, "Reflexive Property");
 	public static final KTheorem GOAL = new KTheorem(null, null, 0, "GOAL");
@@ -97,6 +102,10 @@ public class KernelFactory {
 	}
 
 	public static KAtomic atomic(String function, String... args) {
+		for (char c : function.toCharArray())
+			if (!Character.isAlphabetic(c) && !Character.isDigit(c) && c != '_')
+				throw new IllegalArgumentException("The character " + c + " is not allowed in atomic names.");
+
 		return atomic(function, Arrays.asList(args));
 	}
 
