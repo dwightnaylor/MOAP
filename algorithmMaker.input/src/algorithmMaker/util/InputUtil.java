@@ -77,7 +77,7 @@ public class InputUtil {
 	}
 
 	public static Theorem stupidCopy(Theorem theorem) {
-		return (Theorem) QuickParser.parseTheorem(theorem.toString());
+		return QuickParser.parseTheorem(theorem.toString());
 	}
 
 	public static HashSet<String> getDeclaredVars(EObject input) {
@@ -94,8 +94,8 @@ public class InputUtil {
 	public static Problem stupidCopy(Problem problem) {
 		if (problem.getVars() == null || problem.getVars().size() == 0) {
 			Problem ret = InputFactoryImpl.eINSTANCE.createProblem();
-			ret.setProperty(problem.getProperty() == null ? InputUtil.getBooleanLiteral(true) : stupidCopy(problem
-					.getProperty()));
+			ret.setProperty(problem.getProperty() == null ? InputUtil.getBooleanLiteral(true)
+					: stupidCopy(problem.getProperty()));
 			return ret;
 		}
 		return QuickParser.parseProblem(problem.toString());
@@ -418,7 +418,8 @@ public class InputUtil {
 			return null;
 
 		KernelType kernelType = InputUtil.kernelType(cur);
-		// If we're not dealing with a kernel type, just pass it down and hope everything turns out alright.
+		// If we're not dealing with a kernel type, just pass it down and hope
+		// everything turns out alright.
 		if (kernelType == null) {
 			return reducer.apply(InputUtil.stupidCopy((Property) cur));
 		}
@@ -543,7 +544,7 @@ public class InputUtil {
 		return ret;
 	}
 
-	public static String getUnusedVar(HashSet<String> usedVars) {
+	public static String getUnusedVar(Set<String> usedVars) {
 		for (char ret = 'a'; ret <= 'z'; ret++) {
 			String retString = "n" + ret;
 			if (!usedVars.contains(retString))

@@ -13,6 +13,14 @@ public class KInput extends KObject {
 	KInput(KProblem given, KProblem goal) {
 		this.given = given;
 		this.goal = goal;
+		HashSet<String> varSet = new HashSet<String>(given.vars);
+		if (KernelUtil.ERROR_ON_NESTED_VARS)
+			for (KObject object : KernelUtil.contents(goal))
+				if (object instanceof KProblem)
+					for (String var : ((KProblem) object).vars)
+						if (varSet.contains(var))
+							throw new IllegalKernelException(
+									"The variable \"" + var + "\" was declared in both an input given and its goal.");
 	}
 
 	@Override
@@ -52,6 +60,6 @@ public class KInput extends KObject {
 		ArrayList<String> newGoalVars = new ArrayList<String>(newGoalVarsSet);
 		Collections.sort(newGoalVars);
 
-		return withGiven(given.withVars(newGivenVars)).withGoal(goal.withVars(newGoalVars));
+		return KernelFactory.input(given.withVars(newGivenVars), goal.withVars(newGoalVars));
 	}
 }

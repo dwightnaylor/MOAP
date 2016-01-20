@@ -26,8 +26,7 @@ public class ProblemSolver {
 	private static final boolean SHOW_GRAPH = true;
 
 	/**
-	 * All of the problem states that have either been explored or been enqueued
-	 * to be explored.
+	 * All of the problem states that have either been explored or been enqueued to be explored.
 	 */
 	public Hashtable<KInput, ProblemState> reachedProblems = new Hashtable<KInput, ProblemState>();
 
@@ -37,6 +36,8 @@ public class ProblemSolver {
 	ProblemState solved = null;
 	private final KTheorem[] theorems;
 	private final KTheorem[] invertedTheorems;
+
+	private int depth = 0;
 
 	public ProblemSolver(KInput problem, KTheorem... theorems) {
 		this.theorems = theorems;
@@ -169,6 +170,8 @@ public class ProblemSolver {
 		for (KAtomic atomic : involvedAtomics)
 			usedVariables.bind(atomic.args.get(0), atomic.args.get(1));
 
+		KProperty uninvolvedParts = quantifier.predicate.without(new HashSet<KProperty>(involvedAtomics));
+
 		// We then have to make sure this quantifier is a true transitive
 		// quantifier.
 		ArrayList<Binding> bindings = Binding.findBindingWithin(problemState.problem.goal.property,
@@ -180,13 +183,14 @@ public class ProblemSolver {
 				KInput enumerationProblem = input(problemState.problem.given, quantifier.subject);
 				if (!subSolvers.containsKey(enumerationProblem)) {
 					ProblemSolver subSolver = new ProblemSolver(enumerationProblem, theorems);
+					subSolver.depth = depth + 1;
 					subSolvers.put(enumerationProblem, subSolver);
 					subSolver.getSolution();
 				}
 				KProperty goalNonQuantifierPart = revar(quantifier.subject.property,
 						binding.getInverse().getArguments());
 				KProperty transitivityGiven = and(problemState.problem.given.property, quantifier.subject.property,
-						goalNonQuantifierPart);
+						goalNonQuantifierPart, uninvolvedParts);
 				if (subSolvers.get(enumerationProblem).solved == null)
 					return;
 
@@ -199,6 +203,7 @@ public class ProblemSolver {
 							problem(new ArrayList<String>(), negate(atomic)));
 					if (!subSolvers.containsKey(testProblems[i])) {
 						ProblemSolver subSolver = new ProblemSolver(testProblems[i], theorems);
+						subSolver.depth = depth + 1;
 						subSolvers.put(testProblems[i], subSolver);
 						subSolver.getSolution();
 					}
@@ -242,6 +247,8 @@ public class ProblemSolver {
 								new SequentialCoder(testCoders, testBindings), binding);
 					}
 				};
+				// System.out.println("new problem:" + newProblem);
+				// System.exit(0);
 
 				addProblemState(newProblem,
 						problemState, new MultistageTheorem(null, null, null, 10,
@@ -266,17 +273,18 @@ public class ProblemSolver {
 		KInput subProblem = getSubProblemForQuantifier(problemState.problem, quantifier);
 		if (!subSolvers.containsKey(subProblem)) {
 			ProblemSolver subSolver = new ProblemSolver(subProblem, theorems);
+			subSolver.depth = depth + 1;
 			subSolvers.put(subProblem, subSolver);
 			subSolver.getSolution();
 		}
 		if (subSolvers.get(subProblem).solved != null) {
-			// The new problem with the quantifier constraint removed and added
-			// to the given
+			// The new problem with the quantifier constraint removed and added to the given
 			KInput newProblem = problemState.problem;
 			// FIXME: DN: This is a stupid way of removing properties here
+			newProblem = newProblem.withGoal(newProblem.goal.withProperty(
+					newProblem.goal.property.without(new HashSet<KProperty>(Collections.singleton(quantifier)))));
 			newProblem = newProblem
-					.withGoal((KProblem) newProblem.goal.withProperty(newProblem.goal.property.without(quantifier)));
-			newProblem = newProblem.withGiven(newProblem.given.withProperty(quantifier));
+					.withGiven(newProblem.given.withProperty(and(newProblem.given.property, quantifier)));
 
 			String newVariable = "NEW_VARIABLE";
 			Pseudocoder coder = new Pseudocoder() {
@@ -345,8 +353,7 @@ public class ProblemSolver {
 	}
 
 	/**
-	 * Produces a subproblem which, if solved, provides a new "top" for the
-	 * given transitive quantifier.
+	 * Produces a subproblem which, if solved, provides a new "top" for the given transitive quantifier.
 	 */
 	public static KInput getSubProblemForTransitiveQuantifier(KInput problem, KQuantifier quantifier) {
 		MutableBinding rebindingForQuantifier = new MutableBinding();
@@ -388,6 +395,10 @@ public class ProblemSolver {
 					.withGoal(newProblem.goal.withProperty((KProperty) canonicalize(newProblem.goal.property)));
 
 		if (!reachedProblems.containsKey(newProblem)) {
+			// for (int i = 0; i < depth; i++)
+			// System.out.print("\t");
+			// System.out.println(newProblem);
+
 			ProblemState newProblemState = new ProblemState(newProblem, parentState, multistageTheorem, binding);
 			reachedProblems.put(newProblem, newProblemState);
 
@@ -443,7 +454,7 @@ public class ProblemSolver {
 					problems.insert(0, resugar(convertToInput(solution.problem)) + "\n");
 					solution = solution.parentState;
 				} while (solution != null);
-				System.out.println(problems);
+				// System.out.println(problems);
 
 				System.out.println(ProblemState.getOutputString(solutionSave));
 			}

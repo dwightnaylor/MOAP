@@ -2,6 +2,7 @@ package kernelLanguage;
 
 import java.util.*;
 
+import algorithmMaker.util.KernelUtil;
 import kernelLanguage.KQuantifier.Quantifier;
 
 public class KernelFactory {
@@ -64,8 +65,11 @@ public class KernelFactory {
 		if (!quantifiers.get(quantifier).containsKey(subject))
 			quantifiers.get(quantifier).put(subject, new Hashtable<KProperty, KQuantifier>());
 
-		if (!quantifiers.get(quantifier).get(subject).containsKey(predicate))
-			quantifiers.get(quantifier).get(subject).put(predicate, new KQuantifier(quantifier, subject, predicate));
+		if (!quantifiers.get(quantifier).get(subject).containsKey(predicate)) {
+			KQuantifier initial = new KQuantifier(quantifier, subject, predicate);
+			quantifiers.get(quantifier).get(subject).put(predicate, initial);
+			quantifiers.get(quantifier).get(subject).put(predicate, KernelUtil.cleanDeclarations(initial));
+		}
 
 		return quantifiers.get(quantifier).get(subject).get(predicate);
 	}
@@ -74,8 +78,11 @@ public class KernelFactory {
 		if (!problems.containsKey(vars))
 			problems.put(vars, new Hashtable<KProperty, KProblem>());
 
-		if (!problems.get(vars).containsKey(property))
-			problems.get(vars).put(property, new KProblem(vars, property));
+		if (!problems.get(vars).containsKey(property)) {
+			KProblem initial = new KProblem(vars, property);
+			problems.get(vars).put(property, initial);
+			problems.get(vars).put(property, KernelUtil.cleanDeclarations(initial));
+		}
 
 		return problems.get(vars).get(property);
 	}
@@ -91,8 +98,11 @@ public class KernelFactory {
 		if (!inputs.containsKey(given))
 			inputs.put(given, new Hashtable<KProblem, KInput>());
 
-		if (!inputs.get(given).containsKey(goal))
-			inputs.get(given).put(goal, new KInput(given, goal));
+		if (!inputs.get(given).containsKey(goal)) {
+			KInput initial = new KInput(given, goal);
+			inputs.get(given).put(goal, initial);
+			inputs.get(given).put(goal, KernelUtil.cleanDeclarations(initial));
+		}
 
 		return inputs.get(given).get(goal);
 	}

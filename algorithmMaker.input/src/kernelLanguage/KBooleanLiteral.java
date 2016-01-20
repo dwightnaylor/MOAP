@@ -1,5 +1,7 @@
 package kernelLanguage;
 
+import java.util.HashSet;
+
 public class KBooleanLiteral extends KProperty {
 	public final boolean value;
 
@@ -15,5 +17,14 @@ public class KBooleanLiteral extends KProperty {
 	@Override
 	String calculateToString() {
 		return ("" + value).toUpperCase();
+	}
+
+	public KBooleanLiteral negate() {
+		return KernelFactory.bool(!value);
+	}
+
+	@Override
+	public KProperty without(HashSet<KProperty> toRemove) {
+		return this;
 	}
 }

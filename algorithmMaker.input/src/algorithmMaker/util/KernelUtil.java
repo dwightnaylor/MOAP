@@ -12,6 +12,15 @@ import algorithmMaker.util.metaProperties.*;
 import kernelLanguage.*;
 
 public class KernelUtil {
+
+	/**
+	 * Determines whether or not to crash when a nested variable is detected in
+	 * the program. This includes things like forall(x st a(x) : forall(x st
+	 * b(x) : c(x))), where there is an x declared inside a scope where an x has
+	 * already been declared.
+	 */
+	public static final boolean ERROR_ON_NESTED_VARS = false;
+
 	public static final Transitivity TRANSITIVITY = new Transitivity();
 
 	public static final Comparator<KObject> KERNEL_COMPARATOR = new Comparator<KObject>() {
@@ -89,33 +98,6 @@ public class KernelUtil {
 			ret.add(varsInCurrentGroup);
 		}
 		return ret;
-	}
-
-	public static void main(String[] args) {
-		KInput input = parseInput(
-				"Given list x, list y; Find q st something(q) & forall(a,z st child(x,a) & child(y,z) : blah(q,z))");
-		ArrayList<ArrayList<String>> distinctProblems = getDistinctProblems(input);
-		for (ArrayList<String> vars : distinctProblems) {
-			System.out.println(KernelUtil.map(input, new KernelMapper() {
-				@Override
-				public KObject calculateConversion(KObject object) {
-					if (object instanceof KAtomic) {
-						KAtomic atomic = (KAtomic) object;
-						for (String arg : atomic.args) {
-							if (!vars.contains(arg))
-								return null;
-						}
-					}
-					if (object instanceof KProblem) {
-						ArrayList<String> varsToInclude = new ArrayList<String>(((KProblem) object).vars);
-						varsToInclude.removeIf(x -> !vars.contains(x));
-						return ((KProblem) object).withVars(varsToInclude);
-					}
-					return object;
-				}
-			}));
-		}
-		System.out.println(distinctProblems);
 	}
 
 	public static KTheorem parseTheorem(String string) {
@@ -285,7 +267,8 @@ public class KernelUtil {
 		case KANDing:
 			return satisfies(((KANDing) object).lhs, property) || satisfies(((KANDing) object).rhs, property);
 		case KNegation:
-			return satisfies(((KNegation) object).negated, property);
+			// TODO:DN: figure out whether or not this is always true...
+			return false;
 		case KQuantifier:
 			return satisfies(((KQuantifier) object).predicate, property);
 		case KInput:
@@ -412,4 +395,55 @@ public class KernelUtil {
 		return mapper.cache.get(object);
 	}
 
+	public static <T extends KObject> T cleanDeclarations(T object) {
+		return cleanDeclarations(object, new HashSet<String>(), new Hashtable<String, String>());
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T extends KObject> T cleanDeclarations(T object, HashSet<String> currentVars,
+			Hashtable<String, String> currentRevars) {
+		switch (KType(object)) {
+		case KANDing:
+			return (T) and(cleanDeclarations(((KANDing) object).lhs, currentVars, currentRevars),
+					cleanDeclarations(((KANDing) object).rhs, currentVars, currentRevars));
+		case KAtomic:
+			return KernelUtil.revar(object, currentRevars);
+		case KInput:
+			currentVars.addAll(((KInput) object).given.vars);
+			KProblem newGiven = cleanDeclarations(((KInput) object).given, currentVars, currentRevars);
+			currentVars.addAll(((KInput) object).goal.vars);
+			KProblem newGoal = cleanDeclarations(((KInput) object).goal, currentVars, currentRevars);
+			currentVars.removeAll(((KInput) object).given.vars);
+			currentVars.removeAll(((KInput) object).goal.vars);
+			return (T) input(newGiven, newGoal);
+		case KNegation:
+			return (T) negate(cleanDeclarations(((KNegation) object).negated, currentVars, currentRevars));
+		case KProblem:
+			return (T) problem(((KProblem) object).vars,
+					cleanDeclarations(((KProblem) object).property, currentVars, currentRevars));
+		case KQuantifier:
+			Hashtable<String, String> oldRevars = new Hashtable<String, String>();
+			for (String var : ((KQuantifier) object).subject.vars) {
+				if (currentVars.contains(var)) {
+					if (currentRevars.containsKey(var))
+						oldRevars.put(var, currentRevars.get(var));
+
+					currentRevars.put(var, InputUtil.getUnusedVar(currentRevars.keySet()));
+				} else
+					currentVars.add(var);
+			}
+			KProblem newSubject = cleanDeclarations(((KQuantifier) object).subject, currentVars, currentRevars);
+			KProperty newPredicate = cleanDeclarations(((KQuantifier) object).predicate, currentVars, currentRevars);
+			for (String var : ((KQuantifier) object).subject.vars) {
+				if (oldRevars.containsKey(var))
+					currentRevars.put(var, oldRevars.get(var));
+				else
+					currentVars.remove(var);
+			}
+			return (T) quantifier(((KQuantifier) object).quantifier, newSubject, newPredicate);
+		case KBooleanLiteral:
+		default:
+			return object;
+		}
+	}
 }

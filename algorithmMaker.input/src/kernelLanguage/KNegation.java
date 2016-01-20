@@ -1,5 +1,7 @@
 package kernelLanguage;
 
+import java.util.HashSet;
+
 public class KNegation extends KProperty {
 	public final KProperty negated;
 
@@ -18,5 +20,17 @@ public class KNegation extends KProperty {
 		ret.append('!');
 		ret.append(negated.toString());
 		return ret.toString();
+	}
+
+	@Override
+	public KProperty without(HashSet<KProperty> toRemove) {
+		KProperty newNegated = negated.without(toRemove);
+		if (newNegated instanceof KBooleanLiteral)
+			return ((KBooleanLiteral) newNegated).negate();
+
+		if (toRemove.contains(this))
+			return KernelFactory.TRUE;
+
+		return KernelFactory.negate(newNegated);
 	}
 }

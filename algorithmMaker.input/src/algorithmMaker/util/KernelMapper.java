@@ -83,8 +83,41 @@ public abstract class KernelMapper implements Function<KObject, KObject> {
 				KProperty newPredicate = (KProperty) calculateConversion(quantifier.predicate);
 				// TODO (low): Deal with quantifier ordering (FA(E) vs E(FA))
 				// TODO (low): Deal with quantifier splitting
-
-				return quantifier(quantifier.quantifier, problem(quantifier.subject.vars, newSubject), newPredicate);
+				KProperty ret;
+				if (newSubject.equals(KernelFactory.TRUE)) {
+					ret = newPredicate;
+				} else if (newSubject.equals(KernelFactory.FALSE)) {
+					return null;
+				} else {
+					ret = quantifier(quantifier.quantifier, problem(quantifier.subject.vars, newSubject), newPredicate);
+				}
+				// This whole block is breaking up the quantifier into distinct
+				// problems if there are several unrelated things inside one
+				// quantifier.
+				ArrayList<ArrayList<String>> distinctProblems = KernelUtil.getDistinctProblems(ret);
+				KProperty[] andResults = new KProperty[distinctProblems.size()];
+				for (int i = 0; i < distinctProblems.size(); i++) {
+					ArrayList<String> var = distinctProblems.get(i);
+					andResults[i] = (KProperty) KernelUtil.map(KernelUtil.map(ret, new KernelMapper() {
+						@Override
+						public KObject calculateConversion(KObject object) {
+							if (object instanceof KAtomic) {
+								KAtomic atomic = (KAtomic) object;
+								for (String arg : atomic.args) {
+									if (!var.contains(arg))
+										return null;
+								}
+							}
+							if (object instanceof KProblem) {
+								ArrayList<String> varsToInclude = new ArrayList<String>(((KProblem) object).vars);
+								varsToInclude.removeIf(x -> !var.contains(x));
+								return ((KProblem) object).withVars(varsToInclude);
+							}
+							return object;
+						}
+					}), CANONICALIZER);
+				}
+				return KernelFactory.and(andResults);
 			}
 			case KBooleanLiteral:
 			case KAtomic:
@@ -99,8 +132,11 @@ public abstract class KernelMapper implements Function<KObject, KObject> {
 
 	@Override
 	public final KObject apply(KObject object) {
-		if (!cache.containsKey(object))
+		if (!cache.containsKey(object)) {
+			// Use this as a placeholder, also prevents recursion.
+			cache.put(object, object);
 			cache.put(object, calculateConversion(object));
+		}
 
 		return cache.get(object);
 	}

@@ -1,11 +1,15 @@
 package algorithmMaker.input.tests.kernel;
 
 import static org.junit.Assert.*;
+
+import java.util.*;
+
 import static algorithmMaker.util.KernelUtil.*;
 import static kernelLanguage.KernelFactory.*;
-import kernelLanguage.KAtomic;
 
 import org.junit.Test;
+
+import kernelLanguage.*;
 
 public class KPropertyTests {
 	@Test
@@ -20,11 +24,11 @@ public class KPropertyTests {
 		KAtomic a = atomic("a", "x");
 		KAtomic b = atomic("b", "x");
 
-		assertEquals(TRUE, a.without(a));
-		assertEquals(TRUE, and(a, a).without(a));
+		assertEquals(TRUE, a.without(new HashSet<KProperty>(Collections.singleton(a))));
+		assertEquals(TRUE, and(a, a).without(new HashSet<KProperty>(Collections.singleton(a))));
 
-		assertEquals(a, a.without(b));
-		assertEquals(b, and(a, b).without(a));
+		assertEquals(a, a.without(new HashSet<KProperty>(Collections.singleton(b))));
+		assertEquals(b, and(a, b).without(new HashSet<KProperty>(Collections.singleton(a))));
 	}
 
 	@Test

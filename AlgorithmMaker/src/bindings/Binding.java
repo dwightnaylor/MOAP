@@ -69,6 +69,26 @@ public class Binding {
 		return canHaveAdditionalBindings(newBindings);
 	}
 
+	public boolean wouldAddNewBinding(KProperty original, KProperty asserted) {
+		if (!KernelUtil.devar(original).equals(KernelUtil.devar(asserted)))
+			return false;
+
+		MutableBinding newBindings = new MutableBinding();
+
+		ArrayList<String> originalVars = KernelUtil.variables(original);
+		ArrayList<String> assertedVars = KernelUtil.variables(asserted);
+		for (int i = 0; i < originalVars.size(); i++) {
+			String originalVar = originalVars.get(i);
+			String assertedVar = assertedVars.get(i);
+			if (!newBindings.canBind(originalVar, assertedVar))
+				return false;
+
+			newBindings.bind(originalVar, assertedVar);
+		}
+
+		return canHaveAdditionalBindings(newBindings);
+	}
+
 	public boolean canBind(String original, String asserted) {
 		return !bindings.containsKey(original) || bindings.get(original).equals(asserted);
 	}
@@ -87,7 +107,7 @@ public class Binding {
 
 	public String revar(String pseudoCode) {
 		String newCode = pseudoCode;
-		for (String original : bindings.keySet()) 
+		for (String original : bindings.keySet())
 			newCode = newCode.replaceAll('<' + original + '>', bindings.get(original).toString());
 
 		return newCode;
@@ -162,7 +182,7 @@ public class Binding {
 		if (originalBinding.length > 0)
 			binding.addBindingsFrom(originalBinding[0]);
 
-		addBindingsWithin(ret, binding, containerByStructure, contentByStructure, structures, 0);
+		addBindingsWithin(ret, binding, containerByStructure, contentByStructure, structures, 0, 0);
 		return ret;
 	}
 
@@ -185,22 +205,23 @@ public class Binding {
 	private static void addBindingsWithin(ArrayList<Binding> bindingList, OneToOneBinding binding,
 			Hashtable<KProperty, ArrayList<KProperty>> containerByStructure,
 			Hashtable<KProperty, ArrayList<KProperty>> contentByStructure, ArrayList<KProperty> structures,
-			int structureIndex) {
+			int structureIndex, int subIndex) {
+		if (subIndex == containerByStructure.get(structures.get(structureIndex)).size()) {
+			subIndex = 0;
+			structureIndex++;
+		}
 		if (structureIndex == structures.size()) {
 			bindingList.add(binding.getImmutable());
 			return;
 		}
 
-		for (KProperty containerProp : containerByStructure.get(structures.get(structureIndex))) {
-			for (KProperty contentProp : contentByStructure.get(structures.get(structureIndex))) {
-				if (binding.canBind(containerProp, contentProp)) {
-					binding.applyBinding(containerProp, new Fact<KProperty>(contentProp, NULL));
-					addBindingsWithin(bindingList, binding, containerByStructure, contentByStructure, structures,
-							structureIndex + 1);
-					binding.undoLastBinding();
-				} else {
-					return;
-				}
+		KProperty containerProp = containerByStructure.get(structures.get(structureIndex)).get(subIndex);
+		for (KProperty contentProp : contentByStructure.get(structures.get(structureIndex))) {
+			if (binding.canBind(containerProp, contentProp)) {
+				binding.applyBinding(containerProp, new Fact<KProperty>(contentProp, NULL));
+				addBindingsWithin(bindingList, binding, containerByStructure, contentByStructure, structures,
+						structureIndex, subIndex + 1);
+				binding.undoLastBinding();
 			}
 		}
 	}

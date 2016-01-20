@@ -1,5 +1,7 @@
 package kernelLanguage;
 
+import static kernelLanguage.KernelFactory.TRUE;
+
 import java.util.*;
 
 public class KAtomic extends KProperty {
@@ -33,5 +35,13 @@ public class KAtomic extends KProperty {
 		}
 		ret.append(')');
 		return ret.toString();
+	}
+
+	@Override
+	public KProperty without(HashSet<KProperty> toRemove) {
+		if (toRemove.contains(this))
+			return TRUE;
+
+		return this;
 	}
 }

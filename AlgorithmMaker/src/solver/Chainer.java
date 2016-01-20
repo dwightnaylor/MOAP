@@ -128,13 +128,14 @@ public class Chainer {
 
 	@SuppressWarnings("unchecked")
 	public void chain(Fact<? extends KProperty> fact) {
+
 		KProperty property = fact.property;
 		if (hasProperty(property))
 			return;
 
 		properties.put(property, fact);
 
-		KProperty devar = (KProperty) devar(property);
+		KProperty devar = devar(property);
 		if (!propertiesByStructure.containsKey(devar))
 			propertiesByStructure.put(devar, new HashSet<Fact<? extends KProperty>>());
 
@@ -143,14 +144,15 @@ public class Chainer {
 		if (property instanceof KQuantifier) {
 			KQuantifier quantifier = (KQuantifier) property;
 			if (quantifier.isUniversal()) {
+				// Add the new theorem that is implied by the quantifier.
 				KTheorem newTheorem = theorem(quantifier.subject.property, quantifier.predicate, 0, "Quantification");
 				for (Binding existingBinding : getAllFulfillmentsOf(newTheorem.requirement)) {
 					Fact<? extends KProperty>[] prerequisites = new Fact[existingBinding.getPrerequisites().size() + 1];
 					prerequisites[0] = fact;
 					System.arraycopy(existingBinding.getPrerequisites().toArray(new Fact[0]), 0, prerequisites, 1,
 							existingBinding.getPrerequisites().size());
-					chain(new Fact<KProperty>((KProperty) revar(newTheorem.result, existingBinding.getArguments()),
-							newTheorem, prerequisites));
+					chain(new Fact<KProperty>(revar(newTheorem.result, existingBinding.getArguments()), newTheorem,
+							prerequisites));
 				}
 				addTheoremCatcher(newTheorem.requirement, newTheorem, (Fact<? extends KQuantifier>) fact);
 			}
@@ -232,7 +234,7 @@ public class Chainer {
 		ArrayList<Fact<? extends KProperty>> prerequisites = new ArrayList<Fact<? extends KProperty>>();
 		prerequisites.add(fact);
 		if (requirement instanceof KANDing) {
-			ArrayList<KProperty> properties = getANDed((KANDing) requirement);
+			ArrayList<KProperty> properties = getANDed(requirement);
 			// If we're outright missing a theorem needed for our application,
 			// just quit.
 			for (KProperty property : properties)
@@ -284,16 +286,18 @@ public class Chainer {
 			if (declaredVars.size() > 0) {
 				MutableBinding newBinding = new MutableBinding();
 				newBinding.addBindingsFrom(binding);
+				HashSet<String> usedVars = new HashSet<String>(declaredVars);
+				usedVars.addAll(binding.getArguments().values());
 				for (String originalVar : declaredVars) {
-					String newVar = InputUtil.getUnusedVar(declaredVars);
+					String newVar = InputUtil.getUnusedVar(usedVars);
 					declaredVars.add(newVar);
 					newBinding.bind(originalVar, newVar);
+					usedVars.add(newVar);
 				}
 				binding = newBinding;
 			}
 
-			chain((KProperty) revar(theorem.result, binding.getArguments()), theorem,
-					binding.getPrerequisites().toArray(new Fact[0]));
+			chain(revar(theorem.result, binding.getArguments()), theorem, binding.getPrerequisites().toArray(new Fact[0]));
 		}
 	}
 
@@ -353,5 +357,19 @@ public class Chainer {
 			return new ArrayList<Binding>(ret);
 		}
 		throw new UnsupportedOperationException("Dwight was too lazy to make a generic version of this function.");
+	}
+
+	public static void printJustificationFor(Fact<?> fact, int numTabs) {
+		for (int i = 0; i < numTabs; i++)
+			System.out.print("\t");
+
+		System.out.println(fact);
+		for (int i = 0; i < numTabs; i++)
+			System.out.print("\t");
+
+		System.out.println(fact.theorem);
+		for (Fact<?> subFact : fact.prerequisites)
+			printJustificationFor(subFact, numTabs + 1);
+
 	}
 }

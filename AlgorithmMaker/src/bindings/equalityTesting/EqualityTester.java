@@ -95,7 +95,7 @@ public class EqualityTester {
 			Appearance prefix) {
 		switch (KernelUtil.KType(property)) {
 		case KANDing: {
-			for (KProperty subProperty : KernelUtil.getANDed((KANDing) property)) {
+			for (KProperty subProperty : KernelUtil.getANDed(property)) {
 				addAppearances(subProperty, appearances, prefix);
 			}
 			return;
