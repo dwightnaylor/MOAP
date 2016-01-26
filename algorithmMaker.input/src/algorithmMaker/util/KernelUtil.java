@@ -228,55 +228,6 @@ public class KernelUtil {
 		return map(object, KernelMapper.CANONICALIZER);
 	}
 
-	public static ArrayList<KAtomic> getInvolvedAtomics(KProperty object, MetaProperty property) {
-		ArrayList<KAtomic> ret = new ArrayList<KAtomic>();
-		addInvolvedAtomics(ret, object, property);
-		return ret;
-	}
-
-	private static void addInvolvedAtomics(ArrayList<KAtomic> ret, KProperty object, MetaProperty property) {
-		switch (KType(object)) {
-		case KAtomic: {
-			KAtomic atomic = (KAtomic) object;
-			if (property.hasAtomic(atomic.function))
-				ret.add(atomic);
-
-			return;
-		}
-		case KANDing:
-			addInvolvedAtomics(ret, ((KANDing) object).lhs, property);
-			addInvolvedAtomics(ret, ((KANDing) object).rhs, property);
-			return;
-		case KNegation:
-			addInvolvedAtomics(ret, ((KNegation) object).negated, property);
-			return;
-		case KQuantifier:
-			addInvolvedAtomics(ret, ((KQuantifier) object).predicate, property);
-			return;
-		case KInput:
-		case KProblem:
-		case KBooleanLiteral:
-		}
-	}
-
-	public static boolean satisfies(KProperty object, MetaProperty property) {
-		switch (KType(object)) {
-		case KAtomic:
-			return property.hasAtomic(((KAtomic) object).function);
-		case KANDing:
-			return satisfies(((KANDing) object).lhs, property) || satisfies(((KANDing) object).rhs, property);
-		case KNegation:
-			// TODO:DN: figure out whether or not this is always true...
-			return false;
-		case KQuantifier:
-			return satisfies(((KQuantifier) object).predicate, property);
-		case KInput:
-		case KProblem:
-		case KBooleanLiteral:
-		}
-		return false;
-	}
-
 	public static ArrayList<KObject> contents(KObject object) {
 		ArrayList<KObject> ret = new ArrayList<KObject>();
 		accumulate(object, new Consumer<KObject>() {

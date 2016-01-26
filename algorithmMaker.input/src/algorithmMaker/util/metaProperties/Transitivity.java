@@ -2,6 +2,8 @@ package algorithmMaker.util.metaProperties;
 
 import java.util.*;
 
+import kernelLanguage.*;
+
 public class Transitivity implements MetaProperty {
 
 	private static final HashSet<String> properties = new HashSet<String>(
@@ -9,10 +11,10 @@ public class Transitivity implements MetaProperty {
 
 	public Transitivity() {
 	}
-	
+
 	@Override
-	public boolean hasAtomic(String function) {
-		return properties.contains(function);
+	public boolean satisfiedBy(KObject object) {
+		return object instanceof KAtomic && properties.contains(((KAtomic) object).function);
 	}
 
 }

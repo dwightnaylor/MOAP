@@ -161,7 +161,7 @@ public class ProblemSolver {
 			doQuantifierSubProblemFor(problemState, quantifier, givenChainer, findChainer);
 			if (quantifier.isUniversal()) {
 				// if the the quantifier's predicate is transitive...
-				if (KernelUtil.satisfies(quantifier.predicate, TRANSITIVITY)) {
+				if (TRANSITIVITY.satisfiedBy(quantifier.predicate)) {
 					doTransitiveQuantifierClosure(problemState, quantifier, givenChainer, findChainer);
 				}
 			}
@@ -170,23 +170,19 @@ public class ProblemSolver {
 
 	private void doTransitiveQuantifierClosure(ProblemState problemState, KQuantifier quantifier,
 			Set<KProperty> givenChainer, Set<KProperty> findChainer) {
-		MutableBinding usedVariables = new MutableBinding();
-		ArrayList<KAtomic> involvedAtomics = KernelUtil.getInvolvedAtomics(quantifier.predicate, TRANSITIVITY);
-		for (KAtomic atomic : involvedAtomics)
-			usedVariables.bind(atomic.args.get(0), atomic.args.get(1));
-
-		KProperty uninvolvedParts = quantifier.predicate.without(new HashSet<KProperty>(involvedAtomics));
+		String arg0 = ((KAtomic) quantifier.predicate).args.get(0);
+		String arg1 = ((KAtomic) quantifier.predicate).args.get(1);
 
 		// We then have to make sure this quantifier is a true transitive
 		// quantifier.
 		ArrayList<Binding> bindings = Binding.findBindingWithin(problemState.problem.goal.property,
-				quantifier.subject.property, usedVariables.getImmutable());
+				quantifier.subject.property, Binding.singleton(arg0, arg1));
 		// We do this by finding all possible "matches" from outside the
 		// quantifier to the inside of the quantifier
 		if (bindings != null)
 			for (Binding binding : bindings) {
-				KInput enumerationProblem = getTransitiveQuantifierEnumerationSubProblem(problemState, quantifier,
-						uninvolvedParts);
+				Hashtable<String, String> bindingArgs = binding.getArguments();
+				KInput enumerationProblem = getTransitiveQuantifierEnumerationSubProblem(problemState, quantifier);
 				if (DEBUG_MODE)
 					enumerationProblem.validate();
 
@@ -201,65 +197,55 @@ public class ProblemSolver {
 					subSolvers.put(enumerationProblem, subSolver);
 					subSolver.getSolution();
 				}
-				KProperty goalNonQuantifierPart = revar(quantifier.subject.property,
-						binding.getInverse().getArguments());
 				KProperty transitivityGiven = and(problemState.problem.given.property, quantifier.subject.property,
-						goalNonQuantifierPart, uninvolvedParts);
-				System.out.println(transitivityGiven);
+						revar(quantifier.subject.property, binding.getInverse().getArguments()));
 				if (subSolvers.get(enumerationProblem).solved == null)
 					return;
 
-				KInput[] testProblems = new KInput[involvedAtomics.size()];
-				for (int i = 0; i < involvedAtomics.size(); i++) {
-					KAtomic atomic = involvedAtomics.get(i);
-					testProblems[i] = input(problem(KernelUtil.getUndeclaredVars(transitivityGiven), transitivityGiven),
-							problem(Collections.emptyList(), negate(atomic)));
-					testProblems[i] = KernelUtil.cleanDeclarations(testProblems[i]);
-					if (DEBUG_MODE)
-						testProblems[i].validate();
+				KInput testProblem = KernelUtil.cleanDeclarations(
+						input(problem(KernelUtil.getUndeclaredVars(transitivityGiven), transitivityGiven),
+								problem(Collections.emptyList(), negate(quantifier.predicate))));
 
-					if (!subSolvers.containsKey(testProblems[i])) {
-						if (DEBUG_MODE && DEBUG_VERBOSE) {
-							for (int q = 0; q < depthDEBUG; q++)
-								System.out.print("|\t");
-							System.out.println("Transitive quantifier test problem " + i);
-						}
-
-						ProblemSolver subSolver = new ProblemSolver(testProblems[i], depthDEBUG + 1, theorems);
-						subSolvers.put(testProblems[i], subSolver);
-						subSolver.getSolution();
+				if (!subSolvers.containsKey(testProblem)) {
+					if (DEBUG_MODE && DEBUG_VERBOSE) {
+						for (int q = 0; q < depthDEBUG; q++)
+							System.out.print("|\t");
+						System.out.println("Transitive quantifier test problem");
 					}
-					if (subSolvers.get(testProblems[i]).solved == null)
-						return;
+
+					ProblemSolver subSolver = new ProblemSolver(testProblem, depthDEBUG + 1, theorems);
+					subSolvers.put(testProblem, subSolver);
+					subSolver.getSolution();
 				}
-				KInput newProblem = problemState.problem;
-				newProblem = newProblem
-						.withGiven(newProblem.given.withProperty(and(quantifier, goalNonQuantifierPart)));
-				newProblem = TransformUtil.removeGivenFromGoal(newProblem, new Chainer(theorems));
+				if (subSolvers.get(testProblem).solved == null)
+					return;
 
 				Pseudocoder coder = new Pseudocoder() {
 					@Override
 					public void appendPseudocode(StringBuffer builder, int numTabs, ProblemState problemState,
 							Pseudocoder returnCoder, Binding unusedBinding) {
-						for (int i = 0; i < testProblems.length; i++) {
-							Pseudocoder.appendTabs(builder, numTabs);
-							builder.append(problemState.rootTheoremBinding
-									.revar(involvedAtomics.get(i).args.get(0) + " = null;\n"));
+						Pseudocoder.appendTabs(builder, numTabs);
+						for (String originalVar : bindingArgs.keySet()) {
+							String newVar = bindingArgs.get(originalVar);
+							if (!originalVar.equals(newVar))
+								builder.append(originalVar + " = null;\n");
 						}
+
 						ArrayList<Binding> testBindings = new ArrayList<Binding>();
 						ArrayList<Pseudocoder> testCoders = new ArrayList<Pseudocoder>();
 						ArrayList<String> testLines = new ArrayList<String>();
-						for (int i = 0; i < testProblems.length; i++) {
-							String arg0 = involvedAtomics.get(i).args.get(0);
-							String arg1 = involvedAtomics.get(i).args.get(1);
-							testLines.add("if " + arg0 + " == null");
-							String assign = "\t" + arg0 + " = " + arg1;
-							testLines.add(assign);
-							testBindings.add(Binding.createBinding(new String[][] { { "x", arg1 }, { "y", arg0 } }));
-							testBindings.add(Binding.EMPTY);
-							Pseudocoder pseudocoder = getRootSolvedState(testProblems[i]).rootTheorem.getPseudocoder();
-							testCoders.add(pseudocoder);
-							testCoders.add(new LineCoder(false, assign));
+						testLines.add("if " + arg0 + " == null");
+						testLines.add("\t" + arg0 + " = " + arg1);
+						testBindings.add(Binding.createBinding(new String[][] { { "x", arg1 }, { "y", arg0 } }));
+						testBindings.add(Binding.EMPTY);
+						Pseudocoder pseudocoder = getRootSolvedState(testProblem).rootTheorem.getPseudocoder();
+						testCoders.add(pseudocoder);
+						for (String originalVar : bindingArgs.keySet()) {
+							String newVar = bindingArgs.get(originalVar);
+							if (!originalVar.equals(newVar)) {
+								testCoders.add(new LineCoder(false, "\t" + originalVar + " = " + newVar));
+								testBindings.add(Binding.EMPTY);
+							}
 						}
 						testBindings.add(0, Binding.EMPTY);
 						testCoders.add(0, new LineCoder(testLines.toArray(new String[0])));
@@ -268,18 +254,20 @@ public class ProblemSolver {
 								new SequentialCoder(testCoders, testBindings), binding);
 					}
 				};
+				KInput newProblem = problemState.problem;
+				newProblem = newProblem.withGiven(newProblem.given.withProperty(
+						and(quantifier, revar(quantifier.subject.property, binding.getInverse().getArguments()))));
+				newProblem = TransformUtil.removeGivenFromGoal(newProblem, new Chainer(theorems));
 
 				addProblemState(newProblem, problemState, new MultistageTheorem(null, null, null, 10,
 						"Basic optimization on a transitive quantifier", coder), Binding.EMPTY);
 			}
 	}
 
-	private KInput getTransitiveQuantifierEnumerationSubProblem(ProblemState problemState, KQuantifier quantifier,
-			KProperty uninvolvedParts) {
+	private KInput getTransitiveQuantifierEnumerationSubProblem(ProblemState problemState, KQuantifier quantifier) {
 		// TODO: Check and make sure that uninvolvedParts is being used
 		// correctly here.
-		KInput enumerationProblem = input(problemState.problem.given,
-				quantifier.subject.withProperty(and(quantifier.subject.property, uninvolvedParts)));
+		KInput enumerationProblem = input(problemState.problem.given, quantifier.subject);
 		enumerationProblem = enumerationProblem.withGoal(enumerationProblem.goal.withVars(
 				KernelUtil.getUndeclaredVars(enumerationProblem.goal.withVars(enumerationProblem.given.vars))));
 		return enumerationProblem;
