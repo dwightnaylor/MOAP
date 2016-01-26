@@ -14,10 +14,9 @@ import kernelLanguage.*;
 public class KernelUtil {
 
 	/**
-	 * Determines whether or not to crash when a nested variable is detected in
-	 * the program. This includes things like forall(x st a(x) : forall(x st
-	 * b(x) : c(x))), where there is an x declared inside a scope where an x has
-	 * already been declared.
+	 * Determines whether or not to crash when a nested variable is detected in the program. This includes things like
+	 * forall(x st a(x) : forall(x st b(x) : c(x))), where there is an x declared inside a scope where an x has already
+	 * been declared.
 	 */
 	public static final boolean ERROR_ON_NESTED_VARS = false;
 
@@ -409,41 +408,63 @@ public class KernelUtil {
 		case KAtomic:
 			return KernelUtil.revar(object, currentRevars);
 		case KInput:
-			currentVars.addAll(((KInput) object).given.vars);
 			KProblem newGiven = cleanDeclarations(((KInput) object).given, currentVars, currentRevars);
-			currentVars.addAll(((KInput) object).goal.vars);
+			currentVars.addAll(((KInput) object).given.vars);
 			KProblem newGoal = cleanDeclarations(((KInput) object).goal, currentVars, currentRevars);
 			currentVars.removeAll(((KInput) object).given.vars);
-			currentVars.removeAll(((KInput) object).goal.vars);
 			return (T) input(newGiven, newGoal);
 		case KNegation:
 			return (T) negate(cleanDeclarations(((KNegation) object).negated, currentVars, currentRevars));
-		case KProblem:
-			return (T) problem(((KProblem) object).vars,
-					cleanDeclarations(((KProblem) object).property, currentVars, currentRevars));
-		case KQuantifier:
-			Hashtable<String, String> oldRevars = new Hashtable<String, String>();
-			for (String var : ((KQuantifier) object).subject.vars) {
-				if (currentVars.contains(var)) {
-					if (currentRevars.containsKey(var))
-						oldRevars.put(var, currentRevars.get(var));
+		case KProblem: {
+			Hashtable<String, String> oldRevars = addDeclaredVarsToStorage(((KProblem) object).vars, currentVars,
+					currentRevars);
+			// Newvars just replaces the variable declarations. The storage methods will take care of all internal
+			// replacing.
+			List<String> newVars = new ArrayList<String>(((KProblem) object).vars);
+			newVars.replaceAll(x -> currentRevars.containsKey(x) ? currentRevars.get(x) : x);
 
-					currentRevars.put(var, InputUtil.getUnusedVar(currentRevars.keySet()));
-				} else
-					currentVars.add(var);
-			}
+			KProblem ret = problem(newVars,
+					cleanDeclarations(((KProblem) object).property, currentVars, currentRevars));
+			removeDeclaredVars(currentVars, currentRevars, ((KProblem) object).vars, oldRevars);
+			return (T) ret;
+		}
+		case KQuantifier:
 			KProblem newSubject = cleanDeclarations(((KQuantifier) object).subject, currentVars, currentRevars);
+
+			Hashtable<String, String> oldRevars = addDeclaredVarsToStorage(((KQuantifier) object).subject.vars,
+					currentVars, currentRevars);
 			KProperty newPredicate = cleanDeclarations(((KQuantifier) object).predicate, currentVars, currentRevars);
-			for (String var : ((KQuantifier) object).subject.vars) {
-				if (oldRevars.containsKey(var))
-					currentRevars.put(var, oldRevars.get(var));
-				else
-					currentVars.remove(var);
-			}
+			removeDeclaredVars(currentVars, currentRevars, ((KQuantifier) object).subject.vars, oldRevars);
+
 			return (T) quantifier(((KQuantifier) object).quantifier, newSubject, newPredicate);
 		case KBooleanLiteral:
 		default:
 			return object;
 		}
+	}
+
+	private static void removeDeclaredVars(HashSet<String> currentVars, Hashtable<String, String> currentRevars,
+			List<String> originalVars, Hashtable<String, String> oldRevars) {
+		for (String var : originalVars) {
+			if (oldRevars.containsKey(var))
+				currentRevars.put(var, oldRevars.get(var));
+			else
+				currentVars.remove(var);
+		}
+	}
+
+	private static Hashtable<String, String> addDeclaredVarsToStorage(Collection<String> vars,
+			HashSet<String> currentVars, Hashtable<String, String> currentRevars) {
+		Hashtable<String, String> oldRevars = new Hashtable<String, String>();
+		for (String var : vars) {
+			if (currentVars.contains(var)) {
+				if (currentRevars.containsKey(var))
+					oldRevars.put(var, currentRevars.get(var));
+
+				currentRevars.put(var, InputUtil.getUnusedVar(currentVars));
+			} else
+				currentVars.add(var);
+		}
+		return oldRevars;
 	}
 }

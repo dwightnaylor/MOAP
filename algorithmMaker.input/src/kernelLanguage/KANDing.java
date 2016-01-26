@@ -45,4 +45,10 @@ public class KANDing extends KProperty {
 
 		return and(newLhs, newRhs);
 	}
+
+	@Override
+	public void validate() {
+		lhs.validate();
+		rhs.validate();
+	}
 }

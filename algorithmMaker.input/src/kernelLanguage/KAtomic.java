@@ -10,7 +10,7 @@ public class KAtomic extends KProperty {
 
 	KAtomic(String function, List<String> args) {
 		this.function = function;
-		this.args = Collections.unmodifiableList(args);
+		this.args = args;
 	}
 
 	@Override
@@ -43,5 +43,9 @@ public class KAtomic extends KProperty {
 			return TRUE;
 
 		return this;
+	}
+
+	@Override
+	public void validate() {
 	}
 }

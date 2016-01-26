@@ -65,4 +65,21 @@ public class KQuantifier extends KProperty {
 		ret.append(')');
 		return ret.toString();
 	}
+
+	@Override
+	public void validate() {
+		subject.validate();
+		predicate.validate();
+		for (KObject subObject : KernelUtil.contents(predicate)) {
+			if (subObject instanceof KProblem) {
+				for (String otherVar : ((KProblem) subObject).vars) {
+					if (subject.vars.contains(otherVar)) {
+						throw new DirtyKernelException(
+								"The variable " + otherVar + " was declared in both the given of \"" + this
+										+ "\" and in \"" + subObject + "\", which is in the goal.");
+					}
+				}
+			}
+		}
+	}
 }

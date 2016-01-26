@@ -13,7 +13,7 @@ public class KProblem extends KObject {
 
 	KProblem(List<String> vars, KProperty property) {
 		this.property = property;
-		this.vars = Collections.unmodifiableList(vars);
+		this.vars = vars;
 		HashSet<String> varSet = new HashSet<String>(vars);
 		if (KernelUtil.ERROR_ON_NESTED_VARS)
 			for (KObject object : KernelUtil.contents(property))
@@ -27,9 +27,8 @@ public class KProblem extends KObject {
 	}
 
 	/**
-	 * Reduces variables usage such that any undeclared variables are declared
-	 * in the given, and any unused declarations in either the given or the goal
-	 * are removed.
+	 * Reduces variables usage such that any undeclared variables are declared in the given, and any unused declarations
+	 * in either the given or the goal are removed.
 	 */
 	public KProblem fixVariables() {
 		return null;
@@ -70,13 +69,28 @@ public class KProblem extends KObject {
 		return KernelFactory.problem(vars, newProperty);
 	}
 
-	public KProblem withVars(List<String> newVars) {
+	public KProblem withVars(Collection<String> newVars) {
 		return KernelFactory.problem(newVars, property);
 	}
 
 	public KProblem withoutVars(String... varsToRemove) {
-		return KernelFactory
-				.problem(vars.stream().filter(x -> !new HashSet<String>(Arrays.asList(varsToRemove)).contains(x))
-						.collect(Collectors.toList()), property);
+		HashSet<String> varsToRemoveSet = new HashSet<String>(Arrays.asList(varsToRemove));
+		return KernelFactory.problem(
+				vars.stream().filter(x -> !varsToRemoveSet.contains(x)).collect(Collectors.toList()), property);
+	}
+
+	@Override
+	public void validate() {
+		property.validate();
+		for (KObject subObject : KernelUtil.contents(this)) {
+			if (subObject instanceof KProblem && subObject != this) {
+				for (String otherVar : ((KProblem) subObject).vars) {
+					if (vars.contains(otherVar)) {
+						throw new DirtyKernelException("The variable " + otherVar + " was declared in both \"" + this
+								+ "\" and its child \"" + subObject + "\"");
+					}
+				}
+			}
+		}
 	}
 }

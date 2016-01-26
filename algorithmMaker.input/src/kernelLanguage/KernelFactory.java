@@ -6,6 +6,9 @@ import algorithmMaker.util.KernelUtil;
 import kernelLanguage.KQuantifier.Quantifier;
 
 public class KernelFactory {
+	public static final boolean DEBUG_MODE = true;
+	public static final boolean DEBUG_VERBOSE = true;
+
 	private static Hashtable<KProperty, Hashtable<KProperty, KANDing>> andings = new Hashtable<KProperty, Hashtable<KProperty, KANDing>>();
 	private static Hashtable<String, Hashtable<List<String>, KAtomic>> atomics = new Hashtable<String, Hashtable<List<String>, KAtomic>>();
 	public static final KBooleanLiteral TRUE = new KBooleanLiteral(true);
@@ -26,8 +29,8 @@ public class KernelFactory {
 	public static final String DIVISION = "divide";
 
 	/**
-	 * The theorem used to defend proofs done where no defense should be needed.
-	 * A "dummy" theorem. Used for internal proving and the like.
+	 * The theorem used to defend proofs done where no defense should be needed. A "dummy" theorem. Used for internal
+	 * proving and the like.
 	 */
 	public static final KTheorem NULL = new KTheorem(null, null, 0, "NULL");
 	public static final KTheorem GIVEN = new KTheorem(null, null, 0, "GIVEN");
@@ -74,7 +77,12 @@ public class KernelFactory {
 		return quantifiers.get(quantifier).get(subject).get(predicate);
 	}
 
-	public static KProblem problem(List<String> vars, KProperty property) {
+	public static KProblem problem(KProperty property, String... varsTemp) {
+		return problem(Arrays.asList(varsTemp), property);
+	}
+
+	public static KProblem problem(Collection<String> varsTemp, KProperty property) {
+		List<String> vars = Collections.unmodifiableList(new ArrayList<String>(varsTemp));
 		if (!problems.containsKey(vars))
 			problems.put(vars, new Hashtable<KProperty, KProblem>());
 
@@ -119,7 +127,8 @@ public class KernelFactory {
 		return atomic(function, Arrays.asList(args));
 	}
 
-	public static KAtomic atomic(String function, List<String> args) {
+	public static KAtomic atomic(String function, Collection<String> argsTemp) {
+		List<String> args = Collections.unmodifiableList(new ArrayList<String>(argsTemp));
 		if (!atomics.containsKey(function))
 			atomics.put(function, new Hashtable<List<String>, KAtomic>());
 

@@ -110,6 +110,9 @@ public class SolverTests {
 				"Given array<number> A; Find y st child(A,y) & forall(z st child(A,z): lessThanEqual(z,y))", "" });
 		probsAndSols.add(
 				new String[] { "Given list<number> x, int s; Find a,b st child(x,a) & child(x,b) & equal(a+b,s)", "" });
+		probsAndSols
+				.add(new String[] { "Given list x; Find y st child(x,y) & forall(z st child(x,z) : lessThanEqual(y,z))",
+						"y = null;", "foreach child z of x", "if y == null", "y = z", "if z > y", "y = z" });
 		for (String[] ps : probsAndSols) {
 			KInput input = (KInput) SugarUtil.convertToKernel(QuickParser.parseInput(ps[0]));
 			ProblemState actualSolution = new ProblemSolver(input, theorems.toArray(new KTheorem[0])).getSolution();

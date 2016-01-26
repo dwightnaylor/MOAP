@@ -4,7 +4,7 @@ import static kernelLanguage.KernelFactory.*;
 
 import java.util.*;
 
-import algorithmMaker.util.InputUtil;
+import algorithmMaker.util.*;
 import kernelLanguage.*;
 import solver.Chainer;
 
@@ -45,6 +45,10 @@ public class TransformUtil {
 			input = input.withGoal(input.goal.withProperty(reducedGoal == null ? TRUE : reducedGoal));
 		}
 
-		return input.withMinimumVariables();
+		KInput ret = KernelUtil.cleanDeclarations(input.withMinimumVariables());
+		if (DEBUG_MODE)
+			ret.validate();
+
+		return ret;
 	}
 }

@@ -62,4 +62,21 @@ public class KInput extends KObject {
 
 		return KernelFactory.input(given.withVars(newGivenVars), goal.withVars(newGoalVars));
 	}
+
+	@Override
+	public void validate() {
+		goal.validate();
+		given.validate();
+		for (KObject subObject : KernelUtil.contents(goal)) {
+			if (subObject instanceof KProblem) {
+				for (String otherVar : ((KProblem) subObject).vars) {
+					if (given.vars.contains(otherVar)) {
+						throw new DirtyKernelException(
+								"The variable " + otherVar + " was declared in both the given of \"" + this
+										+ "\" and in \"" + subObject + "\", which is in the goal.");
+					}
+				}
+			}
+		}
+	}
 }

@@ -11,6 +11,7 @@ import org.junit.Test;
 import algorithmMaker.util.KernelUtil;
 import bindings.Binding;
 import kernelLanguage.*;
+import kernelLanguage.KQuantifier.Quantifier;
 
 public class KernelUtilTests {
 
@@ -97,10 +98,10 @@ public class KernelUtilTests {
 	@Test
 	public void testKProblemConstructor() {
 		// Test and make sure it's not misfiring...
-		problem(Collections.singletonList("x"), parseProperty("forall(y st a(x,y) : b(x,y))"));
+		problem(parseProperty("forall(y st a(x,y) : b(x,y))"), "x");
 		boolean error = false;
 		try {
-			problem(Collections.singletonList("x"), parseProperty("forall(x st a(x,x) : b(x,x))"));
+			problem(parseProperty("forall(x st a(x,x) : b(x,x))"), "x");
 		} catch (IllegalKernelException e) {
 			error = true;
 		}
@@ -108,12 +109,36 @@ public class KernelUtilTests {
 	}
 
 	@Test
-	public void testCleanQuantifiersNoChanges() {
+	public void testCleanDeclarationsNoChanges() {
 		String[] sames = { "Given x st a(x); Find y st b(x,y)",
 				"Given a st forall(b st x(a,b) : forall(c st x(a,b,c) : d(a,b,c))); Find b st forall(c st x(a,b,c) : d(a,b,c))" };
 		for (String string : sames) {
 			KInput object = parseInput(string);
 			assertEquals(object, cleanDeclarations(object));
 		}
+	}
+
+	@Test
+	public void testCleanDeclarations() {
+		ArrayList<KObject[]> tasks = new ArrayList<KObject[]>();
+		tasks.add(new KObject[] {
+				input(problem(quantifier(Quantifier.forall, problem(atomic("a", "x"), "x"), atomic("b", "x")), "x"),
+						problem(TRUE)),
+				input(problem(quantifier(Quantifier.forall, problem(atomic("a", "na"), "na"), atomic("b", "na")), "x"),
+						problem(TRUE)) });
+		System.out.println(tasks.get(0)[0]);
+		System.out.println(tasks.get(0)[1]);
+		for (KObject[] task : tasks) {
+			KObject originalProperty = task[0];
+			// The simplified version goes here
+			KObject simplifiedProperty = cleanDeclarations(originalProperty);
+
+			if (!task[1].equals(simplifiedProperty))
+				System.err.println("\"" + originalProperty + "\" Should be cleaned to \"" + task[1]
+						+ "\" but it instead cleaned  to \"" + simplifiedProperty + '"');
+
+			assertEquals(simplifiedProperty, task[1]);
+		}
+
 	}
 }

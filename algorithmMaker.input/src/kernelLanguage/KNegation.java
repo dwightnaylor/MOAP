@@ -33,4 +33,9 @@ public class KNegation extends KProperty {
 
 		return KernelFactory.negate(newNegated);
 	}
+
+	@Override
+	public void validate() {
+		negated.validate();
+	}
 }

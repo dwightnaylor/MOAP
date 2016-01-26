@@ -10,8 +10,9 @@ import algorithmMaker.input.*;
 import algorithmMaker.input.impl.InputFactoryImpl;
 
 /**
- * The class for basic operations on the ecore Input objects. Anything that does a fundamental transform of the objects
- * should instead go in TransformUtil.java in the AlgorithMaker project.
+ * The class for basic operations on the ecore Input objects. Anything that does
+ * a fundamental transform of the objects should instead go in
+ * TransformUtil.java in the AlgorithMaker project.
  * 
  * @author Dwight Naylor
  */
@@ -39,8 +40,9 @@ public class InputUtil {
 	};
 
 	/**
-	 * All of the types that should appear in the reduced kernel language. These are listed here to allow for easy
-	 * switch-statement use over all of the kernel types. Just use a switch statement over the
+	 * All of the types that should appear in the reduced kernel language. These
+	 * are listed here to allow for easy switch-statement use over all of the
+	 * kernel types. Just use a switch statement over the
 	 * kernelType(object.getClass()) of your object.<br>
 	 * <br>
 	 * These all seem to be subclasses of Property...
@@ -103,12 +105,13 @@ public class InputUtil {
 
 	@SuppressWarnings("unchecked")
 	public static <I extends Input> I stupidCopy(I input) {
-		return (I) QuickParser.parseInput(input.toString());
+		return (I) QuickParser.parseInput(input.toString(),false);
 	}
 
 	public static Property andTogether(Collection<? extends Property> properties) {
 		List<? extends Property> propertyList = new ArrayList<Property>(properties);
 		int index = propertyList.size() - 1;
+		// Find the first non-null element starting from the end of the list
 		Property rhs = null;
 		while (rhs == null) {
 			if (index == -1)
@@ -121,7 +124,7 @@ public class InputUtil {
 			if (cur != null) {
 				ANDing newRhs = InputFactoryImpl.eINSTANCE.createANDing();
 				newRhs.setRight(rhs);
-				newRhs.setLeft(cur);
+				newRhs.setLeft(InputUtil.stupidCopy(cur));
 				rhs = newRhs;
 			}
 		}
@@ -258,8 +261,10 @@ public class InputUtil {
 	}
 
 	/**
-	 * Canonicalizes the given Property (makes a new version that is canonicalized) according to the rules at
-	 * http://integral-table.com/downloads/logic.pdf. No changes are made to the original input.<br>
+	 * Canonicalizes the given Property (makes a new version that is
+	 * canonicalized) according to the rules at
+	 * http://integral-table.com/downloads/logic.pdf. No changes are made to the
+	 * original input.<br>
 	 * <br>
 	 * Rules not included:<br>
 	 * Associative : grouping is eliminated during parsing
@@ -460,8 +465,9 @@ public class InputUtil {
 		}
 		case Quantifier: {
 			Quantifier quantifier = (Quantifier) cur;
-			EObject newRequirement = reduce(quantifier.getSubject(), reducer);
+			//We have to do the predicate first
 			EObject newResult = reduce(quantifier.getPredicate(), reducer);
+			EObject newRequirement = reduce(quantifier.getSubject(), reducer);
 			if (newRequirement == null || newResult == null)
 				return null;
 
@@ -478,8 +484,9 @@ public class InputUtil {
 		}
 		case Input: {
 			Input input = (Input) cur;
-			EObject newGiven = reduce(input.getGiven(), reducer);
+			//We have to do the goal first
 			EObject newGoal = reduce(input.getGoal(), reducer);
+			EObject newGiven = reduce(input.getGiven(), reducer);
 
 			Input inputRet = InputUtil.stupidCopy(input);
 			inputRet.setGiven((Problem) newGiven);
