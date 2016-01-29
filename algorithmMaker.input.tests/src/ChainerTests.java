@@ -1,15 +1,48 @@
-import static kernelLanguage.KernelFactory.*;
 import static algorithmMaker.util.KernelUtil.*;
+import static kernelLanguage.KernelFactory.*;
 import static org.junit.Assert.*;
-import kernelLanguage.KInput;
+
+import java.util.Collections;
 
 import org.junit.Test;
 
+import algorithmMaker.util.InputUtil;
+import kernelLanguage.KInput;
 import solver.Chainer;
 import theorems.MultistageTheorem;
-import algorithmMaker.util.InputUtil;
 
 public class ChainerTests {
+
+	@Test
+	public void testGetAllFulfillmentsOf() {
+		Chainer chainer = new Chainer();
+		// *****Simple single variable tests*****
+		chainer.chain(parseProperty("a(x)"), GIVEN);
+		chainer.chain(parseProperty("a(y)"), GIVEN);
+		chainer.chain(parseProperty("a(z)"), GIVEN);
+		assertEquals(3, chainer.getAllFulfillmentsOf(parseProperty("a(x)")).size());
+		assertEquals(1, chainer.getAllFulfillmentsOf(parseProperty("a(x)"), Collections.singleton("x")).size());
+		// *****Multiple variable tests*****
+		chainer.chain(parseProperty("b(x,q)"), GIVEN);
+		chainer.chain(parseProperty("b(y,q)"), GIVEN);
+		chainer.chain(parseProperty("b(z,q)"), GIVEN);
+		assertEquals(3, chainer.getAllFulfillmentsOf(parseProperty("b(x,q)")).size());
+		assertEquals(3, chainer.getAllFulfillmentsOf(parseProperty("b(x,q)"), Collections.singleton("q")).size());
+		assertEquals(1, chainer.getAllFulfillmentsOf(parseProperty("b(x,q)"), Collections.singleton("x")).size());
+		// *****ANDing tests*****
+		chainer.chain(parseProperty("c(x)"), GIVEN);
+		chainer.chain(parseProperty("d(x)"), GIVEN);
+		chainer.chain(parseProperty("c(y)"), GIVEN);
+		chainer.chain(parseProperty("d(y)"), GIVEN);
+		assertEquals(2, chainer.getAllFulfillmentsOf(parseProperty("c(q) & d(q)")).size());
+		assertEquals(2, chainer.getAllFulfillmentsOf(parseProperty("d(q) & c(q)")).size());
+		// *****Quantifier tests*****
+		chainer.chain(parseProperty("forall(z st child(x,z) : child(y,z))"), GIVEN);
+		chainer.chain(parseProperty("forall(q st child(x,q) : child(y,q))"), GIVEN);
+		// Switch the q and y at the end to make it not a match
+		chainer.chain(parseProperty("forall(q st child(x,q) : child(q,y))"), GIVEN);
+		assertEquals(2, chainer.getAllFulfillmentsOf(parseProperty("forall(z st child(x,z) : child(y,z))")).size());
+	}
 
 	@Test
 	public void testForFalsePositives() {
@@ -77,9 +110,9 @@ public class ChainerTests {
 
 	@Test
 	public void testForMultistageMultipleOptions() {
-		Chainer chainer = new Chainer(new MultistageTheorem(
-				parseProperty(BOUND + "(y) & " + TYPE_MARKER + "hashset(x)"), parseProperty("child(x,y)"),
-				parseProperty("child(x,y)"), null, 0, "enumerable things", null));
+		Chainer chainer = new Chainer(
+				new MultistageTheorem(parseProperty(BOUND + "(y) & " + TYPE_MARKER + "hashset(x)"),
+						parseProperty("child(x,y)"), parseProperty("child(x,y)"), null, 0, "enumerable things", null));
 		KInput input = parseInput("Given hashset x, hashset z; Find y st child(x,y)");
 		chainer.addBoundVars(input.given.vars.toArray(new String[0]));
 		chainer.chain(input.given.property, GIVEN);
@@ -177,10 +210,26 @@ public class ChainerTests {
 		}
 	}
 
+	/**
+	 * We want to make sure that when we accept a quantifier as a theorem, we do so specifically, not generally. Namely,
+	 * if I say forall(x st a(x) : b(x,y)), then it only holds for the y I've given you, not an arbitrary y.
+	 */
 	@Test
-	public void testQuantifierChaining() {
+	public void testForQuantifierAsTheoremMisfiring() {
+		Chainer basicChainer = new Chainer();
+		basicChainer.chain(parseProperty("forall(x st a(x) : b(x,y))"), GIVEN);
+		basicChainer.chain(parseProperty("foo(y)"), GIVEN);
+		basicChainer.chain(parseProperty("foo(z)"), GIVEN);
+		basicChainer.chain(parseProperty("a(q)"), GIVEN);
+		assertTrue(basicChainer.hasProperty(parseProperty("b(q,y)")));
+		assertTrue(!basicChainer.hasProperty(parseProperty("b(q,z)")));
+	}
+
+	@Test
+	public void testQuantifierChainingAsResult() {
 		Chainer basicChainer = new Chainer(parseTheorem("c(y)->forall(x st a(x,y) : b(x,y)),0,GIVEN"));
 		basicChainer.chain(parseProperty("c(y)"), GIVEN);
-		assertTrue(basicChainer.propertiesByStructure.containsKey(devar(parseProperty("forall(q st a(q,y) : b(q,y))"))));
+		assertTrue(
+				basicChainer.propertiesByStructure.containsKey(devar(parseProperty("forall(v st a(v,v) : b(v,v))"))));
 	}
 }

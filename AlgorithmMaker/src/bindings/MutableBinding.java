@@ -1,8 +1,6 @@
 package bindings;
 
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Stack;
+import java.util.*;
 
 import algorithmMaker.util.KernelUtil;
 import kernelLanguage.KProperty;
@@ -18,6 +16,11 @@ public class MutableBinding extends Binding {
 		bindings.remove(arg);
 	}
 
+	public void removeBindings(Collection<String> args) {
+		for (String arg : args)
+			removeBinding(arg);
+	}
+
 	protected Stack<ArrayList<String>> lastBindings = new Stack<ArrayList<String>>();
 
 	public void applyBinding(KProperty original, Fact<? extends KProperty> asserted) {
@@ -31,8 +34,14 @@ public class MutableBinding extends Binding {
 		ArrayList<String> assertedVars = KernelUtil.variables(asserted.property);
 		for (int i = 0; i < originalVars.size(); i++) {
 			String originalVar = originalVars.get(i);
-			if (!bindings.containsKey(originalVar))
+			if (newBindings.contains(originalVar) && !bindings.get(originalVar).equals(assertedVars.get(i))) {
+				throw new IllegalArgumentException("Binding \"" + original + "\" to \"" + asserted.property
+						+ "\" caused a binding conflict. \"" + originalVar + "\" was bound to both \""
+						+ bindings.get(originalVar) + "\" and \"" + assertedVars.get(i) + "\"");
+			}
+			if (!bindings.containsKey(originalVar)) {
 				newBindings.add(originalVar);
+			}
 
 			bind(originalVar, assertedVars.get(i));
 		}

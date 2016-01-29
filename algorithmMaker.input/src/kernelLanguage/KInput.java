@@ -55,8 +55,7 @@ public class KInput extends KObject {
 		ArrayList<String> newGivenVars = new ArrayList<String>(newGivenVarsSet);
 		Collections.sort(newGivenVars);
 
-		HashSet<String> newGoalVarsSet = KernelUtil.getUndeclaredVars(goal.withVars(Collections.emptyList()));
-		newGoalVarsSet.removeAll(newGivenVarsSet);
+		HashSet<String> newGoalVarsSet = KernelUtil.getUndeclaredVars(goal.withVars(newGivenVars));
 		ArrayList<String> newGoalVars = new ArrayList<String>(newGoalVarsSet);
 		Collections.sort(newGoalVars);
 

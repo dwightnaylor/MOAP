@@ -16,6 +16,7 @@ public class MultiTheoremParser {
 		addBruteForceFindTheorems(ret);
 		addSimpleTestingTheorems(ret);
 		addDeclarationTheorems(ret);
+//		addComplexDeclarationTheorems(ret);
 		return ret;
 	}
 
@@ -73,6 +74,20 @@ public class MultiTheoremParser {
 					parseProperty(declaration[1]), null, 1, "Simple declaration.",
 					new LineCoder(false, declaration[2])));
 	}
+
+//	private static void addComplexDeclarationTheorems(ArrayList<MultistageTheorem> ret) {
+//		ArrayList<String[]> declarations = new ArrayList<String[]>();
+//		declarations.add(
+//				new String[] { BOUND + "(x)" + TYPE_MARKER + "collection(x) & ", UNBOUND + "(nx)" + UNBOUND + "(nv)",
+//						BOUND + "(nx) & " + TYPE_MARKER + "hashset(nx) & forall(nv st child(x,nv) : child(nx,nv))",
+//						"<xi> = <x>[<i>]" });
+//
+//		for (String[] declaration : declarations)
+//			ret.add(new MultistageTheorem(parseProperty(declaration[0]), parseProperty(declaration[1]),
+//					parseProperty(declaration[2]), null, 10, "Declare a hashset for later use with child()",
+//					new LineCoder(false, declaration[3])));
+//
+//	}
 
 	private static String invert(String compare) {
 		String[][] pairs = { { " == ", " != " }, { " < ", " >= " }, { " > ", " <= " } };

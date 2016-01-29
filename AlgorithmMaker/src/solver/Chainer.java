@@ -11,23 +11,20 @@ import algorithmMaker.util.*;
 import bindings.*;
 
 /**
- * Chains together facts using existing theorems to arrive at conclusions.
- * Includes "costs" for each theorem, which allow a priority-queue to determine
- * when each theorem should be applied.
+ * Chains together facts using existing theorems to arrive at conclusions. Includes "costs" for each theorem, which
+ * allow a priority-queue to determine when each theorem should be applied.
  * 
  * @author Dwight Naylor
  * @since 9/14/15
  */
 public class Chainer {
 	/**
-	 * Map from the method name to the list of theorems that may be looking for
-	 * its use.
+	 * Map from the method name to the list of theorems that may be looking for its use.
 	 */
 	private Hashtable<KProperty, HashSet<KTheorem>> theoremCatchers = new Hashtable<KProperty, HashSet<KTheorem>>();
 	/**
-	 * Determines whether this chainer is a "Given" chainer or a "Goal" chainer.
-	 * If it's the former, then the chainer will use the given requirement of
-	 * multitheorems. If it's the latter, it will use the goal requirement.
+	 * Determines whether this chainer is a "Given" chainer or a "Goal" chainer. If it's the former, then the chainer
+	 * will use the given requirement of multitheorems. If it's the latter, it will use the goal requirement.
 	 */
 	private boolean isGivenChainer = true;
 
@@ -35,16 +32,17 @@ public class Chainer {
 	public Hashtable<KProperty, HashSet<Fact<? extends KProperty>>> propertiesByStructure = new Hashtable<KProperty, HashSet<Fact<? extends KProperty>>>();
 	public Hashtable<String, HashSet<Fact<? extends KProperty>>> propertiesByVariable = new Hashtable<String, HashSet<Fact<? extends KProperty>>>();
 	/**
-	 * The equality atomics for each given variable (namely, all of the
-	 * equals(x,y) assertions for which x is the key variable)
+	 * The equality atomics for each given variable (namely, all of the equals(x,y) assertions for which x is the key
+	 * variable)
 	 */
 	private Hashtable<String, HashSet<Fact<KAtomic>>> equalities = new Hashtable<String, HashSet<Fact<KAtomic>>>();
 
 	/**
-	 * All of the quantifiers used to derive given theorems. If the theorem was
-	 * not derived from a quantifier, it will not appear in this table.
+	 * All of the quantifiers used to derive given theorems. If the theorem was not derived from a quantifier, it will
+	 * not appear in this table. This isn't actually used to chain the new theorems, it just keeps a record of the steps
+	 * taken to get to that theorem (they are the same as those taken to get to the original quantifier).
 	 */
-	private Hashtable<KTheorem, Fact<KQuantifier>> theoremDerivations = new Hashtable<KTheorem, Fact<KQuantifier>>();
+	Hashtable<KTheorem, Fact<KQuantifier>> theoremDerivations = new Hashtable<KTheorem, Fact<KQuantifier>>();
 
 	/**
 	 * All of the theorems to pass on to the next layer of chaining
@@ -154,6 +152,7 @@ public class Chainer {
 					chain(new Fact<KProperty>(revar(newTheorem.result, existingBinding.getArguments()), newTheorem,
 							prerequisites));
 				}
+				theoremDerivations.put(newTheorem, (Fact<KQuantifier>) fact);
 				addTheoremCatcher(newTheorem.requirement, newTheorem, (Fact<? extends KQuantifier>) fact);
 			}
 		} else if (property instanceof KAtomic) {
@@ -223,9 +222,8 @@ public class Chainer {
 	}
 
 	/**
-	 * Attempts to propagate new facts from the asserted fact, using the given
-	 * theorem. Assumes that the asserted fact has already been added to the
-	 * database.
+	 * Attempts to propagate new facts from the asserted fact, using the given theorem. Assumes that the asserted fact
+	 * has already been added to the database.
 	 */
 	private void attemptPropagation(KTheorem theorem, Fact<? extends KProperty> fact, KProperty asserted,
 			MutableBinding binding) {
@@ -297,7 +295,8 @@ public class Chainer {
 				binding = newBinding;
 			}
 
-			chain(revar(theorem.result, binding.getArguments()), theorem, binding.getPrerequisites().toArray(new Fact[0]));
+			chain(revar(theorem.result, binding.getArguments()), theorem,
+					binding.getPrerequisites().toArray(new Fact[0]));
 		}
 	}
 
@@ -333,9 +332,28 @@ public class Chainer {
 		}
 	}
 
+	public ArrayList<Binding> getAllFulfillmentsOf(KProperty original, Collection<String> realVariables) {
+		ArrayList<Binding> ret = new ArrayList<Binding>();
+		for (Binding partial : getAllFulfillmentsOf(original)) {
+			Hashtable<String, String> arguments = partial.getArguments();
+			boolean fitsRealVariables = true;
+			for (String originalVar : arguments.keySet()) {
+				if (realVariables.contains(originalVar) && !arguments.get(originalVar).equals(originalVar)) {
+					fitsRealVariables = false;
+				}
+			}
+			if (!fitsRealVariables)
+				continue;
+
+			MutableBinding reducedBinding = new MutableBinding();
+			reducedBinding.removeBindings(realVariables);
+			ret.add(reducedBinding.getImmutable());
+		}
+		return ret;
+	}
+
 	/**
-	 * Finds all of the bindings within this chainer's property list that
-	 * fulfill the given requirement.
+	 * Finds all of the bindings within this chainer's property list that fulfill the given requirement.
 	 */
 	public ArrayList<Binding> getAllFulfillmentsOf(KProperty original) {
 		if (original instanceof KAtomic) {
@@ -349,12 +367,25 @@ public class Chainer {
 				}
 			return ret;
 		} else if (original instanceof KANDing) {
-			// TODO: DN: Don't use brute-enumeration for this, it's awful... but
-			// it sure is easy.
+			// TODO: DN: Don't use brute-enumeration for this, it's awful... but it sure is easy.
 			HashSet<Binding> ret = new HashSet<Binding>(getAllFulfillmentsOf(((KANDing) original).lhs));
-			ret.retainAll(new HashSet<Binding>(getAllFulfillmentsOf(((KANDing) original).lhs)));
+			ret.retainAll(getAllFulfillmentsOf(((KANDing) original).rhs));
 			// @hashorder
 			return new ArrayList<Binding>(ret);
+		} else if (original instanceof KQuantifier) {
+			// TODO: Canonicalize quantifiers before using them in a chainer. (sort ANDs, etc)
+			ArrayList<Binding> ret = new ArrayList<Binding>();
+			KProperty devarred = devar((KQuantifier) original);
+			if (propertiesByStructure.containsKey(devarred))
+				for (Fact<? extends KProperty> fact : propertiesByStructure.get(devarred)) {
+					MutableBinding binding = new MutableBinding();
+					if (binding.canBind(original, fact.property)) {
+						binding.applyBinding(original, fact);
+						// binding.removeBindings(((KQuantifier) original).subject.vars);
+						ret.add(binding.getImmutable());
+					}
+				}
+			return ret;
 		}
 		throw new UnsupportedOperationException("Dwight was too lazy to make a generic version of this function.");
 	}

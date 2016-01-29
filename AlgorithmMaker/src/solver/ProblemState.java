@@ -11,7 +11,6 @@ import bindings.Binding;
 public class ProblemState implements Comparable<ProblemState> {
 	public final int cost;
 	public KInput problem;
-	private String toStringSave;
 	public ProblemState parentState;
 	public Binding rootTheoremBinding;
 	public MultistageTheorem rootTheorem;
@@ -25,6 +24,8 @@ public class ProblemState implements Comparable<ProblemState> {
 		this.rootTheorem = multistageTheorem;
 		this.rootTheoremBinding = binding;
 	}
+
+	private String toStringSave;
 
 	public String toString() {
 		if (toStringSave == null)

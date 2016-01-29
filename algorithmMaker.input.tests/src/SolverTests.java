@@ -20,6 +20,21 @@ import algorithmMaker.QuickParser;
 import algorithmMaker.util.*;
 
 public class SolverTests {
+	/**
+	 * We want to test if the solver can realize that if child(a,x)->child(b,x), then finding a child of a is as good as
+	 * finding a child of b.
+	 */
+	@Test
+	public void testEquivalentObjectContainment() {
+		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty("foo(x,z)"), parseProperty("bar(x,z)"),
+				parseProperty("bar(x,z)"), null, 0, "foo implies bar", null);
+		ProblemSolver solver = new ProblemSolver(
+				parseInput("Given x,y,z st foo(x,z) & forall(q st bar(x,q) : bar(y,q)); Find bar(y,z)"), multistageTheorem);
+		solver.branch();
+		assertEquals(parseInput("Given x,y,z st foo(x,z) & bar(x,z) & forall(q st bar(x,q) : bar(y,q));"),
+				solver.problemStates.peek().problem);
+	}
+
 	@Test
 	public void testProblemStateChange() {
 		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty("enumerable(x)"),

@@ -14,6 +14,7 @@ import bindings.*;
 import display.Viewer;
 import inputHandling.*;
 import kernelLanguage.*;
+import kernelLanguage.KQuantifier.Quantifier;
 import pseudocoders.*;
 import theorems.MultistageTheorem;
 
@@ -23,6 +24,10 @@ import theorems.MultistageTheorem;
  * @author Dwight Naylor
  */
 public class ProblemSolver {
+
+	// TODO:Move this and use it better
+	private static final String COLLECTION = "collection";
+
 	private static final boolean SHOW_GRAPH = true;
 
 	/**
@@ -74,7 +79,17 @@ public class ProblemSolver {
 		if (problem.given.property != null)
 			givenChainer.chain(problem.given.property, GIVEN);
 
-		Chainer goalChainer = new Chainer(false, invertedTheorems);
+		KTheorem[] goalTheorems = new KTheorem[invertedTheorems.length + givenChainer.theoremDerivations.size()];
+		System.arraycopy(invertedTheorems, 0, goalTheorems, 0, invertedTheorems.length);
+		int index = invertedTheorems.length;
+		for (KTheorem derivedTheorem : givenChainer.theoremDerivations.keySet())
+			goalTheorems[index++] = derivedTheorem.getConverse();
+
+		Chainer goalChainer = new Chainer(false, goalTheorems);
+		for (KTheorem derivedTheorem : givenChainer.theoremDerivations.keySet())
+			goalChainer.theoremDerivations.put(derivedTheorem.getConverse(),
+					givenChainer.theoremDerivations.get(derivedTheorem));
+
 		goalChainer.addBoundVars(problem.given.vars.toArray(new String[0]));
 		goalChainer.addBoundVars(problem.goal.vars.toArray(new String[0]));
 		goalChainer.previousLevelTheorems = givenChainer.nextLevelTheorems;
@@ -149,12 +164,73 @@ public class ProblemSolver {
 		for (KProperty property : goalChainer.properties.keySet())
 			doSubProblemMultitheorems(problemState, property, givenChainer.properties.keySet(),
 					goalChainer.properties.keySet());
+
+		// We can also look for properties that are in the given...maybe
+		// TODO: This is not done very well, looks through all the possible
+		// properties instead of only the useful ones.
+		// TODO: Should be methodized
+		for (KProperty property : givenChainer.properties.keySet()) {
+			// At the moment, this whole chunk of code is just for testing if we
+			// can/should declare a hashset containing
+			// all the elements of something in order to get faster child check
+			// time later.
+			if (property instanceof KAtomic && false) {
+				KAtomic atomic = (KAtomic) property;
+				if (atomic.function.startsWith(InputUtil.TYPE_MARKER)
+						&& InputUtil.getDeclaredType(atomic.function).equals(COLLECTION)) {
+					String originalObject = atomic.args.get(0);
+					// Make sure the variable isn't already a set
+					if (givenChainer.hasProperty(atomic(TYPE_MARKER + "hashset", originalObject)))
+						continue;
+
+					// We don't want to add the set if it's already in effect
+					ArrayList<Binding> fulfillments = givenChainer.getAllFulfillmentsOf(quantifier(Quantifier.forall,
+							problem(atomic("child", originalObject, "z"), "z"), atomic("child", "x", "z")),
+							Collections.singleton(originalObject));
+					if (fulfillments.size() > 0)
+						continue;
+
+					HashSet<String> usedVars = new HashSet<String>(KernelUtil.variables(problem.given));
+					String setName = InputUtil.getUnusedVar(usedVars);
+					usedVars.add(setName);
+					String quantifierVariable = InputUtil.getUnusedVar(usedVars);
+					Set<String> newVars = new HashSet<String>(problem.given.vars);
+					newVars.add(setName);
+					KProblem newGiven = problem.given
+							.withProperty(and(problem.given.property, atomic(TYPE_MARKER + "hashset", setName),
+									quantifier(Quantifier.forall,
+											problem(atomic("child", originalObject, quantifierVariable),
+													quantifierVariable),
+											atomic("child", setName, quantifierVariable))))
+							.withVars(newVars);
+
+					Pseudocoder coder = new Pseudocoder() {
+						@Override
+						public void appendPseudocode(StringBuffer builder, int numTabs, ProblemState problemState,
+								Pseudocoder returnCoder, Binding unusedBinding) {
+							Pseudocoder.appendTabs(builder, numTabs);
+							builder.append(setName + " = new HashSet(" + originalObject + ")");
+						}
+					};
+
+					if (DEBUG_MODE) {
+						for (int i = 0; i < depthDEBUG; i++)
+							System.out.print("|\t");
+						System.out.println("NEW PROBLEM:" + input(newGiven, problem.goal));
+					}
+					addProblemState(input(newGiven, problem.goal), problemState, new MultistageTheorem(null, null, null,
+							5, "Declaration of a hashset for inclusion testing", coder), Binding.EMPTY);
+				}
+			}
+		}
 	}
 
 	private void doSubProblemMultitheorems(ProblemState problemState, KProperty property, Set<KProperty> givenChainer,
 			Set<KProperty> findChainer) {
-		// This whole way of catching multi-theorems is sort of hacky. Ideally we'd like to have it all done within the
-		// theorem chainer, and then we could just "pick them up" here. The reason that isn't done is because the
+		// This whole way of catching multi-theorems is sort of hacky. Ideally
+		// we'd like to have it all done within the
+		// theorem chainer, and then we could just "pick them up" here. The
+		// reason that isn't done is because the
 		// chainer doesn't handle quantifiers very well.
 		if (property instanceof KQuantifier) {
 			KQuantifier quantifier = (KQuantifier) property;
@@ -267,10 +343,8 @@ public class ProblemSolver {
 	private KInput getTransitiveQuantifierEnumerationSubProblem(ProblemState problemState, KQuantifier quantifier) {
 		// TODO: Check and make sure that uninvolvedParts is being used
 		// correctly here.
-		KInput enumerationProblem = input(problemState.problem.given, quantifier.subject);
-		enumerationProblem = enumerationProblem.withGoal(enumerationProblem.goal.withVars(
-				KernelUtil.getUndeclaredVars(enumerationProblem.goal.withVars(enumerationProblem.given.vars))));
-		return enumerationProblem;
+		return input(problemState.problem.given, quantifier.subject
+				.withVars(KernelUtil.getUndeclaredVars(quantifier.subject.withVars(problemState.problem.given.vars))));
 	}
 
 	private void doQuantifierSubProblemFor(ProblemState problemState, KQuantifier quantifier,
@@ -295,7 +369,7 @@ public class ProblemSolver {
 				for (int q = 0; q < depthDEBUG; q++)
 					System.out.print("|\t");
 
-				System.out.println("Quantifier cracking subproblem");
+				System.out.println("Quantifier cracking subproblem:\"" + quantifier + "\"");
 			}
 			ProblemSolver subSolver = new ProblemSolver(subProblem, depthDEBUG + 1, theorems);
 			subSolvers.put(subProblem, subSolver);
@@ -364,7 +438,7 @@ public class ProblemSolver {
 	 */
 	public static KInput getSubProblemForQuantifier(KInput problem, KQuantifier quantifier) {
 		MutableBinding rebindingForQuantifier = new MutableBinding();
-		HashSet<String> usedVars = new HashSet<String>(variables(problem));
+		HashSet<String> usedVars = new HashSet<String>(variables(problem.given));
 		for (String var : getDeclaredVars(quantifier.subject)) {
 			String newVar = InputUtil.getUnusedVar(usedVars);
 			usedVars.add(newVar);
@@ -390,14 +464,8 @@ public class ProblemSolver {
 
 	private void addProblemState(KInput newProblem, ProblemState parentState, MultistageTheorem multistageTheorem,
 			Binding binding) {
-		if (DEBUG_MODE)
-			newProblem.validate();
-
 		// Simplify the problem
 		newProblem = TransformUtil.removeGivenFromGoal(newProblem, new Chainer(theorems));
-
-		if (DEBUG_MODE)
-			newProblem.validate();
 
 		if (newProblem.given.property != null)
 			newProblem = newProblem
@@ -411,15 +479,16 @@ public class ProblemSolver {
 			if (DEBUG_MODE)
 				newProblem.validate();
 
+			ProblemState newProblemState = new ProblemState(newProblem, parentState, multistageTheorem, binding);
+
+			reachedProblems.put(newProblem, newProblemState);
+
 			if (DEBUG_MODE && DEBUG_VERBOSE) {
 				for (int i = 0; i < depthDEBUG; i++)
 					System.out.print("|\t");
 
-				System.out.println(newProblem);
+				System.out.println(newProblemState.cost + ":" + newProblem);
 			}
-
-			ProblemState newProblemState = new ProblemState(newProblem, parentState, multistageTheorem, binding);
-			reachedProblems.put(newProblem, newProblemState);
 
 			if (newProblem.goal.solved() && (solved == null || solved.cost > newProblemState.cost))
 				solved = newProblemState;
