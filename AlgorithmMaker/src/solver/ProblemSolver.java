@@ -269,7 +269,6 @@ public class ProblemSolver {
 		// We do this by finding all possible "matches" from outside the quantifier to the inside of the quantifier
 		if (bindings != null)
 			for (Binding binding : bindings) {
-				System.out.println(binding);
 				ArrayList<String> lines = new ArrayList<String>();
 				Hashtable<String, String> bindingArgs = binding.getArguments();
 				for (String originalVar : bindingArgs.keySet()) {
