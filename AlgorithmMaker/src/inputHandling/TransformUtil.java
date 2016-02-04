@@ -39,16 +39,13 @@ public class TransformUtil {
 			chainer.chain(input.given.property, GIVEN);
 		}
 		toRemove.addAll(chainer.properties.keySet());
+		
 		KProperty find = input.goal.property;
 		if (find != null) {
 			KProperty reducedGoal = find.without(toRemove);
 			input = input.withGoal(input.goal.withProperty(reducedGoal == null ? TRUE : reducedGoal));
 		}
 
-		KInput ret = KernelUtil.cleanDeclarations(input.withMinimumVariables());
-		if (DEBUG_MODE)
-			ret.validate();
-
-		return ret;
+		return KernelUtil.cleanDeclarations(input.withMinimumVariables());
 	}
 }

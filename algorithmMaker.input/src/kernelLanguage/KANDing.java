@@ -28,7 +28,7 @@ public class KANDing extends KProperty {
 	}
 
 	@Override
-	public KProperty without(HashSet<KProperty> toRemove) {
+	protected KProperty without(HashSet<KProperty> toRemove) {
 		KProperty newLhs = lhs.without(toRemove);
 		KProperty newRhs = rhs.without(toRemove);
 		if (newLhs == FALSE || newRhs == FALSE)

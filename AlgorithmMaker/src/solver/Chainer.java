@@ -5,10 +5,11 @@ import static kernelLanguage.KernelFactory.*;
 
 import java.util.*;
 
-import kernelLanguage.*;
-import theorems.*;
 import algorithmMaker.util.*;
 import bindings.*;
+import kernelLanguage.*;
+import theorems.*;
+import util.CollectionUtil;
 
 /**
  * Chains together facts using existing theorems to arrive at conclusions. Includes "costs" for each theorem, which
@@ -57,15 +58,35 @@ public class Chainer {
 		this(true, theorems);
 	}
 
-	@SuppressWarnings("unchecked")
-	public <T extends KProperty> Fact<T> getProperty(T property) {
-		return (Fact<T>) properties.get(property);
-	}
-
 	public Chainer(boolean isGivenChainer, KTheorem... theorems) {
 		this.isGivenChainer = isGivenChainer;
 		for (KTheorem theorem : theorems)
 			addTheoremCatcher(getRequirement(theorem), theorem, null);
+	}
+
+	public Chainer clone() {
+		Chainer copy = new Chainer();
+		copy.equalities = CollectionUtil.deepClone(equalities);
+		copy.isGivenChainer = isGivenChainer;
+		copy.nextLevelTheorems = CollectionUtil.deepClone(nextLevelTheorems);
+		copy.previousLevelTheorems = CollectionUtil.deepClone(previousLevelTheorems);
+		copy.properties = CollectionUtil.deepClone(properties);
+		copy.propertiesByStructure = CollectionUtil.deepClone(propertiesByStructure);
+		copy.propertiesByVariable = CollectionUtil.deepClone(propertiesByVariable);
+		copy.theoremCatchers = CollectionUtil.deepClone(theoremCatchers);
+		copy.theoremDerivations = CollectionUtil.deepClone(theoremDerivations);
+		return copy;
+	}
+
+	public void clearProperties() {
+		properties = new Hashtable<KProperty, Fact<? extends KProperty>>();
+		propertiesByStructure = new Hashtable<KProperty, HashSet<Fact<? extends KProperty>>>();
+		propertiesByVariable = new Hashtable<String, HashSet<Fact<? extends KProperty>>>();
+	}
+
+	@SuppressWarnings("unchecked")
+	public <T extends KProperty> Fact<T> getProperty(T property) {
+		return (Fact<T>) properties.get(property);
 	}
 
 	public void addBoundVars(String... vars) {
@@ -104,6 +125,8 @@ public class Chainer {
 
 	private void addTheoremCatcher(KProperty requirement, KTheorem theorem, Fact<? extends KQuantifier> theoremBase) {
 		KProperty devar = devar(requirement);
+		// TODO:DN: Split up quantifiers with ANDed predicates durin theorem
+		// catcher creation
 		if (requirement instanceof KANDing) {
 			for (KProperty anded : getANDed(requirement))
 				addTheoremCatcher(anded, theorem, theoremBase);
@@ -126,7 +149,6 @@ public class Chainer {
 
 	@SuppressWarnings("unchecked")
 	public void chain(Fact<? extends KProperty> fact) {
-
 		KProperty property = fact.property;
 		if (hasProperty(property))
 			return;
@@ -155,6 +177,20 @@ public class Chainer {
 				theoremDerivations.put(newTheorem, (Fact<KQuantifier>) fact);
 				addTheoremCatcher(newTheorem.requirement, newTheorem, (Fact<? extends KQuantifier>) fact);
 			}
+			Chainer subChainer = clone();
+			subChainer.clearProperties();
+			subChainer.chain(quantifier.predicate, GIVEN);
+			for (Fact<? extends KProperty> newPredicateFact : subChainer.properties.values()) {
+				KQuantifier newQuantifier = quantifier(quantifier.quantifier, quantifier.subject,
+						newPredicateFact.property);
+				KQuantifier devarredQuantifier = devar(newQuantifier);
+				if (theoremCatchers.containsKey(devarredQuantifier))
+					for (KTheorem theorem : (HashSet<KTheorem>) theoremCatchers.get(devarredQuantifier).clone()) {
+						// TODO:This theorem argument probably shouldn't be null
+						beginPropagation(theorem, new Fact<KQuantifier>(newQuantifier, GIVEN));
+					}
+			}
+			return;
 		} else if (property instanceof KAtomic) {
 			KAtomic atomic = (KAtomic) property;
 			String function = atomic.function;
@@ -204,31 +240,29 @@ public class Chainer {
 				}
 		}
 
-		// Go through all of the theorems that use this atomic's function
-		// and check if any of them can be applied
+		// Go through all of the theorems that use this property and check if
+		// any of them can be applied
 		// We clone the theoremCatcher list because it could be modified inside
-		// the loop and we want to be alerted if
-		// that happens.
+		// the loop and we want to be alerted if that happens.
 		// TODO: DN: Make sure the modified internal loop doesn't ignore the new
 		// theorem when chaining
 		if (theoremCatchers.containsKey(devar))
-			for (KTheorem theorem : (HashSet<KTheorem>) theoremCatchers.get(devar).clone()) {
-				MutableBinding binding = new MutableBinding();
-				if (theoremDerivations.containsKey(theorem))
-					binding.addPrerequisite(this.theoremDerivations.get(theorem));
-
-				attemptPropagation(theorem, fact, fact.property, binding);
-			}
+			for (KTheorem theorem : (HashSet<KTheorem>) theoremCatchers.get(devar).clone())
+				beginPropagation(theorem, fact);
 	}
 
 	/**
 	 * Attempts to propagate new facts from the asserted fact, using the given theorem. Assumes that the asserted fact
 	 * has already been added to the database.
 	 */
-	private void attemptPropagation(KTheorem theorem, Fact<? extends KProperty> fact, KProperty asserted,
-			MutableBinding binding) {
-		KProperty devar = devar(asserted);
+	private void beginPropagation(KTheorem theorem, Fact<? extends KProperty> fact) {
+		MutableBinding binding = new MutableBinding();
+		if (theoremDerivations.containsKey(theorem))
+			binding.addPrerequisite(this.theoremDerivations.get(theorem));
+
+		KProperty devar = devar(fact.property);
 		KProperty requirement = getRequirement(theorem);
+		// TODO: DN: Use these prerequisites...
 		ArrayList<Fact<? extends KProperty>> prerequisites = new ArrayList<Fact<? extends KProperty>>();
 		prerequisites.add(fact);
 		if (requirement instanceof KANDing) {
@@ -246,9 +280,14 @@ public class Chainer {
 					break;
 				}
 
-			attemptPropagation(theorem, properties, 0, fact, false, binding, lastUsableIndex);
-		} else {
-			// If the requirement isn't a compound one, then we know we satisfy
+			propagateFromANDing(theorem, properties, 0, fact, false, binding, lastUsableIndex);
+		} else if (requirement instanceof KQuantifier) {
+			if (binding.canBind(requirement, fact.property)) {
+				binding.applyBinding(requirement, fact);
+				attemptChaining(theorem, binding.getImmutable());
+			}
+		} else if (requirement instanceof KAtomic || requirement instanceof KNegation) {
+			// If the requirement isn't an atomic one, then we know we satisfy
 			// it already, because there's nothing else to look for.
 			binding.applyBinding(requirement, fact);
 			attemptChaining(theorem, binding.getImmutable());
@@ -300,7 +339,7 @@ public class Chainer {
 		}
 	}
 
-	private void attemptPropagation(KTheorem theorem, ArrayList<KProperty> propertiesToSatisfy, int index,
+	private void propagateFromANDing(KTheorem theorem, ArrayList<KProperty> propertiesToSatisfy, int index,
 			Fact<? extends KProperty> fact, boolean usedAsserted, MutableBinding binding, int lastUsableIndex) {
 		// base case : when we've fulfilled all the atomics, we can assert our
 		// result.
@@ -313,7 +352,7 @@ public class Chainer {
 		if (index == lastUsableIndex && !usedAsserted && binding.canBind(toSatisfy, fact.property)) {
 			binding.applyBinding(toSatisfy, fact);
 
-			attemptPropagation(theorem, propertiesToSatisfy, index + 1, fact, true, binding, lastUsableIndex);
+			propagateFromANDing(theorem, propertiesToSatisfy, index + 1, fact, true, binding, lastUsableIndex);
 
 			binding.undoLastBinding();
 		} else {
@@ -323,7 +362,7 @@ public class Chainer {
 				if (binding.canBind(toSatisfy, candidate.property)) {
 					binding.applyBinding(toSatisfy, candidate);
 
-					attemptPropagation(theorem, propertiesToSatisfy, index + 1, fact,
+					propagateFromANDing(theorem, propertiesToSatisfy, index + 1, fact,
 							usedAsserted || candidate.equals(fact), binding, lastUsableIndex);
 
 					binding.undoLastBinding();
@@ -367,13 +406,15 @@ public class Chainer {
 				}
 			return ret;
 		} else if (original instanceof KANDing) {
-			// TODO: DN: Don't use brute-enumeration for this, it's awful... but it sure is easy.
+			// TODO: DN: Don't use brute-enumeration for this, it's awful... but
+			// it sure is easy.
 			HashSet<Binding> ret = new HashSet<Binding>(getAllFulfillmentsOf(((KANDing) original).lhs));
 			ret.retainAll(getAllFulfillmentsOf(((KANDing) original).rhs));
 			// @hashorder
 			return new ArrayList<Binding>(ret);
 		} else if (original instanceof KQuantifier) {
-			// TODO: Canonicalize quantifiers before using them in a chainer. (sort ANDs, etc)
+			// TODO: Canonicalize quantifiers before using them in a chainer.
+			// (sort ANDs, etc)
 			ArrayList<Binding> ret = new ArrayList<Binding>();
 			KProperty devarred = devar((KQuantifier) original);
 			if (propertiesByStructure.containsKey(devarred))
@@ -381,7 +422,8 @@ public class Chainer {
 					MutableBinding binding = new MutableBinding();
 					if (binding.canBind(original, fact.property)) {
 						binding.applyBinding(original, fact);
-						// binding.removeBindings(((KQuantifier) original).subject.vars);
+						// binding.removeBindings(((KQuantifier)
+						// original).subject.vars);
 						ret.add(binding.getImmutable());
 					}
 				}

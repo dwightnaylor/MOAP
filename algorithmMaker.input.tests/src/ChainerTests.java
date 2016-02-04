@@ -7,7 +7,8 @@ import java.util.Collections;
 import org.junit.Test;
 
 import algorithmMaker.util.InputUtil;
-import kernelLanguage.KInput;
+import kernelLanguage.*;
+import runtimeAnalysis.ConstantMerger;
 import solver.Chainer;
 import theorems.MultistageTheorem;
 
@@ -110,9 +111,9 @@ public class ChainerTests {
 
 	@Test
 	public void testForMultistageMultipleOptions() {
-		Chainer chainer = new Chainer(
-				new MultistageTheorem(parseProperty(BOUND + "(y) & " + TYPE_MARKER + "hashset(x)"),
-						parseProperty("child(x,y)"), parseProperty("child(x,y)"), null, 0, "enumerable things", null));
+		Chainer chainer = new Chainer(new MultistageTheorem(
+				parseProperty(BOUND + "(y) & " + TYPE_MARKER + "hashset(x)"), parseProperty("child(x,y)"),
+				parseProperty("child(x,y)"), null, new ConstantMerger(0), "enumerable things", null));
 		KInput input = parseInput("Given hashset x, hashset z; Find y st child(x,y)");
 		chainer.addBoundVars(input.given.vars.toArray(new String[0]));
 		chainer.chain(input.given.property, GIVEN);
@@ -122,7 +123,8 @@ public class ChainerTests {
 	@Test
 	public void testMultistageChaining() {
 		MultistageTheorem multiTheorem = new MultistageTheorem(parseProperty("enumerable(x)"),
-				parseProperty("child(x,y)"), parseProperty("child(x,y)"), null, 0, "enumerable things", null);
+				parseProperty("child(x,y)"), parseProperty("child(x,y)"), null, new ConstantMerger(0),
+				"enumerable things", null);
 		Chainer stage1Chainer = new Chainer(multiTheorem);
 		stage1Chainer.chain(parseProperty("enumerable(a)"), GIVEN);
 		assertTrue("Stage 1 of multichaining works", stage1Chainer.nextLevelTheorems.size() == 1);
@@ -190,6 +192,33 @@ public class ChainerTests {
 		basicChainer.chain(parseProperty(BOUND + "(a)"), GIVEN);
 		basicChainer.chain(parseProperty("plus(a,b,c)"), GIVEN);
 		assertFalse(basicChainer.hasProperty(parseProperty("something(c)")));
+	}
+
+	@Test
+	public void testForQuantifierPredicateImplications() {
+		// Generally, this is a test of quantifiers being able to handle predicate implications
+		KTheorem quantifierTheorem = parseTheorem("exists(na st a(x,na) : b(x,na))->c(x)");
+		KTheorem simpleTheorem = parseTheorem("bb(x,na)->b(x,na)");
+		// First case is no implication, just catch the quantifier as a requirement
+		{
+			Chainer basicChainer = new Chainer(quantifierTheorem, simpleTheorem);
+			basicChainer.chain(parseProperty("exists(na st a(q,na) : b(q,na))"), GIVEN);
+			assertTrue(basicChainer.hasProperty(parseProperty("c(q)")));
+		}
+		// Test for a stronger quantifier predicate being given.
+		{
+			Chainer basicChainer = new Chainer(quantifierTheorem, simpleTheorem);
+			basicChainer.chain(parseProperty("exists(na st a(q,na) : bb(q,na))"), GIVEN);
+			assertTrue(basicChainer.hasProperty(parseProperty("c(q)")));
+		}
+		// TODO: Test for a quantifier predicate implication being able to use theorems supplied after the predicate was
+		// processed.
+		// {
+		// Chainer basicChainer = new Chainer(quantifierTheorem);
+		// basicChainer.chain(parseProperty("exists(na st a(q,na) : bb(q,na))"), GIVEN);
+		// basicChainer.chain(parseProperty("forall(q,w st bb(q,w) : b(q,w))"), GIVEN);
+		// assertTrue(basicChainer.hasProperty(parseProperty("c(q)")));
+		// }
 	}
 
 	@Test

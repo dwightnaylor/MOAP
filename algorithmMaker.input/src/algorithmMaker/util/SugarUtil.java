@@ -73,12 +73,6 @@ public class SugarUtil {
 		return kernelObjects.get(object);
 	}
 
-	public static Input desugar(Input input) {
-		// desugar(input.getGiven());
-		// desugar(input.getGoal());
-		return (Input) desugarNestedAtomics(input);
-	}
-
 	private static Property getDesugaredTypeDeclaration(Type type, String varName, HashSet<String> usedVars) {
 		Property ret = InputUtil.createAtomic(InputUtil.TYPE_MARKER + type.getName(), varName);
 		if (type.getTemplateType() != null) {
@@ -94,73 +88,103 @@ public class SugarUtil {
 		return ret;
 	}
 
-	private static EObject desugarNestedAtomics(EObject object) {
+	public static EObject desugar(EObject object) {
 		return InputUtil.reduce(object, new InputConverter() {
-			// TODO:Rename and explain
+			/**
+			 * All of the atomics that have been "denested". These are atomics that were inside another atomic as an
+			 * argument, that now have to be re-added into the problem as separate atomics.
+			 */
 			List<Atomic> denestedAtomics = new LinkedList<Atomic>();
 
+			/**
+			 * All of the variables that were declared in the context of a given atomic.
+			 */
 			Hashtable<Atomic, HashSet<String>> declaredVarsInContext = new Hashtable<Atomic, HashSet<String>>();
 
 			@Override
 			public EObject apply(EObject cur) {
 				if (cur instanceof Atomic) {
-					ArrayList<Atomic> newAtomics = new ArrayList<Atomic>();
-					Hashtable<NumericalProperty, String> nestedArgs = new Hashtable<NumericalProperty, String>();
-					HashSet<String> declaredVars = InputUtil.getDeclaredVars(object);
-					denest((Atomic) cur, declaredVars, nestedArgs, newAtomics, false);
-					Atomic changedAtomic = newAtomics.get(newAtomics.size() - 1);
-					if (newAtomics.size() > 1)
-						for (int i = 0; i < newAtomics.size() - 1; i++) {
-							Atomic atomic = newAtomics.get(i);
-							if (!declaredVarsInContext.keySet().contains(atomic)) {
-								denestedAtomics.add(atomic);
-								declaredVarsInContext.put(atomic, new HashSet<String>());
-							}
-							declaredVarsInContext.get(atomic).addAll(declaredVars);
-						}
-
-					return changedAtomic;
+					return desugarAtomic((Atomic) cur);
+				} else if (cur instanceof Quantifier) {
+					addDenestedAtomics(((Quantifier) cur).getSubject(), false);
+				} else if (cur instanceof Input) {
+					// Add any denested atomics that the input can claim.
+					// NOTE: It is crucial that the goal denesting go first here. It makes sure that anything mentioned
+					// in the goal will be declared there, rather than in the given.
+					addDenestedAtomics(((Input) cur).getGoal(), true);
+					addDenestedAtomics(((Input) cur).getGiven(), true);
 				} else if (cur instanceof Problem) {
-					Problem curProblem = (Problem) cur;
-					ArrayList<Property> newAtomics = new ArrayList<Property>();
-					newAtomics.add(curProblem.getProperty());
-
-					HashSet<String> declaredVars = InputUtil.getDeclaredVars(cur);
-					ArrayList<String> newDeclarations = new ArrayList<String>();
-					for (Iterator<Atomic> iterator = denestedAtomics.iterator(); iterator.hasNext();) {
-						Atomic atomic = iterator.next();
-						for (NumericalProperty argProperty : atomic.getArgs()) {
-							if (declaredVars.contains(((Variable) argProperty).getArg())) {
-								iterator.remove();
-								newAtomics.add(atomic);
-								String newVar = ((Variable) atomic.getArgs().get(atomic.getArgs().size() - 1)).getArg();
-								newDeclarations.add(newVar);
-								newDeclarations.addAll(declaredVarsInContext.get(atomic));
-								curProblem.getVars().add(InputUtil.createDeclaration(newVar));
-								break;
-							}
-						}
-					}
-
-					declaredVars.addAll(newDeclarations);
-
-					// Go through all the declarations and remove their type declaration.
-					// Replace it with type declaration atomics.
-					for (Declaration declaration : curProblem.getVars())
-						if (declaration.getType() != null)
-							newAtomics.add(getDesugaredTypeDeclaration(declaration.getType(), declaration.getVarName(),
-									declaredVars));
-
-					if (newAtomics.size() > 0) {
-						newAtomics.add(curProblem.getProperty());
-						newAtomics.remove(null);
-						newAtomics.remove(InputUtil.getBooleanLiteral(true));
-						curProblem.setProperty(InputUtil.canonicalize(InputUtil.andTogether(newAtomics)));
-					}
+					desugarVariableDeclarations((Problem) cur);
 				}
 				return cur;
 			}
 
+			private void addDenestedAtomics(Problem problem, boolean includeUsedVars) {
+				HashSet<String> oldVars = problem == null ? new HashSet<String>()
+						: (includeUsedVars ? InputUtil.getUsedVars(problem) : InputUtil.getDeclaredVars(problem));
+				ArrayList<Property> newParts = new ArrayList<Property>();
+				if (problem != null)
+					newParts.add(problem.getProperty());
+
+				for (Iterator<Atomic> iterator = denestedAtomics.iterator(); iterator.hasNext();) {
+					Atomic atomic = iterator.next();
+					for (NumericalProperty argProperty : atomic.getArgs()) {
+						if (oldVars.contains(((Variable) argProperty).getArg())) {
+							iterator.remove();
+							newParts.add(atomic);
+							problem.getVars().add(InputUtil.createDeclaration(
+									((Variable) atomic.getArgs().get(atomic.getArgs().size() - 1)).getArg()));
+							break;
+						}
+					}
+				}
+
+				newParts.remove(null);
+				newParts.remove(InputUtil.getBooleanLiteral(true));
+				if (newParts.size() > 0) {
+					problem.setProperty(InputUtil.canonicalize(InputUtil.andTogether(newParts)));
+				}
+			}
+
+			private void desugarVariableDeclarations(Problem problem) {
+				ArrayList<Property> declarationAtomics = new ArrayList<Property>();
+				// Go through all the declarations and remove their type declaration.
+				// Replace it with type declaration atomics.
+				for (Declaration declaration : problem.getVars())
+					if (declaration.getType() != null)
+						declarationAtomics.add(getDesugaredTypeDeclaration(declaration.getType(),
+								declaration.getVarName(), InputUtil.getDeclaredVars(problem)));
+
+				if (declarationAtomics.size() > 0) {
+					declarationAtomics.add(problem.getProperty());
+					declarationAtomics.remove(null);
+					declarationAtomics.remove(InputUtil.getBooleanLiteral(true));
+					problem.setProperty(InputUtil.canonicalize(InputUtil.andTogether(declarationAtomics)));
+				}
+			}
+
+			private EObject desugarAtomic(Atomic atomicToDesugar) {
+				ArrayList<Atomic> newAtomics = new ArrayList<Atomic>();
+				Hashtable<NumericalProperty, String> nestedArgs = new Hashtable<NumericalProperty, String>();
+				HashSet<String> declaredVars = InputUtil.getDeclaredVars(object);
+				denest(atomicToDesugar, declaredVars, nestedArgs, newAtomics, false);
+				Atomic changedAtomic = newAtomics.get(newAtomics.size() - 1);
+				if (newAtomics.size() > 1)
+					for (int i = 0; i < newAtomics.size() - 1; i++) {
+						Atomic atomic = newAtomics.get(i);
+						if (!declaredVarsInContext.keySet().contains(atomic)) {
+							denestedAtomics.add(atomic);
+							declaredVarsInContext.put(atomic, new HashSet<String>());
+						}
+						declaredVarsInContext.get(atomic).addAll(declaredVars);
+					}
+
+				return changedAtomic;
+			}
+
+			/**
+			 * Pulls out all of the atomics passed as arguments to the given property, or anything within it.
+			 */
 			private void denest(NumericalProperty property, HashSet<String> allVars,
 					Hashtable<NumericalProperty, String> nestedArgs, ArrayList<Atomic> newAtomics, boolean nested) {
 				// FIXME: DN: this should only happen with things that are

@@ -6,9 +6,6 @@ import algorithmMaker.util.KernelUtil;
 import kernelLanguage.KQuantifier.Quantifier;
 
 public class KernelFactory {
-	public static final boolean DEBUG_MODE = true;
-	public static final boolean DEBUG_VERBOSE = true;
-
 	private static Hashtable<KProperty, Hashtable<KProperty, KANDing>> andings = new Hashtable<KProperty, Hashtable<KProperty, KANDing>>();
 	private static Hashtable<String, Hashtable<List<String>, KAtomic>> atomics = new Hashtable<String, Hashtable<List<String>, KAtomic>>();
 	public static final KBooleanLiteral TRUE = new KBooleanLiteral(true);

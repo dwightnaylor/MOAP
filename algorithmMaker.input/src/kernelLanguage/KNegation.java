@@ -23,7 +23,7 @@ public class KNegation extends KProperty {
 	}
 
 	@Override
-	public KProperty without(HashSet<KProperty> toRemove) {
+	protected KProperty without(HashSet<KProperty> toRemove) {
 		KProperty newNegated = negated.without(toRemove);
 		if (newNegated instanceof KBooleanLiteral)
 			return ((KBooleanLiteral) newNegated).negate();

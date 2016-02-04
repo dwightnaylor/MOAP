@@ -38,7 +38,7 @@ public class KAtomic extends KProperty {
 	}
 
 	@Override
-	public KProperty without(HashSet<KProperty> toRemove) {
+	protected KProperty without(HashSet<KProperty> toRemove) {
 		if (toRemove.contains(this))
 			return TRUE;
 

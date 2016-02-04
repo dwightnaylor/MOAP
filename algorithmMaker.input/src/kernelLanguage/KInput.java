@@ -49,6 +49,14 @@ public class KInput extends KObject {
 		return KernelFactory.input(given, newGoal);
 	}
 
+	public KInput withGivenProperty(KProperty newProperty) {
+		return withGiven(given.withProperty(newProperty));
+	}
+
+	public KInput withGoalProperty(KProperty newProperty) {
+		return withGoal(goal.withProperty(newProperty));
+	}
+
 	public KInput withMinimumVariables() {
 		HashSet<String> newGivenVarsSet = KernelUtil.getUndeclaredVars(given.withVars(Collections.emptyList()));
 		newGivenVarsSet.addAll(KernelUtil.getUndeclaredVars(goal));

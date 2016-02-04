@@ -27,8 +27,9 @@ public class KProblem extends KObject {
 	}
 
 	/**
-	 * Reduces variables usage such that any undeclared variables are declared in the given, and any unused declarations
-	 * in either the given or the goal are removed.
+	 * Reduces variables usage such that any undeclared variables are declared
+	 * in the given, and any unused declarations in either the given or the goal
+	 * are removed.
 	 */
 	public KProblem fixVariables() {
 		return null;
@@ -63,6 +64,12 @@ public class KProblem extends KObject {
 			ret.append(property.toString());
 
 		return ret.toString();
+	}
+
+	public KProblem withAddedVars(Collection<String> addedVars) {
+		HashSet<String> newVars = new HashSet<String>(vars);
+		newVars.addAll(addedVars);
+		return withVars(newVars);
 	}
 
 	public KProblem withProperty(KProperty newProperty) {

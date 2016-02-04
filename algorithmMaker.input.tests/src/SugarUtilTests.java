@@ -35,6 +35,8 @@ public class SugarUtilTests {
 	@Test
 	public void testDesugar() {
 		ArrayList<String[]> tasks = new ArrayList<String[]>();
+		tasks.add(new String[] { "Given a,b; Find equal(plus(a,b),times(a,b))",
+				"Given a,b; Find na,nb st equal(na,nb) & plus(a,b,na) & times(a,b,nb)" });
 		tasks.add(new String[] { "Given x; Find y st test(y)", "Given x; Find y st test(y)" });
 		tasks.add(new String[] { "Given list<int> x; Find y st test(y)",
 				"Given x st forall(na st child(x,na) : type_int(na)) & type_list(x); Find y st test(y)" });
@@ -48,10 +50,15 @@ public class SugarUtilTests {
 		tasks.add(new String[] { "Given list<point> x st foo(bar(x)); Find y st blah(y)",
 				"Given x,na st bar(x,na) & foo(na) & forall(nb st child(x,nb) : type_point(nb)) & type_list(x); Find y st blah(y)" });
 		tasks.add(new String[] { "Given x st forall(na st foo(na) : bar(na)) ; Find y st first(second(x))",
-				"Given x,nb st forall(na st foo(na) : bar(na)) & second(x,nb); Find y st first(nb)" });
+				"Given x st forall(na st foo(na) : bar(na)); Find y,nb st first(nb) & second(x,nb)" });
 		tasks.add(new String[] {
 				"Given list<point> x; Find a,b st child(x,a) & child(x,b) & forall(c,d st child(x,c) & child(x,d) : lessThanEqual(distance(a,b),distance(c,d)))",
 				"Given x st forall(na st child(x,na) : type_point(na)) & type_list(x); Find a,b,na st child(x,a) & child(x,b) & distance(a,b,na) & forall(c,d,nb st child(x,c) & child(x,d) & distance(c,d,nb) : lessThanEqual(na,nb))" });
+		tasks.add(new String[] {
+				"Given array a; Find i st index(a,i) & forall(j st index(a,j) : lessThanEqual(get(a,i),get(a,j)))",
+				"Given a st type_array(a); Find i,na st forall(j,nb st get(a,j,nb) & index(a,j) : lessThanEqual(na,nb)) & get(a,i,na) & index(a,i)" });
+		// Tests for no change...
+		tasks.add(new String[] { "Given x,y st a(x,y) & equal(x,y);", "Given x,y st a(x,y) & equal(x,y);" });
 		for (String[] task : tasks) {
 			KInput original = (KInput) SugarUtil.convertToKernel(QuickParser.parseInput(task[0]));
 			String simplifiedToString = original.toString();

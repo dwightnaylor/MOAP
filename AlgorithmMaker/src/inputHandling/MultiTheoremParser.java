@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import algorithmMaker.util.InputUtil;
 import pseudocoders.LineCoder;
+import runtimeAnalysis.*;
 import theorems.MultistageTheorem;
 
 public class MultiTheoremParser {
@@ -16,7 +17,7 @@ public class MultiTheoremParser {
 		addBruteForceFindTheorems(ret);
 		addSimpleTestingTheorems(ret);
 		addDeclarationTheorems(ret);
-//		addComplexDeclarationTheorems(ret);
+		// addComplexDeclarationTheorems(ret);
 		return ret;
 	}
 
@@ -25,8 +26,9 @@ public class MultiTheoremParser {
 		bruteForces.add(new String[] { UNBOUND + "(y) & enumerable(x)", "child(x,y)", "foreach child <y> of <x>" });
 		bruteForces.add(new String[] { UNBOUND + "(y) & indexable(x)", "index(x,y)", "foreach index <y> of <x>" });
 		for (String[] cur : bruteForces)
-			ret.add(new MultistageTheorem(parseProperty(cur[0]), parseProperty(cur[1]), parseProperty(cur[1]), null, 10,
-					"Brute force.", new LineCoder(true, cur[2])));
+			ret.add(new MultistageTheorem(parseProperty(cur[0]), parseProperty(cur[1]), parseProperty(cur[1]), null,
+					new MultiplicationMerger(10), "Brute force.",
+					new LineCoder(cur[2], ">" + LineCoder.EXIT_STRING + "0")));
 	}
 
 	private static void addSimpleTestingTheorems(ArrayList<MultistageTheorem> ret) {
@@ -41,10 +43,10 @@ public class MultiTheoremParser {
 		tests.add(new String[] { TYPE_MARKER + "hashset(x) & " + BOUND + "(y)", "child(x,y)", "if <x>.contains(<y>)" });
 		for (String[] test : tests) {
 			ret.add(new MultistageTheorem(parseProperty(test[0]), parseProperty(test[1]), parseProperty(test[1]), null,
-					1, "Simple test.", new LineCoder(true, test[2])));
+					new AdditionMerger(1), "Simple test.", new LineCoder(test[2], ">" + LineCoder.EXIT_STRING + "0")));
 			ret.add(new MultistageTheorem(parseProperty(test[0]), parseProperty("!" + test[1]),
-					parseProperty("!" + test[1]), null, 1, "Simple negated test.",
-					new LineCoder(true, invert(test[2]))));
+					parseProperty("!" + test[1]), null, new AdditionMerger(1), "Simple negated test.",
+					new LineCoder(invert(test[2]), ">" + LineCoder.EXIT_STRING + "0")));
 		}
 	}
 
@@ -71,23 +73,23 @@ public class MultiTheoremParser {
 
 		for (String[] declaration : declarations)
 			ret.add(new MultistageTheorem(parseProperty(declaration[0]), parseProperty(declaration[1]),
-					parseProperty(declaration[1]), null, 1, "Simple declaration.",
-					new LineCoder(false, declaration[2])));
+					parseProperty(declaration[1]), null, new AdditionMerger(1), "Simple declaration.",
+					new LineCoder(declaration[2], LineCoder.EXIT_STRING + "0")));
 	}
 
-//	private static void addComplexDeclarationTheorems(ArrayList<MultistageTheorem> ret) {
-//		ArrayList<String[]> declarations = new ArrayList<String[]>();
-//		declarations.add(
-//				new String[] { BOUND + "(x)" + TYPE_MARKER + "collection(x) & ", UNBOUND + "(nx)" + UNBOUND + "(nv)",
-//						BOUND + "(nx) & " + TYPE_MARKER + "hashset(nx) & forall(nv st child(x,nv) : child(nx,nv))",
-//						"<xi> = <x>[<i>]" });
-//
-//		for (String[] declaration : declarations)
-//			ret.add(new MultistageTheorem(parseProperty(declaration[0]), parseProperty(declaration[1]),
-//					parseProperty(declaration[2]), null, 10, "Declare a hashset for later use with child()",
-//					new LineCoder(false, declaration[3])));
-//
-//	}
+	// private static void addComplexDeclarationTheorems(ArrayList<MultistageTheorem> ret) {
+	// ArrayList<String[]> declarations = new ArrayList<String[]>();
+	// declarations.add(
+	// new String[] { BOUND + "(x)" + TYPE_MARKER + "collection(x) & ", UNBOUND + "(nx)" + UNBOUND + "(nv)",
+	// BOUND + "(nx) & " + TYPE_MARKER + "hashset(nx) & forall(nv st child(x,nv) : child(nx,nv))",
+	// "<xi> = <x>[<i>]" });
+	//
+	// for (String[] declaration : declarations)
+	// ret.add(new MultistageTheorem(parseProperty(declaration[0]), parseProperty(declaration[1]),
+	// parseProperty(declaration[2]), null, 10, "Declare a hashset for later use with child()",
+	// new LineCoder(false, declaration[3])));
+	//
+	// }
 
 	private static String invert(String compare) {
 		String[][] pairs = { { " == ", " != " }, { " < ", " >= " }, { " > ", " <= " } };

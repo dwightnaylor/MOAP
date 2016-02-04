@@ -24,7 +24,7 @@ public class KBooleanLiteral extends KProperty {
 	}
 
 	@Override
-	public KProperty without(HashSet<KProperty> toRemove) {
+	protected KProperty without(HashSet<KProperty> toRemove) {
 		return this;
 	}
 

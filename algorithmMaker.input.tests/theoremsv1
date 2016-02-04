@@ -1,3 +1,5 @@
+//NOTE: Any changes made here should be made in the actual theorem database as well.
+
 type_list(x)->type_collection(x), 0, "Every list is a collection"
 type_array(x)->type_collection(x), 0, "Every array is a collection"
 type_set(x)->type_collection(x), 0, "Every set is a collection"
@@ -9,6 +11,6 @@ type_collection(x)->enumerable(x),0, "Every collection is enumerable"
 type_set(x)->enumerable(x), 0, "Every set is enumerable"
 
 equal(x,y) -> equal(y,x), 0, "Symmetric Property"
-permutation(x,y) <-> forall(z st child(x,z) : child(y,z)) & forall(z st child(y,z) : child(x,z)), 0, "Definition of permutation"
+//permutation(x,y) <-> forall(z st child(x,z) : child(y,z)) & forall(z st child(y,z) : child(x,z)), 0, "Definition of permutation"
 //sorted(x) <-> forall(i,j st index(x,i) & index(x,j) & lessThan(i,j) : lessThan(get(x,i), get(x,j))),0,"Definition of sorted"
 child(x,y) <-> exists(z st child(x,z) : equal(y,z)),0,"Definition of child"

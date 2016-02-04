@@ -1,12 +1,12 @@
 package bindings;
 
-import static algorithmMaker.util.KernelUtil.*;
-import static kernelLanguage.KernelFactory.*;
+import static algorithmMaker.util.KernelUtil.devar;
+import static kernelLanguage.KernelFactory.NULL;
 
 import java.util.*;
 
 import algorithmMaker.util.KernelUtil;
-import kernelLanguage.*;
+import kernelLanguage.KProperty;
 import theorems.Fact;
 
 public class Binding {
@@ -136,18 +136,19 @@ public class Binding {
 	}
 
 	/**
-	 * Finds all of the bindings from variables within container to variables within content which will make content a
-	 * sub-property of container. <br>
+	 * Finds all of the bindings from variables within container to variables
+	 * within content which will make content a sub-property of container. <br>
 	 * <br>
-	 * NOTE: Due to the fact that I'm lazy, this method currently only uses the surface-representation of the given
-	 * properties, meaning it will not "dig down" to find if a deeper equivalence exists.
+	 * NOTE: Due to the fact that I'm lazy, this method currently only uses the
+	 * surface-representation of the given properties, meaning it will not
+	 * "dig down" to find if a deeper equivalence exists.
 	 * 
 	 * @param container
 	 * @param mappedContent
 	 * @param theorems
 	 * @param originalBinding
-	 *            Must be either one or zero bindings. If there is a binding, it is the binding that all other bindings
-	 *            must contain.
+	 *            Must be either one or zero bindings. If there is a binding, it
+	 *            is the binding that all other bindings must contain.
 	 * @return
 	 */
 	public static ArrayList<Binding> findBindingWithin(KProperty container, KProperty content,
@@ -202,7 +203,8 @@ public class Binding {
 	}
 
 	/**
-	 * Helper method used for trying all possible combinations for a given container/content pair.
+	 * Helper method used for trying all possible combinations for a given
+	 * container/content pair.
 	 */
 	private static void addBindingsWithin(ArrayList<Binding> bindingList, OneToOneBinding binding,
 			Hashtable<KProperty, ArrayList<KProperty>> containerByStructure,

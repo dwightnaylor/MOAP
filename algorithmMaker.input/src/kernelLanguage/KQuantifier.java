@@ -30,13 +30,17 @@ public class KQuantifier extends KProperty {
 	}
 
 	@Override
-	public KProperty without(HashSet<KProperty> toRemove) {
+	protected KProperty without(HashSet<KProperty> toRemove) {
+		if(toRemove.contains(this))
+			return TRUE;
+		
 		KProperty newSubjectProperty = subject.property.without(toRemove);
 		if (newSubjectProperty.equals(TRUE) && quantifier == Quantifier.forall)
 			return predicate;
 
 		if (newSubjectProperty.equals(FALSE))
 			return TRUE;
+		
 
 		return withSubject(subject.withProperty(newSubjectProperty));
 	}

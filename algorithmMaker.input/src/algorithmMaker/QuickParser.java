@@ -41,7 +41,7 @@ public class QuickParser {
 		Parser.queryString = "Input";
 		Input parsed = (Input) parse(queryString, true);
 		if (desugar)
-			return SugarUtil.desugar(parsed);
+			return (Input) SugarUtil.desugar(parsed);
 
 		return parsed;
 	}

@@ -126,8 +126,6 @@ public class KernelUtilTests {
 						problem(TRUE)),
 				input(problem(quantifier(Quantifier.forall, problem(atomic("a", "na"), "na"), atomic("b", "na")), "x"),
 						problem(TRUE)) });
-		System.out.println(tasks.get(0)[0]);
-		System.out.println(tasks.get(0)[1]);
 		for (KObject[] task : tasks) {
 			KObject originalProperty = task[0];
 			// The simplified version goes here

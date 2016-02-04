@@ -1,7 +1,7 @@
 package solver;
 
 import static algorithmMaker.util.KernelUtil.*;
-import static algorithmMaker.util.SugarUtil.*;
+import static algorithmMaker.util.SugarUtil.convertToKernel;
 import static kernelLanguage.KernelFactory.*;
 
 import java.util.*;
@@ -14,62 +14,70 @@ import bindings.*;
 import display.Viewer;
 import inputHandling.*;
 import kernelLanguage.*;
-import kernelLanguage.KQuantifier.Quantifier;
 import pseudocoders.*;
 import theorems.MultistageTheorem;
 
 /**
- * Translates an input between various states until a solution is reached.
+ * Translates an input between various states until a solution is reached.<br>
+ * <br>
  * 
  * @author Dwight Naylor
  */
 public class ProblemSolver {
 
-	// TODO:Move this and use it better
-	private static final String COLLECTION = "collection";
-
 	private static final boolean SHOW_GRAPH = true;
 
 	/**
-	 * All of the problem states that have either been explored or been enqueued to be explored.
+	 * A collection of all of the problems that have been solved. This means that either at least one of the subproblems
+	 * of the problem has been solved, or the problem can be directly reduced to a solved state.
 	 */
-	public Hashtable<KInput, ProblemState> reachedProblems = new Hashtable<KInput, ProblemState>();
+	public Hashtable<KInput, ProblemState> solvedProblems = new Hashtable<KInput, ProblemState>();
 
-	// Everything in this queue is assumed to be simplified already
+	/**
+	 * The list of problem states that we still have to explore.
+	 */
 	public PriorityQueue<ProblemState> problemStates = new PriorityQueue<ProblemState>();
-	private static Hashtable<KInput, ProblemSolver> subSolvers = new Hashtable<KInput, ProblemSolver>();
-	ProblemState solved = null;
+
 	private final KTheorem[] theorems;
 	private final KTheorem[] invertedTheorems;
 
-	private int depthDEBUG = 0;
+	public ProblemGroup initialProblem;
 
 	public ProblemSolver(KInput problem, KTheorem... theorems) {
-		this(problem, 0, theorems);
-	}
-
-	public ProblemSolver(KInput problem, int depthDEBUG, KTheorem... theorems) {
-		if (DEBUG_MODE)
-			problem.validate();
-		this.depthDEBUG = depthDEBUG;
 		this.theorems = theorems;
 		this.invertedTheorems = new KTheorem[theorems.length];
 		for (int i = 0; i < theorems.length; i++)
 			invertedTheorems[i] = theorems[i] instanceof MultistageTheorem ? theorems[i] : theorems[i].getConverse();
 
-		addProblemState(problem, null, null, null);
+		ProblemGroup initialProblem = new ProblemGroup(null, MultistageTheorem.GIVEN_MULTI, Binding.EMPTY,
+				Collections.singletonList(new ProblemState(problem, theorems)));
+		this.initialProblem = initialProblem;
+		addProblemGroup(initialProblem);
 	}
 
+	private static int uniqueVarID = 0;
+
+	private String getUniqueVarID() {
+		return "v" + uniqueVarID++;
+	}
+
+	/**
+	 * Gets the head of the problem tree that will lead to the solution for this solver's initial problem state.
+	 */
 	public ProblemState getSolution() {
-		while (problemStates.size() > 0 && (solved == null || solved.cost > problemStates.peek().cost))
+		while (!problemStates.isEmpty() && !solvedProblems.containsKey(initialProblem.childStates.get(0).problem))
 			branch();
 
-		return problemStates.size() == 0 ? null : solved;
+		return solvedProblems.get(initialProblem.childStates.get(0).problem);
 	}
 
 	public void branch() {
 		ProblemState problemState = problemStates.poll();
 		KInput problem = problemState.problem;
+		if (problem.goal.solved()) {
+			catchProblemState(problemState);
+			return;
+		}
 
 		Chainer givenChainer = new Chainer(theorems);
 		givenChainer.addBoundVars(problem.given.vars.toArray(new String[0]));
@@ -157,7 +165,8 @@ public class ProblemSolver {
 					newProblem = newProblem.withGiven(newProblem.given.withProperty(and(newGivenParts)));
 					newProblem = newProblem.withGoal(newProblem.goal.withProperty(and(newGoalParts)));
 
-					addProblemState(newProblem, problemState, mst, binding);
+					addProblemGroup(new ProblemGroup(problemState, mst, binding,
+							Collections.singletonList(new ProblemState(newProblem, theorems))));
 				}
 		}
 		// Our stupid way of looking for quantifiers for theorems...
@@ -174,54 +183,60 @@ public class ProblemSolver {
 			// can/should declare a hashset containing
 			// all the elements of something in order to get faster child check
 			// time later.
-			if (property instanceof KAtomic && false) {
-				KAtomic atomic = (KAtomic) property;
-				if (atomic.function.startsWith(InputUtil.TYPE_MARKER)
-						&& InputUtil.getDeclaredType(atomic.function).equals(COLLECTION)) {
-					String originalObject = atomic.args.get(0);
-					// Make sure the variable isn't already a set
-					if (givenChainer.hasProperty(atomic(TYPE_MARKER + "hashset", originalObject)))
-						continue;
-
-					// We don't want to add the set if it's already in effect
-					ArrayList<Binding> fulfillments = givenChainer.getAllFulfillmentsOf(quantifier(Quantifier.forall,
-							problem(atomic("child", originalObject, "z"), "z"), atomic("child", "x", "z")),
-							Collections.singleton(originalObject));
-					if (fulfillments.size() > 0)
-						continue;
-
-					HashSet<String> usedVars = new HashSet<String>(KernelUtil.variables(problem.given));
-					String setName = InputUtil.getUnusedVar(usedVars);
-					usedVars.add(setName);
-					String quantifierVariable = InputUtil.getUnusedVar(usedVars);
-					Set<String> newVars = new HashSet<String>(problem.given.vars);
-					newVars.add(setName);
-					KProblem newGiven = problem.given
-							.withProperty(and(problem.given.property, atomic(TYPE_MARKER + "hashset", setName),
-									quantifier(Quantifier.forall,
-											problem(atomic("child", originalObject, quantifierVariable),
-													quantifierVariable),
-											atomic("child", setName, quantifierVariable))))
-							.withVars(newVars);
-
-					Pseudocoder coder = new Pseudocoder() {
-						@Override
-						public void appendPseudocode(StringBuffer builder, int numTabs, ProblemState problemState,
-								Pseudocoder returnCoder, Binding unusedBinding) {
-							Pseudocoder.appendTabs(builder, numTabs);
-							builder.append(setName + " = new HashSet(" + originalObject + ")");
-						}
-					};
-
-					if (DEBUG_MODE) {
-						for (int i = 0; i < depthDEBUG; i++)
-							System.out.print("|\t");
-						System.out.println("NEW PROBLEM:" + input(newGiven, problem.goal));
-					}
-					addProblemState(input(newGiven, problem.goal), problemState, new MultistageTheorem(null, null, null,
-							5, "Declaration of a hashset for inclusion testing", coder), Binding.EMPTY);
-				}
-			}
+			// if (property instanceof KAtomic && false) {
+			// KAtomic atomic = (KAtomic) property;
+			// if (atomic.function.startsWith(InputUtil.TYPE_MARKER)
+			// && InputUtil.getDeclaredType(atomic.function).equals(COLLECTION))
+			// {
+			// String originalObject = atomic.args.get(0);
+			// // Make sure the variable isn't already a set
+			// if (givenChainer.hasProperty(atomic(TYPE_MARKER + "hashset",
+			// originalObject)))
+			// continue;
+			//
+			// // We don't want to add the set if it's already in effect
+			// ArrayList<Binding> fulfillments =
+			// givenChainer.getAllFulfillmentsOf(quantifier(Quantifier.forall,
+			// problem(atomic("child", originalObject, "z"), "z"),
+			// atomic("child", "x", "z")),
+			// Collections.singleton(originalObject));
+			// if (fulfillments.size() > 0)
+			// continue;
+			//
+			// HashSet<String> usedVars = new
+			// HashSet<String>(KernelUtil.variables(problem.given));
+			// String setName = InputUtil.getUnusedVar(usedVars);
+			// usedVars.add(setName);
+			// String quantifierVariable = InputUtil.getUnusedVar(usedVars);
+			// Set<String> newVars = new HashSet<String>(problem.given.vars);
+			// newVars.add(setName);
+			// KProblem newGiven = problem.given
+			// .withProperty(and(problem.given.property, atomic(TYPE_MARKER +
+			// "hashset", setName),
+			// quantifier(Quantifier.forall,
+			// problem(atomic("child", originalObject, quantifierVariable),
+			// quantifierVariable),
+			// atomic("child", setName, quantifierVariable))))
+			// .withVars(newVars);
+			//
+			// Pseudocoder coder = new Pseudocoder() {
+			// @Override
+			// public void appendPseudocode(StringBuffer builder, int numTabs,
+			// ProblemState problemState,
+			// Pseudocoder returnCoder, Binding unusedBinding) {
+			// Pseudocoder.appendTabs(builder, numTabs);
+			// builder.append(setName + " = new HashSet(" + originalObject +
+			// ")");
+			// }
+			// };
+			//
+			// addProblemState(new ProblemGroup(problemState,
+			// new MultistageTheorem(null, null, null, new AdditionMerger(1),
+			// "Declaration of a hashset for inclusion testing", coder),
+			// Binding.EMPTY, Collections.singletonList(new
+			// ProblemState(input(newGiven, problem.goal)))));
+			// }
+			// }
 		}
 	}
 
@@ -248,101 +263,60 @@ public class ProblemSolver {
 			Set<KProperty> givenChainer, Set<KProperty> findChainer) {
 		String arg0 = ((KAtomic) quantifier.predicate).args.get(0);
 		String arg1 = ((KAtomic) quantifier.predicate).args.get(1);
-
-		// We then have to make sure this quantifier is a true transitive
-		// quantifier.
+		// We then have to make sure this quantifier is a true transitive quantifier.
 		ArrayList<Binding> bindings = Binding.findBindingWithin(problemState.problem.goal.property,
-				quantifier.subject.property, Binding.singleton(arg0, arg1));
-		// We do this by finding all possible "matches" from outside the
-		// quantifier to the inside of the quantifier
+				quantifier.subject.property);
+		// We do this by finding all possible "matches" from outside the quantifier to the inside of the quantifier
 		if (bindings != null)
 			for (Binding binding : bindings) {
+				System.out.println(binding);
+				ArrayList<String> lines = new ArrayList<String>();
 				Hashtable<String, String> bindingArgs = binding.getArguments();
-				KInput enumerationProblem = getTransitiveQuantifierEnumerationSubProblem(problemState, quantifier);
-				if (DEBUG_MODE)
-					enumerationProblem.validate();
-
-				if (!subSolvers.containsKey(enumerationProblem)) {
-					if (DEBUG_MODE && DEBUG_VERBOSE) {
-						for (int q = 0; q < depthDEBUG; q++)
-							System.out.print("|\t");
-						System.out.println("Transitive quantifier enumeration problem");
-					}
-
-					ProblemSolver subSolver = new ProblemSolver(enumerationProblem, depthDEBUG + 1, theorems);
-					subSolvers.put(enumerationProblem, subSolver);
-					subSolver.getSolution();
+				for (String originalVar : bindingArgs.keySet()) {
+					String newVar = bindingArgs.get(originalVar);
+					if (!originalVar.equals(newVar))
+						lines.add(originalVar + " = null;");
 				}
-				KProperty transitivityGiven = and(problemState.problem.given.property, quantifier.subject.property,
-						revar(quantifier.subject.property, binding.getInverse().getArguments()));
-				if (subSolvers.get(enumerationProblem).solved == null)
-					return;
-
-				KInput testProblem = KernelUtil.cleanDeclarations(
-						input(problem(KernelUtil.getUndeclaredVars(transitivityGiven), transitivityGiven),
-								problem(Collections.emptyList(), negate(quantifier.predicate))));
-
-				if (!subSolvers.containsKey(testProblem)) {
-					if (DEBUG_MODE && DEBUG_VERBOSE) {
-						for (int q = 0; q < depthDEBUG; q++)
-							System.out.print("|\t");
-						System.out.println("Transitive quantifier test problem");
-					}
-
-					ProblemSolver subSolver = new ProblemSolver(testProblem, depthDEBUG + 1, theorems);
-					subSolvers.put(testProblem, subSolver);
-					subSolver.getSolution();
+				lines.add(LineCoder.EXIT_STRING + "0");
+				lines.add(">if " + (quantifier.subject.vars.contains(arg0) ? arg1 : arg0) + " == null");
+				for (String originalVar : bindingArgs.keySet()) {
+					String newVar = bindingArgs.get(originalVar);
+					if (!originalVar.equals(newVar))
+						lines.add(">>" + originalVar + " = " + newVar);
 				}
-				if (subSolvers.get(testProblem).solved == null)
-					return;
+				lines.add(">" + LineCoder.EXIT_STRING + "1");
+				for (String originalVar : bindingArgs.keySet()) {
+					String newVar = bindingArgs.get(originalVar);
+					if (!originalVar.equals(newVar))
+						lines.add(">>" + originalVar + " = " + newVar);
+				}
+				lines.add(LineCoder.EXIT_STRING + "2");
 
-				Pseudocoder coder = new Pseudocoder() {
-					@Override
-					public void appendPseudocode(StringBuffer builder, int numTabs, ProblemState problemState,
-							Pseudocoder returnCoder, Binding unusedBinding) {
-						Pseudocoder.appendTabs(builder, numTabs);
-						for (String originalVar : bindingArgs.keySet()) {
-							String newVar = bindingArgs.get(originalVar);
-							if (!originalVar.equals(newVar))
-								builder.append(originalVar + " = null;\n");
-						}
+				LineCoder coder = new LineCoder(lines.toArray(new String[0]));
 
-						ArrayList<Binding> testBindings = new ArrayList<Binding>();
-						ArrayList<Pseudocoder> testCoders = new ArrayList<Pseudocoder>();
-						ArrayList<String> testLines = new ArrayList<String>();
-						testLines.add("if " + arg0 + " == null");
-						testLines.add("\t" + arg0 + " = " + arg1);
-						testBindings.add(Binding.createBinding(new String[][] { { "x", arg1 }, { "y", arg0 } }));
-						testBindings.add(Binding.EMPTY);
-						Pseudocoder pseudocoder = getRootSolvedState(testProblem).rootTheorem.getPseudocoder();
-						testCoders.add(pseudocoder);
-						for (String originalVar : bindingArgs.keySet()) {
-							String newVar = bindingArgs.get(originalVar);
-							if (!originalVar.equals(newVar)) {
-								testCoders.add(new LineCoder(false, "\t" + originalVar + " = " + newVar));
-								testBindings.add(Binding.EMPTY);
-							}
-						}
-						testBindings.add(0, Binding.EMPTY);
-						testCoders.add(0, new LineCoder(testLines.toArray(new String[0])));
-						ProblemState rootState = getRootSolvedState(enumerationProblem);
-						rootState.rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs, rootState,
-								new SequentialCoder(testCoders, testBindings), binding);
-					}
-				};
 				KInput newProblem = problemState.problem;
 				newProblem = newProblem.withGiven(newProblem.given.withProperty(
 						and(quantifier, revar(quantifier.subject.property, binding.getInverse().getArguments()))));
 				newProblem = TransformUtil.removeGivenFromGoal(newProblem, new Chainer(theorems));
 
-				addProblemState(newProblem, problemState, new MultistageTheorem(null, null, null, 10,
-						"Basic optimization on a transitive quantifier", coder), Binding.EMPTY);
+				KProperty transitivityGiven = and(problemState.problem.given.property, quantifier.subject.property,
+						revar(quantifier.subject.property, binding.getInverse().getArguments()));
+				KInput testProblem = KernelUtil.cleanDeclarations(
+						input(problem(KernelUtil.getUndeclaredVars(transitivityGiven), transitivityGiven),
+								problem(Collections.emptyList(), quantifier.predicate)));
+
+				addProblemGroup(new ProblemGroup(problemState,
+						new MultistageTheorem(null, null, null, r -> r[0] * r[1] + r[2],
+								"Basic optimization on a transitive quantifier", coder),
+						Binding.EMPTY,
+						new ProblemState(getTransitiveQuantifierEnumerationSubProblem(problemState, quantifier),
+								theorems),
+						new ProblemState(testProblem, theorems), new ProblemState(newProblem, theorems)));
 			}
 	}
 
 	private KInput getTransitiveQuantifierEnumerationSubProblem(ProblemState problemState, KQuantifier quantifier) {
-		// TODO: Check and make sure that uninvolvedParts is being used
-		// correctly here.
+		// TODO: Check and make sure that uninvolvedParts is being used correctly here.
 		return input(problemState.problem.given, quantifier.subject
 				.withVars(KernelUtil.getUndeclaredVars(quantifier.subject.withVars(problemState.problem.given.vars))));
 	}
@@ -350,85 +324,36 @@ public class ProblemSolver {
 	private void doQuantifierSubProblemFor(ProblemState problemState, KQuantifier quantifier,
 			Set<KProperty> givenChainer, Set<KProperty> findChainer) {
 		// First we check and see if all the variables used in the quantifier
-		// are bound. If any aren't, we can't solve the quantifier.
+		// are bound. If any aren't, we can't solve
+		// the quantifier.
 		HashSet<String> boundVars = new HashSet<String>();
 		boundVars.addAll(getDeclaredVars(quantifier));
 		// Add all the declarations from the given
 		boundVars.addAll(problemState.problem.given.vars);
-		for (String variable : variables(quantifier)) {
+		for (String variable : variables(quantifier))
 			if (!boundVars.contains(variable))
 				return;
-		}
-		// Build the subproblem
-		KInput subProblem = getSubProblemForQuantifier(problemState.problem, quantifier);
-		if (DEBUG_MODE)
-			subProblem.validate();
 
-		if (!subSolvers.containsKey(subProblem)) {
-			if (DEBUG_MODE && DEBUG_VERBOSE) {
-				for (int q = 0; q < depthDEBUG; q++)
-					System.out.print("|\t");
+		// The new problem with the quantifier constraint removed and added to
+		// the given
+		KInput newProblem = problemState.problem
+				.withGoalProperty(problemState.problem.goal.property.without(quantifier))
+				.withGivenProperty(and(problemState.problem.given.property, quantifier));
 
-				System.out.println("Quantifier cracking subproblem:\"" + quantifier + "\"");
-			}
-			ProblemSolver subSolver = new ProblemSolver(subProblem, depthDEBUG + 1, theorems);
-			subSolvers.put(subProblem, subSolver);
-			subSolver.getSolution();
-		}
-		if (subSolvers.get(subProblem).solved != null) {
-			// The new problem with the quantifier constraint removed and added
-			// to the given
-			KInput newProblem = problemState.problem;
-			// FIXME: DN: This is a stupid way of removing properties here
-			newProblem = newProblem.withGoal(newProblem.goal.withProperty(
-					newProblem.goal.property.without(new HashSet<KProperty>(Collections.singleton(quantifier)))));
-			newProblem = newProblem
-					.withGiven(newProblem.given.withProperty(and(newProblem.given.property, quantifier)));
+		String newVar = getUniqueVarID();
+		ArrayList<String> lines = new ArrayList<String>();
+		lines.add("boolean " + newVar + " = true;");
+		lines.add(LineCoder.EXIT_STRING + "0");
+		lines.add(">" + newVar + " = false");
+		lines.add("if " + newVar + " == " + quantifier.isUniversal());
+		lines.add(">" + LineCoder.EXIT_STRING + "1");
+		LineCoder coder = new LineCoder(lines.toArray(new String[0]));
 
-			String newVariable = "NEW_VARIABLE";
-			Pseudocoder coder = new Pseudocoder() {
-				@Override
-				public void appendPseudocode(StringBuffer builder, int numTabs, ProblemState problemState,
-						Pseudocoder returnCoder, Binding unusedBinding) {
-					Pseudocoder.appendTabs(builder, numTabs);
-					Binding binding = problemState.rootTheoremBinding;
-					builder.append(binding.revar("boolean <" + newVariable + "> = true;\n"));
-					// FIXME: DN: This whole methodology is awful and needs to
-					// be redone later.
-					ProblemState head = subSolvers.get(subProblem).solved;
-					while (head.parentState != null) {
-						head.parentState.childStates = Collections.singletonList(head);
-						head = head.parentState;
-					}
-					ProblemState mainState = head.childStates.get(0);
-					mainState.rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs, mainState,
-							new LineCoder(binding.revar("<" + newVariable + "> = false")), binding);
-					Pseudocoder.appendTabs(builder, numTabs);
-					builder.append(binding.revar("if <" + newVariable + "> == " + quantifier.isUniversal() + "\n"));
-					if (problemState != null)
-						if (problemState.childStates != null && problemState.childStates.size() > 0) {
-							ProblemState childState = problemState.childStates.get(0);
-							childState.rootTheorem.getPseudocoder().appendPseudocode(builder, numTabs + 1, childState,
-									returnCoder, binding);
-						} else {
-							returnCoder.appendPseudocode(builder, numTabs + 1, null, null, binding);
-						}
-				}
-			};
-
-			// Find all the declared variables throughout all the problem
-			// states. We need this so that the new variable we make doesn't
-			// conflict with any of them.
-			HashSet<String> declaredVars = new HashSet<String>(newProblem.given.vars);
-			ProblemState solved = subSolvers.get(subProblem).solved;
-			while (solved != null) {
-				declaredVars.addAll(solved.problem.given.vars);
-				solved = solved.parentState;
-			}
-			addProblemState(newProblem, problemState,
-					new MultistageTheorem(null, null, null, 10, "Brute-force checking of a quantifier.", coder),
-					Binding.singleton(newVariable, InputUtil.getUnusedVar(declaredVars)));
-		}
+		addProblemGroup(new ProblemGroup(problemState,
+				new MultistageTheorem(null, null, null, r -> r[0] + r[1], "Brute-force checking of a quantifier.",
+						coder),
+				Binding.EMPTY, new ProblemState(getSubProblemForQuantifier(problemState.problem, quantifier), theorems),
+				new ProblemState(newProblem, theorems)));
 	}
 
 	/**
@@ -462,53 +387,54 @@ public class ProblemSolver {
 		return binding.getImmutable();
 	}
 
-	private void addProblemState(KInput newProblem, ProblemState parentState, MultistageTheorem multistageTheorem,
-			Binding binding) {
-		// Simplify the problem
-		newProblem = TransformUtil.removeGivenFromGoal(newProblem, new Chainer(theorems));
-
-		if (newProblem.given.property != null)
-			newProblem = newProblem
-					.withGiven(newProblem.given.withProperty((KProperty) canonicalize(newProblem.given.property)));
-
-		if (newProblem.goal != null)
-			newProblem = newProblem
-					.withGoal(newProblem.goal.withProperty((KProperty) canonicalize(newProblem.goal.property)));
-
-		if (!reachedProblems.containsKey(newProblem)) {
-			if (DEBUG_MODE)
-				newProblem.validate();
-
-			ProblemState newProblemState = new ProblemState(newProblem, parentState, multistageTheorem, binding);
-
-			reachedProblems.put(newProblem, newProblemState);
-
-			if (DEBUG_MODE && DEBUG_VERBOSE) {
-				for (int i = 0; i < depthDEBUG; i++)
-					System.out.print("|\t");
-
-				System.out.println(newProblemState.cost + ":" + newProblem);
-			}
-
-			if (newProblem.goal.solved() && (solved == null || solved.cost > newProblemState.cost))
-				solved = newProblemState;
-
-			problemStates.add(newProblemState);
+	/**
+	 * Called when a problem group has been completed.
+	 */
+	private void catchProblemGroup(ProblemGroup problemGroup) {
+		if (problemGroup.parentState != null) {
+			problemGroup.parentState.solutionIndex = problemGroup.parentIndex;
+			catchProblemState(problemGroup.parentState);
 		}
 	}
 
-	private ProblemState getRootSolvedState(KInput enumerationProblem) {
-		ProblemState head = subSolvers.get(enumerationProblem).solved;
-		while (head.parentState != null) {
-			head.parentState.childStates = Collections.singletonList(head);
-			head = head.parentState;
+	private void catchProblemState(ProblemState problemState) {
+		if (!solvedProblems.containsKey(problemState.problem))
+			solvedProblems.put(problemState.problem, problemState);
+
+		if (problemState.parentIndex == problemState.parentGroup.childStates.size() - 1) {
+			catchProblemGroup(problemState.parentGroup);
+		} else {
+			addProblemState(problemState.parentGroup.childStates.get(problemState.parentIndex + 1));
 		}
-		return head.childStates.get(0);
 	}
 
-	public static String runWebSolver(String[] problemString) {
-		return ProblemState.getOutputString(runSolver(problemString[0]).getSolution());
+	private void addProblemState(ProblemState problemState) {
+		if (!problemState.isSolvable())
+			return;
+
+		if (solvedProblems.containsKey(problemState.problem))
+			catchProblemState(problemState);
+		else
+			problemStates.add(problemState);
 	}
+
+	private void addProblemGroup(ProblemGroup problemGroup) {
+		addProblemState(problemGroup.childStates.get(0));
+	}
+
+	// private ProblemState getRootSolvedState(KInput enumerationProblem) {
+	// ProblemState head = subSolvers.get(enumerationProblem).solved;
+	// while (head.parentState != null) {
+	// head.parentState.childGroups = Collections.singletonList(head);
+	// head = head.parentState;
+	// }
+	// return head.childGroups.get(0);
+	// }
+
+	// public static String runWebSolver(String[] problemString) {
+	// return
+	// ProblemState.getOutputString(runSolver(problemString[0]).getSolution());
+	// }
 
 	public static ProblemSolver runSolver(String problemString) {
 		ArrayList<KTheorem> theorems = TheoremParser.parseFiles();
@@ -530,24 +456,21 @@ public class ProblemSolver {
 				s.close();
 				System.exit(0);
 			}
+			if (problemString.length() < 4)
+				continue;
 			KInput input = (KInput) convertToKernel(QuickParser.parseInput(problemString));
-			ProblemSolver problemSolver = new ProblemSolver(input, theorems.toArray(new KTheorem[0]));
-			ProblemState solution = problemSolver.getSolution();
-			if (solution == null)
+			ProblemSolver solver = new ProblemSolver(input, theorems.toArray(new KTheorem[0]));
+			ProblemState solution = solver.getSolution();
+			if (solution == null) {
 				System.out.println("I couldn't solve your problem. You'll have to find a better robot :-(");
-			else {
-				ProblemState solutionSave = solution;
-				StringBuffer problems = new StringBuffer();
-				do {
-					problems.insert(0, resugar(convertToInput(solution.problem)) + "\n");
-					solution = solution.parentState;
-				} while (solution != null);
-				// System.out.println(problems);
-
-				System.out.println(ProblemState.getOutputString(solutionSave));
+				System.out.println("This is as far as I got:");
+				solver.initialProblem.printSolutionContents(0);
+			} else {
+				solution.parentGroup.printSolutionContents(0);
+				System.out.println("\n" + ProblemState.getOutputString(solution.parentGroup, problemString));
 			}
 			if (SHOW_GRAPH)
-				Viewer.displaySolverResults(problemSolver);
+				Viewer.displaySolverResults(solver, true);
 
 			System.out.println("HIT ME WITH ANOTHER ONE!");
 		}
