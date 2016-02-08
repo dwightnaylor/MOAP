@@ -156,7 +156,7 @@ public class Chainer {
 
 	@SafeVarargs
 	public final void chain(KProperty property, KTheorem theorem, Fact<? extends KProperty>... prerequisites) {
-		property = (KProperty) KernelUtil.canonicalize(property);
+		property = (KProperty) KernelUtil.canonicalizeOrder(property);
 		if (property instanceof KANDing)
 			for (KProperty anded : getANDed(property))
 				chain(anded, theorem, prerequisites);

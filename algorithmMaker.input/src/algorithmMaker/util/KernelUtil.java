@@ -224,8 +224,8 @@ public class KernelUtil {
 		return (T) map(object, KernelMapper.DEVARRER);
 	}
 
-	public static KObject canonicalize(KObject object) {
-		return map(object, KernelMapper.CANONICALIZER);
+	public static KObject canonicalizeOrder(KObject object) {
+		return map(object, KernelMapper.ORDER_CANONICALIZER);
 	}
 
 	public static ArrayList<KObject> contents(KObject object) {

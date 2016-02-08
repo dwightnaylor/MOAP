@@ -22,8 +22,8 @@ public class KTheorem {
 	}
 
 	public KTheorem getContrapositive() {
-		return theorem((KProperty) KernelUtil.canonicalize(negate(result)),
-				(KProperty) KernelUtil.canonicalize(negate(requirement)), cost, "Contrapositive of " + description);
+		return theorem((KProperty) KernelUtil.canonicalizeOrder(negate(result)),
+				(KProperty) KernelUtil.canonicalizeOrder(negate(requirement)), cost, "Contrapositive of " + description);
 	}
 
 	public KTheorem getConverse() {
@@ -36,7 +36,7 @@ public class KTheorem {
 	}
 
 	public KTheorem canonicalize() {
-		return theorem((KProperty) KernelUtil.canonicalize(requirement), (KProperty) KernelUtil.canonicalize(result),
+		return theorem((KProperty) KernelUtil.canonicalizeOrder(requirement), (KProperty) KernelUtil.canonicalizeOrder(result),
 				cost, description);
 	}
 }

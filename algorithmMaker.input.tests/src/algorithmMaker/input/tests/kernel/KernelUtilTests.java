@@ -46,7 +46,7 @@ public class KernelUtilTests {
 		for (String[] task : tasks) {
 			KProperty originalProperty = parseProperty(task[0]);
 			// The simplified version goes here
-			KProperty simplifiedProperty = (KProperty) canonicalize(originalProperty);
+			KProperty simplifiedProperty = (KProperty) canonicalizeOrder(originalProperty);
 
 			if (!parseProperty(task[1]).equals(simplifiedProperty))
 				System.err.println("\"" + originalProperty + "\" Should canonicalize to \"" + parseProperty(task[1])

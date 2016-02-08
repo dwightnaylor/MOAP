@@ -25,14 +25,11 @@ foreach child c of a
 		return [c]
 -
 Given list a, list b, list c; Find d st child(a,d) & child(b,d) & !child(c,d)
-na = new HashSet(b)
-foreach child d of a
+na = new HashSet(a)
+nb = new HashSet(c)
+foreach child d of b
 	if na.contains(d)
-		boolean v36 = true;
-		foreach child nc of c
-			if d == nc
-				v36 = false
-		if v36 == true
+		if !nb.contains(d)
 			return [d]
 -
 Given a,b; Find s st plus(a,b,s)

@@ -25,7 +25,7 @@ public class MultiTheoremParser {
 	 * Lazy helper method. Parse and canonicalize.
 	 */
 	private static KProperty pc(String string) {
-		return (KProperty) KernelUtil.canonicalize(parseProperty(string));
+		return (KProperty) KernelUtil.canonicalizeOrder(parseProperty(string));
 	}
 
 	private static void addBruteForceFindTheorems(ArrayList<MultistageTheorem> ret) {

@@ -30,8 +30,8 @@ public class EqualityTester {
 	 * in terms of variable relations.
 	 */
 	public static List<Binding> getEquivalentBindings(KProperty originalProperty, KProperty newProperty) {
-		originalProperty = (KProperty) KernelUtil.canonicalize(originalProperty);
-		newProperty = (KProperty) KernelUtil.canonicalize(newProperty);
+		originalProperty = (KProperty) KernelUtil.canonicalizeOrder(originalProperty);
+		newProperty = (KProperty) KernelUtil.canonicalizeOrder(newProperty);
 
 		Hashtable<Appearance, ArrayList<String>> originalAppearances = getAppearances(originalProperty);
 		Hashtable<Appearance, ArrayList<String>> newAppearances = getAppearances(newProperty);
@@ -63,7 +63,7 @@ public class EqualityTester {
 			KProperty newProperty, Hashtable<Appearance, ArrayList<String>> originalAppearances,
 			Hashtable<Appearance, ArrayList<String>> newAppearances) {
 		if (index == appearances.size()) {
-			if (KernelUtil.canonicalize(KernelUtil.revar(originalProperty, binding.getArguments())).equals(newProperty))
+			if (KernelUtil.canonicalizeOrder(KernelUtil.revar(originalProperty, binding.getArguments())).equals(newProperty))
 				legalBindings.add(binding.getImmutable());
 
 			return;

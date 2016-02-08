@@ -1,6 +1,6 @@
 package solver;
 
-import static algorithmMaker.util.KernelUtil.canonicalize;
+import static algorithmMaker.util.KernelUtil.canonicalizeOrder;
 
 import java.util.*;
 
@@ -27,10 +27,10 @@ public class ProblemState implements Comparable<ProblemState> {
 		problem = TransformUtil.removeGivenFromGoal(problem, new Chainer(theorems));
 
 		if (problem.given.property != null)
-			problem = problem.withGiven(problem.given.withProperty((KProperty) canonicalize(problem.given.property)));
+			problem = problem.withGiven(problem.given.withProperty((KProperty) canonicalizeOrder(problem.given.property)));
 
 		if (problem.goal != null)
-			problem = problem.withGoal(problem.goal.withProperty((KProperty) canonicalize(problem.goal.property)));
+			problem = problem.withGoal(problem.goal.withProperty((KProperty) canonicalizeOrder(problem.goal.property)));
 
 		this.problem = problem;
 	}

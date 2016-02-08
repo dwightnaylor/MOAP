@@ -23,7 +23,7 @@ public abstract class KernelMapper implements Function<KObject, KObject> {
 		}
 	};
 
-	public static final KernelMapper CANONICALIZER = new KernelMapper() {
+	public static final KernelMapper ORDER_CANONICALIZER = new KernelMapper() {
 		@Override
 		public KObject calculateConversion(KObject object) {
 			if (object == null)
@@ -115,7 +115,7 @@ public abstract class KernelMapper implements Function<KObject, KObject> {
 							}
 							return object;
 						}
-					}), CANONICALIZER);
+					}), ORDER_CANONICALIZER);
 				}
 				return KernelFactory.and(andResults);
 			}

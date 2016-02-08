@@ -73,9 +73,8 @@ public class SolverTests {
 
 	@Test
 	public void testEqualityMultiTheorem() {
-		MultistageTheorem multistageTheorem = new MultistageTheorem(
-				parseProperty(BOUND + "(x) & " + BOUND + "(y)"), parseProperty("equal(x,y)"),
-				parseProperty("equal(x,y)"), null, r -> 0, "test", null);
+		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty(BOUND + "(x) & " + BOUND + "(y)"),
+				parseProperty("equal(x,y)"), parseProperty("equal(x,y)"), null, r -> 0, "test", null);
 		ProblemSolver solver = new ProblemSolver(parseInput("Given x,y st a(x,y); Find equal(x,y)"), multistageTheorem);
 		solver.branch();
 		assertEquals(parseInput("Given x,y st a(x,y) & equal(x,y);"), solver.problemStates.peek().problem);
@@ -100,7 +99,7 @@ public class SolverTests {
 		ArrayList<KTheorem> theorems = TheoremParser.parseFiles();
 		theorems.addAll(MultiTheoremParser.getMultiTheorems());
 		for (String[] ps : probsAndSols) {
-//			System.out.println(ps[0]);
+			// System.out.println(ps[0]);
 			KInput input = (KInput) SugarUtil.convertToKernel(QuickParser.parseInput(ps[0]));
 			ProblemState actualSolution = new ProblemSolver(input, theorems.toArray(new KTheorem[0])).getSolution();
 			if (actualSolution == null) {

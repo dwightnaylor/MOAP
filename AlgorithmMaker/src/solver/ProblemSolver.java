@@ -14,7 +14,6 @@ import bindings.*;
 import display.Viewer;
 import inputHandling.*;
 import kernelLanguage.*;
-import kernelLanguage.KQuantifier.Quantifier;
 import pseudocoders.*;
 import theorems.*;
 
@@ -187,9 +186,10 @@ public class ProblemSolver {
 				KAtomic atomic = (KAtomic) fact.property;
 				String originalObject = atomic.args.get(0);
 				// Make sure the variable isn't already a set
-				if ((problemState.parentGroup.parentState != null
-						&& problemState.parentGroup.parentState.problem.given.vars.contains(originalObject))
-						|| givenChainer.hasProperty(atomic(TYPE_MARKER + "hashset", originalObject)))
+				if (/*
+					 * (problemState.parentGroup.parentState != null &&
+					 * problemState.parentGroup.parentState.problem.given.vars.contains(originalObject)) ||
+					 */ givenChainer.hasProperty(atomic(TYPE_MARKER + "hashset", originalObject)))
 					continue;
 
 				HashSet<String> usedVars = new HashSet<String>(KernelUtil.variables(problem.given));
@@ -198,16 +198,7 @@ public class ProblemSolver {
 
 				// This is the quantifier pair we will use. It just says everything in our new hashset is in the
 				// list, and vice-versa
-				String quantifierVariable = InputUtil.getUnusedVar(usedVars);
-				KProperty weakPermutationQuantifier = and(
-						quantifier(Quantifier.forall,
-								problem(atomic("child", originalObject, quantifierVariable), quantifierVariable),
-								atomic("child", setName, quantifierVariable)),
-						quantifier(Quantifier.forall,
-								problem(atomic("child", setName, quantifierVariable), quantifierVariable),
-								atomic("child", originalObject, quantifierVariable)));
-								// KProperty weakPermutationQuantifier = atomic("weakPermutation", originalObject,
-								// setName);
+				KProperty weakPermutationQuantifier = atomic("weakPermutation", originalObject, setName);
 
 				// We don't want to add the set if it's already in effect
 				if (givenChainer.getAllFulfillmentsOf(weakPermutationQuantifier, Collections.singleton(originalObject))
@@ -358,7 +349,7 @@ public class ProblemSolver {
 		}
 		KProblem newGoal = revar(quantifier.subject, rebindingForQuantifier.getArguments());
 		KProperty newPredicate = revar(quantifier.predicate, rebindingForQuantifier.getArguments());
-		newGoal = newGoal.withProperty((KProperty) canonicalize(
+		newGoal = newGoal.withProperty((KProperty) canonicalizeOrder(
 				and(newGoal.property, quantifier.isUniversal() ? negate(newPredicate) : newPredicate)));
 		return problem.withGoal(newGoal);
 	}
@@ -396,7 +387,7 @@ public class ProblemSolver {
 	}
 
 	private void addProblemState(ProblemState problemState) {
-		KInput problem = (KInput) KernelUtil.canonicalize(/* devar */(problemState.problem));
+		KInput problem = (KInput) KernelUtil.canonicalizeOrder(/* devar */(problemState.problem));
 		if (reachedProblems.containsKey(problem))
 			if (problemState.getApproachCost() < reachedProblems.get(problem).getApproachCost())
 				problemStates.remove(reachedProblems.get(problem));
@@ -410,6 +401,7 @@ public class ProblemSolver {
 
 		stateCount++;
 
+		// System.out.println(problem);
 		// System.out.println(SugarUtil.resugar(SugarUtil.convertToInput(problemState.problem)));
 
 		if (solvedProblems.containsKey(problemState.problem))
@@ -428,20 +420,6 @@ public class ProblemSolver {
 
 		addProblemState(problemGroup.childStates.get(0));
 	}
-
-	// private ProblemState getRootSolvedState(KInput enumerationProblem) {
-	// ProblemState head = subSolvers.get(enumerationProblem).solved;
-	// while (head.parentState != null) {
-	// head.parentState.childGroups = Collections.singletonList(head);
-	// head = head.parentState;
-	// }
-	// return head.childGroups.get(0);
-	// }
-
-	// public static String runWebSolver(String[] problemString) {
-	// return
-	// ProblemState.getOutputString(runSolver(problemString[0]).getSolution());
-	// }
 
 	public static ProblemSolver runSolver(String problemString) {
 		ArrayList<KTheorem> theorems = TheoremParser.parseFiles();
@@ -481,7 +459,7 @@ public class ProblemSolver {
 						+ " states.");
 			}
 			if (SHOW_GRAPH)
-				Viewer.displaySolverResults(solver, false);
+				Viewer.displaySolverResults(solver, true);
 
 			System.out.println("HIT ME WITH ANOTHER ONE!");
 		}
