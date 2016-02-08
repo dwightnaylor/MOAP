@@ -18,7 +18,8 @@ public class KNegation extends KProperty {
 	String calculateToString() {
 		StringBuffer ret = new StringBuffer();
 		ret.append('!');
-		ret.append(negated.toString());
+		ret.append(
+				(negated instanceof KANDing ? "(" : "") + negated.toString() + (negated instanceof KANDing ? ")" : ""));
 		return ret.toString();
 	}
 

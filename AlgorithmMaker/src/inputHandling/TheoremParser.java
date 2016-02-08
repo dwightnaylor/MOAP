@@ -32,13 +32,13 @@ public class TheoremParser {
 						} else {
 							if (line.contains("->")) {
 								KTheorem theorem = parseTheorem(line);
-								ret.add(theorem);
-								ret.add(theorem.getContrapositive());
+								ret.add(theorem.canonicalize());
+								ret.add(theorem.getContrapositive().canonicalize());
 							}
 							if (line.contains("<-")) {
 								KTheorem theorem = parseReverseTheorem(line);
-								ret.add(theorem);
-								ret.add(theorem.getContrapositive());
+								ret.add(theorem.canonicalize());
+								ret.add(theorem.getContrapositive().canonicalize());
 							}
 						}
 					}

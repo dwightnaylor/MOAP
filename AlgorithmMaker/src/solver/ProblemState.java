@@ -9,7 +9,6 @@ import algorithmMaker.util.InputUtil;
 import inputHandling.TransformUtil;
 import kernelLanguage.*;
 import pseudocoders.LineCoder;
-import runtimeAnalysis.RuntimeMerger;
 
 public class ProblemState implements Comparable<ProblemState> {
 	/**
@@ -38,7 +37,7 @@ public class ProblemState implements Comparable<ProblemState> {
 
 	@Override
 	public String toString() {
-		return "State(index:" + parentIndex + ",cost:" + getApproachCost() + "):" + problem;
+		return "State(index:" + parentIndex + ",AC:" + getApproachCost() + ",SC:" + getSolvingCost() + "):" + problem;
 	}
 
 	@Override
@@ -50,19 +49,6 @@ public class ProblemState implements Comparable<ProblemState> {
 		return childGroups.get(solutionIndex);
 	}
 
-	public ProblemGroup getBestChildState(boolean allowForMissingRuntimes) {
-		int minCost = -1;
-		ProblemGroup ret = null;
-		for (ProblemGroup problemGroup : childGroups) {
-			int curCost = problemGroup.getCost(allowForMissingRuntimes);
-			if (curCost >= 0 && (minCost < 0 || curCost < minCost)) {
-				minCost = curCost;
-				ret = problemGroup;
-			}
-		}
-		return ret;
-	}
-
 	/**
 	 * This is the runtime it takes to get as deep as this problem state in the program. Namely, if this is the top of
 	 * the solution tree, then this function would return zero. If it's the bottom, it will return a large number.
@@ -71,30 +57,27 @@ public class ProblemState implements Comparable<ProblemState> {
 	 */
 	public int getApproachCost() {
 		if (this.approachCostCache == -1) {
+			// The way we calculate approach cost is to walk up the required parts of the solution until we get to the
+			// head, accumulating info as we go up.
 			ProblemState state = this;
-			int currentNodeCost = 1;
+			int currentCost = 2;
 			while (state != null) {
-				int[] subCosts = new int[state.parentGroup.childStates.size()];
+				int[] fakeSubStates = new int[state.parentGroup.childStates.size()];
 				for (int i = 0; i < state.parentIndex; i++)
-					subCosts[i] = Math.max(1, state.parentGroup.childStates.get(i).getCost(false));
+					fakeSubStates[i] = state.parentGroup.childStates.get(i).getSolvingCost();
+				fakeSubStates[state.parentIndex] = currentCost;
+				for (int i = state.parentIndex + 1; i < fakeSubStates.length; i++)
+					fakeSubStates[i] = 2;// Minimum useful value for + and *...
 
-				subCosts[state.parentIndex] = currentNodeCost;
-				if (state.parentGroup.parentState != null)
-					currentNodeCost = state.parentGroup.rootTheorem.runtimeMerger.mergeRuntimes(subCosts);
+				if (state.parentGroup.rootTheorem != null)
+					currentCost = state.parentGroup.rootTheorem.runtimeMerger.mergeRuntimes(fakeSubStates);
 				else
-					currentNodeCost = new RuntimeMerger() {
-						@Override
-						public int mergeRuntimes(int... runtimes) {
-							int ret = 0;
-							for (int rt : runtimes)
-								ret += rt;
-							return ret;
-						}
-					}.mergeRuntimes(subCosts);
+					currentCost = 2;
 
 				state = state.parentGroup.parentState;
 			}
-			approachCostCache = currentNodeCost;
+
+			this.approachCostCache = currentCost;
 		}
 		return approachCostCache;
 	}
@@ -104,15 +87,10 @@ public class ProblemState implements Comparable<ProblemState> {
 	 * well as how long it will take to integrate those solutions. For a problem state, this is a function of the best
 	 * subgroup solving time.
 	 * 
-	 * @param allowForMissingRuntimes
-	 *            This determines whether or not a cost should be calculated even when some runtime areas are missing.
-	 *            This means, for example, if we had the solution which did not have its last step figured out, we would
-	 *            be able to calculate the runtime assuming that missing step was free.
 	 * @return
 	 */
-	public int getCost(boolean allowForMissingRuntimes) {
-		ProblemGroup bestChild = getBestChildState(allowForMissingRuntimes);
-		return bestChild == null ? -1 : bestChild.getCost(allowForMissingRuntimes);
+	public int getSolvingCost() {
+		return solutionIndex == -1 ? 2 : getSolutionGroup().getSolvingCost();
 	}
 
 	public boolean isSolvable() {

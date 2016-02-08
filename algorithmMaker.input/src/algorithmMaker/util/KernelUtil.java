@@ -119,7 +119,7 @@ public class KernelUtil {
 	}
 
 	public static boolean isStructural(String function) {
-		return function.equals(BOUND) || function.equals(UNBOUND) || function.equals(EQUAL);
+		return function.equals(BOUND) || function.equals(UNBOUND) || function.equals(EQUAL) || function.equals(LITERAL);
 	}
 
 	public static HashSet<String> getDeclaredVars(KObject object) {
@@ -417,5 +417,9 @@ public class KernelUtil {
 				currentVars.add(var);
 		}
 		return oldRevars;
+	}
+
+	public static boolean isLiteralAtomic(KProperty property) {
+		return property instanceof KAtomic && ((KAtomic) property).function.equals(LITERAL);
 	}
 }

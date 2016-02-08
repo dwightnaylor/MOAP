@@ -21,12 +21,12 @@ public class ProblemNode {
 
 	public String getDisplayString() {
 		if (stringCached == null) {
-			if (contents instanceof ProblemState)
-				stringCached = SugarUtil.resugar(SugarUtil.convertToInput(((ProblemState) contents).problem)).toString()
-						.replace(";", ":::::");
-			else if (contents instanceof ProblemGroup) {
-				ProblemGroup group = (ProblemGroup) contents;
-				stringCached = "GROUP of size " + group.childStates.size();
+			if (contents instanceof ProblemState) {
+				ProblemState state = (ProblemState) contents;
+				stringCached = state.getSolvingCost() + "," + state.getApproachCost() + ":::"
+						+ SugarUtil.resugar(SugarUtil.convertToInput(state.problem)).toString().replace(";", ":::::");
+			} else if (contents instanceof ProblemGroup) {
+				stringCached = "";
 			}
 		}
 		return stringCached;

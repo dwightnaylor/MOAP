@@ -27,9 +27,9 @@ public class TransformUtil {
 		vars.addAll(input.given.vars);
 		vars.addAll(input.goal.vars);
 		for (String var : vars) {
-			toRemove.add(atomic(InputUtil.EQUAL, var, var));
-			toRemove.add(atomic(InputUtil.BOUND, var));
-			toRemove.add(atomic(InputUtil.UNBOUND, var));
+			toRemove.add(atomic(EQUAL, var, var));
+			toRemove.add(atomic(BOUND, var));
+			toRemove.add(atomic(UNBOUND, var));
 		}
 
 		KProperty given = input.given.property;

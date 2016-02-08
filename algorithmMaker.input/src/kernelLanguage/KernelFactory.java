@@ -19,6 +19,7 @@ public class KernelFactory {
 	public static final String TYPE_MARKER = "type_";
 	public static final String BOUND = "BOUND";
 	public static final String UNBOUND = "UNBOUND";
+	public static final String LITERAL = "LITERAL";
 	public static final String EQUAL = "equal";
 	public static final String ADDITION = "plus";
 	public static final String SUBTRACTION = "minus";
@@ -92,7 +93,10 @@ public class KernelFactory {
 		return problems.get(vars).get(property);
 	}
 
-	public static KNegation negate(KProperty negated) {
+	public static KProperty negate(KProperty negated) {
+		if (negated instanceof KNegation)
+			return ((KNegation) negated).negated;
+
 		if (!negations.containsKey(negated))
 			negations.put(negated, new KNegation(negated));
 

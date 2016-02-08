@@ -2,17 +2,25 @@ import static algorithmMaker.util.KernelUtil.*;
 import static kernelLanguage.KernelFactory.*;
 import static org.junit.Assert.*;
 
-import java.util.Collections;
+import java.util.*;
 
 import org.junit.Test;
 
-import algorithmMaker.util.InputUtil;
+import inputHandling.*;
 import kernelLanguage.*;
-import runtimeAnalysis.ConstantMerger;
 import solver.Chainer;
 import theorems.MultistageTheorem;
 
 public class ChainerTests {
+
+	@Test
+	public void testGetAllFulfillmentsOfLiteral() {
+		Chainer chainer = new Chainer();
+		assertEquals(1, chainer.getAllFulfillmentsOf(parseProperty(LITERAL + "(x)")).size());
+		chainer.chain(parseProperty("a(x)"), GIVEN);
+		chainer.chain(parseProperty("a(y)"), GIVEN);
+		assertEquals(1, chainer.getAllFulfillmentsOf(parseProperty(LITERAL + "(x) & a(x)")).size());
+	}
 
 	@Test
 	public void testGetAllFulfillmentsOf() {
@@ -43,6 +51,14 @@ public class ChainerTests {
 		// Switch the q and y at the end to make it not a match
 		chainer.chain(parseProperty("forall(q st child(x,q) : child(q,y))"), GIVEN);
 		assertEquals(2, chainer.getAllFulfillmentsOf(parseProperty("forall(z st child(x,z) : child(y,z))")).size());
+		// Try out some weird variable names (just in case)
+		assertEquals(2, chainer
+				.getAllFulfillmentsOf(parseProperty("forall(asdf st child(qwer,asdf) : child(rewq,asdf))")).size());
+		// Try out an anded quantifier.
+		assertEquals(4,
+				chainer.getAllFulfillmentsOf(
+						parseProperty("forall(z st child(x,z) : child(y,z)) & forall(q st child(x,q) : child(y,q))"))
+				.size());
 	}
 
 	@Test
@@ -113,7 +129,7 @@ public class ChainerTests {
 	public void testForMultistageMultipleOptions() {
 		Chainer chainer = new Chainer(new MultistageTheorem(
 				parseProperty(BOUND + "(y) & " + TYPE_MARKER + "hashset(x)"), parseProperty("child(x,y)"),
-				parseProperty("child(x,y)"), null, new ConstantMerger(0), "enumerable things", null));
+				parseProperty("child(x,y)"), null, r -> 0, "enumerable things", null));
 		KInput input = parseInput("Given hashset x, hashset z; Find y st child(x,y)");
 		chainer.addBoundVars(input.given.vars.toArray(new String[0]));
 		chainer.chain(input.given.property, GIVEN);
@@ -123,8 +139,7 @@ public class ChainerTests {
 	@Test
 	public void testMultistageChaining() {
 		MultistageTheorem multiTheorem = new MultistageTheorem(parseProperty("enumerable(x)"),
-				parseProperty("child(x,y)"), parseProperty("child(x,y)"), null, new ConstantMerger(0),
-				"enumerable things", null);
+				parseProperty("child(x,y)"), parseProperty("child(x,y)"), null, r -> 0, "enumerable things", null);
 		Chainer stage1Chainer = new Chainer(multiTheorem);
 		stage1Chainer.chain(parseProperty("enumerable(a)"), GIVEN);
 		assertTrue("Stage 1 of multichaining works", stage1Chainer.nextLevelTheorems.size() == 1);
@@ -143,7 +158,7 @@ public class ChainerTests {
 
 	@Test
 	public void testBoundVariableDetection() {
-		Chainer basicChainer = new Chainer(parseTheorem(InputUtil.BOUND + "(x)&a(x)->b(x),0,\"GIVEN\""));
+		Chainer basicChainer = new Chainer(parseTheorem(BOUND + "(x)&a(x)->b(x),0,\"GIVEN\""));
 		basicChainer.addBoundVars("q");
 		basicChainer.chain(parseProperty("a(q)"), GIVEN);
 		assertTrue(basicChainer.hasProperty(parseProperty("b(q)")));
@@ -162,7 +177,7 @@ public class ChainerTests {
 
 	@Test
 	public void testBindingNormalMix() {
-		Chainer basicChainer = new Chainer(parseTheorem(InputUtil.BOUND + "(x)&a(y)->b(x,y),0,\"GIVEN\""));
+		Chainer basicChainer = new Chainer(parseTheorem(BOUND + "(x)&a(y)->b(x,y),0,\"GIVEN\""));
 		basicChainer.addBoundVars("q");
 		basicChainer.chain(parseProperty("a(w)"), GIVEN);
 		assertTrue(basicChainer.hasProperty(parseProperty("b(q,w)")));
@@ -171,10 +186,10 @@ public class ChainerTests {
 	@Test
 	public void testEqualityChaining() {
 		Chainer basicChainer = new Chainer();
-		basicChainer.chain(parseProperty(InputUtil.EQUAL + "(x,y)"), GIVEN);
-		basicChainer.chain(parseProperty(InputUtil.EQUAL + "(y,z)"), GIVEN);
-		basicChainer.chain(parseProperty(InputUtil.EQUAL + "(z,a)"), GIVEN);
-		basicChainer.chain(parseProperty(InputUtil.EQUAL + "(a,b)"), GIVEN);
+		basicChainer.chain(parseProperty(EQUAL + "(x,y)"), GIVEN);
+		basicChainer.chain(parseProperty(EQUAL + "(y,z)"), GIVEN);
+		basicChainer.chain(parseProperty(EQUAL + "(z,a)"), GIVEN);
+		basicChainer.chain(parseProperty(EQUAL + "(a,b)"), GIVEN);
 		basicChainer.chain(parseProperty("a(x)"), GIVEN);
 		assertTrue(basicChainer.hasProperty(parseProperty("a(b)")));
 	}
@@ -239,19 +254,87 @@ public class ChainerTests {
 		}
 	}
 
+	@Test
+	public void testForQuantifierContrapositiveAsTheorem() {
+		{
+			// One test for when the quantifier comes first
+			Chainer basicChainer = new Chainer();
+			basicChainer.chain(parseProperty("forall(x st aq(x) : bq(x))"), GIVEN);
+			basicChainer.chain(parseProperty("!bq(q)"), GIVEN);
+			assertTrue(basicChainer.hasProperty(parseProperty("!aq(q)")));
+		}
+		{
+			// One test for when the quantifier comes second
+			Chainer basicChainer = new Chainer();
+			basicChainer.chain(parseProperty("!bq(q)"), GIVEN);
+			basicChainer.chain(parseProperty("forall(x st aq(x) : bq(x))"), GIVEN);
+			assertTrue(basicChainer.hasProperty(parseProperty("!aq(q)")));
+		}
+	}
+
+	@Test
+	public void regressionTest3() {
+//		ArrayList<KTheorem> theorems = TheoremParser.parseFiles();
+//		theorems.addAll(MultiTheoremParser.getMultiTheorems());
+		Chainer basicChainer = new Chainer();
+		basicChainer.chain(
+				parseProperty(
+						"child(b,c) & forall(z st child(a,z) : child(b,z)) & forall(z st child(b,z) : child(a,z))"),
+				GIVEN);
+
+		assertTrue(basicChainer.hasProperty(parseProperty("child(a,c)")));
+	}
+
+	@Test
+	public void regressionTest2() {
+		ArrayList<KTheorem> theorems = TheoremParser.parseFiles();
+		theorems.addAll(MultiTheoremParser.getMultiTheorems());
+		Chainer basicChainer = new Chainer(theorems.toArray(new KTheorem[0]));
+		basicChainer.chain(parseProperty("forall(nb st child(a,nb) : child(na,nb))"), GIVEN);
+		// No crash hopefully?
+	}
+
+	@Test
+	public void regressionTest1() {
+		Chainer basicChainer = new Chainer(parseTheorem("child(a,b)->exists(c st child(a,c) : equal(b,c)"),
+				parseTheorem("exists(c st child(a,c) : equal(b,c)->child(a,b)"),
+				parseTheorem("!child(a,b)->forall(c st child(a,c) : !equal(b,c)"),
+				parseTheorem("forall(c st child(a,c) : !equal(b,c)->!child(a,b)"));
+		basicChainer.chain(parseProperty("forall(z st child(a,z) : !equal(b,z))"), GIVEN);
+		assertTrue(basicChainer.hasProperty(parseProperty("!child(a,b)")));
+	}
+
 	/**
 	 * We want to make sure that when we accept a quantifier as a theorem, we do so specifically, not generally. Namely,
 	 * if I say forall(x st a(x) : b(x,y)), then it only holds for the y I've given you, not an arbitrary y.
 	 */
 	@Test
 	public void testForQuantifierAsTheoremMisfiring() {
-		Chainer basicChainer = new Chainer();
-		basicChainer.chain(parseProperty("forall(x st a(x) : b(x,y))"), GIVEN);
-		basicChainer.chain(parseProperty("foo(y)"), GIVEN);
-		basicChainer.chain(parseProperty("foo(z)"), GIVEN);
-		basicChainer.chain(parseProperty("a(q)"), GIVEN);
-		assertTrue(basicChainer.hasProperty(parseProperty("b(q,y)")));
-		assertTrue(!basicChainer.hasProperty(parseProperty("b(q,z)")));
+		// Simple test first - see if a chaining accidentally uses unrelated variables
+		{
+			Chainer basicChainer = new Chainer();
+			basicChainer.chain(parseProperty("forall(x st a(x) : b(x,y))"), GIVEN);
+			basicChainer.chain(parseProperty("foo(y)"), GIVEN);
+			basicChainer.chain(parseProperty("foo(z)"), GIVEN);
+			basicChainer.chain(parseProperty("a(q)"), GIVEN);
+			assertTrue(basicChainer.hasProperty(parseProperty("b(q,y)")));
+			assertFalse(basicChainer.hasProperty(parseProperty("b(q,z)")));
+		}
+		// Test if the chaining can return the wrong predicate
+		{
+			Chainer basicChainer = new Chainer();
+			basicChainer.chain(parseProperty("forall(x st child(a,x) : child(b,x))"), GIVEN);
+			basicChainer.chain(parseProperty("child(a,q)"), GIVEN);
+			assertTrue(basicChainer.hasProperty(parseProperty("child(b,q)")));
+			assertFalse(basicChainer.hasProperty(parseProperty("child(c,q)")));
+		}
+		// Test if the chaining can use the wrong subject
+		{
+			Chainer basicChainer = new Chainer();
+			basicChainer.chain(parseProperty("forall(x st child(a,x) : child(b,x))"), GIVEN);
+			basicChainer.chain(parseProperty("child(d,q)"), GIVEN);
+			assertFalse(basicChainer.hasProperty(parseProperty("child(b,q)")));
+		}
 	}
 
 	@Test

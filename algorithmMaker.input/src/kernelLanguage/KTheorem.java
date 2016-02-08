@@ -29,8 +29,14 @@ public class KTheorem {
 	public KTheorem getConverse() {
 		return theorem(result, requirement, cost, description);
 	}
-	
+
 	public static void main(String[] args) {
-		while(true){}
+		while (true) {
+		}
+	}
+
+	public KTheorem canonicalize() {
+		return theorem((KProperty) KernelUtil.canonicalize(requirement), (KProperty) KernelUtil.canonicalize(result),
+				cost, description);
 	}
 }

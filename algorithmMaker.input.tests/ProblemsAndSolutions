@@ -3,15 +3,10 @@ foreach child b of a
 	if b % 2 == 0
 		return [b]
 -
-Given list<int> a,list<int> b; Find c st child(a,c) & child(b,c) & even(c)
-foreach child c of a
-	boolean v0 = true;
-	foreach child nb of b
-		if c == nb
-			v0 = false
-	if v0 == false
-		if c % 2 == 0
-			return [c]
+Given list<int> a, b; Find !child(a,b)
+nb = new HashSet(a)
+if !nb.contains(b)
+	return []
 -
 Given int a, int b, int c; Find plus(c,b,a)
 if c + b == a
@@ -23,33 +18,21 @@ foreach index y of x
 	if y == na
 		return [y]
 -
-Given list x; Find y,z st child(x,y) & child(x,z) & equal(y,z)
-foreach child y of x
-	foreach child z of x
-		if y == z
-			return [y, z]
--
 Given list a, list b; Find c st child(a,c) & !child(b,c)
+na = new HashSet(b)
 foreach child c of a
-	boolean v12 = true;
-	foreach child na of b
-		if c == na
-			v12 = false
-	if v12 == true
+	if !na.contains(c)
 		return [c]
 -
 Given list a, list b, list c; Find d st child(a,d) & child(b,d) & !child(c,d)
+na = new HashSet(b)
 foreach child d of a
-	boolean v15 = true;
-	foreach child na of c
-		if d == na
-			v15 = false
-	if v15 == true
-		boolean v42 = true;
-		foreach child nb of b
-			if d == nb
-				v42 = false
-		if v42 == false
+	if na.contains(d)
+		boolean v36 = true;
+		foreach child nc of c
+			if d == nc
+				v36 = false
+		if v36 == true
 			return [d]
 -
 Given a,b; Find s st plus(a,b,s)
@@ -70,10 +53,16 @@ foreach child z of A
 		y = z
 return [y]
 -
-Given list<number> x, int s; Find a,b st child(x,a) & child(x,b) & equal(a+b,s)
-foreach child b of x
-	foreach child a of x
-		na = a + b
-		if s == na
-			return [a, b]
+Given list<number> x,int s,b st child(x,b); Find a st child(x,a) & equal(a+b,s)
+foreach child a of x
+	na = a + b
+	if s == na
+		return [a]
 -
+Given list a,b; Find !child(a,b)
+boolean v0 = true;
+foreach child na of a
+	if na == b
+		v0 = false
+if v0 == true
+	return []

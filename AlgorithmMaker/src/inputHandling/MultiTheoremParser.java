@@ -1,13 +1,13 @@
 package inputHandling;
 
-import static algorithmMaker.util.InputUtil.*;
+import static kernelLanguage.KernelFactory.*;
 import static algorithmMaker.util.KernelUtil.parseProperty;
 
 import java.util.ArrayList;
 
-import algorithmMaker.util.InputUtil;
+import algorithmMaker.util.*;
+import kernelLanguage.KProperty;
 import pseudocoders.LineCoder;
-import runtimeAnalysis.*;
 import theorems.MultistageTheorem;
 
 public class MultiTheoremParser {
@@ -21,14 +21,20 @@ public class MultiTheoremParser {
 		return ret;
 	}
 
+	/**
+	 * Lazy helper method. Parse and canonicalize.
+	 */
+	private static KProperty pc(String string) {
+		return (KProperty) KernelUtil.canonicalize(parseProperty(string));
+	}
+
 	private static void addBruteForceFindTheorems(ArrayList<MultistageTheorem> ret) {
 		ArrayList<String[]> bruteForces = new ArrayList<String[]>();
 		bruteForces.add(new String[] { UNBOUND + "(y) & enumerable(x)", "child(x,y)", "foreach child <y> of <x>" });
 		bruteForces.add(new String[] { UNBOUND + "(y) & indexable(x)", "index(x,y)", "foreach index <y> of <x>" });
 		for (String[] cur : bruteForces)
-			ret.add(new MultistageTheorem(parseProperty(cur[0]), parseProperty(cur[1]), parseProperty(cur[1]), null,
-					new MultiplicationMerger(10), "Brute force.",
-					new LineCoder(cur[2], ">" + LineCoder.EXIT_STRING + "0")));
+			ret.add(new MultistageTheorem(pc(cur[0]), pc(cur[1]), pc(cur[1]), null, r -> /* O(len(x)) */10 * r[0],
+					"Brute force.", new LineCoder(cur[2], ">" + LineCoder.EXIT_STRING + "0")));
 	}
 
 	private static void addSimpleTestingTheorems(ArrayList<MultistageTheorem> ret) {
@@ -42,11 +48,10 @@ public class MultiTheoremParser {
 
 		tests.add(new String[] { TYPE_MARKER + "hashset(x) & " + BOUND + "(y)", "child(x,y)", "if <x>.contains(<y>)" });
 		for (String[] test : tests) {
-			ret.add(new MultistageTheorem(parseProperty(test[0]), parseProperty(test[1]), parseProperty(test[1]), null,
-					new AdditionMerger(1), "Simple test.", new LineCoder(test[2], ">" + LineCoder.EXIT_STRING + "0")));
-			ret.add(new MultistageTheorem(parseProperty(test[0]), parseProperty("!" + test[1]),
-					parseProperty("!" + test[1]), null, new AdditionMerger(1), "Simple negated test.",
-					new LineCoder(invert(test[2]), ">" + LineCoder.EXIT_STRING + "0")));
+			ret.add(new MultistageTheorem(pc(test[0]), pc(test[1]), pc(test[1]), null, r -> 1 + r[0], "Simple test.",
+					new LineCoder(test[2], ">" + LineCoder.EXIT_STRING + "0")));
+			ret.add(new MultistageTheorem(pc(test[0]), pc("!" + test[1]), pc("!" + test[1]), null, r -> 1 + r[0],
+					"Simple negated test.", new LineCoder(invert(test[2]), ">" + LineCoder.EXIT_STRING + "0")));
 		}
 	}
 
@@ -72,9 +77,8 @@ public class MultiTheoremParser {
 				"child(x,y) & forall(z st child(x,z) : lessThanEqual(y,z))", "<y> = <x>.poll()" });
 
 		for (String[] declaration : declarations)
-			ret.add(new MultistageTheorem(parseProperty(declaration[0]), parseProperty(declaration[1]),
-					parseProperty(declaration[1]), null, new AdditionMerger(1), "Simple declaration.",
-					new LineCoder(declaration[2], LineCoder.EXIT_STRING + "0")));
+			ret.add(new MultistageTheorem(pc(declaration[0]), pc(declaration[1]), pc(declaration[1]), null,
+					r -> 1 + r[0], "Simple declaration.", new LineCoder(declaration[2], LineCoder.EXIT_STRING + "0")));
 	}
 
 	// private static void addComplexDeclarationTheorems(ArrayList<MultistageTheorem> ret) {
@@ -85,8 +89,8 @@ public class MultiTheoremParser {
 	// "<xi> = <x>[<i>]" });
 	//
 	// for (String[] declaration : declarations)
-	// ret.add(new MultistageTheorem(parseProperty(declaration[0]), parseProperty(declaration[1]),
-	// parseProperty(declaration[2]), null, 10, "Declare a hashset for later use with child()",
+	// ret.add(new MultistageTheorem(pc(declaration[0]), pc(declaration[1]),
+	// pc(declaration[2]), null, 10, "Declare a hashset for later use with child()",
 	// new LineCoder(false, declaration[3])));
 	//
 	// }

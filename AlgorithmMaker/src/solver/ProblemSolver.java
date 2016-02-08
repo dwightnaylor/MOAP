@@ -14,8 +14,9 @@ import bindings.*;
 import display.Viewer;
 import inputHandling.*;
 import kernelLanguage.*;
+import kernelLanguage.KQuantifier.Quantifier;
 import pseudocoders.*;
-import theorems.MultistageTheorem;
+import theorems.*;
 
 /**
  * Translates an input between various states until a solution is reached.<br>
@@ -37,11 +38,14 @@ public class ProblemSolver {
 	 * The list of problem states that we still have to explore.
 	 */
 	public PriorityQueue<ProblemState> problemStates = new PriorityQueue<ProblemState>();
+	private Hashtable<KInput, ProblemState> reachedProblems = new Hashtable<KInput, ProblemState>();
 
 	private final KTheorem[] theorems;
 	private final KTheorem[] invertedTheorems;
 
 	public ProblemGroup initialProblem;
+
+	private int stateCount = 0;
 
 	public ProblemSolver(KInput problem, KTheorem... theorems) {
 		this.theorems = theorems;
@@ -81,11 +85,9 @@ public class ProblemSolver {
 
 		Chainer givenChainer = new Chainer(theorems);
 		givenChainer.addBoundVars(problem.given.vars.toArray(new String[0]));
-		// NOTE: This line has to go after the bound vars, or all variables in
-		// the goal will be unbound.
+		// NOTE: This line has to go after the bound vars, or all variables in the goal will be unbound.
 		givenChainer.addUnboundVars(variables(problem.goal).toArray(new String[0]));
-		if (problem.given.property != null)
-			givenChainer.chain(problem.given.property, GIVEN);
+		givenChainer.chain(problem.given.property, GIVEN);
 
 		KTheorem[] goalTheorems = new KTheorem[invertedTheorems.length + givenChainer.theoremDerivations.size()];
 		System.arraycopy(invertedTheorems, 0, goalTheorems, 0, invertedTheorems.length);
@@ -109,8 +111,7 @@ public class ProblemSolver {
 					MultistageTheorem mst = entry.getKey();
 					KInput newProblem = problem;
 
-					// Make the new given (just add in all the multi-theorem
-					// results)
+					// Make the new given (just add in all the multi-theorem results)
 					ArrayList<KProperty> newGivenParts = new ArrayList<KProperty>();
 					newGivenParts.add(newProblem.given.property);
 					ArrayList<KProperty> newGoalParts = new ArrayList<KProperty>();
@@ -174,70 +175,57 @@ public class ProblemSolver {
 			doSubProblemMultitheorems(problemState, property, givenChainer.properties.keySet(),
 					goalChainer.properties.keySet());
 
-		// We can also look for properties that are in the given...maybe
-		// TODO: This is not done very well, looks through all the possible
-		// properties instead of only the useful ones.
-		// TODO: Should be methodized
-		for (KProperty property : givenChainer.properties.keySet()) {
-			// At the moment, this whole chunk of code is just for testing if we
-			// can/should declare a hashset containing
-			// all the elements of something in order to get faster child check
-			// time later.
-			// if (property instanceof KAtomic && false) {
-			// KAtomic atomic = (KAtomic) property;
-			// if (atomic.function.startsWith(InputUtil.TYPE_MARKER)
-			// && InputUtil.getDeclaredType(atomic.function).equals(COLLECTION))
-			// {
-			// String originalObject = atomic.args.get(0);
-			// // Make sure the variable isn't already a set
-			// if (givenChainer.hasProperty(atomic(TYPE_MARKER + "hashset",
-			// originalObject)))
-			// continue;
-			//
-			// // We don't want to add the set if it's already in effect
-			// ArrayList<Binding> fulfillments =
-			// givenChainer.getAllFulfillmentsOf(quantifier(Quantifier.forall,
-			// problem(atomic("child", originalObject, "z"), "z"),
-			// atomic("child", "x", "z")),
-			// Collections.singleton(originalObject));
-			// if (fulfillments.size() > 0)
-			// continue;
-			//
-			// HashSet<String> usedVars = new
-			// HashSet<String>(KernelUtil.variables(problem.given));
-			// String setName = InputUtil.getUnusedVar(usedVars);
-			// usedVars.add(setName);
-			// String quantifierVariable = InputUtil.getUnusedVar(usedVars);
-			// Set<String> newVars = new HashSet<String>(problem.given.vars);
-			// newVars.add(setName);
-			// KProblem newGiven = problem.given
-			// .withProperty(and(problem.given.property, atomic(TYPE_MARKER +
-			// "hashset", setName),
-			// quantifier(Quantifier.forall,
-			// problem(atomic("child", originalObject, quantifierVariable),
-			// quantifierVariable),
-			// atomic("child", setName, quantifierVariable))))
-			// .withVars(newVars);
-			//
-			// Pseudocoder coder = new Pseudocoder() {
-			// @Override
-			// public void appendPseudocode(StringBuffer builder, int numTabs,
-			// ProblemState problemState,
-			// Pseudocoder returnCoder, Binding unusedBinding) {
-			// Pseudocoder.appendTabs(builder, numTabs);
-			// builder.append(setName + " = new HashSet(" + originalObject +
-			// ")");
-			// }
-			// };
-			//
-			// addProblemState(new ProblemGroup(problemState,
-			// new MultistageTheorem(null, null, null, new AdditionMerger(1),
-			// "Declaration of a hashset for inclusion testing", coder),
-			// Binding.EMPTY, Collections.singletonList(new
-			// ProblemState(input(newGiven, problem.goal)))));
-			// }
-			// }
-		}
+		searchForHashsetCreations(problemState, givenChainer);
+	}
+
+	private void searchForHashsetCreations(ProblemState problemState, Chainer givenChainer) {
+		KInput problem = problemState.problem;
+		HashSet<Fact<? extends KProperty>> collectionMarkers = givenChainer.propertiesByStructure
+				.get(atomic(InputUtil.TYPE_MARKER + "collection", "_"));
+		if (collectionMarkers != null)
+			for (Fact<? extends KProperty> fact : collectionMarkers) {
+				KAtomic atomic = (KAtomic) fact.property;
+				String originalObject = atomic.args.get(0);
+				// Make sure the variable isn't already a set
+				if ((problemState.parentGroup.parentState != null
+						&& problemState.parentGroup.parentState.problem.given.vars.contains(originalObject))
+						|| givenChainer.hasProperty(atomic(TYPE_MARKER + "hashset", originalObject)))
+					continue;
+
+				HashSet<String> usedVars = new HashSet<String>(KernelUtil.variables(problem.given));
+				String setName = InputUtil.getUnusedVar(usedVars);
+				usedVars.add(setName);
+
+				// This is the quantifier pair we will use. It just says everything in our new hashset is in the
+				// list, and vice-versa
+				String quantifierVariable = InputUtil.getUnusedVar(usedVars);
+				KProperty weakPermutationQuantifier = and(
+						quantifier(Quantifier.forall,
+								problem(atomic("child", originalObject, quantifierVariable), quantifierVariable),
+								atomic("child", setName, quantifierVariable)),
+						quantifier(Quantifier.forall,
+								problem(atomic("child", setName, quantifierVariable), quantifierVariable),
+								atomic("child", originalObject, quantifierVariable)));
+								// KProperty weakPermutationQuantifier = atomic("weakPermutation", originalObject,
+								// setName);
+
+				// We don't want to add the set if it's already in effect
+				if (givenChainer.getAllFulfillmentsOf(weakPermutationQuantifier, Collections.singleton(originalObject))
+						.size() > 0)
+					continue;
+
+				Set<String> newVars = new HashSet<String>(problem.given.vars);
+				newVars.add(setName);
+				KProblem newGiven = problem.given.withProperty(and(problem.given.property,
+						atomic(TYPE_MARKER + "hashset", setName), weakPermutationQuantifier)).withVars(newVars);
+
+				addProblemGroup(new ProblemGroup(problemState,
+						new MultistageTheorem(null, null, null, r -> 1 + r[0],
+								"Declaration of a hashset for inclusion testing",
+								new LineCoder(setName + " = new HashSet(" + originalObject + ")",
+										LineCoder.EXIT_STRING + "0")),
+						Binding.EMPTY, new ProblemState(input(newGiven, problem.goal), theorems)));
+			}
 	}
 
 	private void doSubProblemMultitheorems(ProblemState problemState, KProperty property, Set<KProperty> givenChainer,
@@ -408,8 +396,21 @@ public class ProblemSolver {
 	}
 
 	private void addProblemState(ProblemState problemState) {
+		KInput problem = (KInput) KernelUtil.canonicalize(/* devar */(problemState.problem));
+		if (reachedProblems.containsKey(problem))
+			if (problemState.getApproachCost() < reachedProblems.get(problem).getApproachCost())
+				problemStates.remove(reachedProblems.get(problem));
+			else
+				return;
+
+		reachedProblems.put(problem, problemState);
+
 		if (!problemState.isSolvable())
 			return;
+
+		stateCount++;
+
+		// System.out.println(SugarUtil.resugar(SugarUtil.convertToInput(problemState.problem)));
 
 		if (solvedProblems.containsKey(problemState.problem))
 			catchProblemState(problemState);
@@ -418,6 +419,13 @@ public class ProblemSolver {
 	}
 
 	private void addProblemGroup(ProblemGroup problemGroup) {
+		for (ProblemState childState : problemGroup.childStates)
+			if (problemGroup.parentState != null && childState.problem.equals(problemGroup.parentState.problem)) {
+				// TODO:DN: Do this better...
+				problemGroup.parentState.childGroups.remove(problemGroup);
+				return;
+			}
+
 		addProblemState(problemGroup.childStates.get(0));
 	}
 
@@ -457,6 +465,8 @@ public class ProblemSolver {
 			}
 			if (problemString.length() < 4)
 				continue;
+
+			long st = System.currentTimeMillis();
 			KInput input = (KInput) convertToKernel(QuickParser.parseInput(problemString));
 			ProblemSolver solver = new ProblemSolver(input, theorems.toArray(new KTheorem[0]));
 			ProblemState solution = solver.getSolution();
@@ -467,9 +477,11 @@ public class ProblemSolver {
 			} else {
 				solution.parentGroup.printSolutionContents(0);
 				System.out.println("\n" + ProblemState.getOutputString(solution.parentGroup, problemString));
+				System.out.println("Solved in " + (System.currentTimeMillis() - st) + " ms using " + solver.stateCount
+						+ " states.");
 			}
 			if (SHOW_GRAPH)
-				Viewer.displaySolverResults(solver, true);
+				Viewer.displaySolverResults(solver, false);
 
 			System.out.println("HIT ME WITH ANOTHER ONE!");
 		}

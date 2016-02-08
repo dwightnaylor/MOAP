@@ -6,7 +6,7 @@ import runtimeAnalysis.*;
 
 public class MultistageTheorem extends KTheorem {
 
-	public static final MultistageTheorem GIVEN_MULTI = new MultistageTheorem(null, null, null, new ConstantMerger(0),
+	public static final MultistageTheorem GIVEN_MULTI = new MultistageTheorem(null, null, null, r -> r[0],
 			"GIVEN (multi)", new LineCoder(LineCoder.EXIT_STRING + "0"));
 
 	private final KProperty goalRequirement;

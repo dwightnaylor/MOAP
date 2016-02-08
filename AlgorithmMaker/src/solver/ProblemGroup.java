@@ -77,20 +77,15 @@ public class ProblemGroup {
 	}
 
 	/**
-	 * This is the solving cost, namely how long it will take the child nodes of
-	 * this problem state to be solved, as well as how long it will take to
-	 * integrate those solutions. For a problem group, this is a function of all
-	 * of the solving times of all of the sub problems.
+	 * This is the solving cost, namely how long it will take the child nodes of this problem state to be solved, as
+	 * well as how long it will take to integrate those solutions. For a problem group, this is a function of all of the
+	 * solving times of all of the sub problems.
 	 */
-	public int getCost(boolean allowForMissingRuntimes) {
+	public int getSolvingCost() {
 		int[] subCosts = new int[childStates.size()];
-		for (int i = 0; i < childStates.size(); i++) {
-			int subCost = childStates.get(i).getCost(allowForMissingRuntimes);
-			if (subCost >= 0 || allowForMissingRuntimes)
-				subCosts[i] = subCost;
-			else
-				return -1;
-		}
+		for (int i = 0; i < childStates.size(); i++)
+			subCosts[i] = childStates.get(i).getSolvingCost();
+
 		return rootTheorem.runtimeMerger.mergeRuntimes(subCosts);
 	}
 }

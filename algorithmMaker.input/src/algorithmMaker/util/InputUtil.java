@@ -19,9 +19,6 @@ public class InputUtil {
 
 	public static final String CHILD_TYPE_MARKER = "child_type_";
 	public static final String TYPE_MARKER = "type_";
-	public static final String BOUND = "BOUND";
-	public static final String UNBOUND = "UNBOUND";
-	public static final String EQUAL = "equal";
 
 	public static final String FORALL = "forall";
 	public static final String EXISTS = "exists";
