@@ -142,7 +142,17 @@ public class Chainer {
 
 	private void addTheoremCatcher(KProperty requirement, KTheorem theorem, Fact<? extends KQuantifier> theoremBase) {
 		KProperty devar = devar(requirement);
-		// TODO:DN: Split up quantifiers with ANDed predicates durin theorem catcher creation
+		// TODO:DN: Split up quantifiers with ANDed predicates during theorem catcher creation
+
+		// We can't add a theorem that implies something about variables that were not explicit in the requirement.
+		HashSet<String> newVarsInResult = new HashSet<String>();
+		if (theorem.result != null)
+			newVarsInResult.addAll(KernelUtil.getUndeclaredVars(theorem.result));
+		if (theorem.requirement != null)
+			newVarsInResult.removeAll(KernelUtil.getUndeclaredVars(theorem.requirement));
+		if (!newVarsInResult.isEmpty())
+			return;
+
 		if (requirement instanceof KANDing) {
 			for (KProperty anded : getANDed(requirement))
 				addTheoremCatcher(anded, theorem, theoremBase);
@@ -176,6 +186,9 @@ public class Chainer {
 					"A chainer has both a property " + ((KNegation) property).negated + " and its negation.");
 		}
 
+		// System.out.println(this + ":::" + fact);
+		// printJustificationFor(fact, 0);
+
 		properties.put(property, fact);
 
 		KProperty devar = devar(property);
@@ -188,32 +201,33 @@ public class Chainer {
 			KQuantifier quantifier = (KQuantifier) property;
 			// TODO: Handle the negated version for existential theorems (is this useful to do?)
 			if (quantifier.isUniversal()) {
-				// Add the theorem that's implied by the quantifier.
 				ArrayList<KProperty> forwardRequirements = new ArrayList<KProperty>();
 				forwardRequirements.add(quantifier.subject.property);
+				ArrayList<KProperty> forwardResults = new ArrayList<KProperty>();
+				forwardResults.add(quantifier.predicate);
 				ArrayList<KProperty> backwardResults = new ArrayList<KProperty>();
 				backwardResults.add(negate(quantifier.subject.property));
+				ArrayList<KProperty> backwardRequirements = new ArrayList<KProperty>();
+				backwardRequirements.add(negate(quantifier.predicate));
+
 				for (String var : KernelUtil.getUndeclaredVars(quantifier.subject)) {
 					forwardRequirements.add(atomic(LITERAL, var));
 					backwardResults.add(atomic(LITERAL, var));
+					forwardResults.add(atomic(LITERAL, var));
+					backwardRequirements.add(atomic(LITERAL, var));
 				}
-
-				// Also add the effective contrapositive of that theorem
-				ArrayList<KProperty> forwardResults = new ArrayList<KProperty>();
-				forwardResults.add(quantifier.predicate);
-				ArrayList<KProperty> backwardRequirements = new ArrayList<KProperty>();
-				backwardRequirements.add(negate(quantifier.predicate));
 				for (String var : KernelUtil.getUndeclaredVars(quantifier.predicate))
 					if (!quantifier.subject.vars.contains(var)) {
 						forwardResults.add(atomic(LITERAL, var));
 						backwardRequirements.add(atomic(LITERAL, var));
+						forwardRequirements.add(atomic(LITERAL, var));
+						backwardResults.add(atomic(LITERAL, var));
 					}
 
-				KTheorem newTheorem = theorem(and(forwardRequirements), and(forwardResults), 0, "Quantification");
-				KTheorem newTheoremContrapositive = theorem(and(backwardRequirements), and(backwardResults), 0,
-						"Quantification");
-				addNewTheoremFromQuantifier(fact, newTheorem);
-				addNewTheoremFromQuantifier(fact, newTheoremContrapositive);
+				addNewTheoremFromQuantifier(fact,
+						theorem(and(forwardRequirements), and(forwardResults), 0, "Quantification"));
+				addNewTheoremFromQuantifier(fact,
+						theorem(and(backwardRequirements), and(backwardResults), 0, "Quantification"));
 			}
 			if (allowForQuantifierDerivation) {
 				// Here we add not only the quantifier, but every "easier" quantifier as well.

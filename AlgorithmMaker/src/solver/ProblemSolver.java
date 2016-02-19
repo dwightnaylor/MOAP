@@ -211,7 +211,7 @@ public class ProblemSolver {
 						atomic(TYPE_MARKER + "hashset", setName), weakPermutationQuantifier)).withVars(newVars);
 
 				addProblemGroup(new ProblemGroup(problemState,
-						new MultistageTheorem(null, null, null, r -> 1 + r[0],
+						new MultistageTheorem(null, null, null, r -> 30 + r[0],
 								"Declaration of a hashset for inclusion testing",
 								new LineCoder(setName + " = new HashSet(" + originalObject + ")",
 										LineCoder.EXIT_STRING + "0")),
