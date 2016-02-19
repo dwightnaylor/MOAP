@@ -134,6 +134,7 @@ public class SolverTests {
 		reps.add(new String[] { "if nb == d", "if d == nb" });
 		reps.add(new String[] { "if na == y", "if y == na" });
 		reps.add(new String[] { "if na == s", "if s == na" });
+		reps.add(new String[] { "if nb == b", "if b == nb" });
 		reps.add(new String[] { "if z == y", "if y == z" });
 		for (String[] rep : reps) {
 			actualCode = actualCode.replaceAll(rep[0], rep[1]);

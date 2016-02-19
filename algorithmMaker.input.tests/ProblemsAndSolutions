@@ -1,12 +1,15 @@
+Given list<int> a, b; Find !child(a,b)
+boolean v0 = true;
+foreach child nb of a
+	if b == nb
+		v0 = false
+if v0 == true
+	return []
+-
 Given list<int> a; Find b st child(a,b) & even(b)
 foreach child b of a
 	if b % 2 == 0
 		return [b]
--
-Given list<int> a, b; Find !child(a,b)
-nb = new HashSet(a)
-if !nb.contains(b)
-	return []
 -
 Given int a, int b, int c; Find plus(c,b,a)
 if c + b == a
@@ -23,14 +26,6 @@ na = new HashSet(b)
 foreach child c of a
 	if !na.contains(c)
 		return [c]
--
-Given list a, list b, list c; Find d st child(a,d) & child(b,d) & !child(c,d)
-na = new HashSet(a)
-nb = new HashSet(c)
-foreach child d of b
-	if na.contains(d)
-		if !nb.contains(d)
-			return [d]
 -
 Given a,b; Find s st plus(a,b,s)
 s = a + b
@@ -56,10 +51,6 @@ foreach child a of x
 	if s == na
 		return [a]
 -
-Given list a,b; Find !child(a,b)
-boolean v0 = true;
-foreach child na of a
-	if na == b
-		v0 = false
-if v0 == true
-	return []
+Given a,b; Find c st plus(a,b,c)
+c = a + b
+return [c]
