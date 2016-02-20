@@ -84,9 +84,9 @@ public abstract class KernelMapper implements Function<KObject, KObject> {
 				// TODO (low): Deal with quantifier ordering (FA(E) vs E(FA))
 				// TODO (low): Deal with quantifier splitting
 				KProperty ret;
-				if (newSubject.equals(KernelFactory.TRUE)) {
+				if (newSubject.equals(TRUE)) {
 					ret = newPredicate;
-				} else if (newSubject.equals(KernelFactory.FALSE)) {
+				} else if (newSubject.equals(FALSE)) {
 					return null;
 				} else {
 					ret = quantifier(quantifier.quantifier, problem(quantifier.subject.vars, newSubject), newPredicate);
@@ -117,12 +117,18 @@ public abstract class KernelMapper implements Function<KObject, KObject> {
 						}
 					}), ORDER_CANONICALIZER);
 				}
-				return KernelFactory.and(andResults);
+				return and(andResults);
 			}
+			case KInput:
+				KInput input = (KInput) object;
+				return input((KProblem) calculateConversion(input.given), (KProblem) calculateConversion(input.goal));
+			case KProblem:
+				KProblem problem = (KProblem) object;
+				ArrayList<String> newVars = new ArrayList<String>(problem.vars);
+				Collections.sort(newVars);
+				return problem(newVars, (KProperty) calculateConversion(problem.property));
 			case KBooleanLiteral:
 			case KAtomic:
-			case KInput:
-			case KProblem:
 			}
 			return object;
 		}

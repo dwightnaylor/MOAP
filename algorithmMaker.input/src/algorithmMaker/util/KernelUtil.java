@@ -8,6 +8,7 @@ import java.util.stream.*;
 
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.Theorem;
+import algorithmMaker.util.equalityTesting.*;
 import algorithmMaker.util.metaProperties.*;
 import kernelLanguage.*;
 
@@ -26,6 +27,23 @@ public class KernelUtil {
 		@Override
 		public int compare(KObject input1, KObject input2) {
 			return input1.toString().compareTo(input2.toString());
+		}
+	};
+
+	public static final Comparator<ArrayList<Appearance>> APPEARANCE_COMPARATOR = new Comparator<ArrayList<Appearance>>() {
+		@Override
+		public int compare(ArrayList<Appearance> a1, ArrayList<Appearance> a2) {
+			for (int i = 0; i < Math.max(a1.size(), a2.size()); i++) {
+				if (i >= a1.size())
+					return 1;
+				if (i >= a2.size())
+					return -1;
+
+				int currentCompare = a1.get(i).compareTo(a2.get(i));
+				if (currentCompare != 0)
+					return currentCompare;
+			}
+			return 0;
 		}
 	};
 
@@ -422,4 +440,57 @@ public class KernelUtil {
 	public static boolean isLiteralAtomic(KProperty property) {
 		return property instanceof KAtomic && ((KAtomic) property).function.equals(LITERAL);
 	}
+
+	public static Hashtable<KObject, KObject> canonicalizations = new Hashtable<KObject, KObject>();
+
+	public static KObject canonicalizeFully(KObject kObject) {
+		if (!canonicalizations.containsKey(kObject)) {
+			KObject canonicalized = null;
+			switch (KType(kObject)) {
+			case KAtomic: {
+				// Canonicalizing an atomic is easy, just revar to the standard
+				Hashtable<String, String> revars = new Hashtable<String, String>();
+				ArrayList<String> newVars = new ArrayList<String>();
+				for (String originalVar : variables(kObject)) {
+					if (!revars.containsKey(originalVar))
+						revars.put(originalVar, "v" + revars.size());
+
+					newVars.add(revars.get(originalVar));
+				}
+				canonicalized = atomic(((KAtomic) kObject).function, newVars);
+				break;
+			}
+			case KProblem:
+			case KInput:
+			case KQuantifier:
+			case KANDing: {
+				Hashtable<String, ArrayList<Appearance>> appearances = EqualityTester
+						.getAppearances(canonicalizeOrder(kObject));
+				ArrayList<String> vars = new ArrayList<String>(new HashSet<String>(variables(kObject)));
+				Collections.sort(vars, new Comparator<String>() {
+					@Override
+					public int compare(String v1, String v2) {
+						return APPEARANCE_COMPARATOR.compare(appearances.get(v1), appearances.get(v2));
+					}
+				});
+				Hashtable<String, String> revars = new Hashtable<String, String>();
+				int varCount = 0;
+				for (String var : vars) {
+					revars.put(var, "v" + varCount++);
+				}
+				canonicalized = canonicalizeOrder(revar(kObject, revars));
+				break;
+			}
+			case KNegation:
+				canonicalized = negate((KProperty) canonicalizeFully(((KNegation) kObject).negated));
+				break;
+			case KBooleanLiteral:
+				canonicalized = kObject;
+				break;
+			}
+			canonicalizations.put(kObject, canonicalized);
+		}
+		return canonicalizations.get(kObject);
+	}
+
 }

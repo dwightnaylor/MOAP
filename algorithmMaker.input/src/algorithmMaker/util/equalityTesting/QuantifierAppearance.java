@@ -1,4 +1,4 @@
-package bindings.equalityTesting;
+package algorithmMaker.util.equalityTesting;
 
 import algorithmMaker.util.*;
 import kernelLanguage.*;
@@ -6,8 +6,17 @@ import kernelLanguage.KQuantifier.Quantifier;
 
 public class QuantifierAppearance extends Appearance {
 
+	/**
+	 * The quantifier type of the quantifier that the variable appears in.
+	 */
 	private final Quantifier quantifier;
+	/**
+	 * Whether this appearance was in the subject (true) or the predicate (false).
+	 */
 	private final boolean inSubject;
+	/**
+	 * The number of variables declared by the quantifier.
+	 */
 	private final int numVars;
 	private KProperty compactedSubject;
 	private KProperty compactedPredicate;
@@ -17,8 +26,7 @@ public class QuantifierAppearance extends Appearance {
 		this.quantifier = quantifier.quantifier;
 		this.numVars = quantifier.subject.vars.size();
 		this.inSubject = inSubject;
-
-		// TODO: DN: Sort here?
+		// TODO: DN: Canonicalize here
 		compactedSubject = KernelUtil.devar(quantifier.subject.property);
 		compactedPredicate = KernelUtil.devar(quantifier.predicate);
 	}

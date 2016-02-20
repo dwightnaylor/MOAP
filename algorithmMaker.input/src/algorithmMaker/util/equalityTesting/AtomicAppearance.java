@@ -1,4 +1,4 @@
-package bindings.equalityTesting;
+package algorithmMaker.util.equalityTesting;
 
 public class AtomicAppearance extends Appearance {
 	final String function;

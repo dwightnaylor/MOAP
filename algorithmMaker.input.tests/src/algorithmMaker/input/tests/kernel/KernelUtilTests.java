@@ -16,13 +16,58 @@ import kernelLanguage.KQuantifier.Quantifier;
 public class KernelUtilTests {
 
 	@Test
+	public void testCanonicalizeFullyOnProperties() {
+		ArrayList<String[]> tasks = new ArrayList<String[]>();
+		tasks.add(new String[] { "a(x)", "a(v0)" });
+		tasks.add(new String[] { "a(x,y,a,z,x,z,y,x)", "a(v0,v1,v2,v3,v0,v3,v1,v0)" });
+		tasks.add(new String[] { "a(x) & b(x)", "a(v0) & b(v0)" });
+		tasks.add(new String[] { "b(x) & a(x)", "a(v0) & b(v0)" });
+		tasks.add(new String[] { "b(x) & a(x) & a(y)", "a(v0) & a(v1) & b(v0)" });
+		for (String[] task : tasks) {
+			KProperty originalProperty = parseProperty(task[0]);
+			// The simplified version goes here
+			KProperty simplifiedProperty = (KProperty) canonicalizeFully(originalProperty);
+
+			KProperty desiredProperty = parseProperty(task[1]);
+			if (!desiredProperty.equals(simplifiedProperty))
+				System.err.println("\"" + originalProperty + "\" Should canonicalize fully to \"" + desiredProperty
+						+ "\" but it instead canonicalized to \"" + simplifiedProperty + '"');
+
+			assertEquals(simplifiedProperty, desiredProperty);
+		}
+	}
+
+	@Test
+	public void testCanonicalizeFullyOnInputs() {
+		// TODO:DN: Test with canonicalizers both here and in properties.
+		ArrayList<String[]> tasks = new ArrayList<String[]>();
+		tasks.add(new String[] { "Given x st a(x); Find y st b(x,y)", "Given v0 st a(v0); Find v1 st b(v0,v1)" });
+		tasks.add(new String[] { "Given a,b,c st child(a,b) & child(b,c); Find d st child(c,d)",
+				"Given v0,v1,v2 st child(v0,v1) & child(v1,v2); Find v3 st child(v2,v3)" });
+		tasks.add(new String[] { "Given q,a,r st a(q) & child(q,a) & child(a,r); Find d st child(r,d)",
+				"Given v0,v1,v2 st a(v0) & child(v0,v1) & child(v1,v2); Find v3 st child(v2,v3)" });
+		for (String[] task : tasks) {
+			KInput originalProperty = parseInput(task[0]);
+			// The simplified version goes here
+			KInput simplifiedProperty = (KInput) canonicalizeFully(originalProperty);
+
+			KInput desiredInput = parseInput(task[1]);
+			if (!desiredInput.equals(simplifiedProperty))
+				System.err.println("\"" + originalProperty + "\" Should canonicalize fully to \"" + desiredInput
+						+ "\" but it instead canonicalized to \"" + simplifiedProperty + '"');
+
+			assertEquals(simplifiedProperty, desiredInput);
+		}
+	}
+
+	@Test
 	public void testRevar() {
 		// Tests if a revar can switch out simple things
 		assertEquals(parseProperty("a(y)"), revar(parseProperty("a(x)"), Binding.singleton("x", "y").getArguments()));
 	}
 
 	@Test
-	public void testCanonicalize() {
+	public void testCanonicalizeOrder() {
 		ArrayList<String[]> tasks = new ArrayList<String[]>();
 		tasks.add(new String[] { "a(x) & a(x)", "a(x)" });
 		// tasks.add(new String[] { "a(x) | a(x)", "a(x)" });

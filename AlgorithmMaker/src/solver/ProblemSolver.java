@@ -26,6 +26,7 @@ import theorems.*;
 public class ProblemSolver {
 
 	private static final boolean SHOW_GRAPH = true;
+	private static final boolean USE_CANONICALIZATION_FOR_OPTIMIZATION = false;
 
 	/**
 	 * A collection of all of the problems that have been solved. This means that either at least one of the subproblems
@@ -37,7 +38,10 @@ public class ProblemSolver {
 	 * The list of problem states that we still have to explore.
 	 */
 	public PriorityQueue<ProblemState> problemStates = new PriorityQueue<ProblemState>();
+	// TODO:Comment
 	private Hashtable<KInput, ProblemState> reachedProblems = new Hashtable<KInput, ProblemState>();
+	// TODO:Comment
+	Hashtable<KInput, ProblemState> cnizedReachedInputs = new Hashtable<KInput, ProblemState>();
 
 	private final KTheorem[] theorems;
 	private final KTheorem[] invertedTheorems;
@@ -294,7 +298,6 @@ public class ProblemSolver {
 	}
 
 	private KInput getTransitiveQuantifierEnumerationSubProblem(ProblemState problemState, KQuantifier quantifier) {
-		// TODO: Check and make sure that uninvolvedParts is being used correctly here.
 		return input(problemState.problem.given, quantifier.subject
 				.withVars(KernelUtil.getUndeclaredVars(quantifier.subject.withVars(problemState.problem.given.vars))));
 	}
@@ -302,8 +305,7 @@ public class ProblemSolver {
 	private void doQuantifierSubProblemFor(ProblemState problemState, KQuantifier quantifier,
 			Set<KProperty> givenChainer, Set<KProperty> findChainer) {
 		// First we check and see if all the variables used in the quantifier
-		// are bound. If any aren't, we can't solve
-		// the quantifier.
+		// are bound. If any aren't, we can't solve the quantifier.
 		HashSet<String> boundVars = new HashSet<String>();
 		boundVars.addAll(getDeclaredVars(quantifier));
 		// Add all the declarations from the given
@@ -312,8 +314,7 @@ public class ProblemSolver {
 			if (!boundVars.contains(variable))
 				return;
 
-		// The new problem with the quantifier constraint removed and added to
-		// the given
+		// The new problem with the quantifier constraint removed and added to the given
 		KInput newProblem = problemState.problem
 				.withGoalProperty(problemState.problem.goal.property.without(quantifier))
 				.withGivenProperty(and(problemState.problem.given.property, quantifier));
@@ -399,6 +400,18 @@ public class ProblemSolver {
 		if (!problemState.isSolvable())
 			return;
 
+		if (USE_CANONICALIZATION_FOR_OPTIMIZATION) {
+			KInput canonicalized = (KInput) KernelUtil.canonicalizeFully(problem);
+			if (cnizedReachedInputs.containsKey(canonicalized)) {
+				if (problemState.getApproachCost() < cnizedReachedInputs.get(canonicalized).getApproachCost())
+					problemStates.remove(cnizedReachedInputs.get(canonicalized));
+				else
+					return;
+			}
+
+			cnizedReachedInputs.put(canonicalized, problemState);
+		}
+
 		stateCount++;
 
 		// System.out.println(problem);
@@ -459,7 +472,7 @@ public class ProblemSolver {
 						+ " states.");
 			}
 			if (SHOW_GRAPH)
-				Viewer.displaySolverResults(solver, true);
+				Viewer.displaySolverResults(solver, false);
 
 			System.out.println("HIT ME WITH ANOTHER ONE!");
 		}

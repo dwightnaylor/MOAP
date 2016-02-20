@@ -1,4 +1,6 @@
-package bindings.equalityTesting;
+package algorithmMaker.util.equalityTesting;
+
+import algorithmMaker.util.equalityTesting.Appearance;
 
 public class NegatedAppearance extends Appearance {
 

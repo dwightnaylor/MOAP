@@ -33,7 +33,6 @@ public abstract class KObject {
 	 * A rough validation method used for debugging. Provides early catching of bad kernels. Currently only does the
 	 * following:<br>
 	 * Reports double-declared variables.
-	 * 
 	 */
 	public abstract void validate();
 }
