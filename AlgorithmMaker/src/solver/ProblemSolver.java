@@ -39,8 +39,6 @@ public class ProblemSolver {
 	 */
 	public PriorityQueue<ProblemState> problemStates = new PriorityQueue<ProblemState>();
 	// TODO:Comment
-	private Hashtable<KInput, ProblemState> reachedProblems = new Hashtable<KInput, ProblemState>();
-	// TODO:Comment
 	Hashtable<KInput, ProblemState> cnizedReachedInputs = new Hashtable<KInput, ProblemState>();
 
 	private final KTheorem[] theorems;
@@ -388,20 +386,20 @@ public class ProblemSolver {
 	}
 
 	private void addProblemState(ProblemState problemState) {
-		KInput problem = (KInput) KernelUtil.canonicalizeOrder(/* devar */(problemState.problem));
-		if (reachedProblems.containsKey(problem))
-			if (problemState.getApproachCost() < reachedProblems.get(problem).getApproachCost())
-				problemStates.remove(reachedProblems.get(problem));
-			else
-				return;
-
-		reachedProblems.put(problem, problemState);
+//		KInput problem = (KInput) KernelUtil.canonicalizeOrder(/* devar */(problemState.problem));
+//		if (reachedProblems.containsKey(problem))
+//			if (problemState.getApproachCost() < reachedProblems.get(problem).getApproachCost())
+//				problemStates.remove(reachedProblems.get(problem));
+//			else
+//				return;
+//
+//		reachedProblems.put(problem, problemState);
 
 		if (!problemState.isSolvable())
 			return;
 
 		if (USE_CANONICALIZATION_FOR_OPTIMIZATION) {
-			KInput canonicalized = (KInput) KernelUtil.canonicalizeFully(problem);
+			KInput canonicalized = (KInput) KernelUtil.canonicalizeFully(problemState.problem);
 			if (cnizedReachedInputs.containsKey(canonicalized)) {
 				if (problemState.getApproachCost() < cnizedReachedInputs.get(canonicalized).getApproachCost())
 					problemStates.remove(cnizedReachedInputs.get(canonicalized));
