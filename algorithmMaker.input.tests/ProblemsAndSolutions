@@ -54,3 +54,12 @@ foreach child a of x
 Given a,b; Find c st plus(a,b,c)
 c = a + b
 return [c]
+-
+Given list<int> x,int s; Find i,j st index(x,i) & index(x,j) & equal(plus(get(x,i),get(x,j)),s)
+foreach index j of x
+	nc = x[j]
+	foreach index i of x
+		nb = x[i]
+		na = nb + nc
+		if na == s
+			return [i, j]

@@ -57,6 +57,9 @@ public class SugarUtilTests {
 		tasks.add(new String[] {
 				"Given array a; Find i st index(a,i) & forall(j st index(a,j) : lessThanEqual(get(a,i),get(a,j)))",
 				"Given a st type_array(a); Find i,na st forall(j,nb st get(a,j,nb) & index(a,j) : lessThanEqual(na,nb)) & get(a,i,na) & index(a,i)" });
+		tasks.add(new String[] {
+				"Given list<int> x,int s; Find i,j st index(x,i) & index(x,j) & equal(plus(get(x,i),get(x,j)),s)",
+				"Given x,s st forall(na st child(x,na) : type_int(na)) & type_int(s) & type_list(x); Find i,j,nb,nc,na st equal(na,s) & get(x,i,nb) & get(x,j,nc) & index(x,i) & index(x,j) & plus(nb,nc,na)" });
 		// Tests for no change...
 		tasks.add(new String[] { "Given x,y st a(x,y) & equal(x,y);", "Given x,y st a(x,y) & equal(x,y);" });
 		for (String[] task : tasks) {

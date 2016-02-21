@@ -132,8 +132,9 @@ public class SugarUtil {
 						if (oldVars.contains(((Variable) argProperty).getArg())) {
 							iterator.remove();
 							newParts.add(atomic);
-							problem.getVars().add(InputUtil.createDeclaration(
-									((Variable) atomic.getArgs().get(atomic.getArgs().size() - 1)).getArg()));
+							String newVar = ((Variable) atomic.getArgs().get(atomic.getArgs().size() - 1)).getArg();
+							oldVars.add(newVar);
+							problem.getVars().add(InputUtil.createDeclaration(newVar));
 							break;
 						}
 					}
@@ -187,9 +188,8 @@ public class SugarUtil {
 			 */
 			private void denest(NumericalProperty property, HashSet<String> allVars,
 					Hashtable<NumericalProperty, String> nestedArgs, ArrayList<Atomic> newAtomics, boolean nested) {
-				// FIXME: DN: this should only happen with things that are
-				// confirmed equal. We don't want, for example
-				// equal(child(x),child(x)) to be convert to equal(na,na)
+				// FIXME: DN: this should only happen with things that are confirmed equal.
+				// We don't want, for example, equal(child(x),child(x)) to be convert to equal(na,na)
 				if (nestedArgs.containsKey(property))
 					return;
 
@@ -211,11 +211,6 @@ public class SugarUtil {
 						denest(argument, allVars, nestedArgs, newAtomics, true);
 						replacement.getArgs().add(InputUtil.createVariable(nestedArgs.get(argument)));
 					}
-				} else if (property instanceof Atomic) {
-					replacement = InputUtil.createAtomic(((Atomic) property).getFunction());
-					for (NumericalProperty argument : ((Atomic) property).getArgs())
-						replacement.getArgs().add(argument);
-
 				} else if (property instanceof Addition) {
 					Addition addition = (Addition) property;
 					replacement = InputUtil.createAtomic(
