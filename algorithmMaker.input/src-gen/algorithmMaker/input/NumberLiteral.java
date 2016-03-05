@@ -30,12 +30,12 @@ public interface NumberLiteral extends NumericalProperty
    * </p>
    * <!-- end-user-doc -->
    * @return the value of the '<em>Value</em>' attribute.
-   * @see #setValue(int)
+   * @see #setValue(double)
    * @see algorithmMaker.input.InputPackage#getNumberLiteral_Value()
    * @model
    * @generated
    */
-  int getValue();
+  double getValue();
 
   /**
    * Sets the value of the '{@link algorithmMaker.input.NumberLiteral#getValue <em>Value</em>}' attribute.
@@ -45,6 +45,6 @@ public interface NumberLiteral extends NumericalProperty
    * @see #getValue()
    * @generated
    */
-  void setValue(int value);
+  void setValue(double value);
 
 } // NumberLiteral

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 @SuppressWarnings("all")
 public class InternalInputParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'Given'", "';'", "'Find'", "'Count'", "'Theorems:'", "','", "'st'", "'<'", "'>'", "'|'", "'&'", "'('", "')'", "'{'", "'}'", "'!'", "'forall'", "'exists'", "':'", "'TRUE'", "'FALSE'", "'->'", "'<-'", "'<->'", "'+'", "'-'", "'*'", "'/'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'Given'", "';'", "'Find'", "'Count'", "'Theorems:'", "','", "'st'", "'<'", "'>'", "'|'", "'&'", "'('", "')'", "'{'", "'}'", "'!'", "'forall'", "'exists'", "':'", "'TRUE'", "'FALSE'", "'->'", "'<-'", "'<->'", "'+'", "'-'", "'*'", "'/'", "'.'"
     };
     public static final int RULE_STRING=6;
     public static final int RULE_SL_COMMENT=8;
@@ -31,6 +31,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
     public static final int T__16=16;
     public static final int T__38=38;
     public static final int T__17=17;
+    public static final int T__39=39;
     public static final int T__18=18;
     public static final int T__11=11;
     public static final int T__33=33;
@@ -294,11 +295,11 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
                     if ( (LA2_0==RULE_ID) ) {
                         int LA2_1 = input.LA(2);
 
-                        if ( (LA2_1==22) ) {
-                            alt2=2;
-                        }
-                        else if ( (LA2_1==RULE_ID||(LA2_1>=16 && LA2_1<=18)) ) {
+                        if ( (LA2_1==RULE_ID||(LA2_1>=16 && LA2_1<=18)) ) {
                             alt2=1;
+                        }
+                        else if ( (LA2_1==22) ) {
+                            alt2=2;
                         }
                         else {
                             NoViableAltException nvae =
@@ -2468,7 +2469,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
             int alt17=2;
             int LA17_0 = input.LA(1);
 
-            if ( ((LA17_0>=RULE_ID && LA17_0<=RULE_INT)||LA17_0==22) ) {
+            if ( ((LA17_0>=RULE_ID && LA17_0<=RULE_INT)||LA17_0==22||LA17_0==36) ) {
                 alt17=1;
             }
             switch (alt17) {
@@ -3568,6 +3569,7 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
             int alt25=4;
             switch ( input.LA(1) ) {
             case RULE_INT:
+            case 36:
                 {
                 alt25=1;
                 }
@@ -3576,11 +3578,11 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
                 {
                 int LA25_2 = input.LA(2);
 
-                if ( (LA25_2==22) ) {
-                    alt25=2;
-                }
-                else if ( (LA25_2==EOF||LA25_2==16||LA25_2==23||(LA25_2>=35 && LA25_2<=38)) ) {
+                if ( (LA25_2==EOF||LA25_2==16||LA25_2==23||(LA25_2>=35 && LA25_2<=38)) ) {
                     alt25=4;
+                }
+                else if ( (LA25_2==22) ) {
+                    alt25=2;
                 }
                 else {
                     NoViableAltException nvae =
@@ -3838,37 +3840,43 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleNumberLiteral"
-    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1539:1: ruleNumberLiteral returns [EObject current=null] : ( (lv_value_0_0= RULE_INT ) ) ;
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1539:1: ruleNumberLiteral returns [EObject current=null] : ( (lv_value_0_0= ruleDOUBLE ) ) ;
     public final EObject ruleNumberLiteral() throws RecognitionException {
         EObject current = null;
 
-        Token lv_value_0_0=null;
+        AntlrDatatypeRuleToken lv_value_0_0 = null;
+
 
          enterRule(); 
             
         try {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1542:28: ( ( (lv_value_0_0= RULE_INT ) ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1543:1: ( (lv_value_0_0= RULE_INT ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1542:28: ( ( (lv_value_0_0= ruleDOUBLE ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1543:1: ( (lv_value_0_0= ruleDOUBLE ) )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1543:1: ( (lv_value_0_0= RULE_INT ) )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1544:1: (lv_value_0_0= RULE_INT )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1543:1: ( (lv_value_0_0= ruleDOUBLE ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1544:1: (lv_value_0_0= ruleDOUBLE )
             {
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1544:1: (lv_value_0_0= RULE_INT )
-            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1545:3: lv_value_0_0= RULE_INT
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1544:1: (lv_value_0_0= ruleDOUBLE )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1545:3: lv_value_0_0= ruleDOUBLE
             {
-            lv_value_0_0=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleNumberLiteral3379); 
+             
+            	        newCompositeNode(grammarAccess.getNumberLiteralAccess().getValueDOUBLEParserRuleCall_0()); 
+            	    
+            pushFollow(FOLLOW_ruleDOUBLE_in_ruleNumberLiteral3383);
+            lv_value_0_0=ruleDOUBLE();
 
-            			newLeafNode(lv_value_0_0, grammarAccess.getNumberLiteralAccess().getValueINTTerminalRuleCall_0()); 
-            		
+            state._fsp--;
+
 
             	        if (current==null) {
-            	            current = createModelElement(grammarAccess.getNumberLiteralRule());
+            	            current = createModelElementForParent(grammarAccess.getNumberLiteralRule());
             	        }
-                   		setWithLastConsumed(
+                   		set(
                    			current, 
                    			"value",
                     		lv_value_0_0, 
-                    		"INT");
+                    		"DOUBLE");
+            	        afterParserOrEnumRuleCall();
             	    
 
             }
@@ -3891,6 +3899,127 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
         return current;
     }
     // $ANTLR end "ruleNumberLiteral"
+
+
+    // $ANTLR start "entryRuleDOUBLE"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1569:1: entryRuleDOUBLE returns [String current=null] : iv_ruleDOUBLE= ruleDOUBLE EOF ;
+    public final String entryRuleDOUBLE() throws RecognitionException {
+        String current = null;
+
+        AntlrDatatypeRuleToken iv_ruleDOUBLE = null;
+
+
+        try {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1570:2: (iv_ruleDOUBLE= ruleDOUBLE EOF )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1571:2: iv_ruleDOUBLE= ruleDOUBLE EOF
+            {
+             newCompositeNode(grammarAccess.getDOUBLERule()); 
+            pushFollow(FOLLOW_ruleDOUBLE_in_entryRuleDOUBLE3419);
+            iv_ruleDOUBLE=ruleDOUBLE();
+
+            state._fsp--;
+
+             current =iv_ruleDOUBLE.getText(); 
+            match(input,EOF,FOLLOW_EOF_in_entryRuleDOUBLE3430); 
+
+            }
+
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "entryRuleDOUBLE"
+
+
+    // $ANTLR start "ruleDOUBLE"
+    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1578:1: ruleDOUBLE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : ( (kw= '-' )? this_INT_1= RULE_INT (kw= '.' this_INT_3= RULE_INT ) ) ;
+    public final AntlrDatatypeRuleToken ruleDOUBLE() throws RecognitionException {
+        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+
+        Token kw=null;
+        Token this_INT_1=null;
+        Token this_INT_3=null;
+
+         enterRule(); 
+            
+        try {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1581:28: ( ( (kw= '-' )? this_INT_1= RULE_INT (kw= '.' this_INT_3= RULE_INT ) ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1582:1: ( (kw= '-' )? this_INT_1= RULE_INT (kw= '.' this_INT_3= RULE_INT ) )
+            {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1582:1: ( (kw= '-' )? this_INT_1= RULE_INT (kw= '.' this_INT_3= RULE_INT ) )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1582:2: (kw= '-' )? this_INT_1= RULE_INT (kw= '.' this_INT_3= RULE_INT )
+            {
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1582:2: (kw= '-' )?
+            int alt26=2;
+            int LA26_0 = input.LA(1);
+
+            if ( (LA26_0==36) ) {
+                alt26=1;
+            }
+            switch (alt26) {
+                case 1 :
+                    // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1583:2: kw= '-'
+                    {
+                    kw=(Token)match(input,36,FOLLOW_36_in_ruleDOUBLE3469); 
+
+                            current.merge(kw);
+                            newLeafNode(kw, grammarAccess.getDOUBLEAccess().getHyphenMinusKeyword_0()); 
+                        
+
+                    }
+                    break;
+
+            }
+
+            this_INT_1=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleDOUBLE3486); 
+
+            		current.merge(this_INT_1);
+                
+             
+                newLeafNode(this_INT_1, grammarAccess.getDOUBLEAccess().getINTTerminalRuleCall_1()); 
+                
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1595:1: (kw= '.' this_INT_3= RULE_INT )
+            // ../algorithmMaker.input/src-gen/algorithmMaker/parser/antlr/internal/InternalInput.g:1596:2: kw= '.' this_INT_3= RULE_INT
+            {
+            kw=(Token)match(input,39,FOLLOW_39_in_ruleDOUBLE3505); 
+
+                    current.merge(kw);
+                    newLeafNode(kw, grammarAccess.getDOUBLEAccess().getFullStopKeyword_2_0()); 
+                
+            this_INT_3=(Token)match(input,RULE_INT,FOLLOW_RULE_INT_in_ruleDOUBLE3520); 
+
+            		current.merge(this_INT_3);
+                
+             
+                newLeafNode(this_INT_3, grammarAccess.getDOUBLEAccess().getINTTerminalRuleCall_2_1()); 
+                
+
+            }
+
+
+            }
+
+
+            }
+
+             leaveRule(); 
+        }
+         
+            catch (RecognitionException re) { 
+                recover(input,re); 
+                appendSkippedTokens();
+            } 
+        finally {
+        }
+        return current;
+    }
+    // $ANTLR end "ruleDOUBLE"
 
     // Delegated rules
 
@@ -3980,9 +4109,9 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAtomic_in_entryRuleAtomic2035 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAtomic2045 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_ID_in_ruleAtomic2087 = new BitSet(new long[]{0x0000000000400000L});
-    public static final BitSet FOLLOW_22_in_ruleAtomic2104 = new BitSet(new long[]{0x0000000000C00030L});
+    public static final BitSet FOLLOW_22_in_ruleAtomic2104 = new BitSet(new long[]{0x0000001000C00030L});
     public static final BitSet FOLLOW_ruleAddition_in_ruleAtomic2126 = new BitSet(new long[]{0x0000000000810000L});
-    public static final BitSet FOLLOW_16_in_ruleAtomic2139 = new BitSet(new long[]{0x0000000000400030L});
+    public static final BitSet FOLLOW_16_in_ruleAtomic2139 = new BitSet(new long[]{0x0000001000400030L});
     public static final BitSet FOLLOW_ruleAddition_in_ruleAtomic2160 = new BitSet(new long[]{0x0000000000810000L});
     public static final BitSet FOLLOW_23_in_ruleAtomic2176 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleBooleanLiteral_in_entryRuleBooleanLiteral2212 = new BitSet(new long[]{0x0000000000000000L});
@@ -4005,20 +4134,20 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_ruleAddition_in_entryRuleAddition2658 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleAddition2668 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleMultiplication_in_ruleAddition2715 = new BitSet(new long[]{0x0000001800000002L});
-    public static final BitSet FOLLOW_35_in_ruleAddition2744 = new BitSet(new long[]{0x0000000000400030L});
-    public static final BitSet FOLLOW_36_in_ruleAddition2773 = new BitSet(new long[]{0x0000000000400030L});
+    public static final BitSet FOLLOW_35_in_ruleAddition2744 = new BitSet(new long[]{0x0000001000400030L});
+    public static final BitSet FOLLOW_36_in_ruleAddition2773 = new BitSet(new long[]{0x0000001000400030L});
     public static final BitSet FOLLOW_ruleMultiplication_in_ruleAddition2810 = new BitSet(new long[]{0x0000001800000002L});
     public static final BitSet FOLLOW_ruleMultiplication_in_entryRuleMultiplication2848 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleMultiplication2858 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleNumericalPrimary_in_ruleMultiplication2905 = new BitSet(new long[]{0x0000006000000002L});
-    public static final BitSet FOLLOW_37_in_ruleMultiplication2934 = new BitSet(new long[]{0x0000000000400030L});
-    public static final BitSet FOLLOW_38_in_ruleMultiplication2963 = new BitSet(new long[]{0x0000000000400030L});
+    public static final BitSet FOLLOW_37_in_ruleMultiplication2934 = new BitSet(new long[]{0x0000001000400030L});
+    public static final BitSet FOLLOW_38_in_ruleMultiplication2963 = new BitSet(new long[]{0x0000001000400030L});
     public static final BitSet FOLLOW_ruleNumericalPrimary_in_ruleMultiplication3000 = new BitSet(new long[]{0x0000006000000002L});
     public static final BitSet FOLLOW_ruleNumericalPrimary_in_entryRuleNumericalPrimary3038 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleNumericalPrimary3048 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleNumberLiteral_in_ruleNumericalPrimary3095 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleAtomic_in_ruleNumericalPrimary3122 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_22_in_ruleNumericalPrimary3140 = new BitSet(new long[]{0x0000000000400030L});
+    public static final BitSet FOLLOW_22_in_ruleNumericalPrimary3140 = new BitSet(new long[]{0x0000001000400030L});
     public static final BitSet FOLLOW_ruleNumericalPrimary_in_ruleNumericalPrimary3162 = new BitSet(new long[]{0x0000000000800000L});
     public static final BitSet FOLLOW_23_in_ruleNumericalPrimary3173 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleVariable_in_ruleNumericalPrimary3202 = new BitSet(new long[]{0x0000000000000002L});
@@ -4027,6 +4156,12 @@ public class InternalInputParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_RULE_ID_in_ruleVariable3288 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleNumberLiteral_in_entryRuleNumberLiteral3328 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleNumberLiteral3338 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_ruleNumberLiteral3379 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDOUBLE_in_ruleNumberLiteral3383 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleDOUBLE_in_entryRuleDOUBLE3419 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_EOF_in_entryRuleDOUBLE3430 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_36_in_ruleDOUBLE3469 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleDOUBLE3486 = new BitSet(new long[]{0x0000008000000000L});
+    public static final BitSet FOLLOW_39_in_ruleDOUBLE3505 = new BitSet(new long[]{0x0000000000000020L});
+    public static final BitSet FOLLOW_RULE_INT_in_ruleDOUBLE3520 = new BitSet(new long[]{0x0000000000000002L});
 
 }

@@ -863,17 +863,49 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	public class NumberLiteralElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "NumberLiteral");
 		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cValueINTTerminalRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
+		private final RuleCall cValueDOUBLEParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
 		
 		//NumberLiteral:
-		//	value=INT;
+		//	value=DOUBLE;
 		@Override public ParserRule getRule() { return rule; }
 
-		//value=INT
+		//value=DOUBLE
 		public Assignment getValueAssignment() { return cValueAssignment; }
 
+		//DOUBLE
+		public RuleCall getValueDOUBLEParserRuleCall_0() { return cValueDOUBLEParserRuleCall_0; }
+	}
+
+	public class DOUBLEElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "DOUBLE");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Keyword cHyphenMinusKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final RuleCall cINTTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
+		private final Keyword cFullStopKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
+		private final RuleCall cINTTerminalRuleCall_2_1 = (RuleCall)cGroup_2.eContents().get(1);
+		
+		//DOUBLE returns ecore::EDouble:
+		//	"-"? INT ("." INT);
+		@Override public ParserRule getRule() { return rule; }
+
+		//"-"? INT ("." INT)
+		public Group getGroup() { return cGroup; }
+
+		//"-"?
+		public Keyword getHyphenMinusKeyword_0() { return cHyphenMinusKeyword_0; }
+
 		//INT
-		public RuleCall getValueINTTerminalRuleCall_0() { return cValueINTTerminalRuleCall_0; }
+		public RuleCall getINTTerminalRuleCall_1() { return cINTTerminalRuleCall_1; }
+
+		//"." INT
+		public Group getGroup_2() { return cGroup_2; }
+
+		//"."
+		public Keyword getFullStopKeyword_2_0() { return cFullStopKeyword_2_0; }
+
+		//INT
+		public RuleCall getINTTerminalRuleCall_2_1() { return cINTTerminalRuleCall_2_1; }
 	}
 	
 	
@@ -897,6 +929,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	private final NumericalPrimaryElements pNumericalPrimary;
 	private final VariableElements pVariable;
 	private final NumberLiteralElements pNumberLiteral;
+	private final DOUBLEElements pDOUBLE;
 	
 	private final Grammar grammar;
 
@@ -927,6 +960,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		this.pNumericalPrimary = new NumericalPrimaryElements();
 		this.pVariable = new VariableElements();
 		this.pNumberLiteral = new NumberLiteralElements();
+		this.pDOUBLE = new DOUBLEElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -1151,13 +1185,23 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//NumberLiteral:
-	//	value=INT;
+	//	value=DOUBLE;
 	public NumberLiteralElements getNumberLiteralAccess() {
 		return pNumberLiteral;
 	}
 	
 	public ParserRule getNumberLiteralRule() {
 		return getNumberLiteralAccess().getRule();
+	}
+
+	//DOUBLE returns ecore::EDouble:
+	//	"-"? INT ("." INT);
+	public DOUBLEElements getDOUBLEAccess() {
+		return pDOUBLE;
+	}
+	
+	public ParserRule getDOUBLERule() {
+		return getDOUBLEAccess().getRule();
 	}
 
 	//terminal ID:

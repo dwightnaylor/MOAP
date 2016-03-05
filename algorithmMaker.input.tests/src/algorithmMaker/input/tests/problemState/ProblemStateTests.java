@@ -18,7 +18,6 @@ public class ProblemStateTests {
 				KernelUtil.parseInput(
 						"Given x,s st forall(na st child(x,na) : type_int(na)) & type_int(s) & type_list(x); Find i,j,na,nb,nc st equal(na,s) & get(x,i,nb) & get(x,j,nc) & index(x,i) & index(x,j)"),
 				new KTheorem[0]);
-		System.out.println(state.problem);
 	}
 
 	@Test

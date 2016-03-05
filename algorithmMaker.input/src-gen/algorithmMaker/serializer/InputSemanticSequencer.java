@@ -198,7 +198,7 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     value=INT
+	 *     value=DOUBLE
 	 */
 	protected void sequence_NumberLiteral(EObject context, NumberLiteral semanticObject) {
 		if(errorAcceptor != null) {
@@ -207,7 +207,7 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 		}
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getNumberLiteralAccess().getValueINTTerminalRuleCall_0(), semanticObject.getValue());
+		feeder.accept(grammarAccess.getNumberLiteralAccess().getValueDOUBLEParserRuleCall_0(), semanticObject.getValue());
 		feeder.finish();
 	}
 	

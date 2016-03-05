@@ -63,6 +63,6 @@ public interface Atomic extends Property, NumericalProperty
    * @model containment="true"
    * @generated
    */
-	EList<NumericalProperty> getArgs();
+  EList<NumericalProperty> getArgs();
 
 } // Atomic

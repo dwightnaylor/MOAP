@@ -3,6 +3,7 @@ grammar algorithmMaker.Input with org.eclipse.xtext.common.Terminals
 //TODO: : implies "->, <-, <->" : relies on inline declarations?
 //TODO: if get(x,i,xi) is used, test for index(x,i) automatically
 generate input "http://www.Input"
+import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
 //NOTE: Any changes to the formatting should be reflected with changes here.
 Input:
@@ -67,4 +68,7 @@ Variable:
 	arg=ID;
 
 NumberLiteral:
-	value=INT;
+	value=DOUBLE;
+
+DOUBLE returns ecore::EDouble:
+	('-'? INT ('.' INT));

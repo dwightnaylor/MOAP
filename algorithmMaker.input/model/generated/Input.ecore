@@ -64,7 +64,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="arg" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NumberLiteral" eSuperTypes="#//NumericalProperty">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ORing" eSuperTypes="#//Property">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Property"
