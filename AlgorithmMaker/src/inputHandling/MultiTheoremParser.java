@@ -17,8 +17,20 @@ public class MultiTheoremParser {
 		addBruteForceFindTheorems(ret);
 		addSimpleTestingTheorems(ret);
 		addDeclarationTheorems(ret);
+		addHardcodedAlgorithms(ret);
 		// addComplexDeclarationTheorems(ret);
 		return ret;
+	}
+
+	private static void addHardcodedAlgorithms(ArrayList<MultistageTheorem> ret) {
+		ret.add(new MultistageTheorem(pc("type_undirected_graph(g)"),
+				pc("exists(p st type_path(p) & contains(g,p) : cycle(p))"),
+				pc("exists(p st type_path(p) & contains(g,p) : cycle(p)) & type_hashSet(na) & type_vertex(v) & child(g,v) & type_bool(b)"),
+				null, r -> /* O(numVerts(g)) */10 * r[0], "Hard coded solution for cycle in an undirected list",
+				new LineCoder("<na> = new HashSet()", "bool <b> = false", "for each vertex <v> in <g>:",
+						">if !<na>.contains(<v>)", ">>for each node <v1> in a BFS from <v>",
+						">>>if <na>.contains(<v1>)", ">>>><b> = true", ">>><na>.add(<v1>)", "if <b> == true",
+						">" + LineCoder.EXIT_STRING + "0")));
 	}
 
 	/**

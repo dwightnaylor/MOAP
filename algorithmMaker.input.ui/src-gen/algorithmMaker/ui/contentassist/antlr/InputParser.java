@@ -76,6 +76,8 @@ public class InputParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMultiplicationAccess().getGroup(), "rule__Multiplication__Group__0");
 					put(grammarAccess.getMultiplicationAccess().getGroup_1(), "rule__Multiplication__Group_1__0");
 					put(grammarAccess.getNumericalPrimaryAccess().getGroup_2(), "rule__NumericalPrimary__Group_2__0");
+					put(grammarAccess.getDOUBLEAccess().getGroup(), "rule__DOUBLE__Group__0");
+					put(grammarAccess.getDOUBLEAccess().getGroup_2(), "rule__DOUBLE__Group_2__0");
 					put(grammarAccess.getInputAccess().getGivenAssignment_1(), "rule__Input__GivenAssignment_1");
 					put(grammarAccess.getInputAccess().getTaskAssignment_3_0(), "rule__Input__TaskAssignment_3_0");
 					put(grammarAccess.getInputAccess().getGoalAssignment_3_1(), "rule__Input__GoalAssignment_3_1");

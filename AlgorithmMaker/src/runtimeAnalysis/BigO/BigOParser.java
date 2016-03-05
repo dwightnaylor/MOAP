@@ -2,6 +2,7 @@ package runtimeAnalysis.BigO;
 
 import algorithmMaker.QuickParser;
 import algorithmMaker.input.*;
+import algorithmMaker.input.impl.NumberLiteralImpl;
 
 /**
  * Basic Helper class for parsing in math expressions and converting them to our internal polynomial representation.
@@ -9,7 +10,7 @@ import algorithmMaker.input.*;
  * @author Dwight Naylor
  */
 public class BigOParser {
-	public static Expression parseExpression(String string) {
+	public static Expression parse(String string) {
 		return convert(QuickParser.parseNumericalProperty(string));
 	}
 
@@ -45,6 +46,8 @@ public class BigOParser {
 			}
 			throw new UnsupportedOperationException(
 					"Too lazy to add full atomic support. Add the others at your leisure.");
+		} else if (prop instanceof NumberLiteralImpl) {
+			return new Constant(((NumberLiteralImpl) prop).getValue());
 		}
 		throw new UnsupportedOperationException("The numerical property \"" + prop.toString() + "\" is of type "
 				+ prop.getClass() + ", which this method is not prepared to deal with yet.");

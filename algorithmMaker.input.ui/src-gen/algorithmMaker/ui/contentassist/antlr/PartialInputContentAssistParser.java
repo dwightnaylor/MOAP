@@ -15,7 +15,6 @@ import org.eclipse.xtext.util.PolymorphicDispatcher;
 /*
  * Template CodetemplatesGeneratorFragment.xpt
  */
-@SuppressWarnings("restriction")
 public class PartialInputContentAssistParser extends InputParser implements IPartialContentAssistParser {
 
 	private AbstractRule rule;
@@ -24,14 +23,14 @@ public class PartialInputContentAssistParser extends InputParser implements IPar
 	public void initializeFor(AbstractRule rule) {
 		this.rule = rule;
 	}
-
+	
 	@Override
 	protected Collection<FollowElement> getFollowElements(AbstractInternalContentAssistParser parser) {
 		if (rule == null || rule.eIsProxy())
 			return Collections.emptyList();
 		String methodName = "entryRule" + rule.getName();
-		PolymorphicDispatcher<Collection<FollowElement>> dispatcher = new PolymorphicDispatcher<Collection<FollowElement>>(
-				methodName, 0, 0, Collections.singletonList(parser));
+		PolymorphicDispatcher<Collection<FollowElement>> dispatcher = 
+			new PolymorphicDispatcher<Collection<FollowElement>>(methodName, 0, 0, Collections.singletonList(parser));
 		dispatcher.invoke();
 		return parser.getFollowElements();
 	}

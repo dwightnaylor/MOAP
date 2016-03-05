@@ -76,7 +76,7 @@ public class InputSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     (rule start) (ambiguity) Function=ID
 	 *     (rule start) (ambiguity) arg=ID
-	 *     (rule start) (ambiguity) value=INT
+	 *     (rule start) (ambiguity) value=DOUBLE
 	 */
 	protected void emit_NumericalPrimary_LeftParenthesisKeyword_2_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
