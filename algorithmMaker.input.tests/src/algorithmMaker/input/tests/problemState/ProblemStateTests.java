@@ -13,14 +13,6 @@ public class ProblemStateTests {
 	private static final String dummyProblem = "Given x st a(x); Find b(x)";
 
 	@Test
-	public void testConstructorSimplification() {
-		ProblemState state = new ProblemState(
-				KernelUtil.parseInput(
-						"Given x,s st forall(na st child(x,na) : type_int(na)) & type_int(s) & type_list(x); Find i,j,na,nb,nc st equal(na,s) & get(x,i,nb) & get(x,j,nc) & index(x,i) & index(x,j)"),
-				new KTheorem[0]);
-	}
-
-	@Test
 	public void testGetApproachCostBasic() {
 		ProblemState headState = new ProblemState(KernelUtil.parseInput(dummyProblem), new KTheorem[0]);
 		new ProblemGroup(null, null, null, headState);
