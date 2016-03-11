@@ -1,5 +1,0 @@
-type_graph_node(x)
-
-must be part of a graph
-could be linked to an edge
-attributes?

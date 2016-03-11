@@ -1,3 +1,0 @@
-Ordered(x)
-type_graph(x)
-Root?

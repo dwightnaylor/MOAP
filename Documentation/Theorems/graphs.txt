@@ -1,3 +1,0 @@
-could be directed, undirected
-could contain nodes, or be empty
-not a collection? 

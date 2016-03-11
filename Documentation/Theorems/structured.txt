@@ -1,3 +1,0 @@
-Heaps
-Hash Buckets
-B+ Trees

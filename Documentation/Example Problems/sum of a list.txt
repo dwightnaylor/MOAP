@@ -1,7 +1,0 @@
-Sum of a list (POSSIBLE)
-Long form
-Form 1
-Given x st type_list(x) & forall(y st child(x,y) : type_int(y)), Find z st sum_elements(x,z); Theorems:
-sum_elements(x,z)-> forall(y st child(x,y) : sum_elements(x-y) - y = z)
-Form 2
-Given x st type_list(x) & forall(y st child(x,y) : type_int(y)), Find z st forall(y st child(x,y) : addedTo(z,y))

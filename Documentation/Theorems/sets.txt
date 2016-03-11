@@ -1,3 +1,0 @@
-type_set(x) -> collection(x)
-type_set(x) -> unordered(x)
-type_set(x) -> !fixed_size(x)
