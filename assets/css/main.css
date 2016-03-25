@@ -1396,7 +1396,7 @@
 	}
 
 	body {
-		background: #2e3842;
+		background: #FFFFFF;
 	}
 
 		body.is-loading *, body.is-loading *:before, body.is-loading *:after {
@@ -2795,7 +2795,7 @@
 			}
 
 		.wrapper.style2 {
-			background-color: #2e3842;
+			background-color: #FFFFFFe3842;
 		}
 
 		.wrapper.style3 {
