@@ -83,18 +83,18 @@
 							<ul class="actions vertical">
 
 								<div class="6u 12u$(xsmall)">
-									<form action="/my-handling-form-page" method="post">
-									    <div>
-									        <label for="name"></label>
-									        <input type="text" id="name" placeholder="Enter your name"/>
-									    </div>
-									    <div>
-									        <label for="mail"></label>
-									        <input type="email" id="mail" placeholder="Email"/>
-									    </div>
-									    <div class="button">
-									        <button type="submit">Submit Email</button>
-									    </div>
+									<form action="http://www.cs.tut.fi/cgi-bin/run/~jkorpela/echo.cgi" method="post">
+									  <div>
+									    <input type="text" id="name" placeholder="Name" name="user_name">
+									  </div>
+
+									  <div>
+									    <input type="email" id="mail" placeholder="Email" name="user_email">
+									  </div>
+
+									  <div class="button">
+									    <button type="submit">Submit Email</button>
+									  </div>
 									</form>
 							</ul>
 						</div>
