@@ -1,8 +1,10 @@
 package kernelLanguage;
 
-import static kernelLanguage.KernelFactory.TRUE;
+import static kernelLanguage.KernelFactory.*;
 
 import java.util.*;
+
+import algorithmMaker.util.KernelUtil;
 
 public class KAtomic extends KProperty {
 	public final String function;
@@ -38,9 +40,12 @@ public class KAtomic extends KProperty {
 	}
 
 	@Override
-	protected KProperty without(HashSet<KProperty> toRemove) {
+	protected KProperty without(Set<KProperty> toRemove) {
 		if (toRemove.contains(this))
 			return TRUE;
+
+		if (toRemove.contains(KernelUtil.canonicalizeOrder(negate(this))))
+			return FALSE;
 
 		return this;
 	}

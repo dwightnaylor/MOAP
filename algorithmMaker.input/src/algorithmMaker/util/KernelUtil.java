@@ -4,12 +4,11 @@ import static kernelLanguage.KernelFactory.*;
 
 import java.util.*;
 import java.util.function.*;
-import java.util.stream.*;
+import java.util.stream.Collectors;
 
 import algorithmMaker.QuickParser;
-import algorithmMaker.input.Theorem;
 import algorithmMaker.util.equalityTesting.*;
-import algorithmMaker.util.metaProperties.*;
+import algorithmMaker.util.metaProperties.Transitivity;
 import kernelLanguage.*;
 
 public class KernelUtil {
@@ -49,12 +48,14 @@ public class KernelUtil {
 
 	// TODO:DN: Should BooleanLiteral be in the kernel? It should be c14d out.
 	public static enum KType {
-		KANDing, KAtomic, KBooleanLiteral, KInput, KNegation, KProblem, KQuantifier
+		KANDing, KAtomic, KBooleanLiteral, KInput, KNegation, KProblem, KQuantifier, KORing
 	}
 
 	public static KType KType(KObject object) {
 		if (object instanceof KANDing)
 			return KType.KANDing;
+		if (object instanceof KORing)
+			return KType.KORing;
 		if (object instanceof KAtomic)
 			return KType.KAtomic;
 		if (object instanceof KBooleanLiteral)
@@ -117,13 +118,6 @@ public class KernelUtil {
 		return ret;
 	}
 
-	public static KTheorem parseTheorem(String string) {
-		Theorem sugarTheorem = QuickParser.parseTheorem(string);
-		return KernelFactory.theorem((KProperty) SugarUtil.convertToKernel(sugarTheorem.getRequirement()),
-				(KProperty) SugarUtil.convertToKernel(sugarTheorem.getResult()), sugarTheorem.getCost(),
-				sugarTheorem.getDescription());
-	}
-
 	public static HashSet<KAtomic> getAtomics(KObject object, String function) {
 		HashSet<KAtomic> atomics = new HashSet<KAtomic>();
 		accumulate(object, new Consumer<KObject>() {
@@ -166,6 +160,11 @@ public class KernelUtil {
 			addUndeclaredVars(anding.lhs, undeclaredVars, declaredVars);
 			addUndeclaredVars(anding.rhs, undeclaredVars, declaredVars);
 			break;
+		case KORing:
+			KORing oring = (KORing) object;
+			addUndeclaredVars(oring.lhs, undeclaredVars, declaredVars);
+			addUndeclaredVars(oring.rhs, undeclaredVars, declaredVars);
+			break;
 		case KInput:
 			KInput input = (KInput) object;
 			declaredVars.addAll(input.given.vars);
@@ -186,7 +185,6 @@ public class KernelUtil {
 			KQuantifier quantifier = (KQuantifier) object;
 			declaredVars.addAll(quantifier.subject.vars);
 			addUndeclaredVars(quantifier.subject.property, undeclaredVars, declaredVars);
-			addUndeclaredVars(quantifier.predicate, undeclaredVars, declaredVars);
 			declaredVars.removeAll(quantifier.subject.vars);
 			break;
 		case KAtomic:
@@ -215,6 +213,28 @@ public class KernelUtil {
 		});
 	}
 
+	public static ArrayList<KProperty> getORed(KProperty a) {
+		ArrayList<KProperty> ret = new ArrayList<KProperty>();
+		if (a instanceof KORing) {
+			addORed((KORing) a, ret);
+		} else {
+			ret.add(a);
+		}
+		return ret;
+	}
+
+	private static void addORed(KORing a, ArrayList<KProperty> list) {
+		if (a.lhs instanceof KORing)
+			addORed((KORing) a.lhs, list);
+		else
+			list.add(a.lhs);
+
+		if (a.rhs instanceof KORing)
+			addORed((KORing) a.rhs, list);
+		else
+			list.add(a.rhs);
+	}
+
 	public static ArrayList<KProperty> getANDed(KProperty a) {
 		ArrayList<KProperty> ret = new ArrayList<KProperty>();
 		if (a instanceof KANDing) {
@@ -225,7 +245,7 @@ public class KernelUtil {
 		return ret;
 	}
 
-	public static void addANDed(KANDing a, ArrayList<KProperty> list) {
+	private static void addANDed(KANDing a, ArrayList<KProperty> list) {
 		if (a.lhs instanceof KANDing)
 			addANDed((KANDing) a.lhs, list);
 		else
@@ -243,7 +263,12 @@ public class KernelUtil {
 	}
 
 	public static KObject canonicalizeOrder(KObject object) {
-		return map(object, KernelMapper.ORDER_CANONICALIZER);
+		KObject cnized = map(object, KernelMapper.ORDER_CANONICALIZER);
+		while (cnized != object) {
+			object = cnized;
+			cnized = map(object, KernelMapper.ORDER_CANONICALIZER);
+		}
+		return cnized;
 	}
 
 	public static ArrayList<KObject> contents(KObject object) {
@@ -276,6 +301,10 @@ public class KernelUtil {
 			accumulate(((KANDing) object).lhs, accumulator);
 			accumulate(((KANDing) object).rhs, accumulator);
 			break;
+		case KORing:
+			accumulate(((KORing) object).lhs, accumulator);
+			accumulate(((KORing) object).rhs, accumulator);
+			break;
 		case KInput:
 			accumulate(((KInput) object).given, accumulator);
 			accumulate(((KInput) object).goal, accumulator);
@@ -288,7 +317,6 @@ public class KernelUtil {
 			break;
 		case KQuantifier:
 			accumulate(((KQuantifier) object).subject, accumulator);
-			accumulate(((KQuantifier) object).predicate, accumulator);
 			break;
 		case KAtomic:
 		case KBooleanLiteral:
@@ -321,6 +349,26 @@ public class KernelUtil {
 
 				mapper.cache.put(object, null);
 				break;
+			case KORing:
+				KORing oring = ((KORing) object);
+				KObject orLeft = map(oring.lhs, mapper);
+				KObject orRight = map(oring.rhs, mapper);
+				if (orLeft != null && orRight != null) {
+					mapper.cache.put(object, mapper.apply(or((KProperty) orLeft, (KProperty) orRight)));
+					break;
+				}
+
+				if (orLeft != null) {
+					mapper.cache.put(object, orLeft);
+					break;
+				}
+				if (orRight != null) {
+					mapper.cache.put(object, orRight);
+					break;
+				}
+
+				mapper.cache.put(object, null);
+				break;
 			case KInput:
 				KInput input = (KInput) object;
 				KObject newGiven = map(input.given, mapper);
@@ -345,14 +393,13 @@ public class KernelUtil {
 			case KQuantifier:
 				KQuantifier quantifier = (KQuantifier) object;
 				KObject subject = map(quantifier.subject, mapper);
-				KObject predicate = map(quantifier.predicate, mapper);
-				if (subject == null || predicate == null) {
+				if (subject == null) {
 					mapper.cache.put(object, null);
 					break;
 				}
 
-				mapper.cache.put(object, mapper.apply(
-						quantifier(((KQuantifier) object).quantifier, (KProblem) subject, (KProperty) predicate)));
+				mapper.cache.put(object,
+						mapper.apply(quantifier(((KQuantifier) object).quantifier, (KProblem) subject)));
 				break;
 
 			case KAtomic:
@@ -374,6 +421,9 @@ public class KernelUtil {
 		case KANDing:
 			return (T) and(cleanDeclarations(((KANDing) object).lhs, currentVars, currentRevars),
 					cleanDeclarations(((KANDing) object).rhs, currentVars, currentRevars));
+		case KORing:
+			return (T) or(cleanDeclarations(((KORing) object).lhs, currentVars, currentRevars),
+					cleanDeclarations(((KORing) object).rhs, currentVars, currentRevars));
 		case KAtomic:
 			return KernelUtil.revar(object, currentRevars);
 		case KInput:
@@ -402,14 +452,12 @@ public class KernelUtil {
 
 			Hashtable<String, String> oldRevars = addDeclaredVarsToStorage(((KQuantifier) object).subject.vars,
 					currentVars, currentRevars);
-			KProperty newPredicate = cleanDeclarations(((KQuantifier) object).predicate, currentVars, currentRevars);
 			removeDeclaredVars(currentVars, currentRevars, ((KQuantifier) object).subject.vars, oldRevars);
 
-			return (T) quantifier(((KQuantifier) object).quantifier, newSubject, newPredicate);
+			return (T) quantifier(((KQuantifier) object).quantifier, newSubject);
 		case KBooleanLiteral:
-		default:
-			return object;
 		}
+		return object;
 	}
 
 	private static void removeDeclaredVars(HashSet<String> currentVars, Hashtable<String, String> currentRevars,
@@ -487,6 +535,8 @@ public class KernelUtil {
 			case KBooleanLiteral:
 				canonicalized = kObject;
 				break;
+			case KORing:
+				throw new UnsupportedOperationException();
 			}
 			canonicalizations.put(kObject, canonicalized);
 		}

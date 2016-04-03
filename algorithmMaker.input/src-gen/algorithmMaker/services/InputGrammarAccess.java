@@ -46,7 +46,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cSemicolonKeyword_4_4 = (Keyword)cGroup_4.eContents().get(4);
 		
 		////NOTE: Any changes to the formatting should be reflected with changes here.
-		// Input:
+		//Input:
 		//	"Given" given=ProblemPropertyOptional ";" (task=("Find" | "Count") goal=(Problem | ProblemNoVars))? (";" "Theorems:"
 		//	theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
 		@Override public ParserRule getRule() { return rule; }
@@ -128,17 +128,17 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	public class ProblemNoVarsElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ProblemNoVars");
 		private final Assignment cPropertyAssignment = (Assignment)rule.eContents().get(1);
-		private final RuleCall cPropertyORingParserRuleCall_0 = (RuleCall)cPropertyAssignment.eContents().get(0);
+		private final RuleCall cPropertyImplicationParserRuleCall_0 = (RuleCall)cPropertyAssignment.eContents().get(0);
 		
 		//ProblemNoVars returns Problem:
-		//	property=ORing;
+		//	property=Implication;
 		@Override public ParserRule getRule() { return rule; }
 
-		//property=ORing
+		//property=Implication
 		public Assignment getPropertyAssignment() { return cPropertyAssignment; }
 
-		//ORing
-		public RuleCall getPropertyORingParserRuleCall_0() { return cPropertyORingParserRuleCall_0; }
+		//Implication
+		public RuleCall getPropertyImplicationParserRuleCall_0() { return cPropertyImplicationParserRuleCall_0; }
 	}
 
 	public class ProblemPropertyOptionalElements extends AbstractParserRuleElementFinder {
@@ -153,13 +153,13 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
 		private final Keyword cStKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cPropertyAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cPropertyORingParserRuleCall_2_1_0 = (RuleCall)cPropertyAssignment_2_1.eContents().get(0);
+		private final RuleCall cPropertyImplicationParserRuleCall_2_1_0 = (RuleCall)cPropertyAssignment_2_1.eContents().get(0);
 		
 		//ProblemPropertyOptional returns Problem:
-		//	vars+=Declaration ("," vars+=Declaration)* ("st" property=ORing)?;
+		//	vars+=Declaration ("," vars+=Declaration)* ("st" property=Implication)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//vars+=Declaration ("," vars+=Declaration)* ("st" property=ORing)?
+		//vars+=Declaration ("," vars+=Declaration)* ("st" property=Implication)?
 		public Group getGroup() { return cGroup; }
 
 		//vars+=Declaration
@@ -180,17 +180,17 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		//Declaration
 		public RuleCall getVarsDeclarationParserRuleCall_1_1_0() { return cVarsDeclarationParserRuleCall_1_1_0; }
 
-		//("st" property=ORing)?
+		//("st" property=Implication)?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"st"
 		public Keyword getStKeyword_2_0() { return cStKeyword_2_0; }
 
-		//property=ORing
+		//property=Implication
 		public Assignment getPropertyAssignment_2_1() { return cPropertyAssignment_2_1; }
 
-		//ORing
-		public RuleCall getPropertyORingParserRuleCall_2_1_0() { return cPropertyORingParserRuleCall_2_1_0; }
+		//Implication
+		public RuleCall getPropertyImplicationParserRuleCall_2_1_0() { return cPropertyImplicationParserRuleCall_2_1_0; }
 	}
 
 	public class ProblemElements extends AbstractParserRuleElementFinder {
@@ -204,13 +204,13 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cVarsDeclarationParserRuleCall_1_1_0 = (RuleCall)cVarsAssignment_1_1.eContents().get(0);
 		private final Keyword cStKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cPropertyAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cPropertyORingParserRuleCall_3_0 = (RuleCall)cPropertyAssignment_3.eContents().get(0);
+		private final RuleCall cPropertyImplicationParserRuleCall_3_0 = (RuleCall)cPropertyAssignment_3.eContents().get(0);
 		
 		//Problem:
-		//	vars+=Declaration ("," vars+=Declaration)* "st" property=ORing;
+		//	vars+=Declaration ("," vars+=Declaration)* "st" property=Implication;
 		@Override public ParserRule getRule() { return rule; }
 
-		//vars+=Declaration ("," vars+=Declaration)* "st" property=ORing
+		//vars+=Declaration ("," vars+=Declaration)* "st" property=Implication
 		public Group getGroup() { return cGroup; }
 
 		//vars+=Declaration
@@ -234,11 +234,59 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		//"st"
 		public Keyword getStKeyword_2() { return cStKeyword_2; }
 
-		//property=ORing
+		//property=Implication
 		public Assignment getPropertyAssignment_3() { return cPropertyAssignment_3; }
 
-		//ORing
-		public RuleCall getPropertyORingParserRuleCall_3_0() { return cPropertyORingParserRuleCall_3_0; }
+		//Implication
+		public RuleCall getPropertyImplicationParserRuleCall_3_0() { return cPropertyImplicationParserRuleCall_3_0; }
+	}
+
+	public class ProblemColonElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ProblemColon");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cVarsAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cVarsDeclarationParserRuleCall_0_0 = (RuleCall)cVarsAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cCommaKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cVarsAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cVarsDeclarationParserRuleCall_1_1_0 = (RuleCall)cVarsAssignment_1_1.eContents().get(0);
+		private final Keyword cColonKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cPropertyAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cPropertyImplicationParserRuleCall_3_0 = (RuleCall)cPropertyAssignment_3.eContents().get(0);
+		
+		//ProblemColon returns Problem:
+		//	vars+=Declaration ("," vars+=Declaration)* ":" property=Implication;
+		@Override public ParserRule getRule() { return rule; }
+
+		//vars+=Declaration ("," vars+=Declaration)* ":" property=Implication
+		public Group getGroup() { return cGroup; }
+
+		//vars+=Declaration
+		public Assignment getVarsAssignment_0() { return cVarsAssignment_0; }
+
+		//Declaration
+		public RuleCall getVarsDeclarationParserRuleCall_0_0() { return cVarsDeclarationParserRuleCall_0_0; }
+
+		//("," vars+=Declaration)*
+		public Group getGroup_1() { return cGroup_1; }
+
+		//","
+		public Keyword getCommaKeyword_1_0() { return cCommaKeyword_1_0; }
+
+		//vars+=Declaration
+		public Assignment getVarsAssignment_1_1() { return cVarsAssignment_1_1; }
+
+		//Declaration
+		public RuleCall getVarsDeclarationParserRuleCall_1_1_0() { return cVarsDeclarationParserRuleCall_1_1_0; }
+
+		//":"
+		public Keyword getColonKeyword_2() { return cColonKeyword_2; }
+
+		//property=Implication
+		public Assignment getPropertyAssignment_3() { return cPropertyAssignment_3; }
+
+		//Implication
+		public RuleCall getPropertyImplicationParserRuleCall_3_0() { return cPropertyImplicationParserRuleCall_3_0; }
 	}
 
 	public class DeclarationElements extends AbstractParserRuleElementFinder {
@@ -307,6 +355,58 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 
 		//">"
 		public Keyword getGreaterThanSignKeyword_1_2() { return cGreaterThanSignKeyword_1_2; }
+	}
+
+	public class ImplicationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Implication");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final RuleCall cORingParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Action cImplicationLeftAction_1_0 = (Action)cGroup_1.eContents().get(0);
+		private final Assignment cImplicationAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final Alternatives cImplicationAlternatives_1_1_0 = (Alternatives)cImplicationAssignment_1_1.eContents().get(0);
+		private final Keyword cImplicationHyphenMinusGreaterThanSignKeyword_1_1_0_0 = (Keyword)cImplicationAlternatives_1_1_0.eContents().get(0);
+		private final Keyword cImplicationLessThanSignHyphenMinusKeyword_1_1_0_1 = (Keyword)cImplicationAlternatives_1_1_0.eContents().get(1);
+		private final Keyword cImplicationLessThanSignHyphenMinusGreaterThanSignKeyword_1_1_0_2 = (Keyword)cImplicationAlternatives_1_1_0.eContents().get(2);
+		private final Assignment cRightAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cRightORingParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
+		
+		//Implication returns Property:
+		//	ORing ({Implication.left=current} implication=("->" | "<-" | "<->") right=ORing)?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//ORing ({Implication.left=current} implication=("->" | "<-" | "<->") right=ORing)?
+		public Group getGroup() { return cGroup; }
+
+		//ORing
+		public RuleCall getORingParserRuleCall_0() { return cORingParserRuleCall_0; }
+
+		//({Implication.left=current} implication=("->" | "<-" | "<->") right=ORing)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//{Implication.left=current}
+		public Action getImplicationLeftAction_1_0() { return cImplicationLeftAction_1_0; }
+
+		//implication=("->" | "<-" | "<->")
+		public Assignment getImplicationAssignment_1_1() { return cImplicationAssignment_1_1; }
+
+		//"->" | "<-" | "<->"
+		public Alternatives getImplicationAlternatives_1_1_0() { return cImplicationAlternatives_1_1_0; }
+
+		//"->"
+		public Keyword getImplicationHyphenMinusGreaterThanSignKeyword_1_1_0_0() { return cImplicationHyphenMinusGreaterThanSignKeyword_1_1_0_0; }
+
+		//"<-"
+		public Keyword getImplicationLessThanSignHyphenMinusKeyword_1_1_0_1() { return cImplicationLessThanSignHyphenMinusKeyword_1_1_0_1; }
+
+		//"<->"
+		public Keyword getImplicationLessThanSignHyphenMinusGreaterThanSignKeyword_1_1_0_2() { return cImplicationLessThanSignHyphenMinusGreaterThanSignKeyword_1_1_0_2; }
+
+		//right=ORing
+		public Assignment getRightAssignment_1_2() { return cRightAssignment_1_2; }
+
+		//ORing
+		public RuleCall getRightORingParserRuleCall_1_2_0() { return cRightORingParserRuleCall_1_2_0; }
 	}
 
 	public class ORingElements extends AbstractParserRuleElementFinder {
@@ -386,19 +486,15 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cAtomicParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cQuantifierParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cProblemShellParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
-		private final Group cGroup_3 = (Group)cAlternatives.eContents().get(3);
-		private final Keyword cLeftParenthesisKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
-		private final RuleCall cORingParserRuleCall_3_1 = (RuleCall)cGroup_3.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_3_2 = (Keyword)cGroup_3.eContents().get(2);
-		private final RuleCall cBooleanLiteralParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
-		private final RuleCall cNegationParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cGroupingParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cBooleanLiteralParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cNegationParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
 		
 		//Primary returns Property:
-		//	Atomic | Quantifier | ProblemShell | "(" ORing ")" | BooleanLiteral | Negation;
+		//	Atomic | Quantifier | Grouping | BooleanLiteral | Negation;
 		@Override public ParserRule getRule() { return rule; }
 
-		//Atomic | Quantifier | ProblemShell | "(" ORing ")" | BooleanLiteral | Negation
+		//Atomic | Quantifier | Grouping | BooleanLiteral | Negation
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//Atomic
@@ -407,54 +503,38 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		//Quantifier
 		public RuleCall getQuantifierParserRuleCall_1() { return cQuantifierParserRuleCall_1; }
 
-		//ProblemShell
-		public RuleCall getProblemShellParserRuleCall_2() { return cProblemShellParserRuleCall_2; }
-
-		//"(" ORing ")"
-		public Group getGroup_3() { return cGroup_3; }
-
-		//"("
-		public Keyword getLeftParenthesisKeyword_3_0() { return cLeftParenthesisKeyword_3_0; }
-
-		//ORing
-		public RuleCall getORingParserRuleCall_3_1() { return cORingParserRuleCall_3_1; }
-
-		//")"
-		public Keyword getRightParenthesisKeyword_3_2() { return cRightParenthesisKeyword_3_2; }
+		//Grouping
+		public RuleCall getGroupingParserRuleCall_2() { return cGroupingParserRuleCall_2; }
 
 		//BooleanLiteral
-		public RuleCall getBooleanLiteralParserRuleCall_4() { return cBooleanLiteralParserRuleCall_4; }
+		public RuleCall getBooleanLiteralParserRuleCall_3() { return cBooleanLiteralParserRuleCall_3; }
 
 		//Negation
-		public RuleCall getNegationParserRuleCall_5() { return cNegationParserRuleCall_5; }
+		public RuleCall getNegationParserRuleCall_4() { return cNegationParserRuleCall_4; }
 	}
 
-	public class ProblemShellElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ProblemShell");
+	public class GroupingElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Grouping");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cLeftCurlyBracketKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cProblemAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cProblemProblemParserRuleCall_1_0 = (RuleCall)cProblemAssignment_1.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cLeftParenthesisKeyword_0 = (Keyword)cGroup.eContents().get(0);
+		private final RuleCall cImplicationParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		
-		//ProblemShell:
-		//	"{" problem=Problem "}";
+		//Grouping returns Property:
+		//	"(" Implication ")";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"{" problem=Problem "}"
+		//"(" Implication ")"
 		public Group getGroup() { return cGroup; }
 
-		//"{"
-		public Keyword getLeftCurlyBracketKeyword_0() { return cLeftCurlyBracketKeyword_0; }
+		//"("
+		public Keyword getLeftParenthesisKeyword_0() { return cLeftParenthesisKeyword_0; }
 
-		//problem=Problem
-		public Assignment getProblemAssignment_1() { return cProblemAssignment_1; }
+		//Implication
+		public RuleCall getImplicationParserRuleCall_1() { return cImplicationParserRuleCall_1; }
 
-		//Problem
-		public RuleCall getProblemProblemParserRuleCall_1_0() { return cProblemProblemParserRuleCall_1_0; }
-
-		//"}"
-		public Keyword getRightCurlyBracketKeyword_2() { return cRightCurlyBracketKeyword_2; }
+		//")"
+		public Keyword getRightParenthesisKeyword_2() { return cRightParenthesisKeyword_2; }
 	}
 
 	public class NegationElements extends AbstractParserRuleElementFinder {
@@ -490,17 +570,14 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cQuantifierExistsKeyword_0_0_1 = (Keyword)cQuantifierAlternatives_0_0.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cSubjectAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cSubjectProblemParserRuleCall_2_0 = (RuleCall)cSubjectAssignment_2.eContents().get(0);
-		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cPredicateAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cPredicateORingParserRuleCall_4_0 = (RuleCall)cPredicateAssignment_4.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final RuleCall cSubjectProblemColonParserRuleCall_2_0 = (RuleCall)cSubjectAssignment_2.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//Quantifier:
-		//	quantifier=("forall" | "exists") "(" subject=Problem ":" predicate=ORing ")";
+		//	quantifier=("forall" | "exists") "(" subject=ProblemColon ")";
 		@Override public ParserRule getRule() { return rule; }
 
-		//quantifier=("forall" | "exists") "(" subject=Problem ":" predicate=ORing ")"
+		//quantifier=("forall" | "exists") "(" subject=ProblemColon ")"
 		public Group getGroup() { return cGroup; }
 
 		//quantifier=("forall" | "exists")
@@ -518,23 +595,14 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		//"("
 		public Keyword getLeftParenthesisKeyword_1() { return cLeftParenthesisKeyword_1; }
 
-		//subject=Problem
+		//subject=ProblemColon
 		public Assignment getSubjectAssignment_2() { return cSubjectAssignment_2; }
 
-		//Problem
-		public RuleCall getSubjectProblemParserRuleCall_2_0() { return cSubjectProblemParserRuleCall_2_0; }
-
-		//":"
-		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
-
-		//predicate=ORing
-		public Assignment getPredicateAssignment_4() { return cPredicateAssignment_4; }
-
-		//ORing
-		public RuleCall getPredicateORingParserRuleCall_4_0() { return cPredicateORingParserRuleCall_4_0; }
+		//ProblemColon
+		public RuleCall getSubjectProblemColonParserRuleCall_2_0() { return cSubjectProblemColonParserRuleCall_2_0; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
+		public Keyword getRightParenthesisKeyword_3() { return cRightParenthesisKeyword_3; }
 	}
 
 	public class AtomicElements extends AbstractParserRuleElementFinder {
@@ -620,91 +688,33 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	public class TheoremElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Theorem");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cRequirementAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cRequirementORingParserRuleCall_0_0 = (RuleCall)cRequirementAssignment_0.eContents().get(0);
-		private final Assignment cImplicationAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final Alternatives cImplicationAlternatives_1_0 = (Alternatives)cImplicationAssignment_1.eContents().get(0);
-		private final Keyword cImplicationHyphenMinusGreaterThanSignKeyword_1_0_0 = (Keyword)cImplicationAlternatives_1_0.eContents().get(0);
-		private final Keyword cImplicationLessThanSignHyphenMinusKeyword_1_0_1 = (Keyword)cImplicationAlternatives_1_0.eContents().get(1);
-		private final Keyword cImplicationLessThanSignHyphenMinusGreaterThanSignKeyword_1_0_2 = (Keyword)cImplicationAlternatives_1_0.eContents().get(2);
-		private final Assignment cResultAssignment_2 = (Assignment)cGroup.eContents().get(2);
-		private final RuleCall cResultORingParserRuleCall_2_0 = (RuleCall)cResultAssignment_2.eContents().get(0);
-		private final Keyword cCommaKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cCostAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cCostINTTerminalRuleCall_4_0 = (RuleCall)cCostAssignment_4.eContents().get(0);
-		private final Keyword cCommaKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cDescriptionAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cDescriptionSTRINGTerminalRuleCall_6_0 = (RuleCall)cDescriptionAssignment_6.eContents().get(0);
-		private final Group cGroup_7 = (Group)cGroup.eContents().get(7);
-		private final Keyword cCommaKeyword_7_0 = (Keyword)cGroup_7.eContents().get(0);
-		private final Assignment cPseudoCodeAssignment_7_1 = (Assignment)cGroup_7.eContents().get(1);
-		private final RuleCall cPseudoCodeSTRINGTerminalRuleCall_7_1_0 = (RuleCall)cPseudoCodeAssignment_7_1.eContents().get(0);
+		private final Assignment cContentAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cContentImplicationParserRuleCall_0_0 = (RuleCall)cContentAssignment_0.eContents().get(0);
+		private final Keyword cColonColonColonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Assignment cDescriptionAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cDescriptionSTRINGTerminalRuleCall_2_0 = (RuleCall)cDescriptionAssignment_2.eContents().get(0);
 		
 		//Theorem:
-		//	Requirement=ORing Implication=("->" | "<-" | "<->") Result=ORing "," Cost=INT "," Description=STRING (","
-		//	PseudoCode=STRING)?;
+		//	content=Implication ":::" Description=STRING;
 		@Override public ParserRule getRule() { return rule; }
 
-		//Requirement=ORing Implication=("->" | "<-" | "<->") Result=ORing "," Cost=INT "," Description=STRING (","
-		//PseudoCode=STRING)?
+		//content=Implication ":::" Description=STRING
 		public Group getGroup() { return cGroup; }
 
-		//Requirement=ORing
-		public Assignment getRequirementAssignment_0() { return cRequirementAssignment_0; }
+		//content=Implication
+		public Assignment getContentAssignment_0() { return cContentAssignment_0; }
 
-		//ORing
-		public RuleCall getRequirementORingParserRuleCall_0_0() { return cRequirementORingParserRuleCall_0_0; }
+		//Implication
+		public RuleCall getContentImplicationParserRuleCall_0_0() { return cContentImplicationParserRuleCall_0_0; }
 
-		//Implication=("->" | "<-" | "<->")
-		public Assignment getImplicationAssignment_1() { return cImplicationAssignment_1; }
-
-		//"->" | "<-" | "<->"
-		public Alternatives getImplicationAlternatives_1_0() { return cImplicationAlternatives_1_0; }
-
-		//"->"
-		public Keyword getImplicationHyphenMinusGreaterThanSignKeyword_1_0_0() { return cImplicationHyphenMinusGreaterThanSignKeyword_1_0_0; }
-
-		//"<-"
-		public Keyword getImplicationLessThanSignHyphenMinusKeyword_1_0_1() { return cImplicationLessThanSignHyphenMinusKeyword_1_0_1; }
-
-		//"<->"
-		public Keyword getImplicationLessThanSignHyphenMinusGreaterThanSignKeyword_1_0_2() { return cImplicationLessThanSignHyphenMinusGreaterThanSignKeyword_1_0_2; }
-
-		//Result=ORing
-		public Assignment getResultAssignment_2() { return cResultAssignment_2; }
-
-		//ORing
-		public RuleCall getResultORingParserRuleCall_2_0() { return cResultORingParserRuleCall_2_0; }
-
-		//","
-		public Keyword getCommaKeyword_3() { return cCommaKeyword_3; }
-
-		//Cost=INT
-		public Assignment getCostAssignment_4() { return cCostAssignment_4; }
-
-		//INT
-		public RuleCall getCostINTTerminalRuleCall_4_0() { return cCostINTTerminalRuleCall_4_0; }
-
-		//","
-		public Keyword getCommaKeyword_5() { return cCommaKeyword_5; }
+		//":::"
+		public Keyword getColonColonColonKeyword_1() { return cColonColonColonKeyword_1; }
 
 		//Description=STRING
-		public Assignment getDescriptionAssignment_6() { return cDescriptionAssignment_6; }
+		public Assignment getDescriptionAssignment_2() { return cDescriptionAssignment_2; }
 
 		//STRING
-		public RuleCall getDescriptionSTRINGTerminalRuleCall_6_0() { return cDescriptionSTRINGTerminalRuleCall_6_0; }
-
-		//("," PseudoCode=STRING)?
-		public Group getGroup_7() { return cGroup_7; }
-
-		//","
-		public Keyword getCommaKeyword_7_0() { return cCommaKeyword_7_0; }
-
-		//PseudoCode=STRING
-		public Assignment getPseudoCodeAssignment_7_1() { return cPseudoCodeAssignment_7_1; }
-
-		//STRING
-		public RuleCall getPseudoCodeSTRINGTerminalRuleCall_7_1_0() { return cPseudoCodeSTRINGTerminalRuleCall_7_1_0; }
+		public RuleCall getDescriptionSTRINGTerminalRuleCall_2_0() { return cDescriptionSTRINGTerminalRuleCall_2_0; }
 	}
 
 	public class AdditionElements extends AbstractParserRuleElementFinder {
@@ -721,7 +731,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRightMultiplicationParserRuleCall_1_2_0 = (RuleCall)cRightAssignment_1_2.eContents().get(0);
 		
 		//// **********Math things**********
-		// Addition returns NumericalProperty:
+		//Addition returns NumericalProperty:
 		//	Multiplication ({Addition.left=current} symbol=("+" | "-") right=Multiplication)*;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -913,12 +923,14 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	private final ProblemNoVarsElements pProblemNoVars;
 	private final ProblemPropertyOptionalElements pProblemPropertyOptional;
 	private final ProblemElements pProblem;
+	private final ProblemColonElements pProblemColon;
 	private final DeclarationElements pDeclaration;
 	private final TypeElements pType;
+	private final ImplicationElements pImplication;
 	private final ORingElements pORing;
 	private final ANDingElements pANDing;
 	private final PrimaryElements pPrimary;
-	private final ProblemShellElements pProblemShell;
+	private final GroupingElements pGrouping;
 	private final NegationElements pNegation;
 	private final QuantifierElements pQuantifier;
 	private final AtomicElements pAtomic;
@@ -944,12 +956,14 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		this.pProblemNoVars = new ProblemNoVarsElements();
 		this.pProblemPropertyOptional = new ProblemPropertyOptionalElements();
 		this.pProblem = new ProblemElements();
+		this.pProblemColon = new ProblemColonElements();
 		this.pDeclaration = new DeclarationElements();
 		this.pType = new TypeElements();
+		this.pImplication = new ImplicationElements();
 		this.pORing = new ORingElements();
 		this.pANDing = new ANDingElements();
 		this.pPrimary = new PrimaryElements();
-		this.pProblemShell = new ProblemShellElements();
+		this.pGrouping = new GroupingElements();
 		this.pNegation = new NegationElements();
 		this.pQuantifier = new QuantifierElements();
 		this.pAtomic = new AtomicElements();
@@ -991,7 +1005,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	////NOTE: Any changes to the formatting should be reflected with changes here.
-	// Input:
+	//Input:
 	//	"Given" given=ProblemPropertyOptional ";" (task=("Find" | "Count") goal=(Problem | ProblemNoVars))? (";" "Theorems:"
 	//	theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
 	public InputElements getInputAccess() {
@@ -1003,7 +1017,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ProblemNoVars returns Problem:
-	//	property=ORing;
+	//	property=Implication;
 	public ProblemNoVarsElements getProblemNoVarsAccess() {
 		return pProblemNoVars;
 	}
@@ -1013,7 +1027,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ProblemPropertyOptional returns Problem:
-	//	vars+=Declaration ("," vars+=Declaration)* ("st" property=ORing)?;
+	//	vars+=Declaration ("," vars+=Declaration)* ("st" property=Implication)?;
 	public ProblemPropertyOptionalElements getProblemPropertyOptionalAccess() {
 		return pProblemPropertyOptional;
 	}
@@ -1023,13 +1037,23 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Problem:
-	//	vars+=Declaration ("," vars+=Declaration)* "st" property=ORing;
+	//	vars+=Declaration ("," vars+=Declaration)* "st" property=Implication;
 	public ProblemElements getProblemAccess() {
 		return pProblem;
 	}
 	
 	public ParserRule getProblemRule() {
 		return getProblemAccess().getRule();
+	}
+
+	//ProblemColon returns Problem:
+	//	vars+=Declaration ("," vars+=Declaration)* ":" property=Implication;
+	public ProblemColonElements getProblemColonAccess() {
+		return pProblemColon;
+	}
+	
+	public ParserRule getProblemColonRule() {
+		return getProblemColonAccess().getRule();
 	}
 
 	//Declaration:
@@ -1050,6 +1074,16 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getTypeRule() {
 		return getTypeAccess().getRule();
+	}
+
+	//Implication returns Property:
+	//	ORing ({Implication.left=current} implication=("->" | "<-" | "<->") right=ORing)?;
+	public ImplicationElements getImplicationAccess() {
+		return pImplication;
+	}
+	
+	public ParserRule getImplicationRule() {
+		return getImplicationAccess().getRule();
 	}
 
 	//ORing returns Property:
@@ -1073,7 +1107,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Primary returns Property:
-	//	Atomic | Quantifier | ProblemShell | "(" ORing ")" | BooleanLiteral | Negation;
+	//	Atomic | Quantifier | Grouping | BooleanLiteral | Negation;
 	public PrimaryElements getPrimaryAccess() {
 		return pPrimary;
 	}
@@ -1082,14 +1116,14 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		return getPrimaryAccess().getRule();
 	}
 
-	//ProblemShell:
-	//	"{" problem=Problem "}";
-	public ProblemShellElements getProblemShellAccess() {
-		return pProblemShell;
+	//Grouping returns Property:
+	//	"(" Implication ")";
+	public GroupingElements getGroupingAccess() {
+		return pGrouping;
 	}
 	
-	public ParserRule getProblemShellRule() {
-		return getProblemShellAccess().getRule();
+	public ParserRule getGroupingRule() {
+		return getGroupingAccess().getRule();
 	}
 
 	//Negation:
@@ -1103,7 +1137,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Quantifier:
-	//	quantifier=("forall" | "exists") "(" subject=Problem ":" predicate=ORing ")";
+	//	quantifier=("forall" | "exists") "(" subject=ProblemColon ")";
 	public QuantifierElements getQuantifierAccess() {
 		return pQuantifier;
 	}
@@ -1133,8 +1167,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Theorem:
-	//	Requirement=ORing Implication=("->" | "<-" | "<->") Result=ORing "," Cost=INT "," Description=STRING (","
-	//	PseudoCode=STRING)?;
+	//	content=Implication ":::" Description=STRING;
 	public TheoremElements getTheoremAccess() {
 		return pTheorem;
 	}
@@ -1144,7 +1177,7 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// **********Math things**********
-	// Addition returns NumericalProperty:
+	//Addition returns NumericalProperty:
 	//	Multiplication ({Addition.left=current} symbol=("+" | "-") right=Multiplication)*;
 	public AdditionElements getAdditionAccess() {
 		return pAddition;

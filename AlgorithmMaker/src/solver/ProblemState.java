@@ -9,6 +9,7 @@ import algorithmMaker.util.InputUtil;
 import inputHandling.TransformUtil;
 import kernelLanguage.*;
 import pseudocoders.LineCoder;
+import theorems.Fact;
 
 public class ProblemState implements Comparable<ProblemState> {
 	/**
@@ -22,7 +23,7 @@ public class ProblemState implements Comparable<ProblemState> {
 
 	public int solutionIndex = -1;
 
-	public ProblemState(KInput problem, KTheorem[] theorems) {
+	public ProblemState(KInput problem, Fact<?>... theorems) {
 		// Simplify the problem
 		problem = TransformUtil.removeGivenFromGoal(problem, new Chainer(theorems));
 

@@ -100,11 +100,6 @@ public class InputAdapterFactory extends AdapterFactoryImpl
         return createPropertyAdapter();
       }
       @Override
-      public Adapter caseProblemShell(ProblemShell object)
-      {
-        return createProblemShellAdapter();
-      }
-      @Override
       public Adapter caseNegation(Negation object)
       {
         return createNegationAdapter();
@@ -143,6 +138,11 @@ public class InputAdapterFactory extends AdapterFactoryImpl
       public Adapter caseNumberLiteral(NumberLiteral object)
       {
         return createNumberLiteralAdapter();
+      }
+      @Override
+      public Adapter caseImplication(Implication object)
+      {
+        return createImplicationAdapter();
       }
       @Override
       public Adapter caseORing(ORing object)
@@ -257,21 +257,6 @@ public class InputAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPropertyAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link algorithmMaker.input.ProblemShell <em>Problem Shell</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see algorithmMaker.input.ProblemShell
-   * @generated
-   */
-  public Adapter createProblemShellAdapter()
   {
     return null;
   }
@@ -392,6 +377,21 @@ public class InputAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createNumberLiteralAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link algorithmMaker.input.Implication <em>Implication</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see algorithmMaker.input.Implication
+   * @generated
+   */
+  public Adapter createImplicationAdapter()
   {
     return null;
   }

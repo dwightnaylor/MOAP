@@ -278,8 +278,8 @@ public class ANDingImpl extends PropertyImpl implements ANDing
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		boolean leftIsOR = left instanceof algorithmMaker.input.ORing;
-		boolean rightIsOR = right instanceof algorithmMaker.input.ORing;
+		boolean leftIsOR = left instanceof algorithmMaker.input.ORing || left instanceof algorithmMaker.input.Implication;
+		boolean rightIsOR = right instanceof algorithmMaker.input.ORing || right instanceof algorithmMaker.input.Implication;
 		ret.append((leftIsOR ? "(" : "") + left + (leftIsOR ? ')' : "") + " & " + (rightIsOR ? '(' : "") + right + (rightIsOR ? ')' : ""));
 		return ret.toString();
 	}

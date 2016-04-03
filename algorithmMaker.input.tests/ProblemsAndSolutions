@@ -36,7 +36,7 @@ foreach child d of a
 	if !b.contains(d)
 		return [d]
 -
-Given array<number> A; Find y st child(A,y) & forall(z st child(A,z): lessThanEqual(z,y))
+Given array<number> A; Find y st child(A,y) & forall(z : child(A,z) -> lessThanEqual(z,y))
 y = null;
 foreach child z of A
 	if y == null

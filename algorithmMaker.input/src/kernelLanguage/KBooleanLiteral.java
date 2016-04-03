@@ -1,6 +1,6 @@
 package kernelLanguage;
 
-import java.util.HashSet;
+import java.util.*;
 
 public class KBooleanLiteral extends KProperty {
 	public final boolean value;
@@ -24,7 +24,7 @@ public class KBooleanLiteral extends KProperty {
 	}
 
 	@Override
-	protected KProperty without(HashSet<KProperty> toRemove) {
+	protected KProperty without(Set<KProperty> toRemove) {
 		return this;
 	}
 

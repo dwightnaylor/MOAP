@@ -6,11 +6,11 @@ import java.util.*;
 
 import algorithmMaker.util.KernelUtil;
 
-public class KANDing extends KProperty {
+public class KORing extends KProperty {
 	public final KProperty lhs;
 	public final KProperty rhs;
 
-	KANDing(KProperty lhs, KProperty rhs) {
+	KORing(KProperty lhs, KProperty rhs) {
 		this.lhs = lhs;
 		this.rhs = rhs;
 	}
@@ -24,7 +24,7 @@ public class KANDing extends KProperty {
 	String calculateToString() {
 		StringBuffer ret = new StringBuffer();
 		ret.append(lhs);
-		ret.append(" & ");
+		ret.append(" | ");
 		ret.append(rhs);
 		return ret.toString();
 	}
@@ -33,20 +33,19 @@ public class KANDing extends KProperty {
 	protected KProperty without(Set<KProperty> toRemove) {
 		KProperty newLhs = lhs.without(toRemove);
 		KProperty newRhs = rhs.without(toRemove);
-		if (newLhs == FALSE || newRhs == FALSE)
-			return FALSE;
+		if (newLhs == TRUE || newRhs == TRUE)
+			return TRUE;
 
-		if (newLhs == TRUE)
-			if (newRhs == TRUE)
-				return TRUE;
+		if (newLhs == FALSE)
+			if (newRhs == FALSE)
+				return FALSE;
 			else
 				return newRhs;
 
-		if (newRhs == TRUE)
+		if (newRhs == FALSE)
 			return newLhs;
 
-		KANDing ret = and(newLhs, newRhs);
-
+		KORing ret = or(newLhs, newRhs);
 		if (toRemove.contains(KernelUtil.canonicalizeOrder(ret)))
 			return TRUE;
 

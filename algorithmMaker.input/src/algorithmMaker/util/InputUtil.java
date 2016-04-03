@@ -16,12 +16,12 @@ import algorithmMaker.input.impl.InputFactoryImpl;
  * @author Dwight Naylor
  */
 public class InputUtil {
-
-	public static final String CHILD_TYPE_MARKER = "child_type_";
-	public static final String TYPE_MARKER = "type_";
-
 	public static final String FORALL = "forall";
 	public static final String EXISTS = "exists";
+
+	public static final String IMPLICATION_FORWARD = "->";
+	public static final String IMPLICATION_BACKWARD = "<-";
+	public static final String IMPLICATION_BOTH_WAYS = "<->";
 
 	public static final String ADDITION = "plus";
 	public static final String SUBTRACTION = "minus";
@@ -40,29 +40,28 @@ public class InputUtil {
 	 * switch-statement use over all of the kernel types. Just use a switch statement over the
 	 * kernelType(object.getClass()) of your object.<br>
 	 * <br>
-	 * These all seem to be subclasses of Property...
 	 */
-	public static enum KernelType {
+	public static enum ReducedType {
 		Input, Problem, ORing, ANDing, Atomic, Quantifier, BooleanLiteral, Negation
 	}
 
-	public static KernelType kernelType(EObject object) {
+	public static ReducedType reducedType(EObject object) {
 		if (object instanceof Input)
-			return KernelType.Input;
+			return ReducedType.Input;
 		else if (object instanceof Problem)
-			return KernelType.Problem;
+			return ReducedType.Problem;
 		else if (object instanceof ORing)
-			return KernelType.ORing;
+			return ReducedType.ORing;
 		else if (object instanceof ANDing)
-			return KernelType.ANDing;
+			return ReducedType.ANDing;
 		else if (object instanceof Atomic)
-			return KernelType.Atomic;
+			return ReducedType.Atomic;
 		else if (object instanceof Quantifier)
-			return KernelType.Quantifier;
+			return ReducedType.Quantifier;
 		else if (object instanceof BooleanLiteral)
-			return KernelType.BooleanLiteral;
+			return ReducedType.BooleanLiteral;
 		else if (object instanceof Negation)
-			return KernelType.Negation;
+			return ReducedType.Negation;
 
 		return null;
 	}
@@ -70,7 +69,7 @@ public class InputUtil {
 	@SuppressWarnings("unchecked")
 	public static <P extends Property> P stupidCopy(P property) {
 		// TODO:DN: Fix these three stupid methods and find a better way...
-		return (P) QuickParser.parseProperty(property.toString());
+		return (P) QuickParser.parseProperty(property.toString(), false);
 	}
 
 	public static Theorem stupidCopy(Theorem theorem) {
@@ -191,6 +190,8 @@ public class InputUtil {
 			if (property instanceof Declaration)
 				ret.add(((Declaration) property).getVarName());
 			else if (property instanceof NumericalProperty)
+				// If you're getting a class cast exception here, that means that there is some problem in the desugarer
+				// that is making it fail at converting all the nested atomics to variable arguments.
 				ret.add(((Variable) property).getArg());
 		}
 		return ret;
@@ -284,19 +285,19 @@ public class InputUtil {
 		Property ret = toCanonicalize;
 		do {
 			toCanonicalize = ret;
-			ret = getOneStepCanonizalized(toCanonicalize);
+			ret = getOneStepCanonicalized(toCanonicalize);
 		} while (!ret.equals(toCanonicalize));
 		return ret;
 	}
 
-	private static Property getOneStepCanonizalized(Property cur) {
+	private static Property getOneStepCanonicalized(Property cur) {
 		if (cur == null)
 			return null;
 
 		// Rules added according to their listing at
 		// http://integral-table.com/downloads/logic.pdf
 
-		switch (InputUtil.kernelType(cur)) {
+		switch (InputUtil.reducedType(cur)) {
 		case ANDing: {
 			ANDing anding = (ANDing) cur;
 			// RULE: Idempotent
@@ -326,7 +327,7 @@ public class InputUtil {
 			ArrayList<Property> andedNoRepeats = new ArrayList<Property>(hashedANDed);
 			// RULE: Commutative
 			Collections.sort(andedNoRepeats, INPUT_COMPARATOR);
-			andedNoRepeats.replaceAll(x -> getOneStepCanonizalized(x));
+			andedNoRepeats.replaceAll(x -> getOneStepCanonicalized(x));
 			return InputUtil.andTogether(andedNoRepeats);
 		}
 		case ORing: {
@@ -357,7 +358,7 @@ public class InputUtil {
 			ArrayList<Property> oredNoRepeats = new ArrayList<Property>(hashedORed);
 			// RULE: Commutative
 			Collections.sort(oredNoRepeats, INPUT_COMPARATOR);
-			oredNoRepeats.replaceAll(x -> getOneStepCanonizalized(x));
+			oredNoRepeats.replaceAll(x -> getOneStepCanonicalized(x));
 			return InputUtil.orTogether(oredNoRepeats);
 		}
 		case Negation: {
@@ -365,7 +366,7 @@ public class InputUtil {
 			// RULE: Double Negative
 			Property negated = negation.getNegated();
 			if (negated instanceof Negation)
-				return getOneStepCanonizalized(((Negation) negated).getNegated());
+				return getOneStepCanonicalized(((Negation) negated).getNegated());
 
 			// RULE: Demorgan's Law (AND)
 			if (negated instanceof ANDing) {
@@ -387,7 +388,7 @@ public class InputUtil {
 				else if (((Quantifier) negated).getQuantifier().equals(InputUtil.EXISTS))
 					ret.setQuantifier(InputUtil.FORALL);
 
-				ret.setPredicate(InputUtil.getNegated(ret.getPredicate()));
+				ret.getSubject().setProperty(InputUtil.getNegated(ret.getSubject().getProperty()));
 				return ret;
 			}
 
@@ -395,14 +396,12 @@ public class InputUtil {
 		}
 		case Quantifier: {
 			Quantifier quantifier = (Quantifier) cur;
-			Property newSubject = getOneStepCanonizalized(quantifier.getSubject().getProperty());
-			Property newPredicate = getOneStepCanonizalized(quantifier.getPredicate());
+			Property newSubject = getOneStepCanonicalized(quantifier.getSubject().getProperty());
 			// TODO (low): Deal with quantifier ordering (FA(E) vs E(FA))
-			// TODO (low): Deal with quantifier splitting
+			// TODO (low): Deal with quantifier splitting (FA(A&B) = FA(A) & FA(B))
 
 			Quantifier ret = (Quantifier) InputUtil.stupidCopy(cur);
 			ret.getSubject().setProperty(newSubject);
-			ret.setPredicate(newPredicate);
 			return ret;
 		}
 		case BooleanLiteral:
@@ -433,10 +432,30 @@ public class InputUtil {
 		if (cur == null)
 			return null;
 
-		KernelType kernelType = InputUtil.kernelType(cur);
+		ReducedType kernelType = InputUtil.reducedType(cur);
 		// If we're not dealing with a kernel type, just pass it down and hope
 		// everything turns out alright.
 		if (kernelType == null) {
+			if (cur instanceof Implication) {
+				Implication implication = (Implication) cur;
+				if (implication.getImplication().equals(IMPLICATION_FORWARD)) {
+					return reduce(reduceForwardImplication(implication), reducer);
+				} else if (implication.getImplication().equals(IMPLICATION_BACKWARD)) {
+					return reduce(reduceBackwardImplication(implication), reducer);
+				} else if (implication.getImplication().equals(IMPLICATION_BOTH_WAYS)) {
+					ArrayList<Property> anded = new ArrayList<Property>();
+					anded.add(reduceForwardImplication(implication));
+					anded.add(reduceBackwardImplication(implication));
+					return reduce(andTogether(anded), reducer);
+				}
+			}
+			if (cur instanceof Theorem) {
+				Theorem theorem = (Theorem) cur;
+				Theorem ret = InputFactoryImpl.eINSTANCE.createTheorem();
+				ret.setDescription(theorem.getDescription());
+				ret.setContent((Property) reduce(theorem.getContent(), reducer));
+				return ret;
+			}
 			return reducer.apply(InputUtil.stupidCopy((Property) cur));
 		}
 		switch (kernelType) {
@@ -477,14 +496,12 @@ public class InputUtil {
 		case Quantifier: {
 			Quantifier quantifier = (Quantifier) cur;
 			// We have to do the predicate first TODO: Why?
-			EObject newResult = reduce(quantifier.getPredicate(), reducer);
 			EObject newRequirement = reduce(quantifier.getSubject(), reducer);
-			if (newRequirement == null || newResult == null)
+			if (newRequirement == null)
 				return null;
 
 			Quantifier quantifierRet = InputUtil.stupidCopy((Quantifier) cur);
 			quantifierRet.setSubject((Problem) newRequirement);
-			quantifierRet.setPredicate((Property) newResult);
 			return reducer.apply(quantifierRet);
 		}
 		case Problem: {
@@ -522,20 +539,18 @@ public class InputUtil {
 		}
 	}
 
-	public static boolean isTypeAtomic(String function) {
-		return function != null && function.startsWith(TYPE_MARKER);
+	private static Property reduceBackwardImplication(Implication implication) {
+		ArrayList<Property> ORed = new ArrayList<Property>();
+		ORed.add(implication.getLeft());
+		ORed.add(getNegated(implication.getRight()));
+		return orTogether(ORed);
 	}
 
-	public static boolean isChildTypeAtomic(String function) {
-		return function != null && function.startsWith(CHILD_TYPE_MARKER);
-	}
-
-	public static String getDeclaredType(String function) {
-		return function.substring(TYPE_MARKER.length());
-	}
-
-	public static String getDeclaredChildType(String function) {
-		return function.substring(CHILD_TYPE_MARKER.length());
+	private static Property reduceForwardImplication(Implication implication) {
+		ArrayList<Property> ORed = new ArrayList<Property>();
+		ORed.add(getNegated(implication.getLeft()));
+		ORed.add(implication.getRight());
+		return orTogether(ORed);
 	}
 
 	public static ArrayList<Property> getTopLevelElements(Property property) {
@@ -545,11 +560,10 @@ public class InputUtil {
 			return new ArrayList<Property>(Collections.singleton(property));
 	}
 
-	public static Quantifier createQuantifier(String quantifier, Problem subject, Property predicate) {
+	public static Quantifier createQuantifier(String quantifier, Problem subject) {
 		Quantifier ret = InputFactoryImpl.eINSTANCE.createQuantifier();
 		ret.setQuantifier(quantifier);
 		ret.setSubject(subject);
-		ret.setPredicate(predicate);
 		return ret;
 	}
 

@@ -26,10 +26,6 @@
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Property"/>
-  <eClassifiers xsi:type="ecore:EClass" name="ProblemShell" eSuperTypes="#//Property">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="problem" eType="#//Problem"
-        containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Negation" eSuperTypes="#//Property">
     <eStructuralFeatures xsi:type="ecore:EReference" name="negated" eType="#//Property"
         containment="true"/>
@@ -37,8 +33,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="Quantifier" eSuperTypes="#//Property">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="quantifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="subject" eType="#//Problem"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="predicate" eType="#//Property"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Atomic" eSuperTypes="#//Property #//NumericalProperty">
@@ -50,14 +44,9 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Theorem">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Requirement" eType="#//Property"
+    <eStructuralFeatures xsi:type="ecore:EReference" name="content" eType="#//Property"
         containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Implication" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="Result" eType="#//Property"
-        containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="Cost" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="Description" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="PseudoCode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NumericalProperty"/>
   <eClassifiers xsi:type="ecore:EClass" name="Variable" eSuperTypes="#//NumericalProperty">
@@ -65,6 +54,13 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="NumberLiteral" eSuperTypes="#//NumericalProperty">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="value" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Implication" eSuperTypes="#//Property">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Property"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="implication" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="right" eType="#//Property"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ORing" eSuperTypes="#//Property">
     <eStructuralFeatures xsi:type="ecore:EReference" name="left" eType="#//Property"

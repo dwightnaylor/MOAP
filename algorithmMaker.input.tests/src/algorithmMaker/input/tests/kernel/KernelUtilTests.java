@@ -70,34 +70,37 @@ public class KernelUtilTests {
 	public void testCanonicalizeOrder() {
 		ArrayList<String[]> tasks = new ArrayList<String[]>();
 		tasks.add(new String[] { "a(x) & a(x)", "a(x)" });
-		// tasks.add(new String[] { "a(x) | a(x)", "a(x)" });
+		tasks.add(new String[] { "a(x) | a(x)", "a(x)" });
 		tasks.add(new String[] { "c(x) & b(x) & a(x)", "a(x) & b(x) & c(x)" });
 		tasks.add(new String[] { "a(x) & FALSE", "FALSE" });
-		// tasks.add(new String[] { "!(a(x) & b(x))", "!a(x) | !b(x)" });
-		// tasks.add(new String[] { "!(a(x) | b(x))", "!a(x) & !b(x)" });
-		// tasks.add(new String[] { "(a(x) & !d(x)) & (b(x) & d(x)) | (c(x) &
-		// !c(x))", "FALSE" });
-		tasks.add(new String[] { "!forall(x st a(x): b(x))", "exists(x st a(x) : !b(x))" });
-		// Split a quantifier when it's two problems
-		tasks.add(new String[] { "forall(x,y st a(x) & c(y): b(x) & d(y))",
-				"forall(x st a(x): b(x)) & forall(y st c(y): d(y))" });
-		tasks.add(new String[] { "forall(x st TRUE: a(x))", "a(x)" });
-		tasks.add(new String[] { "forall(x st a(x):b(x))", "forall(x st a(x):b(x))" });
+		tasks.add(new String[] { "!(a(x) & b(x))", "!a(x) | !b(x)" });
+		tasks.add(new String[] { "!(a(x) | b(x))", "!a(x) & !b(x)" });
+		tasks.add(new String[] { "(a(x) & !d(x)) & (b(x) & d(x)) | (c(x) & !c(x))", "FALSE" });
+		tasks.add(new String[] { "!forall(x : a(x))", "exists(x : !a(x))" });
+		tasks.add(new String[] { "forall(x : a(x) -> b(x))", "forall(x : !a(x) | b(x))" });
+		tasks.add(new String[] { "forall(x : a(x) & b(x) -> c(x))", "forall(x : !a(x) | !b(x) | c(x))" });
+		// Regression test
+		tasks.add(new String[] { "!forall(na : !b(x,na) & a(x,na))", "exists(na : !a(x,na)) | exists(na : b(x,na))" });
 		// Unchanged things
-		tasks.add(new String[] { "forall(x,y,z st a(x,y,z):a(x) & b(y) & c(z))",
-				"forall(x,y,z st a(x,y,z):a(x) & b(y) & c(z))" });
-		tasks.add(new String[] { "forall(x,y,z st a(x) & b(y) & c(z):a(x,y,z))",
-				"forall(x,y,z st a(x) & b(y) & c(z):a(x,y,z))" });
+		tasks.add(new String[] { "!a(x,na) | b(x,na)", "!a(x,na) | b(x,na)" });
+		tasks.add(new String[] { "forall(x,y,z : a(x,y,z) -> a(x) & b(y) & c(z))",
+				"forall(x,y,z : a(x,y,z) -> a(x) & b(y) & c(z))" });
+		tasks.add(new String[] { "forall(x,y,z : a(x) & b(y) & c(z) -> a(x,y,z))",
+				"forall(x,y,z : a(x) & b(y) & c(z) -> a(x,y,z))" });
 		for (String[] task : tasks) {
 			KProperty originalProperty = parseProperty(task[0]);
 			// The simplified version goes here
 			KProperty simplifiedProperty = (KProperty) canonicalizeOrder(originalProperty);
 
-			if (!parseProperty(task[1]).equals(simplifiedProperty))
-				System.err.println("\"" + originalProperty + "\" Should canonicalize to \"" + parseProperty(task[1])
-						+ "\" but it instead canonicalized to \"" + simplifiedProperty + '"');
+			if (!parseProperty(task[1]).equals(simplifiedProperty)) {
+				System.err.println(originalProperty);
+				System.err.println("Should canonicalize to");
+				System.err.println(parseProperty(task[1]));
+				System.err.println("But it instead canonicalized to");
+				System.err.println(simplifiedProperty);
+			}
 
-			assertEquals(simplifiedProperty, parseProperty(task[1]));
+			assertEquals(parseProperty(task[1]), simplifiedProperty);
 		}
 	}
 
@@ -111,16 +114,16 @@ public class KernelUtilTests {
 		assertEquals(Collections.emptySet(),
 				KernelUtil.getUndeclaredVars(parseInput("Given x st a(x); Find y st b(y)")));
 		assertEquals(Collections.emptySet(),
-				KernelUtil.getUndeclaredVars(parseInput("Given x st forall(na st a(na): b(na,x)); Find y st b(y)")));
+				KernelUtil.getUndeclaredVars(parseInput("Given x st forall(na : a(na) -> b(na,x)); Find y st b(y)")));
 	}
 
 	@Test
 	public void testKQuantifierConstructor() {
 		// Test and make sure it's not misfiring...
-		parseProperty("forall(x st a(x) : forall(y st b(y) : c(x,y)))");
+		parseProperty("forall(x st a(x) -> forall(y : b(y) -> c(x,y)))");
 		boolean error = false;
 		try {
-			parseProperty("forall(x st a(x) : forall(x st b(x) : c(x)))");
+			parseProperty("forall(x st a(x) -> forall(x : b(x) -> c(x)))");
 		} catch (IllegalKernelException e) {
 			error = true;
 		}
@@ -130,10 +133,10 @@ public class KernelUtilTests {
 	@Test
 	public void testKInputConstructor() {
 		// Test and make sure it's not misfiring...
-		parseInput("Given x; Find y st forall(z st a(x,y,z) : b(x,y,z))");
+		parseInput("Given x; Find y st forall(z : a(x,y,z) -> b(x,y,z))");
 		boolean error = false;
 		try {
-			parseInput("Given x; Find y st forall(x st a(x,y,x) : b(x,y,x))");
+			parseInput("Given x; Find y st forall(x : a(x,y,x) -> b(x,y,x))");
 		} catch (IllegalKernelException e) {
 			error = true;
 		}
@@ -143,10 +146,10 @@ public class KernelUtilTests {
 	@Test
 	public void testKProblemConstructor() {
 		// Test and make sure it's not misfiring...
-		problem(parseProperty("forall(y st a(x,y) : b(x,y))"), "x");
+		problem(parseProperty("forall(y : a(x,y) -> b(x,y))"), "x");
 		boolean error = false;
 		try {
-			problem(parseProperty("forall(x st a(x,x) : b(x,x))"), "x");
+			problem(parseProperty("forall(x : a(x,x) -> b(x,x))"), "x");
 		} catch (IllegalKernelException e) {
 			error = true;
 		}
@@ -156,7 +159,7 @@ public class KernelUtilTests {
 	@Test
 	public void testCleanDeclarationsNoChanges() {
 		String[] sames = { "Given x st a(x); Find y st b(x,y)",
-				"Given a st forall(b st x(a,b) : forall(c st x(a,b,c) : d(a,b,c))); Find b st forall(c st x(a,b,c) : d(a,b,c))" };
+				"Given a st forall(b : x(a,b) -> forall(c : x(a,b,c) -> d(a,b,c))); Find b st forall(c : x(a,b,c) -> d(a,b,c))" };
 		for (String string : sames) {
 			KInput object = parseInput(string);
 			assertEquals(object, cleanDeclarations(object));
@@ -167,10 +170,8 @@ public class KernelUtilTests {
 	public void testCleanDeclarations() {
 		ArrayList<KObject[]> tasks = new ArrayList<KObject[]>();
 		tasks.add(new KObject[] {
-				input(problem(quantifier(Quantifier.forall, problem(atomic("a", "x"), "x"), atomic("b", "x")), "x"),
-						problem(TRUE)),
-				input(problem(quantifier(Quantifier.forall, problem(atomic("a", "na"), "na"), atomic("b", "na")), "x"),
-						problem(TRUE)) });
+				input(problem(quantifier(Quantifier.forall, problem(atomic("a", "x"), "x")), "x"), problem(TRUE)),
+				input(problem(quantifier(Quantifier.forall, problem(atomic("a", "na"), "na")), "x"), problem(TRUE)) });
 		for (KObject[] task : tasks) {
 			KObject originalProperty = task[0];
 			// The simplified version goes here

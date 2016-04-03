@@ -9,8 +9,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import algorithmMaker.QuickParser;
-import algorithmMaker.util.*;
-import inputHandling.*;
+import algorithmMaker.util.SugarUtil;
 import kernelLanguage.*;
 import solver.*;
 import theorems.MultistageTheorem;
@@ -21,14 +20,14 @@ public class SolverTests {
 	 * finding a child of b.
 	 */
 	@Test
-	public void testEquivalentObjectContainment() {
+	public void testUsageOfGivenTheoremsInGoalChaining() {
 		MultistageTheorem multistageTheorem = new MultistageTheorem(parseProperty("foo(x,z)"),
 				parseProperty("bar(x,z)"), parseProperty("bar(x,z)"), null, r -> 0, "foo implies bar", null);
 		ProblemSolver solver = new ProblemSolver(
-				parseInput("Given x,y,z st foo(x,z) & forall(q st bar(x,q) : bar(y,q)); Find bar(y,z)"),
+				parseInput("Given x,y,z st foo(x,z) & forall(q : bar(x,q) -> bar(y,q)); Find bar(y,z)"),
 				multistageTheorem);
 		solver.branch();
-		assertEquals(parseInput("Given x,y,z st foo(x,z) & bar(x,z) & forall(q st bar(x,q) : bar(y,q));"),
+		assertEquals(parseInput("Given x,y,z st foo(x,z) & bar(x,z) & forall(q : bar(x,q) -> bar(y,q));"),
 				solver.problemStates.peek().problem);
 	}
 
@@ -82,26 +81,22 @@ public class SolverTests {
 
 	@Test
 	public void testGetSubProblemForQuantifier() {
+		KInput dummyProblem = parseInput("Given list x st blah(x); Find y st child(x,y)");
 		assertEquals(parseInput("Given list x st blah(x); Find na st !b(na) & a(na)"),
-				getSubProblemForQuantifier(parseInput("Given list x st blah(x); Find y st child(x,y)"),
-						(KQuantifier) parseProperty("forall(x st a(x) : b(x))")));
-		assertEquals(parseInput("Given list x st blah(x); Find na st a(na) & b(na)"),
-				getSubProblemForQuantifier(parseInput("Given list x st blah(x); Find y st child(x,y)"),
-						(KQuantifier) parseProperty("exists(x st a(x) : b(x))")));
-		assertEquals(parseInput("Given list x st blah(x); Find na st a(x,na) & b(x,na)"),
-				getSubProblemForQuantifier(parseInput("Given list x st blah(x); Find y st child(x,y)"),
-						(KQuantifier) parseProperty("exists(z st a(x,z) : b(x,z))")));
+				getSubProblemForQuantifier(dummyProblem, (KQuantifier) parseProperty("forall(x : a(x) -> b(x))")));
+		assertEquals(parseInput("Given list x st blah(x); Find na st !a(na) | b(na)"),
+				getSubProblemForQuantifier(dummyProblem, (KQuantifier) parseProperty("exists(x : a(x) -> b(x))")));
+		assertEquals(parseInput("Given list x st blah(x); Find na st !a(x,na) | b(x,na)"),
+				getSubProblemForQuantifier(dummyProblem, (KQuantifier) parseProperty("exists(z : a(x,z) -> b(x,z))")));
 	}
 
 	@Test
 	public void testAgainstRegressionForPreviousSolves() {
 		ArrayList<String[]> probsAndSols = getProblemsAndSolutions();
-		ArrayList<KTheorem> theorems = TheoremParser.parseFiles();
-		theorems.addAll(MultiTheoremParser.getMultiTheorems());
 		for (String[] ps : probsAndSols) {
 			// System.out.println(ps[0]);
 			KInput input = (KInput) SugarUtil.convertToKernel(QuickParser.parseInput(ps[0]));
-			ProblemState actualSolution = new ProblemSolver(input, theorems.toArray(new KTheorem[0])).getSolution();
+			ProblemState actualSolution = ProblemSolver.standardSolver(input).getSolution();
 			if (actualSolution == null) {
 				System.err.println("No solution for problem \"" + ps[0] + "\"");
 			}

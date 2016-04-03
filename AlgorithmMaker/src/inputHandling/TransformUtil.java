@@ -36,10 +36,10 @@ public class TransformUtil {
 		if (given != null) {
 			KProperty reducedGiven = given.without(toRemove);
 			input = input.withGiven(input.given.withProperty(reducedGiven == null ? TRUE : reducedGiven));
-			chainer.chain(input.given.property, GIVEN);
+			chainer.chain(input.given.property);
 		}
 		toRemove.addAll(chainer.properties.keySet());
-		
+
 		KProperty find = input.goal.property;
 		if (find != null) {
 			KProperty reducedGoal = find.without(toRemove);

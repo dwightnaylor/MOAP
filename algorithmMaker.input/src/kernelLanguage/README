@@ -1,0 +1,3 @@
+This file is for the classes that are used in the kernel language.
+
+These classes all follow the "unique" object design pattern. The way to create them is with KernelFactory.

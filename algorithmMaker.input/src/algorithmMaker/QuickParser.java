@@ -19,8 +19,16 @@ public class QuickParser {
 	public static boolean printParsingErrors = true;
 
 	public static Property parseProperty(String queryString) {
-		Parser.queryString = "ORing";
-		return (Property) parse(queryString, false);
+		return parseProperty(queryString, true);
+	}
+
+	public static Property parseProperty(String queryString, boolean desugar) {
+		Parser.queryString = "Implication";
+		Property parsed = (Property) parse(queryString, false);
+		if (desugar)
+			return (Property) SugarUtil.desugar(parsed);
+
+		return parsed;
 	}
 
 	public static Theorem parseTheorem(String queryString) {

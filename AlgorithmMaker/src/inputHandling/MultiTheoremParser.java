@@ -24,8 +24,8 @@ public class MultiTheoremParser {
 
 	private static void addHardcodedAlgorithms(ArrayList<MultistageTheorem> ret) {
 		ret.add(new MultistageTheorem(pc("type_undirected_graph(g)"),
-				pc("exists(p st type_path(p) & contains(g,p) : cycle(p))"),
-				pc("exists(p st type_path(p) & contains(g,p) : cycle(p))"), null, r -> /* O(numVerts(g)) */10 * r[0],
+				pc("exists(p : type_path(p) & contains(g,p) -> cycle(p))"),
+				pc("exists(p : type_path(p) & contains(g,p) -> cycle(p))"), null, r -> /* O(numVerts(g)) */10 * r[0],
 				"Hard coded solution for cycle in an undirected list",
 				new LineCoder("<na> = new HashSet()", "bool <b> = false", "for each vertex <v> in <g>:",
 						">if !<na>.contains(<v>)", ">>for each node <v1> in a BFS from <v>",
@@ -86,7 +86,7 @@ public class MultiTheoremParser {
 						BOUND + "(dab) & distance(a,b,dab)", "<dab> = distance(<a>,<b>)" });
 
 		declarations.add(new String[] { BOUND + "(x) & type_priorityqueue(x)" + UNBOUND + "(y)",
-				"child(x,y) & forall(z st child(x,z) : lessThanEqual(y,z))", "<y> = <x>.poll()" });
+				"child(x,y) & forall(z : child(x,z) -> lessThanEqual(y,z))", "<y> = <x>.poll()" });
 
 		for (String[] declaration : declarations)
 			ret.add(new MultistageTheorem(pc(declaration[0]), pc(declaration[1]), pc(declaration[1]), null,
@@ -97,7 +97,7 @@ public class MultiTheoremParser {
 	// ArrayList<String[]> declarations = new ArrayList<String[]>();
 	// declarations.add(
 	// new String[] { BOUND + "(x)" + TYPE_MARKER + "collection(x) & ", UNBOUND + "(nx)" + UNBOUND + "(nv)",
-	// BOUND + "(nx) & " + TYPE_MARKER + "hashset(nx) & forall(nv st child(x,nv) : child(nx,nv))",
+	// BOUND + "(nx) & " + TYPE_MARKER + "hashset(nx) & forall(nv : child(x,nv) -> child(nx,nv))",
 	// "<xi> = <x>[<i>]" });
 	//
 	// for (String[] declaration : declarations)

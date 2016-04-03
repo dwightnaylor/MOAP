@@ -27,9 +27,8 @@ public class KProblem extends KObject {
 	}
 
 	/**
-	 * Reduces variables usage such that any undeclared variables are declared
-	 * in the given, and any unused declarations in either the given or the goal
-	 * are removed.
+	 * Reduces variables usage such that any undeclared variables are declared in the given, and any unused declarations
+	 * in either the given or the goal are removed.
 	 */
 	public KProblem fixVariables() {
 		return null;
@@ -84,6 +83,12 @@ public class KProblem extends KObject {
 		HashSet<String> varsToRemoveSet = new HashSet<String>(Arrays.asList(varsToRemove));
 		return KernelFactory.problem(
 				vars.stream().filter(x -> !varsToRemoveSet.contains(x)).collect(Collectors.toList()), property);
+	}
+
+	public KProblem withUnusedVarsRemoved() {
+		HashSet<String> originalVars = new HashSet<String>(vars);
+		originalVars.retainAll(new HashSet<String>(KernelUtil.variables(property)));
+		return withVars(originalVars);
 	}
 
 	@Override

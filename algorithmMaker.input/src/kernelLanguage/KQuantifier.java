@@ -2,7 +2,7 @@ package kernelLanguage;
 
 import static kernelLanguage.KernelFactory.*;
 
-import java.util.HashSet;
+import java.util.*;
 
 import algorithmMaker.util.KernelUtil;
 
@@ -13,40 +13,35 @@ public class KQuantifier extends KProperty {
 
 	public final Quantifier quantifier;
 	public final KProblem subject;
-	public final KProperty predicate;
 
-	KQuantifier(Quantifier quantifier, KProblem subject, KProperty predicate) {
+	KQuantifier(Quantifier quantifier, KProblem subject) {
 		this.quantifier = quantifier;
 		this.subject = subject;
-		this.predicate = predicate;
-		HashSet<String> subjectVars = new HashSet<String>(subject.vars);
-		if (KernelUtil.ERROR_ON_NESTED_VARS)
-			for (KObject object : KernelUtil.contents(predicate))
-				if (object instanceof KProblem)
-					for (String var : ((KProblem) object).vars)
-						if (subjectVars.contains(var))
-							throw new IllegalKernelException("The variable \"" + var
-									+ "\" was declared in both a quantifier subject and the predicate.");
 	}
 
 	@Override
-	protected KProperty without(HashSet<KProperty> toRemove) {
-		if(toRemove.contains(this))
-			return TRUE;
-		
-		KProperty newSubjectProperty = subject.property.without(toRemove);
-		if (newSubjectProperty.equals(TRUE) && quantifier == Quantifier.forall)
-			return predicate;
+	protected KProperty without(Set<KProperty> toRemove) {
+		KProperty newSubjectProperty = (KProperty) KernelUtil.canonicalizeOrder(subject.property.without(toRemove));
+		if (newSubjectProperty instanceof KBooleanLiteral)
+			return newSubjectProperty;
 
-		if (newSubjectProperty.equals(FALSE))
+		KProperty ret = (KProperty) KernelUtil
+				.canonicalizeOrder(withSubject(subject.withProperty(newSubjectProperty).withUnusedVarsRemoved()));
+		if (toRemove.contains(ret))
 			return TRUE;
-		
 
-		return withSubject(subject.withProperty(newSubjectProperty));
+		if (toRemove.contains(KernelUtil.canonicalizeOrder(negate(ret))))
+			return FALSE;
+
+		return ret;
 	}
 
 	public KQuantifier withSubject(KProblem newSubject) {
-		return KernelFactory.quantifier(quantifier, newSubject, predicate);
+		return quantifier(quantifier, newSubject);
+	}
+
+	public KQuantifier withProperty(KProperty property) {
+		return quantifier(quantifier, subject.withProperty(property));
 	}
 
 	public boolean isUniversal() {
@@ -55,7 +50,7 @@ public class KQuantifier extends KProperty {
 
 	@Override
 	int calculateHashCode() {
-		return (quantifier == Quantifier.forall ? 1 : -1) * subject.hashCode() * predicate.hashCode();
+		return (quantifier == Quantifier.forall ? 1 : -1) * subject.hashCode();
 	}
 
 	@Override
@@ -63,9 +58,7 @@ public class KQuantifier extends KProperty {
 		StringBuffer ret = new StringBuffer();
 		ret.append(quantifier);
 		ret.append('(');
-		ret.append(subject.toString());
-		ret.append(" : ");
-		ret.append(predicate.toString());
+		ret.append(subject.toString().replace(" st ", " : "));
 		ret.append(')');
 		return ret.toString();
 	}
@@ -73,17 +66,5 @@ public class KQuantifier extends KProperty {
 	@Override
 	public void validate() {
 		subject.validate();
-		predicate.validate();
-		for (KObject subObject : KernelUtil.contents(predicate)) {
-			if (subObject instanceof KProblem) {
-				for (String otherVar : ((KProblem) subObject).vars) {
-					if (subject.vars.contains(otherVar)) {
-						throw new DirtyKernelException(
-								"The variable " + otherVar + " was declared in both the given of \"" + this
-										+ "\" and in \"" + subObject + "\", which is in the goal.");
-					}
-				}
-			}
-		}
 	}
 }

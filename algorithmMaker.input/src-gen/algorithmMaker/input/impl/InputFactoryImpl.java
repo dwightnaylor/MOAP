@@ -69,7 +69,6 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
       case InputPackage.DECLARATION: return createDeclaration();
       case InputPackage.TYPE: return createType();
       case InputPackage.PROPERTY: return createProperty();
-      case InputPackage.PROBLEM_SHELL: return createProblemShell();
       case InputPackage.NEGATION: return createNegation();
       case InputPackage.QUANTIFIER: return createQuantifier();
       case InputPackage.ATOMIC: return createAtomic();
@@ -78,6 +77,7 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
       case InputPackage.NUMERICAL_PROPERTY: return createNumericalProperty();
       case InputPackage.VARIABLE: return createVariable();
       case InputPackage.NUMBER_LITERAL: return createNumberLiteral();
+      case InputPackage.IMPLICATION: return createImplication();
       case InputPackage.ORING: return createORing();
       case InputPackage.AN_DING: return createANDing();
       case InputPackage.ADDITION: return createAddition();
@@ -140,17 +140,6 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
   {
     PropertyImpl property = new PropertyImpl();
     return property;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public ProblemShell createProblemShell()
-  {
-    ProblemShellImpl problemShell = new ProblemShellImpl();
-    return problemShell;
   }
 
   /**
@@ -239,6 +228,17 @@ public class InputFactoryImpl extends EFactoryImpl implements InputFactory
   {
     NumberLiteralImpl numberLiteral = new NumberLiteralImpl();
     return numberLiteral;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public Implication createImplication()
+  {
+    ImplicationImpl implication = new ImplicationImpl();
+    return implication;
   }
 
   /**

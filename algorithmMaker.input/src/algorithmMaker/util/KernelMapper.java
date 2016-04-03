@@ -2,6 +2,7 @@ package algorithmMaker.util;
 
 import static kernelLanguage.KQuantifier.Quantifier.*;
 import static kernelLanguage.KernelFactory.*;
+import static algorithmMaker.util.KernelUtil.*;
 
 import java.util.*;
 import java.util.function.Function;
@@ -49,13 +50,73 @@ public abstract class KernelMapper implements Function<KObject, KObject> {
 					if (possibleNegation instanceof KNegation
 							&& hashedANDed.contains(((KNegation) possibleNegation).negated))
 						return FALSE;
-				// RULE: Absorption removed because ORing was taken out
+				// RULE: Absorption
+				ArrayList<KORing> orings = new ArrayList<KORing>();
+				HashSet<KProperty> toRemove = new HashSet<KProperty>();
+				for (KProperty possibleORing : hashedANDed)
+					if (possibleORing instanceof KORing) {
+						orings.add((KORing) possibleORing);
+						for (KProperty ORed : getANDed(possibleORing))
+							toRemove.add(ORed);
+					}
+
+				hashedANDed.removeAll(toRemove);
+				// RULE: Absorption (for ANDs of ORs)
+				// TODO: Make absorption rule more efficient for ANDings
+				for (int i = 0; i < orings.size(); i++) {
+					HashSet<KProperty> cur = new HashSet<KProperty>(getORed(orings.get(i)));
+					for (int j = i + 1; j < orings.size(); j++) {
+						ArrayList<KProperty> inner = getORed(orings.get(j));
+						if (cur.size() > inner.size()) {
+							boolean cut = true;
+							for (KProperty innerProperty : inner)
+								if (!cur.contains(innerProperty)) {
+									cut = false;
+									break;
+								}
+
+							if (cut)
+								hashedANDed.remove(orings.get(j));
+						}
+					}
+				}
 
 				ArrayList<KProperty> andedNoRepeats = new ArrayList<KProperty>(hashedANDed);
 				// RULE: Commutative
 				Collections.sort(andedNoRepeats, KernelUtil.KERNEL_COMPARATOR);
 				andedNoRepeats.replaceAll(x -> (KProperty) calculateConversion(x));
 				return and(andedNoRepeats);
+			}
+			case KORing: {
+				// RULE: Idempotent
+				HashSet<KProperty> hashedORed = new HashSet<KProperty>(KernelUtil.getORed((KORing) object));
+
+				// RULE: Identity
+				hashedORed.remove(FALSE);
+				if (hashedORed.isEmpty())
+					return FALSE;
+				// RULE: Universal Bound
+				if (hashedORed.contains(TRUE))
+					return TRUE;
+				// RULE: Negation
+				for (KProperty possibleNegation : hashedORed)
+					if (possibleNegation instanceof KNegation
+							&& hashedORed.contains(((KNegation) possibleNegation).negated))
+						return TRUE;
+				// RULE: Absorption
+				for (KProperty possibleANDing : hashedORed)
+					if (possibleANDing instanceof KANDing)
+						for (KProperty ANDed : getANDed(possibleANDing))
+							if (hashedORed.contains(ANDed)) {
+								hashedORed.remove(possibleANDing);
+								break;
+							}
+
+				ArrayList<KProperty> oredNoRepeats = new ArrayList<KProperty>(hashedORed);
+				// RULE: Commutative
+				Collections.sort(oredNoRepeats, KernelUtil.KERNEL_COMPARATOR);
+				oredNoRepeats.replaceAll(x -> (KProperty) calculateConversion(x));
+				return or(oredNoRepeats);
 			}
 			case KNegation: {
 				KNegation negation = (KNegation) object;
@@ -64,15 +125,26 @@ public abstract class KernelMapper implements Function<KObject, KObject> {
 				if (negated instanceof KNegation)
 					return calculateConversion(((KNegation) negated).negated);
 
-				// RULE: Demorgan's Law (AND) removed since ORing was removed
-				// RULE: Demorgan's Law (OR) removed since ORing was removed
+				// RULE: Demorgan's Law (AND)
+				if (negated instanceof KANDing) {
+					ArrayList<KProperty> children = getANDed(negated);
+					children.replaceAll(x -> negate(x));
+					return or(children);
+				}
+				// RULE: Demorgan's Law (OR)
+				if (negated instanceof KORing) {
+					ArrayList<KProperty> children = getORed(negated);
+					children.replaceAll(x -> negate(x));
+					return and(children);
+				}
 				// RULE: Quantifier Negation Sinking
 				if (negated instanceof KQuantifier) {
 					KQuantifier quantifier = (KQuantifier) negated;
+					KProperty newProperty = (KProperty) calculateConversion(negate(quantifier.subject.property));
 					if (quantifier.isUniversal())
-						return quantifier(exists, quantifier.subject, negate(quantifier.predicate));
+						return quantifier(exists, quantifier.subject.withProperty(newProperty));
 					else
-						return quantifier(forall, quantifier.subject, negate(quantifier.predicate));
+						return quantifier(forall, quantifier.subject.withProperty(newProperty));
 				}
 
 				return negation;
@@ -80,44 +152,59 @@ public abstract class KernelMapper implements Function<KObject, KObject> {
 			case KQuantifier: {
 				KQuantifier quantifier = (KQuantifier) object;
 				KProperty newSubject = (KProperty) calculateConversion(quantifier.subject.property);
-				KProperty newPredicate = (KProperty) calculateConversion(quantifier.predicate);
 				// TODO (low): Deal with quantifier ordering (FA(E) vs E(FA))
 				// TODO (low): Deal with quantifier splitting
-				KProperty ret;
 				if (newSubject.equals(TRUE)) {
-					ret = newPredicate;
+					return TRUE;
 				} else if (newSubject.equals(FALSE)) {
-					return null;
-				} else {
-					ret = quantifier(quantifier.quantifier, problem(quantifier.subject.vars, newSubject), newPredicate);
+					return FALSE;
 				}
+
+				if (!quantifier.isUniversal() && newSubject instanceof KORing) {
+					ArrayList<KQuantifier> oredQuantifiers = new ArrayList<KQuantifier>();
+					for (KProperty ored : getORed(newSubject))
+						oredQuantifiers.add(quantifier(exists, problem(quantifier.subject.vars, ored)));
+
+					return or(oredQuantifiers);
+				}
+
+				if (quantifier.isUniversal() && newSubject instanceof KANDing) {
+					ArrayList<KQuantifier> andedQuantifiers = new ArrayList<KQuantifier>();
+					for (KProperty anded : getANDed(newSubject))
+						andedQuantifiers.add(quantifier(forall, problem(quantifier.subject.vars, anded)));
+
+					return and(andedQuantifiers);
+				}
+
+				return quantifier(quantifier.quantifier, quantifier.subject.withProperty(newSubject));
 				// This whole block is breaking up the quantifier into distinct
 				// problems if there are several unrelated things inside one
 				// quantifier.
-				ArrayList<ArrayList<String>> distinctProblems = KernelUtil.getDistinctProblems(ret);
-				KProperty[] andResults = new KProperty[distinctProblems.size()];
-				for (int i = 0; i < distinctProblems.size(); i++) {
-					ArrayList<String> var = distinctProblems.get(i);
-					andResults[i] = (KProperty) KernelUtil.map(KernelUtil.map(ret, new KernelMapper() {
-						@Override
-						public KObject calculateConversion(KObject object) {
-							if (object instanceof KAtomic) {
-								KAtomic atomic = (KAtomic) object;
-								for (String arg : atomic.args) {
-									if (!var.contains(arg))
-										return null;
-								}
-							}
-							if (object instanceof KProblem) {
-								ArrayList<String> varsToInclude = new ArrayList<String>(((KProblem) object).vars);
-								varsToInclude.removeIf(x -> !var.contains(x));
-								return ((KProblem) object).withVars(varsToInclude);
-							}
-							return object;
-						}
-					}), ORDER_CANONICALIZER);
-				}
-				return and(andResults);
+				// TODO: Split unrelated quantifier pieces
+				// ArrayList<ArrayList<String>> distinctProblems = KernelUtil.getDistinctProblems(ret);
+				// KProperty[] andResults = new KProperty[distinctProblems.size()];
+				// for (int i = 0; i < distinctProblems.size(); i++) {
+				// ArrayList<String> var = distinctProblems.get(i);
+				// andResults[i] = (KProperty) KernelUtil.map(KernelUtil.map(ret, new KernelMapper() {
+				// @Override
+				// public KObject calculateConversion(KObject object) {
+				// if (object instanceof KAtomic) {
+				// KAtomic atomic = (KAtomic) object;
+				// for (String arg : atomic.args) {
+				// if (!var.contains(arg))
+				// return null;
+				// }
+				// }
+				// if (object instanceof KProblem) {
+				// ArrayList<String> varsToInclude = new ArrayList<String>(((KProblem) object).vars);
+				// varsToInclude.removeIf(x -> !var.contains(x));
+				// return ((KProblem) object).withVars(varsToInclude);
+				// }
+				// return object;
+				// }
+				// }), ORDER_CANONICALIZER);
+				// }
+				// return and(andResults);
 			}
 			case KInput:
 				KInput input = (KInput) object;

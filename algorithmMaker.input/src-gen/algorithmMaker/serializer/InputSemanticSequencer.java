@@ -8,6 +8,7 @@ import algorithmMaker.input.Addition;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.BooleanLiteral;
 import algorithmMaker.input.Declaration;
+import algorithmMaker.input.Implication;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.InputPackage;
 import algorithmMaker.input.Multiplication;
@@ -15,7 +16,6 @@ import algorithmMaker.input.Negation;
 import algorithmMaker.input.NumberLiteral;
 import algorithmMaker.input.ORing;
 import algorithmMaker.input.Problem;
-import algorithmMaker.input.ProblemShell;
 import algorithmMaker.input.Quantifier;
 import algorithmMaker.input.Theorem;
 import algorithmMaker.input.Type;
@@ -59,6 +59,9 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 			case InputPackage.DECLARATION:
 				sequence_Declaration(context, (Declaration) semanticObject); 
 				return; 
+			case InputPackage.IMPLICATION:
+				sequence_Implication(context, (Implication) semanticObject); 
+				return; 
 			case InputPackage.INPUT:
 				sequence_Input(context, (Input) semanticObject); 
 				return; 
@@ -75,7 +78,11 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 				sequence_ORing(context, (ORing) semanticObject); 
 				return; 
 			case InputPackage.PROBLEM:
-				if(context == grammarAccess.getProblemNoVarsRule()) {
+				if(context == grammarAccess.getProblemColonRule()) {
+					sequence_ProblemColon(context, (Problem) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getProblemNoVarsRule()) {
 					sequence_ProblemNoVars(context, (Problem) semanticObject); 
 					return; 
 				}
@@ -88,9 +95,6 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 					return; 
 				}
 				else break;
-			case InputPackage.PROBLEM_SHELL:
-				sequence_ProblemShell(context, (ProblemShell) semanticObject); 
-				return; 
 			case InputPackage.QUANTIFIER:
 				sequence_Quantifier(context, (Quantifier) semanticObject); 
 				return; 
@@ -158,6 +162,15 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	 *     (type=Type? varName=ID)
 	 */
 	protected void sequence_Declaration(EObject context, Declaration semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (left=Implication_Implication_1_0 (implication='->' | implication='<-' | implication='<->') right=ORing)
+	 */
+	protected void sequence_Implication(EObject context, Implication semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -233,7 +246,16 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     property=ORing
+	 *     (vars+=Declaration vars+=Declaration* property=Implication)
+	 */
+	protected void sequence_ProblemColon(EObject context, Problem semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     property=Implication
 	 */
 	protected void sequence_ProblemNoVars(EObject context, Problem semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -242,7 +264,7 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     (vars+=Declaration vars+=Declaration* property=ORing?)
+	 *     (vars+=Declaration vars+=Declaration* property=Implication?)
 	 */
 	protected void sequence_ProblemPropertyOptional(EObject context, Problem semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -251,23 +273,7 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     problem=Problem
-	 */
-	protected void sequence_ProblemShell(EObject context, ProblemShell semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.PROBLEM_SHELL__PROBLEM) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.PROBLEM_SHELL__PROBLEM));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getProblemShellAccess().getProblemProblemParserRuleCall_1_0(), semanticObject.getProblem());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     (vars+=Declaration vars+=Declaration* property=ORing)
+	 *     (vars+=Declaration vars+=Declaration* property=Implication)
 	 */
 	protected void sequence_Problem(EObject context, Problem semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -276,7 +282,7 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     ((quantifier='forall' | quantifier='exists') subject=Problem predicate=ORing)
+	 *     ((quantifier='forall' | quantifier='exists') subject=ProblemColon)
 	 */
 	protected void sequence_Quantifier(EObject context, Quantifier semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -285,17 +291,20 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         Requirement=ORing 
-	 *         (Implication='->' | Implication='<-' | Implication='<->') 
-	 *         Result=ORing 
-	 *         Cost=INT 
-	 *         Description=STRING 
-	 *         PseudoCode=STRING?
-	 *     )
+	 *     (content=Implication Description=STRING)
 	 */
 	protected void sequence_Theorem(EObject context, Theorem semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.THEOREM__CONTENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.THEOREM__CONTENT));
+			if(transientValues.isValueTransient(semanticObject, InputPackage.Literals.THEOREM__DESCRIPTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InputPackage.Literals.THEOREM__DESCRIPTION));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getTheoremAccess().getContentImplicationParserRuleCall_0_0(), semanticObject.getContent());
+		feeder.accept(grammarAccess.getTheoremAccess().getDescriptionSTRINGTerminalRuleCall_2_0(), semanticObject.getDescription());
+		feeder.finish();
 	}
 	
 	

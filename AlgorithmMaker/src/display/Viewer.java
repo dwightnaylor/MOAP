@@ -77,8 +77,6 @@ public class Viewer {
 		vv.getRenderContext().setEdgeLabelTransformer(new ToStringLabeller<ProblemEdge>() {
 			@Override
 			public String transform(ProblemEdge v) {
-				if (v.rootTheorem != null)
-					return v.rootTheorem.description;
 				return "";
 			}
 		});
@@ -135,12 +133,12 @@ public class Viewer {
 
 	public static Graph<Fact<? extends KProperty>, TheoremWrapper> generateGraph(KProperty initial) {
 		Graph<Fact<? extends KProperty>, TheoremWrapper> graph = new DelegateForest<Fact<? extends KProperty>, TheoremWrapper>();
-		Chainer chainer = new Chainer(TheoremParser.parseFiles().toArray(new KTheorem[0]));
-		chainer.chain(initial, KernelFactory.GIVEN);
+		Chainer chainer = new Chainer(TheoremParser.parseFiles().toArray(new Fact[0]));
+		chainer.chain(initial);
 		for (Fact<? extends KProperty> fact : chainer.properties.values()) {
 			graph.addVertex(fact);
 			for (Fact<? extends KProperty> prereq : fact.prerequisites) {
-				graph.addEdge(new TheoremWrapper(fact.theorem), prereq, fact);
+				graph.addEdge(new TheoremWrapper(fact), prereq, fact);
 			}
 		}
 		return graph;
@@ -190,9 +188,9 @@ public class Viewer {
 }
 
 final class TheoremWrapper {
-	KTheorem theorem;
+	Fact<?> theorem;
 
-	public TheoremWrapper(KTheorem theorem) {
+	public TheoremWrapper(Fact<?> theorem) {
 		this.theorem = theorem;
 	}
 }

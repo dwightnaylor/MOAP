@@ -35,7 +35,7 @@ public class ErrorTesting {
 	public void testUndeclaredError() {
 		assertEquals(null, QuickParser.parseInput("Given x; Find y st a(z)", false));
 		assertNotEquals(null, QuickParser.parseInput("Given x; Find a(x)", false));
-		assertNotEquals(null, QuickParser.parseInput("Given x; Find forall(y st a(y) : b(y))", false));
+		assertNotEquals(null, QuickParser.parseInput("Given x; Find forall(y : a(y) -> b(y))", false));
 	}
 
 	@Test

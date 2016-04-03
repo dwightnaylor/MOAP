@@ -1,9 +1,11 @@
 package bindings;
 
+import static algorithmMaker.util.KernelUtil.getORed;
+
 import java.util.*;
 
 import algorithmMaker.util.KernelUtil;
-import kernelLanguage.KProperty;
+import kernelLanguage.*;
 import theorems.Fact;
 
 public class MutableBinding extends Binding {
@@ -24,9 +26,17 @@ public class MutableBinding extends Binding {
 	protected Stack<ArrayList<String>> lastBindings = new Stack<ArrayList<String>>();
 
 	public void applyBinding(KProperty original, Fact<? extends KProperty> asserted) {
-		if (!KernelUtil.devar(original).equals(KernelUtil.devar(asserted.property)))
+		if (!KernelUtil.devar(original).equals(KernelUtil.devar(asserted.property))) {
+			if (original instanceof KORing) {
+				for (KProperty ored : getORed(original))
+					if (canBind(ored, asserted.property)) {
+						applyBinding(ored, asserted);
+						return;
+					}
+			}
 			throw new IllegalArgumentException(
 					"Cannot bind two non-equivalent properties \"" + original + "\" and \"" + asserted.property + "\"");
+		}
 
 		ArrayList<String> newBindings = new ArrayList<String>();
 

@@ -4,7 +4,6 @@ package algorithmMaker.input.impl;
 
 import algorithmMaker.input.InputPackage;
 import algorithmMaker.input.Problem;
-import algorithmMaker.input.Property;
 import algorithmMaker.input.Quantifier;
 
 import org.eclipse.emf.common.notify.Notification;
@@ -25,7 +24,6 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * <ul>
  *   <li>{@link algorithmMaker.input.impl.QuantifierImpl#getQuantifier <em>Quantifier</em>}</li>
  *   <li>{@link algorithmMaker.input.impl.QuantifierImpl#getSubject <em>Subject</em>}</li>
- *   <li>{@link algorithmMaker.input.impl.QuantifierImpl#getPredicate <em>Predicate</em>}</li>
  * </ul>
  *
  * @generated
@@ -61,16 +59,6 @@ public class QuantifierImpl extends PropertyImpl implements Quantifier
    * @ordered
    */
   protected Problem subject;
-
-  /**
-   * The cached value of the '{@link #getPredicate() <em>Predicate</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getPredicate()
-   * @generated
-   * @ordered
-   */
-  protected Property predicate;
 
   /**
    * <!-- begin-user-doc -->
@@ -169,54 +157,6 @@ public class QuantifierImpl extends PropertyImpl implements Quantifier
    * <!-- end-user-doc -->
    * @generated
    */
-  public Property getPredicate()
-  {
-    return predicate;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public NotificationChain basicSetPredicate(Property newPredicate, NotificationChain msgs)
-  {
-    Property oldPredicate = predicate;
-    predicate = newPredicate;
-    if (eNotificationRequired())
-    {
-      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, InputPackage.QUANTIFIER__PREDICATE, oldPredicate, newPredicate);
-      if (msgs == null) msgs = notification; else msgs.add(notification);
-    }
-    return msgs;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public void setPredicate(Property newPredicate)
-  {
-    if (newPredicate != predicate)
-    {
-      NotificationChain msgs = null;
-      if (predicate != null)
-        msgs = ((InternalEObject)predicate).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - InputPackage.QUANTIFIER__PREDICATE, null, msgs);
-      if (newPredicate != null)
-        msgs = ((InternalEObject)newPredicate).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - InputPackage.QUANTIFIER__PREDICATE, null, msgs);
-      msgs = basicSetPredicate(newPredicate, msgs);
-      if (msgs != null) msgs.dispatch();
-    }
-    else if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, InputPackage.QUANTIFIER__PREDICATE, newPredicate, newPredicate));
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -224,8 +164,6 @@ public class QuantifierImpl extends PropertyImpl implements Quantifier
     {
       case InputPackage.QUANTIFIER__SUBJECT:
         return basicSetSubject(null, msgs);
-      case InputPackage.QUANTIFIER__PREDICATE:
-        return basicSetPredicate(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -244,8 +182,6 @@ public class QuantifierImpl extends PropertyImpl implements Quantifier
         return getQuantifier();
       case InputPackage.QUANTIFIER__SUBJECT:
         return getSubject();
-      case InputPackage.QUANTIFIER__PREDICATE:
-        return getPredicate();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -265,9 +201,6 @@ public class QuantifierImpl extends PropertyImpl implements Quantifier
         return;
       case InputPackage.QUANTIFIER__SUBJECT:
         setSubject((Problem)newValue);
-        return;
-      case InputPackage.QUANTIFIER__PREDICATE:
-        setPredicate((Property)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -289,9 +222,6 @@ public class QuantifierImpl extends PropertyImpl implements Quantifier
       case InputPackage.QUANTIFIER__SUBJECT:
         setSubject((Problem)null);
         return;
-      case InputPackage.QUANTIFIER__PREDICATE:
-        setPredicate((Property)null);
-        return;
     }
     super.eUnset(featureID);
   }
@@ -310,8 +240,6 @@ public class QuantifierImpl extends PropertyImpl implements Quantifier
         return QUANTIFIER_EDEFAULT == null ? quantifier != null : !QUANTIFIER_EDEFAULT.equals(quantifier);
       case InputPackage.QUANTIFIER__SUBJECT:
         return subject != null;
-      case InputPackage.QUANTIFIER__PREDICATE:
-        return predicate != null;
     }
     return super.eIsSet(featureID);
   }
@@ -320,7 +248,6 @@ public class QuantifierImpl extends PropertyImpl implements Quantifier
 		int ret = getClass().hashCode();
 		ret += quantifier == null ? 0 :quantifier.hashCode();
 		ret += subject == null ? 0 :subject.hashCode();
-		ret += predicate == null ? 0 :predicate.hashCode();
 		return ret;
 	}
 
@@ -332,7 +259,7 @@ public class QuantifierImpl extends PropertyImpl implements Quantifier
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append(quantifier + '(' + subject + " : " + predicate + ')');
+		ret.append(quantifier + '(' + subject.toString().replace(" st ", " : ") + ')');
 		return ret.toString();
 	}
 
