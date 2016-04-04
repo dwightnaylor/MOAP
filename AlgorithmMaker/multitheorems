@@ -1,4 +1,4 @@
-Given undirected_graph g; Find exists(path p st contains(g,p) : cycle(p))
+Given undirected_graph g; Find exists(path p : contains(g,p) & cycle(p))
 <na> = new HashSet()
 bool <b> = false
 for each vertex <v> in g:

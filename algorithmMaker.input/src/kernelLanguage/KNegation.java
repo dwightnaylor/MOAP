@@ -18,8 +18,8 @@ public class KNegation extends KProperty {
 	String calculateToString() {
 		StringBuffer ret = new StringBuffer();
 		ret.append('!');
-		ret.append(
-				(negated instanceof KANDing ? "(" : "") + negated.toString() + (negated instanceof KANDing ? ")" : ""));
+		boolean parens = negated instanceof KANDing || negated instanceof KORing;
+		ret.append((parens ? "(" : "") + negated.toString() + (parens ? ")" : ""));
 		return ret.toString();
 	}
 

@@ -87,6 +87,8 @@ public class KernelUtilTests {
 				"forall(x,y,z : a(x,y,z) -> a(x) & b(y) & c(z))" });
 		tasks.add(new String[] { "forall(x,y,z : a(x) & b(y) & c(z) -> a(x,y,z))",
 				"forall(x,y,z : a(x) & b(y) & c(z) -> a(x,y,z))" });
+		tasks.add(new String[] { "!(!child(a,c) & child(b,c) | !child(b,c) & child(a,c))",
+				"(!child(a,c) | child(b,c)) & (!child(b,c) | child(a,c))" });
 		for (String[] task : tasks) {
 			KProperty originalProperty = parseProperty(task[0]);
 			// The simplified version goes here

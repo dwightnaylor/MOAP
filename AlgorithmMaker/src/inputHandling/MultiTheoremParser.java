@@ -24,8 +24,8 @@ public class MultiTheoremParser {
 
 	private static void addHardcodedAlgorithms(ArrayList<MultistageTheorem> ret) {
 		ret.add(new MultistageTheorem(pc("type_undirected_graph(g)"),
-				pc("exists(p : type_path(p) & contains(g,p) -> cycle(p))"),
-				pc("exists(p : type_path(p) & contains(g,p) -> cycle(p))"), null, r -> /* O(numVerts(g)) */10 * r[0],
+				pc("exists(p : type_path(p) & contains(g,p) & cycle(p))"),
+				pc("exists(p : type_path(p) & contains(g,p) & cycle(p))"), null, r -> /* O(numVerts(g)) */10 * r[0],
 				"Hard coded solution for cycle in an undirected list",
 				new LineCoder("<na> = new HashSet()", "bool <b> = false", "for each vertex <v> in <g>:",
 						">if !<na>.contains(<v>)", ">>for each node <v1> in a BFS from <v>",

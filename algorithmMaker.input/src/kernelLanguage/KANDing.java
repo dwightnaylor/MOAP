@@ -23,9 +23,9 @@ public class KANDing extends KProperty {
 	@Override
 	String calculateToString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append(lhs);
+		ret.append(lhs instanceof KORing ? "(" + lhs + ")" : lhs);
 		ret.append(" & ");
-		ret.append(rhs);
+		ret.append(rhs instanceof KORing ? "(" + rhs + ")" : rhs);
 		return ret.toString();
 	}
 

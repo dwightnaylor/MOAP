@@ -53,10 +53,10 @@ public class SugarUtilTests {
 				"Given x st forall(na : !foo(na) | bar(na)); Find y,nb st first(nb) & second(x,nb)" });
 		tasks.add(new String[] {
 				"Given list<point> x; Find a,b st child(x,a) & child(x,b) & forall(c,d : child(x,c) & child(x,d) -> lessThanEqual(distance(a,b),distance(c,d)))",
-				"Given x st forall(na : !child(x,na) | type_point(na)) & type_list(x); Find a,b,na st child(x,a) & child(x,b) & distance(a,b,na) & forall(c,d,nb : !child(x,c) | !child(x,d) | lessThanEqual(na,nb) & distance(c,d,nb))" });
+				"Given x st forall(na : !child(x,na) | type_point(na)) & type_list(x); Find a,b,na st child(x,a) & child(x,b) & distance(a,b,na) & forall(c,d,nb : (!child(x,c) | !child(x,d) | lessThanEqual(na,nb)) & distance(c,d,nb))" });
 		tasks.add(new String[] {
 				"Given array a; Find i st index(a,i) & forall(j : index(a,j) -> lessThanEqual(get(a,i),get(a,j)))",
-				"Given a st type_array(a); Find i,na st forall(j,nb : !index(a,j) | lessThanEqual(na,nb) & get(a,j,nb)) & get(a,i,na) & index(a,i)" });
+				"Given a st type_array(a); Find i,na st forall(j,nb : (!index(a,j) | lessThanEqual(na,nb)) & get(a,j,nb)) & get(a,i,na) & index(a,i)" });
 		tasks.add(new String[] {
 				"Given list<int> x,int s; Find i,j st index(x,i) & index(x,j) & equal(plus(get(x,i),get(x,j)),s)",
 				"Given x,s st forall(na : !child(x,na) | type_int(na)) & type_int(s) & type_list(x); Find i,j,nb,nc,na st equal(na,s) & get(x,i,nb) & get(x,j,nc) & index(x,i) & index(x,j) & plus(nb,nc,na)" });
@@ -75,7 +75,7 @@ public class SugarUtilTests {
 				System.err.println(simplifiedToString);
 			}
 
-			assertEquals(simplifiedToString, task[1]);
+			assertEquals(task[1], simplifiedToString);
 		}
 	}
 }

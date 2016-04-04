@@ -56,7 +56,7 @@ public abstract class KernelMapper implements Function<KObject, KObject> {
 				for (KProperty possibleORing : hashedANDed)
 					if (possibleORing instanceof KORing) {
 						orings.add((KORing) possibleORing);
-						for (KProperty ORed : getANDed(possibleORing))
+						for (KProperty ORed : getORed(possibleORing))
 							toRemove.add(ORed);
 					}
 
