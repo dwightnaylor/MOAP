@@ -3,6 +3,7 @@ package solver;
 import static algorithmMaker.util.KernelUtil.*;
 import static algorithmMaker.util.SugarUtil.convertToKernel;
 import static kernelLanguage.KernelFactory.*;
+import static pseudocoders.LineCoder.*;
 
 import java.util.*;
 import java.util.Map.Entry;
@@ -25,7 +26,7 @@ import theorems.*;
  */
 public class ProblemSolver {
 
-	private static final boolean SHOW_GRAPH = false;
+	private static final boolean SHOW_GRAPH = true;
 	private static final boolean USE_CANONICALIZATION_FOR_OPTIMIZATION = false;
 
 	/**
@@ -38,8 +39,11 @@ public class ProblemSolver {
 	 * The list of problem states that we still have to explore.
 	 */
 	public PriorityQueue<ProblemState> problemStates = new PriorityQueue<ProblemState>();
-	// A set of all the canonicalized inputs, along with which problem state was used to reach each one.
+	/**
+	 * A set of all the canonicalized inputs, along with which problem state was used to reach each one.
+	 */
 	Hashtable<KInput, ProblemState> cnizedReachedInputs = new Hashtable<KInput, ProblemState>();
+	Hashtable<KInput, ProblemState> reachedInputs = new Hashtable<KInput, ProblemState>();
 
 	private final Fact<?>[] theorems;
 	private final Fact<?>[] invertedTheorems;
@@ -190,8 +194,14 @@ public class ProblemSolver {
 
 				binding = newBinding.getImmutable();
 
-				newProblem = newProblem.withGiven(newProblem.given.withProperty(and(newGivenParts)));
-				newProblem = newProblem.withGoal(newProblem.goal.withProperty(and(newGoalParts)));
+				HashSet<String> newGivenVars = new HashSet<String>();
+				for (KProperty newGivenPart : newGivenParts)
+					newGivenVars.addAll(getUndeclaredVars(newGivenPart));
+
+				newProblem = newProblem
+						.withGiven(newProblem.given.withAddedVars(newGivenVars).withProperty(and(newGivenParts)));
+				newProblem = newProblem
+						.withGoal(newProblem.goal.withoutVars(newGivenVars).withProperty(and(newGoalParts)));
 
 				addProblemGroup(new ProblemGroup(problemState, mst, binding,
 						Collections.singletonList(new ProblemState(newProblem, theorems))));
@@ -239,8 +249,7 @@ public class ProblemSolver {
 				addProblemGroup(new ProblemGroup(problemState,
 						new MultistageTheorem(null, null, null, null, r -> 30 + r[0],
 								"Declaration of a hashset for inclusion testing",
-								new LineCoder(setName + " = new HashSet(" + originalObject + ")",
-										LineCoder.EXIT_STRING + "0")),
+								new LineCoder(setName + " = new HashSet(" + originalObject + ")", EXIT_STRING + "0")),
 						Binding.EMPTY, new ProblemState(input(newGiven, problem.goal), theorems)));
 			}
 	}
@@ -256,10 +265,25 @@ public class ProblemSolver {
 			doQuantifierSubProblemFor(problemState, quantifier);
 			if (quantifier.isUniversal()) {
 				// if the the quantifier's predicate is transitive...
-				// FIXME: Put this back in and fix it.
 				doTransitiveQuantifierClosure(problemState, quantifier, goalChainer);
 			}
+		} else if (property instanceof KORing) {
+			doORingSubProblem(problemState, (KORing) property);
 		}
+	}
+
+	private void doORingSubProblem(ProblemState problemState, KORing property) {
+		KInput problem = problemState.problem;
+		KProperty lhs = property.lhs;
+		KProperty rhs = property.rhs;
+
+		KInput lhsProblem = problem.withGoal(problemMinVars(lhs, problem.given.vars));
+		KInput rhsProblem = problem.withGoal(problemMinVars(rhs, problem.given.vars));
+
+		addProblemGroup(new ProblemGroup(problemState,
+				new MultistageTheorem(null, null, null, null, r -> r[0] + r[1], "Solving ORed problems sequentially",
+						new LineCoder(new String[] { EXIT_STRING + "0", ">" + RETURN_STRING, EXIT_STRING + "1" })),
+				Binding.EMPTY, new ProblemState(lhsProblem, theorems), new ProblemState(rhsProblem, theorems)));
 	}
 
 	private void doTransitiveQuantifierClosure(ProblemState problemState, KQuantifier quantifier, Chainer goalChainer) {
@@ -298,20 +322,20 @@ public class ProblemSolver {
 					if (!originalVar.equals(newVar))
 						lines.add(originalVar + " = null;");
 				}
-				lines.add(LineCoder.EXIT_STRING + "0");
+				lines.add(EXIT_STRING + "0");
 				lines.add(">if " + (quantifier.subject.vars.contains(arg0) ? arg1 : arg0) + " == null");
 				for (String newVar : bindingArgs.keySet()) {
 					String originalVar = bindingArgs.get(newVar);
 					if (!originalVar.equals(newVar))
 						lines.add(">>" + originalVar + " = " + newVar);
 				}
-				lines.add(">" + LineCoder.EXIT_STRING + "1");
+				lines.add(">" + EXIT_STRING + "1");
 				for (String newVar : bindingArgs.keySet()) {
 					String originalVar = bindingArgs.get(newVar);
 					if (!originalVar.equals(newVar))
 						lines.add(">>" + originalVar + " = " + newVar);
 				}
-				lines.add(LineCoder.EXIT_STRING + "2");
+				lines.add(EXIT_STRING + "2");
 
 				LineCoder coder = new LineCoder(lines.toArray(new String[0]));
 
@@ -320,15 +344,16 @@ public class ProblemSolver {
 				// Next is the 'testing' problem, where we test each element against the best so far.
 				// Finally, in the 'new' problem, we proceed with the reduced problem.
 
-				KInput newProblem = problemState.problem.withGiven(problemState.problem.given
-						.withProperty(and(quantifier, revar(constraint, binding.getArguments()))));
-				newProblem = TransformUtil.removeGivenFromGoal(newProblem, new Chainer(theorems));
-
 				KProperty transitivityGiven = and(problemState.problem.given.property, constraint,
 						revar(constraint, binding.getArguments()));
-				KInput testProblem = KernelUtil.cleanDeclarations(
-						input(problem(KernelUtil.getUndeclaredVars(transitivityGiven), transitivityGiven),
-								problem(Collections.emptyList(), transitive)));
+				KInput testProblem = input(problem(KernelUtil.getUndeclaredVars(transitivityGiven), transitivityGiven),
+						problem(Collections.emptyList(), transitive));
+
+				KInput newProblem = problemState.problem
+						.withGiven(problemState.problem.given.withAddedVars(binding.getArguments().keySet())
+								.withProperty(and(quantifier, revar(constraint, binding.getArguments()))))
+						.withGoal(problemState.problem.goal.withoutVars(binding.getArguments().keySet()));
+				newProblem = TransformUtil.removeGivenFromGoal(newProblem, new Chainer(theorems));
 
 				addProblemGroup(
 						new ProblemGroup(problemState,
@@ -363,10 +388,10 @@ public class ProblemSolver {
 		String newVar = getUniqueVarID();
 		ArrayList<String> lines = new ArrayList<String>();
 		lines.add("boolean " + newVar + " = true;");
-		lines.add(LineCoder.EXIT_STRING + "0");
+		lines.add(EXIT_STRING + "0");
 		lines.add(">" + newVar + " = false");
 		lines.add("if " + newVar + " == " + quantifier.isUniversal());
-		lines.add(">" + LineCoder.EXIT_STRING + "1");
+		lines.add(">" + EXIT_STRING + "1");
 		LineCoder coder = new LineCoder(lines.toArray(new String[0]));
 
 		KInput newProblem = TransformUtil.removeGivenFromGoal(
@@ -448,6 +473,15 @@ public class ProblemSolver {
 			}
 
 			cnizedReachedInputs.put(canonicalized, problemState);
+		} else {
+			KInput problem = (KInput) KernelUtil.canonicalizeOrder(/* devar */(problemState.problem));
+			if (reachedInputs.containsKey(problem))
+				if (problemState.getApproachCost() < reachedInputs.get(problem).getApproachCost())
+					problemStates.remove(reachedInputs.get(problem));
+				else
+					return;
+
+			reachedInputs.put(problem, problemState);
 		}
 
 		stateCount++;
@@ -461,7 +495,6 @@ public class ProblemSolver {
 	private void addProblemGroup(ProblemGroup problemGroup) {
 		for (ProblemState childState : problemGroup.childStates)
 			if (problemGroup.parentState != null && childState.problem.equals(problemGroup.parentState.problem)) {
-				// TODO:DN: Do this better...
 				problemGroup.parentState.childGroups.remove(problemGroup);
 				return;
 			}

@@ -37,6 +37,7 @@ public class InputParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
+					put(grammarAccess.getInputAccess().getGivenAlternatives_1_0(), "rule__Input__GivenAlternatives_1_0");
 					put(grammarAccess.getInputAccess().getTaskAlternatives_3_0_0(), "rule__Input__TaskAlternatives_3_0_0");
 					put(grammarAccess.getInputAccess().getGoalAlternatives_3_1_0(), "rule__Input__GoalAlternatives_3_1_0");
 					put(grammarAccess.getImplicationAccess().getImplicationAlternatives_1_1_0(), "rule__Implication__ImplicationAlternatives_1_1_0");

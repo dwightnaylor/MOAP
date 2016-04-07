@@ -2,7 +2,7 @@ package kernelLanguage;
 
 import static kernelLanguage.KernelFactory.TRUE;
 
-import java.util.*;
+import java.util.HashSet;
 
 import algorithmMaker.util.KernelUtil;
 
@@ -55,19 +55,6 @@ public class KInput extends KObject {
 
 	public KInput withGoalProperty(KProperty newProperty) {
 		return withGoal(goal.withProperty(newProperty));
-	}
-
-	public KInput withMinimumVariables() {
-		HashSet<String> newGivenVarsSet = KernelUtil.getUndeclaredVars(given.withVars(Collections.emptyList()));
-		newGivenVarsSet.addAll(KernelUtil.getUndeclaredVars(goal));
-		ArrayList<String> newGivenVars = new ArrayList<String>(newGivenVarsSet);
-		Collections.sort(newGivenVars);
-
-		HashSet<String> newGoalVarsSet = KernelUtil.getUndeclaredVars(goal.withVars(newGivenVars));
-		ArrayList<String> newGoalVars = new ArrayList<String>(newGoalVarsSet);
-		Collections.sort(newGoalVars);
-
-		return KernelFactory.input(given.withVars(newGivenVars), goal.withVars(newGoalVars));
 	}
 
 	@Override

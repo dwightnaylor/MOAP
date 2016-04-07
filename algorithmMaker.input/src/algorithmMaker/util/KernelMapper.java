@@ -223,15 +223,37 @@ public abstract class KernelMapper implements Function<KObject, KObject> {
 
 	final HashMap<KObject, KObject> cache = new HashMap<KObject, KObject>();
 
+	protected boolean useCache() {
+		return true;
+	}
+
+	/**
+	 * By default does nothing. Can be overridden to give a mapper an observation task before an object is used.
+	 */
+	protected void pre(KObject object) {
+		// no-op, can be overwritten.
+	}
+
+	/**
+	 * By default does nothing. Can be overridden to give a mapper an observation task after an object is used. Note
+	 * that the incoming object will be the original object, not the mapped one.
+	 */
+	protected void post(KObject object) {
+		// no-op, can be overwritten.
+	}
+
 	@Override
 	public final KObject apply(KObject object) {
-		if (!cache.containsKey(object)) {
-			// Use this as a placeholder, also prevents recursion.
-			cache.put(object, object);
-			cache.put(object, calculateConversion(object));
-		}
+		if (useCache()) {
+			if (!cache.containsKey(object)) {
+				// Use this as a placeholder, also prevents recursion.
+				cache.put(object, object);
+				cache.put(object, calculateConversion(object));
+			}
 
-		return cache.get(object);
+			return cache.get(object);
+		} else
+			return calculateConversion(object);
 	}
 
 	public abstract KObject calculateConversion(KObject object);

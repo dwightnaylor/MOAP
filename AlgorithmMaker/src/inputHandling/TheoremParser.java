@@ -23,7 +23,6 @@ public class TheoremParser {
 						line = line.substring(0, line.indexOf("//"));
 
 					if (line.trim().length() > 0) {
-						// FIXME: Re-add parsing
 						if (line.contains(EXTENDS)) {
 							ret.add(parseExtension(line));
 						} else {

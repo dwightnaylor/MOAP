@@ -8,6 +8,8 @@ public class LineCoder implements Pseudocoder {
 
 	public static final String EXIT_STRING = "SUBCODER:";
 
+	public static final String RETURN_STRING = "doreturn";
+
 	/**
 	 * The lines to code. There are a few special types of exit strings, including:<br>
 	 * {@value #EXIT_STRING} followed by a number n will yield the pseudocode for the nth subproblem of the problemGroup
@@ -40,9 +42,9 @@ public class LineCoder implements Pseudocoder {
 			String line = lines[i];
 			int numTabChars = getNumberOfTabCharacters(line);
 			line = line.substring(numTabChars);
-			while (numTabChars < subProblemTabs.size()) {
+			while (numTabChars < subProblemTabs.size())
 				numTabs -= subProblemTabs.pop();
-			}
+
 			while (numTabChars > subProblemTabs.size()) {
 				subProblemTabs.add(1);
 				numTabs++;
@@ -65,6 +67,8 @@ public class LineCoder implements Pseudocoder {
 				} else if (returnCoder != null) {
 					returnCoder.appendPseudocode(builder, numTabs, problemGroup, null);
 				}
+			} else if (line.contains(RETURN_STRING)) {
+				returnCoder.appendPseudocode(builder, numTabs, problemGroup, null);
 			} else {
 				// Otherwise just print the line
 				Pseudocoder.appendTabs(builder, numTabs);

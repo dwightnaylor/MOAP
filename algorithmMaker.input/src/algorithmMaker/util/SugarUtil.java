@@ -44,8 +44,9 @@ public class SugarUtil {
 				break;
 			case Input:
 				Problem goal = ((Input) object).getGoal();
-				kernelObjects.put(object, input((KProblem) convertToKernel(((Input) object).getGiven()),
-						goal == null ? NULL_PROBLEM : (KProblem) convertToKernel(goal)));
+				kernelObjects.put(object,
+						KernelUtil.withMinimumVariables(input((KProblem) convertToKernel(((Input) object).getGiven()),
+								goal == null ? NULL_PROBLEM : (KProblem) convertToKernel(goal))));
 				break;
 			case Negation:
 				kernelObjects.put(object, negate((KProperty) convertToKernel(((Negation) object).getNegated())));
@@ -305,10 +306,55 @@ public class SugarUtil {
 			@Override
 			public EObject apply(EObject cur) {
 				if (cur instanceof Problem) {
-					ArrayList<Property> topLevelAtomics = getTopLevelElements(((Problem) cur).getProperty());
-					for (int i = 0; i < topLevelAtomics.size(); i++) {
-						if (topLevelAtomics.get(i) instanceof Atomic) {
-							Atomic atomic = (Atomic) topLevelAtomics.get(i);
+					ArrayList<Property> topLevelProperties = getTopLevelElements(((Problem) cur).getProperty());
+					for (int i = 0; i < topLevelProperties.size(); i++) {
+						if (topLevelProperties.get(i) instanceof Quantifier) {
+							Quantifier quantifier = (Quantifier) topLevelProperties.get(i);
+							if (quantifier.getSubject().getVars().size() > 1)
+								continue;
+
+							Property property = quantifier.getSubject().getProperty();
+							if (!(property instanceof ORing))
+								continue;
+							
+							ArrayList<Property> ored = InputUtil.getORed((ORing) property);
+							if (ored.size() != 2)
+								continue;
+
+							Negation negatedChildMarker = ored.get(0) instanceof Negation ? (Negation) ored.get(0)
+									: (ored.get(1) instanceof Negation ? (Negation) ored.get(1) : null);
+
+							Atomic typeMarker = ored.get(0) instanceof Atomic
+									&& isTypeAtomic(((Atomic) ored.get(0)).getFunction())
+											? (Atomic) ored.get(0)
+											: ored.get(1) instanceof Atomic
+													&& isTypeAtomic(((Atomic) ored.get(1)).getFunction())
+															? (Atomic) ored.get(1) : null;
+
+							if (negatedChildMarker == null || typeMarker == null
+									|| !(negatedChildMarker.getNegated() instanceof Atomic
+											&& ((Atomic) negatedChildMarker.getNegated()).getFunction()
+													.equals("child")))
+								continue;
+
+							Atomic childMarker = (Atomic) negatedChildMarker.getNegated();
+
+							if (!((Variable) childMarker.getArgs().get(1)).getArg()
+									.equals(((Variable) typeMarker.getArgs().get(0)).getArg()))
+								continue;
+
+							Declaration declaration = getDeclaration(quantifier,
+									((Variable) childMarker.getArgs().get(0)).getArg());
+							if (declaration.getType() == null)
+								declaration.setType(InputFactoryImpl.eINSTANCE.createType());
+
+							if (declaration.getType().getTemplateType() == null)
+								declaration.getType().setTemplateType(InputFactoryImpl.eINSTANCE.createType());
+
+							declaration.getType().getTemplateType().setName(getDeclaredType(typeMarker.getFunction()));
+							topLevelProperties.remove(i--);
+						} else if (topLevelProperties.get(i) instanceof Atomic) {
+							Atomic atomic = (Atomic) topLevelProperties.get(i);
 							String function = atomic.getFunction();
 							if (isTypeAtomic(function)) {
 								Declaration declaration = getDeclaration(atomic,
@@ -317,19 +363,9 @@ public class SugarUtil {
 									declaration.setType(InputFactoryImpl.eINSTANCE.createType());
 
 								declaration.getType().setName(getDeclaredType(function));
-								topLevelAtomics.remove(i--);
-							} else if (isChildTypeAtomic(function)) {
-								Declaration declaration = getDeclaration(atomic,
-										((Variable) atomic.getArgs().get(0)).getArg());
-								if (declaration.getType() == null)
-									declaration.setType(InputFactoryImpl.eINSTANCE.createType());
-
-								Type childType = InputFactoryImpl.eINSTANCE.createType();
-								childType.setName(getDeclaredChildType(function));
-								declaration.getType().setTemplateType(childType);
-								topLevelAtomics.remove(i--);
+								topLevelProperties.remove(i--);
 							} else if (isArithmetic(function)) {
-								topLevelAtomics.remove(i--);
+								topLevelProperties.remove(i--);
 							} else {
 								boolean useAtomic = false;
 								for (String arg : convertToStrings(atomic.getArgs()))
@@ -344,18 +380,22 @@ public class SugarUtil {
 												.add(QuickParser.parseNumericalProperty(breakDown(arg, replacements)));
 									}
 									newAtomic.setFunction(function);
-									topLevelAtomics.add(i, newAtomic);
+									topLevelProperties.add(i, newAtomic);
 								} else {
-									topLevelAtomics.add(i, stupidCopy(atomic));
+									topLevelProperties.add(i, stupidCopy(atomic));
 								}
-								topLevelAtomics.remove(i + 1);
+								topLevelProperties.remove(i + 1);
 							}
 						}
 					}
-					((Problem) cur).setProperty(andTogether(topLevelAtomics));
+					((Problem) cur).setProperty(andTogether(topLevelProperties));
 				}
 				return cur;
 			}
 		});
+	}
+
+	public static Input resugar(KInput input) {
+		return resugar(convertToInput(input));
 	}
 }

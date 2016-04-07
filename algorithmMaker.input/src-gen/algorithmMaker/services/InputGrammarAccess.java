@@ -23,7 +23,9 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cGivenKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cGivenAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cGivenProblemPropertyOptionalParserRuleCall_1_0 = (RuleCall)cGivenAssignment_1.eContents().get(0);
+		private final Alternatives cGivenAlternatives_1_0 = (Alternatives)cGivenAssignment_1.eContents().get(0);
+		private final RuleCall cGivenProblemPropertyOptionalParserRuleCall_1_0_0 = (RuleCall)cGivenAlternatives_1_0.eContents().get(0);
+		private final RuleCall cGivenProblemNoVarsParserRuleCall_1_0_1 = (RuleCall)cGivenAlternatives_1_0.eContents().get(1);
 		private final Keyword cSemicolonKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Assignment cTaskAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
@@ -47,22 +49,28 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 		
 		////NOTE: Any changes to the formatting should be reflected with changes here.
 		//Input:
-		//	"Given" given=ProblemPropertyOptional ";" (task=("Find" | "Count") goal=(Problem | ProblemNoVars))? (";" "Theorems:"
-		//	theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
+		//	"Given" given=(ProblemPropertyOptional | ProblemNoVars) ";" (task=("Find" | "Count") goal=(Problem | ProblemNoVars))?
+		//	(";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"Given" given=ProblemPropertyOptional ";" (task=("Find" | "Count") goal=(Problem | ProblemNoVars))? (";" "Theorems:"
-		//theorems+=Theorem (";" theorems+=Theorem)* ";"?)?
+		//"Given" given=(ProblemPropertyOptional | ProblemNoVars) ";" (task=("Find" | "Count") goal=(Problem | ProblemNoVars))?
+		//(";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?
 		public Group getGroup() { return cGroup; }
 
 		//"Given"
 		public Keyword getGivenKeyword_0() { return cGivenKeyword_0; }
 
-		//given=ProblemPropertyOptional
+		//given=(ProblemPropertyOptional | ProblemNoVars)
 		public Assignment getGivenAssignment_1() { return cGivenAssignment_1; }
 
+		//ProblemPropertyOptional | ProblemNoVars
+		public Alternatives getGivenAlternatives_1_0() { return cGivenAlternatives_1_0; }
+
 		//ProblemPropertyOptional
-		public RuleCall getGivenProblemPropertyOptionalParserRuleCall_1_0() { return cGivenProblemPropertyOptionalParserRuleCall_1_0; }
+		public RuleCall getGivenProblemPropertyOptionalParserRuleCall_1_0_0() { return cGivenProblemPropertyOptionalParserRuleCall_1_0_0; }
+
+		//ProblemNoVars
+		public RuleCall getGivenProblemNoVarsParserRuleCall_1_0_1() { return cGivenProblemNoVarsParserRuleCall_1_0_1; }
 
 		//";"
 		public Keyword getSemicolonKeyword_2() { return cSemicolonKeyword_2; }
@@ -1006,8 +1014,8 @@ public class InputGrammarAccess extends AbstractGrammarElementFinder {
 	
 	////NOTE: Any changes to the formatting should be reflected with changes here.
 	//Input:
-	//	"Given" given=ProblemPropertyOptional ";" (task=("Find" | "Count") goal=(Problem | ProblemNoVars))? (";" "Theorems:"
-	//	theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
+	//	"Given" given=(ProblemPropertyOptional | ProblemNoVars) ";" (task=("Find" | "Count") goal=(Problem | ProblemNoVars))?
+	//	(";" "Theorems:" theorems+=Theorem (";" theorems+=Theorem)* ";"?)?;
 	public InputElements getInputAccess() {
 		return pInput;
 	}

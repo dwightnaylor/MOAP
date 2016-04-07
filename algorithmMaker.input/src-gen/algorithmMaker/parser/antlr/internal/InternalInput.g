@@ -83,20 +83,38 @@ ruleInput returns [EObject current=null]
     }
 (
 (
+(
 		{ 
-	        newCompositeNode(grammarAccess.getInputAccess().getGivenProblemPropertyOptionalParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getInputAccess().getGivenProblemPropertyOptionalParserRuleCall_1_0_0()); 
 	    }
-		lv_given_1_0=ruleProblemPropertyOptional		{
+		lv_given_1_1=ruleProblemPropertyOptional		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getInputRule());
 	        }
        		set(
        			$current, 
        			"given",
-        		lv_given_1_0, 
+        		lv_given_1_1, 
         		"ProblemPropertyOptional");
 	        afterParserOrEnumRuleCall();
 	    }
+
+    |		{ 
+	        newCompositeNode(grammarAccess.getInputAccess().getGivenProblemNoVarsParserRuleCall_1_0_1()); 
+	    }
+		lv_given_1_2=ruleProblemNoVars		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getInputRule());
+	        }
+       		set(
+       			$current, 
+       			"given",
+        		lv_given_1_2, 
+        		"ProblemNoVars");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
 
 )
 )	otherlv_2=';' 

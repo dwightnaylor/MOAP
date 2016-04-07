@@ -495,7 +495,6 @@ public class InputUtil {
 		}
 		case Quantifier: {
 			Quantifier quantifier = (Quantifier) cur;
-			// We have to do the predicate first TODO: Why?
 			EObject newRequirement = reduce(quantifier.getSubject(), reducer);
 			if (newRequirement == null)
 				return null;
@@ -512,7 +511,6 @@ public class InputUtil {
 		}
 		case Input: {
 			Input input = (Input) cur;
-			// We have to do the goal first //TODO: Why?
 			EObject newGoal = reduce(input.getGoal(), reducer);
 			EObject newGiven = reduce(input.getGiven(), reducer);
 
@@ -576,10 +574,15 @@ public class InputUtil {
 		return ret;
 	}
 
-	public static String getUnusedVar(Set<String> usedVars) {
+	@SafeVarargs
+	public static String getUnusedVar(Set<String>... usedVars) {
 		for (char ret = 'a'; ret <= 'z'; ret++) {
 			String retString = "n" + ret;
-			if (!usedVars.contains(retString))
+			boolean used = false;
+			for (Set<String> setOfVars : usedVars)
+				if (setOfVars.contains(retString))
+					used = true;
+			if (!used)
 				return retString;
 		}
 		throw new RuntimeException("Ran out of new variable names.");

@@ -11,9 +11,29 @@ import org.junit.Test;
 import algorithmMaker.util.KernelUtil;
 import bindings.Binding;
 import kernelLanguage.*;
-import kernelLanguage.KQuantifier.Quantifier;
 
 public class KernelUtilTests {
+	@Test
+	public void testWithMinimumVariables() {
+		assertEquals(parseInput("Given x st a(x); Find y st b(x,y)"),
+				withMinimumVariables(parseInput("Given x st a(x); Find y st b(x,y)")));
+		assertEquals(parseInput("Given x st a(x); Find y st b(x,y)"),
+				withMinimumVariables(parseInput("Given x,z st a(x); Find y st b(x,y)")));
+		assertEquals(parseInput("Given x st a(x); Find y st b(x,y)"),
+				withMinimumVariables(parseInput("Given x st a(x); Find y,z st b(x,y)")));
+		assertEquals(parseInput("Given a st forall(na : a(a,na) -> b(na)); Find b st c(b)"),
+				withMinimumVariables(parseInput("Given a st forall(na : a(a,na) -> b(na)); Find b st c(b)")));
+		assertEquals(
+				input(problem(and(universalQuantifier(problem(atomic("a", "x"), "x")), atomic("a", "na")), "na"),
+						problem(TRUE)),
+				withMinimumVariables(
+						input(problem(and(universalQuantifier(problem(atomic("a", "x"), "x")), atomic("a", "x"))),
+								problem(TRUE))));
+		assertEquals(parseInput("Given x st a(x) & forall(na : a(na));"),
+				withMinimumVariables(
+						input(problem(and(atomic("a", "x"), universalQuantifier(problem(atomic("a", "x"), "x")))),
+								problem(TRUE))));
+	}
 
 	@Test
 	public void testCanonicalizeFullyOnProperties() {
@@ -117,6 +137,7 @@ public class KernelUtilTests {
 				KernelUtil.getUndeclaredVars(parseInput("Given x st a(x); Find y st b(y)")));
 		assertEquals(Collections.emptySet(),
 				KernelUtil.getUndeclaredVars(parseInput("Given x st forall(na : a(na) -> b(na,x)); Find y st b(y)")));
+		assertEquals(Collections.emptySet(), KernelUtil.getUndeclaredVars(parseInput("Given x; Find a(x)")));
 	}
 
 	@Test
@@ -156,35 +177,5 @@ public class KernelUtilTests {
 			error = true;
 		}
 		assertTrue(error || !KernelUtil.ERROR_ON_NESTED_VARS);
-	}
-
-	@Test
-	public void testCleanDeclarationsNoChanges() {
-		String[] sames = { "Given x st a(x); Find y st b(x,y)",
-				"Given a st forall(b : x(a,b) -> forall(c : x(a,b,c) -> d(a,b,c))); Find b st forall(c : x(a,b,c) -> d(a,b,c))" };
-		for (String string : sames) {
-			KInput object = parseInput(string);
-			assertEquals(object, cleanDeclarations(object));
-		}
-	}
-
-	@Test
-	public void testCleanDeclarations() {
-		ArrayList<KObject[]> tasks = new ArrayList<KObject[]>();
-		tasks.add(new KObject[] {
-				input(problem(quantifier(Quantifier.forall, problem(atomic("a", "x"), "x")), "x"), problem(TRUE)),
-				input(problem(quantifier(Quantifier.forall, problem(atomic("a", "na"), "na")), "x"), problem(TRUE)) });
-		for (KObject[] task : tasks) {
-			KObject originalProperty = task[0];
-			// The simplified version goes here
-			KObject simplifiedProperty = cleanDeclarations(originalProperty);
-
-			if (!task[1].equals(simplifiedProperty))
-				System.err.println("\"" + originalProperty + "\" Should be cleaned to \"" + task[1]
-						+ "\" but it instead cleaned  to \"" + simplifiedProperty + '"');
-
-			assertEquals(simplifiedProperty, task[1]);
-		}
-
 	}
 }

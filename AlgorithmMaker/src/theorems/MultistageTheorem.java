@@ -56,13 +56,17 @@ public class MultistageTheorem {
 	public Fact<KQuantifier> getGivenTheorem() {
 		return new Fact<KQuantifier>(
 				universalQuantifier(problem(implication(givenRequirement, getTransferAtomic()), getCreatedVariables())),
-				false, description);
+				false, getDescription());
 	}
 
 	public Fact<KQuantifier> getGoalTheorem() {
 		return new Fact<KQuantifier>(universalQuantifier(problem(
 				implication(and(goalRequirement, getTransferAtomic()), getCompletionAtomic()), getCreatedVariables())),
-				false, description);
+				false, getDescription());
+	}
+
+	public static boolean isMSTStructural(String function) {
+		return function.startsWith(TRANSFER) || function.startsWith(COMPLETION);
 	}
 
 	public KAtomic getTransferAtomic() {
@@ -95,5 +99,9 @@ public class MultistageTheorem {
 
 	public Pseudocoder getPseudocoder() {
 		return pseudocoder;
+	}
+
+	public String getDescription() {
+		return description;
 	}
 }

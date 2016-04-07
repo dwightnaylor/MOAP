@@ -15,7 +15,7 @@ public class SugarUtilTests {
 	public void testResugarForProblems() {
 		assertEquals(parseProblem("int a st blah(a)"), SugarUtil.resugar(parseProblem("a st type_int(a) & blah(a)")));
 		assertEquals(parseProblem("list<int> a st blah(a)"),
-				SugarUtil.resugar(parseProblem("a st type_list(a) & child_type_int(a) & blah(a)")));
+				SugarUtil.resugar(parseProblem("a st type_list(a) & forall(z : !child(a,z) | type_int(z)) & blah(a)")));
 
 		String[] sames = { "y st forall(x : blah(x): something(x))", "x st a(x,x)" };
 		for (String same : sames)
@@ -37,20 +37,20 @@ public class SugarUtilTests {
 		ArrayList<String[]> tasks = new ArrayList<String[]>();
 		tasks.add(new String[] { "Given a,b; Find equal(plus(a,b),times(a,b))",
 				"Given a,b; Find na,nb st equal(na,nb) & plus(a,b,na) & times(a,b,nb)" });
-		tasks.add(new String[] { "Given x; Find y st test(y)", "Given x; Find y st test(y)" });
+		tasks.add(new String[] { "Given x; Find y st test(y)", "Given ; Find y st test(y)" });
 		tasks.add(new String[] { "Given list<int> x; Find y st test(y)",
 				"Given x st forall(na : !child(x,na) | type_int(na)) & type_list(x); Find y st test(y)" });
-		tasks.add(new String[] { "Given x; Find y st test(test1(y))", "Given x; Find y,na st test(na) & test1(y,na)" });
+		tasks.add(new String[] { "Given x; Find y st test(test1(y))", "Given ; Find na,y st test(na) & test1(y,na)" });
 		tasks.add(new String[] { "Given x; Find y st equal(x+y,x-y)",
-				"Given x; Find y,na,nb st equal(na,nb) & minus(x,y,nb) & plus(x,y,na)" });
+				"Given x; Find na,nb,y st equal(na,nb) & minus(x,y,nb) & plus(x,y,na)" });
 		tasks.add(new String[] { "Given x; Find na st test(other(na))",
-				"Given x; Find na,nb st other(na,nb) & test(nb)" });
+				"Given ; Find na,nb st other(na,nb) & test(nb)" });
 		tasks.add(new String[] { "Given x; Find list<point> y st foo(bar(y))",
-				"Given x; Find y,na st bar(y,na) & foo(na) & forall(nb : !child(y,nb) | type_point(nb)) & type_list(y)" });
+				"Given ; Find na,y st bar(y,na) & foo(na) & forall(nb : !child(y,nb) | type_point(nb)) & type_list(y)" });
 		tasks.add(new String[] { "Given list<point> x st foo(bar(x)); Find y st blah(y)",
-				"Given x,na st bar(x,na) & foo(na) & forall(nb : !child(x,nb) | type_point(nb)) & type_list(x); Find y st blah(y)" });
+				"Given na,x st bar(x,na) & foo(na) & forall(nb : !child(x,nb) | type_point(nb)) & type_list(x); Find y st blah(y)" });
 		tasks.add(new String[] { "Given x st forall(na : foo(na) -> bar(na)) ; Find y st first(second(x))",
-				"Given x st forall(na : !foo(na) | bar(na)); Find y,nb st first(nb) & second(x,nb)" });
+				"Given x st forall(na : !foo(na) | bar(na)); Find nb st first(nb) & second(x,nb)" });
 		tasks.add(new String[] {
 				"Given list<point> x; Find a,b st child(x,a) & child(x,b) & forall(c,d : child(x,c) & child(x,d) -> lessThanEqual(distance(a,b),distance(c,d)))",
 				"Given x st forall(na : !child(x,na) | type_point(na)) & type_list(x); Find a,b,na st child(x,a) & child(x,b) & distance(a,b,na) & forall(c,d,nb : (!child(x,c) | !child(x,d) | lessThanEqual(na,nb)) & distance(c,d,nb))" });
@@ -59,7 +59,7 @@ public class SugarUtilTests {
 				"Given a st type_array(a); Find i,na st forall(j,nb : (!index(a,j) | lessThanEqual(na,nb)) & get(a,j,nb)) & get(a,i,na) & index(a,i)" });
 		tasks.add(new String[] {
 				"Given list<int> x,int s; Find i,j st index(x,i) & index(x,j) & equal(plus(get(x,i),get(x,j)),s)",
-				"Given x,s st forall(na : !child(x,na) | type_int(na)) & type_int(s) & type_list(x); Find i,j,nb,nc,na st equal(na,s) & get(x,i,nb) & get(x,j,nc) & index(x,i) & index(x,j) & plus(nb,nc,na)" });
+				"Given s,x st forall(na : !child(x,na) | type_int(na)) & type_int(s) & type_list(x); Find i,j,na,nb,nc st equal(na,s) & get(x,i,nb) & get(x,j,nc) & index(x,i) & index(x,j) & plus(nb,nc,na)" });
 
 		// Tests for no change...
 		tasks.add(new String[] { "Given x,y st a(x,y) & equal(x,y);", "Given x,y st a(x,y) & equal(x,y);" });

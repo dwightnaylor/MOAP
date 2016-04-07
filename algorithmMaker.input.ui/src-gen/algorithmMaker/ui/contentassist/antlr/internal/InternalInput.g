@@ -701,6 +701,28 @@ finally {
 
 
 
+rule__Input__GivenAlternatives_1_0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getInputAccess().getGivenProblemPropertyOptionalParserRuleCall_1_0_0()); }
+	ruleProblemPropertyOptional
+{ after(grammarAccess.getInputAccess().getGivenProblemPropertyOptionalParserRuleCall_1_0_0()); }
+)
+
+    |(
+{ before(grammarAccess.getInputAccess().getGivenProblemNoVarsParserRuleCall_1_0_1()); }
+	ruleProblemNoVars
+{ after(grammarAccess.getInputAccess().getGivenProblemNoVarsParserRuleCall_1_0_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
 rule__Input__TaskAlternatives_3_0_0
     @init {
 		int stackSize = keepStackSize();
@@ -3887,8 +3909,9 @@ rule__Input__GivenAssignment_1
     }
 :
 (
-{ before(grammarAccess.getInputAccess().getGivenProblemPropertyOptionalParserRuleCall_1_0()); }
-	ruleProblemPropertyOptional{ after(grammarAccess.getInputAccess().getGivenProblemPropertyOptionalParserRuleCall_1_0()); }
+{ before(grammarAccess.getInputAccess().getGivenAlternatives_1_0()); }
+(rule__Input__GivenAlternatives_1_0)
+{ after(grammarAccess.getInputAccess().getGivenAlternatives_1_0()); }
 )
 
 ;

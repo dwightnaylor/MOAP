@@ -9,9 +9,4 @@ public class ProblemEdge {
 	public ProblemEdge(MultistageTheorem rootTheorem) {
 		this.rootTheorem = rootTheorem;
 	}
-
-	public ProblemEdge() {
-		// TODO Auto-generated constructor stub
-	}
-
 }

@@ -2,7 +2,7 @@ package kernelLanguage;
 
 import java.util.*;
 
-import algorithmMaker.util.KernelUtil;
+import algorithmMaker.util.*;
 import kernelLanguage.KQuantifier.Quantifier;
 
 //TODO: Comment this and explain (repeat) everything in README file
@@ -18,7 +18,6 @@ public class KernelFactory {
 	private static Hashtable<List<String>, Hashtable<KProperty, KProblem>> problems = new Hashtable<List<String>, Hashtable<KProperty, KProblem>>();
 	private static Hashtable<Quantifier, Hashtable<KProblem, KQuantifier>> quantifiers = new Hashtable<Quantifier, Hashtable<KProblem, KQuantifier>>();
 
-	public static final String CHILD_TYPE_MARKER = "child_type_";
 	public static final String TYPE_MARKER = "type_";
 	public static final String BOUND = "BOUND";
 	public static final String UNBOUND = "UNBOUND";
@@ -45,6 +44,18 @@ public class KernelFactory {
 		return quantifiers.get(quantifier).get(subject);
 	}
 
+	@SafeVarargs
+	public static KProblem problemMinVars(KProperty property, Collection<String>... declaredVars) {
+		if (declaredVars.length > 1)
+			throw new UnsupportedOperationException("Optional argument. Must be of size zero or one.");
+
+		HashSet<String> vars = KernelUtil.getUndeclaredVars(property);
+		if (declaredVars.length > 0)
+			vars.removeAll(declaredVars[0]);
+
+		return problem(vars, property);
+	}
+
 	public static KProblem problem(KProperty property, String... varsTemp) {
 		return problem(Arrays.asList(varsTemp), property);
 	}
@@ -55,9 +66,7 @@ public class KernelFactory {
 			problems.put(vars, new Hashtable<KProperty, KProblem>());
 
 		if (!problems.get(vars).containsKey(property)) {
-			KProblem initial = new KProblem(vars, property);
-			problems.get(vars).put(property, initial);
-			problems.get(vars).put(property, KernelUtil.cleanDeclarations(initial));
+			problems.get(vars).put(property, new KProblem(vars, property));
 		}
 
 		return problems.get(vars).get(property);
@@ -80,7 +89,7 @@ public class KernelFactory {
 		if (!inputs.get(given).containsKey(goal)) {
 			KInput initial = new KInput(given, goal);
 			inputs.get(given).put(goal, initial);
-			inputs.get(given).put(goal, KernelUtil.cleanDeclarations(initial));
+			// inputs.get(given).put(goal, withMinimumVariables(initial));
 		}
 
 		return inputs.get(given).get(goal);
@@ -189,15 +198,7 @@ public class KernelFactory {
 		return function != null && function.startsWith(TYPE_MARKER);
 	}
 
-	public static boolean isChildTypeAtomic(String function) {
-		return function != null && function.startsWith(CHILD_TYPE_MARKER);
-	}
-
 	public static String getDeclaredType(String function) {
 		return function.substring(TYPE_MARKER.length());
-	}
-
-	public static String getDeclaredChildType(String function) {
-		return function.substring(CHILD_TYPE_MARKER.length());
 	}
 }

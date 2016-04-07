@@ -94,7 +94,7 @@ public class SolverTests {
 	public void testAgainstRegressionForPreviousSolves() {
 		ArrayList<String[]> probsAndSols = getProblemsAndSolutions();
 		for (String[] ps : probsAndSols) {
-			// System.out.println(ps[0]);
+			System.out.println("ATTEMPTING:" + ps[0]);
 			KInput input = (KInput) SugarUtil.convertToKernel(QuickParser.parseInput(ps[0]));
 			ProblemState actualSolution = ProblemSolver.standardSolver(input).getSolution();
 			if (actualSolution == null) {
@@ -158,6 +158,8 @@ public class SolverTests {
 				curProb[1] = curProb[1] + "\n" + line;
 			}
 			br.close();
+			curProb[1] = curProb[1].substring(1) + "\n";
+			probsAndSols.add(curProb);
 		} catch (IOException e) {
 		}
 		return probsAndSols;

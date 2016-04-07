@@ -79,8 +79,8 @@ public class KProblem extends KObject {
 		return KernelFactory.problem(newVars, property);
 	}
 
-	public KProblem withoutVars(String... varsToRemove) {
-		HashSet<String> varsToRemoveSet = new HashSet<String>(Arrays.asList(varsToRemove));
+	public KProblem withoutVars(Collection<String> varsToRemove) {
+		HashSet<String> varsToRemoveSet = new HashSet<String>(varsToRemove);
 		return KernelFactory.problem(
 				vars.stream().filter(x -> !varsToRemoveSet.contains(x)).collect(Collectors.toList()), property);
 	}

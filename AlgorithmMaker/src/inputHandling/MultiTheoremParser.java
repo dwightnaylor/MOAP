@@ -18,7 +18,6 @@ public class MultiTheoremParser {
 		addSimpleTestingTheorems(ret);
 		addDeclarationTheorems(ret);
 		addHardcodedAlgorithms(ret);
-		// addComplexDeclarationTheorems(ret);
 		return ret;
 	}
 

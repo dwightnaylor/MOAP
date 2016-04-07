@@ -177,7 +177,11 @@ public class InputSemanticSequencer extends AbstractDelegatingSemanticSequencer 
 	
 	/**
 	 * Constraint:
-	 *     (given=ProblemPropertyOptional ((task='Find' | task='Count') (goal=Problem | goal=ProblemNoVars))? (theorems+=Theorem theorems+=Theorem*)?)
+	 *     (
+	 *         (given=ProblemPropertyOptional | given=ProblemNoVars) 
+	 *         ((task='Find' | task='Count') (goal=Problem | goal=ProblemNoVars))? 
+	 *         (theorems+=Theorem theorems+=Theorem*)?
+	 *     )
 	 */
 	protected void sequence_Input(EObject context, Input semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

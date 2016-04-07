@@ -323,7 +323,8 @@ public class Chainer {
 			if (propertiesByVariable.containsKey(atomic.args.get(0))) {
 				for (Fact<? extends KProperty> oldFact : CollectionUtil
 						.deepClone(propertiesByVariable.get(atomic.args.get(1)))) {
-					if (oldFact.property instanceof KAtomic && isStructural(((KAtomic) oldFact.property).function))
+					if (oldFact.property instanceof KAtomic && (isStructural(((KAtomic) oldFact.property).function)
+							|| MultistageTheorem.isMSTStructural(((KAtomic) oldFact.property).function)))
 						continue;
 
 					Hashtable<String, String> revars = new Hashtable<String, String>();
@@ -341,7 +342,8 @@ public class Chainer {
 		}
 
 		// For all vars that have other vars equal to them, apply the new rule to them
-		if (fact.property instanceof KAtomic && !isStructural(((KAtomic) fact.property).function))
+		if (fact.property instanceof KAtomic && !isStructural(((KAtomic) fact.property).function)
+				&& !MultistageTheorem.isMSTStructural(((KAtomic) fact.property).function))
 			for (String arg : atomic.args) {
 				if (equalities.containsKey(arg))
 					for (Fact<KAtomic> equalVar : equalities.get(arg)) {
@@ -386,7 +388,6 @@ public class Chainer {
 		binding.addPrerequisite(theorem);
 
 		KProperty requirement = (KProperty) canonicalizeOrder(theorem.property);
-		// FIXME: DN: Add necessary prerequisites to the fact
 		if (requirement instanceof KQuantifier) {
 			// In the rare case we actually have to bind a quantifier, just use the quantifier
 			if (binding.canBind(requirement, fact.property)) {

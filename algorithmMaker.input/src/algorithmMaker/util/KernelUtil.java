@@ -327,7 +327,8 @@ public class KernelUtil {
 		if (object == null)
 			return null;
 
-		if (!mapper.cache.containsKey(object))
+		if (!mapper.cache.containsKey(object) || !mapper.useCache()) {
+			mapper.pre(object);
 			switch (KType(object)) {
 			case KANDing:
 				KANDing anding = ((KANDing) object);
@@ -337,7 +338,6 @@ public class KernelUtil {
 					mapper.cache.put(object, mapper.apply(and((KProperty) andLeft, (KProperty) andRight)));
 					break;
 				}
-
 				if (andLeft != null) {
 					mapper.cache.put(object, andLeft);
 					break;
@@ -406,83 +406,10 @@ public class KernelUtil {
 			case KBooleanLiteral:
 				mapper.cache.put(object, mapper.apply(object));
 			}
+			mapper.post(object);
+		}
 
 		return mapper.cache.get(object);
-	}
-
-	public static <T extends KObject> T cleanDeclarations(T object) {
-		return cleanDeclarations(object, new HashSet<String>(), new Hashtable<String, String>());
-	}
-
-	@SuppressWarnings("unchecked")
-	public static <T extends KObject> T cleanDeclarations(T object, HashSet<String> currentVars,
-			Hashtable<String, String> currentRevars) {
-		switch (KType(object)) {
-		case KANDing:
-			return (T) and(cleanDeclarations(((KANDing) object).lhs, currentVars, currentRevars),
-					cleanDeclarations(((KANDing) object).rhs, currentVars, currentRevars));
-		case KORing:
-			return (T) or(cleanDeclarations(((KORing) object).lhs, currentVars, currentRevars),
-					cleanDeclarations(((KORing) object).rhs, currentVars, currentRevars));
-		case KAtomic:
-			return KernelUtil.revar(object, currentRevars);
-		case KInput:
-			KProblem newGiven = cleanDeclarations(((KInput) object).given, currentVars, currentRevars);
-			currentVars.addAll(((KInput) object).given.vars);
-			KProblem newGoal = cleanDeclarations(((KInput) object).goal, currentVars, currentRevars);
-			currentVars.removeAll(((KInput) object).given.vars);
-			return (T) input(newGiven, newGoal);
-		case KNegation:
-			return (T) negate(cleanDeclarations(((KNegation) object).negated, currentVars, currentRevars));
-		case KProblem: {
-			Hashtable<String, String> oldRevars = addDeclaredVarsToStorage(((KProblem) object).vars, currentVars,
-					currentRevars);
-			// Newvars just replaces the variable declarations. The storage methods will take care of all internal
-			// replacing.
-			List<String> newVars = new ArrayList<String>(((KProblem) object).vars);
-			newVars.replaceAll(x -> currentRevars.containsKey(x) ? currentRevars.get(x) : x);
-
-			KProblem ret = problem(newVars,
-					cleanDeclarations(((KProblem) object).property, currentVars, currentRevars));
-			removeDeclaredVars(currentVars, currentRevars, ((KProblem) object).vars, oldRevars);
-			return (T) ret;
-		}
-		case KQuantifier:
-			KProblem newSubject = cleanDeclarations(((KQuantifier) object).subject, currentVars, currentRevars);
-
-			Hashtable<String, String> oldRevars = addDeclaredVarsToStorage(((KQuantifier) object).subject.vars,
-					currentVars, currentRevars);
-			removeDeclaredVars(currentVars, currentRevars, ((KQuantifier) object).subject.vars, oldRevars);
-
-			return (T) quantifier(((KQuantifier) object).quantifier, newSubject);
-		case KBooleanLiteral:
-		}
-		return object;
-	}
-
-	private static void removeDeclaredVars(HashSet<String> currentVars, Hashtable<String, String> currentRevars,
-			List<String> originalVars, Hashtable<String, String> oldRevars) {
-		for (String var : originalVars) {
-			if (oldRevars.containsKey(var))
-				currentRevars.put(var, oldRevars.get(var));
-			else
-				currentVars.remove(var);
-		}
-	}
-
-	private static Hashtable<String, String> addDeclaredVarsToStorage(Collection<String> vars,
-			HashSet<String> currentVars, Hashtable<String, String> currentRevars) {
-		Hashtable<String, String> oldRevars = new Hashtable<String, String>();
-		for (String var : vars) {
-			if (currentVars.contains(var)) {
-				if (currentRevars.containsKey(var))
-					oldRevars.put(var, currentRevars.get(var));
-
-				currentRevars.put(var, InputUtil.getUnusedVar(currentVars));
-			} else
-				currentVars.add(var);
-		}
-		return oldRevars;
 	}
 
 	public static boolean isLiteralAtomic(KProperty property) {
@@ -543,4 +470,140 @@ public class KernelUtil {
 		return canonicalizations.get(kObject);
 	}
 
+	public static KInput withMinimumVariables(KInput input) {
+		input = input.withGoal(input.goal.withoutVars(input.given.vars));
+		return (KInput) KernelUtil.map(input, new KernelMapper() {
+			Hashtable<String, Integer> currentVars = new Hashtable<String, Integer>();
+			Hashtable<String, String> currentRevars = new Hashtable<String, String>();
+			Hashtable<String, Stack<String>> oldRevars = new Hashtable<String, Stack<String>>();
+			KInput original;
+
+			Stack<HashSet<String>> unusableVars = new Stack<HashSet<String>>();
+
+			@Override
+			protected boolean useCache() {
+				return false;
+			}
+
+			@Override
+			protected void pre(KObject object) {
+				if (object instanceof KInput)
+					original = (KInput) object;
+
+				if (object instanceof KProblem) {
+					HashSet<String> vars = new HashSet<String>();
+					KProblem problem = (KProblem) object;
+					for (String var : problem.vars) {
+						if (currentVars.containsKey(var)) {
+							if (currentRevars.containsKey(var)) {
+								if (!oldRevars.containsKey(var))
+									oldRevars.put(var, new Stack<String>());
+
+								oldRevars.get(var).push(currentRevars.get(var));
+							}
+
+							String newVar = InputUtil.getUnusedVar(currentVars.keySet(),
+									unusableVars.isEmpty() ? Collections.emptySet() : unusableVars.peek());
+							currentRevars.put(var, newVar);
+							currentVars.put(newVar, 0);
+							vars.add(newVar);
+						} else {
+							currentVars.put(var, 0);
+							vars.add(var);
+						}
+					}
+					unusableVars.push(vars);
+				}
+			}
+
+			@Override
+			protected void post(KObject object) {
+				if (object instanceof KProblem) {
+					HashSet<String> lastUnusableSet = unusableVars.pop();
+					if (!unusableVars.isEmpty())
+						unusableVars.peek().addAll(lastUnusableSet);
+
+					KProblem problem = (KProblem) object;
+					for (String var : problem.vars) {
+						if (currentRevars.containsKey(var)) {
+							currentVars.remove(currentRevars.get(var));
+							if (oldRevars.containsKey(var) && !oldRevars.get(var).isEmpty()) {
+								String oldRevar = oldRevars.get(var).pop();
+								currentRevars.put(var, oldRevar);
+							} else {
+								currentRevars.remove(var);
+							}
+						} else {
+							currentVars.remove(var);
+						}
+					}
+				}
+			}
+
+			@Override
+			public KObject calculateConversion(KObject object) {
+				if (object instanceof KAtomic) {
+					KAtomic atomic = (KAtomic) object;
+					for (String arg : atomic.args) {
+						if (currentVars.containsKey(arg))
+							currentVars.put(arg, currentVars.get(arg) + 1);
+
+						if (currentRevars.containsKey(arg)) {
+							String revar = currentRevars.get(arg);
+							currentVars.put(revar, currentVars.get(revar) + 1);
+						}
+
+						if (!currentVars.containsKey(arg))
+							if (!currentRevars.containsKey(arg)) {
+								if (unusableVars.peek().contains(arg)) {
+									if (currentRevars.containsKey(arg)) {
+										if (!oldRevars.containsKey(arg))
+											oldRevars.put(arg, new Stack<String>());
+
+										oldRevars.get(arg).push(currentRevars.get(arg));
+									}
+									String newVar = InputUtil.getUnusedVar(currentVars.keySet(), unusableVars.peek());
+									currentRevars.put(arg, newVar);
+									currentVars.put(newVar, 0);
+								} else {
+									currentVars.put(arg, 1);
+								}
+							}
+					}
+					return KernelUtil.revar(atomic, currentRevars);
+				} else if (object instanceof KProblem) {
+					// Don't use the built-in revar method because we don't want to rewrite all the sub-objects too.
+					HashSet<String> vars = new HashSet<String>();
+					KProblem problem = (KProblem) object;
+					for (String var : problem.vars) {
+						String actualVar = currentRevars.containsKey(var) ? currentRevars.get(var) : var;
+						if (currentVars.get(actualVar) > 0)
+							vars.add(actualVar);
+					}
+					ArrayList<String> varList = new ArrayList<String>(vars);
+					Collections.sort(varList);
+					return problem.withVars(varList);
+				} else if (object instanceof KInput) {
+					KInput input = (KInput) object;
+
+					HashSet<String> undeclaredInGiven = KernelUtil.getUndeclaredVars(input.given.property);
+					HashSet<String> undeclaredInGoal = KernelUtil.getUndeclaredVars(input.goal.property);
+
+					HashSet<String> givenVars = new HashSet<String>(original.given.vars);
+					givenVars.addAll(undeclaredInGiven);
+					givenVars.removeIf(x -> !undeclaredInGiven.contains(x) && !undeclaredInGoal.contains(x));
+
+					HashSet<String> goalVars = new HashSet<String>(undeclaredInGoal);
+					goalVars.removeAll(givenVars);
+
+					ArrayList<String> givenVarsSorted = new ArrayList<String>(givenVars);
+					Collections.sort(givenVarsSorted);
+					ArrayList<String> goalVarsSorted = new ArrayList<String>(goalVars);
+					Collections.sort(goalVarsSorted);
+					return input(input.given.withVars(givenVarsSorted), input.goal.withVars(goalVarsSorted));
+				}
+				return object;
+			}
+		});
+	}
 }
