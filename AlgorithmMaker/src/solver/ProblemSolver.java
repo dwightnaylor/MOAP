@@ -26,7 +26,7 @@ import theorems.*;
  */
 public class ProblemSolver {
 
-	private static final boolean SHOW_GRAPH = true;
+	private static final boolean SHOW_GRAPH = false;
 	private static final boolean USE_CANONICALIZATION_FOR_OPTIMIZATION = false;
 
 	/**
