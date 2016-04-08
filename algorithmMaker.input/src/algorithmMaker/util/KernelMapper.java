@@ -221,6 +221,48 @@ public abstract class KernelMapper implements Function<KObject, KObject> {
 		}
 	};
 
+	public static final KernelMapper FULL_CANONICALIZER_HELPER = new KernelMapper() {
+		@Override
+		public KObject calculateConversion(KObject object) {
+			if (object == null)
+				return null;
+
+			// Rules added according to their listing at
+			// http://integral-table.com/downloads/logic.pdf
+
+			switch (KernelUtil.KType(object)) {
+			case KANDing: {
+				ArrayList<KProperty> anded = new ArrayList<KProperty>(KernelUtil.getANDed((KProperty) object));
+				anded.replaceAll(x -> (KProperty) calculateConversion(x));
+				Collections.sort(anded, KernelUtil.KERNEL_COMPARATOR);
+				return and(anded);
+			}
+			case KORing: {
+				ArrayList<KProperty> ored = new ArrayList<KProperty>(KernelUtil.getORed((KProperty) object));
+				ored.replaceAll(x -> (KProperty) calculateConversion(x));
+				Collections.sort(ored, KernelUtil.KERNEL_COMPARATOR);
+				return or(ored);
+			}
+			case KNegation:
+				return negate((KProperty) calculateConversion(((KNegation) object).negated));
+			case KQuantifier:
+				return quantifier(((KQuantifier) object).quantifier,
+						(KProblem) calculateConversion(((KQuantifier) object).subject));
+			case KInput:
+				KInput input = (KInput) object;
+				return input((KProblem) calculateConversion(input.given), (KProblem) calculateConversion(input.goal));
+			case KProblem:
+				KProblem problem = (KProblem) object;
+				ArrayList<String> newVars = new ArrayList<String>(problem.vars);
+				Collections.sort(newVars);
+				return problem(newVars, (KProperty) calculateConversion(problem.property));
+			case KBooleanLiteral:
+			case KAtomic:
+			}
+			return object;
+		}
+	};
+
 	final HashMap<KObject, KObject> cache = new HashMap<KObject, KObject>();
 
 	protected boolean useCache() {

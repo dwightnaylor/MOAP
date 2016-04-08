@@ -12,6 +12,12 @@ import solver.Chainer;
 import theorems.*;
 
 public class ChainerTests {
+	@Test
+	public void testLessThanEqual() {
+		Chainer chainer = new Chainer(givenTheorem("lessThan(a,b) -> !greaterThanEquals(a,b)"));
+		chainer.chain(parseProperty("lessThan(x,y)"));
+		assertEquals(3, chainer.properties.keySet().size());
+	}
 
 	@Test
 	public void testGetAllFulfillmentsOfLiteral() {

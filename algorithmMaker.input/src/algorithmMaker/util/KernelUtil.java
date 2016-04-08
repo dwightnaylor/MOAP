@@ -419,6 +419,7 @@ public class KernelUtil {
 	public static Hashtable<KObject, KObject> canonicalizations = new Hashtable<KObject, KObject>();
 
 	public static KObject canonicalizeFully(KObject kObject) {
+		kObject = canonicalizeOrder(kObject);
 		if (!canonicalizations.containsKey(kObject)) {
 			KObject canonicalized = null;
 			switch (KType(kObject)) {
@@ -435,39 +436,41 @@ public class KernelUtil {
 				canonicalized = atomic(((KAtomic) kObject).function, newVars);
 				break;
 			}
+			case KNegation:
 			case KProblem:
 			case KInput:
 			case KQuantifier:
+			case KORing:
 			case KANDing: {
-				Hashtable<String, ArrayList<Appearance>> appearances = EqualityTester
-						.getAppearances(canonicalizeOrder(kObject));
-				ArrayList<String> vars = new ArrayList<String>(new HashSet<String>(variables(kObject)));
-				Collections.sort(vars, new Comparator<String>() {
-					@Override
-					public int compare(String v1, String v2) {
-						return APPEARANCE_COMPARATOR.compare(appearances.get(v1), appearances.get(v2));
-					}
-				});
-				Hashtable<String, String> revars = new Hashtable<String, String>();
-				int varCount = 0;
-				for (String var : vars) {
-					revars.put(var, "v" + varCount++);
-				}
-				canonicalized = canonicalizeOrder(revar(kObject, revars));
+				canonicalized = map(canonicalizeVars(kObject), KernelMapper.FULL_CANONICALIZER_HELPER);
 				break;
 			}
-			case KNegation:
-				canonicalized = negate((KProperty) canonicalizeFully(((KNegation) kObject).negated));
-				break;
 			case KBooleanLiteral:
 				canonicalized = kObject;
 				break;
-			case KORing:
-				throw new UnsupportedOperationException();
 			}
 			canonicalizations.put(kObject, canonicalized);
 		}
 		return canonicalizations.get(kObject);
+	}
+
+	private static KObject canonicalizeVars(KObject kObject) {
+		KObject canonicalized;
+		Hashtable<String, ArrayList<Appearance>> appearances = EqualityTester.getAppearances(kObject);
+		ArrayList<String> vars = new ArrayList<String>(new HashSet<String>(variables(kObject)));
+		Collections.sort(vars, new Comparator<String>() {
+			@Override
+			public int compare(String v1, String v2) {
+				return APPEARANCE_COMPARATOR.compare(appearances.get(v1), appearances.get(v2));
+			}
+		});
+		Hashtable<String, String> revars = new Hashtable<String, String>();
+		int varCount = 0;
+		for (String var : vars) {
+			revars.put(var, "v" + varCount++);
+		}
+		canonicalized = revar(kObject, revars);
+		return canonicalized;
 	}
 
 	public static KInput withMinimumVariables(KInput input) {

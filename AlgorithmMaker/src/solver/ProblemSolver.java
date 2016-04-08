@@ -20,14 +20,12 @@ import theorems.*;
 
 /**
  * Translates an input between various states until a solution is reached.<br>
- * <br>
  * 
  * @author Dwight Naylor
  */
 public class ProblemSolver {
 
 	private static final boolean SHOW_GRAPH = false;
-	private static final boolean USE_CANONICALIZATION_FOR_OPTIMIZATION = false;
 
 	/**
 	 * A collection of all of the problems that have been solved. This means that either at least one of the subproblems
@@ -107,7 +105,9 @@ public class ProblemSolver {
 	 * Gets the head of the problem tree that will lead to the solution for this solver's initial problem state.
 	 */
 	public ProblemState getSolution() {
-		while (!problemStates.isEmpty() && !solvedProblems.containsKey(initialProblem.childStates.get(0).problem))
+		while (!problemStates.isEmpty() && (!solvedProblems.containsKey(initialProblem.childStates.get(0).problem)
+				|| problemStates.peek().getApproachCost() < solvedProblems
+						.get(initialProblem.childStates.get(0).problem).getSolvingCost()))
 			branch();
 
 		return solvedProblems.get(initialProblem.childStates.get(0).problem);
@@ -282,7 +282,8 @@ public class ProblemSolver {
 
 		addProblemGroup(new ProblemGroup(problemState,
 				new MultistageTheorem(null, null, null, null, r -> r[0] + r[1], "Solving ORed problems sequentially",
-						new LineCoder(new String[] { EXIT_STRING + "0", ">" + RETURN_STRING, EXIT_STRING + "1" })),
+						new LineCoder(new String[] { EXIT_STRING + "0", ">" + RETURN_STRING, EXIT_STRING + "1",
+								">" + RETURN_STRING })),
 				Binding.EMPTY, new ProblemState(lhsProblem, theorems), new ProblemState(rhsProblem, theorems)));
 	}
 
@@ -449,7 +450,8 @@ public class ProblemSolver {
 	}
 
 	private void catchProblemState(ProblemState problemState) {
-		if (!solvedProblems.containsKey(problemState.problem))
+		if (!solvedProblems.containsKey(problemState.problem)
+				|| solvedProblems.get(problemState.problem).getSolvingCost() > problemState.getSolvingCost())
 			solvedProblems.put(problemState.problem, problemState);
 
 		if (problemState.parentIndex == problemState.parentGroup.childStates.size() - 1) {
@@ -462,27 +464,6 @@ public class ProblemSolver {
 	private void addProblemState(ProblemState problemState) {
 		if (!problemState.isSolvable())
 			return;
-
-		if (USE_CANONICALIZATION_FOR_OPTIMIZATION) {
-			KInput canonicalized = (KInput) KernelUtil.canonicalizeFully(problemState.problem);
-			if (cnizedReachedInputs.containsKey(canonicalized)) {
-				if (problemState.getApproachCost() < cnizedReachedInputs.get(canonicalized).getApproachCost())
-					problemStates.remove(cnizedReachedInputs.get(canonicalized));
-				else
-					return;
-			}
-
-			cnizedReachedInputs.put(canonicalized, problemState);
-		} else {
-			KInput problem = (KInput) KernelUtil.canonicalizeOrder(/* devar */(problemState.problem));
-			if (reachedInputs.containsKey(problem))
-				if (problemState.getApproachCost() < reachedInputs.get(problem).getApproachCost())
-					problemStates.remove(reachedInputs.get(problem));
-				else
-					return;
-
-			reachedInputs.put(problem, problemState);
-		}
 
 		stateCount++;
 

@@ -53,7 +53,7 @@ public class KernelUtilTests {
 				System.err.println("\"" + originalProperty + "\" Should canonicalize fully to \"" + desiredProperty
 						+ "\" but it instead canonicalized to \"" + simplifiedProperty + '"');
 
-			assertEquals(simplifiedProperty, desiredProperty);
+			assertEquals(desiredProperty, simplifiedProperty);
 		}
 	}
 
@@ -66,17 +66,23 @@ public class KernelUtilTests {
 				"Given v0,v1,v2 st child(v0,v1) & child(v1,v2); Find v3 st child(v2,v3)" });
 		tasks.add(new String[] { "Given q,a,r st a(q) & child(q,a) & child(a,r); Find d st child(r,d)",
 				"Given v0,v1,v2 st a(v0) & child(v0,v1) & child(v1,v2); Find v3 st child(v2,v3)" });
+		tasks.add(new String[] { "Given list a, list b; Find c st child(a,c) | child(b,c)",
+				"Given v1,v2 st type_list(v1) & type_list(v2); Find v0 st child(v1,v0) | child(v2,v0)" });
 		for (String[] task : tasks) {
 			KInput originalProperty = parseInput(task[0]);
 			// The simplified version goes here
 			KInput simplifiedProperty = (KInput) canonicalizeFully(originalProperty);
 
 			KInput desiredInput = parseInput(task[1]);
-			if (!desiredInput.equals(simplifiedProperty))
-				System.err.println("\"" + originalProperty + "\" Should canonicalize fully to \"" + desiredInput
-						+ "\" but it instead canonicalized to \"" + simplifiedProperty + '"');
+			if (!desiredInput.equals(simplifiedProperty)) {
+				System.err.println(originalProperty);
+				System.err.println("Should canonicalize fully to");
+				System.err.println(desiredInput);
+				System.err.println("but it instead canonicalized to");
+				System.err.println(simplifiedProperty);
+			}
 
-			assertEquals(simplifiedProperty, desiredInput);
+			assertEquals(desiredInput, simplifiedProperty);
 		}
 	}
 
