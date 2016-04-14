@@ -1,6 +1,6 @@
 # Mother of All Programs (MOAP)
 
-[www.moap.site](moap.site)
+[www.moap.site](http://moap.site)
 
 ## Current Status
 Algorithm solver engine working for many example problems. Order notation not yet implemented. NLP engine not yet working. Pipeline from solver to web not yet implemented.
