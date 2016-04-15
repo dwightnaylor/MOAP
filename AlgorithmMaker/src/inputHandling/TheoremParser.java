@@ -5,6 +5,7 @@ import static kernelLanguage.KernelFactory.*;
 import java.io.*;
 import java.util.ArrayList;
 
+import algorithmMaker.util.KernelUtil;
 import kernelLanguage.*;
 import theorems.Fact;
 
@@ -27,7 +28,14 @@ public class TheoremParser {
 							ret.add(parseExtension(line));
 						} else {
 							int commaIndex = line.lastIndexOf(',', line.lastIndexOf('\"', line.lastIndexOf('\"')));
-							ret.add(Fact.givenTheorem(line.substring(0, commaIndex), line.substring(commaIndex + 1)));
+							KProperty property = KernelUtil.parseProperty(line.substring(0, commaIndex));
+							String description = line.substring(commaIndex + 1);
+							if (property instanceof KANDing) {
+								for (KProperty anded : KernelUtil.getANDed(property)) {
+									ret.add(Fact.givenTheorem(anded, description));
+								}
+							} else
+								ret.add(Fact.givenTheorem(property, description));
 						}
 					}
 				}

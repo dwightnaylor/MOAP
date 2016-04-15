@@ -57,10 +57,13 @@ public class Fact<T extends KProperty> {
 	}
 
 	public static Fact<KQuantifier> givenTheorem(String propertyString, String... description) {
+		return givenTheorem(parseProperty(propertyString), description);
+	}
+
+	public static Fact<KQuantifier> givenTheorem(KProperty property, String... description) {
 		if (description.length > 1)
 			throw new UnsupportedOperationException("'description' is a zero or one optional variable");
 
-		KProperty property = parseProperty(propertyString);
 		return new Fact<KQuantifier>(universalQuantifier(problem(getUndeclaredVars(property), property)),
 				description.length == 0 ? GIVEN : description[0]);
 	}

@@ -26,6 +26,7 @@ import theorems.*;
 public class ProblemSolver {
 
 	private static final boolean SHOW_GRAPH = false;
+	private static final boolean USE_CANONICALIZATION_FOR_OPTIMIZATION = false;
 
 	/**
 	 * A collection of all of the problems that have been solved. This means that either at least one of the subproblems
@@ -464,6 +465,27 @@ public class ProblemSolver {
 	private void addProblemState(ProblemState problemState) {
 		if (!problemState.isSolvable())
 			return;
+
+		if (USE_CANONICALIZATION_FOR_OPTIMIZATION) {
+			KInput canonicalized = (KInput) KernelUtil.canonicalizeFully(problemState.problem);
+			if (cnizedReachedInputs.containsKey(canonicalized)) {
+				if (problemState.getApproachCost() < cnizedReachedInputs.get(canonicalized).getApproachCost())
+					problemStates.remove(cnizedReachedInputs.get(canonicalized));
+				else
+					return;
+			}
+
+			cnizedReachedInputs.put(canonicalized, problemState);
+		} else {
+			KInput problem = (KInput) KernelUtil.canonicalizeOrder(/* devar */(problemState.problem));
+			if (reachedInputs.containsKey(problem))
+				if (problemState.getApproachCost() < reachedInputs.get(problem).getApproachCost())
+					problemStates.remove(reachedInputs.get(problem));
+				else
+					return;
+
+			reachedInputs.put(problem, problemState);
+		}
 
 		stateCount++;
 

@@ -34,16 +34,15 @@ public class TransformUtil {
 
 		KProperty given = input.given.property;
 		if (given != null) {
-			KProperty reducedGiven = given.without(toRemove);
-			input = input.withGiven(input.given.withProperty(reducedGiven == null ? TRUE : reducedGiven));
-			chainer.chain(input.given.property);
+			chainer.chain(given);
+			input = input.withGiven(input.given.withProperty(given.without(toRemove)));
 		}
+
 		toRemove.addAll(chainer.properties.keySet());
 
 		KProperty find = input.goal.property;
 		if (find != null) {
-			KProperty reducedGoal = find.without(toRemove);
-			input = input.withGoal(input.goal.withProperty(reducedGoal == null ? TRUE : reducedGoal));
+			input = input.withGoal(input.goal.withProperty(find.without(toRemove)));
 		}
 
 		return KernelUtil.withMinimumVariables(input);

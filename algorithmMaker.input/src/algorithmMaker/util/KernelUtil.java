@@ -131,7 +131,7 @@ public class KernelUtil {
 	}
 
 	public static boolean isStructural(String function) {
-		return function.equals(BOUND) || function.equals(UNBOUND) || function.equals(EQUAL) || function.equals(LITERAL);
+		return function.equals(BOUND) || function.equals(EQUAL) || function.equals(LITERAL);
 	}
 
 	public static HashSet<String> getDeclaredVars(KObject object) {

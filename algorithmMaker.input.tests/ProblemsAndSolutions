@@ -65,13 +65,3 @@ foreach child c of a
 	return [c]
 foreach child c of b
 	return [c]
--
-Given list a, list b; Find c st child(a,c) & !child(b,c) | child(b,c) & !child(a,c)
-na = new HashSet(a)
-nb = new HashSet(b)
-foreach child c of b
-	if !na.contains(c)
-		return [c]
-foreach child c of a
-	if !nb.contains(c)
-		return [c]

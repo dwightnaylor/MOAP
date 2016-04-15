@@ -13,10 +13,17 @@ import theorems.*;
 
 public class ChainerTests {
 	@Test
-	public void testLessThanEqual() {
-		Chainer chainer = new Chainer(givenTheorem("lessThan(a,b) -> !greaterThanEquals(a,b)"));
-		chainer.chain(parseProperty("lessThan(x,y)"));
-		assertEquals(3, chainer.properties.keySet().size());
+	public void testDoubleImplicationTheorem() {
+		Chainer chainer = new Chainer(givenTheorem("a(x)<->b(x)"));
+		chainer.chain(parseProperty("!a(x)"));
+		assertEquals(5, chainer.properties.keySet().size());
+	}
+
+	@Test
+	public void testTwoWayImplicationTheorem() {
+		Chainer chainer = new Chainer(givenTheorem("!a(x)|b(x)"), givenTheorem("a(x)|!b(x)"));
+		chainer.chain(parseProperty("!a(x)"));
+		assertEquals(4, chainer.properties.keySet().size());
 	}
 
 	@Test
@@ -213,18 +220,18 @@ public class ChainerTests {
 	@Test
 	public void testForQuantifierPredicateImplications() {
 		// Generally, this is a test of quantifiers being able to handle predicate implications
-		Fact<KQuantifier> quantifierTheorem = givenTheorem("exists(na : b(x,na))->c(x)");
-		Fact<KQuantifier> simpleTheorem = givenTheorem("!bb(x,na)|b(x,na)");
+		Fact<KQuantifier> quantifierTheorem = givenTheorem("exists(na : parent(x,na))->c(x)");
+		Fact<KQuantifier> simpleTheorem = givenTheorem("!father(x,na)|parent(x,na)");
 		// First case is no implication, just catch the quantifier as a requirement
 		{
 			Chainer basicChainer = new Chainer(quantifierTheorem);
-			basicChainer.chain(parseProperty("exists(na : b(q,na))"));
+			basicChainer.chain(parseProperty("exists(na : parent(q,na))"));
 			assertTrue(basicChainer.hasProperty(parseProperty("c(q)")));
 		}
 		// Test for a stronger quantifier predicate being given.
 		{
 			Chainer basicChainer = new Chainer(quantifierTheorem, simpleTheorem);
-			basicChainer.chain(parseProperty("exists(na : bb(q,na))"));
+			basicChainer.chain(parseProperty("exists(na : father(q,na))"));
 			assertTrue(basicChainer.hasProperty(parseProperty("c(q)")));
 		}
 		// TODO: Test for a quantifier predicate implication being able to use theorems supplied after the predicate was

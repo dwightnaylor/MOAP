@@ -54,15 +54,26 @@ public class MultistageTheorem {
 	}
 
 	public Fact<KQuantifier> getGivenTheorem() {
-		return new Fact<KQuantifier>(
-				universalQuantifier(problem(implication(givenRequirement, getTransferAtomic()), getCreatedVariables())),
-				false, getDescription());
+		if (givenRequirement == null)
+			return null;
+		else
+			return new Fact<KQuantifier>(
+					universalQuantifier(
+							problem(implication(givenRequirement, getTransferAtomic()), getCreatedVariables())),
+					false, getDescription());
 	}
 
 	public Fact<KQuantifier> getGoalTheorem() {
-		return new Fact<KQuantifier>(universalQuantifier(problem(
-				implication(and(goalRequirement, getTransferAtomic()), getCompletionAtomic()), getCreatedVariables())),
-				false, getDescription());
+		if (givenRequirement == null)
+			return new Fact<KQuantifier>(
+					universalQuantifier(
+							problem(implication(goalRequirement, getCompletionAtomic()), getCreatedVariables())),
+					false, getDescription());
+		else
+			return new Fact<KQuantifier>(universalQuantifier(
+					problem(implication(and(goalRequirement, getTransferAtomic()), getCompletionAtomic()),
+							getCreatedVariables())),
+					false, getDescription());
 	}
 
 	public static boolean isMSTStructural(String function) {
@@ -78,7 +89,11 @@ public class MultistageTheorem {
 	}
 
 	private String[] getCreatedVariables() {
-		return KernelUtil.getUndeclaredVars(givenRequirement).toArray(new String[0]);
+		HashSet<String> undeclaredVars = KernelUtil.getUndeclaredVars(goalRequirement);
+		if (givenRequirement != null)
+			undeclaredVars.addAll(KernelUtil.getUndeclaredVars(givenRequirement));
+
+		return undeclaredVars.toArray(new String[0]);
 	}
 
 	public KProperty getGivenRequirement() {

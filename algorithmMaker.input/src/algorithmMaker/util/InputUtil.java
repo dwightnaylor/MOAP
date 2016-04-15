@@ -539,15 +539,15 @@ public class InputUtil {
 
 	private static Property reduceBackwardImplication(Implication implication) {
 		ArrayList<Property> ORed = new ArrayList<Property>();
-		ORed.add(implication.getLeft());
-		ORed.add(getNegated(implication.getRight()));
+		ORed.add(stupidCopy(implication.getLeft()));
+		ORed.add(getNegated(stupidCopy(implication.getRight())));
 		return orTogether(ORed);
 	}
 
 	private static Property reduceForwardImplication(Implication implication) {
 		ArrayList<Property> ORed = new ArrayList<Property>();
-		ORed.add(getNegated(implication.getLeft()));
-		ORed.add(implication.getRight());
+		ORed.add(getNegated(stupidCopy(implication.getLeft())));
+		ORed.add(stupidCopy(implication.getRight()));
 		return orTogether(ORed);
 	}
 

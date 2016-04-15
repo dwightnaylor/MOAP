@@ -35,6 +35,11 @@ public class KernelFactory {
 	}
 
 	public static KQuantifier quantifier(Quantifier quantifier, KProblem subject) {
+		if (subject.vars.size() == 0) {
+			System.err.println("The quantifier subject \"" + subject + "\" has no variables.");
+			throw new RuntimeException("Quantifiers must have at least one variable.");
+		}
+
 		if (!quantifiers.containsKey(quantifier))
 			quantifiers.put(quantifier, new Hashtable<KProblem, KQuantifier>());
 

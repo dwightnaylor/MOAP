@@ -43,6 +43,7 @@ public class Chainer {
 	 * child(x,z) : equal(z,y))
 	 */
 	private boolean allowForQuantifierDerivation = true;
+	private boolean allowForMSTs = true;
 
 	public Chainer(Fact<?>... initialInfo) {
 		for (Fact<?> fact : initialInfo)
@@ -108,7 +109,8 @@ public class Chainer {
 		return ret;
 	}
 
-	public <T extends KProperty> void addProperties(T property, boolean devar, HashSet<Fact<? extends KProperty>> ret) {
+	private <T extends KProperty> void addProperties(T property, boolean devar,
+			HashSet<Fact<? extends KProperty>> ret) {
 		if (property instanceof KORing) {
 			for (KProperty ored : KernelUtil.getORed(property))
 				addProperties(ored, devar, ret);
@@ -231,13 +233,18 @@ public class Chainer {
 	@SuppressWarnings("unchecked")
 	void chain(Fact<? extends KProperty> fact) {
 		KProperty property = fact.property;
+		if (!allowForMSTs && property instanceof KAtomic
+				&& MultistageTheorem.isMSTStructural(((KAtomic) property).function))
+			return;
+
 		if (hasProperty(property) || KernelUtil.isLiteralAtomic(property))
 			return;
 
 		// If we already have the negated version of a property, throw an error cause something's gone horribly wrong.
-		if (hasProperty((KProperty) canonicalizeOrder(negate(property)))) {
+		KProperty negated = (KProperty) canonicalizeOrder(negate(property));
+		if (hasProperty(negated)) {
 			printJustificationFor(fact);
-			printJustificationFor(getProperties((KProperty) canonicalizeOrder(negate(property))).iterator().next());
+			printJustificationFor(getProperties(negated).iterator().next());
 			throw new RuntimeException("A chainer has both a property \"" + property + "\" and its negation.");
 		}
 
@@ -254,30 +261,46 @@ public class Chainer {
 		if (property instanceof KQuantifier) {
 			KQuantifier quantifier = (KQuantifier) property;
 			// TODO: Handle the negated version for existential theorems (is this useful to do?)
-			if (quantifier.isUniversal()) {
+			// FIXME: Shouldn't only chain KAtomic existential quantifiers
+			// ----The key problem with just allowing all existentials is that it explodes our branching costs later.
+			if (quantifier.isUniversal() || quantifier.subject.property instanceof KAtomic) {
 				// We can add universal quantifiers as new theorems.
 				if (quantifier.subject.property instanceof KORing)
 					for (KProperty ored : getORed(quantifier.subject.property))
 						addTheoremCatcher((KProperty) canonicalizeOrder(negate(ored)), (Fact<KQuantifier>) fact);
-			}
-			if (fact.isRealFact && allowForQuantifierDerivation) {
-				// Here we add not only the quantifier, but every "easier" quantifier as well.
-				Chainer subChainer = clone();
-				subChainer.allowForQuantifierDerivation = false;
-				// subChainer.clearProperties();
-				KProperty reducedQuantifier = quantifier.subject.property.without(properties.keySet());
-				if (!(reducedQuantifier instanceof KBooleanLiteral)) {
-					subChainer.chain(reducedQuantifier, "Quantifier subject");
 
-					// TODO: Do this without brute-forcing over all facts...
-					for (Fact<? extends KProperty> newSubjectFact : subChainer.properties.values()) {
-						if (hasProperty(newSubjectFact.property) || newSubjectFact.property instanceof KAtomic
-								&& ((KAtomic) newSubjectFact.property).function.contains(MultistageTheorem.TRANSFER))
-							continue;
+				if (fact.isRealFact && allowForQuantifierDerivation) {
+					// Here we add not only the quantifier, but every "easier" quantifier as well.
+					Chainer subChainer = clone();
+					subChainer.allowForQuantifierDerivation = false;
+					subChainer.allowForMSTs = false;
 
-						chain(quantifier(quantifier.quantifier,
-								quantifier.subject.withProperty(newSubjectFact.property)), "Equivalent quantifier",
-								fact, newSubjectFact);
+					KProperty reducedQuantifier = quantifier.subject.property.without(properties.keySet());
+					if (!(reducedQuantifier instanceof KBooleanLiteral)) {
+						subChainer.chain(reducedQuantifier, "Quantifier subject");
+
+						Set<KProperty> keySet = new HashSet<KProperty>(subChainer.properties.keySet());
+						keySet.removeIf(
+								x -> x instanceof KAtomic && MultistageTheorem.isMSTStructural(((KAtomic) x).function));
+
+						// TODO: Do this without brute-forcing over all facts...
+						for (Fact<? extends KProperty> newSubjectFact : subChainer.properties.values()) {
+							if (hasProperty(newSubjectFact.property) || (newSubjectFact.property instanceof KAtomic
+									&& MultistageTheorem.isMSTStructural(((KAtomic) newSubjectFact.property).function)))
+								continue;
+
+							boolean usedVars = false;
+							for (String var : variables(newSubjectFact.property)) {
+								if (quantifier.subject.vars.contains(var)) {
+									usedVars = true;
+									break;
+								}
+							}
+							if (usedVars)
+								chain(quantifier(quantifier.quantifier,
+										quantifier.subject.withProperty(newSubjectFact.property)),
+										"Equivalent quantifier", fact, newSubjectFact);
+						}
 					}
 				}
 			}
@@ -323,8 +346,12 @@ public class Chainer {
 			if (propertiesByVariable.containsKey(atomic.args.get(0))) {
 				for (Fact<? extends KProperty> oldFact : CollectionUtil
 						.deepClone(propertiesByVariable.get(atomic.args.get(1)))) {
-					if (oldFact.property instanceof KAtomic && (isStructural(((KAtomic) oldFact.property).function)
-							|| MultistageTheorem.isMSTStructural(((KAtomic) oldFact.property).function)))
+					if (oldFact.property instanceof KAtomic
+							&& (isStructural(((KAtomic) oldFact.property).function)
+									|| MultistageTheorem.isMSTStructural(((KAtomic) oldFact.property).function))
+							|| (oldFact.property instanceof KNegation
+									&& ((KNegation) oldFact.property).negated instanceof KAtomic
+									&& isStructural(((KAtomic) ((KNegation) oldFact.property).negated).function)))
 						continue;
 
 					Hashtable<String, String> revars = new Hashtable<String, String>();

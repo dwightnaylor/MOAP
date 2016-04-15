@@ -10,6 +10,7 @@ import inputHandling.TransformUtil;
 import kernelLanguage.*;
 import pseudocoders.LineCoder;
 import theorems.Fact;
+import theorems.MultistageTheorem;
 
 public class ProblemState implements Comparable<ProblemState> {
 	/**
@@ -29,6 +30,15 @@ public class ProblemState implements Comparable<ProblemState> {
 	public ProblemState(KInput problem, Fact<?>... theorems) {
 		// Simplify the problem
 		problem = TransformUtil.removeGivenFromGoal(problem, new Chainer(theorems));
+
+		for (KObject object : KernelUtil.contents(problem)) {
+			if (object instanceof KAtomic && MultistageTheorem.isMSTStructural(((KAtomic) object).function)) {
+				System.err.println(problem);
+				System.err.println("Has illegal atomic");
+				System.err.println(object);
+				throw new RuntimeException("No serious input should ever have a MST Atomic anywhere in it.");
+			}
+		}
 
 		if (problem.given.property != null)
 			problem = problem
