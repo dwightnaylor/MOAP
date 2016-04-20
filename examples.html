@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>About MOAP</title>
+		<title>MOAP Examples</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
@@ -43,21 +43,29 @@
 				<!-- Main -->
 					<article id="main">
 						<header>
-							<h2>About MOAP</h2>
-							<p>You've reached the end of computer science</p>
+							<h2>What is MOAP?</h2>
+							<p>MOAP stands for the Mother of All Programs</p>
 						</header>
 						<section class="wrapper style5">
 							<div class="inner">
-								<h3>What does it do?</h3>
-								<p>The <b>M</b>other <b>O</b>f <b>A</b>ll <b>P</b>rograms is a program which automatically designs computer algorithms.</p>
-								<p>Algorithms are considered by many to be the most crucial part of computer programming. They represent the underlying ideas and theories that describe how a program is going to work. Algorithm design is widely considered to be the most difficult, most time-consuming part of high-level programming.</p>
-								<p>MOAP automates this process. By taking a formalized statement of an algorithm problem and applying MOAP's problem-solving engine, the program can deliver optimal solutions to a wide variety of algorithm problems in seconds.</p>
+
+								<h3>How does it work?</h3>
+								<p>The Mother of All Programs (MOAP) was started in the Fall of 2015 with the intention of developing a program that would automatically design computer algorithms.</p>
+								<p>The project was a success in its infant stages, solving a variety of simpler algorithm problems and demonstrating that automated algorithm design is a very real possibility.</p>
+								<p>This is fortunate, because until now, algorithm design has always been the realm of a few very highly-trained, highly-paid individuals in computer science, who are hard to find and even harder to hire.</p>
+
 								<hr />
-								<h4>How do I use it?</h4>
-								<p>MOAP takes algorithm problems in a special language. Visit our <a href="getting_started.html">Getting Started</a> page to learn how to use it.</p>
-								<hr />
-								<h5>How does it work?</h5>
-								<p>That's a secret. If you want to learn more, visit our <a href="contact.html">Contact Us</a> page and sign up to be an Alpha-Tester.</p>
+
+								<h4>What is an example?</h4>
+								<p>They would first rewrite and formalize the problem into our input syntax:</p>
+								<p>"Given list a, list b, list c; Find d st child(a,d) and child(b,d) and !child(c,d)"</p>
+								<p>The program will then output the pseudocode to solve the problem, the most recent example of which is included here:
+								<p>na = new HashSet(c)
+									nb = new HashSet(b)
+										foreach child d of a
+											if !na.contains(d)
+												if nb.contains(d)
+													return [d]</p>
 							</div>
 						</section>
 					</article>
