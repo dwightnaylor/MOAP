@@ -6,4 +6,8 @@ public class DivisionExpression extends CompositeExpression{
 		super(left, right);
 	}
 	
+	@Override
+	public String toString() {
+		return "(" + getLeft().toString() + "/" + getRight().toString() + ")";
+	}
 }

@@ -5,7 +5,7 @@ public abstract class OrderNotation {
 	public abstract boolean evaluate();
 	public abstract String printInOrder();
 	public String toString(){
-		return printInOrder();
+		return e.toString();
 	}
 	
 }
