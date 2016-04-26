@@ -2,7 +2,9 @@ package kernelLanguage;
 
 import static kernelLanguage.KernelFactory.*;
 
-import java.util.HashSet;
+import java.util.*;
+
+import algorithmMaker.util.KernelUtil;
 
 public class KANDing extends KProperty {
 	public final KProperty lhs;
@@ -21,29 +23,37 @@ public class KANDing extends KProperty {
 	@Override
 	String calculateToString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append(lhs);
+		ret.append(lhs instanceof KORing ? "(" + lhs + ")" : lhs);
 		ret.append(" & ");
-		ret.append(rhs);
+		ret.append(rhs instanceof KORing ? "(" + rhs + ")" : rhs);
 		return ret.toString();
 	}
 
 	@Override
-	protected KProperty without(HashSet<KProperty> toRemove) {
+	protected KProperty without(Set<KProperty> toRemove) {
 		KProperty newLhs = lhs.without(toRemove);
 		KProperty newRhs = rhs.without(toRemove);
 		if (newLhs == FALSE || newRhs == FALSE)
 			return FALSE;
 
-		if (toRemove.contains(newLhs) || newLhs == TRUE)
-			if (toRemove.contains(newRhs) || newRhs == TRUE)
+		if (newLhs == TRUE)
+			if (newRhs == TRUE)
 				return TRUE;
 			else
 				return newRhs;
 
-		if (toRemove.contains(newRhs) || newRhs == TRUE)
+		if (newRhs == TRUE)
 			return newLhs;
 
-		return and(newLhs, newRhs);
+		KANDing ret = and(newLhs, newRhs);
+
+		if (toRemove.contains(KernelUtil.canonicalizeOrder(ret)))
+			return TRUE;
+
+		if (toRemove.contains(KernelUtil.canonicalizeOrder(negate(ret))))
+			return FALSE;
+
+		return ret;
 	}
 
 	@Override

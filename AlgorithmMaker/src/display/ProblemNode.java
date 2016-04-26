@@ -23,7 +23,7 @@ public class ProblemNode {
 		if (stringCached == null) {
 			if (contents instanceof ProblemState) {
 				ProblemState state = (ProblemState) contents;
-				stringCached = state.getSolvingCost() + "," + state.getApproachCost() + ":::"
+				stringCached = state.getApproachCost() + "," + state.getSolvingCost() + ":::"
 						+ SugarUtil.resugar(SugarUtil.convertToInput(state.problem)).toString().replace(";", ":::::");
 			} else if (contents instanceof ProblemGroup) {
 				stringCached = "";

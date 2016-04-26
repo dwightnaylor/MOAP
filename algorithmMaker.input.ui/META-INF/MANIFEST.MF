@@ -22,5 +22,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: algorithmMaker.ui.quickfix,
  algorithmMaker.ui.contentassist,
  algorithmMaker.ui.contentassist.antlr,
- algorithmMaker.ui.internal
+ algorithmMaker.ui.internal,
+ algorithmMaker.ui.contentassist.antlr.internal
 Bundle-Activator: algorithmMaker.ui.internal.InputActivator

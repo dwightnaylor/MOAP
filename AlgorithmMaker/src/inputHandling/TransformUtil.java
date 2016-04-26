@@ -4,7 +4,7 @@ import static kernelLanguage.KernelFactory.*;
 
 import java.util.*;
 
-import algorithmMaker.util.*;
+import algorithmMaker.util.KernelUtil;
 import kernelLanguage.*;
 import solver.Chainer;
 
@@ -34,18 +34,17 @@ public class TransformUtil {
 
 		KProperty given = input.given.property;
 		if (given != null) {
-			KProperty reducedGiven = given.without(toRemove);
-			input = input.withGiven(input.given.withProperty(reducedGiven == null ? TRUE : reducedGiven));
-			chainer.chain(input.given.property, GIVEN);
-		}
-		toRemove.addAll(chainer.properties.keySet());
-		
-		KProperty find = input.goal.property;
-		if (find != null) {
-			KProperty reducedGoal = find.without(toRemove);
-			input = input.withGoal(input.goal.withProperty(reducedGoal == null ? TRUE : reducedGoal));
+			chainer.chain(given);
+			input = input.withGiven(input.given.withProperty(given.without(toRemove)));
 		}
 
-		return KernelUtil.cleanDeclarations(input.withMinimumVariables());
+		toRemove.addAll(chainer.properties.keySet());
+
+		KProperty find = input.goal.property;
+		if (find != null) {
+			input = input.withGoal(input.goal.withProperty(find.without(toRemove)));
+		}
+
+		return KernelUtil.withMinimumVariables(input);
 	}
 }

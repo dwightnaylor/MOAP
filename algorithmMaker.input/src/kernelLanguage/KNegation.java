@@ -1,6 +1,6 @@
 package kernelLanguage;
 
-import java.util.HashSet;
+import java.util.*;
 
 public class KNegation extends KProperty {
 	public final KProperty negated;
@@ -18,21 +18,26 @@ public class KNegation extends KProperty {
 	String calculateToString() {
 		StringBuffer ret = new StringBuffer();
 		ret.append('!');
-		ret.append(
-				(negated instanceof KANDing ? "(" : "") + negated.toString() + (negated instanceof KANDing ? ")" : ""));
+		boolean parens = negated instanceof KANDing || negated instanceof KORing;
+		ret.append((parens ? "(" : "") + negated.toString() + (parens ? ")" : ""));
 		return ret.toString();
 	}
 
 	@Override
-	protected KProperty without(HashSet<KProperty> toRemove) {
+	protected KProperty without(Set<KProperty> toRemove) {
 		KProperty newNegated = negated.without(toRemove);
 		if (newNegated instanceof KBooleanLiteral)
 			return ((KBooleanLiteral) newNegated).negate();
 
-		if (toRemove.contains(this))
+		if (toRemove.contains(newNegated))
+			return KernelFactory.FALSE;
+
+		KProperty ret = KernelFactory.negate(newNegated);
+
+		if (toRemove.contains(ret))
 			return KernelFactory.TRUE;
 
-		return KernelFactory.negate(newNegated);
+		return ret;
 	}
 
 	@Override

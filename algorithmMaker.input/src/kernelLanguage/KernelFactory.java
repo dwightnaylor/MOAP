@@ -2,77 +2,63 @@ package kernelLanguage;
 
 import java.util.*;
 
-import algorithmMaker.util.KernelUtil;
+import algorithmMaker.util.*;
 import kernelLanguage.KQuantifier.Quantifier;
 
+//TODO: Comment this and explain (repeat) everything in README file
 public class KernelFactory {
-	private static Hashtable<KProperty, Hashtable<KProperty, KANDing>> andings = new Hashtable<KProperty, Hashtable<KProperty, KANDing>>();
-	private static Hashtable<String, Hashtable<List<String>, KAtomic>> atomics = new Hashtable<String, Hashtable<List<String>, KAtomic>>();
 	public static final KBooleanLiteral TRUE = new KBooleanLiteral(true);
 	public static final KBooleanLiteral FALSE = new KBooleanLiteral(false);
-	public static Hashtable<KProblem, Hashtable<KProblem, KInput>> inputs = new Hashtable<KProblem, Hashtable<KProblem, KInput>>();
+
+	private static Hashtable<KProperty, Hashtable<KProperty, KANDing>> andings = new Hashtable<KProperty, Hashtable<KProperty, KANDing>>();
+	private static Hashtable<KProperty, Hashtable<KProperty, KORing>> orings = new Hashtable<KProperty, Hashtable<KProperty, KORing>>();
+	private static Hashtable<String, Hashtable<List<String>, KAtomic>> atomics = new Hashtable<String, Hashtable<List<String>, KAtomic>>();
+	private static Hashtable<KProblem, Hashtable<KProblem, KInput>> inputs = new Hashtable<KProblem, Hashtable<KProblem, KInput>>();
 	private static Hashtable<KProperty, KNegation> negations = new Hashtable<KProperty, KNegation>();
 	private static Hashtable<List<String>, Hashtable<KProperty, KProblem>> problems = new Hashtable<List<String>, Hashtable<KProperty, KProblem>>();
-	private static Hashtable<Quantifier, Hashtable<KProblem, Hashtable<KProperty, KQuantifier>>> quantifiers = new Hashtable<Quantifier, Hashtable<KProblem, Hashtable<KProperty, KQuantifier>>>();
-	private static Hashtable<KProperty, Hashtable<KProperty, KTheorem>> theorems = new Hashtable<KProperty, Hashtable<KProperty, KTheorem>>();
+	private static Hashtable<Quantifier, Hashtable<KProblem, KQuantifier>> quantifiers = new Hashtable<Quantifier, Hashtable<KProblem, KQuantifier>>();
 
 	public static final String TYPE_MARKER = "type_";
 	public static final String BOUND = "BOUND";
 	public static final String UNBOUND = "UNBOUND";
 	public static final String LITERAL = "LITERAL";
 	public static final String EQUAL = "equal";
-	public static final String ADDITION = "plus";
-	public static final String SUBTRACTION = "minus";
-	public static final String MULTIPLICATION = "times";
-	public static final String DIVISION = "divide";
-
-	/**
-	 * The theorem used to defend proofs done where no defense should be needed. A "dummy" theorem. Used for internal
-	 * proving and the like.
-	 */
-	public static final KTheorem NULL = new KTheorem(null, null, 0, "NULL");
-	public static final KTheorem GIVEN = new KTheorem(null, null, 0, "GIVEN");
-	public static final KTheorem REFLEXIVE = new KTheorem(null, null, 0, "Reflexive Property");
-	public static final KTheorem GOAL = new KTheorem(null, null, 0, "GOAL");
-	public static final KTheorem EQUALITY = new KTheorem(null, null, 0, "Equal variables share properties.");
 
 	public static final KProblem NULL_PROBLEM = problem(Collections.emptyList(), TRUE);
 
-	public static KTheorem theorem(KProperty requirement, KProperty result, int cost, String description) {
-		if (!theorems.containsKey(requirement))
-			theorems.put(requirement, new Hashtable<KProperty, KTheorem>());
-
-		if (!theorems.get(requirement).containsKey(result))
-			theorems.get(requirement).put(result, new KTheorem(requirement, result, cost, description));
-
-		KTheorem ret = theorems.get(requirement).get(result);
-		if (cost != ret.cost)
-			throw new RuntimeException("Cannot have multiple costs for the same theorem.");
-
-		if (!Objects.equals(description, ret.description)) {
-			System.err.println("Multiple descriptions for theorem:" + ret);
-			System.err.println("Original was " + ret.description);
-			System.err.println("New is " + description);
-			throw new RuntimeException("Cannot have multiple descriptions for the same theorem.");
-		}
-
-		return ret;
+	public static KQuantifier universalQuantifier(KProblem subject) {
+		return quantifier(Quantifier.forall, subject);
 	}
 
-	public static KQuantifier quantifier(Quantifier quantifier, KProblem subject, KProperty predicate) {
-		if (!quantifiers.containsKey(quantifier))
-			quantifiers.put(quantifier, new Hashtable<KProblem, Hashtable<KProperty, KQuantifier>>());
+	public static KQuantifier existentialQuantifier(KProblem subject) {
+		return quantifier(Quantifier.exists, subject);
+	}
 
-		if (!quantifiers.get(quantifier).containsKey(subject))
-			quantifiers.get(quantifier).put(subject, new Hashtable<KProperty, KQuantifier>());
-
-		if (!quantifiers.get(quantifier).get(subject).containsKey(predicate)) {
-			KQuantifier initial = new KQuantifier(quantifier, subject, predicate);
-			quantifiers.get(quantifier).get(subject).put(predicate, initial);
-			quantifiers.get(quantifier).get(subject).put(predicate, KernelUtil.cleanDeclarations(initial));
+	public static KQuantifier quantifier(Quantifier quantifier, KProblem subject) {
+		if (subject.vars.size() == 0) {
+			System.err.println("The quantifier subject \"" + subject + "\" has no variables.");
+			throw new RuntimeException("Quantifiers must have at least one variable.");
 		}
 
-		return quantifiers.get(quantifier).get(subject).get(predicate);
+		if (!quantifiers.containsKey(quantifier))
+			quantifiers.put(quantifier, new Hashtable<KProblem, KQuantifier>());
+
+		if (!quantifiers.get(quantifier).containsKey(subject))
+			quantifiers.get(quantifier).put(subject, new KQuantifier(quantifier, subject));
+
+		return quantifiers.get(quantifier).get(subject);
+	}
+
+	@SafeVarargs
+	public static KProblem problemMinVars(KProperty property, Collection<String>... declaredVars) {
+		if (declaredVars.length > 1)
+			throw new UnsupportedOperationException("Optional argument. Must be of size zero or one.");
+
+		HashSet<String> vars = KernelUtil.getUndeclaredVars(property);
+		if (declaredVars.length > 0)
+			vars.removeAll(declaredVars[0]);
+
+		return problem(vars, property);
 	}
 
 	public static KProblem problem(KProperty property, String... varsTemp) {
@@ -85,9 +71,7 @@ public class KernelFactory {
 			problems.put(vars, new Hashtable<KProperty, KProblem>());
 
 		if (!problems.get(vars).containsKey(property)) {
-			KProblem initial = new KProblem(vars, property);
-			problems.get(vars).put(property, initial);
-			problems.get(vars).put(property, KernelUtil.cleanDeclarations(initial));
+			problems.get(vars).put(property, new KProblem(vars, property));
 		}
 
 		return problems.get(vars).get(property);
@@ -110,7 +94,7 @@ public class KernelFactory {
 		if (!inputs.get(given).containsKey(goal)) {
 			KInput initial = new KInput(given, goal);
 			inputs.get(given).put(goal, initial);
-			inputs.get(given).put(goal, KernelUtil.cleanDeclarations(initial));
+			// inputs.get(given).put(goal, withMinimumVariables(initial));
 		}
 
 		return inputs.get(given).get(goal);
@@ -118,6 +102,16 @@ public class KernelFactory {
 
 	public static KBooleanLiteral bool(boolean value) {
 		return value ? TRUE : FALSE;
+	}
+
+	public static KQuantifier generalImplication(KProperty lhs, KProperty rhs) {
+		HashSet<String> undeclaredVars = KernelUtil.getUndeclaredVars(lhs);
+		undeclaredVars.addAll(KernelUtil.getUndeclaredVars(rhs));
+		return quantifier(KQuantifier.Quantifier.forall, problem(undeclaredVars, implication(lhs, rhs)));
+	}
+
+	public static KORing implication(KProperty lhs, KProperty rhs) {
+		return or(negate(lhs), rhs);
 	}
 
 	public static KAtomic atomic(String function, String... args) {
@@ -140,9 +134,9 @@ public class KernelFactory {
 	}
 
 	public static KANDing and(KProperty lhs, KProperty rhs) {
-		if (lhs instanceof KANDing) {
+		if (lhs instanceof KANDing)
 			return and(((KANDing) lhs).lhs, and(((KANDing) lhs).rhs, rhs));
-		}
+
 		if (!andings.containsKey(lhs))
 			andings.put(lhs, new Hashtable<KProperty, KANDing>());
 
@@ -156,7 +150,7 @@ public class KernelFactory {
 		return and(Arrays.asList(contents));
 	}
 
-	public static KProperty and(List<KProperty> contents) {
+	public static KProperty and(List<? extends KProperty> contents) {
 		int index = contents.size() - 1;
 		KProperty rhs = null;
 		while (rhs == null) {
@@ -170,5 +164,46 @@ public class KernelFactory {
 				rhs = and(contents.get(index), rhs);
 		}
 		return rhs;
+	}
+
+	public static KORing or(KProperty lhs, KProperty rhs) {
+		if (lhs instanceof KORing)
+			return or(((KORing) lhs).lhs, or(((KORing) lhs).rhs, rhs));
+
+		if (!orings.containsKey(lhs))
+			orings.put(lhs, new Hashtable<KProperty, KORing>());
+
+		if (!orings.get(lhs).containsKey(rhs))
+			orings.get(lhs).put(rhs, new KORing(lhs, rhs));
+
+		return orings.get(lhs).get(rhs);
+	}
+
+	public static KProperty or(KProperty... contents) {
+		return or(Arrays.asList(contents));
+	}
+
+	public static KProperty or(List<? extends KProperty> contents) {
+		int index = contents.size() - 1;
+		KProperty rhs = null;
+		while (rhs == null) {
+			if (index == -1)
+				return null;
+
+			rhs = contents.get(index--);
+		}
+		for (; index >= 0; index--) {
+			if (contents.get(index) != null)
+				rhs = or(contents.get(index), rhs);
+		}
+		return rhs;
+	}
+
+	public static boolean isTypeAtomic(String function) {
+		return function != null && function.startsWith(TYPE_MARKER);
+	}
+
+	public static String getDeclaredType(String function) {
+		return function.substring(TYPE_MARKER.length());
 	}
 }

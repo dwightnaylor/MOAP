@@ -13,12 +13,8 @@ import org.eclipse.emf.ecore.EObject;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link algorithmMaker.input.Theorem#getRequirement <em>Requirement</em>}</li>
- *   <li>{@link algorithmMaker.input.Theorem#getImplication <em>Implication</em>}</li>
- *   <li>{@link algorithmMaker.input.Theorem#getResult <em>Result</em>}</li>
- *   <li>{@link algorithmMaker.input.Theorem#getCost <em>Cost</em>}</li>
+ *   <li>{@link algorithmMaker.input.Theorem#getContent <em>Content</em>}</li>
  *   <li>{@link algorithmMaker.input.Theorem#getDescription <em>Description</em>}</li>
- *   <li>{@link algorithmMaker.input.Theorem#getPseudoCode <em>Pseudo Code</em>}</li>
  * </ul>
  *
  * @see algorithmMaker.input.InputPackage#getTheorem()
@@ -28,108 +24,30 @@ import org.eclipse.emf.ecore.EObject;
 public interface Theorem extends EObject
 {
   /**
-   * Returns the value of the '<em><b>Requirement</b></em>' containment reference.
+   * Returns the value of the '<em><b>Content</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Requirement</em>' containment reference isn't clear,
+   * If the meaning of the '<em>Content</em>' containment reference isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Requirement</em>' containment reference.
-   * @see #setRequirement(Property)
-   * @see algorithmMaker.input.InputPackage#getTheorem_Requirement()
+   * @return the value of the '<em>Content</em>' containment reference.
+   * @see #setContent(Property)
+   * @see algorithmMaker.input.InputPackage#getTheorem_Content()
    * @model containment="true"
    * @generated
    */
-  Property getRequirement();
+  Property getContent();
 
   /**
-   * Sets the value of the '{@link algorithmMaker.input.Theorem#getRequirement <em>Requirement</em>}' containment reference.
+   * Sets the value of the '{@link algorithmMaker.input.Theorem#getContent <em>Content</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Requirement</em>' containment reference.
-   * @see #getRequirement()
+   * @param value the new value of the '<em>Content</em>' containment reference.
+   * @see #getContent()
    * @generated
    */
-  void setRequirement(Property value);
-
-  /**
-   * Returns the value of the '<em><b>Implication</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Implication</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Implication</em>' attribute.
-   * @see #setImplication(String)
-   * @see algorithmMaker.input.InputPackage#getTheorem_Implication()
-   * @model
-   * @generated
-   */
-  String getImplication();
-
-  /**
-   * Sets the value of the '{@link algorithmMaker.input.Theorem#getImplication <em>Implication</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Implication</em>' attribute.
-   * @see #getImplication()
-   * @generated
-   */
-  void setImplication(String value);
-
-  /**
-   * Returns the value of the '<em><b>Result</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Result</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Result</em>' containment reference.
-   * @see #setResult(Property)
-   * @see algorithmMaker.input.InputPackage#getTheorem_Result()
-   * @model containment="true"
-   * @generated
-   */
-  Property getResult();
-
-  /**
-   * Sets the value of the '{@link algorithmMaker.input.Theorem#getResult <em>Result</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Result</em>' containment reference.
-   * @see #getResult()
-   * @generated
-   */
-  void setResult(Property value);
-
-  /**
-   * Returns the value of the '<em><b>Cost</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Cost</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Cost</em>' attribute.
-   * @see #setCost(int)
-   * @see algorithmMaker.input.InputPackage#getTheorem_Cost()
-   * @model
-   * @generated
-   */
-  int getCost();
-
-  /**
-   * Sets the value of the '{@link algorithmMaker.input.Theorem#getCost <em>Cost</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Cost</em>' attribute.
-   * @see #getCost()
-   * @generated
-   */
-  void setCost(int value);
+  void setContent(Property value);
 
   /**
    * Returns the value of the '<em><b>Description</b></em>' attribute.
@@ -156,31 +74,5 @@ public interface Theorem extends EObject
    * @generated
    */
   void setDescription(String value);
-
-  /**
-   * Returns the value of the '<em><b>Pseudo Code</b></em>' attribute.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Pseudo Code</em>' attribute isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Pseudo Code</em>' attribute.
-   * @see #setPseudoCode(String)
-   * @see algorithmMaker.input.InputPackage#getTheorem_PseudoCode()
-   * @model
-   * @generated
-   */
-  String getPseudoCode();
-
-  /**
-   * Sets the value of the '{@link algorithmMaker.input.Theorem#getPseudoCode <em>Pseudo Code</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Pseudo Code</em>' attribute.
-   * @see #getPseudoCode()
-   * @generated
-   */
-  void setPseudoCode(String value);
 
 } // Theorem

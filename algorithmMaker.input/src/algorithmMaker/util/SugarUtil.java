@@ -1,6 +1,7 @@
 package algorithmMaker.util;
 
 import static kernelLanguage.KernelFactory.*;
+import static algorithmMaker.util.InputUtil.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -29,22 +30,23 @@ public class SugarUtil {
 
 	public static KObject convertToKernel(EObject object) {
 		if (!kernelObjects.containsKey(object)) {
-			switch (InputUtil.kernelType(object)) {
+			switch (reducedType(object)) {
 			case ANDing:
 				kernelObjects.put(object, and((KProperty) convertToKernel(((ANDing) object).getLeft()),
 						(KProperty) convertToKernel(((ANDing) object).getRight())));
 				break;
 			case Atomic:
-				kernelObjects.put(object, atomic(((Atomic) object).getFunction(),
-						InputUtil.convertToStrings(((Atomic) object).getArgs())));
+				kernelObjects.put(object,
+						atomic(((Atomic) object).getFunction(), convertToStrings(((Atomic) object).getArgs())));
 				break;
 			case BooleanLiteral:
 				kernelObjects.put(object, bool(((BooleanLiteral) object).getValue().equals("TRUE")));
 				break;
 			case Input:
 				Problem goal = ((Input) object).getGoal();
-				kernelObjects.put(object, input((KProblem) convertToKernel(((Input) object).getGiven()),
-						goal == null ? NULL_PROBLEM : (KProblem) convertToKernel(goal)));
+				kernelObjects.put(object,
+						KernelUtil.withMinimumVariables(input((KProblem) convertToKernel(((Input) object).getGiven()),
+								goal == null ? NULL_PROBLEM : (KProblem) convertToKernel(goal))));
 				break;
 			case Negation:
 				kernelObjects.put(object, negate((KProperty) convertToKernel(((Negation) object).getNegated())));
@@ -60,36 +62,37 @@ public class SugarUtil {
 			case Quantifier:
 				kernelObjects.put(object,
 						quantifier(
-								((Quantifier) object).getQuantifier().equals(InputUtil.FORALL)
-										? KQuantifier.Quantifier.forall : KQuantifier.Quantifier.exists,
-						(KProblem) convertToKernel(((Quantifier) object).getSubject()),
-						(KProperty) convertToKernel(((Quantifier) object).getPredicate())));
+								((Quantifier) object).getQuantifier().equals(FORALL) ? KQuantifier.Quantifier.forall
+										: KQuantifier.Quantifier.exists,
+								(KProblem) convertToKernel(((Quantifier) object).getSubject())));
 				break;
 			case ORing:
-				// FIXME: DN:...Remove ORing from the kernel. I'm sorry.
-				throw new UnsupportedOperationException();
+				kernelObjects.put(object, or((KProperty) convertToKernel(((ORing) object).getLeft()),
+						(KProperty) convertToKernel(((ORing) object).getRight())));
+				break;
 			}
 		}
 		return kernelObjects.get(object);
 	}
 
 	private static Property getDesugaredTypeDeclaration(Type type, String varName, HashSet<String> usedVars) {
-		Property ret = InputUtil.createAtomic(InputUtil.TYPE_MARKER + type.getName(), varName);
+		Property ret = createAtomic(TYPE_MARKER + type.getName(), varName);
 		if (type.getTemplateType() != null) {
-			String newVar = InputUtil.getUnusedVar(usedVars);
+			String newVar = getUnusedVar(usedVars);
 			usedVars.add(newVar);
-			Quantifier quantifier = InputUtil.createQuantifier(InputUtil.FORALL,
-					InputUtil.createProblem(Collections.singleton(newVar),
-							InputUtil.createAtomic("child", varName, newVar)),
-					getDesugaredTypeDeclaration(type.getTemplateType(), newVar, usedVars));
+			ArrayList<Property> quantifierSubject = new ArrayList<Property>();
+			quantifierSubject.add(getNegated(createAtomic("child", varName, newVar)));
+			quantifierSubject.add(getDesugaredTypeDeclaration(type.getTemplateType(), newVar, usedVars));
+			Quantifier quantifier = createQuantifier(FORALL,
+					createProblem(Collections.singleton(newVar), orTogether(quantifierSubject)));
 			usedVars.remove(newVar);
-			ret = InputUtil.andTogether(Arrays.asList(new Property[] { ret, quantifier }));
+			ret = andTogether(Arrays.asList(new Property[] { ret, quantifier }));
 		}
 		return ret;
 	}
 
 	public static EObject desugar(EObject object) {
-		return InputUtil.reduce(object, new InputConverter() {
+		return reduce(object, new InputConverter() {
 			/**
 			 * All of the atomics that have been "denested". These are atomics that were inside another atomic as an
 			 * argument, that now have to be re-added into the problem as separate atomics.
@@ -121,7 +124,7 @@ public class SugarUtil {
 
 			private void addDenestedAtomics(Problem problem, boolean includeUsedVars) {
 				HashSet<String> oldVars = problem == null ? new HashSet<String>()
-						: (includeUsedVars ? InputUtil.getUsedVars(problem) : InputUtil.getDeclaredVars(problem));
+						: (includeUsedVars ? getUsedVars(problem) : getDeclaredVars(problem));
 				ArrayList<Property> newParts = new ArrayList<Property>();
 				if (problem != null)
 					newParts.add(problem.getProperty());
@@ -134,16 +137,16 @@ public class SugarUtil {
 							newParts.add(atomic);
 							String newVar = ((Variable) atomic.getArgs().get(atomic.getArgs().size() - 1)).getArg();
 							oldVars.add(newVar);
-							problem.getVars().add(InputUtil.createDeclaration(newVar));
+							problem.getVars().add(createDeclaration(newVar));
 							break;
 						}
 					}
 				}
 
 				newParts.remove(null);
-				newParts.remove(InputUtil.getBooleanLiteral(true));
+				newParts.remove(getBooleanLiteral(true));
 				if (newParts.size() > 0) {
-					problem.setProperty(InputUtil.canonicalize(InputUtil.andTogether(newParts)));
+					problem.setProperty(canonicalize(andTogether(newParts)));
 				}
 			}
 
@@ -154,20 +157,20 @@ public class SugarUtil {
 				for (Declaration declaration : problem.getVars())
 					if (declaration.getType() != null)
 						declarationAtomics.add(getDesugaredTypeDeclaration(declaration.getType(),
-								declaration.getVarName(), InputUtil.getDeclaredVars(problem)));
+								declaration.getVarName(), getDeclaredVars(problem)));
 
 				if (declarationAtomics.size() > 0) {
 					declarationAtomics.add(problem.getProperty());
 					declarationAtomics.remove(null);
-					declarationAtomics.remove(InputUtil.getBooleanLiteral(true));
-					problem.setProperty(InputUtil.canonicalize(InputUtil.andTogether(declarationAtomics)));
+					declarationAtomics.remove(getBooleanLiteral(true));
+					problem.setProperty(canonicalize(andTogether(declarationAtomics)));
 				}
 			}
 
 			private EObject desugarAtomic(Atomic atomicToDesugar) {
 				ArrayList<Atomic> newAtomics = new ArrayList<Atomic>();
 				Hashtable<NumericalProperty, String> nestedArgs = new Hashtable<NumericalProperty, String>();
-				HashSet<String> declaredVars = InputUtil.getDeclaredVars(object);
+				HashSet<String> declaredVars = getDeclaredVars(object);
 				denest(atomicToDesugar, declaredVars, nestedArgs, newAtomics, false);
 				Atomic changedAtomic = newAtomics.get(newAtomics.size() - 1);
 				if (newAtomics.size() > 1)
@@ -200,38 +203,36 @@ public class SugarUtil {
 
 				String newArg = null;
 				if (nested) {
-					newArg = InputUtil.getUnusedVar(allVars);
+					newArg = getUnusedVar(allVars);
 					allVars.add(newArg);
 					nestedArgs.put(property, newArg);
 				}
 				Atomic replacement;
 				if (property instanceof Atomic) {
-					replacement = InputUtil.createAtomic(((Atomic) property).getFunction());
+					replacement = createAtomic(((Atomic) property).getFunction());
 					for (NumericalProperty argument : ((Atomic) property).getArgs()) {
 						denest(argument, allVars, nestedArgs, newAtomics, true);
-						replacement.getArgs().add(InputUtil.createVariable(nestedArgs.get(argument)));
+						replacement.getArgs().add(createVariable(nestedArgs.get(argument)));
 					}
 				} else if (property instanceof Addition) {
 					Addition addition = (Addition) property;
-					replacement = InputUtil.createAtomic(
-							addition.getSymbol().equals("+") ? InputUtil.ADDITION : InputUtil.SUBTRACTION);
+					replacement = createAtomic(addition.getSymbol().equals("+") ? ADDITION : SUBTRACTION);
 					denest(addition.getLeft(), allVars, nestedArgs, newAtomics, true);
 					denest(addition.getRight(), allVars, nestedArgs, newAtomics, true);
-					replacement.getArgs().add(InputUtil.createVariable(nestedArgs.get(addition.getLeft())));
-					replacement.getArgs().add(InputUtil.createVariable(nestedArgs.get(addition.getRight())));
+					replacement.getArgs().add(createVariable(nestedArgs.get(addition.getLeft())));
+					replacement.getArgs().add(createVariable(nestedArgs.get(addition.getRight())));
 				} else if (property instanceof Multiplication) {
 					Multiplication addition = (Multiplication) property;
-					replacement = InputUtil.createAtomic(
-							addition.getSymbol().equals("*") ? InputUtil.MULTIPLICATION : InputUtil.DIVISION);
+					replacement = createAtomic(addition.getSymbol().equals("*") ? MULTIPLICATION : DIVISION);
 					denest(addition.getLeft(), allVars, nestedArgs, newAtomics, true);
 					denest(addition.getRight(), allVars, nestedArgs, newAtomics, true);
-					replacement.getArgs().add(InputUtil.createVariable(nestedArgs.get(addition.getLeft())));
-					replacement.getArgs().add(InputUtil.createVariable(nestedArgs.get(addition.getRight())));
+					replacement.getArgs().add(createVariable(nestedArgs.get(addition.getLeft())));
+					replacement.getArgs().add(createVariable(nestedArgs.get(addition.getRight())));
 				} else {
 					throw new UnsupportedOperationException("Can't denest a " + property.getClass());
 				}
 				if (nested)
-					replacement.getArgs().add(InputUtil.createVariable(newArg));
+					replacement.getArgs().add(createVariable(newArg));
 
 				newAtomics.add(replacement);
 			}
@@ -255,19 +256,19 @@ public class SugarUtil {
 
 			ret.getGiven().getVars().clear();
 			if (ret.getGiven().getProperty() != null)
-				for (String var : InputUtil.getUnboundVariables(ret.getGiven().getProperty()))
+				for (String var : getUnboundVariables(ret.getGiven().getProperty()))
 					ret.getGiven().getVars().add(originalDeclarations.containsKey(var) ? originalDeclarations.get(var)
-							: InputUtil.createDeclaration(var));
+							: createDeclaration(var));
 
 			if (ret.getGoal() != null && ret.getGoal().getProperty() != null) {
-				for (String var : InputUtil.getUnboundVariables(ret.getGoal().getProperty()))
+				for (String var : getUnboundVariables(ret.getGoal().getProperty()))
 					ret.getGiven().getVars().add(originalDeclarations.containsKey(var) ? originalDeclarations.get(var)
-							: InputUtil.createDeclaration(var));
+							: createDeclaration(var));
 
 				ret.getGoal().getVars().clear();
-				for (String var : InputUtil.getUnboundVariables(ret.getGoal().getProperty()))
+				for (String var : getUnboundVariables(ret.getGoal().getProperty()))
 					ret.getGoal().getVars().add(originalDeclarations.containsKey(var) ? originalDeclarations.get(var)
-							: InputUtil.createDeclaration(var));
+							: createDeclaration(var));
 			}
 		}
 		return ret;
@@ -283,15 +284,16 @@ public class SugarUtil {
 		TreeIterator<EObject> contents = (problem.eContainer() == null ? problem : problem.eContainer()).eAllContents();
 		while (contents.hasNext()) {
 			EObject cur = contents.next();
-			if (cur instanceof Atomic && InputUtil.isArithmetic(((Atomic) cur).getFunction())) {
+			if (cur instanceof Atomic && isArithmetic(((Atomic) cur).getFunction())) {
 				Atomic atomic = (Atomic) cur;
-				replacements.put(((Variable) atomic.getArgs().get(2)).getArg(),
-						new String[] { ((Variable) atomic.getArgs().get(0)).getArg(),
-								InputUtil.getSymbol(atomic.getFunction()),
-								((Variable) atomic.getArgs().get(1)).getArg() });
+				replacements
+						.put(((Variable) atomic.getArgs().get(2)).getArg(),
+								new String[] { ((Variable) atomic.getArgs().get(0)).getArg(),
+										getSymbol(atomic.getFunction()),
+										((Variable) atomic.getArgs().get(1)).getArg() });
 			}
 		}
-		return (Problem) InputUtil.reduce(problem, new InputConverter() {
+		return (Problem) reduce(problem, new InputConverter() {
 
 			private String breakDown(String arg, Hashtable<String, String[]> replacements) {
 				if (!replacements.containsKey(arg))
@@ -304,57 +306,96 @@ public class SugarUtil {
 			@Override
 			public EObject apply(EObject cur) {
 				if (cur instanceof Problem) {
-					ArrayList<Property> topLevelAtomics = InputUtil.getTopLevelElements(((Problem) cur).getProperty());
-					for (int i = 0; i < topLevelAtomics.size(); i++) {
-						if (topLevelAtomics.get(i) instanceof Atomic) {
-							Atomic atomic = (Atomic) topLevelAtomics.get(i);
+					ArrayList<Property> topLevelProperties = getTopLevelElements(((Problem) cur).getProperty());
+					for (int i = 0; i < topLevelProperties.size(); i++) {
+						if (topLevelProperties.get(i) instanceof Quantifier) {
+							Quantifier quantifier = (Quantifier) topLevelProperties.get(i);
+							if (quantifier.getSubject().getVars().size() > 1)
+								continue;
+
+							Property property = quantifier.getSubject().getProperty();
+							if (!(property instanceof ORing))
+								continue;
+							
+							ArrayList<Property> ored = InputUtil.getORed((ORing) property);
+							if (ored.size() != 2)
+								continue;
+
+							Negation negatedChildMarker = ored.get(0) instanceof Negation ? (Negation) ored.get(0)
+									: (ored.get(1) instanceof Negation ? (Negation) ored.get(1) : null);
+
+							Atomic typeMarker = ored.get(0) instanceof Atomic
+									&& isTypeAtomic(((Atomic) ored.get(0)).getFunction())
+											? (Atomic) ored.get(0)
+											: ored.get(1) instanceof Atomic
+													&& isTypeAtomic(((Atomic) ored.get(1)).getFunction())
+															? (Atomic) ored.get(1) : null;
+
+							if (negatedChildMarker == null || typeMarker == null
+									|| !(negatedChildMarker.getNegated() instanceof Atomic
+											&& ((Atomic) negatedChildMarker.getNegated()).getFunction()
+													.equals("child")))
+								continue;
+
+							Atomic childMarker = (Atomic) negatedChildMarker.getNegated();
+
+							if (!((Variable) childMarker.getArgs().get(1)).getArg()
+									.equals(((Variable) typeMarker.getArgs().get(0)).getArg()))
+								continue;
+
+							Declaration declaration = getDeclaration(quantifier,
+									((Variable) childMarker.getArgs().get(0)).getArg());
+							if (declaration.getType() == null)
+								declaration.setType(InputFactoryImpl.eINSTANCE.createType());
+
+							if (declaration.getType().getTemplateType() == null)
+								declaration.getType().setTemplateType(InputFactoryImpl.eINSTANCE.createType());
+
+							declaration.getType().getTemplateType().setName(getDeclaredType(typeMarker.getFunction()));
+							topLevelProperties.remove(i--);
+						} else if (topLevelProperties.get(i) instanceof Atomic) {
+							Atomic atomic = (Atomic) topLevelProperties.get(i);
 							String function = atomic.getFunction();
-							if (InputUtil.isTypeAtomic(function)) {
-								Declaration declaration = InputUtil.getDeclaration(atomic,
+							if (isTypeAtomic(function)) {
+								Declaration declaration = getDeclaration(atomic,
 										((Variable) atomic.getArgs().get(0)).getArg());
 								if (declaration.getType() == null)
 									declaration.setType(InputFactoryImpl.eINSTANCE.createType());
 
-								declaration.getType().setName(InputUtil.getDeclaredType(function));
-								topLevelAtomics.remove(i--);
-							} else if (InputUtil.isChildTypeAtomic(function)) {
-								Declaration declaration = InputUtil.getDeclaration(atomic,
-										((Variable) atomic.getArgs().get(0)).getArg());
-								if (declaration.getType() == null)
-									declaration.setType(InputFactoryImpl.eINSTANCE.createType());
-
-								Type childType = InputFactoryImpl.eINSTANCE.createType();
-								childType.setName(InputUtil.getDeclaredChildType(function));
-								declaration.getType().setTemplateType(childType);
-								topLevelAtomics.remove(i--);
-							} else if (InputUtil.isArithmetic(function)) {
-								topLevelAtomics.remove(i--);
+								declaration.getType().setName(getDeclaredType(function));
+								topLevelProperties.remove(i--);
+							} else if (isArithmetic(function)) {
+								topLevelProperties.remove(i--);
 							} else {
 								boolean useAtomic = false;
-								for (String arg : InputUtil.convertToStrings(atomic.getArgs()))
+								for (String arg : convertToStrings(atomic.getArgs()))
 									if (replacements.containsKey(arg)) {
 										useAtomic = true;
 										break;
 									}
 								if (useAtomic) {
 									Atomic newAtomic = InputFactoryImpl.eINSTANCE.createAtomic();
-									for (String arg : InputUtil.convertToStrings(atomic.getArgs())) {
+									for (String arg : convertToStrings(atomic.getArgs())) {
 										newAtomic.getArgs()
 												.add(QuickParser.parseNumericalProperty(breakDown(arg, replacements)));
 									}
 									newAtomic.setFunction(function);
-									topLevelAtomics.add(i, newAtomic);
+									topLevelProperties.add(i, newAtomic);
 								} else {
-									topLevelAtomics.add(i, InputUtil.stupidCopy(atomic));
+									topLevelProperties.add(i, stupidCopy(atomic));
 								}
-								topLevelAtomics.remove(i + 1);
+								topLevelProperties.remove(i + 1);
 							}
 						}
 					}
-					((Problem) cur).setProperty(InputUtil.andTogether(topLevelAtomics));
+					((Problem) cur).setProperty(andTogether(topLevelProperties));
 				}
 				return cur;
 			}
 		});
+	}
+
+	public static Input resugar(KInput input) {
+		return resugar(convertToInput(input));
 	}
 }

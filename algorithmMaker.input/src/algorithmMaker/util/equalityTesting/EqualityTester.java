@@ -98,6 +98,12 @@ public class EqualityTester {
 			}
 			return;
 		}
+		case KORing: {
+			for (KProperty subProperty : KernelUtil.getORed((KORing) kObject)) {
+				addAppearances(subProperty, appearances, prefix);
+			}
+			return;
+		}
 		case KAtomic: {
 			KAtomic atomic = (KAtomic) kObject;
 			for (int i = 0; i < atomic.args.size(); i++) {
@@ -114,10 +120,8 @@ public class EqualityTester {
 			return;
 		}
 		case KQuantifier: {
-			KQuantifier quantifier = (KQuantifier) kObject;
-			addAppearances(quantifier.subject.property, appearances,
-					new QuantifierAppearance(quantifier, true, prefix));
-			addAppearances(quantifier.predicate, appearances, new QuantifierAppearance(quantifier, false, prefix));
+			addAppearances(((KQuantifier) kObject).subject.property, appearances,
+					new QuantifierAppearance((KQuantifier) kObject, prefix));
 			return;
 		}
 		case KInput: {

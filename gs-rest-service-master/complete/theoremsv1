@@ -1,7 +1,0 @@
-type_list(x):-type_collection(x), 0, "Every list is a collection"
-type_collection(x):-enumerable(x),0, "Every collection is enumerable"
-child_type_int(x) & child(x,y) :- type_int(y), 0, "All children of a collection of ints are ints"
-equal(x,y):-equal(y,x), 0, "Symmetric Property"
-
-//Graph stuff
-//path(start,end,path):-type_graph_node(start) & type_graph_node(end) & type_series(path) & child_type_edge(path) & forall(edge st type_graph_edge(edge) & child(path,edge)

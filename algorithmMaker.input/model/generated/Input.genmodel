@@ -26,16 +26,12 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Type/templateType"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//Property"/>
-    <genClasses ecoreClass="Input.ecore#//ProblemShell">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//ProblemShell/problem"/>
-    </genClasses>
     <genClasses ecoreClass="Input.ecore#//Negation">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Negation/negated"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//Quantifier">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Quantifier/quantifier"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Quantifier/subject"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Quantifier/predicate"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//Atomic">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Atomic/Function"/>
@@ -45,12 +41,8 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//BooleanLiteral/value"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//Theorem">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Theorem/Requirement"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/Implication"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Theorem/Result"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/Cost"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Theorem/content"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/Description"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Theorem/PseudoCode"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//NumericalProperty"/>
     <genClasses ecoreClass="Input.ecore#//Variable">
@@ -58,6 +50,11 @@
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//NumberLiteral">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//NumberLiteral/value"/>
+    </genClasses>
+    <genClasses ecoreClass="Input.ecore#//Implication">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Implication/left"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Input.ecore#//Implication/implication"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//Implication/right"/>
     </genClasses>
     <genClasses ecoreClass="Input.ecore#//ORing">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Input.ecore#//ORing/left"/>

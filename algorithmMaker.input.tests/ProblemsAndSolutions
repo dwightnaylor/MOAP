@@ -36,7 +36,7 @@ foreach child d of a
 	if !b.contains(d)
 		return [d]
 -
-Given array<number> A; Find y st child(A,y) & forall(z st child(A,z): lessThanEqual(z,y))
+Given array<number> A; Find y st child(A,y) & forall(z : child(A,z) -> lessThanEqual(z,y))
 y = null;
 foreach child z of A
 	if y == null
@@ -55,11 +55,13 @@ Given a,b; Find c st plus(a,b,c)
 c = a + b
 return [c]
 -
-Given list<int> x,int s; Find i,j st index(x,i) & index(x,j) & equal(plus(get(x,i),get(x,j)),s)
-foreach index j of x
-	nc = x[j]
-	foreach index i of x
-		nb = x[i]
-		na = nb + nc
-		if na == s
-			return [i, j]
+Given a,b,int s; Find equal(a+b,s)
+na = a + b
+if s == na
+	return []
+-
+Given list a, list b; Find c st child(a,c) | child(b,c)
+foreach child c of a
+	return [c]
+foreach child c of b
+	return [c]

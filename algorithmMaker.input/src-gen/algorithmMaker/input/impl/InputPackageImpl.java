@@ -7,6 +7,7 @@ import algorithmMaker.input.Addition;
 import algorithmMaker.input.Atomic;
 import algorithmMaker.input.BooleanLiteral;
 import algorithmMaker.input.Declaration;
+import algorithmMaker.input.Implication;
 import algorithmMaker.input.Input;
 import algorithmMaker.input.InputFactory;
 import algorithmMaker.input.InputPackage;
@@ -16,7 +17,6 @@ import algorithmMaker.input.NumberLiteral;
 import algorithmMaker.input.NumericalProperty;
 import algorithmMaker.input.ORing;
 import algorithmMaker.input.Problem;
-import algorithmMaker.input.ProblemShell;
 import algorithmMaker.input.Property;
 import algorithmMaker.input.Quantifier;
 import algorithmMaker.input.Theorem;
@@ -78,13 +78,6 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  private EClass problemShellEClass = null;
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   private EClass negationEClass = null;
 
   /**
@@ -135,6 +128,13 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * @generated
    */
   private EClass numberLiteralEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass implicationEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -382,26 +382,6 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EClass getProblemShell()
-  {
-    return problemShellEClass;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getProblemShell_Problem()
-  {
-    return (EReference)problemShellEClass.getEStructuralFeatures().get(0);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EClass getNegation()
   {
     return negationEClass;
@@ -445,16 +425,6 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
   public EReference getQuantifier_Subject()
   {
     return (EReference)quantifierEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getQuantifier_Predicate()
-  {
-    return (EReference)quantifierEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -522,7 +492,7 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getTheorem_Requirement()
+  public EReference getTheorem_Content()
   {
     return (EReference)theoremEClass.getEStructuralFeatures().get(0);
   }
@@ -532,49 +502,9 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getTheorem_Implication()
-  {
-    return (EAttribute)theoremEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EReference getTheorem_Result()
-  {
-    return (EReference)theoremEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getTheorem_Cost()
-  {
-    return (EAttribute)theoremEClass.getEStructuralFeatures().get(3);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EAttribute getTheorem_Description()
   {
-    return (EAttribute)theoremEClass.getEStructuralFeatures().get(4);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getTheorem_PseudoCode()
-  {
-    return (EAttribute)theoremEClass.getEStructuralFeatures().get(5);
+    return (EAttribute)theoremEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -625,6 +555,46 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
   public EAttribute getNumberLiteral_Value()
   {
     return (EAttribute)numberLiteralEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getImplication()
+  {
+    return implicationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getImplication_Left()
+  {
+    return (EReference)implicationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getImplication_Implication()
+  {
+    return (EAttribute)implicationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getImplication_Right()
+  {
+    return (EReference)implicationEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -817,16 +787,12 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
 
     propertyEClass = createEClass(PROPERTY);
 
-    problemShellEClass = createEClass(PROBLEM_SHELL);
-    createEReference(problemShellEClass, PROBLEM_SHELL__PROBLEM);
-
     negationEClass = createEClass(NEGATION);
     createEReference(negationEClass, NEGATION__NEGATED);
 
     quantifierEClass = createEClass(QUANTIFIER);
     createEAttribute(quantifierEClass, QUANTIFIER__QUANTIFIER);
     createEReference(quantifierEClass, QUANTIFIER__SUBJECT);
-    createEReference(quantifierEClass, QUANTIFIER__PREDICATE);
 
     atomicEClass = createEClass(ATOMIC);
     createEAttribute(atomicEClass, ATOMIC__FUNCTION);
@@ -836,12 +802,8 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     createEAttribute(booleanLiteralEClass, BOOLEAN_LITERAL__VALUE);
 
     theoremEClass = createEClass(THEOREM);
-    createEReference(theoremEClass, THEOREM__REQUIREMENT);
-    createEAttribute(theoremEClass, THEOREM__IMPLICATION);
-    createEReference(theoremEClass, THEOREM__RESULT);
-    createEAttribute(theoremEClass, THEOREM__COST);
+    createEReference(theoremEClass, THEOREM__CONTENT);
     createEAttribute(theoremEClass, THEOREM__DESCRIPTION);
-    createEAttribute(theoremEClass, THEOREM__PSEUDO_CODE);
 
     numericalPropertyEClass = createEClass(NUMERICAL_PROPERTY);
 
@@ -850,6 +812,11 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
 
     numberLiteralEClass = createEClass(NUMBER_LITERAL);
     createEAttribute(numberLiteralEClass, NUMBER_LITERAL__VALUE);
+
+    implicationEClass = createEClass(IMPLICATION);
+    createEReference(implicationEClass, IMPLICATION__LEFT);
+    createEAttribute(implicationEClass, IMPLICATION__IMPLICATION);
+    createEReference(implicationEClass, IMPLICATION__RIGHT);
 
     oRingEClass = createEClass(ORING);
     createEReference(oRingEClass, ORING__LEFT);
@@ -899,7 +866,6 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
-    problemShellEClass.getESuperTypes().add(this.getProperty());
     negationEClass.getESuperTypes().add(this.getProperty());
     quantifierEClass.getESuperTypes().add(this.getProperty());
     atomicEClass.getESuperTypes().add(this.getProperty());
@@ -907,6 +873,7 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     booleanLiteralEClass.getESuperTypes().add(this.getProperty());
     variableEClass.getESuperTypes().add(this.getNumericalProperty());
     numberLiteralEClass.getESuperTypes().add(this.getNumericalProperty());
+    implicationEClass.getESuperTypes().add(this.getProperty());
     oRingEClass.getESuperTypes().add(this.getProperty());
     anDingEClass.getESuperTypes().add(this.getProperty());
     additionEClass.getESuperTypes().add(this.getNumericalProperty());
@@ -933,16 +900,12 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
 
     initEClass(propertyEClass, Property.class, "Property", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-    initEClass(problemShellEClass, ProblemShell.class, "ProblemShell", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getProblemShell_Problem(), this.getProblem(), null, "problem", null, 0, 1, ProblemShell.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
     initEClass(negationEClass, Negation.class, "Negation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getNegation_Negated(), this.getProperty(), null, "negated", null, 0, 1, Negation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(quantifierEClass, Quantifier.class, "Quantifier", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getQuantifier_Quantifier(), ecorePackage.getEString(), "quantifier", null, 0, 1, Quantifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getQuantifier_Subject(), this.getProblem(), null, "subject", null, 0, 1, Quantifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getQuantifier_Predicate(), this.getProperty(), null, "predicate", null, 0, 1, Quantifier.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(atomicEClass, Atomic.class, "Atomic", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getAtomic_Function(), ecorePackage.getEString(), "Function", null, 0, 1, Atomic.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -952,12 +915,8 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
     initEAttribute(getBooleanLiteral_Value(), ecorePackage.getEString(), "value", null, 0, 1, BooleanLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(theoremEClass, Theorem.class, "Theorem", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getTheorem_Requirement(), this.getProperty(), null, "Requirement", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getTheorem_Implication(), ecorePackage.getEString(), "Implication", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getTheorem_Result(), this.getProperty(), null, "Result", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getTheorem_Cost(), ecorePackage.getEInt(), "Cost", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTheorem_Content(), this.getProperty(), null, "content", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getTheorem_Description(), ecorePackage.getEString(), "Description", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getTheorem_PseudoCode(), ecorePackage.getEString(), "PseudoCode", null, 0, 1, Theorem.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(numericalPropertyEClass, NumericalProperty.class, "NumericalProperty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
@@ -966,6 +925,11 @@ public class InputPackageImpl extends EPackageImpl implements InputPackage
 
     initEClass(numberLiteralEClass, NumberLiteral.class, "NumberLiteral", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getNumberLiteral_Value(), ecorePackage.getEDouble(), "value", null, 0, 1, NumberLiteral.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(implicationEClass, Implication.class, "Implication", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getImplication_Left(), this.getProperty(), null, "left", null, 0, 1, Implication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getImplication_Implication(), ecorePackage.getEString(), "implication", null, 0, 1, Implication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getImplication_Right(), this.getProperty(), null, "right", null, 0, 1, Implication.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(oRingEClass, ORing.class, "ORing", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getORing_Left(), this.getProperty(), null, "left", null, 0, 1, ORing.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

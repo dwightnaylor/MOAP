@@ -14,7 +14,6 @@ package algorithmMaker.input;
  * <ul>
  *   <li>{@link algorithmMaker.input.Quantifier#getQuantifier <em>Quantifier</em>}</li>
  *   <li>{@link algorithmMaker.input.Quantifier#getSubject <em>Subject</em>}</li>
- *   <li>{@link algorithmMaker.input.Quantifier#getPredicate <em>Predicate</em>}</li>
  * </ul>
  *
  * @see algorithmMaker.input.InputPackage#getQuantifier()
@@ -74,31 +73,5 @@ public interface Quantifier extends Property
    * @generated
    */
   void setSubject(Problem value);
-
-  /**
-   * Returns the value of the '<em><b>Predicate</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Predicate</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Predicate</em>' containment reference.
-   * @see #setPredicate(Property)
-   * @see algorithmMaker.input.InputPackage#getQuantifier_Predicate()
-   * @model containment="true"
-   * @generated
-   */
-  Property getPredicate();
-
-  /**
-   * Sets the value of the '{@link algorithmMaker.input.Quantifier#getPredicate <em>Predicate</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Predicate</em>' containment reference.
-   * @see #getPredicate()
-   * @generated
-   */
-  void setPredicate(Property value);
 
 } // Quantifier

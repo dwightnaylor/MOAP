@@ -278,7 +278,9 @@ public class ORingImpl extends PropertyImpl implements ORing
 
 	public String toString() {
 		StringBuffer ret = new StringBuffer();
-		ret.append(left + " | " + right);
+		boolean leftIsOR = left instanceof algorithmMaker.input.Implication;
+		boolean rightIsOR = right instanceof algorithmMaker.input.Implication;
+		ret.append((leftIsOR ? "(" : "") + left + (leftIsOR ? ')' : "") + " | " + (rightIsOR ? '(' : "") + right + (rightIsOR ? ')' : ""));
 		return ret.toString();
 	}
 

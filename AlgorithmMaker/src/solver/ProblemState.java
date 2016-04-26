@@ -5,10 +5,12 @@ import static algorithmMaker.util.KernelUtil.canonicalizeOrder;
 import java.util.*;
 
 import algorithmMaker.QuickParser;
-import algorithmMaker.util.InputUtil;
+import algorithmMaker.util.*;
 import inputHandling.TransformUtil;
 import kernelLanguage.*;
 import pseudocoders.LineCoder;
+import theorems.Fact;
+import theorems.MultistageTheorem;
 
 public class ProblemState implements Comparable<ProblemState> {
 	/**
@@ -20,14 +22,27 @@ public class ProblemState implements Comparable<ProblemState> {
 	public int parentIndex;
 	private int approachCostCache = -1;
 
+	/**
+	 * The index of the child state that contains the solution for this problem state.
+	 */
 	public int solutionIndex = -1;
 
-	public ProblemState(KInput problem, KTheorem[] theorems) {
+	public ProblemState(KInput problem, Fact<?>... theorems) {
 		// Simplify the problem
 		problem = TransformUtil.removeGivenFromGoal(problem, new Chainer(theorems));
 
+		for (KObject object : KernelUtil.contents(problem)) {
+			if (object instanceof KAtomic && MultistageTheorem.isMSTStructural(((KAtomic) object).function)) {
+				System.err.println(problem);
+				System.err.println("Has illegal atomic");
+				System.err.println(object);
+				throw new RuntimeException("No serious input should ever have a MST Atomic anywhere in it.");
+			}
+		}
+
 		if (problem.given.property != null)
-			problem = problem.withGiven(problem.given.withProperty((KProperty) canonicalizeOrder(problem.given.property)));
+			problem = problem
+					.withGiven(problem.given.withProperty((KProperty) canonicalizeOrder(problem.given.property)));
 
 		if (problem.goal != null)
 			problem = problem.withGoal(problem.goal.withProperty((KProperty) canonicalizeOrder(problem.goal.property)));
@@ -37,7 +52,8 @@ public class ProblemState implements Comparable<ProblemState> {
 
 	@Override
 	public String toString() {
-		return "State(index:" + parentIndex + ",AC:" + getApproachCost() + ",SC:" + getSolvingCost() + "):" + problem;
+		return "State(index:" + parentIndex + ",AC:" + getApproachCost() + ",SC:" + getSolvingCost() + "):"
+				+ SugarUtil.resugar(SugarUtil.convertToInput(problem));
 	}
 
 	@Override

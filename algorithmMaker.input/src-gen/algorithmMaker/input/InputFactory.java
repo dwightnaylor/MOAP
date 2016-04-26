@@ -68,15 +68,6 @@ public interface InputFactory extends EFactory
   Property createProperty();
 
   /**
-   * Returns a new object of class '<em>Problem Shell</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Problem Shell</em>'.
-   * @generated
-   */
-  ProblemShell createProblemShell();
-
-  /**
    * Returns a new object of class '<em>Negation</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -147,6 +138,15 @@ public interface InputFactory extends EFactory
    * @generated
    */
   NumberLiteral createNumberLiteral();
+
+  /**
+   * Returns a new object of class '<em>Implication</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Implication</em>'.
+   * @generated
+   */
+  Implication createImplication();
 
   /**
    * Returns a new object of class '<em>ORing</em>'.
