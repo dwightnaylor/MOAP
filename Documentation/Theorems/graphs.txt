@@ -1,3 +1,92 @@
 could be directed, undirected
 could contain nodes, or be empty
 not a collection? 
+Atomics
+type_graph(g) // we may want to force specification of directed or undirected?
+type_vertex(v)
+type_edge(e)
+type_path(p)
+type_tree(t)
+
+// ? marks arguments I'm not sure about.
+//In general, g or h means a graph argument, e means edge, n or v means vertex...
+adjacent(v,w)
+bipartite(g)
+child (this one will need thinking...)
+clique(g)
+complement(g,h)
+complete(g)
+connected_component(g,h?)
+connected(g)
+cycle(p)
+DAG(g)
+degree(v,d)
+diameter(g,i)
+directed_graph(g)
+directed_edge(e)
+distance(n,m)
+dominant(g,sv) //sv is a set of vertices
+euclidean(g)
+endpoint(e,v)
+length(?) // applies to cycles, paths...
+neighborhood(v)
+order(g)
+path(v1,v2,p)
+sink(v)
+size(g)
+source(v)
+subgraph(g,h)
+supergraph(g,h) // it's a bird, it's a plane, it's...
+undirected_graph(g)
+undirected_edge(e)
+
+Theorem list
+//Typing is implicit here. If the variable is named 'g', then it's a graph. If it's v or w, it's a vertex. If it's e, it's an edge
+//Trying to keep these alphabetized...
+adjacent(v,w) <-> !equal(v,w) & exists(edge e st endpoint(e,v) & endpoint(e,w))
+bipartite(g) <-> exists(sg1, sg2 st forall(v st child(g,v) : child(sg1,v) | child(sg2,v)) & !exists(e st child(g,e) : .......
+clique(g) <-> 
+complement(g,h) <-> forall(v st child(g,v) : child(h,v)) &
+forall(v st child(h,v) : child(g,v)) &
+forall(v1,v2,e1 st child(g,v1) &child(g,v2) & edge(v1,v2,e1) :
+!exists(e2 st child(g,e2) : edge(v2,v1,e2)) &
+forall(v1,v2,e1 st child(g,v1) & child(g,v2) & !edge(v1,v2,e1) :
+exists(e2 st child(g,e2) : edge(v2,v1,e2))
+complete(g) <-> forall(v1,v2 st child(g,v1) & child(g,v2) : exists(e st child(g,e) & edge(v1,v2,e))
+connected_component(g) -> undirected_graph(g) &
+forall(v1,v2 st child(g,v1) & child(g,v2) : exists(p st path(v1,v2))) &
+forall(v1,v2 st child(g,v1) & !child(g,v2) : !exists(p st path(v1,v2)))
+connected(g) //same as connected_component?
+contains(g,p) & type_graph(g) & type_path(p) <-> forall(v st child(p,v) : child(g,v)) & type_graph(g) & type_path(p)
+cycle(p) -> type_path(p) & equal(start(p),end(p))
+DAG(g) -> directed_graph(g) & !exists(path p st contains(g,p))
+degree(v,d) -> count(e st from(v,e))
+diameter(g,i)
+directed_graph(g) -> type_graph(g)
+directed_edge(e)
+distance(n,m)
+dominant(g,sv) //sv is a set of vertices
+euclidean(g)
+endpoint(e,v)
+length(?) // applies to cycles, paths...
+neighborhood(v)
+order(g)
+path(???)
+sink(v)
+size(g)
+source(v)
+subgraph(g,h)
+supergraph(g,h) // it's a bird, it's a plane, it's...
+undirected_graph(g)
+undirected_edge(e)
+
+
+edge(v,w,e) & undirected_edge(e) -> edge(w,v,e)
+
+type_node(n) <-> type_vertice(n) <-> type_vertex(n)
+
+directed_graph(g) -> !undirected_graph(g)
+directed_edge(e) -> !undirected_edge(e)
+
+parent_node(e,n) -> child_edge(n,e) & directed_edge(e)
+child_node(e,n) -> 

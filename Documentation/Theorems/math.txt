@@ -2,3 +2,51 @@ less_than(x,y)-->!greater_than(x,y) & !equal(x,y)
 equal is =
 sum
 
+TASK:
+1) Find five problems related to math in CS
+	and express them in our syntax
+2) Make all the math theorems needed to solve the problems
+
+Example:
+Determine if a number is prime
+we added the definition of prime...
+Given int x; Find prime(x)
+
+for each number y less than x
+	if x % y !=0
+		return false
+
+
+
+
+Problem: Find GCD of two numbers
+
+addition(a,b,c) //this means a + b = c
+subtraction(a,b,c) // a - b = c
+mult
+div
+mod(a,b,c) // a % b = c
+gcd(a,b,c) // c is the gcd of a and b
+prime(x) // says if x is prime
+even(x)
+odd(x)
+
+
+remainder(a,b,c) // 
+
+gcd(a,b,c) <-> divisible(a,c) & divisible(b,c) & forall(d st divisible(a,d) & divisible(b,d) : c >= d)
+
+addition(a,b,c) <-> subtraction(c,a,b)
+
+addition(a,b,c) <-> addition(b,a,c)
+
+addition(a,a,b) <-> multiplication(a,2,b)
+
+
+prime(x) <-> x > 0 & forall(a st a<x & a >1 : (x % a) != 0)
+//still have to check edge cases, but that's the idea
+
+
+
+
+
